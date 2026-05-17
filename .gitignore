@@ -1,0 +1,57 @@
+# Python build artifacts
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Test / cache artifacts
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Data — raw and processed, both gitignored. Keep the directory structure
+# via .gitkeep files (un-ignored explicitly).
+data/raw/**
+!data/raw/
+!data/raw/.gitkeep
+!data/raw/pff_wc2022/
+!data/raw/pff_wc2022/.gitkeep
+data/processed/**
+!data/processed/
+!data/processed/.gitkeep
+
+# Model checkpoints / training artifacts
+models/
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+lightning_logs/
+tb_logs/
+
+# DVC (if we adopt later; mirroring Sumer's choice would put data under DVC)
+.dvc/cache
+.dvc/tmp
+
+# Local config overrides
+.env
+.env.local
