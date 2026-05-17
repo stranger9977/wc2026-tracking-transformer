@@ -1,0 +1,29 @@
+# Single-GPU training config. Use once `load_match` is implemented for at
+# least one real backend (DFL recommended — CC-BY 4.0, 7 matches).
+#
+# Run:
+#   uv run python -m wc2026_tracking_transformer.train fit --config configs/single_gpu.yaml
+
+trainer:
+  accelerator: gpu
+  devices: 1
+  precision: bf16-mixed
+  max_epochs: 50
+  log_every_n_steps: 50
+  gradient_clip_val: 1.0
+
+model:
+  feature_len: 7
+  model_dim: 128
+  num_heads: 4
+  num_layers: 2
+  dropout: 0.1
+  head_pool: mean
+  head_hidden: 128
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-5
+
+data:
+  source: dfl
+  batch_size: 128
+  num_workers: 4

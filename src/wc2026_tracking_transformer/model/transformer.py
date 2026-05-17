@@ -1,68 +1,70 @@
 """Soccer tracking transformer backbone.
 
-Architectural credit: SumerSports/SportsTrackingTransformer, specifically
-``src/models.py::SportsTransformer``. We reproduce the *structure* of their
-encoder (batch-norm over features, linear embed, stacked TransformerEncoder
-layers) but keep the head pluggable so we can attach different tasks
-(co-movement chemistry, two-head P(score)/P(concede), off-ball pattern
-quantifiers).
+Adapted from SumerSports/SportsTrackingTransformer (used with permission from
+SumerSports — they're open to community reuse of their open-source code).
+Original: https://github.com/SumerSports/SportsTrackingTransformer
+Paper: "Attention Is All You Need, for Sports Tracking Data" (CMSAC 2024).
 
-Paper: "Attention Is All You Need, for Sports Tracking Data" (Ranasaria &
-Vabishchevich, CMSAC 2024).
-
-LICENSING NOTE: the upstream Sumer repo has no LICENSE file at the time of
-writing. Until that is resolved, this module is a clean-room implementation
-of the architecture described in the paper, not a copy of Sumer's code.
-
-NOTE: Implementation is a SKELETON.
+The encoder structure (BatchNorm over features, linear embed, stacked
+TransformerEncoder layers, mean-pool readout) mirrors Sumer's `SportsTransformer`.
+The soccer-specific bits are: 22 player tokens + 1 ball token, soccer feature
+schema (see `schema.py`), and a pluggable head (vs. Sumer's fused tackle-location
+regressor).
 """
 
-from typing import TYPE_CHECKING
+from __future__ import annotations
 
-if TYPE_CHECKING:
-    from torch import Tensor
-    from torch import nn as _nn  # noqa: F401
+import torch
+from torch import Tensor, nn
 
 
-class SoccerTrackingTransformer:
+class SoccerTrackingTransformer(nn.Module):
     """Permutation-equivariant encoder over per-frame player + ball tokens.
 
     Input shape:  ``(batch, num_tokens, feature_len)``
                   with ``num_tokens = NUM_PLAYERS_PER_FRAME + 1`` (ball).
-    Output shape: ``(batch, num_tokens, model_dim)`` — per-token embeddings.
+    Output shape: ``(batch, num_tokens, model_dim)`` per-token embeddings.
 
-    Pooling and task heads are attached separately (see
-    :mod:`wc2026_tracking_transformer.tasks`). This separation is the main
-    structural change from Sumer's monolithic ``SportsTransformer`` class.
-
-    Args:
-        feature_len: Per-token input feature count
-            (== ``len(FRAME_FEATURE_COLUMNS)`` for the default schema).
-        model_dim: Internal embedding dimension. Sumer's grid sweeps
-            {32, 128, 512}; their best NFL model was 512.
-        num_layers: Number of stacked transformer encoder layers.
-            Sumer's grid sweeps {1, 2, 4, 8}; their best NFL model was 2.
-        dropout: Dropout rate applied inside the encoder.
+    Heads are attached separately (see :mod:`...tasks`) so the same backbone
+    can drive next-event-value training or pair-attention chemistry extraction.
     """
 
     def __init__(
         self,
-        feature_len: int,
+        feature_len: int = 7,
         model_dim: int = 128,
+        num_heads: int = 4,
         num_layers: int = 2,
-        dropout: float = 0.3,
+        dropout: float = 0.1,
+        ff_multiplier: int = 4,
     ) -> None:
+        super().__init__()
         self.feature_len = feature_len
         self.model_dim = model_dim
+        self.num_heads = num_heads
         self.num_layers = num_layers
-        self.dropout = dropout
-        # TODO: instantiate
-        #   - feature_norm: nn.BatchNorm1d(feature_len)
-        #   - feature_embed: nn.Sequential(Linear -> ReLU -> LayerNorm -> Dropout)
-        #   - encoder: nn.TransformerEncoder(TransformerEncoderLayer(..., batch_first=True), num_layers)
-        # See `paper/Sumer Sports Transformer Simple Arch.jpg` in the Sumer repo for the diagram.
+        self.dropout_p = dropout
 
-    def forward(self, x: "Tensor") -> "Tensor":  # noqa: F821
+        # BatchNorm over the feature dim; applied per-token (we reshape).
+        self.feature_norm = nn.BatchNorm1d(feature_len)
+        self.feature_embed = nn.Sequential(
+            nn.Linear(feature_len, model_dim),
+            nn.ReLU(),
+            nn.LayerNorm(model_dim),
+            nn.Dropout(dropout),
+        )
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=model_dim,
+            nhead=num_heads,
+            dim_feedforward=model_dim * ff_multiplier,
+            dropout=dropout,
+            activation="gelu",
+            batch_first=True,
+            norm_first=True,
+        )
+        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+
+    def forward(self, x: Tensor) -> Tensor:
         """Encode a batch of frames to per-token contextual embeddings.
 
         Args:
@@ -70,32 +72,46 @@ class SoccerTrackingTransformer:
 
         Returns:
             ``(B, T, model_dim)`` float tensor.
-
-        Raises:
-            NotImplementedError: scaffolding only.
         """
-        raise NotImplementedError(
-            "SoccerTrackingTransformer.forward is a scaffold. See docstring TODOs."
-        )
+        b, t, f = x.shape
+        # BatchNorm1d expects (N, F); reshape (B, T, F) -> (B*T, F) -> back.
+        x = self.feature_norm(x.reshape(b * t, f)).reshape(b, t, f)
+        x = self.feature_embed(x)  # (B, T, model_dim)
+        x = self.encoder(x)
+        return x
 
-    def attention_weights(self, x: "Tensor") -> "Tensor":  # noqa: F821
-        """Return per-layer per-head pair attention weights for analysis.
+    def encode_with_attention(self, x: Tensor) -> tuple[Tensor, Tensor]:
+        """Run forward and capture per-layer per-head attention weights.
 
-        Critical for the co-movement chemistry head — pair attention between
-        two player tokens is the chemistry signal.
+        Manually steps through encoder layers with ``need_weights=True`` so we
+        can extract pair attention for the co-movement chemistry head.
 
         Args:
             x: ``(B, T, F)`` float tensor.
 
         Returns:
-            ``(B, num_layers, num_heads, T, T)`` float tensor of softmaxed
-            attention weights.
-
-        Raises:
-            NotImplementedError: scaffolding only.
+            Tuple of (encoded, attn_weights):
+                encoded: ``(B, T, model_dim)``
+                attn_weights: ``(B, num_layers, num_heads, T, T)``.
         """
-        raise NotImplementedError(
-            "attention_weights is a scaffold. Implement by registering forward hooks "
-            "on each TransformerEncoderLayer.self_attn or by re-running attention "
-            "with `need_weights=True`."
-        )
+        b, t, f = x.shape
+        h = self.feature_norm(x.reshape(b * t, f)).reshape(b, t, f)
+        h = self.feature_embed(h)
+        attns = []
+        for layer in self.encoder.layers:
+            # norm_first=True path: x = x + sa(norm1(x)); x = x + ffn(norm2(x))
+            normed = layer.norm1(h)
+            sa_out, attn = layer.self_attn(
+                normed, normed, normed,
+                need_weights=True,
+                average_attn_weights=False,
+            )
+            h = h + layer.dropout1(sa_out)
+            ffn_in = layer.norm2(h)
+            ffn_out = layer.linear2(
+                layer.dropout(layer.activation(layer.linear1(ffn_in)))
+            )
+            h = h + layer.dropout2(ffn_out)
+            attns.append(attn)  # (B, num_heads, T, T)
+        attn_weights = torch.stack(attns, dim=1)  # (B, num_layers, num_heads, T, T)
+        return h, attn_weights

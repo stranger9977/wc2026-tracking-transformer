@@ -1,32 +1,31 @@
-"""Tests for the PFF loader scaffold.
+"""Parametrized contract tests for the per-source loader scaffolds.
 
-These confirm the *contract* (the loader raises NotImplementedError today and
-discovers no data when the raw dir is empty). When the loader is implemented,
-replace these with real round-trip tests gated on ``has_pff_data``.
+These confirm that every source's `load_match` and `list_matches` are wired
+into the unified dispatcher and raise NotImplementedError until implemented.
+Once a backend is implemented, drop it from the SCAFFOLDED list and add a
+real round-trip test (gated on data presence).
 """
 
 from pathlib import Path
 
 import pytest
 
-
-def test_load_pff_match_is_scaffold(tmp_path: Path) -> None:
-    from wc2026_tracking_transformer.data import load_pff_match
-
-    with pytest.raises(NotImplementedError):
-        # Materialize the generator (load_pff_match is an Iterator factory).
-        next(iter(load_pff_match(tmp_path)))
+# Sources whose loaders are still scaffolds.
+SCAFFOLDED = ["dfl", "skillcorner", "metrica", "pff"]
 
 
-def test_list_pff_matches_is_scaffold(tmp_path: Path) -> None:
-    from wc2026_tracking_transformer.data.pff_loader import list_pff_matches
+@pytest.mark.parametrize("source", SCAFFOLDED)
+def test_load_match_is_scaffold(source: str, tmp_path: Path) -> None:
+    from wc2026_tracking_transformer.data import load_match
 
     with pytest.raises(NotImplementedError):
-        list_pff_matches(tmp_path)
+        # load_match returns an iterator; materialize to trigger the body.
+        next(iter(load_match(source, tmp_path)))  # type: ignore[arg-type]
 
 
-@pytest.mark.skip(reason="enable once load_pff_match is implemented")
-def test_load_pff_match_roundtrip(raw_pff_dir: Path, has_pff_data: bool) -> None:
-    if not has_pff_data:
-        pytest.skip("no PFF data present under data/raw/pff_wc2022/")
-    # TODO: load one match, assert 22 players per frame, sensible coord ranges.
+@pytest.mark.parametrize("source", SCAFFOLDED)
+def test_list_matches_is_scaffold(source: str, tmp_path: Path) -> None:
+    from wc2026_tracking_transformer.data import list_matches
+
+    with pytest.raises(NotImplementedError):
+        list_matches(source, tmp_path)  # type: ignore[arg-type]

@@ -33,6 +33,12 @@ htmlcov/
 data/raw/**
 !data/raw/
 !data/raw/.gitkeep
+!data/raw/dfl_bassek/
+!data/raw/dfl_bassek/.gitkeep
+!data/raw/skillcorner_aleague/
+!data/raw/skillcorner_aleague/.gitkeep
+!data/raw/metrica/
+!data/raw/metrica/.gitkeep
 !data/raw/pff_wc2022/
 !data/raw/pff_wc2022/.gitkeep
 data/processed/**

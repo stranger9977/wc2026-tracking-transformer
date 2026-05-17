@@ -1,12 +1,14 @@
 # wc2026-tracking-transformer
 
 A research scaffold for adapting [SumerSports's tracking-data
-transformer](https://github.com/SumerSports/SportsTrackingTransformer) from
-NFL to soccer, targeting the [PFF FC 2022 World Cup tracking
-release](https://www.blog.fc.pff.com/blog/pff-fc-release-2022-world-cup-data).
+transformer](https://github.com/SumerSports/SportsTrackingTransformer) from NFL
+to soccer, targeting open soccer tracking data and trained on
+[Lightning AI](https://lightning.ai/) Studios.
 
-This repo is **scaffold-only**. Public APIs are declared with full docstrings
-and `NotImplementedError` stubs; future iterations fill in the bodies.
+The scaffolding is **runnable end-to-end with synthetic data** — the full
+training pipeline (LightningCLI → LightningModule → LightningDataModule → DDP)
+wires up and runs on CPU in under a minute. Real-data loaders are stubs until
+their respective datasets are downloaded.
 
 ---
 
@@ -14,216 +16,149 @@ and `NotImplementedError` stubs; future iterations fill in the bodies.
 
 There are two adjacent soccer-analytics projects:
 
-| Repo                                 | Data type      | Status                  |
-| ------------------------------------ | -------------- | ----------------------- |
-| `wc2026-chemistry`                   | StatsBomb events (VAEP-based) | Phase 1 complete, 20/20 tests passing |
-| `wc2026-tracking-transformer` (this) | PFF FC 2022 broadcast tracking | Scaffold only           |
+| Repo                                 | Data type                       | Role                                                              |
+| ------------------------------------ | ------------------------------- | ----------------------------------------------------------------- |
+| `wc2026-chemistry`                   | StatsBomb events (VAEP-based)   | Event-data pair chemistry (JOI90). Phase 1 complete, 20/20 tests. |
+| `wc2026-tracking-transformer` (this) | Open soccer tracking data       | Ball-independent chemistry + off-ball value via tracking + transformer. |
 
-`wc2026-chemistry` computes pair-level chemistry from **on-ball events** using
-socceraction's VAEP. That signal is conditional on the ball — it only fires
-when one teammate passes to another. The tracking transformer is intended to
-produce a **ball-independent** complement: pair attention weights between two
-players that exist on every frame whether either player is on the ball or not.
+`wc2026-chemistry` produces a signal conditional on the ball — it only fires
+when one teammate passes to another. The tracking transformer produces a
+**ball-independent** complement: pair attention weights between two players
+that exist on every frame whether either player is on the ball or not. Plus a
+unified two-head model (P(score) / P(concede)) for off-ball value.
 
 ---
 
 ## What's ported from Sumer vs. net-new
 
-| Component                                | Source                | Status in this repo            |
-| ---------------------------------------- | --------------------- | ------------------------------ |
-| Unordered-token formulation              | Sumer paper + code    | **architectural reuse** — re-implemented (see licensing note) |
-| `nn.TransformerEncoder` backbone shape   | Sumer `src/models.py` | scaffolded in `model/transformer.py` |
-| BatchNorm → Linear → Encoder → Pool flow | Sumer `src/models.py` | scaffolded                     |
-| 6-feature per-player token spec          | Sumer `src/datasets.py` | adapted to 7 soccer-specific features in `data/schema.py` |
-| NFL play-level data prep                 | Sumer `src/prep_data.py` | replaced with kloppy + PFF — `data/pff_loader.py` |
-| Tackle-location regression head          | Sumer `src/models.py::SportsTransformer.decoder` | **dropped** — replaced with `tasks/next_event_value.py` (two-head P(score)/P(concede)) |
-| Pair-attention extraction                | _not in Sumer_        | **net-new** — `tasks/pair_attention.py` |
-| DVC data versioning                      | Sumer                 | not adopted (yet); see "Open questions" |
-| Lightning + TensorBoard training scaffold | Sumer `src/train.py` | scaffolded in `train.py`       |
+SumerSports is fine with people using their open source — this scaffold reuses
+the architecture directly with attribution. Their core insight (self-attention
+over unordered player tokens scales while grid CNNs plateau) is what makes the
+whole thing work.
 
-### Licensing note
+| Component                                | Source                  | Status in this repo                                                  |
+| ---------------------------------------- | ----------------------- | -------------------------------------------------------------------- |
+| Unordered-token formulation              | Sumer paper + code      | reused with attribution                                              |
+| `nn.TransformerEncoder` backbone shape   | Sumer `src/models.py`   | implemented in `model/transformer.py` (BatchNorm → Linear → Encoder) |
+| 6-feature per-player token spec          | Sumer `src/datasets.py` | adapted to 7 soccer features in `data/schema.py`                     |
+| NFL play-level data prep                 | Sumer `src/prep_data.py` | replaced with kloppy-based multi-source loaders (`data/loaders/`)   |
+| Tackle-location regression head          | Sumer                   | **dropped** — replaced with `tasks/next_event_value.py` (two-head)   |
+| Pair-attention extraction                | _not in Sumer_          | **net-new** — `tasks/pair_attention.py`                              |
+| Lightning training scaffolding           | Sumer `src/train.py`    | replaced with `LightningCLI` + YAML configs (Lightning AI Studio ready) |
 
-**The upstream Sumer repo does not ship a LICENSE file** at the time this
-scaffold was created. That means:
-
-- The architectural ideas described in the paper *"Attention Is All You Need,
-  for Sports Tracking Data"* (Ranasaria & Vabishchevich, CMSAC 2024) are free
-  to learn from and cite — that's what papers are for.
-- The specific Python code in their repo is **not clearly licensed**, so we
-  should not copy it verbatim until that's resolved.
-
-The implementation strategy here is "clean-room re-implementation of the
-architecture": we describe the structure in our own docstrings, write our own
-code (when we get there), and credit the paper inline. Before merging any
-*verbatim* code from Sumer's repo, open an issue with them to clarify the
-license, or get explicit written permission.
+Attribution lives in each ported file's header docstring. The upstream Sumer
+repo currently has no LICENSE file — worth opening an issue with them to add
+one, but development isn't blocked.
 
 ---
 
 ## Install
 
-This repo uses [`uv`](https://docs.astral.sh/uv/) for environment management,
-mirroring the upstream Sumer repo's tooling choice.
+This repo uses [`uv`](https://docs.astral.sh/uv/) for environment management.
 
 ```bash
-# from the repo root
-uv sync                   # creates .venv and installs deps from pyproject.toml
-source .venv/bin/activate # optional; `uv run ...` works without activating
+uv sync --extra dev    # creates .venv and installs runtime + dev deps
 ```
 
 Python 3.12+ required.
 
 ---
 
-## Acquire the PFF data (manual)
+## Verify the wiring (no data needed)
 
-The PFF FC 2022 release is **free with registration** but is not under an
-open-source license — we cannot redistribute or download it on the user's
-behalf.
+The training pipeline runs end-to-end on synthetic data on CPU:
 
-1. Visit <https://www.blog.fc.pff.com/blog/pff-fc-release-2022-world-cup-data>.
-2. Register a PFF FC account if you don't have one.
-3. Download the full bundle (64 matches, broadcast tracking at ~10Hz, events,
-   grades).
-4. Unzip into `data/raw/pff_wc2022/`. The exact subdirectory layout is set
-   by PFF — see `data/README.md` for the expected shape and how to point the
-   loader at it.
+```bash
+uv run python -m wc2026_tracking_transformer.train fit --config configs/local_cpu.yaml
+```
 
-`data/raw/` and `data/processed/` are **gitignored**. Nothing under PFF's
-terms ever enters version control.
+Two synthetic epochs should complete in well under a minute. If they do, the
+Lightning pipeline + transformer backbone + task head are all correctly wired.
 
 ---
 
-## Run tests
+## Get data
+
+Priority order (see [`data/README.md`](data/README.md) for full details):
+
+1. **DFL / Bassek 2025** — CC-BY 4.0, 7 matches, 25 Hz full optical with events.
+   Primary source. Direct download from figshare, no registration.
+   <https://www.nature.com/articles/s41597-025-04505-y>
+2. **SkillCorner Open Data** — MIT, 10 A-League matches, 10 fps broadcast.
+   Just `git clone` it. <https://github.com/SkillCorner/opendata>
+3. **Metrica sample** — 3 anonymized matches, useful as dev fixture.
+4. **PFF FC WC '22** — optional, registration-gated.
+
+Drop unzipped data into `data/raw/{dfl_bassek,skillcorner_aleague,metrica,pff_wc2022}/`.
+
+---
+
+## Train
+
+Once data is in place and `load_match` is implemented for the source you want:
+
+```bash
+# Single GPU
+uv run python -m wc2026_tracking_transformer.train fit --config configs/single_gpu.yaml
+
+# Lightning AI Studio (multi-GPU DDP)
+uv run python -m wc2026_tracking_transformer.train fit --config configs/lightning_studio_multi_gpu.yaml
+```
+
+The recommended training path is **Lightning AI Studios** — see
+[`studios/README.md`](studios/README.md) for deployment steps. Same code, same
+config schema, just a different YAML for the trainer.
+
+---
+
+## Test
 
 ```bash
 uv run pytest
 ```
 
-The scaffold ships with smoke tests that confirm:
-
-- the package imports cleanly,
-- all public surfaces (`data`, `model`, `tasks`) are exposed,
-- scaffolded loader functions raise `NotImplementedError` as expected.
-
-Real-data tests (`tests/test_loader_skeleton.py::test_load_pff_match_roundtrip`)
-are currently marked `skip` — un-skip them once the loader is implemented.
+Tests cover imports, loader contracts (skipped where real data isn't present),
+DataModule construction, and a synthetic-batch forward-pass smoke test on the
+LightningModule.
 
 ---
 
-## Repo layout
+## Roadmap
 
-```
-wc2026-tracking-transformer/
-├── pyproject.toml              # uv-managed deps (torch, kloppy, lightning, ...)
-├── .python-version             # 3.12
-├── .gitignore                  # data/raw, data/processed, checkpoints, venv, ...
-├── README.md                   # this file
-├── data/
-│   ├── README.md               # data acquisition + layout notes
-│   ├── raw/pff_wc2022/         # (gitignored) drop PFF unzip here
-│   └── processed/              # (gitignored) parquet outputs
-├── src/wc2026_tracking_transformer/
-│   ├── __init__.py
-│   ├── data/                   # PFF loader, schema, batching
-│   │   ├── __init__.py
-│   │   ├── pff_loader.py       # kloppy-based loader (skeleton)
-│   │   ├── schema.py           # soccer token spec + dataclass
-│   │   └── batching.py         # frame → tensor (skeleton)
-│   ├── model/
-│   │   ├── __init__.py
-│   │   └── transformer.py      # SoccerTrackingTransformer backbone (skeleton)
-│   ├── tasks/
-│   │   ├── __init__.py
-│   │   ├── next_event_value.py # P(score)/P(concede) head (skeleton)
-│   │   └── pair_attention.py   # pair-attention chemistry head (skeleton)
-│   └── train.py                # training entry point (skeleton)
-├── scripts/
-│   ├── prepare_data.py         # raw PFF → processed parquet (skeleton)
-│   └── inspect_frames.py       # sanity-check loaded frames (skeleton)
-└── tests/
-    ├── conftest.py
-    ├── test_imports.py         # smoke tests, run without data
-    └── test_loader_skeleton.py # scaffold-contract tests + skipped real tests
-```
+The deliverables are organized around the three research targets:
 
----
+### 1. Co-movement chemistry (ball-independent JOI)
 
-## Roadmap: three research targets
+`tasks/pair_attention.PairAttentionHead` extracts pair attention weights from
+the trained backbone. Reduce over layers + heads → a `(T, T)` chemistry matrix
+per frame, then aggregate over a window to get a continuous chemistry score
+per player pair. Compare against `wc2026-chemistry`'s event-based JOI90 — the
+disagreements are the interesting story.
 
-These are the eventual goals this scaffold enables. None are implemented
-yet — they're listed here so the structure choices above make sense.
+### 2. Unified two-head model (P(score) / P(concede))
 
-### 1. Co-movement chemistry (companion to JOI90)
+`tasks/next_event_value.NextEventValueHead` predicts both heads from pooled
+encoder output. Per-player decomposition falls out of attention attribution.
+This is the soccer analogue of VAEP, learned end-to-end from tracking, with
+per-player + per-pair decomposition for free.
 
-- Train the backbone on any reasonable supervised target (e.g.
-  `next_event_value`).
-- Apply `PairAttentionHead` to extract per-frame pair attention.
-- Aggregate attention over each (player A, player B) pair across all frames
-  they share on the pitch.
-- Compare to event-based JOI90 from `wc2026-chemistry`. Where do they agree?
-  Where does tracking-attention pick up signal that event-VAEP misses?
+### 3. Off-ball pattern quantifiers
 
-**Files to fill in:** `model/transformer.py::attention_weights`,
-`tasks/pair_attention.py::PairAttentionHead.__call__`.
-
-### 2. Unified two-head P(score) / P(concede)
-
-- Replace Sumer's single tackle-regression head with a two-head classifier
-  predicting whether either team scores within the next K seconds.
-- Train end-to-end on PFF event labels.
-- Decompose predictions per-player via attention rollout / Integrated
-  Gradients to get a continuous, on-frame player value signal — the
-  tracking analogue of VAEP.
-
-**Files to fill in:** `tasks/next_event_value.py`, `train.py`,
-`scripts/prepare_data.py` (label construction).
-
-### 3. Quantifying off-ball patterns
-
-Once the backbone is trained, derived analyses:
-
-- **Defender gravity:** how much does removing a defender from the frame
-  change P(score) for nearby attackers? Probe via counterfactual frames.
-- **Pitch-control delta per off-ball run:** integrate predicted value change
-  over the trajectory of a run.
-- **Role-conditional pair attention:** does the model learn that center-
-  midfielders coordinate more tightly than full-back/winger pairs? Compare
-  to known tactical role pairings.
-
-**Files to fill in:** new module under `tasks/` (TBD), notebooks under
-`notebooks/` (TBD).
+The six Messi tactical patterns from the deck (picking at the seams, personal
+magnetism, playing in the shadows, arriving fashionably late, standing still in
+transition, taking space-making space) become first-class metrics once the
+backbone is trained. Each is a function on attention + position data per frame.
 
 ---
 
 ## Open questions
 
-- **DVC?** Sumer pipelines training via DVC. With kloppy + parquet here we
-  may not need DVC for data versioning, but we'll need *something* for model
-  checkpoint provenance. Decide before training the first real model.
-- **Match-level vs. possession-level splits?** See `data/README.md`. Default
-  is match-level; revisit empirically.
-- **Frame rate?** PFF is ~10Hz. Downsampling to 5Hz halves compute. Test
-  whether 5Hz loses task-relevant signal.
-- **GPU access?** Sumer trained 24 NFL configs in 8-12h on GPU. Soccer
-  frame counts are higher (90 min × 10 Hz × 64 matches ≈ 3.5M frames vs.
-  Sumer's ~3M player-frames). Expect comparable budget.
-
----
-
-## Citation
-
-If/when this project leads to anything publishable, cite both the Sumer paper
-and the PFF release:
-
-```bibtex
-@article{ranasaria2024attention,
-  title={Attention is All You Need, for Sports Tracking Data},
-  author={Ranasaria, Udit and Vabishchevich, Pavel},
-  journal={arXiv preprint},
-  year={2024}
-}
-```
-
-PFF FC 2022 World Cup data release:
-<https://www.blog.fc.pff.com/blog/pff-fc-release-2022-world-cup-data>
+- **Data versioning.** Sumer uses DVC. We may not need it for 7-match DFL, but
+  once we add SkillCorner + PFF, parquet checksum + match-id manifests will
+  matter. Defer the decision until first multi-source training run.
+- **Match-level vs. possession-level splits.** Defaulting to match-level to
+  avoid cross-possession leakage; revisit once we can quantify the gap.
+- **Auxiliary tasks.** Co-training with masked-frame reconstruction might
+  improve transfer to chemistry-style downstream tasks. Sumer doesn't do this
+  because they trained on a single task; for representation learning it's
+  worth trying.

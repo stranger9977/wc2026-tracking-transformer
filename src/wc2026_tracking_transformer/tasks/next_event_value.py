@@ -5,57 +5,59 @@ the probability that the next on-ball outcome within the next K seconds is a
 goal scored by the in-possession team, or a goal conceded.
 
 This is the *unified two-head model* milestone from the project README. It's
-the soccer-friendly replacement for Sumer's tackle-location regression task,
-and lets per-player decomposition fall out of attention weights / gradient
-attribution.
-
-NOTE: Implementation is a SKELETON.
+the soccer analogue of Sumer's tackle-location regressor and lets per-player
+decomposition fall out of attention weights / gradient attribution.
 """
 
-from typing import TYPE_CHECKING
+from __future__ import annotations
 
-if TYPE_CHECKING:
-    from torch import Tensor
+from torch import Tensor, nn
 
 
-class NextEventValueHead:
-    """Pool encoder outputs and predict (P(score), P(concede)).
+class NextEventValueHead(nn.Module):
+    """Pool encoder outputs and predict (P(score), P(concede)) logits.
 
     Args:
         model_dim: Encoder embedding dimension (must match the backbone).
-        pool: Pooling strategy across tokens. ``"mean"`` averages all 23 tokens;
-            ``"ball"`` reads out only the ball token; ``"attn"`` learns a
-            single-query attention pool. Default ``"mean"`` mirrors Sumer's
-            ``AdaptiveAvgPool1d``.
-        horizon_seconds: How far ahead to look for the next goal event when
-            constructing labels. 10s is a reasonable default; explore.
+        pool: Pooling strategy across tokens.
+            ``"mean"`` — average all 23 tokens (default; mirrors Sumer).
+            ``"ball"`` — read out the ball token (token 0 by convention).
+        hidden: MLP hidden dim.
+        dropout: Dropout rate inside the head.
     """
 
     def __init__(
         self,
         model_dim: int,
         pool: str = "mean",
-        horizon_seconds: float = 10.0,
+        hidden: int = 128,
+        dropout: float = 0.1,
     ) -> None:
+        super().__init__()
+        if pool not in {"mean", "ball"}:
+            raise ValueError(f"pool must be 'mean' or 'ball', got {pool!r}")
         self.model_dim = model_dim
         self.pool = pool
-        self.horizon_seconds = horizon_seconds
-        # TODO: build nn.Sequential(Linear -> ReLU -> Dropout -> Linear -> 2 logits)
+        self.head = nn.Sequential(
+            nn.Linear(model_dim, hidden),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(hidden, 2),  # P(score) logit, P(concede) logit
+        )
 
-    def forward(self, encoded: "Tensor") -> "Tensor":  # noqa: F821
+    def forward(self, encoded: Tensor) -> Tensor:
         """Pool + project to two-logit output.
 
         Args:
             encoded: ``(B, T, model_dim)`` output from the backbone.
 
         Returns:
-            ``(B, 2)`` logits — apply ``sigmoid`` for per-class probabilities.
-            Note that P(score) and P(concede) are NOT mutually exclusive (a
-            10-second window can contain both), so use BCE not softmax.
-
-        Raises:
-            NotImplementedError: scaffolding only.
+            ``(B, 2)`` logits. Apply ``sigmoid`` for per-class probabilities.
+            P(score) and P(concede) are NOT mutually exclusive (a 10s window
+            can contain both), so use BCE-with-logits, not softmax.
         """
-        raise NotImplementedError(
-            "NextEventValueHead.forward is a scaffold. See docstring TODOs."
-        )
+        if self.pool == "mean":
+            pooled = encoded.mean(dim=1)
+        else:  # "ball"
+            pooled = encoded[:, 0, :]
+        return self.head(pooled)

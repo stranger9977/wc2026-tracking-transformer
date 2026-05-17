@@ -1,0 +1,32 @@
+# Sanity-check training run on CPU with synthetic data.
+# Confirms the full pipeline wires up end-to-end before any real data exists.
+#
+# Run:
+#   uv run python -m wc2026_tracking_transformer.train fit --config configs/local_cpu.yaml
+
+trainer:
+  accelerator: cpu
+  devices: 1
+  max_epochs: 2
+  log_every_n_steps: 5
+  enable_progress_bar: true
+  enable_checkpointing: false
+  logger: false
+
+model:
+  feature_len: 7
+  model_dim: 64
+  num_heads: 4
+  num_layers: 2
+  dropout: 0.1
+  head_pool: mean
+  head_hidden: 64
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-5
+
+data:
+  source: synthetic
+  batch_size: 32
+  num_workers: 0
+  n_synthetic_train: 256
+  n_synthetic_val: 64
