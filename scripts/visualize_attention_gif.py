@@ -104,8 +104,14 @@ def render_clip(
 ) -> None:
     """Render one animated GIF. Function-scoped state — call repeatedly."""
     W = clip_tensors.shape[0]
-    fig = plt.figure(figsize=(11, 7.6), facecolor="#0b1220")
-    gs = fig.add_gridspec(2, 1, height_ratios=[3.4, 1], hspace=0.22)
+    # Taller figure with explicit space for: banner row · legend row · pitch ·
+    # status row · probability chart. Each row gets its own clear zone so they
+    # never overlap.
+    fig = plt.figure(figsize=(12, 10), facecolor="#0b1220", constrained_layout=False)
+    gs = fig.add_gridspec(
+        2, 1, height_ratios=[2.0, 1.0],
+        left=0.06, right=0.97, top=0.86, bottom=0.08, hspace=0.40,
+    )
     ax_pitch = fig.add_subplot(gs[0])
     ax_line  = fig.add_subplot(gs[1])
     draw_pitch(ax_pitch)
@@ -115,33 +121,35 @@ def render_clip(
     team_at_0 = clip_teams[0]
     player_colors = [HOME_COLOR if t == "home" else AWAY_COLOR for t in team_at_0]
 
-    halo_outer = ax_pitch.scatter([], [], s=2400, color=HALO_COLOR, alpha=0.10, zorder=1, edgecolor="none")
-    halo_mid   = ax_pitch.scatter([], [], s=1200, color=HALO_COLOR, alpha=0.20, zorder=1.5, edgecolor="none")
-    halo_inner = ax_pitch.scatter([], [], s=700,  color=HALO_COLOR, alpha=0.35, zorder=2, edgecolor="none")
+    # Halos: smaller + softer so they read as accents, not as covering layers.
+    halo_outer = ax_pitch.scatter([], [], s=1300, color=HALO_COLOR, alpha=0.10, zorder=1, edgecolor="none")
+    halo_mid   = ax_pitch.scatter([], [], s=750,  color=HALO_COLOR, alpha=0.22, zorder=1.5, edgecolor="none")
+    halo_inner = ax_pitch.scatter([], [], s=430,  color=HALO_COLOR, alpha=0.40, zorder=2, edgecolor="none")
 
     players_scatter = ax_pitch.scatter(
         xy0[:22, 0], xy0[:22, 1],
-        c=player_colors, s=320, edgecolor="white", lw=1.4, zorder=5,
+        c=player_colors, s=240, edgecolor="white", lw=1.2, zorder=5,
     )
 
     gk_mask = clip_tensors[0, :22, 5].numpy() > 0.5
     gk_ring = ax_pitch.scatter(
         xy0[:22][gk_mask, 0], xy0[:22][gk_mask, 1],
-        s=520, facecolors="none", edgecolor=GK_RING, lw=2.4, zorder=4,
+        s=400, facecolors="none", edgecolor=GK_RING, lw=2.0, zorder=4,
     )
     poss_idx0 = int(np.argmax(clip_tensors[0, :22, 6].numpy()))
     poss_ring = ax_pitch.scatter(
         [xy0[poss_idx0, 0]], [xy0[poss_idx0, 1]],
-        s=600, facecolors="none", edgecolor=POSS_RING, lw=2.2, zorder=6,
+        s=470, facecolors="none", edgecolor=POSS_RING, lw=1.8, zorder=6,
     )
     ball_scatter = ax_pitch.scatter(
         xy0[22, 0], xy0[22, 1],
-        c=BALL_COLOR, s=200, edgecolor="black", lw=1.8, zorder=11,
+        c=BALL_COLOR, s=160, edgecolor="black", lw=1.5, zorder=11,
     )
+    # Smaller arrowheads, just enough to read direction
     arrow_q = ax_pitch.quiver(
         xy0[:22, 0], xy0[:22, 1],
         np.zeros(22), np.zeros(22),
-        color="white", scale=22, width=0.006, headwidth=4, headlength=5,
+        color="white", scale=30, width=0.0045, headwidth=4, headlength=5,
         zorder=7,
     )
 
@@ -149,38 +157,46 @@ def render_clip(
     edge_lines = []
     for _ in range(K_EDGES):
         (line,) = ax_pitch.plot([0, 0], [0, 0], color=ATTN_GOLD,
-                                alpha=0.0, lw=3.2, zorder=3, solid_capstyle="round")
+                                alpha=0.0, lw=2.4, zorder=3, solid_capstyle="round")
         edge_lines.append(line)
 
+    # Jersey numbers — smaller and tucked closer to the dot
     jersey_texts = [
-        ax_pitch.text(xy0[i, 0], xy0[i, 1] + 1.8,
+        ax_pitch.text(xy0[i, 0], xy0[i, 1] + 1.4,
                       str(clip_jerseys[0][i] if i < len(clip_jerseys[0]) else ""),
                       ha="center", va="bottom", color="white",
-                      fontsize=8, fontweight="bold", zorder=12)
+                      fontsize=6.5, fontweight="bold", zorder=12)
         for i in range(22)
     ]
-    ball_text = ax_pitch.text(xy0[22, 0], xy0[22, 1] + 1.8, "Ball",
+    ball_text = ax_pitch.text(xy0[22, 0], xy0[22, 1] + 1.4, "•",
                               ha="center", va="bottom", color="black",
-                              fontsize=8, fontweight="bold", zorder=12)
+                              fontsize=6.5, fontweight="bold", zorder=12)
 
-    # In-figure legend at the top
-    fig.text(0.5, 0.99, top_banner, ha="center", va="top",
-             color="#e9f0ff", fontsize=11, fontweight="bold")
-    legend_y = 0.965
+    # Banner row at the very top
+    fig.text(0.5, 0.975, top_banner, ha="center", va="top",
+             color="#e9f0ff", fontsize=14, fontweight="bold")
+    # Legend row underneath the banner — its own clear horizontal line
+    legend_y = 0.935
     legend_items = [
-        (0.110, "●", HOME_COLOR, " Home"),
-        (0.195, "●", AWAY_COLOR, " Away"),
-        (0.270, "●", BALL_COLOR, " Ball"),
-        (0.345, "◯", GK_RING, " GK"),
-        (0.420, "◯", POSS_RING, " Ball-owner"),
-        (0.535, "▶", "white", " direction of motion"),
-        (0.730, "✸", HALO_COLOR, " ball's top-attended (halos)"),
+        (0.080, "●", HOME_COLOR, " Home"),
+        (0.160, "●", AWAY_COLOR, " Away"),
+        (0.235, "●", BALL_COLOR, " Ball"),
+        (0.305, "◯", GK_RING, " GK"),
+        (0.380, "◯", POSS_RING, " on ball"),
+        (0.480, "▶", "white", " motion"),
+        (0.595, "✸", HALO_COLOR, " ball's top-attended (halos + edges)"),
     ]
     for x, sym, col, lbl in legend_items:
-        fig.text(x, legend_y, sym, color=col, va="top", fontsize=12)
-        fig.text(x + 0.012, legend_y, lbl, color="#94a3b8", va="top", fontsize=9.5)
+        fig.text(x, legend_y, sym, color=col, va="top", fontsize=13)
+        fig.text(x + 0.013, legend_y, lbl, color="#94a3b8", va="top", fontsize=10)
 
-    title = ax_pitch.set_title("", color="white", fontsize=12.5, pad=14)
+    # Status row BELOW the pitch and ABOVE the chart — no longer overlapping the legend.
+    # We update its text per-frame in update().
+    status_text = fig.text(
+        0.5, 0.395, "", ha="center", va="top",
+        color="#e9f0ff", fontsize=11.5,
+    )
+    title = status_text  # keep variable name so the inner update() doesn't need refactoring
 
     # --- probability plot below ---
     ax_line.set_facecolor("#0b1220")
@@ -239,10 +255,10 @@ def render_clip(
                 line.set_alpha(0.0)
 
         for j, t in enumerate(jersey_texts):
-            t.set_position((xy[j, 0], xy[j, 1] + 1.9))
+            t.set_position((xy[j, 0], xy[j, 1] + 1.4))
             jn = clip_jerseys[i][j] if j < len(clip_jerseys[i]) else None
             t.set_text(str(jn) if jn is not None else "")
-        ball_text.set_position((xy[22, 0], xy[22, 1] + 1.9))
+        ball_text.set_position((xy[22, 0], xy[22, 1] + 1.4))
 
         progress_dot_shot.set_data([i], [clip_p_shot[i]])
         progress_dot_goal.set_data([i], [clip_p_goal[i]])
@@ -399,7 +415,7 @@ render_clip(
     clip_p_shot=cps, clip_p_goal=cpg,
     clip_jerseys=cj, clip_teams=ct_,
     top_banner="Metrica match 2  ·  12s buildup the model rated highest",
-    fps=4,
+    fps=6,
 )
 
 # ---------------------------------------------------------------------------
@@ -445,7 +461,7 @@ if chosen_start is not None:
         clip_p_shot=cps, clip_p_goal=cpg,
         clip_jerseys=cj, clip_teams=ct_,
         top_banner=banner,
-        fps=4,
+        fps=6,
     )
 else:
     print("      no goal had a fully-contained 15s pre-window.")
