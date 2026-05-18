@@ -1,0 +1,9 @@
+{
+  "our_auc_shot": 0.569216702244966,
+  "our_auc_goal": 0.5395039985867357,
+  "xt_auc_shot": 0.47294415768170817,
+  "xt_auc_goal": 0.42339903653424105,
+  "n_val_frames": 16578,
+  "n_positives_shot": 975,
+  "n_positives_goal": 225
+}
