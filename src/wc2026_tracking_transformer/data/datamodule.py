@@ -1,17 +1,19 @@
 """Lightning DataModule for soccer tracking.
 
-Two paths:
+Sources:
 
-  * ``source="synthetic"`` — random tensors of the right shape. Lets the
-    full training pipeline (Trainer / DDP / mixed precision / logging) be
+  * ``source="synthetic"`` — random tensors of the right shape. Lets the full
+    training pipeline (Trainer / DDP / mixed precision / logging) be
     smoke-tested on CPU before any real data is downloaded.
-  * ``source="dfl"`` (or other backend) — real data via the per-source
-    loaders. NotImplementedError until ``load_match`` is implemented for
-    that backend.
+  * ``source="metrica"`` — real tracking data from Metrica's open-data
+    sample (2 matches via :mod:`kloppy.metrica`). Phase-1 labels are derived
+    from tracking only: P(ball enters attacking third within K seconds)
+    and P(ball enters defensive third within K seconds). Goal-anchored
+    labels will replace these once events are wired in.
+  * ``source="dfl"``/``"skillcorner"``/``"pff"`` — :py:exc:`NotImplementedError`
+    until their loaders are written.
 
-The split is **match-level**: frames from one match never cross train/val/test.
-This is more conservative than Sumer's play-level split for NFL — possessions
-in soccer aren't independent units, so cross-possession leakage is real.
+The split is **match-level**: frames from one match never cross train/val.
 """
 
 from __future__ import annotations
@@ -23,6 +25,11 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader, Dataset
 
+from wc2026_tracking_transformer.data.batching import batch_frames
+from wc2026_tracking_transformer.data.loaders.metrica import (
+    OPEN_DATA_MATCH_IDS,
+    load_metrica_match,
+)
 from wc2026_tracking_transformer.data.schema import (
     FRAME_FEATURE_COLUMNS,
     NUM_TOKENS_PER_FRAME,
@@ -32,8 +39,8 @@ from wc2026_tracking_transformer.data.schema import (
 class SyntheticFrameDataset(Dataset):
     """Random (frame, label) pairs of the right shapes.
 
-    Useful only for wiring tests — replace with a real ``Dataset`` once
-    ``load_match`` is implemented.
+    Useful only for wiring tests — bypassed entirely once a real
+    source loader exists.
     """
 
     def __init__(
@@ -50,7 +57,6 @@ class SyntheticFrameDataset(Dataset):
         self.frames = rng.standard_normal(
             (n_samples, num_tokens, feature_len)
         ).astype(np.float32)
-        # Two-head label: independent Bernoulli for P(score) / P(concede).
         self.labels = (rng.random((n_samples, 2)) < 0.05).astype(np.float32)
 
     def __len__(self) -> int:
@@ -63,17 +69,99 @@ class SyntheticFrameDataset(Dataset):
         )
 
 
-class SoccerTrackingDataModule(pl.LightningDataModule):
-    """Datamodule with synthetic + real-data paths.
+class MetricaFrameDataset(Dataset):
+    """Real Metrica frames + phase-1 tracking-derived labels.
+
+    Labels (per frame, both independent):
+        * ``is_score`` = ball x_norm crosses into the **attacking third**
+          (x_norm > 1/3) within the next K seconds.
+        * ``is_concede`` = ball x_norm crosses into the **defensive third**
+          (x_norm < -1/3) within the next K seconds.
+
+    Because Metrica's coordinate frame doesn't flip per possession (yet),
+    these two labels are with respect to a fixed pitch orientation rather
+    than the in-possession team's attacking direction. That's fine for a
+    smoke test — the model just learns "where is the ball trending?"
+    Real goal-anchored labels will replace this once events are joined in.
 
     Args:
-        source: ``"synthetic"`` (default) for wiring tests, or one of the
-            real backends (``"dfl"``, ``"skillcorner"``, ``"metrica"``,
-            ``"pff"``) once that loader is implemented.
+        match_ids: Metrica open-data match ids to load. Defaults to all
+            supported (``"1"`` and ``"2"``).
+        k_seconds: Look-ahead window for the labels.
+        frame_rate_hz: Effective sampling rate after stride. Used to
+            convert K seconds → frames in the future.
+        sampling_stride: Downsample stride passed to the loader.
+            ``5`` = 5 Hz, default for the smoke run.
+    """
+
+    THIRD_THRESHOLD = 1.0 / 3.0  # in x_norm space [-1, 1]
+
+    def __init__(
+        self,
+        match_ids: tuple[str, ...] | None = None,
+        k_seconds: float = 10.0,
+        frame_rate_hz: float = 5.0,
+        sampling_stride: int = 5,
+    ) -> None:
+        if match_ids is None:
+            match_ids = OPEN_DATA_MATCH_IDS
+
+        future_window = int(round(k_seconds * frame_rate_hz))
+        all_frame_tensors: list[np.ndarray] = []
+        all_labels: list[np.ndarray] = []
+
+        for mid in match_ids:
+            frames = list(load_metrica_match(mid, sampling_stride=sampling_stride))
+            if len(frames) <= future_window:
+                continue
+            tensors = batch_frames(frames)  # (N, 23, 7)
+            ball_x = tensors[:, -1, 0]      # ball token's x_norm
+            n = len(frames)
+
+            attacks_third = ball_x > self.THIRD_THRESHOLD     # entered att 3rd
+            defends_third = ball_x < -self.THIRD_THRESHOLD    # entered def 3rd
+
+            usable = n - future_window
+            labels = np.zeros((usable, 2), dtype=np.float32)
+            for i in range(usable):
+                w = slice(i + 1, i + 1 + future_window)
+                labels[i, 0] = float(attacks_third[w].any())
+                labels[i, 1] = float(defends_third[w].any())
+            all_frame_tensors.append(tensors[:usable])
+            all_labels.append(labels)
+
+        if not all_frame_tensors:
+            raise RuntimeError(
+                "MetricaFrameDataset: no usable frames loaded — check that "
+                "kloppy can reach the Metrica open-data GitHub repo."
+            )
+
+        self.frames = np.concatenate(all_frame_tensors, axis=0)
+        self.labels = np.concatenate(all_labels, axis=0)
+
+    def __len__(self) -> int:
+        return self.frames.shape[0]
+
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
+        return (
+            torch.from_numpy(self.frames[idx]),
+            torch.from_numpy(self.labels[idx]),
+        )
+
+
+class SoccerTrackingDataModule(pl.LightningDataModule):
+    """DataModule with synthetic + real-data paths.
+
+    Args:
+        source: ``"synthetic"`` (default), ``"metrica"`` (real), or one of
+            ``"dfl"``/``"skillcorner"``/``"pff"`` (NotImplementedError until
+            their loaders are written).
         data_root: Override the default raw-data directory for the source.
         batch_size: Batch size for all loaders.
         num_workers: DataLoader workers.
-        n_synthetic_train / n_synthetic_val: sample counts for synthetic mode.
+        n_synthetic_train/n_synthetic_val: sample counts for synthetic mode.
+        metrica_k_seconds: Look-ahead window for phase-1 placeholder labels.
+        metrica_sampling_stride: Frame-rate downsample for Metrica (5 = 5 Hz).
     """
 
     def __init__(
@@ -84,6 +172,8 @@ class SoccerTrackingDataModule(pl.LightningDataModule):
         num_workers: int = 0,
         n_synthetic_train: int = 1024,
         n_synthetic_val: int = 256,
+        metrica_k_seconds: float = 10.0,
+        metrica_sampling_stride: int = 5,
     ) -> None:
         super().__init__()
         self.source = source
@@ -92,6 +182,8 @@ class SoccerTrackingDataModule(pl.LightningDataModule):
         self.num_workers = num_workers
         self.n_synthetic_train = n_synthetic_train
         self.n_synthetic_val = n_synthetic_val
+        self.metrica_k_seconds = metrica_k_seconds
+        self.metrica_sampling_stride = metrica_sampling_stride
         self.train_ds: Dataset | None = None
         self.val_ds: Dataset | None = None
 
@@ -104,11 +196,27 @@ class SoccerTrackingDataModule(pl.LightningDataModule):
                 n_samples=self.n_synthetic_val, seed=1
             )
             return
+        if self.source == "metrica":
+            # Match-level split: match 1 → train, match 2 → val.
+            effective_fr_hz = 25.0 / self.metrica_sampling_stride
+            self.train_ds = MetricaFrameDataset(
+                match_ids=("1",),
+                k_seconds=self.metrica_k_seconds,
+                frame_rate_hz=effective_fr_hz,
+                sampling_stride=self.metrica_sampling_stride,
+            )
+            self.val_ds = MetricaFrameDataset(
+                match_ids=("2",),
+                k_seconds=self.metrica_k_seconds,
+                frame_rate_hz=effective_fr_hz,
+                sampling_stride=self.metrica_sampling_stride,
+            )
+            return
         raise NotImplementedError(
             f"Real-data path for source={self.source!r} requires `load_match` to be "
             f"implemented for that backend. See "
             f"`src/wc2026_tracking_transformer/data/loaders/{self.source}.py`. "
-            f"For now, set source='synthetic' to sanity-check the training pipeline."
+            f"For now, set source='synthetic' or source='metrica'."
         )
 
     def train_dataloader(self) -> DataLoader:

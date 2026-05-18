@@ -10,8 +10,9 @@ from pathlib import Path
 
 import pytest
 
-# Sources whose loaders are still scaffolds.
-SCAFFOLDED = ["dfl", "skillcorner", "metrica", "pff"]
+# Sources whose loaders are still scaffolds. Metrica is implemented and
+# tested separately in test_metrica_loader.py.
+SCAFFOLDED = ["dfl", "skillcorner", "pff"]
 
 
 @pytest.mark.parametrize("source", SCAFFOLDED)
