@@ -1,0 +1,14 @@
+{
+  "train_loss": 0.07176182419061661,
+  "train_loss_step": 0.06462237983942032,
+  "val_loss": 0.278732031583786,
+  "val_acc": 0.954548180103302,
+  "train_loss_epoch": 0.07176182419061661,
+  "train_acc": 0.9730644226074219,
+  "val_acc_shot_head": 0.9244179032452648,
+  "val_acc_goal_head": 0.984678489564483,
+  "val_pos_rate_shot": 0.058812882751226425,
+  "val_pos_rate_goal": 0.013572203926742077,
+  "val_auc_shot_head": 0.5692167022449661,
+  "val_auc_goal_head": 0.5395041344775339
+}

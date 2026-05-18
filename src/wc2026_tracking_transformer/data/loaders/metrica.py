@@ -30,6 +30,7 @@ from collections.abc import Iterator
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 from kloppy import metrica
 
 from wc2026_tracking_transformer.data.schema import (
@@ -43,6 +44,87 @@ from wc2026_tracking_transformer.data.schema import (
 OPEN_DATA_MATCH_IDS = ("1", "2")  # "3" is event-only, different format
 MAX_SPEED_MPS = 25.0  # cap for clamping (cheetahs sprint at 30, ball passes at 30)
 GK_CALIBRATION_FRAMES = 200  # frames to average over for GK detection
+EVENTS_URL = (
+    "https://raw.githubusercontent.com/metrica-sports/sample-data/master/"
+    "data/Sample_Game_{n}/Sample_Game_{n}_RawEventsData.csv"
+)
+
+
+def load_metrica_events(match_id: str | int) -> pd.DataFrame:
+    """Fetch Metrica's raw events CSV for a match.
+
+    Metrica's sample data ships events as a single CSV with rows like
+    ``Type=SHOT, Subtype=ON TARGET-GOAL, Period=2, Start Frame=90005,
+    Team=Home``. No XML metadata file exists for this dataset, so we read
+    it with pandas directly rather than going through kloppy.
+
+    Args:
+        match_id: ``"1"`` or ``"2"``.
+
+    Returns:
+        DataFrame with the original Metrica columns. Useful columns:
+            * ``Type`` — PASS, SHOT, RECOVERY, BALL LOST, etc.
+            * ``Subtype`` — e.g., ``ON TARGET-GOAL`` for a goal.
+            * ``Period`` — 1 or 2.
+            * ``Start Frame`` / ``End Frame`` — frame numbers at native 25 Hz.
+            * ``Team`` — ``Home`` or ``Away``.
+    """
+    mid = str(match_id)
+    if mid not in OPEN_DATA_MATCH_IDS:
+        raise ValueError(f"match_id must be in {OPEN_DATA_MATCH_IDS!r}; got {mid!r}")
+    return pd.read_csv(EVENTS_URL.format(n=mid))
+
+
+def goal_and_shot_labels_from_events(
+    events_df: pd.DataFrame,
+    n_frames_sampled: int,
+    *,
+    k_seconds: float,
+    sampling_stride: int,
+    native_frame_rate: int = 25,
+) -> np.ndarray:
+    """Build per-(sampled-)frame labels: P(shot in next K), P(goal in next K).
+
+    Both heads are independent BCE — a frame can have both true (a shot is
+    on the way that becomes a goal). This matches the architectural intent
+    of the two-head model.
+
+    Args:
+        events_df: Output of :func:`load_metrica_events`.
+        n_frames_sampled: Number of frames after stride-downsampling.
+        k_seconds: Future window in seconds.
+        sampling_stride: Stride used by the tracking loader (5 = 5 Hz).
+        native_frame_rate: 25 for Metrica.
+
+    Returns:
+        Float32 array ``(n_frames_sampled, 2)`` with cols [is_shot, is_goal].
+    """
+    # Map a SAMPLED frame index back to the native frame number it represents:
+    # sampled index i was native frame i * sampling_stride (0-based reading of
+    # ``enumerate(dataset.frames)``). Metrica's "Start Frame" is 1-based, so
+    # native_frame_at_sample_i ≈ i * stride + 1.
+    sampled_to_native_start = (np.arange(n_frames_sampled) * sampling_stride) + 1
+    window_native = int(round(k_seconds * native_frame_rate))
+
+    # Pull the raw frame numbers per event type.
+    shots = events_df[events_df["Type"] == "SHOT"]
+    goal_mask = shots["Subtype"].astype(str).str.contains("GOAL", na=False)
+    goal_frames = shots.loc[goal_mask, "Start Frame"].to_numpy(dtype=np.int64)
+    shot_frames = shots["Start Frame"].to_numpy(dtype=np.int64)
+
+    labels = np.zeros((n_frames_sampled, 2), dtype=np.float32)
+
+    # For each sampled frame, check if any shot/goal lies in the future window.
+    # Vectorized via broadcasting: (n, 1) vs (k,) frames.
+    if shot_frames.size > 0:
+        diff = shot_frames[None, :] - sampled_to_native_start[:, None]
+        in_window_shot = (diff > 0) & (diff <= window_native)
+        labels[:, 0] = in_window_shot.any(axis=1).astype(np.float32)
+    if goal_frames.size > 0:
+        diff = goal_frames[None, :] - sampled_to_native_start[:, None]
+        in_window_goal = (diff > 0) & (diff <= window_native)
+        labels[:, 1] = in_window_goal.any(axis=1).astype(np.float32)
+    return labels
 
 
 def _resolve_match_id(match_path: Path | str | int) -> str:

@@ -28,6 +28,8 @@ from torch.utils.data import DataLoader, Dataset
 from wc2026_tracking_transformer.data.batching import batch_frames
 from wc2026_tracking_transformer.data.loaders.metrica import (
     OPEN_DATA_MATCH_IDS,
+    goal_and_shot_labels_from_events,
+    load_metrica_events,
     load_metrica_match,
 )
 from wc2026_tracking_transformer.data.schema import (
@@ -70,28 +72,29 @@ class SyntheticFrameDataset(Dataset):
 
 
 class MetricaFrameDataset(Dataset):
-    """Real Metrica frames + phase-1 tracking-derived labels.
+    """Real Metrica frames + labels.
 
-    Labels (per frame, both independent):
-        * ``is_score`` = ball x_norm crosses into the **attacking third**
-          (x_norm > 1/3) within the next K seconds.
-        * ``is_concede`` = ball x_norm crosses into the **defensive third**
-          (x_norm < -1/3) within the next K seconds.
+    Two label modes:
 
-    Because Metrica's coordinate frame doesn't flip per possession (yet),
-    these two labels are with respect to a fixed pitch orientation rather
-    than the in-possession team's attacking direction. That's fine for a
-    smoke test — the model just learns "where is the ball trending?"
-    Real goal-anchored labels will replace this once events are joined in.
+    ``label_mode="thirds"`` (phase-1, tracking-only)
+        Head 0 = ball reaches attacking third in K seconds.
+        Head 1 = ball reaches defensive third in K seconds.
+        Dense positives (~40-55%), useful when events aren't reachable.
+
+    ``label_mode="events"`` (phase-2, real)
+        Head 0 = a SHOT happens in the next K seconds (denser, ~5-10% rate).
+        Head 1 = a GOAL happens in the next K seconds (sparse, ~0.5-1%
+        rate at 5 Hz).
+        Real soccer semantics, but goals are rare so head-1 is hard to
+        learn from 2 matches alone. Negative sampling around events
+        (Section 6 of the deck) is the principled fix.
 
     Args:
-        match_ids: Metrica open-data match ids to load. Defaults to all
-            supported (``"1"`` and ``"2"``).
+        match_ids: Metrica open-data match ids to load.
         k_seconds: Look-ahead window for the labels.
-        frame_rate_hz: Effective sampling rate after stride. Used to
-            convert K seconds → frames in the future.
+        frame_rate_hz: Effective sampling rate after stride.
         sampling_stride: Downsample stride passed to the loader.
-            ``5`` = 5 Hz, default for the smoke run.
+        label_mode: ``"thirds"`` or ``"events"``.
     """
 
     THIRD_THRESHOLD = 1.0 / 3.0  # in x_norm space [-1, 1]
@@ -102,9 +105,12 @@ class MetricaFrameDataset(Dataset):
         k_seconds: float = 10.0,
         frame_rate_hz: float = 5.0,
         sampling_stride: int = 5,
+        label_mode: str = "thirds",
     ) -> None:
         if match_ids is None:
             match_ids = OPEN_DATA_MATCH_IDS
+        if label_mode not in {"thirds", "events"}:
+            raise ValueError(f"label_mode must be 'thirds' or 'events', got {label_mode!r}")
 
         future_window = int(round(k_seconds * frame_rate_hz))
         all_frame_tensors: list[np.ndarray] = []
@@ -115,20 +121,31 @@ class MetricaFrameDataset(Dataset):
             if len(frames) <= future_window:
                 continue
             tensors = batch_frames(frames)  # (N, 23, 7)
-            ball_x = tensors[:, -1, 0]      # ball token's x_norm
             n = len(frames)
 
-            attacks_third = ball_x > self.THIRD_THRESHOLD     # entered att 3rd
-            defends_third = ball_x < -self.THIRD_THRESHOLD    # entered def 3rd
-
-            usable = n - future_window
-            labels = np.zeros((usable, 2), dtype=np.float32)
-            for i in range(usable):
-                w = slice(i + 1, i + 1 + future_window)
-                labels[i, 0] = float(attacks_third[w].any())
-                labels[i, 1] = float(defends_third[w].any())
-            all_frame_tensors.append(tensors[:usable])
-            all_labels.append(labels)
+            if label_mode == "thirds":
+                ball_x = tensors[:, -1, 0]      # ball token's x_norm
+                attacks_third = ball_x > self.THIRD_THRESHOLD
+                defends_third = ball_x < -self.THIRD_THRESHOLD
+                usable = n - future_window
+                labels = np.zeros((usable, 2), dtype=np.float32)
+                for i in range(usable):
+                    w = slice(i + 1, i + 1 + future_window)
+                    labels[i, 0] = float(attacks_third[w].any())
+                    labels[i, 1] = float(defends_third[w].any())
+                all_frame_tensors.append(tensors[:usable])
+                all_labels.append(labels)
+            else:  # "events"
+                events_df = load_metrica_events(mid)
+                labels_full = goal_and_shot_labels_from_events(
+                    events_df,
+                    n_frames_sampled=n,
+                    k_seconds=k_seconds,
+                    sampling_stride=sampling_stride,
+                )
+                usable = n - future_window
+                all_frame_tensors.append(tensors[:usable])
+                all_labels.append(labels_full[:usable])
 
         if not all_frame_tensors:
             raise RuntimeError(
@@ -138,6 +155,7 @@ class MetricaFrameDataset(Dataset):
 
         self.frames = np.concatenate(all_frame_tensors, axis=0)
         self.labels = np.concatenate(all_labels, axis=0)
+        self.label_mode = label_mode
 
     def __len__(self) -> int:
         return self.frames.shape[0]
@@ -174,6 +192,7 @@ class SoccerTrackingDataModule(pl.LightningDataModule):
         n_synthetic_val: int = 256,
         metrica_k_seconds: float = 10.0,
         metrica_sampling_stride: int = 5,
+        metrica_label_mode: str = "thirds",
     ) -> None:
         super().__init__()
         self.source = source
@@ -184,6 +203,7 @@ class SoccerTrackingDataModule(pl.LightningDataModule):
         self.n_synthetic_val = n_synthetic_val
         self.metrica_k_seconds = metrica_k_seconds
         self.metrica_sampling_stride = metrica_sampling_stride
+        self.metrica_label_mode = metrica_label_mode
         self.train_ds: Dataset | None = None
         self.val_ds: Dataset | None = None
 
@@ -204,12 +224,14 @@ class SoccerTrackingDataModule(pl.LightningDataModule):
                 k_seconds=self.metrica_k_seconds,
                 frame_rate_hz=effective_fr_hz,
                 sampling_stride=self.metrica_sampling_stride,
+                label_mode=self.metrica_label_mode,
             )
             self.val_ds = MetricaFrameDataset(
                 match_ids=("2",),
                 k_seconds=self.metrica_k_seconds,
                 frame_rate_hz=effective_fr_hz,
                 sampling_stride=self.metrica_sampling_stride,
+                label_mode=self.metrica_label_mode,
             )
             return
         raise NotImplementedError(
