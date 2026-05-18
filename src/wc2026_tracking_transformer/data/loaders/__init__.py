@@ -11,7 +11,11 @@ Sources (in priority order):
     * :mod:`.pff`         — PFF FC WC '22, registration-gated (OPTIONAL)
 """
 
-from wc2026_tracking_transformer.data.loaders.dfl import load_dfl_match, list_dfl_matches
+from wc2026_tracking_transformer.data.loaders.dfl import (
+    list_dfl_matches,
+    load_dfl_events,
+    load_dfl_match,
+)
 from wc2026_tracking_transformer.data.loaders.metrica import (
     list_metrica_matches,
     load_metrica_match,
@@ -27,6 +31,7 @@ __all__ = [
     "list_metrica_matches",
     "list_pff_matches",
     "list_skillcorner_matches",
+    "load_dfl_events",
     "load_dfl_match",
     "load_metrica_match",
     "load_pff_match",

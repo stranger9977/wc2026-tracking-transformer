@@ -10,7 +10,11 @@ Sources:
     from tracking only: P(ball enters attacking third within K seconds)
     and P(ball enters defensive third within K seconds). Goal-anchored
     labels will replace these once events are wired in.
-  * ``source="dfl"``/``"skillcorner"``/``"pff"`` — :py:exc:`NotImplementedError`
+  * ``source="dfl"`` — Bassek 2025 / Sportec via :mod:`kloppy.sportec`. Reads
+    per-match XML bundles from ``data/raw/dfl_bassek/<match_id>/`` (see
+    ``loaders/dfl.py`` for the expected file names). Phase-1 ``"thirds"``
+    labels work; ``"events"`` mode is wired but not yet validated.
+  * ``source="skillcorner"``/``"pff"`` — :py:exc:`NotImplementedError`
     until their loaders are written.
 
 The split is **match-level**: frames from one match never cross train/val.
@@ -26,6 +30,10 @@ import torch
 from torch.utils.data import DataLoader, Dataset
 
 from wc2026_tracking_transformer.data.batching import batch_frames
+from wc2026_tracking_transformer.data.loaders.dfl import (
+    list_dfl_matches,
+    load_dfl_match,
+)
 from wc2026_tracking_transformer.data.loaders.metrica import (
     OPEN_DATA_MATCH_IDS,
     goal_and_shot_labels_from_events,
@@ -36,6 +44,8 @@ from wc2026_tracking_transformer.data.schema import (
     FRAME_FEATURE_COLUMNS,
     NUM_TOKENS_PER_FRAME,
 )
+
+DEFAULT_DFL_ROOT = Path("data/raw/dfl_bassek")
 
 
 class SyntheticFrameDataset(Dataset):
@@ -167,6 +177,97 @@ class MetricaFrameDataset(Dataset):
         )
 
 
+class DFLFrameDataset(Dataset):
+    """Real DFL/Bassek (Sportec) frames + labels.
+
+    Mirrors :class:`MetricaFrameDataset` but sources frames from
+    :func:`load_dfl_match`. ``label_mode="thirds"`` always works (purely
+    tracking-derived); ``label_mode="events"`` requires synchronized event
+    XML per match dir and uses :func:`load_dfl_events`.
+
+    Args:
+        match_dirs: Per-match directory paths (typically the output of
+            :func:`list_dfl_matches`).
+        k_seconds: Look-ahead window for labels.
+        frame_rate_hz: Effective sampling rate after stride.
+        sampling_stride: Downsample stride passed to the loader (native 25 Hz,
+            so ``5`` → 5 Hz).
+        label_mode: ``"thirds"`` (works without events) or ``"events"``
+            (requires events; not yet wired in here — raises NotImplementedError).
+    """
+
+    THIRD_THRESHOLD = 1.0 / 3.0  # in x_norm space [-1, 1]
+
+    def __init__(
+        self,
+        match_dirs: tuple[Path, ...],
+        k_seconds: float = 10.0,
+        frame_rate_hz: float = 5.0,
+        sampling_stride: int = 5,
+        label_mode: str = "thirds",
+    ) -> None:
+        if label_mode not in {"thirds", "events"}:
+            raise ValueError(f"label_mode must be 'thirds' or 'events', got {label_mode!r}")
+        if label_mode == "events":
+            raise NotImplementedError(
+                "DFLFrameDataset label_mode='events' requires the event-stream "
+                "wiring to be finished — see load_dfl_events in loaders/dfl.py. "
+                "Use label_mode='thirds' until then."
+            )
+        if not match_dirs:
+            raise RuntimeError(
+                "DFLFrameDataset: no match directories supplied. Run "
+                "`list_dfl_matches(Path('data/raw/dfl_bassek'))` to verify the "
+                "download is in place."
+            )
+
+        future_window = int(round(k_seconds * frame_rate_hz))
+        all_frame_tensors: list[np.ndarray] = []
+        all_labels: list[np.ndarray] = []
+
+        for match_dir in match_dirs:
+            frames = list(
+                load_dfl_match(match_dir, sampling_stride=sampling_stride)
+            )
+            if len(frames) <= future_window:
+                continue
+            tensors = batch_frames(frames)  # (N, 23, 7)
+            n = len(frames)
+
+            # "thirds" label mode — same logic as MetricaFrameDataset.
+            ball_x = tensors[:, -1, 0]  # ball token's x_norm
+            attacks_third = ball_x > self.THIRD_THRESHOLD
+            defends_third = ball_x < -self.THIRD_THRESHOLD
+            usable = n - future_window
+            labels = np.zeros((usable, 2), dtype=np.float32)
+            for i in range(usable):
+                w = slice(i + 1, i + 1 + future_window)
+                labels[i, 0] = float(attacks_third[w].any())
+                labels[i, 1] = float(defends_third[w].any())
+            all_frame_tensors.append(tensors[:usable])
+            all_labels.append(labels)
+
+        if not all_frame_tensors:
+            raise RuntimeError(
+                "DFLFrameDataset: no usable frames loaded — every match was "
+                "too short for the requested look-ahead window, or the data "
+                "isn't present."
+            )
+
+        self.frames = np.concatenate(all_frame_tensors, axis=0)
+        self.labels = np.concatenate(all_labels, axis=0)
+        self.label_mode = label_mode
+
+    def __len__(self) -> int:
+        return self.frames.shape[0]
+
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
+        return (
+            torch.from_numpy(self.frames[idx]),
+            torch.from_numpy(self.labels[idx]),
+        )
+
+
 class SoccerTrackingDataModule(pl.LightningDataModule):
     """DataModule with synthetic + real-data paths.
 
@@ -193,6 +294,10 @@ class SoccerTrackingDataModule(pl.LightningDataModule):
         metrica_k_seconds: float = 10.0,
         metrica_sampling_stride: int = 5,
         metrica_label_mode: str = "thirds",
+        dfl_k_seconds: float = 10.0,
+        dfl_sampling_stride: int = 5,
+        dfl_label_mode: str = "thirds",
+        dfl_val_fraction: float = 0.2,
     ) -> None:
         super().__init__()
         self.source = source
@@ -204,6 +309,10 @@ class SoccerTrackingDataModule(pl.LightningDataModule):
         self.metrica_k_seconds = metrica_k_seconds
         self.metrica_sampling_stride = metrica_sampling_stride
         self.metrica_label_mode = metrica_label_mode
+        self.dfl_k_seconds = dfl_k_seconds
+        self.dfl_sampling_stride = dfl_sampling_stride
+        self.dfl_label_mode = dfl_label_mode
+        self.dfl_val_fraction = dfl_val_fraction
         self.train_ds: Dataset | None = None
         self.val_ds: Dataset | None = None
 
@@ -232,6 +341,37 @@ class SoccerTrackingDataModule(pl.LightningDataModule):
                 frame_rate_hz=effective_fr_hz,
                 sampling_stride=self.metrica_sampling_stride,
                 label_mode=self.metrica_label_mode,
+            )
+            return
+        if self.source == "dfl":
+            root = self.data_root if self.data_root is not None else DEFAULT_DFL_ROOT
+            all_matches = list_dfl_matches(root)
+            if not all_matches:
+                raise RuntimeError(
+                    f"source='dfl' but no matches found under {root!s}. Download "
+                    f"the Bassek 2025 release from figshare and arrange each "
+                    f"match into its own subdir with tracking.xml + meta.xml. "
+                    f"See loaders/dfl.py module docstring for the layout."
+                )
+            # Match-level split: deterministic by sorted order, last N% → val.
+            n_val = max(1, int(round(len(all_matches) * self.dfl_val_fraction)))
+            n_val = min(n_val, len(all_matches) - 1) if len(all_matches) > 1 else 0
+            train_matches = tuple(all_matches[: len(all_matches) - n_val])
+            val_matches = tuple(all_matches[len(all_matches) - n_val :]) if n_val else train_matches
+            effective_fr_hz = 25.0 / self.dfl_sampling_stride
+            self.train_ds = DFLFrameDataset(
+                match_dirs=train_matches,
+                k_seconds=self.dfl_k_seconds,
+                frame_rate_hz=effective_fr_hz,
+                sampling_stride=self.dfl_sampling_stride,
+                label_mode=self.dfl_label_mode,
+            )
+            self.val_ds = DFLFrameDataset(
+                match_dirs=val_matches,
+                k_seconds=self.dfl_k_seconds,
+                frame_rate_hz=effective_fr_hz,
+                sampling_stride=self.dfl_sampling_stride,
+                label_mode=self.dfl_label_mode,
             )
             return
         raise NotImplementedError(

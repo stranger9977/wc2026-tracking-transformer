@@ -30,13 +30,24 @@ def test_synthetic_datamodule_constructs_and_yields_batches() -> None:
         assert y.shape == (x.shape[0], 2)
 
 
-@pytest.mark.parametrize("source", ["dfl", "skillcorner", "pff"])
+@pytest.mark.parametrize("source", ["skillcorner", "pff"])
 def test_real_source_raises_until_loader_implemented(source: str) -> None:
     """Real-data sources should NotImplementedError until their loader exists."""
     from wc2026_tracking_transformer.data import SoccerTrackingDataModule
 
     dm = SoccerTrackingDataModule(source=source, batch_size=4)
     with pytest.raises(NotImplementedError):
+        dm.setup()
+
+
+def test_dfl_datamodule_raises_runtimeerror_without_data(tmp_path) -> None:
+    """source='dfl' should raise a clear RuntimeError (not NotImplementedError)
+    when the data directory is empty — the loader is implemented, the user
+    just hasn't downloaded data yet."""
+    from wc2026_tracking_transformer.data import SoccerTrackingDataModule
+
+    dm = SoccerTrackingDataModule(source="dfl", data_root=str(tmp_path), batch_size=4)
+    with pytest.raises(RuntimeError, match="no matches found"):
         dm.setup()
 
 
