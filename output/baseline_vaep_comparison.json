@@ -1,0 +1,241 @@
+{
+  "n_paired_actions": 1780,
+  "n_train_actions": 1591,
+  "k_actions_window": 10,
+  "transformer_train_epochs": 8,
+  "transformer_train_label_window_seconds": 15.0,
+  "spearman_vaep_value_vs_p_shot": {
+    "rho": -0.1965432145241886,
+    "p_value": 5.856007660342646e-17
+  },
+  "spearman_p_score_vaep_vs_p_shot_ours": {
+    "rho": -0.21777357734508818,
+    "p_value": 1.497526772737669e-20
+  },
+  "spearman_p_score_vaep_vs_p_goal_ours": {
+    "rho": -0.19423036546082087,
+    "p_value": 1.3658338360394881e-16
+  },
+  "examples_top_vaep": [
+    {
+      "action_id": 184,
+      "period": 1,
+      "start_frame": 12180,
+      "team": "Home",
+      "type": "cross",
+      "from_player": "Player1",
+      "to_player": "Player10",
+      "ball_start_xy": [
+        0.12,
+        0.21
+      ],
+      "ball_end_xy": [
+        0.05,
+        0.55
+      ],
+      "vaep_value": 0.9722,
+      "p_score_vaep": 0.9722,
+      "p_shot_ours": 0.0,
+      "p_goal_ours": 0.0,
+      "rank_vaep": 1.0,
+      "rank_ours": 0.006,
+      "ended_in_goal_next_k": 1
+    },
+    {
+      "action_id": 789,
+      "period": 1,
+      "start_frame": 56059,
+      "team": "Home",
+      "type": "cross",
+      "from_player": "Player1",
+      "to_player": "Player5",
+      "ball_start_xy": [
+        0.13,
+        0.13
+      ],
+      "ball_end_xy": [
+        0.1,
+        0.41
+      ],
+      "vaep_value": 0.929,
+      "p_score_vaep": 0.929,
+      "p_shot_ours": 0.0,
+      "p_goal_ours": 0.0,
+      "rank_vaep": 0.999,
+      "rank_ours": 0.055,
+      "ended_in_goal_next_k": 0
+    },
+    {
+      "action_id": 21,
+      "period": 1,
+      "start_frame": 1170,
+      "team": "Away",
+      "type": "pass",
+      "from_player": "Player20",
+      "to_player": "Player18",
+      "ball_start_xy": [
+        0.36,
+        0.65
+      ],
+      "ball_end_xy": [
+        0.36,
+        0.24
+      ],
+      "vaep_value": 0.8897,
+      "p_score_vaep": 0.8899,
+      "p_shot_ours": 0.0003,
+      "p_goal_ours": 0.0,
+      "rank_vaep": 0.999,
+      "rank_ours": 0.349,
+      "ended_in_goal_next_k": 0
+    }
+  ],
+  "examples_ours_high_vaep_low": [
+    {
+      "action_id": 1614,
+      "period": 2,
+      "start_frame": 124106,
+      "team": "Home",
+      "type": "pass",
+      "from_player": "Player5",
+      "to_player": "Player10",
+      "ball_start_xy": [
+        0.4,
+        0.24
+      ],
+      "ball_end_xy": [
+        0.67,
+        0.1
+      ],
+      "vaep_value": 0.0001,
+      "p_score_vaep": 0.0001,
+      "p_shot_ours": 0.6786,
+      "p_goal_ours": 0.0002,
+      "rank_vaep": 0.042,
+      "rank_ours": 0.998,
+      "ended_in_goal_next_k": 0
+    },
+    {
+      "action_id": 11,
+      "period": 1,
+      "start_frame": 855,
+      "team": "Away",
+      "type": "pass",
+      "from_player": "Player17",
+      "to_player": "Player16",
+      "ball_start_xy": [
+        0.22,
+        0.51
+      ],
+      "ball_end_xy": [
+        0.23,
+        0.87
+      ],
+      "vaep_value": -0.7629,
+      "p_score_vaep": 0.0033,
+      "p_shot_ours": 0.6542,
+      "p_goal_ours": 0.2537,
+      "rank_vaep": 0.006,
+      "rank_ours": 0.997,
+      "ended_in_goal_next_k": 0
+    },
+    {
+      "action_id": 1570,
+      "period": 2,
+      "start_frame": 120365,
+      "team": "Away",
+      "type": "recovery",
+      "from_player": "Player21",
+      "to_player": "nan",
+      "ball_start_xy": [
+        0.88,
+        0.53
+      ],
+      "ball_end_xy": [
+        0.88,
+        0.53
+      ],
+      "vaep_value": 0.0002,
+      "p_score_vaep": 0.0002,
+      "p_shot_ours": 0.6266,
+      "p_goal_ours": 0.0003,
+      "rank_vaep": 0.431,
+      "rank_ours": 0.995,
+      "ended_in_goal_next_k": 0
+    }
+  ],
+  "examples_vaep_high_ours_low": [
+    {
+      "action_id": 184,
+      "period": 1,
+      "start_frame": 12180,
+      "team": "Home",
+      "type": "cross",
+      "from_player": "Player1",
+      "to_player": "Player10",
+      "ball_start_xy": [
+        0.12,
+        0.21
+      ],
+      "ball_end_xy": [
+        0.05,
+        0.55
+      ],
+      "vaep_value": 0.9722,
+      "p_score_vaep": 0.9722,
+      "p_shot_ours": 0.0,
+      "p_goal_ours": 0.0,
+      "rank_vaep": 1.0,
+      "rank_ours": 0.006,
+      "ended_in_goal_next_k": 1
+    },
+    {
+      "action_id": 789,
+      "period": 1,
+      "start_frame": 56059,
+      "team": "Home",
+      "type": "cross",
+      "from_player": "Player1",
+      "to_player": "Player5",
+      "ball_start_xy": [
+        0.13,
+        0.13
+      ],
+      "ball_end_xy": [
+        0.1,
+        0.41
+      ],
+      "vaep_value": 0.929,
+      "p_score_vaep": 0.929,
+      "p_shot_ours": 0.0,
+      "p_goal_ours": 0.0,
+      "rank_vaep": 0.999,
+      "rank_ours": 0.055,
+      "ended_in_goal_next_k": 0
+    },
+    {
+      "action_id": 21,
+      "period": 1,
+      "start_frame": 1170,
+      "team": "Away",
+      "type": "pass",
+      "from_player": "Player20",
+      "to_player": "Player18",
+      "ball_start_xy": [
+        0.36,
+        0.65
+      ],
+      "ball_end_xy": [
+        0.36,
+        0.24
+      ],
+      "vaep_value": 0.8897,
+      "p_score_vaep": 0.8899,
+      "p_shot_ours": 0.0003,
+      "p_goal_ours": 0.0,
+      "rank_vaep": 0.999,
+      "rank_ours": 0.349,
+      "ended_in_goal_next_k": 0
+    }
+  ]
+}
