@@ -61,3 +61,6 @@ tb_logs/
 # Local config overrides
 .env
 .env.local
+
+# Worktrees
+.worktrees/
