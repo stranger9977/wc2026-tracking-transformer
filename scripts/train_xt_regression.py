@@ -37,6 +37,10 @@ from wc2026_tracking_transformer.data.loaders.metrica import (
     load_metrica_events,
     load_metrica_match,
 )
+from wc2026_tracking_transformer.data.loaders.pff import (
+    list_pff_matches,
+    load_pff_match,
+)
 from wc2026_tracking_transformer.data.loaders.skillcorner import (
     OPEN_DATA_MATCH_IDS as SKILLCORNER_IDS,
     load_skillcorner_match,
@@ -54,6 +58,7 @@ K_SECONDS = 10.0
 FRAME_RATE_HZ = 5.0
 METRICA_STRIDE = 5
 SKILLCORNER_STRIDE = 2
+PFF_STRIDE = 6   # PFF native is ~30 Hz, so /6 → 5 Hz
 
 
 class XTDataset(Dataset):
@@ -87,8 +92,14 @@ def build_source(loader_fn, match_id, stride, source_name: str):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--corpus", choices=("small", "full"), default="small",
-                    help="small = SkillCorner 1886347 + Metrica 1, val Metrica 2. full = 11 matches.")
+    ap.add_argument("--corpus", choices=("small", "full", "pff"), default="small",
+                    help="small = SkillCorner 1886347 + Metrica 1. "
+                         "full = 11 Metrica+SkillCorner matches. "
+                         "pff = PFF-only with --pff-n total matches.")
+    ap.add_argument("--pff-n", type=int, default=0,
+                    help="Number of PFF matches to use (0–44). For corpus=pff "
+                         "the last 4 are held out as val. For corpus=small/full "
+                         "they're ADDED to the training corpus.")
     ap.add_argument("--epochs", type=int, default=6)
     ap.add_argument("--batch-size", type=int, default=128)
     ap.add_argument("--model-dim", type=int, default=64)
@@ -98,14 +109,70 @@ def main():
     print(f"[1/5] Loading data ({args.corpus} corpus) …")
     t0 = time.time()
     sources: list[dict] = []
+    pff_val_ids: list[str] = []
     if args.corpus == "small":
         sources.append(build_source(load_skillcorner_match, "1886347", SKILLCORNER_STRIDE, "skillcorner_1886347"))
         sources.append(build_source(load_metrica_match, "1", METRICA_STRIDE, "metrica_1"))
-    else:
+        val_src = build_source(load_metrica_match, "2", METRICA_STRIDE, "metrica_2_val")
+    elif args.corpus == "full":
         sources.append(build_source(load_metrica_match, "1", METRICA_STRIDE, "metrica_1"))
         for mid in SKILLCORNER_IDS:
             sources.append(build_source(load_skillcorner_match, mid, SKILLCORNER_STRIDE, f"skillcorner_{mid}"))
-    val_src = build_source(load_metrica_match, "2", METRICA_STRIDE, "metrica_2_val")
+        if args.pff_n > 0:
+            pff_matches = list_pff_matches()
+            for m in pff_matches[: args.pff_n]:
+                mid = m.name
+                print(f"      loading PFF match {mid} (stride={PFF_STRIDE} → 5 Hz) …", flush=True)
+                t_pff = time.time()
+                try:
+                    src = build_source(load_pff_match, mid, PFF_STRIDE, f"pff_{mid}")
+                    if src is not None:
+                        sources.append(src)
+                        print(f"        {src['frames'].shape[0]} usable frames ({time.time()-t_pff:.0f}s)")
+                except Exception as e:
+                    print(f"        SKIP {mid}: {type(e).__name__}: {e}")
+        val_src = build_source(load_metrica_match, "2", METRICA_STRIDE, "metrica_2_val")
+    elif args.corpus == "pff":
+        # PFF-only: train on first (N-4), val on last 4.
+        if args.pff_n < 6:
+            sys.exit("--corpus pff requires --pff-n >= 6 (need val matches too)")
+        pff_matches = list_pff_matches()[: args.pff_n]
+        n_val = 4
+        train_pff = pff_matches[:-n_val]; val_pff = pff_matches[-n_val:]
+        for m in train_pff:
+            mid = m.name
+            print(f"      loading PFF match {mid} (TRAIN, stride={PFF_STRIDE}) …", flush=True)
+            t_pff = time.time()
+            try:
+                src = build_source(load_pff_match, mid, PFF_STRIDE, f"pff_{mid}")
+                if src is not None:
+                    sources.append(src)
+                    print(f"        {src['frames'].shape[0]} usable frames ({time.time()-t_pff:.0f}s)")
+            except Exception as e:
+                print(f"        SKIP {mid}: {type(e).__name__}: {e}")
+        # Concatenate val matches into one big val_src.
+        val_frames_l, val_labels_l, val_baseline_l = [], [], []
+        for m in val_pff:
+            mid = m.name
+            print(f"      loading PFF match {mid} (VAL, stride={PFF_STRIDE}) …", flush=True)
+            try:
+                vs = build_source(load_pff_match, mid, PFF_STRIDE, f"pff_{mid}_val")
+                if vs is not None:
+                    val_frames_l.append(vs["frames"])
+                    val_labels_l.append(vs["labels"])
+                    val_baseline_l.append(vs["baseline"])
+                    pff_val_ids.append(mid)
+            except Exception as e:
+                print(f"        SKIP val {mid}: {type(e).__name__}: {e}")
+        if not val_frames_l:
+            sys.exit("no val frames loaded")
+        val_src = {
+            "name": "pff_val_combined",
+            "frames": np.concatenate(val_frames_l),
+            "labels": np.concatenate(val_labels_l),
+            "baseline": np.concatenate(val_baseline_l),
+            "tracking_frames": None,
+        }
     sources = [s for s in sources if s is not None]
     if val_src is None:
         sys.exit("val source could not load")

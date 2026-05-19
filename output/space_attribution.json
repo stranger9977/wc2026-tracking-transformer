@@ -1,0 +1,162 @@
+{
+  "source": "pff",
+  "match": "10502",
+  "teams": {
+    "366": "Netherlands",
+    "51": "United States"
+  },
+  "n_frames": 21870,
+  "mean_lift_over_lookup": 0.011783386580646038,
+  "top_players": [
+    {
+      "name": "Christian Pulisic",
+      "jersey": 10,
+      "team_id": "51",
+      "team_name": "United States",
+      "position": "Left Wing",
+      "total_off_ball_xt": 14.608887065670936,
+      "per_frame_avg": 0.0006687213707621962,
+      "frames_on_pitch": 21846
+    },
+    {
+      "name": "Yunus Musah",
+      "jersey": 6,
+      "team_id": "51",
+      "team_name": "United States",
+      "position": "Center Midfield",
+      "total_off_ball_xt": 13.308418848077263,
+      "per_frame_avg": 0.0006091924767956268,
+      "frames_on_pitch": 21846
+    },
+    {
+      "name": "Denzel Dumfries",
+      "jersey": 22,
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "position": "Unknown",
+      "total_off_ball_xt": 13.283225944550804,
+      "per_frame_avg": 0.0006080392723862859,
+      "frames_on_pitch": 21846
+    },
+    {
+      "name": "Walker Zimmerman",
+      "jersey": 3,
+      "team_id": "51",
+      "team_name": "United States",
+      "position": "Right Center Back",
+      "total_off_ball_xt": 12.644548643678537,
+      "per_frame_avg": 0.0005788038379418904,
+      "frames_on_pitch": 21846
+    },
+    {
+      "name": "Daley Blind",
+      "jersey": 17,
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "position": "Unknown",
+      "total_off_ball_xt": 12.593000998694093,
+      "per_frame_avg": 0.0005764442460264622,
+      "frames_on_pitch": 21846
+    },
+    {
+      "name": "Antonee Robinson",
+      "jersey": 5,
+      "team_id": "51",
+      "team_name": "United States",
+      "position": "Left Back",
+      "total_off_ball_xt": 12.528874816057275,
+      "per_frame_avg": 0.0006015688681066536,
+      "frames_on_pitch": 20827
+    },
+    {
+      "name": "Tyler Adams",
+      "jersey": 4,
+      "team_id": "51",
+      "team_name": "United States",
+      "position": "Center Midfield",
+      "total_off_ball_xt": 12.36637796665402,
+      "per_frame_avg": 0.0005660705834777085,
+      "frames_on_pitch": 21846
+    },
+    {
+      "name": "Tim Ream",
+      "jersey": 13,
+      "team_id": "51",
+      "team_name": "United States",
+      "position": "Left Center Back",
+      "total_off_ball_xt": 12.3046534329234,
+      "per_frame_avg": 0.0005632451447827245,
+      "frames_on_pitch": 21846
+    },
+    {
+      "name": "Cody Gakpo",
+      "jersey": 8,
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "position": "Striker",
+      "total_off_ball_xt": 11.488165917328912,
+      "per_frame_avg": 0.0005433298296126046,
+      "frames_on_pitch": 21144
+    },
+    {
+      "name": "Jurrien Timber",
+      "jersey": 2,
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "position": "Right Center Back",
+      "total_off_ball_xt": 11.040642382258518,
+      "per_frame_avg": 0.0005053850765475839,
+      "frames_on_pitch": 21846
+    },
+    {
+      "name": "Frenkie de Jong",
+      "jersey": 21,
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "position": "Center Midfield",
+      "total_off_ball_xt": 10.820639946255287,
+      "per_frame_avg": 0.0004953144715854293,
+      "frames_on_pitch": 21846
+    },
+    {
+      "name": "Virgil van Dijk",
+      "jersey": 4,
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "position": "Unknown",
+      "total_off_ball_xt": 10.466266100439338,
+      "per_frame_avg": 0.00047909301933714814,
+      "frames_on_pitch": 21846
+    },
+    {
+      "name": "Giovanni Reyna",
+      "jersey": 7,
+      "team_id": "51",
+      "team_name": "United States",
+      "position": "Attacking Midfield",
+      "total_off_ball_xt": 10.456811011817422,
+      "per_frame_avg": 0.0009890107832987252,
+      "frames_on_pitch": 10573
+    },
+    {
+      "name": "Sergi\u00f1o Dest",
+      "jersey": 2,
+      "team_id": "51",
+      "team_name": "United States",
+      "position": "Right Back",
+      "total_off_ball_xt": 10.379262625834784,
+      "per_frame_avg": 0.0005961667217596085,
+      "frames_on_pitch": 17410
+    },
+    {
+      "name": "Nathan Ak\u00e9",
+      "jersey": 5,
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "position": "Left Center Back",
+      "total_off_ball_xt": 10.377714111617806,
+      "per_frame_avg": 0.0004908112992630442,
+      "frames_on_pitch": 21144
+    }
+  ]
+}

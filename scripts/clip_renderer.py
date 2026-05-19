@@ -49,18 +49,22 @@ def draw_pitch(ax: plt.Axes, *, show_xt_heatmap: bool = True) -> None:
     ax.set_xticks([]); ax.set_yticks([])
     for s in ax.spines.values(): s.set_color("#0b1220")
 
-    # Static xT heatmap as the background underneath the lines.
-    # XT_GRID rows = defensive→attacking, cols = touchline→touchline.
-    # Display: extent in meters, low alpha so pitch lines still read.
+    # Static xT heatmap, SYMMETRIZED across the halfway line. Karun's grid
+    # is one-directional (def→att) but a soccer pitch has TWO dangerous zones
+    # (one in front of each goal). Mirror + max so both ends glow — that's
+    # what readers expect to see when looking at a "threat map."
     if show_xt_heatmap:
+        grid_t = XT_GRID.T                          # (8 y, 12 x)
+        sym = np.maximum(grid_t, np.flip(grid_t, axis=1))
         ax.imshow(
-            XT_GRID.T,                         # transpose so rows→y, cols→x
+            sym,
             extent=(-HALF_L, HALF_L, -HALF_W, HALF_W),
             origin="lower",
             cmap="YlOrRd",
-            alpha=0.55,
+            alpha=0.50,
             aspect="auto",
             zorder=0,
+            interpolation="bilinear",   # smooth the 12×8 cells into a gradient
         )
 
     ax.add_patch(mpatches.Rectangle((-HALF_L, -HALF_W), PITCH_LENGTH_M, PITCH_WIDTH_M,
@@ -94,6 +98,8 @@ def render_clip(
     goal_frame_in_clip: int | None = None,
     head0_label: str = "P(shot in next 15s)",
     head1_label: str = "P(goal in next 15s)",
+    team_color_map: dict[str, str] | None = None,
+    team_label_map: dict[str, str] | None = None,
 ) -> None:
     """Render one animated GIF."""
     W = clip_tensors.shape[0]
@@ -109,7 +115,13 @@ def render_clip(
     f0_norm = clip_tensors[0].numpy()
     xy0 = to_meters(f0_norm)
     team_at_0 = clip_teams[0]
-    player_colors = [HOME_COLOR if t == "home" else AWAY_COLOR for t in team_at_0]
+    # Use the optional team_color_map for source-specific palettes (e.g. WC nations).
+    # Falls back to home/away teal/coral.
+    def _team_to_color(t: str) -> str:
+        if team_color_map and t in team_color_map:
+            return team_color_map[t]
+        return HOME_COLOR if t == "home" else AWAY_COLOR
+    player_colors = [_team_to_color(t) for t in team_at_0]
 
     halo_outer = ax_pitch.scatter([], [], s=1300, color=HALO_COLOR, alpha=0.10, zorder=1, edgecolor="none")
     halo_mid   = ax_pitch.scatter([], [], s=750,  color=HALO_COLOR, alpha=0.22, zorder=1.5, edgecolor="none")
@@ -165,16 +177,34 @@ def render_clip(
     fig.text(0.5, 0.975, top_banner, ha="center", va="top",
              color="#e9f0ff", fontsize=13, fontweight="bold")
     legend_y = 0.942
-    legend_items = [
-        (0.050, "●", HOME_COLOR, " Home"),
-        (0.120, "●", AWAY_COLOR, " Away"),
-        (0.185, "●", BALL_COLOR, " Ball"),
-        (0.240, "◯", GK_RING, " GK"),
-        (0.300, "◯", POSS_RING, " on ball"),
-        (0.380, "▬", ATTN_SAME, " same-team attention"),
-        (0.520, "▬", ATTN_CROSS, " cross-team attention"),
-        (0.680, "✸", HALO_COLOR, " halos = top-attended"),
-    ]
+    # Default Home/Away labels; if a team_label_map is supplied (e.g. PFF
+    # source with WC nation names), use those.
+    if team_label_map and len(team_label_map) >= 2:
+        teams_in_label_order = list(team_label_map.items())[:2]
+        (tid_a, name_a), (tid_b, name_b) = teams_in_label_order
+        col_a = team_color_map.get(tid_a, HOME_COLOR) if team_color_map else HOME_COLOR
+        col_b = team_color_map.get(tid_b, AWAY_COLOR) if team_color_map else AWAY_COLOR
+        legend_items = [
+            (0.040, "●", col_a, f" {name_a}"),
+            (0.180, "●", col_b, f" {name_b}"),
+            (0.320, "●", BALL_COLOR, " Ball"),
+            (0.380, "◯", GK_RING, " GK"),
+            (0.440, "◯", POSS_RING, " on ball"),
+            (0.520, "▬", ATTN_SAME, " same-team attn"),
+            (0.640, "▬", ATTN_CROSS, " cross-team attn"),
+            (0.770, "✸", HALO_COLOR, " halos = top-attended"),
+        ]
+    else:
+        legend_items = [
+            (0.050, "●", HOME_COLOR, " Home"),
+            (0.120, "●", AWAY_COLOR, " Away"),
+            (0.185, "●", BALL_COLOR, " Ball"),
+            (0.240, "◯", GK_RING, " GK"),
+            (0.300, "◯", POSS_RING, " on ball"),
+            (0.380, "▬", ATTN_SAME, " same-team attention"),
+            (0.520, "▬", ATTN_CROSS, " cross-team attention"),
+            (0.680, "✸", HALO_COLOR, " halos = top-attended"),
+        ]
     for x, sym, col, lbl in legend_items:
         fig.text(x, legend_y, sym, color=col, va="top", fontsize=12)
         fig.text(x + 0.012, legend_y, lbl, color="#94a3b8", va="top", fontsize=9.5)
@@ -213,7 +243,7 @@ def render_clip(
         # Player alpha: scale 0.30 → 1.0 based on attention received.
         player_alphas = 0.30 + 0.70 * (ball_chem[:22] / max_w)
         # Players the ball isn't really looking at fade out.
-        cols = [HOME_COLOR if t == "home" else AWAY_COLOR for t in clip_teams[i]]
+        cols = [_team_to_color(t) for t in clip_teams[i]]
         # RGBA tuple per player, alpha-modulated.
         from matplotlib.colors import to_rgba
         rgba = np.array([to_rgba(c, alpha=float(a)) for c, a in zip(cols, player_alphas)])
