@@ -1,0 +1,14 @@
+{
+  "approach": "pretrain combined corpus (171k frames, 11 matches), finetune on Metrica match 1 events",
+  "val_frames": 16578,
+  "val_pos_rate_shot": 0.058812882751226425,
+  "val_pos_rate_goal": 0.013572203926742077,
+  "pre_finetune_auc_shot": 0.5418964466070793,
+  "pre_finetune_auc_goal": 0.4287553082343029,
+  "post_finetune_auc_shot": 0.5641214296395992,
+  "post_finetune_auc_goal": 0.46359363215719845,
+  "cold_start_baseline_auc_shot": 0.569,
+  "cold_start_baseline_auc_goal": 0.54,
+  "lift_over_cold_start_shot": -0.004878570360400736,
+  "lift_over_cold_start_goal": -0.07640636784280158
+}

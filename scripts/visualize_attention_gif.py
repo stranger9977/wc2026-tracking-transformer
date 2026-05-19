@@ -101,16 +101,16 @@ def render_clip(
     clip_teams: list,
     top_banner: str,
     fps: int = 4,
+    goal_frame_in_clip: int | None = None,
 ) -> None:
     """Render one animated GIF. Function-scoped state — call repeatedly."""
     W = clip_tensors.shape[0]
-    # Taller figure with explicit space for: banner row · legend row · pitch ·
-    # status row · probability chart. Each row gets its own clear zone so they
-    # never overlap.
-    fig = plt.figure(figsize=(12, 10), facecolor="#0b1220", constrained_layout=False)
+    # Wider/shorter figure with a chart that gets a real share of the height.
+    # Five zones: banner · legend · pitch · status row · chart.
+    fig = plt.figure(figsize=(12, 9), facecolor="#0b1220", constrained_layout=False)
     gs = fig.add_gridspec(
-        2, 1, height_ratios=[2.0, 1.0],
-        left=0.06, right=0.97, top=0.86, bottom=0.08, hspace=0.40,
+        2, 1, height_ratios=[1.5, 1.0],
+        left=0.06, right=0.97, top=0.88, bottom=0.10, hspace=0.30,
     )
     ax_pitch = fig.add_subplot(gs[0])
     ax_line  = fig.add_subplot(gs[1])
@@ -174,29 +174,28 @@ def render_clip(
 
     # Banner row at the very top
     fig.text(0.5, 0.975, top_banner, ha="center", va="top",
-             color="#e9f0ff", fontsize=14, fontweight="bold")
-    # Legend row underneath the banner — its own clear horizontal line
-    legend_y = 0.935
+             color="#e9f0ff", fontsize=13, fontweight="bold")
+    # Legend row underneath the banner
+    legend_y = 0.942
     legend_items = [
         (0.080, "●", HOME_COLOR, " Home"),
-        (0.160, "●", AWAY_COLOR, " Away"),
-        (0.235, "●", BALL_COLOR, " Ball"),
-        (0.305, "◯", GK_RING, " GK"),
-        (0.380, "◯", POSS_RING, " on ball"),
-        (0.480, "▶", "white", " motion"),
-        (0.595, "✸", HALO_COLOR, " ball's top-attended (halos + edges)"),
+        (0.155, "●", AWAY_COLOR, " Away"),
+        (0.230, "●", BALL_COLOR, " Ball"),
+        (0.295, "◯", GK_RING, " GK"),
+        (0.370, "◯", POSS_RING, " on ball"),
+        (0.465, "▶", "white", " motion"),
+        (0.575, "✸", HALO_COLOR, " ball's top-attended (halos + edges)"),
     ]
     for x, sym, col, lbl in legend_items:
-        fig.text(x, legend_y, sym, color=col, va="top", fontsize=13)
-        fig.text(x + 0.013, legend_y, lbl, color="#94a3b8", va="top", fontsize=10)
+        fig.text(x, legend_y, sym, color=col, va="top", fontsize=12)
+        fig.text(x + 0.012, legend_y, lbl, color="#94a3b8", va="top", fontsize=9.5)
 
-    # Status row BELOW the pitch and ABOVE the chart — no longer overlapping the legend.
-    # We update its text per-frame in update().
+    # Status row BETWEEN the pitch and the chart, its own dedicated band.
     status_text = fig.text(
-        0.5, 0.395, "", ha="center", va="top",
-        color="#e9f0ff", fontsize=11.5,
+        0.5, 0.495, "", ha="center", va="top",
+        color="#e9f0ff", fontsize=11,
     )
-    title = status_text  # keep variable name so the inner update() doesn't need refactoring
+    title = status_text  # keep var name so the inner update() doesn't need refactoring
 
     # --- probability plot below ---
     ax_line.set_facecolor("#0b1220")
@@ -209,8 +208,16 @@ def render_clip(
     ax_line.set_xlabel(f"Frame in clip (5 Hz → {seconds:.0f} seconds)", color="#94a3b8")
     ax_line.set_ylabel("Model probability", color="#94a3b8")
     ax_line.grid(True, color="#1f2c44", lw=0.6)
-    ax_line.plot(np.arange(W), clip_p_shot, color="#fde047", lw=1.6, alpha=0.45, label="P(shot in next 15s)")
-    ax_line.plot(np.arange(W), clip_p_goal, color="#f87171", lw=1.6, alpha=0.7,  label="P(goal in next 15s)")
+    ax_line.plot(np.arange(W), clip_p_shot, color="#fde047", lw=1.8, alpha=0.55, label="P(shot in next 15s)")
+    ax_line.plot(np.arange(W), clip_p_goal, color="#f87171", lw=1.8, alpha=0.75, label="P(goal in next 15s)")
+    # Mark the actual goal moment if known
+    if goal_frame_in_clip is not None and 0 <= goal_frame_in_clip < W:
+        ax_line.axvline(goal_frame_in_clip, color="#00d68f", lw=2, alpha=0.75, label="actual goal")
+        ax_pitch.text(
+            0, HALF_W + 1.5,
+            "↓ goal moment marked below ↓" if goal_frame_in_clip > 0 else "",
+            ha="center", va="bottom", color="#00d68f", fontsize=9, alpha=0.0,  # placeholder; we'll just use the line
+        )
     ax_line.legend(loc="upper left", framealpha=0.0, labelcolor="#e9f0ff", fontsize=9)
     (progress_dot_shot,) = ax_line.plot([0], [clip_p_shot[0]], color="#fde047", marker="o", ms=10, lw=0)
     (progress_dot_goal,) = ax_line.plot([0], [clip_p_goal[0]], color="#f87171", marker="o", ms=10, lw=0)
@@ -421,39 +428,44 @@ render_clip(
 # ---------------------------------------------------------------------------
 # 5) Goal-anchored clip
 # ---------------------------------------------------------------------------
-print("[5/5] Picking a real goal and rendering the 15s before it …")
+print("[5/5] Picking a real goal and rendering the window AROUND it …")
 events = load_metrica_events("2")
 goal_rows = events[
     (events["Type"] == "SHOT")
     & events["Subtype"].astype(str).str.contains("GOAL", na=False)
 ]
 print(f"      {len(goal_rows)} goals available in match 2.")
-# Pick the goal whose pre-goal window is best contained in the dataset.
-# Each goal's native Start Frame → find nearest sampled index.
-W_GOAL = 75  # 15 s at 5 Hz
+# Show 11 s BEFORE + 4 s AFTER the goal (so the user sees the shot happen,
+# not just the buildup).  W_GOAL = 75 frames at 5 Hz = 15 s total.
+W_GOAL = 75
+PRE_FRAMES = 55   # 11 s buildup
+POST_FRAMES = W_GOAL - PRE_FRAMES  # 4 s after the goal
 chosen_start = None
 for _, g in goal_rows.iterrows():
     native_goal_f = int(g["Start Frame"])
-    # Sampled idx whose native frame is closest to and just before the goal
+    # Find the sampled idx whose native frame is just at or after the goal.
     diffs = sampled_native_frames - native_goal_f
-    # We want the largest sampled idx with diff <= 0 (i.e., at or before goal)
-    pre_mask = diffs <= 0
-    if not pre_mask.any():
+    # First sampled frame on/after the goal moment
+    post_mask = diffs >= 0
+    if not post_mask.any():
         continue
-    end_idx = int(np.where(pre_mask)[0].max())
-    s = end_idx - W_GOAL
-    if s >= 0:
+    goal_idx = int(np.where(post_mask)[0].min())
+    s = goal_idx - PRE_FRAMES
+    e = goal_idx + POST_FRAMES
+    if s >= 0 and e < len(match2_frames):
         chosen_start = s
-        chosen_end = end_idx
+        chosen_end = e
+        chosen_goal_idx = goal_idx
         chosen_goal = g
         break
 
 if chosen_start is not None:
     print(f"      goal @ native frame {int(chosen_goal['Start Frame'])} "
-          f"team={chosen_goal['Team']} subtype={chosen_goal['Subtype']}  "
-          f"→ window {chosen_start}-{chosen_end}")
+          f"(sampled idx {chosen_goal_idx})  team={chosen_goal['Team']}  "
+          f"subtype={chosen_goal['Subtype']}  → window {chosen_start}-{chosen_end} "
+          f"(goal at frame {chosen_goal_idx-chosen_start}/{W_GOAL})")
     ct, cchem, cps, cpg, cj, ct_ = gather_window(chosen_start, chosen_end)
-    banner = (f"Metrica match 2  ·  15s before a real goal "
+    banner = (f"Metrica match 2  ·  11s buildup + 4s after a real goal "
               f"({chosen_goal['Team']} · {chosen_goal['Subtype']})")
     render_clip(
         out_path=GOAL_PATH,
@@ -462,6 +474,7 @@ if chosen_start is not None:
         clip_jerseys=cj, clip_teams=ct_,
         top_banner=banner,
         fps=6,
+        goal_frame_in_clip=chosen_goal_idx - chosen_start,
     )
 else:
     print("      no goal had a fully-contained 15s pre-window.")

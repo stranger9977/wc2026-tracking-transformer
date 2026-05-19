@@ -1,0 +1,14 @@
+{
+  "corpus": "full",
+  "epochs": 8,
+  "train_frames": 171356,
+  "val_frames": 16603,
+  "train_label_mean": 0.04290394112467766,
+  "val_label_mean": 0.036702875047922134,
+  "val_loss": 0.00043340297997929156,
+  "val_mae": 0.017044315114617348,
+  "val_spearman_ours": 0.6877539753913879,
+  "val_spearman_xt_lookup": 0.610671877861023,
+  "val_lift_vs_lookup": 0.0770820677280426,
+  "ckpt_path": "/Users/nick/wc2026-tracking-transformer/output/transformer_xt_regression.ckpt"
+}

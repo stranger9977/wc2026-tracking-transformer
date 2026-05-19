@@ -10,5 +10,14 @@ Tracking Data." CMSAC Workshop, 2024.
 
 from wc2026_tracking_transformer.model.lit_model import NextEventValueLitModule
 from wc2026_tracking_transformer.model.transformer import SoccerTrackingTransformer
+from wc2026_tracking_transformer.model.xt_regression import (
+    XTRegressionHead,
+    XTRegressionLitModule,
+)
 
-__all__ = ["NextEventValueLitModule", "SoccerTrackingTransformer"]
+__all__ = [
+    "NextEventValueLitModule",
+    "SoccerTrackingTransformer",
+    "XTRegressionHead",
+    "XTRegressionLitModule",
+]

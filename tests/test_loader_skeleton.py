@@ -12,7 +12,7 @@ import pytest
 
 # Sources whose loaders are still scaffolds. Metrica and DFL are implemented
 # and tested separately (test_metrica_loader.py, test_dfl_loader.py).
-SCAFFOLDED = ["skillcorner", "pff"]
+SCAFFOLDED = ["pff"]
 
 
 @pytest.mark.parametrize("source", SCAFFOLDED)

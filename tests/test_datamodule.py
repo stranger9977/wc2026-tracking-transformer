@@ -30,7 +30,7 @@ def test_synthetic_datamodule_constructs_and_yields_batches() -> None:
         assert y.shape == (x.shape[0], 2)
 
 
-@pytest.mark.parametrize("source", ["skillcorner", "pff"])
+@pytest.mark.parametrize("source", ["pff"])
 def test_real_source_raises_until_loader_implemented(source: str) -> None:
     """Real-data sources should NotImplementedError until their loader exists."""
     from wc2026_tracking_transformer.data import SoccerTrackingDataModule

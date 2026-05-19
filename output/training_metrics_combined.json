@@ -1,0 +1,84 @@
+{
+  "train_frames_total": 171356,
+  "val_frames_total": 16603,
+  "matches_train": [
+    "metrica_1",
+    "skillcorner_1886347",
+    "skillcorner_1899585",
+    "skillcorner_1925299",
+    "skillcorner_1953632",
+    "skillcorner_1996435",
+    "skillcorner_2006229",
+    "skillcorner_2011166",
+    "skillcorner_2013725",
+    "skillcorner_2015213",
+    "skillcorner_2017461",
+    "metrica_2_val"
+  ],
+  "per_source_stats": {
+    "metrica_1": {
+      "frames": 17604,
+      "p_score": 0.5369234085083008,
+      "p_concede": 0.3886048495769501
+    },
+    "skillcorner_1886347": {
+      "frames": 15706,
+      "p_score": 0.49770787358283997,
+      "p_concede": 0.4498917758464813
+    },
+    "skillcorner_1899585": {
+      "frames": 14367,
+      "p_score": 0.48493075370788574,
+      "p_concede": 0.5053942799568176
+    },
+    "skillcorner_1925299": {
+      "frames": 17478,
+      "p_score": 0.5131593942642212,
+      "p_concede": 0.4639546871185303
+    },
+    "skillcorner_1953632": {
+      "frames": 16178,
+      "p_score": 0.4923970699310303,
+      "p_concede": 0.4411546587944031
+    },
+    "skillcorner_1996435": {
+      "frames": 15923,
+      "p_score": 0.46517616510391235,
+      "p_concede": 0.5267223715782166
+    },
+    "skillcorner_2006229": {
+      "frames": 15884,
+      "p_score": 0.4634852707386017,
+      "p_concede": 0.46795517206192017
+    },
+    "skillcorner_2011166": {
+      "frames": 13539,
+      "p_score": 0.5933968424797058,
+      "p_concede": 0.4238865375518799
+    },
+    "skillcorner_2013725": {
+      "frames": 15399,
+      "p_score": 0.4776284098625183,
+      "p_concede": 0.5297746658325195
+    },
+    "skillcorner_2015213": {
+      "frames": 15357,
+      "p_score": 0.5056977272033691,
+      "p_concede": 0.5221722722053528
+    },
+    "skillcorner_2017461": {
+      "frames": 13921,
+      "p_score": 0.46806982159614563,
+      "p_concede": 0.5569283962249756
+    },
+    "metrica_2_val": {
+      "frames": 16603,
+      "p_score": 0.4363669157028198,
+      "p_concede": 0.46786725521087646
+    }
+  },
+  "val_loss": 0.34472256898880005,
+  "val_acc": 0.839788019657135,
+  "val_auc_head0_atk_third": 0.9168245531515276,
+  "val_auc_head1_def_third": 0.9208256763632612
+}

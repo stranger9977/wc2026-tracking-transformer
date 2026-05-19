@@ -120,3 +120,49 @@ def xt_per_frame(frames_tensor: np.ndarray) -> np.ndarray:
     rows = (fx * N_X_BINS).astype(np.int64)
     cols = (fy * N_Y_BINS).astype(np.int64)
     return XT_GRID[rows, cols]
+
+
+def future_xt_labels(
+    frames_tensor: np.ndarray,
+    *,
+    k_seconds: float,
+    frame_rate_hz: float,
+) -> np.ndarray:
+    """Build per-frame regression targets: max xT in the next K seconds.
+
+    For each frame at index t, the label is the maximum xT value the ball
+    reaches over the window ``(t, t + K * fps]``. This is the dense,
+    continuous, off-ball-aware target we use to replace the sparse binary
+    shot/goal labels.
+
+    Args:
+        frames_tensor: ``(N, 23, 7)`` array of frames.
+        k_seconds: Look-ahead window in seconds.
+        frame_rate_hz: Effective frame rate of the sampled tensor.
+
+    Returns:
+        ``(N - window,)`` float32 array of max-xT targets. Trailing frames
+        without a full look-ahead window are dropped — caller should slice
+        ``frames_tensor[:len(labels)]`` to keep them aligned.
+    """
+    xt_per = xt_per_frame(frames_tensor).astype(np.float32)
+    window = int(round(k_seconds * frame_rate_hz))
+    n = xt_per.shape[0]
+    if n <= window:
+        return np.zeros(0, dtype=np.float32)
+    # For each i in [0, n - window), label = max(xt_per[i+1 : i+1+window]).
+    # Use a sliding-window max via stride tricks for speed.
+    from numpy.lib.stride_tricks import sliding_window_view
+    future = sliding_window_view(xt_per[1:], window)  # shape (n - window, window)
+    return future.max(axis=1).astype(np.float32)
+
+
+def xt_now(frames_tensor: np.ndarray) -> np.ndarray:
+    """Convenience alias for :func:`xt_per_frame` — the xT-lookup baseline.
+
+    Returns:
+        ``(N,)`` float32 array of current-frame xT values for use as the
+        no-ML baseline when comparing against a learned model on the same
+        future-xT target.
+    """
+    return xt_per_frame(frames_tensor).astype(np.float32)
