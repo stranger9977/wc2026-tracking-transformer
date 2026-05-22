@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Methodology</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="pairs.html">Top Pairs</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Methodology</h1>
+    <p class="dim">
+      Full math, modelling choices, and limitations. This recreates Bransen &amp;
+      Van Haaren (MIT Sloan, 2020) using PFF event data from the 2022 FIFA World
+      Cup. References to "the paper" point to that work.
+    </p>
+
+    <h2>1. From events to action value (VAEP)</h2>
+    <p>
+      Every on-ball event in PFF is converted to SPADL (Soccer Player Action
+      Description Language) form. We then train two gradient-boosted classifiers
+      over a 3-action context window:
+    </p>
+    <ul>
+      <li><strong>P-score</strong>: probability the possessing team scores within the next 10 actions.</li>
+      <li><strong>P-concede</strong>: probability the possessing team concedes within the next 10 actions.</li>
+    </ul>
+    <p>VAEP action value for action \(a\) is the change in expected goal difference it produces:</p>
+    <div class="formula">
+      \[ V(a) = \big( P_{\mathrm{score}}(s_a) - P_{\mathrm{score}}(s_{a-1}) \big)
+            - \big( P_{\mathrm{concede}}(s_a) - P_{\mathrm{concede}}(s_{a-1}) \big) \]
+    </div>
+    <details class="code-toggle">
+      <summary>Python implementation (excerpt)</summary>
+<pre><code class="lang-py"># research/src/chemistry/vaep/model.py
+# For each action, the "prior state" must be flipped if the previous
+# action belonged to the opposing team (so prior P_score / P_concede
+# swap from the current team's perspective).
+same = (teams == prev_team)
+prev_value_self_persp = np.where(same, prev_pS - prev_pC, prev_pC - prev_pS)
+df["vaep_value"] = (pS - pC) - prev_value_self_persp</code></pre>
+    </details>
+    <p id="vaep-metrics" class="small dim">VAEP out-of-fold metrics will load here.</p>
+
+    <h2>2. Joint Offensive Impact (JOI)</h2>
+    <p>
+      For an ordered pair of consecutive actions \((a_i, a_{i+1})\) by teammates
+      \(p\) and \(q\), both VAEP values contribute to JOI(p, q). We sum across
+      all such interactions in the corpus.
+    </p>
+    <div class="formula">
+      \[ \mathrm{JOI}(p, q) = \sum_{(a_i, a_{i+1}) \in S_{p, q}} V(a_i) + V(a_{i+1}) \]
+    </div>
+    <details class="code-toggle">
+      <summary>Python implementation (excerpt)</summary>
+<pre><code class="lang-py"># research/src/chemistry/joint/joi.py
+INTERACTION_TYPES = {"pass", "cross", "dribble", "take_on", "shot"}
+for i in range(n - 1):
+    if types[i] not in INTERACTION_TYPES or types[i+1] not in INTERACTION_TYPES:
+        continue
+    if teams[i] != teams[i+1] or players[i] == players[i+1]:
+        continue
+    lo, hi = sorted((players[i], players[i+1]))
+    pair_sum[(lo, hi)] += vaeps[i] + vaeps[i+1]
+
+# Per-90 normalization
+joi90 = joi * 90.0 / minutes_together</code></pre>
+    </details>
+    <p>
+      JOI is normalized by minutes the pair shared on the pitch:
+      \( \mathrm{JOI90}(p,q) = 90 \cdot \mathrm{JOI}(p,q) / m_{p,q} \).
+    </p>
+
+    <h2>3. Joint Defensive Impact (JDI)</h2>
+    <p>
+      Match event data describes the actions that <em>happened</em>, not the
+      actions a defender <em>prevented</em>. JDI sidesteps this by giving credit
+      to a same-team pair when their opponents underperform their expected
+      offensive impact. For every opposing player \(o\) the pair faced, we
+      compute the gap between \(o\)'s expected and actual OI and divide it
+      across same-team pairs by a responsibility share derived from the 5×5
+      position grid.
+    </p>
+    <p><strong>Per-match offensive impact</strong> of player \(o\):</p>
+    <div class="formula">
+      \[ \mathrm{OI}_m(o) \;=\; \sum_{a \in \{\text{pass, cross, dribble, take-on, shot}\}} V(a) \]
+    </div>
+    <p>
+      <strong>Expected OI</strong> uses player \(o\)'s per-90 mean across
+      <em>prior</em> matches in this dataset, Bayesian-shrunk toward a
+      positional prior (GK / DEF / MID / FWD) when fewer than \(M_0 = 700\)
+      minutes have been played.
+    </p>
+    <p>
+      <strong>Responsibility share.</strong> Each on-pitch teammate has
+      individual share
+      \( r_p(o) = (1/d(p, o)) \,/\, \sum_q (1/d(q, o)) \),
+      where \(d\) is Euclidean distance in the 5×5 grid <em>after mirroring</em>
+      the opponent's cell into our coordinate frame (so our defenders land near
+      their forwards). The pair share is the simple mean
+      \( R_m(p, q, o) = \tfrac{1}{2}\big(r_p(o) + r_q(o)\big) \).
+    </p>
+    <p><strong>Per-match JDI</strong>:</p>
+    <div class="formula">
+      \[ \mathrm{JDI}_m(p, q) \;=\; \sum_o \big( \mathbb{E}[\mathrm{OI}_m(o)] - \mathrm{OI}_m(o) \big)
+         \cdot R_m(p, q, o) \cdot \frac{\mathrm{mins}_m(p, q, o)}{90} \]
+    </div>
+    <details class="code-toggle">
+      <summary>Python implementation (excerpt)</summary>
+<pre><code class="lang-py"># research/src/chemistry/joint/jdi.py
+def _mirror_position(pos):
+    r, c = grid_cell(pos)               # 0..5 rows, 0..4 cols
+    return ((4 - r) if r &lt;= 4 else 5, 4 - c)
+
+def _responsibility_per_opponent(team_players, opponent_pos):
+    distances = {p.id: 1.0 / (grid_distance_vs_opponent(p.pos, opponent_pos) + 0.5)
+                 for p in team_players}
+    total = sum(distances.values())
+    indiv = {pid: w / total for pid, w in distances.items()}
+    # pair share = (s_p + s_q) / 2
+    return {(p, q): (indiv[p] + indiv[q]) / 2 for p, q in pairs(team_players)}
+
+def jdi_m(pair_p, pair_q, opponents):
+    return sum(
+        (E_OI[o] - OI[o]) * RESP[(pair_p, pair_q, o)] * mins_m[(pair_p, pair_q, o)] / 90
+        for o in opponents
+    )</code></pre>
+    </details>
+    <p>
+      Aggregated across matches and normalized per 90 shared minutes gives JDI90.
+    </p>
+    <p id="predictor-metrics" class="small dim">Predictor metrics will load here.</p>
+
+    <h2>4. Team builder (mixed-integer program)</h2>
+    <p>
+      Given pair-chemistry scores for every two-player combination in a squad,
+      Bransen's optimal-XI selection is a 0/1 MIP:
+    </p>
+    <div class="formula">
+      \[ \max_{x \in \{0,1\}^{|P|}} \sum_{p \lt q} \mathrm{Chem}(p, q) \cdot x_p x_q \]
+      \[ \text{s.t.} \quad \sum_p x_p = 11, \quad \sum_{p \in \mathrm{GK}} x_p = 1,
+         \quad \sum_{p \in \mathrm{DEF}} x_p = n_{\mathrm{DEF}}, \ldots \]
+    </div>
+    <p>
+      The product \(x_p x_q\) is linearized via a standard pair-indicator
+      auxiliary variable \(y_{pq} \in [0,1]\) with constraints
+      \(y_{pq} \le x_p,\ y_{pq} \le x_q,\ y_{pq} \ge x_p + x_q - 1\).
+    </p>
+    <details class="code-toggle">
+      <summary>Python implementation (excerpt)</summary>
+<pre><code class="lang-py"># research/src/chemistry/teambuilder/builder.py
+# Formation-enumeration variant of Bransen's MIP.
+FORMATIONS = {
+    "4-3-3":   {"GK": 1, "DEF": 4, "MID": 3, "FWD": 3},
+    "4-4-2":   {"GK": 1, "DEF": 4, "MID": 4, "FWD": 2},
+    "3-5-2":   {"GK": 1, "DEF": 3, "MID": 5, "FWD": 2},
+    "3-4-3":   {"GK": 1, "DEF": 3, "MID": 4, "FWD": 3},
+    "4-2-3-1": {"GK": 1, "DEF": 4, "MID": 5, "FWD": 1},
+}
+
+# Pair value combines offense + defense by user-chosen alpha
+pair_value[(p, q)] = alpha * joi90[(p, q)] + (1 - alpha) * jdi90[(p, q)]
+
+best = None
+for fname, slots in FORMATIONS.items():
+    for gk in combinations(by_role["GK"], slots["GK"]):
+      for d in combinations(by_role["DEF"], slots["DEF"]):
+        for m in combinations(by_role["MID"], slots["MID"]):
+          for f in combinations(by_role["FWD"], slots["FWD"]):
+              team = list(gk) + list(d) + list(m) + list(f)
+              score = sum(pair_value.get((min(a,b), max(a,b)), 0.0)
+                          for a, b in combinations(team, 2))
+              if best is None or score &gt; best["score"]:
+                  best = {"formation": fname, "score": score, "players": team}</code></pre>
+    </details>
+
+    <h2>5. Limitations</h2>
+    <ul>
+      <li><strong>Small sample.</strong> 64 matches across 32 teams means many pairs share
+        well under 90 minutes. We apply a minimum-minutes filter on the Top Pairs
+        tables to mitigate, but JDI90 in particular is noisy at low sample.</li>
+      <li><strong>Defensive responsibility is a heuristic.</strong> Bransen approximates
+        defensive involvement from on-ball recovery / tackle / interception
+        actions in each zone. Off-ball positioning is invisible to event data —
+        a complementary tracking-data line of work lives in
+        <code>src/wc2026_tracking_transformer/</code>.</li>
+      <li><strong>VAEP credit-assignment is action-level.</strong> A pass that "creates space"
+        but doesn't directly trigger threat is undervalued. Chemistry inherits
+        this.</li>
+      <li><strong>National-team novelty effect.</strong> The very thing we want to study —
+        teams whose players don't play together often — is also the smallest-sample
+        regime. Treat absolute numbers as suggestive, comparisons within a team
+        as more robust.</li>
+    </ul>
+
+    <h2>6. Repro</h2>
+    <p>
+      All intermediate parquet files are exported as CSV on the
+      <a href="downloads.html">Downloads</a> page. The full SPADL + VAEP pipeline
+      and the JOI/JDI compute live in <code>research/scripts/</code>. Model artifacts
+      (<code>predictor.joblib</code>, <code>vaep_bundle.joblib</code>) are also published.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    PFF event data, 64 matches, FIFA World Cup 2022. Method recreated from
+    Bransen &amp; Van Haaren (MIT Sloan, 2020).
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous" defer
+          onload="renderMathInElement(document.body, {delimiters: [{left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}]});"></script>
+  <script type="module">
+    import { loadJSON, escapeHTML, fmtNum } from "./assets/js/site.js";
+
+    const vaepEl = document.getElementById("vaep-metrics");
+    const predEl = document.getElementById("predictor-metrics");
+    const data = await loadJSON("data/overview.json");
+    if (data) {
+      const vm = data.vaep_metrics || {};
+      if (vm.score_auc !== undefined || vm.concede_auc !== undefined) {
+        vaepEl.innerHTML =
+          `VAEP out-of-fold metrics: ` +
+          `score AUC <strong>${fmtNum(vm.score_auc, 3)}</strong> · ` +
+          `concede AUC <strong>${fmtNum(vm.concede_auc, 3)}</strong> · ` +
+          `score Brier <strong>${fmtNum(vm.score_brier, 4)}</strong> · ` +
+          `concede Brier <strong>${fmtNum(vm.concede_brier, 4)}</strong> · ` +
+          `${fmtNum(vm.n_actions, 0)} actions, ${fmtNum(vm.n_scores, 0)} scoring, ${fmtNum(vm.n_concedes, 0)} conceding.`;
+      }
+      const pm = data.predictor_metrics || {};
+      if (pm.joi_r2 !== undefined || pm.jdi_r2 !== undefined) {
+        const parts = [];
+        if (pm.n_pairs !== undefined) parts.push(`${fmtNum(pm.n_pairs, 0)} pairs`);
+        if (pm.joi_r2 !== undefined) parts.push(`JOI R² <strong>${fmtNum(pm.joi_r2, 3)}</strong>`);
+        if (pm.joi_model_rmse !== undefined) parts.push(`JOI RMSE <strong>${fmtNum(pm.joi_model_rmse, 4)}</strong>`);
+        if (pm.jdi_r2 !== undefined) parts.push(`JDI R² <strong>${fmtNum(pm.jdi_r2, 3)}</strong>`);
+        if (pm.jdi_model_rmse !== undefined) parts.push(`JDI RMSE <strong>${fmtNum(pm.jdi_model_rmse, 4)}</strong>`);
+        predEl.innerHTML = `Predictor 5-fold CV: ${parts.join(" · ")}`;
+      }
+    }
+  </script>
+</body>
+</html>

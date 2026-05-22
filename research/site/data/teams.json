@@ -1,0 +1,642 @@
+[
+  {
+    "team_id": "363",
+    "team_name": "France",
+    "color": "#003366",
+    "flag_code": "fr",
+    "n_matches": 7,
+    "players_used": 25,
+    "qualifying_pairs_joi": 147,
+    "qualifying_pairs_jdi": 161,
+    "best_joi_pair": {
+      "name_p": "Kylian Mbapp\u00e9",
+      "name_q": "Marcus Thuram",
+      "joi90": 1.0999946089673287
+    },
+    "best_jdi_pair": {
+      "name_p": "Matt\u00e9o Guendouzi",
+      "name_q": "Aur\u00e9lien Tchouam\u00e9ni",
+      "jdi90": 0.07840458083724981
+    }
+  },
+  {
+    "team_id": "364",
+    "team_name": "Argentina",
+    "color": "#6633cc",
+    "flag_code": "ar",
+    "n_matches": 7,
+    "players_used": 26,
+    "qualifying_pairs_joi": 112,
+    "qualifying_pairs_jdi": 121,
+    "best_joi_pair": {
+      "name_p": "Leandro Paredes",
+      "name_q": "Lautaro Martinez",
+      "joi90": 2.7113221446944697
+    },
+    "best_jdi_pair": {
+      "name_p": "\u00c1ngel Di Mar\u00eda",
+      "name_q": "Gonzalo Montiel",
+      "jdi90": 0.07875929020684244
+    }
+  },
+  {
+    "team_id": "371",
+    "team_name": "Croatia",
+    "color": "#ffffff",
+    "flag_code": "hr",
+    "n_matches": 7,
+    "players_used": 26,
+    "qualifying_pairs_joi": 127,
+    "qualifying_pairs_jdi": 135,
+    "best_joi_pair": {
+      "name_p": "Andrej Kramaric",
+      "name_q": "Bruno Petkovic",
+      "joi90": 0.8491144287536562
+    },
+    "best_jdi_pair": {
+      "name_p": "Mislav Orsic",
+      "name_q": "Marko Livaja",
+      "jdi90": 0.09601553914153173
+    }
+  },
+  {
+    "team_id": "374",
+    "team_name": "Morocco",
+    "color": "#ffffff",
+    "flag_code": "ma",
+    "n_matches": 7,
+    "players_used": 26,
+    "qualifying_pairs_joi": 115,
+    "qualifying_pairs_jdi": 130,
+    "best_joi_pair": {
+      "name_p": "Hakim Ziyech",
+      "name_q": "Zakaria Aboukhlal",
+      "joi90": 1.1676272124426534
+    },
+    "best_jdi_pair": {
+      "name_p": "Azzedine Ounahi",
+      "name_q": "Abdelhamid Sabiri",
+      "jdi90": 0.10194367043222285
+    }
+  },
+  {
+    "team_id": "361",
+    "team_name": "Brazil",
+    "color": "#3399ff",
+    "flag_code": "br",
+    "n_matches": 5,
+    "players_used": 26,
+    "qualifying_pairs_joi": 119,
+    "qualifying_pairs_jdi": 131,
+    "best_joi_pair": {
+      "name_p": "Casemiro",
+      "name_q": "Rodrygo",
+      "joi90": 0.8476382960999711
+    },
+    "best_jdi_pair": {
+      "name_p": "Eder Militao",
+      "name_q": "Bruno Guimar\u00e3es",
+      "jdi90": 0.08753281556243872
+    }
+  },
+  {
+    "team_id": "365",
+    "team_name": "Portugal",
+    "color": "#ffffff",
+    "flag_code": "pt",
+    "n_matches": 5,
+    "players_used": 26,
+    "qualifying_pairs_joi": 141,
+    "qualifying_pairs_jdi": 149,
+    "best_joi_pair": {
+      "name_p": "Rapha\u00ebl Guerreiro",
+      "name_q": "Rafael Leao",
+      "joi90": 1.4388651338784006
+    },
+    "best_jdi_pair": {
+      "name_p": "Matheus Nunes",
+      "name_q": "Ricardo Horta",
+      "jdi90": 0.06913215351787626
+    }
+  },
+  {
+    "team_id": "366",
+    "team_name": "Netherlands",
+    "color": "#ff9933",
+    "flag_code": "nl",
+    "n_matches": 5,
+    "players_used": 26,
+    "qualifying_pairs_joi": 101,
+    "qualifying_pairs_jdi": 105,
+    "best_joi_pair": {
+      "name_p": "Steven Berghuis",
+      "name_q": "Memphis Depay",
+      "joi90": 1.1077202692266708
+    },
+    "best_jdi_pair": {
+      "name_p": "Steven Berghuis",
+      "name_q": "Matthijs De Ligt",
+      "jdi90": 0.09286245586582408
+    }
+  },
+  {
+    "team_id": "50",
+    "team_name": "England",
+    "color": "#ffffff",
+    "flag_code": "gb-eng",
+    "n_matches": 5,
+    "players_used": 26,
+    "qualifying_pairs_joi": 103,
+    "qualifying_pairs_jdi": 108,
+    "best_joi_pair": {
+      "name_p": "Harry Kane",
+      "name_q": "Phil Foden",
+      "joi90": 0.7508458609265505
+    },
+    "best_jdi_pair": {
+      "name_p": "Phil Foden",
+      "name_q": "Bukayo Saka",
+      "jdi90": 0.04910841658674298
+    }
+  },
+  {
+    "team_id": "370",
+    "team_name": "Switzerland",
+    "color": "#ffffff",
+    "flag_code": "ch",
+    "n_matches": 4,
+    "players_used": 26,
+    "qualifying_pairs_joi": 89,
+    "qualifying_pairs_jdi": 101,
+    "best_joi_pair": {
+      "name_p": "Denis Zakaria",
+      "name_q": "Breel Embolo",
+      "joi90": 1.3985914686900773
+    },
+    "best_jdi_pair": {
+      "name_p": "Rub\u00e9n Vargas",
+      "name_q": "Nico Elvedi",
+      "jdi90": 0.04207494102585735
+    }
+  },
+  {
+    "team_id": "372",
+    "team_name": "Senegal",
+    "color": "#ffffff",
+    "flag_code": "sn",
+    "n_matches": 4,
+    "players_used": 26,
+    "qualifying_pairs_joi": 108,
+    "qualifying_pairs_jdi": 118,
+    "best_joi_pair": {
+      "name_p": "Bamba Dieng",
+      "name_q": "Youssouf Sabaly",
+      "joi90": 1.9053394982072949
+    },
+    "best_jdi_pair": {
+      "name_p": "Cheikhou Kouyat\u00e9",
+      "name_q": "Boulaye Dia",
+      "jdi90": 0.05711487311804174
+    }
+  },
+  {
+    "team_id": "376",
+    "team_name": "Poland",
+    "color": "#ffffff",
+    "flag_code": "pl",
+    "n_matches": 4,
+    "players_used": 26,
+    "qualifying_pairs_joi": 74,
+    "qualifying_pairs_jdi": 82,
+    "best_joi_pair": {
+      "name_p": "Robert Lewandowski",
+      "name_q": "Krystian Bielik",
+      "joi90": 0.3475887645525034
+    },
+    "best_jdi_pair": {
+      "name_p": "Sebastian Szymanski",
+      "name_q": "Grzegorz Krychowiak",
+      "jdi90": 0.04127573968185124
+    }
+  },
+  {
+    "team_id": "377",
+    "team_name": "South Korea",
+    "color": "#ff0000",
+    "flag_code": "kr",
+    "n_matches": 4,
+    "players_used": 26,
+    "qualifying_pairs_joi": 94,
+    "qualifying_pairs_jdi": 100,
+    "best_joi_pair": {
+      "name_p": "Kang-in Lee",
+      "name_q": "Woo-young Jung",
+      "joi90": 0.6743813258627706
+    },
+    "best_jdi_pair": {
+      "name_p": "Jae-sung Lee",
+      "name_q": "Sang-ho Na",
+      "jdi90": 0.0831151111647133
+    }
+  },
+  {
+    "team_id": "386",
+    "team_name": "Australia",
+    "color": "#003333",
+    "flag_code": "au",
+    "n_matches": 4,
+    "players_used": 26,
+    "qualifying_pairs_joi": 87,
+    "qualifying_pairs_jdi": 98,
+    "best_joi_pair": {
+      "name_p": "Mitchell Duke",
+      "name_q": "Craig Goodwin",
+      "joi90": 0.47733083633498413
+    },
+    "best_jdi_pair": {
+      "name_p": "Aaron Mooy",
+      "name_q": "Ajdin Hrustic",
+      "jdi90": 0.0422753948356467
+    }
+  },
+  {
+    "team_id": "51",
+    "team_name": "United States",
+    "color": "#0066cc",
+    "flag_code": "us",
+    "n_matches": 4,
+    "players_used": 26,
+    "qualifying_pairs_joi": 88,
+    "qualifying_pairs_jdi": 93,
+    "best_joi_pair": {
+      "name_p": "Tim Ream",
+      "name_q": "Giovanni Reyna",
+      "joi90": 1.3903590361449427
+    },
+    "best_jdi_pair": {
+      "name_p": "Kellyn Acosta",
+      "name_q": "Tyler Adams",
+      "jdi90": 0.14964664378117623
+    }
+  },
+  {
+    "team_id": "52",
+    "team_name": "Spain",
+    "color": "#cc0000",
+    "flag_code": "es",
+    "n_matches": 4,
+    "players_used": 26,
+    "qualifying_pairs_joi": 110,
+    "qualifying_pairs_jdi": 118,
+    "best_joi_pair": {
+      "name_p": "Alvaro Morata",
+      "name_q": "Jordi Alba",
+      "joi90": 1.3373294411743482
+    },
+    "best_jdi_pair": {
+      "name_p": "Marcos Llorente",
+      "name_q": "Dani Olmo",
+      "jdi90": 0.04718579125686291
+    }
+  },
+  {
+    "team_id": "57",
+    "team_name": "Japan",
+    "color": "#3399ff",
+    "flag_code": "jp",
+    "n_matches": 4,
+    "players_used": 26,
+    "qualifying_pairs_joi": 115,
+    "qualifying_pairs_jdi": 127,
+    "best_joi_pair": {
+      "name_p": "Maya Yoshida",
+      "name_q": "Daizen Maeda",
+      "joi90": 0.7891309380217465
+    },
+    "best_jdi_pair": {
+      "name_p": "Ritsu Doan",
+      "name_q": "Miki Yamane",
+      "jdi90": 0.10227855097929275
+    }
+  },
+  {
+    "team_id": "360",
+    "team_name": "Qatar",
+    "color": "#ffffcc",
+    "flag_code": "qa",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 88,
+    "qualifying_pairs_jdi": 91,
+    "best_joi_pair": {
+      "name_p": "Abdelkarim Hassan",
+      "name_q": "Almoez Ali",
+      "joi90": 0.7417037634483137
+    },
+    "best_jdi_pair": {
+      "name_p": "Saad Al-Sheeb",
+      "name_q": "Boualem Khoukhi",
+      "jdi90": 0.08666335489509601
+    }
+  },
+  {
+    "team_id": "362",
+    "team_name": "Belgium",
+    "color": "#ff0000",
+    "flag_code": "be",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 89,
+    "qualifying_pairs_jdi": 94,
+    "best_joi_pair": {
+      "name_p": "Toby Alderweireld",
+      "name_q": "Michy Batshuayi",
+      "joi90": 0.5628960586401466
+    },
+    "best_jdi_pair": {
+      "name_p": "Leander Dendoncker",
+      "name_q": "Eden Hazard",
+      "jdi90": 0.04347192286820055
+    }
+  },
+  {
+    "team_id": "367",
+    "team_name": "Denmark",
+    "color": "#ff0033",
+    "flag_code": "dk",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 89,
+    "qualifying_pairs_jdi": 95,
+    "best_joi_pair": {
+      "name_p": "Martin Braithwaite",
+      "name_q": "Joakim Maehle",
+      "joi90": 0.8109584793397251
+    },
+    "best_jdi_pair": {
+      "name_p": "Pierre-Emile H\u00f6jbjerg",
+      "name_q": "Simon Kjaer",
+      "jdi90": 0.09312805348432494
+    }
+  },
+  {
+    "team_id": "368",
+    "team_name": "Germany",
+    "color": "#ffffff",
+    "flag_code": "de",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 91,
+    "qualifying_pairs_jdi": 98,
+    "best_joi_pair": {
+      "name_p": "Jamal Musiala",
+      "name_q": "Niclas Fullkrug",
+      "joi90": 1.179771464141571
+    },
+    "best_jdi_pair": {
+      "name_p": "Ilkay G\u00fcndogan",
+      "name_q": "Nico Schlotterbeck",
+      "jdi90": 0.04715238294992434
+    }
+  },
+  {
+    "team_id": "369",
+    "team_name": "Uruguay",
+    "color": "#99ffff",
+    "flag_code": "uy",
+    "n_matches": 3,
+    "players_used": 25,
+    "qualifying_pairs_joi": 85,
+    "qualifying_pairs_jdi": 96,
+    "best_joi_pair": {
+      "name_p": "Luis Suarez",
+      "name_q": "Giorgian De Arrascaeta",
+      "joi90": 1.2821451972923186
+    },
+    "best_jdi_pair": {
+      "name_p": "Sebastian Coates",
+      "name_q": "Diego Godin",
+      "jdi90": 0.19717521429206042
+    }
+  },
+  {
+    "team_id": "373",
+    "team_name": "Iran",
+    "color": "#ffffff",
+    "flag_code": "ir",
+    "n_matches": 3,
+    "players_used": 25,
+    "qualifying_pairs_joi": 82,
+    "qualifying_pairs_jdi": 100,
+    "best_joi_pair": {
+      "name_p": "Mehdi Taremi",
+      "name_q": "Roozbeh Cheshmi",
+      "joi90": 1.0471090464740112
+    },
+    "best_jdi_pair": {
+      "name_p": "Roozbeh Cheshmi",
+      "name_q": "Morteza Pouraliganji",
+      "jdi90": 0.02607724268106031
+    }
+  },
+  {
+    "team_id": "375",
+    "team_name": "Serbia",
+    "color": "#ffffff",
+    "flag_code": "rs",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 76,
+    "qualifying_pairs_jdi": 82,
+    "best_joi_pair": {
+      "name_p": "Strahinja Pavlovic",
+      "name_q": "Du\u0161an Vlahovi\u0107",
+      "joi90": 1.0099925240244618
+    },
+    "best_jdi_pair": {
+      "name_p": "Sa\u0161a Luki\u0107",
+      "name_q": "Filip Mladenovic",
+      "jdi90": 0.00840362321343868
+    }
+  },
+  {
+    "team_id": "378",
+    "team_name": "Tunisia",
+    "color": "#ffffff",
+    "flag_code": "tn",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 93,
+    "qualifying_pairs_jdi": 100,
+    "best_joi_pair": {
+      "name_p": "Montassar Talbi",
+      "name_q": "Issam Jebali",
+      "joi90": 0.43340292786838785
+    },
+    "best_jdi_pair": {
+      "name_p": "Dylan Bronn",
+      "name_q": "Yassine Meriah",
+      "jdi90": 0.0888869601965086
+    }
+  },
+  {
+    "team_id": "379",
+    "team_name": "Cameroon",
+    "color": "#006633",
+    "flag_code": "cm",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 97,
+    "qualifying_pairs_jdi": 108,
+    "best_joi_pair": {
+      "name_p": "Eric Maxim Choupo-Moting",
+      "name_q": "Martin Hongla",
+      "joi90": 1.4116982428583902
+    },
+    "best_jdi_pair": {
+      "name_p": "Nicolas Ngamaleu",
+      "name_q": "Pierre Kunde",
+      "jdi90": 0.0872903505250987
+    }
+  },
+  {
+    "team_id": "380",
+    "team_name": "Canada",
+    "color": "#000000",
+    "flag_code": "ca",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 87,
+    "qualifying_pairs_jdi": 88,
+    "best_joi_pair": {
+      "name_p": "Jonathan David",
+      "name_q": "Stephen Eustaquio",
+      "joi90": 0.708741151111757
+    },
+    "best_jdi_pair": {
+      "name_p": "Jonathan Osorio",
+      "name_q": "Cyle Larin",
+      "jdi90": 0.02621364378293712
+    }
+  },
+  {
+    "team_id": "381",
+    "team_name": "Ecuador",
+    "color": "#003366",
+    "flag_code": "ec",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 71,
+    "qualifying_pairs_jdi": 79,
+    "best_joi_pair": {
+      "name_p": "Pervis Estupinan",
+      "name_q": "Enner Valencia",
+      "joi90": 0.41829714637441945
+    },
+    "best_jdi_pair": {
+      "name_p": "Jos\u00e9 Cifuentes",
+      "name_q": "Gonzalo Plata",
+      "jdi90": 0.047307710669482236
+    }
+  },
+  {
+    "team_id": "382",
+    "team_name": "Saudi Arabia",
+    "color": "#006600",
+    "flag_code": "sa",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 79,
+    "qualifying_pairs_jdi": 86,
+    "best_joi_pair": {
+      "name_p": "Riad Sharahili",
+      "name_q": "Firas Al-Buraikan",
+      "joi90": 1.1108120202824334
+    },
+    "best_jdi_pair": {
+      "name_p": "Saud Abdulhamid",
+      "name_q": "Riad Sharahili",
+      "jdi90": 0.05172426600603109
+    }
+  },
+  {
+    "team_id": "383",
+    "team_name": "Ghana",
+    "color": "#ffffff",
+    "flag_code": "gh",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 78,
+    "qualifying_pairs_jdi": 92,
+    "best_joi_pair": {
+      "name_p": "Abdul Rahman Baba",
+      "name_q": "Osman Bukari",
+      "joi90": 0.8965918717881287
+    },
+    "best_jdi_pair": {
+      "name_p": "Jordan Ayew",
+      "name_q": "Mohammed Kudus",
+      "jdi90": -0.014406196315432895
+    }
+  },
+  {
+    "team_id": "384",
+    "team_name": "Wales",
+    "color": "#ff0000",
+    "flag_code": "gb-wls",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 84,
+    "qualifying_pairs_jdi": 93,
+    "best_joi_pair": {
+      "name_p": "Danny Ward",
+      "name_q": "Gareth Bale",
+      "joi90": 1.2670295944103056
+    },
+    "best_jdi_pair": {
+      "name_p": "Wayne Hennessey",
+      "name_q": "Joe Rodon",
+      "jdi90": 0.04614699196243781
+    }
+  },
+  {
+    "team_id": "385",
+    "team_name": "Costa Rica",
+    "color": "#ff0000",
+    "flag_code": "cr",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 83,
+    "qualifying_pairs_jdi": 93,
+    "best_joi_pair": {
+      "name_p": "Joel Campbell",
+      "name_q": "Brandon Aguilera",
+      "joi90": 1.6475302341014657
+    },
+    "best_jdi_pair": {
+      "name_p": "Joel Campbell",
+      "name_q": "Gerson Torres",
+      "jdi90": 0.04019258125403782
+    }
+  },
+  {
+    "team_id": "58",
+    "team_name": "Mexico",
+    "color": "#006600",
+    "flag_code": "mx",
+    "n_matches": 3,
+    "players_used": 26,
+    "qualifying_pairs_joi": 80,
+    "qualifying_pairs_jdi": 93,
+    "best_joi_pair": {
+      "name_p": "Ra\u00fal Jim\u00e9nez",
+      "name_q": "Jes\u00fas Gallardo",
+      "joi90": 1.0738100545107119
+    },
+    "best_jdi_pair": {
+      "name_p": "Hector Herrera",
+      "name_q": "Edson Alvarez",
+      "jdi90": 0.084584697840126
+    }
+  }
+]

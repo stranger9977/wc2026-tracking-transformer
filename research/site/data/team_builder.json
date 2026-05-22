@@ -1,0 +1,2402 @@
+[
+  {
+    "team_id": "360",
+    "team_name": "Qatar",
+    "formation": "3-4-3",
+    "score": 3.328539813890768,
+    "flag_code": "qa",
+    "players": [
+      {
+        "player_id": 13941,
+        "name": "Saad Al-Sheeb",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 13944,
+        "name": "Abdelkarim Hassan",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 13948,
+        "name": "Bassam Al-Rawi",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 13945,
+        "name": "Boualem Khoukhi",
+        "role": "DEF",
+        "position": "MCB"
+      },
+      {
+        "player_id": 13947,
+        "name": "Ismaeel Mohammed",
+        "role": "MID",
+        "position": "RWB"
+      },
+      {
+        "player_id": 13956,
+        "name": "Assim Madibo",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13953,
+        "name": "Karim Boudiaf",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13954,
+        "name": "Abdulaziz Hatem",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13963,
+        "name": "Mohammed Muntari",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 13962,
+        "name": "Almoez Ali",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 13961,
+        "name": "Akram Afif",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "361",
+    "team_name": "Brazil",
+    "formation": "4-2-3-1",
+    "score": 4.164239977257106,
+    "flag_code": "br",
+    "players": [
+      {
+        "player_id": 6,
+        "name": "Ederson",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 3846,
+        "name": "Marquinhos",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 1676,
+        "name": "Eder Militao",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 9330,
+        "name": "Dani Alves",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 12945,
+        "name": "Bremer",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 13831,
+        "name": "Everton Ribeiro",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 162,
+        "name": "Gabriel Martinelli",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 44,
+        "name": "Fabinho",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 132,
+        "name": "Fred",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 3924,
+        "name": "Bruno Guimar\u00e3es",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 13830,
+        "name": "Pedro",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "362",
+    "team_name": "Belgium",
+    "formation": "3-5-2",
+    "score": 4.027156409066655,
+    "flag_code": "be",
+    "players": [
+      {
+        "player_id": 1672,
+        "name": "Thibaut Courtois",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 66,
+        "name": "Toby Alderweireld",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 67,
+        "name": "Jan Vertonghen",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 1960,
+        "name": "Timothy Castagne",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 455,
+        "name": "Leandro Trossard",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 215,
+        "name": "Youri Tielemans",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 4021,
+        "name": "J\u00e9r\u00e9my Doku",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 4674,
+        "name": "Axel Witsel",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 4684,
+        "name": "Thorgan Hazard",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 5139,
+        "name": "Romelu Lukaku",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 112,
+        "name": "Michy Batshuayi",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "363",
+    "team_name": "France",
+    "formation": "3-4-3",
+    "score": 3.4690540989908145,
+    "flag_code": "fr",
+    "players": [
+      {
+        "player_id": 3968,
+        "name": "Steve Mandanda",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 1895,
+        "name": "William Saliba",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 4607,
+        "name": "Lucas Hern\u00e1ndez",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 1675,
+        "name": "Raphael Varane",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 3870,
+        "name": "Kylian Mbapp\u00e9",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 3888,
+        "name": "Aur\u00e9lien Tchouam\u00e9ni",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 4712,
+        "name": "Marcus Thuram",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 1532,
+        "name": "Ousmane Dembele",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 4194,
+        "name": "Randal Kolo Muani",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 113,
+        "name": "Olivier Giroud",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 1534,
+        "name": "Antoine Griezmann",
+        "role": "FWD",
+        "position": "AM"
+      }
+    ]
+  },
+  {
+    "team_id": "364",
+    "team_name": "Argentina",
+    "formation": "3-5-2",
+    "score": 3.1707927043452284,
+    "flag_code": "ar",
+    "players": [
+      {
+        "player_id": 144,
+        "name": "Emiliano Mart\u00ednez",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 8419,
+        "name": "Gonzalo Montiel",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 9178,
+        "name": "Marcos Acu\u00f1a",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 13222,
+        "name": "Nahuel Molina",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 3856,
+        "name": "Leandro Paredes",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 1877,
+        "name": "Guido Rodr\u00edguez",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 3868,
+        "name": "\u00c1ngel Di Mar\u00eda",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 453,
+        "name": "Alexis Mac Allister",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 11856,
+        "name": "Enzo Fernandez",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 8138,
+        "name": "Lautaro Martinez",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 1531,
+        "name": "Lionel Messi",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "365",
+    "team_name": "Portugal",
+    "formation": "3-5-2",
+    "score": 3.676488030316683,
+    "flag_code": "pt",
+    "players": [
+      {
+        "player_id": 8538,
+        "name": "Diogo Costa",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 4666,
+        "name": "Rapha\u00ebl Guerreiro",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 127,
+        "name": "Diogo Dalot",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 17,
+        "name": "Jo\u00e3o Cancelo",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 8593,
+        "name": "Rafael Leao",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 8079,
+        "name": "Matheus Nunes",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 133,
+        "name": "Bruno Fernandes",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 1393,
+        "name": "Joao Felix",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 11488,
+        "name": "Ricardo Horta",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 8008,
+        "name": "Goncalo Ramos",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 4912,
+        "name": "Andr\u00e9 Silva",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "366",
+    "team_name": "Netherlands",
+    "formation": "3-4-3",
+    "score": 3.0901298393783163,
+    "flag_code": "nl",
+    "players": [
+      {
+        "player_id": 11241,
+        "name": "Andries Noppert",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 284,
+        "name": "Nathan Ak\u00e9",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 8045,
+        "name": "Matthijs De Ligt",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 37,
+        "name": "Virgil van Dijk",
+        "role": "DEF",
+        "position": "MCB"
+      },
+      {
+        "player_id": 1522,
+        "name": "Frenkie de Jong",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 8032,
+        "name": "Kenneth Taylor",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 8026,
+        "name": "Daley Blind",
+        "role": "MID",
+        "position": "LWB"
+      },
+      {
+        "player_id": 8134,
+        "name": "Denzel Dumfries",
+        "role": "MID",
+        "position": "RWB"
+      },
+      {
+        "player_id": 8034,
+        "name": "Steven Berghuis",
+        "role": "FWD",
+        "position": "AM"
+      },
+      {
+        "player_id": 8342,
+        "name": "Memphis Depay",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 5009,
+        "name": "Wout Weghorst",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "367",
+    "team_name": "Denmark",
+    "formation": "3-4-3",
+    "score": 3.217533322258429,
+    "flag_code": "dk",
+    "players": [
+      {
+        "player_id": 200,
+        "name": "Kasper Schmeichel",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 2073,
+        "name": "Joachim Andersen",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 8578,
+        "name": "Simon Kjaer",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 92,
+        "name": "Andreas Christensen",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 8324,
+        "name": "Joakim Maehle",
+        "role": "MID",
+        "position": "LWB"
+      },
+      {
+        "player_id": 395,
+        "name": "Pierre-Emile H\u00f6jbjerg",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 7443,
+        "name": "Christian Eriksen",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 12779,
+        "name": "Mikkel Damsgaard",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 9089,
+        "name": "Andreas Skov Olsen",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 4053,
+        "name": "Kasper Dolberg",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 1536,
+        "name": "Martin Braithwaite",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "368",
+    "team_name": "Germany",
+    "formation": "3-4-3",
+    "score": 5.256125473537019,
+    "flag_code": "de",
+    "players": [
+      {
+        "player_id": 4602,
+        "name": "Manuel Neuer",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 4779,
+        "name": "Nico Schlotterbeck",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 4608,
+        "name": "Niklas S\u00fcle",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 4868,
+        "name": "David Raum",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 26,
+        "name": "Leroy San\u00e9",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 4616,
+        "name": "Joshua Kimmich",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 4621,
+        "name": "Jamal Musiala",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 4623,
+        "name": "Serge Gnabry",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 1937,
+        "name": "Kai Havertz",
+        "role": "FWD",
+        "position": "AM"
+      },
+      {
+        "player_id": 9963,
+        "name": "Niclas Fullkrug",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 9918,
+        "name": "Mario G\u00f6tze",
+        "role": "FWD",
+        "position": "AM"
+      }
+    ]
+  },
+  {
+    "team_id": "369",
+    "team_name": "Uruguay",
+    "formation": "3-4-3",
+    "score": 3.371813329013453,
+    "flag_code": "uy",
+    "players": [
+      {
+        "player_id": 13924,
+        "name": "Sergio Rochet",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 13926,
+        "name": "Diego Godin",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 1545,
+        "name": "Math\u00ed\u00adas Olivera",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 1368,
+        "name": "Jose Gimenez",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 7584,
+        "name": "Rodrigo Bentancur",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1684,
+        "name": "Federico Valverde",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 2075,
+        "name": "Facundo Pellistri",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 8133,
+        "name": "Matias Vecino",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1535,
+        "name": "Luis Suarez",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 13930,
+        "name": "Giorgian De Arrascaeta",
+        "role": "FWD",
+        "position": "AM"
+      },
+      {
+        "player_id": 8009,
+        "name": "Darwin Nunez",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "370",
+    "team_name": "Switzerland",
+    "formation": "3-5-2",
+    "score": 10.104131069236079,
+    "flag_code": "ch",
+    "players": [
+      {
+        "player_id": 4691,
+        "name": "Yann Sommer",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 4695,
+        "name": "Nico Elvedi",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 5029,
+        "name": "Silvan Widmer",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 4661,
+        "name": "Manuel Akanji",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 13881,
+        "name": "Ardon Jashari",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 8328,
+        "name": "Remo Freuler",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 5006,
+        "name": "Renato Steffen",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 4703,
+        "name": "Denis Zakaria",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 157,
+        "name": "Granit Xhaka",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 8011,
+        "name": "Haris Seferovic",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 4717,
+        "name": "Breel Embolo",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "371",
+    "team_name": "Croatia",
+    "formation": "3-4-3",
+    "score": 2.847383255386077,
+    "flag_code": "hr",
+    "players": [
+      {
+        "player_id": 13854,
+        "name": "Dominik Livakovic",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 40,
+        "name": "Dejan Lovren",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 13858,
+        "name": "Josip Juranovic",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 4892,
+        "name": "Josko Gvardiol",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 13859,
+        "name": "Mislav Orsic",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 8136,
+        "name": "Ivan Perisic",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 1687,
+        "name": "Luka Modric",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 8129,
+        "name": "Marcelo Brozovic",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 4883,
+        "name": "Andrej Kramaric",
+        "role": "FWD",
+        "position": "RW"
+      },
+      {
+        "player_id": 13860,
+        "name": "Marko Livaja",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 5968,
+        "name": "Lovro Majer",
+        "role": "FWD",
+        "position": "AM"
+      }
+    ]
+  },
+  {
+    "team_id": "372",
+    "team_name": "Senegal",
+    "formation": "4-3-3",
+    "score": 4.13045671534742,
+    "flag_code": "sn",
+    "players": [
+      {
+        "player_id": 2059,
+        "name": "Edouard Mendy",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 13228,
+        "name": "Youssouf Sabaly",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 3895,
+        "name": "Ismail Jakobs",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 9993,
+        "name": "Kalidou Koulibaly",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 13901,
+        "name": "Pape Abou Ciss\u00e9",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 474,
+        "name": "Cheikhou Kouyat\u00e9",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 428,
+        "name": "Isma\u00efla Sarr",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 3903,
+        "name": "Kr\u00e9pin Diatta",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 3996,
+        "name": "Bamba Dieng",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 2144,
+        "name": "Iliman Ndiaye",
+        "role": "FWD",
+        "position": "AM"
+      },
+      {
+        "player_id": 12154,
+        "name": "Famara Diedhiou",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "373",
+    "team_name": "Iran",
+    "formation": "3-4-3",
+    "score": 3.7784794674189137,
+    "flag_code": "ir",
+    "players": [
+      {
+        "player_id": 13968,
+        "name": "Alireza Beiranvand",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 13970,
+        "name": "Roozbeh Cheshmi",
+        "role": "DEF",
+        "position": "DM"
+      },
+      {
+        "player_id": 13977,
+        "name": "Morteza Pouraliganji",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 13978,
+        "name": "Ramin Rezaeian",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 13983,
+        "name": "Mehdi Torabi",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 13981,
+        "name": "Ali Gholizadeh",
+        "role": "MID",
+        "position": "RM"
+      },
+      {
+        "player_id": 13980,
+        "name": "Saeid Ezatolahi",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 457,
+        "name": "Alireza Jahanbakhsh",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 7441,
+        "name": "Sardar Azmoun",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 8561,
+        "name": "Mehdi Taremi",
+        "role": "FWD",
+        "position": "AM"
+      },
+      {
+        "player_id": 13984,
+        "name": "Karim Ansarifard",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "374",
+    "team_name": "Morocco",
+    "formation": "3-4-3",
+    "score": 3.142272003976648,
+    "flag_code": "ma",
+    "players": [
+      {
+        "player_id": 1785,
+        "name": "Bono",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 1681,
+        "name": "Achraf Hakimi",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 233,
+        "name": "Romain Sa\u00efss",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 13864,
+        "name": "Yahia Attiat-Allah",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 9865,
+        "name": "Zakaria Aboukhlal",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 1938,
+        "name": "Hakim Ziyech",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 13867,
+        "name": "Bilal El Khannouss",
+        "role": "MID",
+        "position": "AM"
+      },
+      {
+        "player_id": 12586,
+        "name": "Sofyan Amrabat",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13870,
+        "name": "Abderrazak Hamdallah",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 12777,
+        "name": "Abdelhamid Sabiri",
+        "role": "FWD",
+        "position": "AM"
+      },
+      {
+        "player_id": 1810,
+        "name": "Youssef En-Nesyri",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "375",
+    "team_name": "Serbia",
+    "formation": "3-5-2",
+    "score": 2.8192413223287645,
+    "flag_code": "rs",
+    "players": [
+      {
+        "player_id": 12653,
+        "name": "Vanja Milinkovi\u0107-Savi\u0107",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 3880,
+        "name": "Strahinja Pavlovic",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 12576,
+        "name": "Nikola Milenkovic",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 13216,
+        "name": "Stefan Mitrovi\u0107",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 12642,
+        "name": "Ivan Ili\u0107",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13906,
+        "name": "Andrija Zivkovic",
+        "role": "MID",
+        "position": "RWB"
+      },
+      {
+        "player_id": 12643,
+        "name": "Darko Lazovi\u0107",
+        "role": "MID",
+        "position": "LM"
+      },
+      {
+        "player_id": 3989,
+        "name": "Nemanja Radonjic",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 8037,
+        "name": "Dusan Tadi\u0107",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 1991,
+        "name": "Aleksandar Mitrovic",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 8059,
+        "name": "Du\u0161an Vlahovi\u0107",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "376",
+    "team_name": "Poland",
+    "formation": "3-5-2",
+    "score": 2.8935883784912275,
+    "flag_code": "pl",
+    "players": [
+      {
+        "player_id": 8042,
+        "name": "Wojciech Szczesny",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 12766,
+        "name": "Bartosz Bereszynski",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 12820,
+        "name": "Jakub Kiwior",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 385,
+        "name": "Jan Bednarek",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 13852,
+        "name": "Damian Szymanski",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 2042,
+        "name": "Kamil Grosicki",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 7419,
+        "name": "Krystian Bielik",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 11113,
+        "name": "Sebastian Szymanski",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13850,
+        "name": "Grzegorz Krychowiak",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 4625,
+        "name": "Robert Lewandowski",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 4851,
+        "name": "Krzysztof Piatek",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "377",
+    "team_name": "South Korea",
+    "formation": "3-5-2",
+    "score": 2.665525651894341,
+    "flag_code": "kr",
+    "players": [
+      {
+        "player_id": 13907,
+        "name": "Seun-gyu Kim",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 13912,
+        "name": "Jin-su Kim",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 13911,
+        "name": "Young-gwon Kim",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 13916,
+        "name": "Chul Hong",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 13922,
+        "name": "Woo-young Jung",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1257,
+        "name": "In-beom Hwang",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 83,
+        "name": "Heung-min Son",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 13918,
+        "name": "Sang-ho Na",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 4915,
+        "name": "Hee-chan Hwang",
+        "role": "MID",
+        "position": "CF"
+      },
+      {
+        "player_id": 1830,
+        "name": "Kang-in Lee",
+        "role": "FWD",
+        "position": "AM"
+      },
+      {
+        "player_id": 13923,
+        "name": "Gue-sung Cho",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "378",
+    "team_name": "Tunisia",
+    "formation": "3-5-2",
+    "score": 1.9380373786714287,
+    "flag_code": "tn",
+    "players": [
+      {
+        "player_id": 14013,
+        "name": "Aymen Dahmen",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 9824,
+        "name": "Montassar Talbi",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 4142,
+        "name": "Dylan Bronn",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 14019,
+        "name": "Yassine Meriah",
+        "role": "DEF",
+        "position": "MCB"
+      },
+      {
+        "player_id": 14027,
+        "name": "Naim Sliti",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 14024,
+        "name": "Ferjani Sassi",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 14025,
+        "name": "Youssef Msakni",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 14022,
+        "name": "Aissa Laidouni",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 12862,
+        "name": "Wajdi Kechrida",
+        "role": "MID",
+        "position": "RM"
+      },
+      {
+        "player_id": 14028,
+        "name": "Issam Jebali",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 4105,
+        "name": "Wahbi Khazri",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "379",
+    "team_name": "Cameroon",
+    "formation": "3-5-2",
+    "score": 5.134096708413846,
+    "flag_code": "cm",
+    "players": [
+      {
+        "player_id": 8018,
+        "name": "Andre Onana",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 4316,
+        "name": "Enzo Ebosse",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 4174,
+        "name": "Jean-Charles Castelletto",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 1168,
+        "name": "Nouhou Tolo",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 13878,
+        "name": "Jerome Mbekeli",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 7605,
+        "name": "Olivier Ntcham",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 8402,
+        "name": "Nicolas Ngamaleu",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 12640,
+        "name": "Martin Hongla",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1977,
+        "name": "Andr\u00e9 Zambo Anguissa",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13875,
+        "name": "Vincent Aboubakar",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 4626,
+        "name": "Eric Maxim Choupo-Moting",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "380",
+    "team_name": "Canada",
+    "formation": "3-5-2",
+    "score": 4.0664251906958615,
+    "flag_code": "ca",
+    "players": [
+      {
+        "player_id": 14031,
+        "name": "Milan Borjan",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 12315,
+        "name": "Sam Adekugbe",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 1025,
+        "name": "Kamal Miller",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 11790,
+        "name": "Steven Vitoria",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 6916,
+        "name": "Junior Hoilett",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 1289,
+        "name": "Mark-Anthony Kaye",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 8627,
+        "name": "Atiba Hutchinson",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 963,
+        "name": "Tajon Buchanan",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 4611,
+        "name": "Alphonso Davies",
+        "role": "MID",
+        "position": "LWB"
+      },
+      {
+        "player_id": 1267,
+        "name": "Lucas Cavallini",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 9094,
+        "name": "Cyle Larin",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "381",
+    "team_name": "Ecuador",
+    "formation": "3-5-2",
+    "score": 3.580372602915924,
+    "flag_code": "ec",
+    "players": [
+      {
+        "player_id": 13935,
+        "name": "Hernan Galindez",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 3734,
+        "name": "F\u00e9lix Torres",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 1406,
+        "name": "Pervis Estupinan",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 13937,
+        "name": "Angelo Preciado",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 4560,
+        "name": "Carlos Gruezo",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 11960,
+        "name": "Enner Valencia",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 7571,
+        "name": "Alan Franco",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 2134,
+        "name": "Moises Caicedo",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1034,
+        "name": "Jhegson M\u00e9ndez",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13939,
+        "name": "Djorkaeff Reasco",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 6596,
+        "name": "Jeremy Sarmiento",
+        "role": "FWD",
+        "position": "AM"
+      }
+    ]
+  },
+  {
+    "team_id": "382",
+    "team_name": "Saudi Arabia",
+    "formation": "3-5-2",
+    "score": 6.430472617827192,
+    "flag_code": "sa",
+    "players": [
+      {
+        "player_id": 13987,
+        "name": "Mohammed Al-Owais",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 14007,
+        "name": "Nasser Al-Dawsari",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 13994,
+        "name": "Saud Abdulhamid",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 13995,
+        "name": "Abdulelah Al-Amri",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 14002,
+        "name": "Hattan Bahebri",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 13998,
+        "name": "Salem Al-Dawsari",
+        "role": "MID",
+        "position": "LM"
+      },
+      {
+        "player_id": 14010,
+        "name": "Firas Al-Buraikan",
+        "role": "MID",
+        "position": "RM"
+      },
+      {
+        "player_id": 14008,
+        "name": "Riad Sharahili",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 14004,
+        "name": "Abdulelah Al-Malki",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 14011,
+        "name": "Saleh Al-Shehri",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 14000,
+        "name": "Nawaf Al-Abed",
+        "role": "FWD",
+        "position": "AM"
+      }
+    ]
+  },
+  {
+    "team_id": "383",
+    "team_name": "Ghana",
+    "formation": "3-4-3",
+    "score": 1.227804363531787,
+    "flag_code": "gh",
+    "players": [
+      {
+        "player_id": 14034,
+        "name": "Lawrence Ati Zigi",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 5085,
+        "name": "Abdul Rahman Baba",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 213,
+        "name": "Daniel Amartey",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 4231,
+        "name": "Alexander Djiku",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 8031,
+        "name": "Mohammed Kudus",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1380,
+        "name": "Thomas Partey",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 5178,
+        "name": "Osman Bukari",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 4408,
+        "name": "Salis Abdul Samed",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1363,
+        "name": "Inaki Williams",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 11843,
+        "name": "Issahaku Fatawu",
+        "role": "FWD",
+        "position": "AM"
+      },
+      {
+        "player_id": 14040,
+        "name": "Andre Ayew",
+        "role": "FWD",
+        "position": "AM"
+      }
+    ]
+  },
+  {
+    "team_id": "384",
+    "team_name": "Wales",
+    "formation": "3-5-2",
+    "score": 2.310878753638984,
+    "flag_code": "gb-wls",
+    "players": [
+      {
+        "player_id": 201,
+        "name": "Danny Ward",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 71,
+        "name": "Ben Davies",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 286,
+        "name": "Chris Mepham",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 2083,
+        "name": "Joe Rodon",
+        "role": "DEF",
+        "position": "MCB"
+      },
+      {
+        "player_id": 6935,
+        "name": "Joe Allen",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 7175,
+        "name": "Sorba Thomas",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 8062,
+        "name": "Aaron Ramsey",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1931,
+        "name": "Ethan Ampadu",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 137,
+        "name": "Daniel James",
+        "role": "MID",
+        "position": "CF"
+      },
+      {
+        "player_id": 1698,
+        "name": "Gareth Bale",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 7966,
+        "name": "Kieffer Moore",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "385",
+    "team_name": "Costa Rica",
+    "formation": "3-4-3",
+    "score": 3.6158626178912225,
+    "flag_code": "cr",
+    "players": [
+      {
+        "player_id": 3841,
+        "name": "Keylor Navas",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 13779,
+        "name": "Juan Pablo Vargas",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 649,
+        "name": "Francisco Calvo",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 754,
+        "name": "Kendall Waston",
+        "role": "DEF",
+        "position": "MCB"
+      },
+      {
+        "player_id": 3316,
+        "name": "Joel Campbell",
+        "role": "MID",
+        "position": "CF"
+      },
+      {
+        "player_id": 13785,
+        "name": "Gerson Torres",
+        "role": "MID",
+        "position": "RM"
+      },
+      {
+        "player_id": 13778,
+        "name": "Daniel Chacon",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 13781,
+        "name": "Celso Borges",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13790,
+        "name": "Brandon Aguilera",
+        "role": "FWD",
+        "position": "AM"
+      },
+      {
+        "player_id": 13783,
+        "name": "Bryan Ruiz",
+        "role": "FWD",
+        "position": "AM"
+      },
+      {
+        "player_id": 13784,
+        "name": "Johan Venegas",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "386",
+    "team_name": "Australia",
+    "formation": "4-4-2",
+    "score": 3.3921988549186284,
+    "flag_code": "au",
+    "players": [
+      {
+        "player_id": 435,
+        "name": "Mathew Ryan",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 13811,
+        "name": "Nathaniel Atkinson",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 13813,
+        "name": "Fran Karacic",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 13820,
+        "name": "Aziz Behich",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 7478,
+        "name": "Milos Degenek",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 449,
+        "name": "Aaron Mooy",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13823,
+        "name": "Craig Goodwin",
+        "role": "MID",
+        "position": "LM"
+      },
+      {
+        "player_id": 8854,
+        "name": "Jackson Irvine",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13815,
+        "name": "Mathew Leckie",
+        "role": "MID",
+        "position": "RM"
+      },
+      {
+        "player_id": 13822,
+        "name": "Jason Cummings",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 13819,
+        "name": "Mitchell Duke",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "50",
+    "team_name": "England",
+    "formation": "3-5-2",
+    "score": 2.7584150474448657,
+    "flag_code": "gb-eng",
+    "players": [
+      {
+        "player_id": 169,
+        "name": "Jordan Pickford",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 123,
+        "name": "Luke Shaw",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 16,
+        "name": "Kyle Walker",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 118,
+        "name": "Harry Maguire",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 163,
+        "name": "Bukayo Saka",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 371,
+        "name": "Jack Grealish",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 25,
+        "name": "Raheem Sterling",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 21,
+        "name": "Phil Foden",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 4677,
+        "name": "Jude Bellingham",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 311,
+        "name": "Callum Wilson",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 1,
+        "name": "Harry Kane",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "51",
+    "team_name": "United States",
+    "formation": "3-5-2",
+    "score": 4.479870365595604,
+    "flag_code": "us",
+    "players": [
+      {
+        "player_id": 940,
+        "name": "Matt Turner",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 328,
+        "name": "DeAndre Yedlin",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 1971,
+        "name": "Tim Ream",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 8343,
+        "name": "Sergi\u00f1o Dest",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 687,
+        "name": "Kellyn Acosta",
+        "role": "MID",
+        "position": "DM"
+      },
+      {
+        "player_id": 107,
+        "name": "Christian Pulisic",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 1334,
+        "name": "Weston McKennie",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1339,
+        "name": "Tyler Adams",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1336,
+        "name": "Timothy Weah",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 12183,
+        "name": "Haji Wright",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 4681,
+        "name": "Giovanni Reyna",
+        "role": "FWD",
+        "position": "AM"
+      }
+    ]
+  },
+  {
+    "team_id": "52",
+    "team_name": "Spain",
+    "formation": "4-2-3-1",
+    "score": 3.3764451138384786,
+    "flag_code": "es",
+    "players": [
+      {
+        "player_id": 1341,
+        "name": "Unai Simon",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 1841,
+        "name": "Pau Torres",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 1513,
+        "name": "Jordi Alba",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 18,
+        "name": "Rodri",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 96,
+        "name": "C\u00e9sar Azpilicueta",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 1519,
+        "name": "Sergio Busquets",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 4908,
+        "name": "Dani Olmo",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 8341,
+        "name": "Gavi",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 13178,
+        "name": "Nico Williams",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 1530,
+        "name": "Pedri",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 1394,
+        "name": "Alvaro Morata",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "57",
+    "team_name": "Japan",
+    "formation": "4-2-3-1",
+    "score": 3.743774091688229,
+    "flag_code": "jp",
+    "players": [
+      {
+        "player_id": 13799,
+        "name": "Shuichi Gonda",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 4925,
+        "name": "Hiroki Ito",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 2088,
+        "name": "Maya Yoshida",
+        "role": "DEF",
+        "position": "MCB"
+      },
+      {
+        "player_id": 2090,
+        "name": "Hiroki Sakai",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 2087,
+        "name": "Takehiro Tomiyasu",
+        "role": "DEF",
+        "position": "RB"
+      },
+      {
+        "player_id": 55,
+        "name": "Takumi Minamino",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 9981,
+        "name": "Ritsu Doan",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 8927,
+        "name": "Ao Tanaka",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 10704,
+        "name": "Kaoru Mitoma",
+        "role": "MID",
+        "position": "LW"
+      },
+      {
+        "player_id": 2099,
+        "name": "Takuma Asano",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 13802,
+        "name": "Daizen Maeda",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  },
+  {
+    "team_id": "58",
+    "team_name": "Mexico",
+    "formation": "4-4-2",
+    "score": 4.583082455104538,
+    "flag_code": "mx",
+    "players": [
+      {
+        "player_id": 3343,
+        "name": "Guillermo Ochoa",
+        "role": "GK",
+        "position": "GK"
+      },
+      {
+        "player_id": 1452,
+        "name": "Nestor Araujo",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 3303,
+        "name": "Jes\u00fas Gallardo",
+        "role": "DEF",
+        "position": "LB"
+      },
+      {
+        "player_id": 3299,
+        "name": "C\u00e9sar Montes",
+        "role": "DEF",
+        "position": "RCB"
+      },
+      {
+        "player_id": 3301,
+        "name": "H\u00e9ctor Moreno",
+        "role": "DEF",
+        "position": "LCB"
+      },
+      {
+        "player_id": 1384,
+        "name": "Hector Herrera",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 2106,
+        "name": "Edson Alvarez",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 3455,
+        "name": "Luis Ch\u00e1vez",
+        "role": "MID",
+        "position": "CM"
+      },
+      {
+        "player_id": 2111,
+        "name": "Hirving Lozano",
+        "role": "MID",
+        "position": "RW"
+      },
+      {
+        "player_id": 252,
+        "name": "Ra\u00fal Jim\u00e9nez",
+        "role": "FWD",
+        "position": "CF"
+      },
+      {
+        "player_id": 3367,
+        "name": "Henry Mart\u00edn",
+        "role": "FWD",
+        "position": "CF"
+      }
+    ]
+  }
+]

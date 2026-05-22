@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Top Pairs</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="pairs.html">Top Pairs</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Top pairs</h1>
+    <p class="dim">
+      Every two-player combination that shared time on the pitch at the 2022 World
+      Cup, ranked by joint offensive impact (JOI90), joint defensive impact
+      (JDI90), or a blended cross-chemistry score. Tap any column header to sort.
+      Minimum minutes filter helps cut small-sample noise.
+    </p>
+
+    <div class="tab-bar" role="tablist">
+      <button data-tab="off" class="active">Offensive (JOI90)</button>
+      <button data-tab="def">Defensive (JDI90)</button>
+      <button data-tab="cross">Cross-Chemistry</button>
+    </div>
+
+    <div class="controls">
+      <div>
+        <label for="search">Search by player or team</label>
+        <input id="search" type="search" placeholder="e.g. Messi, Brazil…">
+      </div>
+      <div>
+        <label for="min-minutes">Min minutes together</label>
+        <input id="min-minutes" type="number" min="0" step="10" value="30">
+      </div>
+      <div>
+        <label for="role-filter">Role pair</label>
+        <select id="role-filter">
+          <option value="ALL">All role pairs</option>
+          <option value="FWD-FWD">FWD ↔ FWD (offence ↔ offence)</option>
+          <option value="DEF-DEF">DEF ↔ DEF (defence ↔ defence)</option>
+          <option value="FWD-DEF">FWD ↔ DEF (offence ↔ defence)</option>
+          <option value="MID-MID">MID ↔ MID</option>
+          <option value="FWD-MID">FWD ↔ MID</option>
+          <option value="MID-DEF">MID ↔ DEF</option>
+          <option value="GK-ANY">GK involved</option>
+        </select>
+      </div>
+      <div id="alpha-wrap" class="hidden">
+        <label for="alpha">Cross-chem alpha (offensive weight): <span id="alpha-val">0.50</span></label>
+        <input id="alpha" type="range" min="0" max="100" value="50">
+      </div>
+    </div>
+
+    <div id="pairs-table"></div>
+
+    <p class="small muted" style="margin-top: 1.5rem;">
+      <strong>JOI90</strong> = joint offensive impact per 90 minutes shared.
+      <strong>JDI90</strong> = joint defensive impact per 90 minutes shared.
+      <strong>Cross-Chemistry</strong> = α · JOI90<sub>norm</sub> + (1−α) · JDI90<sub>norm</sub>,
+      with both metrics z-normalized inside the filtered sample.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    PFF event data, 64 matches, FIFA World Cup 2022. Method recreated from
+    Bransen &amp; Van Haaren (MIT Sloan, 2020).
+  </footer>
+
+  <script type="module" src="assets/js/pairs.js"></script>
+</body>
+</html>

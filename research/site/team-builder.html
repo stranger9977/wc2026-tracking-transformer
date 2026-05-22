@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Team Builder</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="pairs.html">Top Pairs</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Optimal XI by team</h1>
+    <p class="dim">
+      For each squad, this is the eleven-player lineup that maximizes total
+      predicted pair chemistry under formation constraints — Bransen's
+      mixed-integer-programming formulation, recomputed on PFF WC22 actions.
+      Pick a team to see the lineup and its chemistry score.
+    </p>
+
+    <div class="controls">
+      <div>
+        <label for="team-select">Team</label>
+        <select id="team-select"></select>
+      </div>
+      <div>
+        <label>Formation</label>
+        <div id="formation-out" class="stat" style="padding:0.55rem 0.7rem;"><span class="value" id="formation-val">—</span></div>
+      </div>
+      <div>
+        <label>Total chemistry score</label>
+        <div class="stat" style="padding:0.55rem 0.7rem;"><span class="value" id="score-val">—</span></div>
+      </div>
+    </div>
+
+    <div id="builder-body">
+      <div class="empty-state">Loading…</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    PFF event data, 64 matches, FIFA World Cup 2022. Method recreated from
+    Bransen &amp; Van Haaren (MIT Sloan, 2020).
+  </footer>
+
+  <script type="module" src="assets/js/builder.js"></script>
+</body>
+</html>

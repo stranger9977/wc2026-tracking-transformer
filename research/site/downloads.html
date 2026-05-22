@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Downloads</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="pairs.html">Top Pairs</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Downloads</h1>
+    <p class="dim">
+      Every figure as PNG, every parquet as CSV, plus the raw JSON the site
+      consumes. Right-click or tap-and-hold to save individual files; the
+      Methodology page has the full math behind these.
+    </p>
+
+    <div class="card">
+      <h3 class="mt-0">JSON used by this site</h3>
+      <ul class="download-list">
+        <li>
+          <span class="file-name">data/overview.json</span>
+          <span class="file-desc">tournament-wide stats &amp; top pairs summary</span>
+          <a class="btn" href="data/overview.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/pairs.json</span>
+          <span class="file-desc">every qualifying pair with JOI / JDI / minutes</span>
+          <a class="btn" href="data/pairs.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/teams.json</span>
+          <span class="file-desc">per-team summary, colors, pair counts</span>
+          <a class="btn" href="data/teams.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/team_figures_index.json</span>
+          <span class="file-desc">pointers to per-team PNG figures</span>
+          <a class="btn" href="data/team_figures_index.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/team_builder.json</span>
+          <span class="file-desc">MIP-optimal XI and formation per squad</span>
+          <a class="btn" href="data/team_builder.json" download>Download</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 class="mt-0">Tabular data (CSV)</h3>
+      <p class="small dim">Generated from parquet sources by the export pipeline.</p>
+      <ul class="download-list" id="csv-list">
+        <li class="muted">CSV manifest will appear here when <code>data/downloads.json</code> is present.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 class="mt-0">Figures (PNG)</h3>
+      <p class="small dim">Per-team offensive and defensive chemistry maps. The
+      <a href="teams.html">Team Maps</a> page renders these inline.</p>
+      <ul class="download-list" id="png-list">
+        <li class="muted">PNG manifest will appear here when <code>data/team_figures_index.json</code> is present.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 class="mt-0">Model artifacts</h3>
+      <ul class="download-list">
+        <li>
+          <span class="file-name">vaep_bundle.joblib</span>
+          <span class="file-desc">trained score &amp; concede classifiers + feature spec</span>
+          <a class="btn" href="data/vaep_bundle.joblib" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">predictor.joblib</span>
+          <span class="file-desc">expected-OI-per-zone regressor used for JDI</span>
+          <a class="btn" href="data/predictor.joblib" download>Download</a>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    PFF event data, 64 matches, FIFA World Cup 2022. Method recreated from
+    Bransen &amp; Van Haaren (MIT Sloan, 2020).
+  </footer>
+
+  <script type="module">
+    import { loadJSON, escapeHTML } from "./assets/js/site.js";
+
+    const csvList = document.getElementById("csv-list");
+    const pngList = document.getElementById("png-list");
+
+    function normalizeFigPath(p) {
+      if (!p) return null;
+      const idx = p.indexOf("/assets/");
+      if (idx !== -1) return p.slice(idx + 1);
+      return p.replace(/^\.?\//, "");
+    }
+
+    const manifest = await loadJSON("data/downloads.json");
+    // Two supported schemas:
+    //   { csvs: [{path, desc}, ...] }   — original spec
+    //   [ {name, path}, ... ]            — current pipeline output
+    let csvs = null;
+    if (Array.isArray(manifest)) csvs = manifest;
+    else if (manifest && Array.isArray(manifest.csvs)) csvs = manifest.csvs;
+    if (csvs && csvs.length) {
+      csvList.innerHTML = csvs.map((f) =>
+        `<li>
+           <span class="file-name">${escapeHTML(f.path)}</span>
+           <span class="file-desc">${escapeHTML(f.name || f.desc || "")}</span>
+           <a class="btn" href="${escapeHTML(f.path)}" download>Download</a>
+         </li>`
+      ).join("");
+    }
+
+    const figs = await loadJSON("data/team_figures_index.json");
+    if (figs && Array.isArray(figs) && figs.length) {
+      pngList.innerHTML = figs.map((f) => {
+        const path = normalizeFigPath(f.out_path || f.path);
+        return `<li>
+           <span class="file-name">${escapeHTML(path ? path.split("/").pop() : "?")}</span>
+           <span class="file-desc">${escapeHTML(f.team_name || f.team_id || "")} · ${escapeHTML(f.mode || f.metric || "")}</span>
+           <a class="btn" href="${escapeHTML(path || "#")}" download>Download</a>
+         </li>`;
+      }).join("");
+    }
+  </script>
+</body>
+</html>

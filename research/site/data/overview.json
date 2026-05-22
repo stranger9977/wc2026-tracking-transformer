@@ -1,0 +1,41 @@
+{
+  "n_matches": 64,
+  "n_teams": 32,
+  "n_actions": 80072,
+  "n_pairs": 4366,
+  "n_goals": 165,
+  "top_joi_pair": {
+    "team": "Senegal",
+    "p": "Bamba Dieng",
+    "q": "Youssouf Sabaly",
+    "joi90": 1.9053394982072949,
+    "minutes": 122.38333333333333
+  },
+  "top_jdi_pair": {
+    "team": "Uruguay",
+    "p": "Matias Vecino",
+    "q": "Diego Godin",
+    "jdi90": 0.13253651080590598,
+    "minutes": 139.71666666666667
+  },
+  "vaep_metrics": {
+    "score_brier": 0.014107606373727322,
+    "score_logloss": 0.07417711850104505,
+    "score_auc": 0.6811560537424258,
+    "concede_brier": 0.006310161203145981,
+    "concede_logloss": 0.03747682505879893,
+    "concede_auc": 0.671020898135913,
+    "n_actions": 80072,
+    "n_scores": 1303,
+    "n_concedes": 505
+  },
+  "predictor_metrics": {
+    "n_pairs": 3365,
+    "joi_baseline_rmse": 0.15807092756350916,
+    "joi_model_rmse": 0.16417225292456147,
+    "joi_r2": -0.078687168303188,
+    "jdi_baseline_rmse": 0.04101417632617275,
+    "jdi_model_rmse": 0.02857233816352873,
+    "jdi_r2": 0.5146851563869265
+  }
+}

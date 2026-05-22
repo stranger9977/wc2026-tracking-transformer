@@ -1,0 +1,11 @@
+{
+  "score_brier": 0.014107606373727322,
+  "score_logloss": 0.07417711850104505,
+  "score_auc": 0.6811560537424258,
+  "concede_brier": 0.006310161203145981,
+  "concede_logloss": 0.03747682505879893,
+  "concede_auc": 0.671020898135913,
+  "n_actions": 80072,
+  "n_scores": 1303,
+  "n_concedes": 505
+}

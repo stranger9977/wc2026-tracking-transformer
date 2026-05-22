@@ -1,0 +1,359 @@
+[
+  {
+    "role_a": "FWD",
+    "role_b": "FWD",
+    "n_pairs": 62,
+    "median_joi90": 0.016579529555249245,
+    "median_jdi90": -0.0009609681161395965,
+    "mean_joi90": 0.13912526636499004,
+    "mean_jdi90": 5.36112005335981e-05,
+    "top_pairs": [
+      {
+        "team_name": "Costa Rica",
+        "name_p": "Joel Campbell",
+        "name_q": "Brandon Aguilera",
+        "minutes_together": 103.95,
+        "joi90": 1.6475302341014657,
+        "jdi90": -0.1038641638002948
+      },
+      {
+        "team_name": "Uruguay",
+        "name_p": "Luis Suarez",
+        "name_q": "Giorgian De Arrascaeta",
+        "minutes_together": 92.80000000000001,
+        "joi90": 1.2821451972923186,
+        "jdi90": 0.020723119784290454
+      },
+      {
+        "team_name": "Netherlands",
+        "name_p": "Steven Berghuis",
+        "name_q": "Memphis Depay",
+        "minutes_together": 70.46666666666667,
+        "joi90": 1.1077202692266708,
+        "jdi90": 0.0008185969533422303
+      },
+      {
+        "team_name": "Netherlands",
+        "name_p": "Davy Klaassen",
+        "name_q": "Cody Gakpo",
+        "minutes_together": 197.03333333333336,
+        "joi90": 0.7631389058582441,
+        "jdi90": -0.008687440820678969
+      },
+      {
+        "team_name": "Cameroon",
+        "name_p": "Eric Maxim Choupo-Moting",
+        "name_q": "Vincent Aboubakar",
+        "minutes_together": 141.41666666666666,
+        "joi90": 0.632395071949045,
+        "jdi90": 0.030209783012561286
+      }
+    ]
+  },
+  {
+    "role_a": "MID",
+    "role_b": "MID",
+    "n_pairs": 500,
+    "median_joi90": 0.018137787699266446,
+    "median_jdi90": 0.013276999821690637,
+    "mean_joi90": 0.05320913543639758,
+    "mean_jdi90": 0.006314752444518325,
+    "top_pairs": [
+      {
+        "team_name": "Portugal",
+        "name_p": "William Carvalho",
+        "name_q": "Otavio",
+        "minutes_together": 73.08333333333333,
+        "joi90": 1.2261915214447507,
+        "jdi90": -0.13356685777165642
+      },
+      {
+        "team_name": "Morocco",
+        "name_p": "Hakim Ziyech",
+        "name_q": "Zakaria Aboukhlal",
+        "minutes_together": 63.916666666666664,
+        "joi90": 1.1676272124426534,
+        "jdi90": 0.08588314203623693
+      },
+      {
+        "team_name": "Saudi Arabia",
+        "name_p": "Riad Sharahili",
+        "name_q": "Firas Al-Buraikan",
+        "minutes_together": 61.61666666666667,
+        "joi90": 1.1108120202824334,
+        "jdi90": 0.044455141198022574
+      },
+      {
+        "team_name": "France",
+        "name_p": "Kylian Mbapp\u00e9",
+        "name_q": "Marcus Thuram",
+        "minutes_together": 147.43333333333334,
+        "joi90": 1.0999946089673287,
+        "jdi90": -0.12180432761447758
+      },
+      {
+        "team_name": "Portugal",
+        "name_p": "Bruno Fernandes",
+        "name_q": "Rafael Leao",
+        "minutes_together": 84.65,
+        "joi90": 1.0161332975579331,
+        "jdi90": -0.007764818526049622
+      }
+    ]
+  },
+  {
+    "role_a": "DEF",
+    "role_b": "DEF",
+    "n_pairs": 295,
+    "median_joi90": 0.01192038003987716,
+    "median_jdi90": 0.009974928481540702,
+    "mean_joi90": 0.022212748415306856,
+    "mean_jdi90": 0.0018356026570185372,
+    "top_pairs": [
+      {
+        "team_name": "Spain",
+        "name_p": "Rodri",
+        "name_q": "Pau Torres",
+        "minutes_together": 97.0,
+        "joi90": 0.37346204644587455,
+        "jdi90": -0.008423294370222588
+      },
+      {
+        "team_name": "Cameroon",
+        "name_p": "Jean-Charles Castelletto",
+        "name_q": "Nicolas N'Koulou",
+        "minutes_together": 192.53333333333333,
+        "joi90": 0.3389449929726186,
+        "jdi90": -0.07290707698912462
+      },
+      {
+        "team_name": "Denmark",
+        "name_p": "Andreas Christensen",
+        "name_q": "Joachim Andersen",
+        "minutes_together": 290.7833333333333,
+        "joi90": 0.30899544189634387,
+        "jdi90": 0.04750993457362044
+      },
+      {
+        "team_name": "Ecuador",
+        "name_p": "Pervis Estupinan",
+        "name_q": "Angelo Preciado",
+        "minutes_together": 276.2166666666667,
+        "joi90": 0.2780297486262468,
+        "jdi90": 0.013323323860318181
+      },
+      {
+        "team_name": "Germany",
+        "name_p": "Nico Schlotterbeck",
+        "name_q": "David Raum",
+        "minutes_together": 98.16666666666667,
+        "joi90": 0.2203710229853823,
+        "jdi90": 0.01862400729420324
+      }
+    ]
+  },
+  {
+    "role_a": "FWD",
+    "role_b": "MID",
+    "n_pairs": 453,
+    "median_joi90": 0.016507984562183234,
+    "median_jdi90": 0.005134557841665075,
+    "mean_joi90": 0.10224756243006283,
+    "mean_jdi90": 0.002068830479808167,
+    "top_pairs": [
+      {
+        "team_name": "Argentina",
+        "name_p": "Leandro Paredes",
+        "name_q": "Lautaro Martinez",
+        "minutes_together": 84.66666666666667,
+        "joi90": 2.7113221446944697,
+        "jdi90": -0.006826238610059579
+      },
+      {
+        "team_name": "Cameroon",
+        "name_p": "Eric Maxim Choupo-Moting",
+        "name_q": "Martin Hongla",
+        "minutes_together": 122.80000000000001,
+        "joi90": 1.4116982428583902,
+        "jdi90": -0.041134817452492686
+      },
+      {
+        "team_name": "Switzerland",
+        "name_p": "Denis Zakaria",
+        "name_q": "Breel Embolo",
+        "minutes_together": 61.95,
+        "joi90": 1.3985914686900773,
+        "jdi90": -0.058903864315281634
+      },
+      {
+        "team_name": "Germany",
+        "name_p": "Jamal Musiala",
+        "name_q": "Niclas Fullkrug",
+        "minutes_together": 72.56666666666666,
+        "joi90": 1.179771464141571,
+        "jdi90": -0.037082802936971984
+      },
+      {
+        "team_name": "Germany",
+        "name_p": "Leroy San\u00e9",
+        "name_q": "Niclas Fullkrug",
+        "minutes_together": 72.56666666666666,
+        "joi90": 1.063953005945612,
+        "jdi90": -0.03196092450349641
+      }
+    ]
+  },
+  {
+    "role_a": "FWD",
+    "role_b": "DEF",
+    "n_pairs": 362,
+    "median_joi90": 0.0099249723346519,
+    "median_jdi90": 0.0033325523388336087,
+    "mean_joi90": 0.09006760683162143,
+    "mean_jdi90": -8.141160556671702e-05,
+    "top_pairs": [
+      {
+        "team_name": "Senegal",
+        "name_p": "Bamba Dieng",
+        "name_q": "Youssouf Sabaly",
+        "minutes_together": 122.38333333333333,
+        "joi90": 1.9053394982072949,
+        "jdi90": 0.004498061964574427
+      },
+      {
+        "team_name": "United States",
+        "name_p": "Tim Ream",
+        "name_q": "Giovanni Reyna",
+        "minutes_together": 61.06666666666666,
+        "joi90": 1.3903590361449427,
+        "jdi90": -0.01243011713118073
+      },
+      {
+        "team_name": "Spain",
+        "name_p": "Alvaro Morata",
+        "name_q": "Jordi Alba",
+        "minutes_together": 62.66666666666667,
+        "joi90": 1.3373294411743482,
+        "jdi90": 0.005618026156883314
+      },
+      {
+        "team_name": "Costa Rica",
+        "name_p": "Juan Pablo Vargas",
+        "name_q": "Johan Venegas",
+        "minutes_together": 73.23333333333333,
+        "joi90": 1.2268947960803995,
+        "jdi90": -0.05413305140671684
+      },
+      {
+        "team_name": "Mexico",
+        "name_p": "Ra\u00fal Jim\u00e9nez",
+        "name_q": "Jes\u00fas Gallardo",
+        "minutes_together": 79.33333333333333,
+        "joi90": 1.0738100545107119,
+        "jdi90": 0.010106024102575356
+      }
+    ]
+  },
+  {
+    "role_a": "MID",
+    "role_b": "DEF",
+    "n_pairs": 979,
+    "median_joi90": 0.015387803116397735,
+    "median_jdi90": 0.011413392868920087,
+    "mean_joi90": 0.03185329886153516,
+    "mean_jdi90": 0.0033307284523689273,
+    "top_pairs": [
+      {
+        "team_name": "Portugal",
+        "name_p": "Rapha\u00ebl Guerreiro",
+        "name_q": "Rafael Leao",
+        "minutes_together": 62.41666666666667,
+        "joi90": 1.4388651338784006,
+        "jdi90": -0.020503180587251035
+      },
+      {
+        "team_name": "Ghana",
+        "name_p": "Abdul Rahman Baba",
+        "name_q": "Osman Bukari",
+        "minutes_together": 70.03333333333333,
+        "joi90": 0.8965918717881287,
+        "jdi90": -0.0629400834989877
+      },
+      {
+        "team_name": "Saudi Arabia",
+        "name_p": "Sultan Al-Ghannam",
+        "name_q": "Mohamed Kanno",
+        "minutes_together": 145.8,
+        "joi90": 0.6233837640815385,
+        "jdi90": 0.013032925263861381
+      },
+      {
+        "team_name": "South Korea",
+        "name_p": "Heung-min Son",
+        "name_q": "Jin-su Kim",
+        "minutes_together": 346.68333333333334,
+        "joi90": 0.5148625598295776,
+        "jdi90": -0.008418353265800033
+      },
+      {
+        "team_name": "Ghana",
+        "name_p": "Jordan Ayew",
+        "name_q": "Gideon Mensah",
+        "minutes_together": 78.06666666666666,
+        "joi90": 0.44647652667691734,
+        "jdi90": -0.04514919665242663
+      }
+    ]
+  },
+  {
+    "role_a": "GK",
+    "role_b": "DEF",
+    "n_pairs": 192,
+    "median_joi90": 0.01436397481839889,
+    "median_jdi90": 0.009825349213591121,
+    "mean_joi90": 0.017145601079862113,
+    "mean_jdi90": -0.0012233769153603387,
+    "top_pairs": [
+      {
+        "team_name": "Cameroon",
+        "name_p": "Jean-Charles Castelletto",
+        "name_q": "Andre Onana",
+        "minutes_together": 96.31666666666666,
+        "joi90": 0.1302904184774243,
+        "jdi90": 0.02049100907461113
+      },
+      {
+        "team_name": "Spain",
+        "name_p": "Rodri",
+        "name_q": "Unai Simon",
+        "minutes_together": 380.8833333333333,
+        "joi90": 0.1145533420167701,
+        "jdi90": -0.05288943269849782
+      },
+      {
+        "team_name": "Germany",
+        "name_p": "Manuel Neuer",
+        "name_q": "Nico Schlotterbeck",
+        "minutes_together": 107.46666666666667,
+        "joi90": 0.09017772466102032,
+        "jdi90": 0.019854332199755704
+      },
+      {
+        "team_name": "Switzerland",
+        "name_p": "Yann Sommer",
+        "name_q": "Nico Elvedi",
+        "minutes_together": 192.23333333333335,
+        "joi90": 0.08125587897721138,
+        "jdi90": 0.015534538151324932
+      },
+      {
+        "team_name": "Tunisia",
+        "name_p": "Aymen Dahmen",
+        "name_q": "Yassine Meriah",
+        "minutes_together": 296.55,
+        "joi90": 0.07807186187510122,
+        "jdi90": 0.05954321648521409
+      }
+    ]
+  }
+]

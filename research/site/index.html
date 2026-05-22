@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Overview</title>
+  <meta name="description" content="Recreating Bransen &amp; Van Haaren's player-chemistry framework on 2022 World Cup data.">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="pairs.html">Top Pairs</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>What is player chemistry?</h1>
+    <p>
+      Chemistry, in this project, is a measure of how well two players' actions
+      <em>compound</em> on the pitch — how much offensive value they create together
+      and how much defensive value they preserve. The framework comes from Lotte
+      Bransen and Jan Van Haaren's 2020 MIT Sloan paper,
+      <em>Player Chemistry: Striving for a Perfectly Balanced Soccer Team</em>.
+      We reapply it here to the <strong>2022 FIFA Men's World Cup</strong>
+      using PFF event data (64 matches, all 32 squads).
+    </p>
+
+    <div class="card">
+      <h3 class="mt-0">Why this matters for a World Cup</h3>
+      <p>
+        Every four years, players who gel weekly at their clubs are asked to play
+        out of sync for their country. Chemistry is one quantitative lens on the
+        gap between <em>club familiarity</em> and <em>national-team novelty</em>:
+        not "who is the best player," but <em>which pairs amplify each other</em>.
+        That framing matters because tournament football rewards combinations more
+        than individual talent — a midfield duo that has played 90 minutes together
+        carries information a roster of stars does not.
+      </p>
+    </div>
+
+    <h2>The two metrics</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 class="mt-0"><span class="chip green">JOI</span> Joint Offensive Impact</h3>
+        <p class="dim">
+          The sum of VAEP action-values along consecutive same-team interactions
+          between two players. If P passes to Q and Q's next action is a shot,
+          both VAEP values contribute to JOI(P, Q).
+        </p>
+        <div class="formula" id="joi-formula">
+          \( \mathrm{JOI}(p, q) = \sum_{(a_i, a_{i+1}) \in S_{p,q}} V(a_i) + V(a_{i+1}) \)
+        </div>
+        <p class="small dim">
+          Normalized per 90 minutes shared on the pitch (JOI90) to compare pairs
+          with different playing time.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="mt-0"><span class="chip red">JDI</span> Joint Defensive Impact</h3>
+        <p class="dim">
+          For every opponent \(o\) a pair faces, JDI credits the pair when \(o\)'s
+          actual offensive impact comes in <em>below</em> expectation. The credit
+          is split among same-team pairs by their responsibility share \(R(p,q,o)\),
+          derived from the 5×5 position grid (closer to the threat → larger share).
+        </p>
+        <div class="formula" id="jdi-formula">
+          \( \mathrm{JDI}_m(p, q) = \sum_o \big( \mathbb{E}[\mathrm{OI}_o] - \mathrm{OI}_o \big) \cdot R_m(p, q, o) \cdot \tfrac{\mathrm{mins}_m(p,q,o)}{90} \)
+        </div>
+        <p class="small dim">
+          \( R_m(p,q,o) = \tfrac{1}{2}\big(r_p(o) + r_q(o)\big) \) and \( r_p(o) \propto 1/d(p,o) \)
+          in the (mirrored) 5×5 grid. Aggregates per 90 minutes shared on the pitch (JDI90).
+        </p>
+      </div>
+    </div>
+
+    <h2>The 5×5 responsibility grid</h2>
+    <p>
+      Defensive responsibility is split into 25 zones (5 horizontal × 5 vertical
+      bands of the pitch). For each zone, we compute each player's share of
+      defensive actions while they were on the pitch. JDI rewards pairs that
+      <em>jointly</em> suppress more opponent threat than expected in zones where
+      both players are responsible.
+    </p>
+
+    <div class="grid-5x5" aria-label="5 by 5 responsibility grid">
+      <div class="cell def">DEF</div><div class="cell def">DEF</div><div class="cell def">DEF</div><div class="cell def">DEF</div><div class="cell def">DEF</div>
+      <div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div>
+      <div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div>
+      <div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div>
+      <div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div>
+    </div>
+    <p class="small muted">Schematic only — bands here are role labels, not strict pitch coordinates.</p>
+
+    <h2>Tournament snapshot</h2>
+    <div id="overview-stats" class="grid-stat">
+      <div class="empty-state" style="grid-column: 1 / -1;">Loading…</div>
+    </div>
+
+    <div class="grid-2" id="overview-top-pairs"></div>
+
+    <h2>Form at the tournament: who out-played their baseline?</h2>
+    <p class="dim">
+      For each player we measure the gap between their <em>actual</em> per-90 offensive
+      impact at WC22 and their <em>expected</em> per-90 (Bayesian-shrunk from their
+      own earlier matches in this corpus). Positive = over-performing. Negative =
+      under-performing. This is our event-data proxy for the bigger
+      "club-vs-national chemistry" question: a player whose individual numbers
+      collapsed at the tournament is a candidate for chemistry-driven friction
+      with new teammates.
+    </p>
+    <div class="grid-2" id="overview-form"></div>
+
+    <h2>How to use this site</h2>
+    <ul>
+      <li><a href="pairs.html">Top Pairs</a> — sortable tables of offensive, defensive, and cross-chemistry pair rankings.</li>
+      <li><a href="teams.html">Team Maps</a> — per-team pitch maps showing JOI and JDI hotspots.</li>
+      <li><a href="team-builder.html">Team Builder</a> — Bransen's mixed-integer-programming optimal XI per squad.</li>
+      <li><a href="methodology.html">Methodology</a> — the full math (VAEP → JOI / JDI → predictor), 5-fold CV metrics, and limitations.</li>
+      <li><a href="downloads.html">Downloads</a> — every figure as PNG, every table as CSV, raw JSON.</li>
+    </ul>
+  </main>
+
+  <footer class="site-footer">
+    PFF event data, 64 matches, FIFA World Cup 2022. Method recreated from
+    Bransen &amp; Van Haaren (MIT Sloan, 2020).
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous" defer
+          onload="renderMathInElement(document.body, {delimiters: [{left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}]});"></script>
+  <script type="module">
+    import { loadJSON, escapeHTML, fmtNum, fmtInt, renderEmpty, flagHTML, posChip } from "./assets/js/site.js";
+
+    const statsEl = document.getElementById("overview-stats");
+    const topPairsEl = document.getElementById("overview-top-pairs");
+
+    const data = await loadJSON("data/overview.json");
+
+    if (!data) {
+      renderEmpty(statsEl, "Overview data not yet computed.",
+        "Run the export pipeline to produce data/overview.json.");
+      topPairsEl.innerHTML = "";
+    } else {
+      const stats = [
+        { label: "Matches", value: fmtInt(data.n_matches) },
+        { label: "Teams", value: fmtInt(data.n_teams) },
+        { label: "VAEP actions", value: fmtInt(data.n_actions) },
+        { label: "Qualifying pairs", value: fmtInt(data.n_pairs) },
+      ];
+      const vm = data.vaep_metrics || {};
+      const pm = data.predictor_metrics || {};
+      if (vm.score_auc !== undefined) {
+        stats.push({ label: "VAEP score AUC", value: fmtNum(vm.score_auc, 3), sub: "out-of-fold" });
+      }
+      if (vm.concede_auc !== undefined) {
+        stats.push({ label: "VAEP concede AUC", value: fmtNum(vm.concede_auc, 3), sub: "out-of-fold" });
+      }
+      if (pm.joi_r2 !== undefined) {
+        stats.push({ label: "JOI predictor R²", value: fmtNum(pm.joi_r2, 3), sub: "5-fold CV" });
+      }
+      if (pm.jdi_r2 !== undefined) {
+        stats.push({ label: "JDI predictor R²", value: fmtNum(pm.jdi_r2, 3), sub: "5-fold CV" });
+      }
+      if (data.n_goals !== undefined) {
+        stats.push({ label: "Goals scored", value: fmtInt(data.n_goals) });
+      }
+
+      statsEl.innerHTML = stats
+        .map((s) => `<div class="stat">
+            <div class="label">${escapeHTML(s.label)}</div>
+            <div class="value">${escapeHTML(s.value)}</div>
+            ${s.sub ? `<div class="sub">${escapeHTML(s.sub)}</div>` : ""}
+          </div>`)
+        .join("");
+
+      const cards = [];
+      const pName = (x) => x.name_p || x.p || "?";
+      const qName = (x) => x.name_q || x.q || "?";
+      const tName = (x) => x.team_name || x.team || "";
+      const mins  = (x) => x.minutes_together ?? x.minutes ?? null;
+
+      if (data.top_joi_pair) {
+        const p = data.top_joi_pair;
+        const m = mins(p);
+        cards.push(`<div class="card"><h3 class="mt-0">Top JOI pair</h3>
+          <p><strong>${escapeHTML(pName(p))}</strong> &nbsp;+&nbsp; <strong>${escapeHTML(qName(p))}</strong></p>
+          <p class="dim small">${escapeHTML(tName(p))}${m !== null ? ` · ${fmtNum(m, 0)} minutes together` : ""}</p>
+          <p>JOI90: <span class="chip green">${fmtNum(p.joi90, 3)}</span></p>
+        </div>`);
+      }
+      if (data.top_jdi_pair) {
+        const p = data.top_jdi_pair;
+        const m = mins(p);
+        cards.push(`<div class="card"><h3 class="mt-0">Top JDI pair</h3>
+          <p><strong>${escapeHTML(pName(p))}</strong> &nbsp;+&nbsp; <strong>${escapeHTML(qName(p))}</strong></p>
+          <p class="dim small">${escapeHTML(tName(p))}${m !== null ? ` · ${fmtNum(m, 0)} minutes together` : ""}</p>
+          <p>JDI90: <span class="chip red">${fmtNum(p.jdi90, 3)}</span></p>
+        </div>`);
+      }
+      topPairsEl.innerHTML = cards.join("");
+    }
+
+    const formEl = document.getElementById("overview-form");
+    const formData = await loadJSON("data/player_form.json").catch(() => null);
+    const teamsForFlags = await loadJSON("data/teams.json").catch(() => []);
+    if (formEl && formData) {
+      const flagFor = (tname) => {
+        const t = (teamsForFlags || []).find((x) => x.team_name === tname);
+        return t ? flagHTML(t.flag_code, { alt: tname }) : "";
+      };
+      const fmtRow = (p, sign) => {
+        const delta = Number(p.delta_per90 ?? 0);
+        const chip = sign === "+" ? "green" : "red";
+        return `<tr>
+          <td><strong>${escapeHTML(p.player_name || "")}</strong>${posChip(p.position)}</td>
+          <td>${flagFor(p.team_name)}<span class="muted small">${escapeHTML(p.team_name || "")}</span></td>
+          <td class="num">${fmtInt(p.n_matches)}</td>
+          <td class="num">${fmtNum(p.total_minutes, 0)}</td>
+          <td class="num"><span class="chip ${chip}">${(delta >= 0 ? "+" : "") + fmtNum(delta, 2)}</span></td>
+        </tr>`;
+      };
+      const overs = (formData.over_performers || []).slice(0, 8).map((p) => fmtRow(p, "+")).join("");
+      const unders = (formData.under_performers || []).slice(0, 8).map((p) => fmtRow(p, "-")).join("");
+      const headers = `<thead><tr><th>Player</th><th>Team</th><th class="num">Matches</th><th class="num">Min</th><th class="num">Δ OI/90</th></tr></thead>`;
+      formEl.innerHTML = `
+        <div class="card"><h3 class="mt-0">Over-performers</h3>
+          <table class="data-table">${headers}<tbody>${overs}</tbody></table>
+          <p class="small muted">Δ &gt; 0 means actual OI/90 outran their prior baseline.</p>
+        </div>
+        <div class="card"><h3 class="mt-0">Under-performers</h3>
+          <table class="data-table">${headers}<tbody>${unders}</tbody></table>
+          <p class="small muted">Candidates for chemistry-driven friction.</p>
+        </div>`;
+    }
+  </script>
+</body>
+</html>

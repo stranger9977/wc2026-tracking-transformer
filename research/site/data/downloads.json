@@ -1,0 +1,22 @@
+[
+  {
+    "name": "All chemistry pairs (CSV)",
+    "path": "assets/csv/pairs.csv"
+  },
+  {
+    "name": "Joint Offensive Impact (JOI) per pair",
+    "path": "assets/csv/joi.csv"
+  },
+  {
+    "name": "Joint Defensive Impact (JDI) per pair",
+    "path": "assets/csv/jdi.csv"
+  },
+  {
+    "name": "Lineup table (player \u00d7 match)",
+    "path": "assets/csv/lineups.csv"
+  },
+  {
+    "name": "VAEP-enriched SPADL actions",
+    "path": "assets/csv/spadl_vaep.csv"
+  }
+]

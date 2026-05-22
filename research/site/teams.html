@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Team Maps</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="pairs.html">Top Pairs</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Team chemistry maps</h1>
+    <p class="dim">
+      One card per squad. The offensive map shades the pitch by JOI density —
+      where this team's high-chemistry pairs combined to create threat. The
+      defensive map shades by JDI — where they jointly suppressed expected
+      opponent threat. Click any image to download the PNG.
+    </p>
+
+    <div class="controls">
+      <div>
+        <label for="team-search">Filter teams</label>
+        <input id="team-search" type="search" placeholder="e.g. Argentina">
+      </div>
+      <div>
+        <label for="team-sort">Sort by</label>
+        <select id="team-sort">
+          <option value="name">Team name (A→Z)</option>
+          <option value="pairs">Most qualifying pairs</option>
+          <option value="players">Most players used</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="team-grid" class="team-grid">
+      <div class="empty-state" style="grid-column: 1 / -1;">Loading…</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    PFF event data, 64 matches, FIFA World Cup 2022. Method recreated from
+    Bransen &amp; Van Haaren (MIT Sloan, 2020).
+  </footer>
+
+  <script type="module" src="assets/js/teams.js"></script>
+</body>
+</html>
