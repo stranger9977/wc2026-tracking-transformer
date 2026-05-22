@@ -40,11 +40,16 @@ function zNormalize(values) {
   return values.map((v) => Number.isFinite(v) ? (v - mean) / sd : 0);
 }
 
+const OFFENSIVE_ROLES = new Set(["FWD", "MID"]);
+const DEFENSIVE_ROLES = new Set(["DEF", "GK"]);
+
 function matchesRolePair(row, roleSel) {
   if (!roleSel || roleSel === "ALL") return true;
   const a = row.role_p || "";
   const b = row.role_q || "";
   const pair = new Set([a, b]);
+  if (roleSel === "OFF_ROLES") return OFFENSIVE_ROLES.has(a) && OFFENSIVE_ROLES.has(b);
+  if (roleSel === "DEF_ROLES") return DEFENSIVE_ROLES.has(a) && DEFENSIVE_ROLES.has(b);
   if (roleSel === "GK-ANY") return pair.has("GK");
   const [r1, r2] = roleSel.split("-");
   if (r1 === r2) return a === r1 && b === r2;
@@ -126,6 +131,12 @@ function switchTab(newMode) {
   mode = newMode;
   tabs.forEach((b) => b.classList.toggle("active", b.dataset.tab === newMode));
   alphaWrap.classList.toggle("hidden", newMode !== "cross");
+  if (roleEl) {
+    // Pick the right default for this tab. User can override afterwards.
+    if (newMode === "off") roleEl.value = "OFF_ROLES";
+    else if (newMode === "def") roleEl.value = "DEF_ROLES";
+    else roleEl.value = "ALL";
+  }
   buildTable();
 }
 

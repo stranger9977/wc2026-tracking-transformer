@@ -53,14 +53,20 @@
       <div>
         <label for="role-filter">Role pair</label>
         <select id="role-filter">
-          <option value="ALL">All role pairs</option>
-          <option value="FWD-FWD">FWD ↔ FWD (offence ↔ offence)</option>
-          <option value="DEF-DEF">DEF ↔ DEF (defence ↔ defence)</option>
-          <option value="FWD-DEF">FWD ↔ DEF (offence ↔ defence)</option>
-          <option value="MID-MID">MID ↔ MID</option>
-          <option value="FWD-MID">FWD ↔ MID</option>
-          <option value="MID-DEF">MID ↔ DEF</option>
-          <option value="GK-ANY">GK involved</option>
+          <optgroup label="Smart defaults">
+            <option value="OFF_ROLES" selected>Offensive roles (FWD / MID)</option>
+            <option value="DEF_ROLES">Defensive roles (DEF / GK)</option>
+          </optgroup>
+          <optgroup label="All combinations">
+            <option value="ALL">All role pairs</option>
+            <option value="FWD-FWD">FWD ↔ FWD (offence ↔ offence)</option>
+            <option value="DEF-DEF">DEF ↔ DEF (defence ↔ defence)</option>
+            <option value="FWD-DEF">FWD ↔ DEF (offence ↔ defence)</option>
+            <option value="MID-MID">MID ↔ MID</option>
+            <option value="FWD-MID">FWD ↔ MID</option>
+            <option value="MID-DEF">MID ↔ DEF</option>
+            <option value="GK-ANY">GK involved</option>
+          </optgroup>
         </select>
       </div>
       <div id="alpha-wrap" class="hidden">
