@@ -196,6 +196,14 @@ for fname, slots in FORMATIONS.items():
 
     <h2>5. Limitations</h2>
     <ul>
+      <li><strong>Tournament-only baseline.</strong> All "expected" values
+        — the Bayesian-shrunk E[OI] used inside JDI, and the per-player Δ OI/90
+        shown on the Overview — are computed from this 64-match corpus alone.
+        Most players have 2–4 matches here, so the per-player prior collapses
+        to a positional average. That makes our "form" delta a tournament-relative
+        gauge, <em>not</em> a club-vs-national comparison. Closing that loop
+        is the principal next step (extend the loader to StatsBomb / Impect open
+        event data, join on player_id, recompute OI/90, take the difference).</li>
       <li><strong>Small sample.</strong> 64 matches across 32 teams means many pairs share
         well under 90 minutes. We apply a minimum-minutes filter on the Top Pairs
         tables to mitigate, but JDI90 in particular is noisy at low sample.</li>

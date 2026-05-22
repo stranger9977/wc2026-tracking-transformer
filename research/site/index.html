@@ -51,6 +51,14 @@
         than individual talent — a midfield duo that has played 90 minutes together
         carries information a roster of stars does not.
       </p>
+      <p class="small muted mb-0">
+        <strong>Scope of v1:</strong> the pair-level JOI / JDI / Team-Builder
+        analyses below are computed entirely <em>within the World Cup itself</em> —
+        they're a self-contained look at which national-team partnerships
+        produced and prevented value in 64 matches. The bigger
+        "did the player look worse than at his club" question requires the
+        same player's club season — see "Next step" further down.
+      </p>
     </div>
 
     <h2>The two metrics</h2>
@@ -115,16 +123,34 @@
 
     <div class="grid-2" id="overview-top-pairs"></div>
 
-    <h2>Form at the tournament: who out-played their baseline?</h2>
+    <h2>Form at the tournament: who out-played the positional baseline?</h2>
     <p class="dim">
-      For each player we measure the gap between their <em>actual</em> per-90 offensive
-      impact at WC22 and their <em>expected</em> per-90 (Bayesian-shrunk from their
-      own earlier matches in this corpus). Positive = over-performing. Negative =
-      under-performing. This is our event-data proxy for the bigger
-      "club-vs-national chemistry" question: a player whose individual numbers
-      collapsed at the tournament is a candidate for chemistry-driven friction
-      with new teammates.
+      For each player we compare their per-90 offensive impact (OI) at WC22
+      to an <em>expected</em> per-90 computed only from this dataset. Because
+      most players appear in just 2–4 matches, the expected per-90 is heavily
+      shrunk toward a positional prior (the average OI/90 of GK / DEF / MID /
+      FWD players in the corpus). Δ OI/90 > 0 means a player outran what a
+      typical player of their position produced at the tournament.
     </p>
+    <div class="card" style="border-left: 3px solid #ffd47a;">
+      <h3 class="mt-0" style="font-size: 0.95rem;">⚠ What this is and isn't</h3>
+      <p class="small">
+        With only WC22 data this is <strong>not</strong> a club-vs-national
+        comparison. It's a within-tournament gap against a positional baseline
+        — useful for flagging surprise performances, but it can't directly
+        answer "did this player look worse than at his club." For that we
+        need their club season too.
+      </p>
+      <p class="small mb-0">
+        <strong>Next step:</strong> join the open StatsBomb event corpus
+        (some 2021–22 Premier League / La Liga / Champions League seasons)
+        on player_id, recompute each player's VAEP OI/90 across their club
+        matches, and compare to their WC22 OI/90. That delta is the real
+        chemistry-friction signal. The pipeline here is structured so it
+        slots in: see <code>research/src/chemistry/loaders/</code> for the
+        loader pattern.
+      </p>
+    </div>
     <div class="grid-2" id="overview-form"></div>
 
     <h2>How to use this site</h2>
@@ -242,11 +268,11 @@
       formEl.innerHTML = `
         <div class="card"><h3 class="mt-0">Over-performers</h3>
           <table class="data-table">${headers}<tbody>${overs}</tbody></table>
-          <p class="small muted">Δ &gt; 0 means actual OI/90 outran their prior baseline.</p>
+          <p class="small muted">Δ &gt; 0 = WC22 OI/90 above the positional baseline.</p>
         </div>
         <div class="card"><h3 class="mt-0">Under-performers</h3>
           <table class="data-table">${headers}<tbody>${unders}</tbody></table>
-          <p class="small muted">Candidates for chemistry-driven friction.</p>
+          <p class="small muted">Δ &lt; 0 = WC22 OI/90 below the positional baseline. Not yet a club-vs-national gap (see note above).</p>
         </div>`;
     }
   </script>
