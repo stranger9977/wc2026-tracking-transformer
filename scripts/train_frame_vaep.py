@@ -33,9 +33,11 @@ LOOK_AHEAD_S = 10.0
 
 def _load_goals_for_match(match_id: str, pff_root: Path | None = None) -> list:
     """Read the PFF event JSON for `match_id` and extract goal events."""
-    import json
-    from wc2026_tracking_transformer.data.loaders.pff import _resolve_match_paths
-    meta_path, events_path, _ = _resolve_match_paths(match_id, pff_root)
+    import os
+    root = pff_root or Path(os.environ.get(
+        "PFF_ROOT", "/Users/nick/Desktop/drive-download-20260518T234612Z-3-001"
+    ))
+    events_path = root / "Event Data" / f"{match_id}.json"
     events = json.loads(events_path.read_text())
     return goals_from_pff_events(events)
 
