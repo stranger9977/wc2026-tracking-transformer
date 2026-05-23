@@ -3,14 +3,15 @@
 A recreation of Lotte Bransen & Jan Van Haaren's 2020 MIT Sloan paper *"Player Chemistry: Striving for a Perfectly Balanced Soccer Team"* applied to 64 PFF FC World Cup '22 matches.
 
 The repo computes:
-- **VAEP** (value of every on-the-ball action) trained from scratch on PFF event data
+- **Event-level VAEP** (value of every on-the-ball action) trained from scratch on PFF event data
 - **JOI** (Joint Offensive Impact) — chemistry value of every same-team player pair on offensive interactions
 - **JDI** (Joint Defensive Impact) — chemistry credit for keeping opponents below their expected offensive impact, distributed by 5×5 positional responsibility share
 - **JOI90 / JDI90** — per-90-minutes-together normalization
-- **Predictor** — gradient-boosted regressors that forecast JOI90 / JDI90 from pair features (age, position, height, prior matches together) so we can score pairs that have never played together
+- **Predictor** — gradient-boosted regressors that forecast JOI90 / JDI90 from pair features
 - **Team Builder** — combinatorial optimization that picks a max-chemistry XI from a candidate pool subject to GK/DEF/MID/FWD formation constraints
+- **Frame-level VAEP** — two BCE heads (P-score / P-concede) on the parent tracking transformer. Per-frame chemistry as the natural extension of the event-level framework — see `scripts/train_frame_vaep.py` and the **Interactive Plays** tab.
 
-The static site at `research/site/` is GitHub-Pages-ready (mobile-first, vanilla HTML/CSS/JS) and lets you explore the results interactively.
+The static site at `research/site/` is GitHub-Pages-ready (mobile-first, vanilla HTML/CSS/JS) and lets you explore the results interactively. Live at <https://stranger9977.github.io/wc2026-tracking-transformer/>.
 
 ## Quick start
 
