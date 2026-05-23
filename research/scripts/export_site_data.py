@@ -225,6 +225,7 @@ def main() -> None:
         cc_rows = cc[[
             "pff_player_id", "name_in_source", "team_name", "position", "flag_code",
             "competition", "season", "minutes", "oi_total", "oi_per90",
+            "n_touches", "oi_per_touch", "z_oi_per90", "z_oi_per_touch", "role",
         ]]
         # Filter to players who have at least 2 contexts
         contexts_per_player = cc.groupby("pff_player_id").competition.nunique()
@@ -235,7 +236,20 @@ def main() -> None:
                        .set_index("pff_player_id")[["oi_per90", "minutes"]]
                        .rename(columns={"oi_per90": "wc22_oi_per90", "minutes": "wc22_minutes"}))
         cc_rows = cc_rows.join(wc_baseline, on="pff_player_id")
+        # Also pull WC22 baselines for the adjusted metrics
+        wc_z = (cc[cc.competition == "wc_2022_pff"]
+                .set_index("pff_player_id")[["z_oi_per90", "z_oi_per_touch", "oi_per_touch"]]
+                .rename(columns={
+                    "z_oi_per90": "wc22_z_oi_per90",
+                    "z_oi_per_touch": "wc22_z_oi_per_touch",
+                    "oi_per_touch": "wc22_oi_per_touch",
+                }))
+        cc_rows = cc_rows.join(wc_z, on="pff_player_id")
         cc_rows["delta_vs_wc22"] = cc_rows.oi_per90 - cc_rows.wc22_oi_per90
+        # Within-competition-role z-score delta — controls for league environment.
+        cc_rows["delta_z_vs_wc22"] = cc_rows.z_oi_per90 - cc_rows.wc22_z_oi_per90
+        # Per-touch delta — controls for possession volume.
+        cc_rows["delta_per_touch_vs_wc22"] = cc_rows.oi_per_touch - cc_rows.wc22_oi_per_touch
         cc_rows = cc_rows.dropna(subset=["wc22_oi_per90"])
 
         # Top "WC22 underperformers" (positive delta = club > WC22) and overperformers

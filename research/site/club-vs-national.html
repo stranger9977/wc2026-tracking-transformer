@@ -48,7 +48,17 @@
     </div>
 
     <h2>WC22 vs other contexts: who flopped, who turned up</h2>
-    <p class="dim small">Filtered to non-goalkeepers with ≥ 90 minutes in <em>both</em> contexts. Δ &gt; 0 = the player's other-context OI/90 was higher than at WC22 (so they "flopped at the tournament"). Δ &lt; 0 = WC22 was their high-water mark.</p>
+    <p class="dim small">Filtered to non-goalkeepers with ≥ 90 minutes in <em>both</em> contexts. Pick a metric below; the leaderboards control for the OI inflation that varies competition by competition.</p>
+
+    <div class="card" style="border-left: 3px solid #6dd58c;">
+      <h3 class="mt-0" style="font-size: 0.95rem;">How we control for the competition gap</h3>
+      <ul class="small" style="margin-bottom: 0.4rem;">
+        <li><strong>Raw Δ OI/90</strong> — pure difference. Best for storytelling, worst for fairness: a Bundesliga forward averages more OI/90 than a tournament forward, so the raw Δ flatters anyone playing in a high-volume league.</li>
+        <li><strong>Δ z-score (recommended)</strong> — within each (competition, role) we compute the OI/90 z-score (player minus the mean of same-role peers, divided by σ). Comparing z-scores across competitions strips out the league-wide scoring environment. A z of +1.5 in Bundesliga vs +0.5 at WC22 means "this player was much further ahead of his peer cohort at the club than at the tournament."</li>
+        <li><strong>Δ OI / touch</strong> — switch denominator from minutes to ball touches. Players in possession-heavy teams (PSG, Bayern) inflate per-90 just by having the ball more; per-touch isolates the productivity of each on-ball action.</li>
+        <li class="muted"><strong>Still uncontrolled.</strong> Opponent strength (a Ligue 1 mid-table match is not WC22 quarter-finals) and tactical role (a player can be a 9 at his club but a 10 at his country). Those need team-Elo or per-match opponent ratings — flagged as next step.</li>
+      </ul>
+    </div>
 
     <div class="tab-bar" role="tablist">
       <button data-tab="drops" class="active">Club / Euro / Copa &gt; WC22 (potential chemistry friction)</button>
@@ -63,6 +73,14 @@
         <label for="cc-comp">Compare WC22 to</label>
         <select id="cc-comp">
           <option value="ALL">Any competition</option>
+        </select>
+      </div>
+      <div>
+        <label for="cc-metric">Rank by</label>
+        <select id="cc-metric">
+          <option value="z" selected>Δ z-score (within-comp role-adjusted)</option>
+          <option value="raw">Δ raw OI/90</option>
+          <option value="touch">Δ OI / touch</option>
         </select>
       </div>
     </div>

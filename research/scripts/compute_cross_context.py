@@ -58,8 +58,10 @@ def _minutes_from_events(spadl: pd.DataFrame) -> pd.DataFrame:
 
 def _oi_per_player(spadl_vaep: pd.DataFrame, *, oi_types=("pass", "cross", "dribble", "take_on", "shot")) -> pd.DataFrame:
     off = spadl_vaep[spadl_vaep.type_name.isin(oi_types)]
-    out = off.groupby(["player_id", "player_name"], as_index=False).vaep_value.sum()
-    out.columns = ["player_id", "player_name", "oi_total"]
+    out = off.groupby(["player_id", "player_name"], as_index=False).agg(
+        oi_total=("vaep_value", "sum"),
+        n_touches=("vaep_value", "size"),
+    )
     return out
 
 
@@ -73,6 +75,8 @@ def _attach_and_aggregate(spadl: pd.DataFrame, bundle, label: str,
     df = oi.merge(mins, on="player_id", how="left")
     df["minutes"] = df.minutes.fillna(0).clip(lower=1.0)
     df["oi_per90"] = df.oi_total * 90.0 / df.minutes
+    # Per-touch OI: controls for possession dominance / team style.
+    df["oi_per_touch"] = df.oi_total / df.n_touches.clip(lower=1)
     df["competition"] = label
     df["season"] = season or ""
     return df
@@ -177,14 +181,54 @@ def main() -> None:
     })[["pff_player_id", "name_in_source", "competition", "season",
         "oi_total", "minutes", "oi_per90"]]
 
+    # Add per-touch OI to the PFF rows (we already have full SPADL there)
+    pff_touches = (
+        pff[pff.type_name.isin(["pass", "cross", "dribble", "take_on", "shot"])]
+        .groupby("player_id").size()
+        .rename("n_touches")
+    )
+    pff_ctx["n_touches"] = pff_ctx.pff_player_id.map(pff_touches).fillna(0).astype(int)
+    pff_ctx["oi_per_touch"] = pff_ctx.oi_total / pff_ctx.n_touches.clip(lower=1)
+
     all_rows = pd.concat([
         pff_ctx[["pff_player_id", "player_name", "competition", "season",
-                 "oi_total", "minutes", "oi_per90"]]
+                 "oi_total", "minutes", "oi_per90", "n_touches", "oi_per_touch"]]
             .rename(columns={"player_name": "name_in_source"}),
-        sb_joined,
+        sb_joined.assign(
+            n_touches=lambda d: d.get("n_touches", 0),
+            oi_per_touch=lambda d: d.get("oi_per_touch", 0.0),
+        ),
     ], ignore_index=True)
+
+    # Attach role from PFF position lookup so we can compute per-(competition, role) baselines
+    pos_lookup = (
+        lineups.dropna(subset=["position"]).groupby("player_id").position
+        .agg(lambda s: s.value_counts().index[0]).to_dict()
+    )
+    from chemistry.joint.grid import grid_role
+    all_rows["position"] = all_rows.pff_player_id.map(pos_lookup)
+    all_rows["role"] = all_rows.position.map(grid_role)
+
+    # Within-(competition, role) z-scores: controls for league-wide OI environment.
+    # We require ≥ 5 same-role peers in the competition; otherwise z is NaN.
+    def _zscore(group: pd.DataFrame, col: str) -> pd.Series:
+        if len(group) < 5:
+            return pd.Series([float("nan")] * len(group), index=group.index)
+        mu = group[col].mean()
+        sd = group[col].std(ddof=0) or 1.0
+        return (group[col] - mu) / sd
+
+    all_rows["z_oi_per90"] = (
+        all_rows.groupby(["competition", "role"], group_keys=False)
+        .apply(lambda g: _zscore(g, "oi_per90"), include_groups=False)
+    )
+    all_rows["z_oi_per_touch"] = (
+        all_rows.groupby(["competition", "role"], group_keys=False)
+        .apply(lambda g: _zscore(g, "oi_per_touch"), include_groups=False)
+    )
+
     all_rows.to_parquet(DATA / "cross_context.parquet", index=False)
-    print(f"cross_context.parquet: {len(all_rows)} rows")
+    print(f"cross_context.parquet: {len(all_rows)} rows (with z-scores + per-touch)")
 
     # --- Summary: WC22 vs club / Euro / Copa deltas ---
     wc = all_rows[all_rows.competition == "wc_2022_pff"].set_index("pff_player_id")

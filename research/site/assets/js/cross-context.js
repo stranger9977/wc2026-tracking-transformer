@@ -3,6 +3,7 @@ import { loadJSON, escapeHTML, fmtNum, fmtInt, renderEmpty, flagHTML, posChip, m
 const tableEl = document.getElementById("cc-table");
 const searchEl = document.getElementById("cc-search");
 const compEl = document.getElementById("cc-comp");
+const metricEl = document.getElementById("cc-metric");
 const playerSel = document.getElementById("cc-player");
 const detailEl = document.getElementById("cc-player-detail");
 const calibrationEl = document.getElementById("cc-calibration");
@@ -41,15 +42,40 @@ function fmtDelta(row) {
   return `<span class="chip ${cls}">${(d >= 0 ? "+" : "") + fmtNum(d, 2)}</span>`;
 }
 
+function fmtDeltaCol(key) {
+  return (row) => {
+    const d = Number(row[key] ?? 0);
+    const cls = d >= 0 ? "green" : "red";
+    return `<span class="chip ${cls}">${(d >= 0 ? "+" : "") + fmtNum(d, 2)}</span>`;
+  };
+}
+
 function buildTable() {
   const data = mode === "drops" ? raw.club_better_than_wc22 : raw.wc22_better_than_club;
+  const metric = metricEl ? metricEl.value : "z";
+  const deltaKey = metric === "raw" ? "delta_vs_wc22"
+                  : metric === "touch" ? "delta_per_touch_vs_wc22"
+                  : "delta_z_vs_wc22";
+  const otherKey = metric === "raw" ? "oi_per90"
+                  : metric === "touch" ? "oi_per_touch"
+                  : "z_oi_per90";
+  const wcKey = metric === "raw" ? "wc22_oi_per90"
+                  : metric === "touch" ? "wc22_oi_per_touch"
+                  : "wc22_z_oi_per90";
+  const digits = metric === "touch" ? 3 : 2;
+  const otherLabel = metric === "raw" ? "Other OI/90"
+                  : metric === "touch" ? "Other OI/touch"
+                  : "Other z";
+  const wcLabel = metric === "raw" ? "WC22 OI/90"
+                  : metric === "touch" ? "WC22 OI/touch"
+                  : "WC22 z";
   const cols = [
     { key: "name_in_source", label: "Player", render: fmtPlayer },
     { key: "team_name", label: "WC22 team", render: fmtTeam },
     { key: "competition", label: "Other competition", render: fmtComp },
-    { key: "oi_per90", label: "Other OI/90", num: true, digits: 2 },
-    { key: "wc22_oi_per90", label: "WC22 OI/90", num: true, digits: 2 },
-    { key: "delta_vs_wc22", label: "Δ", render: fmtDelta,
+    { key: otherKey, label: otherLabel, num: true, digits },
+    { key: wcKey, label: wcLabel, num: true, digits },
+    { key: deltaKey, label: "Δ", render: fmtDeltaCol(deltaKey),
       defaultSort: true, defaultDir: mode === "drops" ? "desc" : "asc" },
     { key: "minutes", label: "Other min", num: true, digits: 0 },
     { key: "wc22_minutes", label: "WC22 min", num: true, digits: 0 },
@@ -161,6 +187,7 @@ function switchTab(newMode) {
 tabs.forEach((b) => b.addEventListener("click", () => switchTab(b.dataset.tab)));
 searchEl.addEventListener("input", applyFilters);
 compEl.addEventListener("change", applyFilters);
+if (metricEl) metricEl.addEventListener("change", buildTable);
 playerSel.addEventListener("change", () => renderPlayer(Number(playerSel.value)));
 
 function renderCalibration() {
