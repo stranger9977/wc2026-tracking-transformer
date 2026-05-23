@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Transformer Chemistry</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="pairs.html">Top Pairs</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="club-vs-national.html">Club vs National</a>
+        <a href="transformer-chemistry.html">Transformer Chemistry</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Transformer Chemistry</h1>
+    <p>
+      The JOI / JDI metrics on the other tabs use <strong>event-level VAEP</strong> —
+      one number per on-ball action. That throws away ~95% of the game: every
+      off-ball run, every defensive shape adjustment, every moment where a player
+      pulls a defender out of position without touching the ball.
+    </p>
+    <p>
+      This tab uses a <strong>tracking transformer</strong> — a model that sees
+      all 22 players + ball at 5 Hz and emits a single expected-threat (xT)
+      prediction per frame plus an attention map showing which players the model
+      is reasoning about. We use that for two things:
+    </p>
+    <ol>
+      <li><strong>Augmented VAEP</strong> — fold transformer features into the
+        event-level P-score / P-concede classifiers and measure the AUC lift.</li>
+      <li><strong>Attention chemistry networks</strong> — sum the transformer's
+        pair attention across the tournament. The result is a chemistry metric
+        that captures off-ball signal that JOI/JDI can't see.</li>
+    </ol>
+
+    <h2 id="auc-lift">AUC lift over event-only VAEP</h2>
+    <div id="auc-table" class="card">
+      <div class="empty-state">Loading metrics…</div>
+    </div>
+
+    <h2 id="attention-networks">Per-team attention chemistry networks</h2>
+    <p class="dim small">
+      For each WC22 team we render a pitch with the 11 starters at their formation
+      positions; edge color and width encode the total ball-token attention the
+      transformer placed on each pair (warmer / thicker = stronger). These edges
+      are derived <em>frame-by-frame</em> across every match the team played, so
+      they capture pairs that the model "watched together" — including in moments
+      with no on-ball event.
+    </p>
+    <div class="controls">
+      <div>
+        <label for="att-search">Search team</label>
+        <input id="att-search" type="search" placeholder="e.g. Argentina, Brazil…">
+      </div>
+    </div>
+    <div id="attention-grid" class="team-card-grid">
+      <div class="empty-state">Loading attention figures…</div>
+    </div>
+
+    <h2 id="top-attention-pairs">Top attention pairs (across the tournament)</h2>
+    <p class="dim small">All pairs sorted by per-90 attention. This is the cross-team analogue of the JOI top-pairs table; the difference is that attention chemistry catches non-event interactions.</p>
+    <div id="attention-pairs-table"></div>
+
+    <h2 id="how">How the transformer fits in</h2>
+    <p>
+      The backbone is a 6-layer transformer encoder over a 23-token state (22 players + 1 ball), each token a 7-feature vector. We trained it to regress max-xT-next-1s as a continuous label (val Spearman ρ = <strong>0.714</strong>, +0.098 over an xT-lookup baseline). On this tab we use that model as both a feature source and as an attention extractor — the architecture and training script are at <code>src/wc2026_tracking_transformer/</code>.
+    </p>
+    <details class="code-toggle">
+      <summary>How the AUC features were assembled</summary>
+<pre><code class="lang-py"># research/scripts/extract_transformer_features.py
+# For each SPADL action, snapshot the nearest tracking frame's transformer state.
+# Append: t_xt_pred, t_attn_top1, t_attn_entropy,
+#         t_attn_to_actor, t_attn_to_teammates_sum, t_attn_to_opponents_sum.
+# research/scripts/retrain_vaep_with_transformer.py then concatenates these
+# columns onto the event-only feature matrix and refits the HistGBM
+# P-score / P-concede classifiers under the same 5-fold by-game CV.</code></pre>
+    </details>
+  </main>
+
+  <footer class="site-footer">
+    Tracking transformer trained on 18 PFF WC22 matches; chemistry rendered across all 64.
+  </footer>
+
+  <script type="module" src="assets/js/transformer-chemistry.js"></script>
+</body>
+</html>
