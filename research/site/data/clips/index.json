@@ -1,0 +1,9 @@
+[
+  {
+    "label": "netherlands-usa-memphis-smoke",
+    "title": "Memphis 10' (Netherlands v USA, R16) \u2014 smoke build",
+    "summary": "Smoke-trained checkpoint on 2 matches \u2014 calibration is not final (probabilities will compress with the full 64-match run). The scrubber + attention overlay work as advertised.",
+    "match": "10502",
+    "period": 1
+  }
+]
