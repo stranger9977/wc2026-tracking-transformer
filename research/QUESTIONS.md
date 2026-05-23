@@ -38,3 +38,28 @@ weigh in on. Each is a stand-alone item with the file/line it lives at.
 ## Resolved
 
 (none yet)
+
+## In-flight (May 23 evening)
+
+- **Frame-level VAEP transformer** (`scripts/train_frame_vaep.py`) pivoted from the
+  xT regression target to two BCE heads: P(team-in-possession scores in next 10s)
+  and P(team-in-possession concedes in next 10s). Smoke training on 3 matches
+  running now; if it validates, run `scripts/train_frame_vaep_full.sh` overnight
+  for the full 64-match training + curated demo-clip renders.
+- **Interactive Plays page** scaffolded with a per-frame scrubber + play / pause
+  controls. Waits on the new ckpt to render PNGs + per-frame JSON.
+- **5 demo clips chosen** (`scripts/render_demo_clips.py`): Argentina–France Di
+  María 36', Mbappé equalizer 80', NED-USA Memphis, JPN-ESP Doan, ARG-CRO Álvarez.
+
+## Things to validate when back
+
+- AUC on the new P-score / P-concede heads (target: substantially above the
+  event-level baseline ~0.63 score / 0.68 concede on a per-action basis,
+  though direct comparison is non-trivial — frame and action are different
+  prediction units).
+- Whether the per-frame attention attribution on the demo clips reads as
+  "real chemistry" — i.e. an off-ball runner getting credit when the model's
+  P-score climbs before the ball moves.
+- Whether the bz2 PFF tracking load (~2-3 min per match × 64) will need a
+  parallelism upgrade before extending to club data.
+
