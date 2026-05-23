@@ -1,0 +1,182 @@
+[
+  {
+    "team": "Argentina",
+    "flag_code": "ar",
+    "color": "#6633cc",
+    "story": "A Mac Allister-Di Mar\u00eda-Messi triangle weaponized down the right; their JOI90 is the spine of the run to the title.",
+    "top_joi": {
+      "p": "Alexis Mac Allister",
+      "q": "\u00c1ngel Di Mar\u00eda",
+      "val": 0.38441558565814243,
+      "min": 190.55
+    },
+    "top_jdi": {
+      "p": "\u00c1ngel Di Mar\u00eda",
+      "q": "Lisandro Martinez",
+      "val": 0.046225935939666035,
+      "min": 113.91666666666666
+    }
+  },
+  {
+    "team": "France",
+    "flag_code": "fr",
+    "color": "#003366",
+    "story": "Mbapp\u00e9\u2013Thuram was the single highest-JOI pair of the tournament (1.10/90). Tchouam\u00e9ni\u2013Camavinga held the deep midfield.",
+    "top_joi": {
+      "p": "Kylian Mbapp\u00e9",
+      "q": "Marcus Thuram",
+      "val": 1.0999946089673287,
+      "min": 147.43333333333334
+    },
+    "top_jdi": {
+      "p": "Aur\u00e9lien Tchouam\u00e9ni",
+      "q": "Steve Mandanda",
+      "val": 0.04354206778809805,
+      "min": 102.7
+    }
+  },
+  {
+    "team": "Croatia",
+    "flag_code": "hr",
+    "color": "#ffffff",
+    "story": "Modric\u2013Brozovi\u0107\u2013Kova\u010di\u0107 owned midfield; the JDI signal lands on Peri\u0161i\u0107\u2013Or\u0161i\u0107 as the cross-side defensive coverage.",
+    "top_joi": {
+      "p": "Josip Juranovic",
+      "q": "Marko Livaja",
+      "val": 0.43744891439785216,
+      "min": 172.58333333333334
+    },
+    "top_jdi": {
+      "p": "Ivan Perisic",
+      "q": "Mislav Orsic",
+      "val": 0.08364427138546332,
+      "min": 139.33333333333331
+    }
+  },
+  {
+    "team": "Morocco",
+    "flag_code": "ma",
+    "color": "#ffffff",
+    "story": "En-Nesyri\u2013Attiat-Allah was the surprise attacking link; Aguerd\u2013Ounahi the defensive spine that knocked out Spain and Portugal.",
+    "top_joi": {
+      "p": "Romain Sa\u00efss",
+      "q": "Abdelhamid Sabiri",
+      "val": 0.6024502813740833,
+      "min": 116.4
+    },
+    "top_jdi": {
+      "p": "Nayef Aguerd",
+      "q": "Azzedine Ounahi",
+      "val": 0.060465146689143066,
+      "min": 318.8833333333333
+    }
+  },
+  {
+    "team": "Netherlands",
+    "flag_code": "nl",
+    "color": "#ff9933",
+    "story": "Klaassen\u2013Gakpo (0.76/90) was the second-highest JOI pair of the tournament. Blind\u2013Dumfries dominated the wing-back axis.",
+    "top_joi": {
+      "p": "Davy Klaassen",
+      "q": "Cody Gakpo",
+      "val": 0.7631389058582441,
+      "min": 197.03333333333336
+    },
+    "top_jdi": {
+      "p": "Frenkie de Jong",
+      "q": "Matthijs De Ligt",
+      "val": 0.07391183024836497,
+      "min": 103.44999999999999
+    }
+  },
+  {
+    "team": "Brazil",
+    "flag_code": "br",
+    "color": "#3399ff",
+    "story": "Vin\u00edcius Jr drew JOI links to three teammates (Neymar, Richarlison, Paquet\u00e1). Without Neymar in early matches the attacking shape suffered.",
+    "top_joi": {
+      "p": "Casemiro",
+      "q": "Rodrygo",
+      "val": 0.8476382960999711,
+      "min": 111.08333333333334
+    },
+    "top_jdi": {
+      "p": "Fabinho",
+      "q": "Bremer",
+      "val": 0.08460648079731087,
+      "min": 100.05
+    }
+  },
+  {
+    "team": "Portugal",
+    "flag_code": "pt",
+    "color": "#ffffff",
+    "story": "Jo\u00e3o F\u00e9lix\u2013Gon\u00e7alo Ramos (1.03/90) only emerged after Cristiano was benched \u2014 perhaps the cleanest \"lineup-driven chemistry\" story of the tournament.",
+    "top_joi": {
+      "p": "Joao Felix",
+      "q": "Goncalo Ramos",
+      "val": 1.0325075364754543,
+      "min": 141.33333333333331
+    },
+    "top_jdi": {
+      "p": "Jo\u00e3o Cancelo",
+      "q": "Ricardo Horta",
+      "val": 0.04797622973046468,
+      "min": 116.1
+    }
+  },
+  {
+    "team": "England",
+    "flag_code": "gb-eng",
+    "color": "#ffffff",
+    "story": "Kane\u2013Foden was the JOI engine; Bukayo Saka shows up in three of the top pairs (offence and defence), the tournament's outstanding two-way teenager.",
+    "top_joi": {
+      "p": "Harry Kane",
+      "q": "Phil Foden",
+      "val": 0.7508458609265505,
+      "min": 211.08333333333331
+    },
+    "top_jdi": {
+      "p": "Phil Foden",
+      "q": "Bukayo Saka",
+      "val": 0.04910841658674298,
+      "min": 142.63333333333333
+    }
+  },
+  {
+    "team": "Senegal",
+    "flag_code": "sn",
+    "color": "#ffffff",
+    "story": "Dieng\u2013Sabaly (1.91/90 \u2014 though on only 122 shared min) was an outlier; Sarr\u2013Gueye anchored the defence after Sadio Man\u00e9's injury.",
+    "top_joi": {
+      "p": "Bamba Dieng",
+      "q": "Youssouf Sabaly",
+      "val": 1.9053394982072949,
+      "min": 122.38333333333333
+    },
+    "top_jdi": {
+      "p": "Isma\u00efla Sarr",
+      "q": "Idrissa Gueye",
+      "val": 0.042034936840435716,
+      "min": 271.0
+    }
+  },
+  {
+    "team": "Japan",
+    "flag_code": "jp",
+    "color": "#3399ff",
+    "story": "Yoshida\u2013Maeda was the give-and-go between captain and striker that powered the Germany / Spain upsets. Itakura\u2013Doan defensively.",
+    "top_joi": {
+      "p": "Maya Yoshida",
+      "q": "Daizen Maeda",
+      "val": 0.7891309380217465,
+      "min": 181.18333333333334
+    },
+    "top_jdi": {
+      "p": "Takuma Asano",
+      "q": "Hidemasa Morita",
+      "val": 0.07184899786356452,
+      "min": 112.36666666666667
+    }
+  }
+]

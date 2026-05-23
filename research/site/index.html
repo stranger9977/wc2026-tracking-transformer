@@ -125,6 +125,15 @@
 
     <div class="grid-2" id="overview-top-pairs"></div>
 
+    <h2>Tournament stories: chemistry on the pitch</h2>
+    <p class="dim">
+      Ten compact reads, one per knockout side: top JOI pair (offensive
+      partnership) and top JDI pair (defensive partnership), plus one sentence on
+      what the metric is actually picking up. These are the stories the JOI / JDI
+      tables turn into when you cross-reference them with the games.
+    </p>
+    <div class="grid-2" id="overview-stories"></div>
+
     <h2>Form at the tournament: who out-played the positional baseline?</h2>
     <p class="dim">
       For each player we compare their per-90 offensive impact (OI) at WC22
@@ -245,6 +254,19 @@
         </div>`);
       }
       topPairsEl.innerHTML = cards.join("");
+    }
+
+    const storiesEl = document.getElementById("overview-stories");
+    const stories = await loadJSON("data/chemistry_stories.json").catch(() => null);
+    if (storiesEl && Array.isArray(stories)) {
+      storiesEl.innerHTML = stories.map((s) => `
+        <div class="card flag-bg-wrap">
+          ${s.flag_code ? `<div class="flag-bg" style="background-image:url(https://flagcdn.com/640x480/${escapeHTML(s.flag_code)}.png)"></div>` : ""}
+          <h3 class="mt-0">${flagHTML(s.flag_code, { size: "lg", alt: s.team })}${escapeHTML(s.team)}</h3>
+          <p class="small">${escapeHTML(s.story)}</p>
+          <p class="small mb-0"><span class="chip green">Top JOI</span> <strong>${escapeHTML(s.top_joi.p)}</strong> + <strong>${escapeHTML(s.top_joi.q)}</strong> · <span class="muted">${fmtNum(s.top_joi.val, 2)}/90, ${fmtNum(s.top_joi.min, 0)} min</span></p>
+          <p class="small mb-0"><span class="chip red">Top JDI</span> <strong>${escapeHTML(s.top_jdi.p)}</strong> + <strong>${escapeHTML(s.top_jdi.q)}</strong> · <span class="muted">${fmtNum(s.top_jdi.val, 3)}/90, ${fmtNum(s.top_jdi.min, 0)} min</span></p>
+        </div>`).join("");
     }
 
     const formEl = document.getElementById("overview-form");
