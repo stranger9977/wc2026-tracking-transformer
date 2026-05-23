@@ -64,6 +64,19 @@
       </p>
     </div>
 
+    <h2>Three views of chemistry on this site</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3 class="mt-0">Event-level (JOI / JDI)</h3>
+        <p class="small">Bransen-style action-level VAEP attributed to consecutive same-team interactions. Strength: clean per-pair totals across 64 matches. Weakness: only on-ball moments. Used by Top Pairs, Team Maps, Team Builder, Club vs National.</p>
+      </div>
+      <div class="card">
+        <h3 class="mt-0">Frame-level (Interactive Plays)</h3>
+        <p class="small">Same VAEP idea — P(score) − P(concede) — but predicted 5× per second from the full 22-player tracking state via a transformer. Strength: catches off-ball runs that move the probability before any event fires. The chemistry signal is the per-frame VAEP delta attributed by the model's attention to player pairs.</p>
+      </div>
+    </div>
+    <p class="small muted">The two are complementary: event-level for season-long rankings, frame-level for clip-by-clip storytelling. Both live under one definition of chemistry — <em>the part of expected goal difference that depends on which teammates are configured together at this moment</em>.</p>
+
     <h2>The two metrics</h2>
 
     <div class="grid-2">
