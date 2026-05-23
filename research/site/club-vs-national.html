@@ -53,6 +53,36 @@
 
     <div class="card" style="border-left: 3px solid #6dd58c;">
       <h3 class="mt-0" style="font-size: 0.95rem;">How we control for the competition gap</h3>
+      <p class="small" style="margin-bottom: 0.6rem;">
+        <strong>What's a z-score, in plain English?</strong> Take every forward
+        playing in a competition. Compute their average OI/90 and how spread out
+        the group is (the standard deviation σ). A z-score answers "how many
+        σ above (or below) the average is this player?" A z of <strong>0</strong>
+        means league-average for his role. <strong>+1</strong> means "one σ above
+        the typical forward in this competition." <strong>−1</strong> means one σ
+        below. The reason we need this: Bundesliga forwards average a lot more
+        OI/90 than tournament forwards, so a +0.5 raw delta might really just be
+        "your league has more OI on the table." Z-scores ask the harder question:
+        <em>relative to the players around you in the same competition, did you
+        stand out more here than there?</em>
+      </p>
+      <details class="code-toggle">
+        <summary>Math / Python (technical audience)</summary>
+<pre><code class="lang-py"># research/scripts/compute_cross_context.py
+def zscore(group_df, col):
+    if len(group_df) &lt; 5:           # too few peers to compare against
+        return float("nan")
+    mu = group_df[col].mean()
+    sd = group_df[col].std(ddof=0) or 1.0
+    return (group_df[col] - mu) / sd
+
+# We group by (competition, role) and z-score within each cohort.
+all_rows["z_oi_per90"] = (
+    all_rows.groupby(["competition", "role"], group_keys=False)
+    .apply(lambda g: zscore(g, "oi_per90"), include_groups=False)
+)
+# Δ z = z_other − z_wc22. Strips out league-wide OI inflation.</code></pre>
+      </details>
       <ul class="small" style="margin-bottom: 0.4rem;">
         <li><strong>Raw Δ OI/90</strong> — pure difference. Best for storytelling, worst for fairness: a Bundesliga forward averages more OI/90 than a tournament forward, so the raw Δ flatters anyone playing in a high-volume league.</li>
         <li><strong>Δ z-score (recommended)</strong> — within each (competition, role) we compute the OI/90 z-score (player minus the mean of same-role peers, divided by σ). Comparing z-scores across competitions strips out the league-wide scoring environment. A z of +1.5 in Bundesliga vs +0.5 at WC22 means "this player was much further ahead of his peer cohort at the club than at the tournament."</li>
