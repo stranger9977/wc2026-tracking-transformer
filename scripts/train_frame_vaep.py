@@ -60,8 +60,22 @@ class FrameVaepDataset(Dataset):
         )
 
 
+CACHE_DIR = Path(__file__).resolve().parents[1] / "research" / "data" / "frame_vaep_cache"
+
+
 def build_source(match_id: str) -> dict | None:
-    """Load PFF tracking + goals + labels for one match."""
+    """Load PFF tracking + goals + labels for one match, with on-disk cache."""
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_path = CACHE_DIR / f"{match_id}.npz"
+    if cache_path.exists():
+        d = np.load(cache_path, allow_pickle=False)
+        return {
+            "match_id": match_id,
+            "frames": d["tensors"],
+            "y_score": d["y_score"],
+            "y_concede": d["y_concede"],
+            "n_goals": int((d["y_score"].sum() > 0)),  # placeholder; real count not needed
+        }
     frames = list(load_pff_match(match_id, sampling_stride=PFF_STRIDE))
     if not frames:
         return None
@@ -69,6 +83,10 @@ def build_source(match_id: str) -> dict | None:
     y_score, y_concede = build_labels(frames, goals, k_seconds=LOOK_AHEAD_S)
     tensors = batch_frames(frames)
     n = min(tensors.shape[0], y_score.shape[0])
+    np.savez_compressed(
+        cache_path,
+        tensors=tensors[:n], y_score=y_score[:n], y_concede=y_concede[:n],
+    )
     return {
         "match_id": match_id,
         "frames": tensors[:n],
