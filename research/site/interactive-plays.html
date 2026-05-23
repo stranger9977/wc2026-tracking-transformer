@@ -54,16 +54,40 @@
       <div class="empty-state">Loading clips…</div>
     </div>
 
-    <h2>What this answers about chemistry</h2>
+    <h2>What chemistry looks like on a pitch</h2>
+    <div class="card">
+      <p>
+        <strong>Working definition.</strong> Chemistry between two players is
+        the part of the <em>moment-to-moment</em> P(score) − P(concede) signal
+        that is attributable to <em>their joint configuration</em>, not to the
+        ball location or to either player alone. The transformer scores the
+        full 22-player state; the attention map tells us which partnerships
+        the model is conditioning on as that score moves.
+      </p>
+      <p class="mb-0"><strong>Three things to watch while scrubbing:</strong></p>
+      <ul>
+        <li><strong>P(score) climbs before the ball moves.</strong> An off-ball
+          runner that drags a defender opens a passing lane. The model sees this
+          even though no SPADL event has fired — event-level VAEP can't.</li>
+        <li><strong>Attention transfers from passer to receiver.</strong> On a
+          good combination, the model's attention smoothly hands off from the
+          player on the ball to the teammate about to receive — a yellow line
+          that survives the pass is a "chemistry edge."</li>
+        <li><strong>Defensive shape collapses before the goal.</strong>
+          P(concede) spikes a beat before the shot because defenders are
+          structurally beaten — chemistry asks not just "did they score" but
+          "did the build-up <em>force the defence apart together</em>."</li>
+      </ul>
+    </div>
+    <h2>How this differs from JOI/JDI</h2>
     <p>
-      Per-frame P(score) and P(concede) lift the event-level VAEP framework
-      to the full 22-player tracking state. Chemistry, defined this way, is
-      <em>the moment-to-moment delta in expected goal difference attributable
-      to the configuration of teammates around the ball</em>. Two players have
-      chemistry when their joint positions produce a state that the model
-      values higher than the same ball location with average teammates. That's
-      what the attention edges are picking up — the off-ball partners that
-      are actually moving the needle.
+      JOI and JDI on the other tabs are <em>event-level</em>: they assign
+      VAEP at every on-ball action and aggregate. Their strength: a clean
+      sum per pair across 64 matches. Their weakness: only on-ball moments
+      get a value. Frame-level VAEP is the same idea applied 5× per second
+      and to all 22 players — chemistry as a continuous trace rather than a
+      tally. The two are complementary: JOI/JDI for season-long rankings,
+      this view for individual partnerships and clip-level storytelling.
     </p>
   </main>
 
