@@ -37,7 +37,12 @@ weigh in on. Each is a stand-alone item with the file/line it lives at.
 
 ## Resolved
 
-(none yet)
+- **ET goals get lost from the frame-VAEP labels.** Confirmed during the
+  full precache: match 10508 has 3 goals scored in period 4 (extra time),
+  the tracking loader drops periods > 2, and the labeler assumes p1/p2 only.
+  Net effect: ~3 goals across the 64-match corpus are unlabeled positives.
+  Acceptable for v1; fix is to extend the loader + labeler to handle periods
+  3/4 explicitly (kick-off offsets would be ~p1_len + p2_len + 5 min break).
 
 ## In-flight (May 23 evening)
 
