@@ -211,6 +211,77 @@ def main() -> None:
     (site_data / "cross_chem.json").write_text(json.dumps(buckets, indent=2))
     print(f"cross_chem.json: {len(buckets)} role buckets")
 
+    # ------------------------------- cross_context.json ------------------------
+    cc_path = data / "cross_context.parquet"
+    if cc_path.exists():
+        cc = pd.read_parquet(cc_path)
+        # Attach team_name / flag from PFF lineups for context
+        pff_team = lineups.drop_duplicates("player_id").set_index("player_id")
+        cc["team_name"] = cc.pff_player_id.map(pff_team.team_name.to_dict())
+        cc["position"] = cc.pff_player_id.map(pff_team.position.to_dict())
+        cc["flag_code"] = cc.team_name.map(flag_code)
+
+        # Pivot to one row per (player, competition) but keep raw rows
+        cc_rows = cc[[
+            "pff_player_id", "name_in_source", "team_name", "position", "flag_code",
+            "competition", "season", "minutes", "oi_total", "oi_per90",
+        ]]
+        # Filter to players who have at least 2 contexts
+        contexts_per_player = cc.groupby("pff_player_id").competition.nunique()
+        multi = set(contexts_per_player[contexts_per_player >= 2].index)
+        cc_rows = cc_rows[cc_rows.pff_player_id.isin(multi)]
+        # Build per-player summary: WC22 baseline + each other context's delta
+        wc_baseline = (cc[cc.competition == "wc_2022_pff"]
+                       .set_index("pff_player_id")[["oi_per90", "minutes"]]
+                       .rename(columns={"oi_per90": "wc22_oi_per90", "minutes": "wc22_minutes"}))
+        cc_rows = cc_rows.join(wc_baseline, on="pff_player_id")
+        cc_rows["delta_vs_wc22"] = cc_rows.oi_per90 - cc_rows.wc22_oi_per90
+        cc_rows = cc_rows.dropna(subset=["wc22_oi_per90"])
+
+        # Top "WC22 underperformers" (positive delta = club > WC22) and overperformers
+        # Exclude wc_2022_sb (that's the provider-calibration check, not a
+        # club-vs-national comparison). Exclude GKs. Require >= 90 min in both.
+        is_calibration = cc_rows.competition == "wc_2022_sb"
+        comparable = cc_rows[
+            (cc_rows.competition != "wc_2022_pff")
+            & (~is_calibration)
+            & (cc_rows.minutes >= 90)
+            & (cc_rows.wc22_minutes >= 90)
+            & (cc_rows.position.fillna("").map(lambda p: p not in {"GK"}))
+        ]
+        top_drops = comparable.nlargest(20, "delta_vs_wc22")   # club > WC22 (player flopped at WC)
+        top_lifts = comparable.nsmallest(20, "delta_vs_wc22")  # WC22 > club (player turned up)
+
+        # Provider calibration: same player, same tournament, two providers
+        calibration = (
+            cc_rows[is_calibration & (cc_rows.minutes >= 60)]
+            .copy()
+            .rename(columns={"oi_per90": "sb_oi_per90", "minutes": "sb_minutes"})
+        )
+        calibration["calibration_delta"] = calibration.sb_oi_per90 - calibration.wc22_oi_per90
+        calibration = calibration.reindex(
+            calibration.calibration_delta.abs().sort_values(ascending=False).index
+        ).head(20)
+
+        out = {
+            "rows": _to_dict_records(cc_rows),
+            "club_better_than_wc22": _to_dict_records(top_drops),
+            "wc22_better_than_club": _to_dict_records(top_lifts),
+            "provider_calibration": _to_dict_records(calibration),
+            "competitions_present": sorted(cc.competition.unique().tolist()),
+            "n_players_multi_context": int(cc_rows.pff_player_id.nunique()),
+            "qc_notes": [
+                "WC22 numbers come from our PFF VAEP pipeline.",
+                "Other competitions come from StatsBomb open data scored with the same VAEP model — there is a calibration gap between providers; treat deltas as directional, not absolute.",
+                "Players with < 90 minutes in either context are filtered out of the leaderboards.",
+                "Goalkeepers excluded from leaderboards (OI is offensive only and a GK's long-kick value is qualitatively different).",
+                "wc_2022_sb (StatsBomb's coverage of the same WC22 matches) is moved into the 'provider calibration' table — it tests provider agreement, not chemistry friction.",
+            ],
+        }
+        (site_data / "cross_context.json").write_text(json.dumps(out, indent=2))
+        print(f"cross_context.json: {len(cc_rows)} player-comp rows, "
+              f"{out['n_players_multi_context']} multi-context players")
+
     # ------------------------------- downloads.json -----------------------------
     # CSV exports of the canonical tables for the Downloads tab
     csv_dir = root / "site" / "assets" / "csv"

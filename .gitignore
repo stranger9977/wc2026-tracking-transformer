@@ -45,6 +45,9 @@ data/processed/**
 !data/processed/
 !data/processed/.gitkeep
 
+# Cached StatsBomb open-data JSONs (re-downloadable; 600+ MB)
+research/data/raw_statsbomb/
+
 # Model checkpoints / training artifacts
 models/
 checkpoints/

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Club vs National</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="pairs.html">Top Pairs</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="club-vs-national.html">Club vs National</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Club vs national: who travels?</h1>
+    <p>
+      This tab cross-references each WC22 player's offensive impact per 90
+      (OI/90) at the World Cup against their OI/90 in every other competition
+      we have event data for. The framing question: "is the player who
+      under-performs at the tournament also under-performing at their club —
+      or is it a national-team friction effect?"
+    </p>
+
+    <div class="card" style="border-left: 3px solid #ffd47a;">
+      <h3 class="mt-0" style="font-size: 0.95rem;">⚠ What this is — and what's missing</h3>
+      <ul class="small" style="margin-bottom: 0.4rem;">
+        <li><strong>What we have.</strong> 64 PFF WC22 matches (the JOI/JDI corpus), plus StatsBomb open-data event streams for: WC22 itself (cross-validation), Euro 2024, Copa America 2024, Ligue 1 2022/23 (partial — mostly PSG), and Bundesliga 2023/24 (partial — mostly Bayern). Ligue 1 and Bundesliga in StatsBomb open data are <em>sample</em> seasons, not full ones.</li>
+        <li><strong>What we don't have.</strong> Full Premier League, La Liga, or Serie A coverage for 2022/23. Most international stars are missing club-side data. Coverage is best for PSG players (Mbappé, Hakimi, Donnarumma, Vitinha, Marquinhos), Bayern players (Müller, Kimmich, Musiala, Sané, Gnabry), and any WC22 player who also appeared at Euro/Copa 2024.</li>
+        <li><strong>Calibration caveat.</strong> WC22 numbers come from our PFF pipeline; other contexts are StatsBomb data passed through the same VAEP model. Action-coverage and tagging conventions differ slightly between providers, so treat the <em>delta</em> as directional, not absolute. The PFF WC22 vs StatsBomb WC22 row pair is the calibration check — if those agree for a player, we trust the other rows too.</li>
+        <li><strong>Minutes proxy.</strong> StatsBomb open data doesn't ship lineups in a form we can join in-place for every match, so we estimate on-pitch time from the span of action timestamps per player per match. Over-estimates marginally; consistent across competitions, so the delta is still meaningful.</li>
+      </ul>
+    </div>
+
+    <h2>WC22 vs other contexts: who flopped, who turned up</h2>
+    <p class="dim small">Filtered to non-goalkeepers with ≥ 90 minutes in <em>both</em> contexts. Δ &gt; 0 = the player's other-context OI/90 was higher than at WC22 (so they "flopped at the tournament"). Δ &lt; 0 = WC22 was their high-water mark.</p>
+
+    <div class="tab-bar" role="tablist">
+      <button data-tab="drops" class="active">Club / Euro / Copa &gt; WC22 (potential chemistry friction)</button>
+      <button data-tab="lifts">WC22 &gt; Club / Euro / Copa</button>
+    </div>
+    <div class="controls">
+      <div>
+        <label for="cc-search">Search by player or team</label>
+        <input id="cc-search" type="search" placeholder="e.g. Mbappé, Germany…">
+      </div>
+      <div>
+        <label for="cc-comp">Compare WC22 to</label>
+        <select id="cc-comp">
+          <option value="ALL">Any competition</option>
+        </select>
+      </div>
+    </div>
+    <div id="cc-table"></div>
+
+    <h2>Provider calibration: PFF WC22 vs StatsBomb WC22</h2>
+    <p class="dim small">
+      Same player, same tournament, two different data providers (PFF and
+      StatsBomb both ship event data for WC22). Δ here measures the gap
+      between our PFF pipeline's OI/90 and the StatsBomb-derived OI/90 for
+      the same player at the same tournament. Big calibration deltas mean
+      the two providers tagged the same matches differently — that helps
+      bound how much of any club-vs-national gap is a "real" chemistry
+      effect vs a provider artifact.
+    </p>
+    <div id="cc-calibration"></div>
+
+    <h2>Per-player drill-down</h2>
+    <p class="dim small">Pick a player to see every competition we have for them.</p>
+    <div class="controls">
+      <div style="flex: 1;">
+        <label for="cc-player">Player</label>
+        <select id="cc-player"></select>
+      </div>
+    </div>
+    <div id="cc-player-detail"></div>
+
+    <h2>Implications for 2026</h2>
+    <p>
+      The chemistry-friction signal is strongest for attackers and creative
+      midfielders — players whose value depends on partnerships. Compare a
+      striker's <em>club</em> OI/90 in his usual league with his <em>national</em>
+      OI/90 at WC22, and you get a directional read on whether his country has
+      assembled the pieces to play him. For 2026 the same player tracked across
+      WC26 qualifying and his 2025/26 club season should give a 6-month
+      look-ahead on who is "carrying chemistry" into the tournament.
+    </p>
+    <p>
+      Next iteration: add Premier League and La Liga coverage for 2025/26 via
+      whichever provider opens it up; combine with the frame-by-frame transformer
+      VAEP (proposal at <code>research/notebooks/FRAME_BY_FRAME_VAEP_PROPOSAL.md</code>)
+      to catch off-ball chemistry that event data misses.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    PFF event data (WC22), StatsBomb open data (other competitions).
+    Method recreated from Bransen &amp; Van Haaren (MIT Sloan, 2020).
+  </footer>
+
+  <script type="module" src="assets/js/cross-context.js"></script>
+</body>
+</html>

@@ -65,3 +65,24 @@ def test_cross_chem_buckets_exist():
         assert b["role_a"] in {"GK", "DEF", "MID", "FWD"}
         assert b["role_b"] in {"GK", "DEF", "MID", "FWD"}
         assert b["n_pairs"] > 0
+
+
+def test_cross_context_has_multi_competition_players():
+    fp = SITE_DATA / "cross_context.json"
+    if not fp.exists():
+        pytest.skip("cross_context.json not exported yet")
+    cc = json.loads(fp.read_text())
+    assert "rows" in cc
+    assert "club_better_than_wc22" in cc
+    assert "wc22_better_than_club" in cc
+    assert cc["n_players_multi_context"] >= 50, "expected dozens of multi-competition players"
+    # Each leaderboard row should have a valid Δ
+    for r in cc["club_better_than_wc22"][:5]:
+        assert "delta_vs_wc22" in r and r["delta_vs_wc22"] is not None
+        assert r["minutes"] >= 90
+        assert r["wc22_minutes"] >= 90
+    # Competitions present include at least our PFF run + StatsBomb sources
+    comps = set(cc["competitions_present"])
+    assert "wc_2022_pff" in comps
+    assert any(c.startswith("euro_") or c.startswith("copa_") or c.startswith("ligue1_")
+               for c in comps), f"expected at least one StatsBomb competition, got {comps}"
