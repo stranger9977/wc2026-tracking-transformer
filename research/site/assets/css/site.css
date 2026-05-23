@@ -361,6 +361,11 @@ details.code-toggle pre {
 }
 details.code-toggle code { color: #d1d8e6; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
 
+.clip-viewer { display: flex; flex-direction: column; gap: 0.6rem; }
+.clip-controls { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.clip-controls input[type=range] { accent-color: var(--accent-green); }
+.clip-meta { padding: 0.5rem 0.75rem; background: var(--bg-elev); border-radius: 6px; }
+
 /* Buttons */
 .btn {
   display: inline-block;

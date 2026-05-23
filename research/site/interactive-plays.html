@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Interactive Plays</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="pairs.html">Top Pairs</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="club-vs-national.html">Club vs National</a>
+        <a href="transformer-chemistry.html">Transformer Chemistry</a>
+        <a href="interactive-plays.html">Interactive Plays</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Step through chemistry on the pitch</h1>
+    <p>
+      The other tabs aggregate chemistry across whole tournaments. This one
+      zooms all the way in — to a single play, frame by frame. For every play
+      below, our tracking transformer (trained on PFF tracking) emits two
+      per-frame probabilities:
+    </p>
+    <ul>
+      <li><strong>P(score next 10s)</strong> — chance the team currently in possession scores in the next 10 seconds, conditional on the full 22-player state.</li>
+      <li><strong>P(concede next 10s)</strong> — chance they concede.</li>
+    </ul>
+    <p>
+      The model also tells us which players the ball token is "watching"
+      (attention). Step through the slider: yellow halos and yellow lines show
+      the top-3 attended players at that frame. As the play develops, you can
+      see chemistry happen: defenders pulled, off-ball runs that move the
+      probability before anyone touches the ball, an assist's attention
+      transferring to the shooter.
+    </p>
+
+    <div id="play-list">
+      <div class="empty-state">Loading clips…</div>
+    </div>
+
+    <h2>What this answers about chemistry</h2>
+    <p>
+      Per-frame P(score) and P(concede) lift the event-level VAEP framework
+      to the full 22-player tracking state. Chemistry, defined this way, is
+      <em>the moment-to-moment delta in expected goal difference attributable
+      to the configuration of teammates around the ball</em>. Two players have
+      chemistry when their joint positions produce a state that the model
+      values higher than the same ball location with average teammates. That's
+      what the attention edges are picking up — the off-ball partners that
+      are actually moving the needle.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    Frame-by-frame inference from the tracking transformer (P_score / P_concede heads).
+  </footer>
+
+  <script type="module" src="assets/js/interactive-plays.js"></script>
+</body>
+</html>
