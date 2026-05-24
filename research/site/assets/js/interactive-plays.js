@@ -416,13 +416,19 @@ function initClip(c, detail) {
 
 function pitchSvgScaffold(detail) {
   // Pitch lines + groups for everything we paint per frame.
+  // mToSvgRaw flips Y (top-of-pitch = small sy, bottom = large sy), so we
+  // must use min/abs for rect x/y/width/height — a negative-height <rect>
+  // doesn't render in SVG, which is why the previous version showed no
+  // pitch fill, no penalty boxes, and no goal mouths.
   const HL = PITCH_LENGTH_M / 2, HW = PITCH_WIDTH_M / 2;
-  const corners = mToSvgRaw(-HL, -HW).concat(mToSvgRaw(HL, HW));
-  const [x0, y0, x1, y1] = corners;
-  const w = x1 - x0, h = y1 - y0;
-  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
-  // pitch lines — brighter green so the field reads distinctly against the dark page,
-  // visible goal mouths drawn OUTSIDE the touchline at both ends, beefier penalty boxes.
+  const [ax, ay] = mToSvgRaw(-HL, -HW);
+  const [bx, by] = mToSvgRaw(HL, HW);
+  const px = Math.min(ax, bx);
+  const py = Math.min(ay, by);
+  const w  = Math.abs(bx - ax);
+  const h  = Math.abs(by - ay);
+  const cx = px + w / 2;
+  const cy = py + h / 2;
   const sixYardW  = (5.5  / PITCH_LENGTH_M) * w;
   const sixYardH  = (18.32 / PITCH_WIDTH_M) * h;
   const penBoxW   = (16.5 / PITCH_LENGTH_M) * w;
@@ -430,19 +436,21 @@ function pitchSvgScaffold(detail) {
   const goalDepth = (2.0  / PITCH_LENGTH_M) * w;
   const goalH     = (7.32 / PITCH_WIDTH_M) * h;
   const penSpotR  = Math.max(1.4, (0.3 / PITCH_LENGTH_M) * w);
+  const xLeft  = px;
+  const xRight = px + w;
   const lines = `
-    <rect x="${x0}" y="${y0}" width="${w}" height="${h}" fill="#1f7a3f" stroke="#f4fbf6" stroke-width="2.2" />
-    <line x1="${cx}" y1="${y0}" x2="${cx}" y2="${y1}" stroke="#f4fbf6" stroke-width="1.4" />
+    <rect x="${px}" y="${py}" width="${w}" height="${h}" fill="#1f7a3f" stroke="#f4fbf6" stroke-width="2.2" />
+    <line x1="${cx}" y1="${py}" x2="${cx}" y2="${py + h}" stroke="#f4fbf6" stroke-width="1.4" />
     <circle cx="${cx}" cy="${cy}" r="${(9.15 / PITCH_LENGTH_M) * w}" fill="none" stroke="#f4fbf6" stroke-width="1.4" />
     <circle cx="${cx}" cy="${cy}" r="1.6" fill="#f4fbf6" />
-    <rect x="${x0}" y="${cy - penBoxH / 2}" width="${penBoxW}" height="${penBoxH}" fill="none" stroke="#f4fbf6" stroke-width="1.6" />
-    <rect x="${x1 - penBoxW}" y="${cy - penBoxH / 2}" width="${penBoxW}" height="${penBoxH}" fill="none" stroke="#f4fbf6" stroke-width="1.6" />
-    <rect x="${x0}" y="${cy - sixYardH / 2}" width="${sixYardW}" height="${sixYardH}" fill="none" stroke="#f4fbf6" stroke-width="1.2" />
-    <rect x="${x1 - sixYardW}" y="${cy - sixYardH / 2}" width="${sixYardW}" height="${sixYardH}" fill="none" stroke="#f4fbf6" stroke-width="1.2" />
-    <circle cx="${x0 + (11.0 / PITCH_LENGTH_M) * w}" cy="${cy}" r="${penSpotR}" fill="#f4fbf6" />
-    <circle cx="${x1 - (11.0 / PITCH_LENGTH_M) * w}" cy="${cy}" r="${penSpotR}" fill="#f4fbf6" />
-    <rect x="${x0 - goalDepth}" y="${cy - goalH / 2}" width="${goalDepth}" height="${goalH}" fill="#f4fbf6" stroke="#f4fbf6" stroke-width="1.4" opacity="0.95" />
-    <rect x="${x1}" y="${cy - goalH / 2}" width="${goalDepth}" height="${goalH}" fill="#f4fbf6" stroke="#f4fbf6" stroke-width="1.4" opacity="0.95" />`;
+    <rect x="${xLeft}" y="${cy - penBoxH / 2}" width="${penBoxW}" height="${penBoxH}" fill="none" stroke="#f4fbf6" stroke-width="1.6" />
+    <rect x="${xRight - penBoxW}" y="${cy - penBoxH / 2}" width="${penBoxW}" height="${penBoxH}" fill="none" stroke="#f4fbf6" stroke-width="1.6" />
+    <rect x="${xLeft}" y="${cy - sixYardH / 2}" width="${sixYardW}" height="${sixYardH}" fill="none" stroke="#f4fbf6" stroke-width="1.2" />
+    <rect x="${xRight - sixYardW}" y="${cy - sixYardH / 2}" width="${sixYardW}" height="${sixYardH}" fill="none" stroke="#f4fbf6" stroke-width="1.2" />
+    <circle cx="${xLeft + (11.0 / PITCH_LENGTH_M) * w}" cy="${cy}" r="${penSpotR}" fill="#f4fbf6" />
+    <circle cx="${xRight - (11.0 / PITCH_LENGTH_M) * w}" cy="${cy}" r="${penSpotR}" fill="#f4fbf6" />
+    <rect x="${xLeft - goalDepth}" y="${cy - goalH / 2}" width="${goalDepth}" height="${goalH}" fill="#f4fbf6" stroke="#f4fbf6" stroke-width="1.4" opacity="0.95" />
+    <rect x="${xRight}" y="${cy - goalH / 2}" width="${goalDepth}" height="${goalH}" fill="#f4fbf6" stroke="#f4fbf6" stroke-width="1.4" opacity="0.95" />`;
   const homeColor = detail.home_team?.color || "#5eead4";
   const awayColor = detail.away_team?.color || "#f87171";
   const homeShort = detail.home_team?.short || "HOM";
