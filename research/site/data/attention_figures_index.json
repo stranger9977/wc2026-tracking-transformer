@@ -1,0 +1,250 @@
+[
+  {
+    "team_id": "360",
+    "team_name": "Qatar",
+    "flag_code": "qa",
+    "color": "#ffffcc",
+    "n_pairs": 20,
+    "path": "assets/figures/team_360_attention.png"
+  },
+  {
+    "team_id": "361",
+    "team_name": "Brazil",
+    "flag_code": "br",
+    "color": "#3399ff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_361_attention.png"
+  },
+  {
+    "team_id": "362",
+    "team_name": "Belgium",
+    "flag_code": "be",
+    "color": "#ff0000",
+    "n_pairs": 20,
+    "path": "assets/figures/team_362_attention.png"
+  },
+  {
+    "team_id": "363",
+    "team_name": "France",
+    "flag_code": "fr",
+    "color": "#003366",
+    "n_pairs": 20,
+    "path": "assets/figures/team_363_attention.png"
+  },
+  {
+    "team_id": "364",
+    "team_name": "Argentina",
+    "flag_code": "ar",
+    "color": "#6633cc",
+    "n_pairs": 20,
+    "path": "assets/figures/team_364_attention.png"
+  },
+  {
+    "team_id": "365",
+    "team_name": "Portugal",
+    "flag_code": "pt",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_365_attention.png"
+  },
+  {
+    "team_id": "366",
+    "team_name": "Netherlands",
+    "flag_code": "nl",
+    "color": "#ff9933",
+    "n_pairs": 20,
+    "path": "assets/figures/team_366_attention.png"
+  },
+  {
+    "team_id": "367",
+    "team_name": "Denmark",
+    "flag_code": "dk",
+    "color": "#ff0033",
+    "n_pairs": 20,
+    "path": "assets/figures/team_367_attention.png"
+  },
+  {
+    "team_id": "368",
+    "team_name": "Germany",
+    "flag_code": "de",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_368_attention.png"
+  },
+  {
+    "team_id": "369",
+    "team_name": "Uruguay",
+    "flag_code": "uy",
+    "color": "#99ffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_369_attention.png"
+  },
+  {
+    "team_id": "370",
+    "team_name": "Switzerland",
+    "flag_code": "ch",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_370_attention.png"
+  },
+  {
+    "team_id": "371",
+    "team_name": "Croatia",
+    "flag_code": "hr",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_371_attention.png"
+  },
+  {
+    "team_id": "372",
+    "team_name": "Senegal",
+    "flag_code": "sn",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_372_attention.png"
+  },
+  {
+    "team_id": "373",
+    "team_name": "Iran",
+    "flag_code": "ir",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_373_attention.png"
+  },
+  {
+    "team_id": "374",
+    "team_name": "Morocco",
+    "flag_code": "ma",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_374_attention.png"
+  },
+  {
+    "team_id": "375",
+    "team_name": "Serbia",
+    "flag_code": "rs",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_375_attention.png"
+  },
+  {
+    "team_id": "376",
+    "team_name": "Poland",
+    "flag_code": "pl",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_376_attention.png"
+  },
+  {
+    "team_id": "377",
+    "team_name": "South Korea",
+    "flag_code": "kr",
+    "color": "#ff0000",
+    "n_pairs": 20,
+    "path": "assets/figures/team_377_attention.png"
+  },
+  {
+    "team_id": "378",
+    "team_name": "Tunisia",
+    "flag_code": "tn",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_378_attention.png"
+  },
+  {
+    "team_id": "379",
+    "team_name": "Cameroon",
+    "flag_code": "cm",
+    "color": "#006633",
+    "n_pairs": 20,
+    "path": "assets/figures/team_379_attention.png"
+  },
+  {
+    "team_id": "380",
+    "team_name": "Canada",
+    "flag_code": "ca",
+    "color": "#000000",
+    "n_pairs": 20,
+    "path": "assets/figures/team_380_attention.png"
+  },
+  {
+    "team_id": "382",
+    "team_name": "Saudi Arabia",
+    "flag_code": "sa",
+    "color": "#006600",
+    "n_pairs": 20,
+    "path": "assets/figures/team_382_attention.png"
+  },
+  {
+    "team_id": "383",
+    "team_name": "Ghana",
+    "flag_code": "gh",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_383_attention.png"
+  },
+  {
+    "team_id": "384",
+    "team_name": "Wales",
+    "flag_code": "gb-wls",
+    "color": "#ff0000",
+    "n_pairs": 20,
+    "path": "assets/figures/team_384_attention.png"
+  },
+  {
+    "team_id": "385",
+    "team_name": "Costa Rica",
+    "flag_code": "cr",
+    "color": "#ff0000",
+    "n_pairs": 20,
+    "path": "assets/figures/team_385_attention.png"
+  },
+  {
+    "team_id": "386",
+    "team_name": "Australia",
+    "flag_code": "au",
+    "color": "#003333",
+    "n_pairs": 20,
+    "path": "assets/figures/team_386_attention.png"
+  },
+  {
+    "team_id": "50",
+    "team_name": "England",
+    "flag_code": "gb-eng",
+    "color": "#ffffff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_50_attention.png"
+  },
+  {
+    "team_id": "51",
+    "team_name": "United States",
+    "flag_code": "us",
+    "color": "#0066cc",
+    "n_pairs": 20,
+    "path": "assets/figures/team_51_attention.png"
+  },
+  {
+    "team_id": "52",
+    "team_name": "Spain",
+    "flag_code": "es",
+    "color": "#cc0000",
+    "n_pairs": 20,
+    "path": "assets/figures/team_52_attention.png"
+  },
+  {
+    "team_id": "57",
+    "team_name": "Japan",
+    "flag_code": "jp",
+    "color": "#3399ff",
+    "n_pairs": 20,
+    "path": "assets/figures/team_57_attention.png"
+  },
+  {
+    "team_id": "58",
+    "team_name": "Mexico",
+    "flag_code": "mx",
+    "color": "#006600",
+    "n_pairs": 20,
+    "path": "assets/figures/team_58_attention.png"
+  }
+]
