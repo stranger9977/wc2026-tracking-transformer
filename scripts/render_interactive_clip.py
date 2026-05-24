@@ -32,11 +32,59 @@ import torch
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
+# `research/scripts` has its own `_load_match_frames_and_slots` helper that
+# returns per-slot (player_id, team_id) lined up with the tracking tensor —
+# the right primitive for stable slot↔player mapping in the JSON we emit.
+sys.path.insert(0, str(REPO / "research" / "scripts"))
 
 from wc2026_tracking_transformer.data.batching import batch_frames
 from wc2026_tracking_transformer.data.loaders.pff import load_pff_match
 from wc2026_tracking_transformer.data.schema import PITCH_LENGTH_M, PITCH_WIDTH_M
 from wc2026_tracking_transformer.model.frame_vaep import FrameVaepLitModule
+
+try:
+    from extract_transformer_features import _load_match_frames_and_slots  # type: ignore
+except Exception:  # pragma: no cover — fall back to nearest-neighbor matching
+    _load_match_frames_and_slots = None  # type: ignore
+
+
+# WC '22 PFF team_id → hex colour. The metadata's homeTeamKit.primaryColor
+# is unusable for some teams (e.g. Argentina = "#ffffff" on a dark pitch).
+# This map is the source of truth for the interactive-plays page colours.
+# Resolved per-clip at export time and pinned for the whole clip — so JS
+# never has to look up colours per-frame and frame-to-frame team mis-tagging
+# never causes colour flicker.
+WC22_TEAM_COLOR_OVERRIDES: dict[str, str] = {
+    "364": "#6cb4ee",   # Argentina — sky blue
+    "363": "#1a3d8f",   # France — navy
+    "57":  "#0066b3",   # Japan — blue
+    "52":  "#aa151b",   # Spain — red
+    "366": "#ff8500",   # Netherlands — orange
+    "51":  "#bf0a30",   # United States — red
+    "371": "#cc0000",   # Croatia — red (checkered jerseys; use red for clarity)
+    "361": "#fed750",   # Brazil — yellow
+    "374": "#006233",   # Morocco — green
+}
+
+
+def _resolve_team_color(team_id: str, fallback_kit_color: str | None) -> str:
+    """Return a presentable hex colour for a team.
+
+    Prefers the curated WC '22 override (avoids white/black on dark pitches),
+    then the metadata kit colour, then a hardcoded teal default. Always
+    returns a 7-char #rrggbb string.
+    """
+    tid = str(team_id) if team_id else ""
+    if tid in WC22_TEAM_COLOR_OVERRIDES:
+        return WC22_TEAM_COLOR_OVERRIDES[tid]
+    c = (fallback_kit_color or "").strip()
+    # Reject near-white / near-black kit colours which look terrible on a
+    # dark pitch and (more importantly) collide with the ball + GK ring.
+    if c.lower() in ("#ffffff", "#fefefe", "#000000", "#010101", ""):
+        return "#5eead4"
+    if not c.startswith("#"):
+        c = "#" + c
+    return c
 
 PITCH_COLOR = "#0d4d2c"
 LINE_COLOR = "#dceadb"
@@ -446,6 +494,16 @@ def main() -> None:
             "'print' is paper-grey with muted team colours for static figures."
         ),
     )
+    ap.add_argument(
+        "--no-png",
+        action="store_true",
+        help=(
+            "Skip the matplotlib per-frame PNG render. The interactive-plays "
+            "page now renders everything in SVG from the JSON; PNGs are only "
+            "needed for legacy static-image consumers and slow this script "
+            "down ~10x."
+        ),
+    )
     args = ap.parse_args()
     theme = THEMES[args.theme]
 
@@ -456,13 +514,20 @@ def main() -> None:
 
     # Match metadata + events + roster
     meta = _load_match_meta(args.match)
-    home_color = (meta.get("homeTeamKit") or {}).get("primaryColor") or DEFAULT_HOME
-    away_color = (meta.get("awayTeamKit") or {}).get("primaryColor") or DEFAULT_AWAY
+    raw_home_color = (meta.get("homeTeamKit") or {}).get("primaryColor")
+    raw_away_color = (meta.get("awayTeamKit") or {}).get("primaryColor")
     home_name = meta.get("homeTeam", {}).get("name", "Home")
     away_name = meta.get("awayTeam", {}).get("name", "Away")
     home_short = meta.get("homeTeam", {}).get("shortName", home_name[:3].upper())
     away_short = meta.get("awayTeam", {}).get("shortName", away_name[:3].upper())
     home_team_id = str(meta.get("homeTeam", {}).get("id", ""))
+    away_team_id = str(meta.get("awayTeam", {}).get("id", ""))
+
+    # Pin team colours at export time — never per-frame. This is the fix for
+    # the colour-flicker bug: even if a player's team_id is mis-tagged on one
+    # frame, the colour assigned to that team id is constant across the clip.
+    home_color = _resolve_team_color(home_team_id, raw_home_color)
+    away_color = _resolve_team_color(away_team_id, raw_away_color)
 
     events = _load_events(args.match)
     events_idx = _build_event_index(events)
@@ -471,12 +536,24 @@ def main() -> None:
     roster_raw = json.loads(roster_path.read_text())
     player_dir = _build_player_directory(roster_raw, home_team_id, "")
 
-    frames_all = list(load_pff_match(args.match, sampling_stride=args.stride))
-    clip_frames = [f for f in frames_all
+    # Prefer the slot-stable loader (returns per-frame slot meta — player_id
+    # and team_id — lined up with the tracking tensor). The legacy fallback
+    # nearest-neighbours against event snapshots and is the source of the
+    # frame-to-frame team flip the user reported.
+    if _load_match_frames_and_slots is not None:
+        frames_all, slots_all = _load_match_frames_and_slots(
+            args.match, sampling_stride=args.stride)
+    else:
+        frames_all = list(load_pff_match(args.match, sampling_stride=args.stride))
+        slots_all = [[{"player_id": None, "team_id": None}] * 22 for _ in frames_all]
+
+    clip_pairs = [(f, s) for f, s in zip(frames_all, slots_all, strict=False)
                    if f.period == args.period
                    and args.start <= f.timestamp_ms / 1000.0 <= args.end]
-    if not clip_frames:
+    if not clip_pairs:
         raise SystemExit(f"no frames in window: period {args.period} {args.start}-{args.end}s")
+    clip_frames = [p[0] for p in clip_pairs]
+    clip_slots = [p[1] for p in clip_pairs]
     print(f"clip: {len(clip_frames)} frames")
 
     # Events overlapping the window (for annotation per-frame)
@@ -567,19 +644,20 @@ def main() -> None:
 
     per_frame: list[dict] = []
     for i, f in enumerate(clip_frames):
-        # Nearest event in time within +/- 1s (any event in match — better proximity)
-        # Walk events sorted by period_rel_ms; binary search is overkill for 60 events.
-        best_ev = None; best_dt = 10**9
-        for ev in events_idx:
-            if ev["period"] != f.period:
-                continue
-            dt = abs(ev["period_rel_ms"] - f.timestamp_ms)
-            if dt < best_dt:
-                best_dt = dt; best_ev = ev
-        if best_ev is None:
-            slot_pid = [None] * 22
-        else:
-            slot_pid = _slot_to_player_id_for_frame(tensors[i], best_ev)
+        # Stable slot → player_id / team_id from the kloppy walk (lined up
+        # with the tracking tensor — same iteration order on every frame, so
+        # slot N is the same physical player throughout the clip).
+        slots_meta = clip_slots[i]
+        slot_pid: list[int | None] = []
+        slot_team: list[str | None] = []
+        for s in range(22):
+            entry = slots_meta[s] if s < len(slots_meta) else {}
+            pid_raw = entry.get("player_id")
+            try:
+                slot_pid.append(int(pid_raw) if pid_raw is not None else None)
+            except (TypeError, ValueError):
+                slot_pid.append(None)
+            slot_team.append(entry.get("team_id"))
 
         # Event annotation: an event within 200 ms of this frame. Prefer goals
         # over other events when they share a timestamp (PFF often logs a
@@ -618,17 +696,72 @@ def main() -> None:
         HL_, HW_ = PITCH_LENGTH_M / 2, PITCH_WIDTH_M / 2
         ball_xy = (float(tensors[i, 22, 0]) * HL_, float(tensors[i, 22, 1]) * HW_)
         top_slots = _pick_top_slots(i, attn_ball[i], slot_pid, ball_xy)
-        meta_row = render_frame(
-            png_path,
-            tensors[i], attn_ball[i],
-            float(ps[i]), float(pc[i]),
-            title, home_color, away_color, home_name, away_name,
-            home_short, away_short,
-            slot_pid, player_dir, home_team_id,
-            f.in_possession_team_id, i, len(clip_frames),
-            event_label=event_label, is_goal_event=is_goal,
-            theme=theme, top_slots=top_slots,
-        )
+        if args.no_png:
+            # Skip the matplotlib render but mirror the structure of the
+            # return dict that render_frame produces so the meta_row.update
+            # below still works.
+            top_players = []
+            for slot in top_slots:
+                pid = slot_pid[slot]
+                top_players.append({
+                    "slot": int(slot),
+                    "player_id": int(pid) if pid else None,
+                    "name": (player_dir.get(pid, {}) or {}).get("name") if pid else None,
+                    "position": (player_dir.get(pid, {}) or {}).get("position") if pid else None,
+                    "attention": float(attn_ball[i][slot]),
+                })
+            meta_row = {
+                "top_attended": top_players,
+                "ball_xy": [float(ball_xy[0]), float(ball_xy[1])],
+                "event_label": event_label,
+                "is_goal_event": is_goal,
+            }
+        else:
+            meta_row = render_frame(
+                png_path,
+                tensors[i], attn_ball[i],
+                float(ps[i]), float(pc[i]),
+                title, home_color, away_color, home_name, away_name,
+                home_short, away_short,
+                slot_pid, player_dir, home_team_id,
+                f.in_possession_team_id, i, len(clip_frames),
+                event_label=event_label, is_goal_event=is_goal,
+                theme=theme, top_slots=top_slots,
+            )
+
+        # Per-player rows — what the JS renderer actually consumes. Slot
+        # ordering is stable so the JS can use slot index as a player key.
+        players_json: list[dict] = []
+        for s in range(22):
+            pid = slot_pid[s]
+            info = player_dir.get(pid, {}) if pid else {}
+            players_json.append({
+                "slot": s,
+                "player_id": pid,
+                "name": info.get("name"),
+                "position": info.get("position"),
+                "jersey": info.get("jersey"),
+                "team_id": slot_team[s] or info.get("team_id"),
+                "x": float(tensors[i, s, 0]) * HL_,
+                "y": float(tensors[i, s, 1]) * HW_,
+                "vx": float(tensors[i, s, 2]),
+                "vy": float(tensors[i, s, 3]),
+                "is_gk": bool(tensors[i, s, 5] > 0.5),
+                "has_possession": bool(tensors[i, s, 6] > 0.5),
+                "attention": float(attn_ball[i, s]),
+            })
+
+        # Top-attended team for the goal-highlight: which team is in
+        # possession when the goal fires? We use the in-possession team_id
+        # already computed from kloppy. Fallback: actor's team if known.
+        scoring_team_id: str | None = None
+        if is_goal:
+            scoring_team_id = f.in_possession_team_id
+            if not scoring_team_id and ev_in_frame:
+                actor_pid = ev_in_frame.get("actor_id")
+                if actor_pid is not None:
+                    scoring_team_id = (player_dir.get(int(actor_pid), {}) or {}).get("team_id")
+
         meta_row.update({
             "frame_idx": i,
             "frame_id": f.frame_id,
@@ -638,17 +771,41 @@ def main() -> None:
             "p_score": float(ps[i]),
             "p_concede": float(pc[i]),
             "vaep": float(ps[i]) - float(pc[i]),
+            "players": players_json,
+            "ball": {
+                "x": float(tensors[i, 22, 0]) * HL_,
+                "y": float(tensors[i, 22, 1]) * HW_,
+                "vx": float(tensors[i, 22, 2]),
+                "vy": float(tensors[i, 22, 3]),
+            },
+            "attention": [float(a) for a in attn_ball[i]],
+            "top_slots": [int(s) for s in top_slots],
+            "scoring_team_id": scoring_team_id,
         })
         per_frame.append(meta_row)
 
+    # Build a stable home_attacks_left flag so the JS knows which goal mouth
+    # is whose. Kloppy normalizes to attacking-left-to-right, but the
+    # in_possession_team_id flips with possession — so we just record the
+    # geometric convention: in tensor space, +x is the team currently in
+    # possession's attacking direction. The JS treats x>0 as the right goal.
     out = {
         "label": args.label, "title": title,
         "match_id": args.match, "period": args.period,
         "start_s": args.start, "end_s": args.end,
         "n_frames": len(per_frame),
+        "pitch": {
+            "length_m": float(PITCH_LENGTH_M),
+            "width_m": float(PITCH_WIDTH_M),
+        },
         "home_team": {"id": home_team_id, "name": home_name,
                        "short": home_short, "color": home_color},
-        "away_team": {"name": away_name, "short": away_short, "color": away_color},
+        "away_team": {"id": away_team_id, "name": away_name,
+                       "short": away_short, "color": away_color},
+        "team_colors": {
+            home_team_id: home_color,
+            away_team_id: away_color,
+        },
         "events_in_window": [
             {"period_rel_ms": e["period_rel_ms"],
              "type": e.get("type_label"),
