@@ -8,6 +8,7 @@ function flagBgUrl(code) {
 const gridEl = document.getElementById("team-grid");
 const searchEl = document.getElementById("team-search");
 const sortEl = document.getElementById("team-sort");
+const pickEl = document.getElementById("team-pick");
 
 const teams = await loadJSON("data/teams.json");
 const figIndex = await loadJSON("data/team_figures_index.json");
@@ -55,8 +56,14 @@ if (!teams || !Array.isArray(teams) || teams.length === 0) {
   function render() {
     const q = (searchEl.value || "").toLowerCase().trim();
     const sort = sortEl.value;
+    const pickedId = pickEl ? pickEl.value : "";
 
-    let pool = teams.filter((t) => !q || (t.team_name || "").toLowerCase().includes(q));
+    let pool;
+    if (pickedId) {
+      pool = teams.filter((t) => String(t.team_id) === String(pickedId));
+    } else {
+      pool = teams.filter((t) => !q || (t.team_name || "").toLowerCase().includes(q));
+    }
 
     if (sort === "name") {
       pool.sort((a, b) => (a.team_name || "").localeCompare(b.team_name || ""));
@@ -71,7 +78,21 @@ if (!teams || !Array.isArray(teams) || teams.length === 0) {
       return;
     }
 
+    // Focused-team view: render in a single-column layout so the maps are bigger.
+    gridEl.classList.toggle("focused", !!pickedId);
     gridEl.innerHTML = pool.map((t) => renderCard(t, figByTeam.get(String(t.team_id)) || {})).join("");
+  }
+
+  // Populate the focus dropdown alphabetically.
+  if (pickEl) {
+    const opts = teams.slice().sort((a, b) => (a.team_name || "").localeCompare(b.team_name || ""));
+    for (const t of opts) {
+      const opt = document.createElement("option");
+      opt.value = String(t.team_id);
+      opt.textContent = t.team_name;
+      pickEl.appendChild(opt);
+    }
+    pickEl.addEventListener("change", render);
   }
 
   function renderCard(t, figs) {

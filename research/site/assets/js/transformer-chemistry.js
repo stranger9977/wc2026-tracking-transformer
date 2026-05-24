@@ -8,6 +8,7 @@ const sparkEl = document.getElementById("attention-pairs-spark");
 const attnTabs = document.querySelectorAll(".attn-tabs button");
 const attnSearchEl = document.getElementById("attn-search");
 const attnMinMinEl = document.getElementById("attn-min-min");
+const attnShowGksEl = document.getElementById("attn-show-gks");
 const sizeSelect = document.getElementById("attn-group-size");
 
 // Three colours, matched to the team-map edge palette.
@@ -16,7 +17,15 @@ const CAT_LABEL = { off: "Off ↔ Off", def: "Def ↔ Def", cross: "Cross", mixe
 
 let pairsRaw = [];
 let groupsRaw = [];
-let state = { category: "all", search: "", minMin: 60, size: 2 };
+let state = { category: "all", search: "", minMin: 60, size: 2, showGks: false };
+
+function rowHasGk(r) {
+  if (!r) return false;
+  if (r.role_p === "GK" || r.role_q === "GK") return true;
+  if (r.pos_p === "GK" || r.pos_q === "GK") return true;
+  if (Array.isArray(r.members)) return r.members.some((m) => m.role === "GK" || m.position === "GK");
+  return false;
+}
 
 // ───────────────── AUC table ─────────────────
 function renderAuc(metrics, baseline) {
@@ -111,6 +120,7 @@ function applyPairFilters(rows) {
   return rows.filter((r) => {
     if (state.category !== "all" && r.category !== state.category) return false;
     if ((r.minutes_together ?? 0) < state.minMin) return false;
+    if (!state.showGks && rowHasGk(r)) return false;
     const q = state.search.trim().toLowerCase();
     if (q) {
       const hay = `${r.name_p || ""} ${r.name_q || ""} ${r.team_name || ""}`.toLowerCase();
@@ -124,6 +134,7 @@ function applyGroupFilters(rows) {
   return rows.filter((r) => {
     if (r.size !== state.size) return false;
     if (state.category !== "all" && r.category !== state.category) return false;
+    if (!state.showGks && rowHasGk(r)) return false;
     const q = state.search.trim().toLowerCase();
     if (q) {
       const hay = `${r.team_name || ""} ${r.members.map(m => m.name).join(" ")}`.toLowerCase();
@@ -268,6 +279,14 @@ if (attnMinMinEl) attnMinMinEl.addEventListener("input", () => {
   state.minMin = Number(attnMinMinEl.value) || 0;
   renderTable();
 });
+
+if (attnShowGksEl) {
+  attnShowGksEl.checked = state.showGks;
+  attnShowGksEl.addEventListener("change", () => {
+    state.showGks = !!attnShowGksEl.checked;
+    renderTable();
+  });
+}
 
 if (sizeSelect) sizeSelect.addEventListener("change", () => {
   state.size = Number(sizeSelect.value);

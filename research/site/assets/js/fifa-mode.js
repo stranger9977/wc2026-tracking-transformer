@@ -170,35 +170,80 @@ function renderTeamScatter(rows) {
   const diag = `<polyline points="${diagonalPts.join(' ')}" fill="none"
     stroke="currentColor" stroke-width="0.8" opacity="0.32"/>`;
 
+  // Deterministic collision avoidance.
+  //
+  // Step 1: group rows that occupy the exact same (overall, stage_int) point
+  //   and assign each member a vertical stack index so their labels never
+  //   overlap inside the cluster.
+  // Step 2: walk the assigned labels in a stable order and, whenever the next
+  //   label's bounding box would overlap an already-placed one, bump it by
+  //   one more line-height (in the same direction) until it clears. This
+  //   reliably resolves Mexico/Uruguay-style near-miss overlaps.
   const labelW = 58, labelH = 14;
+  const lineSpacing = labelH + 2;
+
+  const clusterKey = (r) => `${r.overall.toFixed(2)}|${r.stage_int}`;
+  const clusters = new Map();
+  for (const r of rows) {
+    const k = clusterKey(r);
+    if (!clusters.has(k)) clusters.set(k, []);
+    clusters.get(k).push(r);
+  }
+  for (const list of clusters.values()) {
+    list.sort((a, b) => (a.team < b.team ? -1 : a.team > b.team ? 1 : 0));
+  }
+
+  const intersects = (a, b) =>
+    !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
+
+  // Stable processing order: top-to-bottom, then left-to-right, then alpha.
+  // Means upper-stage rows place first and lower-stage rows yield around them.
+  const order = [...rows].sort((a, b) => {
+    if (b.stage_int !== a.stage_int) return b.stage_int - a.stage_int;
+    if (a.overall !== b.overall) return a.overall - b.overall;
+    return a.team < b.team ? -1 : a.team > b.team ? 1 : 0;
+  });
+
   const placed = [];
-  const intersects = (a, b) => !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
+  const picks = new Map();
+  for (const r of order) {
+    const cx = sx(r.overall), cy = sy(r.stage_int);
+    const list = clusters.get(clusterKey(r));
+    const k = list.indexOf(r);
+    const n = list.length;
+    const stackDown = r.stage_int <= 4;
+    const baseOffset = 10;
+    const initialDy = stackDown
+      ? baseOffset + k * lineSpacing
+      : -(baseOffset + (n - 1 - k) * lineSpacing);
+    const anchor = (n === 1)
+      ? (Math.round(r.overall * 2) % 2 === 0 ? "start" : "end")
+      : "start";
+    const dx = anchor === "start" ? 9 : -9;
+
+    let dy = initialDy;
+    let box;
+    const step = stackDown ? lineSpacing : -lineSpacing;
+    // Cap on bumps so we don't loop forever near a saturated row.
+    for (let bump = 0; bump < 14; bump++) {
+      const lx = cx + dx, ly = cy + dy;
+      box = anchor === "start"
+        ? { x1: lx, y1: ly - labelH, x2: lx + labelW, y2: ly + 2 }
+        : { x1: lx - labelW, y1: ly - labelH, x2: lx, y2: ly + 2 };
+      if (!placed.some((p) => intersects(p, box))) break;
+      dy += step;
+    }
+    placed.push(box);
+    picks.set(r.team, { anchor, dx, dy });
+  }
 
   const annotated = rows.map((r) => {
     const cx = sx(r.overall), cy = sy(r.stage_int);
-    const rank = sortedByOverall.findIndex(x => x.team === r.team) + 1;
+    const rank = sortedByOverall.findIndex((x) => x.team === r.team) + 1;
     const exp = expectedStage(rank);
     const over = r.stage_int - exp;
     const color = over >= 1 ? "#3ea16a" : over <= -1 ? "#c25b5b" : "#6b7280";
-
-    const slots = [
-      { anchor: "start", dx:  9, dy: 4 },
-      { anchor: "end",   dx: -9, dy: 4 },
-      { anchor: "start", dx:  9, dy: -10 },
-      { anchor: "start", dx:  9, dy: 16 },
-      { anchor: "end",   dx: -9, dy: -10 },
-      { anchor: "end",   dx: -9, dy: 16 },
-    ];
-    let pick = slots[0];
-    for (const c of slots) {
-      const lx = cx + c.dx, ly = cy + c.dy;
-      const box = c.anchor === "start"
-        ? { x1: lx, y1: ly - labelH, x2: lx + labelW, y2: ly + 2 }
-        : { x1: lx - labelW, y1: ly - labelH, x2: lx, y2: ly + 2 };
-      if (box.x1 < padL - 4 || box.x2 > W - padR + 4) continue;
-      if (box.y1 < padT - 4 || box.y2 > H - padB + 4) continue;
-      if (!placed.some(p => intersects(p, box))) { pick = c; placed.push(box); break; }
-    }
+    const pick = picks.get(r.team) || { anchor: "start", dx: 9, dy: 4 };
     return { r, cx, cy, color, pick };
   });
 
@@ -395,33 +440,60 @@ function renderPlayersScatter(rows, fit) {
     .map(r => `<circle cx="${sx(r.fifa23_overall).toFixed(1)}" cy="${sy(r.oi_per90).toFixed(1)}"
        r="3" fill="${dotColor(r)}" opacity="0.55"/>`).join("");
 
-  // Named dots (slightly larger + label)
+  // Named dots (slightly larger + label).
+  // Deterministic collision avoidance: walk labels in a stable order
+  // (above-fit-first, top-to-bottom, left-to-right) and, for each label,
+  // place it just outside the dot then bump vertically by one line-height
+  // until the bounding box clears every already-placed label.
   const named = rows.filter(r => headlineNames.has(r.name));
-  // Simple non-collision placement: alternate dx direction based on whether the point is above or below the fit line
-  const placedBoxes = [];
   const labelW = 76, labelH = 13;
-  const intersects = (a, b) => !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
+  const lineSpacing = labelH + 2;
+  const intersects = (a, b) =>
+    !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
+
+  const order = [...named].sort((a, b) => {
+    // place above-line first (negative dy direction), then top-down/left-right
+    const aAbove = a.resid >= 0 ? 1 : 0;
+    const bAbove = b.resid >= 0 ? 1 : 0;
+    if (aAbove !== bAbove) return bAbove - aAbove;
+    if (b.oi_per90 !== a.oi_per90) return b.oi_per90 - a.oi_per90;
+    if (a.fifa23_overall !== b.fifa23_overall) return a.fifa23_overall - b.fifa23_overall;
+    return a.name < b.name ? -1 : 1;
+  });
+
+  const placedBoxes = [];
+  const picks = new Map();
+  for (const r of order) {
+    const cx = sx(r.fifa23_overall), cy = sy(r.oi_per90);
+    // Above-fit labels stack upward, below-fit labels downward.
+    const stackUp = r.resid >= 0;
+    const anchor = (Math.round(r.fifa23_overall) % 2 === 0) ? "start" : "end";
+    const dx = anchor === "start" ? 9 : -9;
+    let dy = stackUp ? -10 : 14;
+    const step = stackUp ? -lineSpacing : lineSpacing;
+    for (let bump = 0; bump < 14; bump++) {
+      const lx = cx + dx, ly = cy + dy;
+      const box = anchor === "start"
+        ? { x1: lx, y1: ly - labelH, x2: lx + labelW, y2: ly + 2 }
+        : { x1: lx - labelW, y1: ly - labelH, x2: lx, y2: ly + 2 };
+      // Stay inside the plot rect.
+      const inside =
+        box.x1 >= padL - 4 && box.x2 <= W - padR + 4 &&
+        box.y1 >= padT - 4 && box.y2 <= H - padB + 4;
+      const clear = !placedBoxes.some((p) => intersects(p, box));
+      if (inside && clear) {
+        placedBoxes.push(box);
+        picks.set(r.name, { anchor, dx, dy });
+        break;
+      }
+      dy += step;
+    }
+    if (!picks.has(r.name)) picks.set(r.name, { anchor, dx, dy: stackUp ? -10 : 14 });
+  }
 
   const namedSvg = named.map(r => {
     const cx = sx(r.fifa23_overall), cy = sy(r.oi_per90);
-    const slots = [
-      { dx:  9, dy: 4,   anchor: "start" },
-      { dx: -9, dy: 4,   anchor: "end" },
-      { dx:  9, dy: -10, anchor: "start" },
-      { dx: -9, dy: -10, anchor: "end" },
-      { dx:  9, dy: 16,  anchor: "start" },
-      { dx: -9, dy: 16,  anchor: "end" },
-    ];
-    let pick = slots[0];
-    for (const c of slots) {
-      const lx = cx + c.dx, ly = cy + c.dy;
-      const box = c.anchor === "start"
-        ? { x1: lx, y1: ly - labelH, x2: lx + labelW, y2: ly + 2 }
-        : { x1: lx - labelW, y1: ly - labelH, x2: lx, y2: ly + 2 };
-      if (box.x1 < padL - 4 || box.x2 > W - padR + 4) continue;
-      if (box.y1 < padT - 4 || box.y2 > H - padB + 4) continue;
-      if (!placedBoxes.some(p => intersects(p, box))) { pick = c; placedBoxes.push(box); break; }
-    }
+    const pick = picks.get(r.name) || { anchor: "start", dx: 9, dy: 4 };
     return `<g>
       <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="4.5"
               fill="${dotColor(r)}" stroke="var(--bg, #0b1220)" stroke-width="1.2"/>

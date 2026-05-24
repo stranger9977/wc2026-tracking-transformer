@@ -45,7 +45,7 @@
     </p>
 
     <p>
-      The question this page asks is the central one our colleague Bransen &amp;
+      The question this page asks is the central one Bransen &amp;
       Van Haaren (MIT Sloan 2020) set up but never had the cross-context data
       to answer: <strong>how much of a national-team performance is the player,
       and how much is the partners around him?</strong> The
@@ -275,6 +275,14 @@ all_rows["z_oi_per90"] = (
       </p>
       <div id="mean-scatter"></div>
       <p class="small dim" id="mean-summary"></p>
+      <p class="small mt-0">
+        <strong>This is the same null result you see on
+        <a href="fifa-mode.html#section-players">FIFA Mode</a></strong> — there, the
+        OI/90-vs-FIFA-Overall fit has slope ≈ 0; here, the OI/90-vs-OI/90 fit has
+        r ≈ 0. Paper talent doesn't predict tournament output. Club output doesn't
+        predict it either. <em>Something else</em> is doing the work — the candidate
+        is what teammates do for each other when the ball isn't there.
+      </p>
     </section>
 
     <hr>
@@ -296,20 +304,12 @@ all_rows["z_oi_per90"] = (
       to catch off-ball chemistry that event data misses.
     </p>
 
-    <details class="card" id="provider-cal" style="margin-top: 1.5rem;">
-      <summary><strong>Methodology note: provider calibration check (PFF WC22 vs StatsBomb WC22)</strong></summary>
-      <p class="small dim">
-        Same player, same tournament, two different data providers (PFF and
-        StatsBomb both ship event data for WC22). Δ here measures the gap
-        between our PFF pipeline's OI/90 and the StatsBomb-derived OI/90 for
-        the same player at the same tournament. Big calibration deltas mean
-        the two providers tagged the same matches differently — that helps
-        bound how much of any club-vs-national gap is a &quot;real&quot;
-        chemistry effect vs a provider artifact. Most players sit inside ±0.3
-        OI/90, which is well below the deltas we treat as signal in Step 2.
-      </p>
-      <div id="cc-calibration"></div>
-    </details>
+    <p class="small dim" style="margin-top: 1.5rem;">
+      <strong>On provider calibration:</strong> we run a PFF↔StatsBomb WC22
+      same-player Δ check to bound how much of any cross-context gap is a
+      provider artefact. See
+      <a href="methodology.html#section-5">Methodology §5</a> for details.
+    </p>
 
     <p class="small muted" style="margin-top: 1.5rem;">
       <strong>Next →</strong> see the off-ball complement —

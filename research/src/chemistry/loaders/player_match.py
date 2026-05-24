@@ -2,79 +2,61 @@
 
 Match strategy
 --------------
-1. Normalize names: lowercase, strip diacritics, drop punctuation, collapse spaces.
+1. Manual override map (loaded from research/data/manual_player_overrides.json).
 2. Exact normalized-name match → confidence 1.0.
-3. Last-name + first-initial match → confidence 0.85.
-4. Pure last-name match (only if unique) → confidence 0.7.
-5. Manual override map handles known nickname / formal-name mismatches.
+3. Word-subset (PFF short name ⊆ SB long name) → 0.92.
+4. Last-name + first-initial → 0.85.
+5. Pure last-name (only if unique) → 0.7.
+6. Reverse word-subset (SB short ⊆ PFF long) → 0.85.
+7. Fuzzy fallback using difflib.SequenceMatcher (stdlib, no new dep).
+   Compares each unmatched PFF name to every SB name, accepts the best
+   candidate only if the ratio ≥ 0.85 AND the runner-up trails by ≥ 0.05.
+   Confidence = the ratio. Stdlib-only — no `python-Levenshtein`.
 
 The result is a DataFrame: pff_player_id, statsbomb_player_id, name_pff, name_sb,
-match_strategy, confidence.
+strategy, confidence.
 """
 from __future__ import annotations
 
+import json
 import re
 import unicodedata
 from collections import defaultdict
+from difflib import SequenceMatcher
 from pathlib import Path
 
 import pandas as pd
 
 
-# Manual override: PFF "nickname" → StatsBomb canonical name.
-# These cover the obvious culture-of-naming differences across providers.
-MANUAL_OVERRIDES: dict[str, str] = {
-    "Memphis Depay": "Memphis Depay",
-    "Cristiano Ronaldo": "Cristiano Ronaldo dos Santos Aveiro",
-    "Kylian Mbappé": "Kylian Mbappé Lottin",
-    "Kylian Mbappe": "Kylian Mbappé Lottin",
-    "Bruno Fernandes": "Bruno Miguel Borges Fernandes",
-    "Pepe": "Képler Laveran Lima Ferreira",
-    "Rúben Dias": "Rúben Santos Gato Alves Dias",
-    "Diogo Dalot": "José Diogo Dalot Teixeira",
-    "Vitinha": "Vítor Machado Ferreira",
-    "Bernardo Silva": "Bernardo Mota Veiga de Carvalho e Silva",
-    "Bruno Guimarães": "Bruno Guimarães Rodriguez Moura",
-    "Casemiro": "Carlos Henrique Venancio Casimiro",
-    "Marquinhos": "Marcos Aoás Corrêa",
-    "Vinícius Junior": "Vinícius José Paixão de Oliveira Júnior",
-    "Vinicius Junior": "Vinícius José Paixão de Oliveira Júnior",
-    "Richarlison": "Richarlison de Andrade",
-    "Neymar": "Neymar da Silva Santos Júnior",
-    "Antony": "Antony Matheus dos Santos",
-    "Fred": "Frederico Rodrigues de Paula Santos",
-    "Rodrygo": "Rodrygo Silva de Goes",
-    "Thiago Silva": "Thiago Emiliano da Silva",
-    "Alisson": "Alisson Ramses Becker",
-    "Ederson": "Ederson Santana de Moraes",
-    "Pedri": "Pedro González López",
-    "Gavi": "Pablo Martín Páez Gavira",
-    "Rodri": "Rodrigo Hernández Cascante",
-    "Ferran Torres": "Ferran Torres García",
-    "Dani Olmo": "Daniel Olmo Carvajal",
-    "Alvaro Morata": "Álvaro Morata Martín",
-    "Ansu Fati": "Anssumane Fati",
-    "Eric García": "Eric García Martret",
-    "Aymeric Laporte": "Aymeric Jean Louis Gerard Alphonse Laporte",
-    "Antoine Griezmann": "Antoine Griezmann",
-    "Aurélien Tchouaméni": "Aurélien Djani Tchouaméni",
-    "Aurelien Tchouameni": "Aurélien Djani Tchouaméni",
-    "Theo Hernandez": "Théo Bernard François Hernández",
-    "Théo Hernandez": "Théo Bernard François Hernández",
-    "Achraf Hakimi": "Achraf Hakimi Mouh",
-    "Jude Bellingham": "Jude Victor William Bellingham",
-    "Bukayo Saka": "Bukayo Ayoyinka Temidayo Saka",
-    "Joao Felix": "João Félix Sequeira",
-    "João Félix": "João Félix Sequeira",
-    "Joao Cancelo": "João Pedro Cavaco Cancelo",
-    "João Cancelo": "João Pedro Cavaco Cancelo",
-    "Otavio": "Otávio Edmilson da Silva Monteiro",
-    "Goncalo Ramos": "Gonçalo Matias Ramos",
-    "Gonçalo Ramos": "Gonçalo Matias Ramos",
-    "Andre": "André de Almeida",
-    "Raphael Guerreiro": "Raphaël Adelino José Guerreiro",
-    "Raphael Varane": "Raphaël Xavier Varane",
-}
+# Threshold for the fuzzy fallback. 0.85 = ~85% character similarity after
+# normalization. Set high to avoid false positives between e.g. "Pedro" vs
+# "Pedri" or two unrelated short names that happen to share characters.
+_FUZZY_THRESHOLD = 0.85
+# Require the best candidate to beat the runner-up by this margin so a single
+# clear winner is needed; otherwise the match is ambiguous and we skip.
+_FUZZY_MARGIN = 0.05
+
+
+def _load_manual_overrides() -> dict[str, str]:
+    """Load PFF→SB name overrides from data/manual_player_overrides.json.
+
+    Returns an empty dict if the file is missing. The JSON shape is
+    `{"overrides": {"PFF Name": "Canonical SB Name", ...}}`.
+    """
+    here = Path(__file__).resolve()
+    # research/src/chemistry/loaders/player_match.py → research/data/...
+    repo_data = here.parents[3] / "data" / "manual_player_overrides.json"
+    if not repo_data.exists():
+        return {}
+    try:
+        raw = json.loads(repo_data.read_text())
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return dict(raw.get("overrides", {}))
+
+
+# Loaded once at module import; refresh by re-importing if the file changes.
+MANUAL_OVERRIDES: dict[str, str] = _load_manual_overrides()
 
 
 def normalize_name(name: str) -> str:
@@ -99,6 +81,47 @@ def first_initial(name: str) -> str:
     return parts[0][:1] if parts else ""
 
 
+def _fuzzy_best(pff_norm: str, sb_index: list[tuple[int, str, str]]) -> tuple[int, str, float] | None:
+    """Find the single best SequenceMatcher match for `pff_norm`.
+
+    sb_index: list of (sb_id, original_name, normalized_name).
+    Returns (sb_id, sb_name, ratio) iff:
+      - top ratio ≥ _FUZZY_THRESHOLD
+      - margin over runner-up ≥ _FUZZY_MARGIN (unambiguous winner)
+    Otherwise None.
+    """
+    if not pff_norm or len(pff_norm) < 4:
+        return None
+    # Pre-filter to candidates sharing at least the first letter — speeds up
+    # the O(N) loop on the unmatched residual without affecting accuracy.
+    first = pff_norm[0]
+    sm = SequenceMatcher(autojunk=False)
+    sm.set_seq2(pff_norm)
+    top: tuple[float, int, str] | None = None
+    runner: float = 0.0
+    for sid, raw_name, sb_norm in sb_index:
+        if not sb_norm or sb_norm[0] != first:
+            # quick reject on first letter
+            # (Latin-script names where unicodedata normalization preserves first letter)
+            continue
+        sm.set_seq1(sb_norm)
+        # quick_ratio is an upper bound; fall through to ratio only when promising
+        if sm.quick_ratio() < _FUZZY_THRESHOLD:
+            continue
+        r = sm.ratio()
+        if top is None or r > top[0]:
+            if top is not None:
+                runner = top[0]
+            top = (r, sid, raw_name)
+        elif r > runner:
+            runner = r
+    if top is None or top[0] < _FUZZY_THRESHOLD:
+        return None
+    if top[0] - runner < _FUZZY_MARGIN:
+        return None
+    return top[1], top[2], top[0]
+
+
 def build_player_match(
     pff_players: pd.DataFrame,
     sb_players: pd.DataFrame,
@@ -117,6 +140,8 @@ def build_player_match(
     # name "Lionel Andrés Messi Cuccittini" when {lionel, messi} ⊆ {lionel,
     # andres, messi, cuccittini}.
     sb_full: list[tuple[int, str, frozenset[str]]] = []
+    # Flat (sid, raw_name, norm_name) list for the fuzzy fallback.
+    sb_flat: list[tuple[int, str, str]] = []
     for r in sb_players.itertuples():
         norm = normalize_name(r.name)
         sb_by_norm[norm].append((int(r.statsbomb_player_id), r.name))
@@ -128,6 +153,7 @@ def build_player_match(
         words = frozenset(w for w in norm.split() if len(w) >= 2)
         if words:
             sb_full.append((int(r.statsbomb_player_id), r.name, words))
+        sb_flat.append((int(r.statsbomb_player_id), r.name, norm))
 
     out: list[dict] = []
     for r in pff_players.itertuples():
@@ -173,7 +199,7 @@ def build_player_match(
                         "name_pff": pff_name, "name_sb": sname,
                         "strategy": "last+initial", "confidence": 0.85})
             continue
-        # 5. Pure last name
+        # 5. Pure last name (unique)
         cands = sb_by_last.get(ln, [])
         if len(cands) == 1:
             sid, sname = cands[0]
@@ -181,8 +207,7 @@ def build_player_match(
                         "name_pff": pff_name, "name_sb": sname,
                         "strategy": "last_only", "confidence": 0.7})
             continue
-        # 6. Reverse word-subset: SB short name ⊆ PFF long name. PFF sometimes
-        # carries full legal names while SB lists short ones.
+        # 6. Reverse word-subset: SB short name ⊆ PFF long name.
         if len(pff_words) >= 2:
             cands = [(sid, sname) for sid, sname, sw in sb_full
                      if len(sw) >= 2 and sw.issubset(pff_words)]
@@ -192,5 +217,13 @@ def build_player_match(
                             "name_pff": pff_name, "name_sb": sname,
                             "strategy": "reverse_word_subset", "confidence": 0.85})
                 continue
+        # 7. Fuzzy fallback (SequenceMatcher).
+        hit = _fuzzy_best(norm, sb_flat)
+        if hit is not None:
+            sid, sname, ratio = hit
+            out.append({"pff_player_id": pff_id, "statsbomb_player_id": sid,
+                        "name_pff": pff_name, "name_sb": sname,
+                        "strategy": "fuzzy", "confidence": round(float(ratio), 3)})
+            continue
 
     return pd.DataFrame(out)

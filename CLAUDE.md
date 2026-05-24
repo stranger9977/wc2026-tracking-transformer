@@ -70,7 +70,7 @@ For PFF, the loader supports `--pff-n N` so training can scale incrementally —
 - **GKs are excluded from space/chemistry rankings** by default (the `is_goalkeeper` flag from the features). They otherwise dominate attribution because they touch the ball in every defensive-third sequence.
 - **Velocity clamp at ±25 m/s** — handles substitution discontinuities and tracker glitches without distorting realistic player speeds (max human sprint ≈ 12 m/s, ball passes up to ~30 m/s).
 - **Stride convention for sampling** — every loader takes `sampling_stride` so all sources can be aligned to 5 Hz: Metrica stride=5 (25 Hz native), SkillCorner stride=2 (10 Hz), PFF stride=6 (30 Hz). `dt` for velocity = `stride / native_rate`.
-- **Don't push to remote.** Local commits only.
+- **Push to remote IS allowed when the user has explicitly authorized it** (for the current session or task); default is still local-only otherwise. Do not push without that explicit authorization — sub-agents in particular should treat the default as local-only unless the parent agent has confirmed authorization.
 - **`uv add`, not `pip install`.** Edits to deps go through pyproject.toml via uv.
 
 ## Sibling project

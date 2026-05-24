@@ -577,7 +577,33 @@ async function init() {
     if (currentPlay) drawDeltaChart(currentPlay, currentMove, currentFrame);
   });
 
-  activatePlay(allPlays[0]);
+  // Deep-link via query params: ?play=<label>&move=<move_id>
+  // Backward-compatible: falls back to first play if no/invalid params.
+  const params = new URLSearchParams(window.location.search);
+  const playParam = params.get("play");
+  const moveParam = params.get("move");
+  let startIdx = 0;
+  if (playParam) {
+    const found = allPlays.findIndex(
+      (p) => p.label === playParam || String(p.title) === playParam,
+    );
+    if (found >= 0) startIdx = found;
+  }
+  playSelect.value = String(startIdx);
+  activatePlay(allPlays[startIdx]);
+
+  if (moveParam) {
+    // activatePlay synchronously renders the move cards, so we can locate
+    // and click the matching card right away. scrollIntoView lands the card
+    // in the user's viewport when arriving from a deep link.
+    const card = document.querySelector(
+      `.move-card[data-move-id="${CSS.escape(moveParam)}"]`,
+    );
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      card.click();
+    }
+  }
 }
 
 // ------------------------------------------------------------

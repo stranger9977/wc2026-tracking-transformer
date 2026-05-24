@@ -588,6 +588,23 @@ label {
   .controls { grid-template-columns: 2fr 1fr 1fr; }
 }
 
+/* A "primary control" — used by Team Maps to make the team-focus dropdown
+   read as a first-class entry point. Bigger font, accent border on focus,
+   subtle highlight at rest so it visibly leads the row. */
+.controls .primary-control select,
+.controls .primary-control input {
+  font-size: 1rem;
+  font-weight: 500;
+  border-color: var(--accent-green-soft);
+  background: linear-gradient(180deg,
+    rgba(26, 138, 58, 0.06) 0%,
+    var(--bg-elev-2) 100%);
+}
+.controls .primary-control label {
+  color: var(--text);
+  font-weight: 600;
+}
+
 /* ============================================================
    Tables (with mobile card fallback)
    ============================================================ */
@@ -1011,6 +1028,43 @@ table.data-table th.num { text-align: right; }
 .story-card.under .story-heading { color: #e07474; }
 .story-card p { margin: 0; opacity: 0.85; line-height: 1.45; }
 
+/* Club-vs-national story cards (paired-bar layout) */
+#story-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  margin: 0.5rem 0 1rem;
+}
+@media (min-width: 720px) {
+  #story-cards { grid-template-columns: 1fr 1fr; }
+}
+#story-cards .story-card { padding: 0.75rem 0.9rem; border-left: 3px solid #6aa3ff; }
+#story-cards .story-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+.story-card-body {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 0.9rem;
+  align-items: start;
+}
+@media (max-width: 540px) {
+  .story-card-body { grid-template-columns: 1fr; }
+  .story-chart { max-width: 320px; }
+}
+.story-chart { background: rgba(255,255,255,0.02); border-radius: 4px; padding: 0.25rem; }
+.story-meta .meta { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.35rem; flex-wrap: wrap; }
+.story-numbers { list-style: none; padding: 0; margin: 0 0 0.4rem; font-size: 0.85rem; }
+.story-numbers li { padding: 0.18rem 0; }
+.story-numbers strong { color: var(--text); }
+
+/* Open-questions chart blocks */
+#stages-chart, #mean-scatter {
+  background: rgba(255,255,255,0.02);
+  border-radius: 4px;
+  padding: 0.4rem 0.5rem;
+  margin: 0.5rem 0;
+  overflow-x: auto;
+}
+
 .download-list {
   list-style: none;
   padding: 0;
@@ -1139,6 +1193,24 @@ table.data-table th.num { text-align: right; }
   border-radius: var(--radius-sm);
   background: var(--bg);
   border: 1px solid var(--border);
+}
+
+/* Attention-pitch PNGs render on a cream/off-white background that clashes
+   with the dark theme. We can't re-render them server-side here, so we
+   invert + re-hue them: invert lightens dark and darkens light; hue-rotate
+   180 brings the colour edges back to where they were. The result is a
+   dark pitch with the rust / steel / violet palette intact. Hover restores
+   the original image for users who want to read player names crisply. */
+.team-card-grid img,
+.overview-attn-img {
+  filter: invert(1) hue-rotate(180deg) saturate(1.15) brightness(0.95);
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  transition: filter 0.15s ease;
+}
+.team-card-grid img:hover,
+.overview-attn-img:hover {
+  filter: none;
 }
 
 /* ============================================================

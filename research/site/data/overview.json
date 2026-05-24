@@ -5,18 +5,20 @@
   "n_pairs": 4366,
   "n_goals": 165,
   "top_joi_pair": {
-    "team": "Senegal",
-    "p": "Bamba Dieng",
-    "q": "Youssouf Sabaly",
-    "joi90": 1.9053394982072949,
-    "minutes": 122.38333333333333
+    "team": "Costa Rica",
+    "p": "Joel Campbell",
+    "q": "Brandon Aguilera",
+    "joi90": 1.6475302341014657,
+    "minutes": 103.95,
+    "n_interactions": 15
   },
   "top_jdi_pair": {
     "team": "Uruguay",
-    "p": "Matias Vecino",
+    "p": "Rodrigo Bentancur",
     "q": "Diego Godin",
-    "jdi90": 0.13253651080590598,
-    "minutes": 139.71666666666667
+    "jdi90": 0.12243509171464168,
+    "minutes": 159.55,
+    "n_interactions": 22
   },
   "vaep_metrics": {
     "score_brier": 0.014107606373727322,

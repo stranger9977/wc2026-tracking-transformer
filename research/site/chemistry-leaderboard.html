@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Chemistry Leaderboards</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="interactive-plays.html">Interactive Plays</a>
+        <a href="what-is-chemistry.html">What is Chemistry?</a>
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="whiteboard.html">Digital Whiteboard</a>
+        <a href="club-vs-national.html">Club vs National</a>
+        <a href="fifa-mode.html">FIFA Mode</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Chemistry leaderboards</h1>
+    <p class="lede">
+      Two ways of measuring chemistry, in one place. The <strong>event-based</strong>
+      leaderboard ranks pairs by joint on-ball impact (JOI / JDI, built on VAEP);
+      the <strong>attention-based</strong> leaderboard ranks pairs the tracking
+      transformer watches together off the ball. The <strong>disagreement</strong>
+      view surfaces pairs where the two lenses tell very different stories.
+    </p>
+
+    <div class="mode-bar" role="tablist">
+      <button data-mode="event"     class="active">Event-based (JOI/JDI)</button>
+      <button data-mode="attention">Attention-based</button>
+      <button data-mode="disagree">Where they disagree</button>
+    </div>
+
+    <!-- ─────────── Mode 1: Event-based ─────────── -->
+    <section id="mode-event" class="mode-section active">
+      <div class="tab-bar" role="tablist" id="event-tabs">
+        <button data-tab="off" class="active">Offensive chemistry (JOI90)</button>
+        <button data-tab="def">Defensive chemistry (JDI90)</button>
+        <button data-tab="cross">Combined (Cross-Chemistry)</button>
+      </div>
+
+      <div class="controls">
+        <div>
+          <label for="ev-search">Search by player or team</label>
+          <input id="ev-search" type="search" placeholder="e.g. Messi, Brazil…">
+        </div>
+        <div>
+          <label for="ev-min-minutes">Min minutes together</label>
+          <input id="ev-min-minutes" type="number" min="0" step="10" value="30">
+        </div>
+        <div>
+          <label for="ev-role-filter">Role pair</label>
+          <select id="ev-role-filter">
+            <optgroup label="Smart defaults">
+              <option value="OFF_ROLES" selected>Offensive roles (FWD / MID)</option>
+              <option value="DEF_ROLES">Defensive roles (DEF / GK)</option>
+            </optgroup>
+            <optgroup label="All combinations">
+              <option value="ALL">All role pairs</option>
+              <option value="FWD-FWD">FWD ↔ FWD</option>
+              <option value="DEF-DEF">DEF ↔ DEF</option>
+              <option value="FWD-DEF">FWD ↔ DEF</option>
+              <option value="MID-MID">MID ↔ MID</option>
+              <option value="FWD-MID">FWD ↔ MID</option>
+              <option value="MID-DEF">MID ↔ DEF</option>
+              <option value="GK-ANY">GK involved</option>
+            </optgroup>
+          </select>
+        </div>
+        <div id="ev-alpha-wrap" class="hidden">
+          <label for="ev-alpha">Cross-chem alpha (offensive weight): <span id="ev-alpha-val">0.50</span></label>
+          <input id="ev-alpha" type="range" min="0" max="100" value="50">
+        </div>
+      </div>
+
+      <div class="pairs-with-spark">
+        <aside id="ev-spark" class="spark-panel">
+          <div class="spark-title">Distribution, visible pairs</div>
+          <svg id="ev-spark-svg" class="spark-svg" viewBox="0 0 320 60" preserveAspectRatio="none" role="img" aria-hidden="true"></svg>
+          <div id="ev-spark-caption" class="spark-caption">
+            One bar per pair, ranked by the active metric.
+          </div>
+        </aside>
+        <div id="ev-table"></div>
+      </div>
+
+      <p class="small muted" style="margin-top: 1.2rem;">
+        <strong>JOI90</strong> = joint offensive impact per 90 minutes shared
+        (<a href="methodology.html#joi">formal definition</a>).
+        <strong>JDI90</strong> = joint defensive impact per 90 minutes shared
+        (<a href="methodology.html#jdi">formal definition</a>).
+        Both built on VAEP — <em>P(score) − P(concede)</em> credit per action.
+      </p>
+    </section>
+
+    <!-- ─────────── Mode 2: Attention-based ─────────── -->
+    <section id="mode-attention" class="mode-section">
+      <p class="dim small">
+        Every pair the transformer attended to most across the 44 WC22 matches with tracking.
+        <strong>Offensive</strong> = both forward of midfield. <strong>Defensive</strong>
+        = both defenders or GK. <strong>Cross</strong> = one of each.
+        <strong>Lift</strong> normalises against the team's median pair, so 2× means
+        "twice the attention of a baseline pair from the same squad."
+      </p>
+      <p class="dim small" style="margin-top:-0.4rem">
+        GKs dominate raw attention because they touch the ball every defensive sequence; hidden by default.
+      </p>
+
+      <div class="tab-bar attn-tabs" role="tablist" id="att-tabs">
+        <button data-cat="all"   class="active">All pairs</button>
+        <button data-cat="off">Offensive · Off ↔ Off</button>
+        <button data-cat="def">Defensive · Def ↔ Def</button>
+        <button data-cat="cross">Cross · Off ↔ Def</button>
+      </div>
+
+      <div class="controls">
+        <div>
+          <label for="att-group-size">Group size</label>
+          <select id="att-group-size">
+            <option value="2" selected>Pairs (2)</option>
+            <option value="3">Triples (3) · mini-units</option>
+            <option value="4">Quads (4) · full lines</option>
+          </select>
+        </div>
+        <div>
+          <label for="att-search">Search player or team</label>
+          <input id="att-search" type="search" placeholder="e.g. Messi, Argentina…">
+        </div>
+        <div id="att-min-min-row">
+          <label for="att-min-min">Min minutes together</label>
+          <input id="att-min-min" type="number" value="60" min="0" step="30" style="width:6rem">
+        </div>
+        <div>
+          <label>GK pairs</label>
+          <label class="toggle-row" style="margin-top:0.35rem">
+            <input id="att-show-gks" type="checkbox">
+            Show GK pairs
+          </label>
+        </div>
+      </div>
+
+      <div class="pairs-with-spark">
+        <div id="att-spark" class="spark-panel">
+          <div class="empty-state small">Distribution will render once attention pairs load.</div>
+        </div>
+        <div id="att-table"></div>
+      </div>
+    </section>
+
+    <!-- ─────────── Mode 3: Where they disagree ─────────── -->
+    <section id="mode-disagree" class="mode-section">
+      <aside class="callout">
+        <h4>How to read this</h4>
+        <p>
+          For every pair present in both datasets, we compute its percentile rank on
+          <strong>JOI90</strong> (event-based) and on <strong>attention lift</strong>
+          (transformer-based), then score the gap as <code>|pct(JOI) − pct(attention)|</code>.
+          The top rows are pairs the model watches together but rarely connect on the ball,
+          or vice versa — the <strong>off-ball vs on-ball gap</strong>. GK pairs are
+          excluded so the ranking isn't dominated by the goalkeeper's universal touch.
+        </p>
+        <p class="small mt-0" style="margin-top:0.6rem;">
+          <strong>The headline:</strong> Wales' <strong>Ethan Ampadu + Joe Allen</strong>
+          (both CM) rank p100 on attention lift but only p18 on JOI — the transformer
+          watches them constantly but they barely combine on the ball. That's the cleanest
+          off-ball-only chemistry signal in the dataset. The Welsh double-pivot shaped
+          the build-up without touching it.
+        </p>
+      </aside>
+
+      <div class="controls">
+        <div>
+          <label for="dis-search">Search by player or team</label>
+          <input id="dis-search" type="search" placeholder="e.g. Messi, Brazil…">
+        </div>
+        <div>
+          <label for="dis-direction">Direction of gap</label>
+          <select id="dis-direction">
+            <option value="all" selected>Both directions</option>
+            <option value="attn_high">Attention high, JOI low (off-ball only)</option>
+            <option value="joi_high">JOI high, attention low (on-ball only)</option>
+          </select>
+        </div>
+        <div>
+          <label for="dis-min-minutes">Min minutes together</label>
+          <input id="dis-min-minutes" type="number" min="0" step="10" value="60">
+        </div>
+      </div>
+
+      <div id="dis-table"></div>
+
+      <p class="small muted" style="margin-top: 1.2rem;">
+        Percentiles are computed inside the dataset that produced each metric, then
+        joined by team + unordered player-pair. A pair only appears here if it has
+        a non-zero attention record <em>and</em> survives the event-based minimum
+        minutes filter on this page.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    PFF event + tracking, 64 matches (44 with tracking), FIFA World Cup 2022.
+    Bransen &amp; Van Haaren (Sloan 2020) + a transformer encoder over 22-player tracking.
+  </footer>
+
+  <script type="module" src="assets/js/chemistry-leaderboard.js"></script>
+</body>
+</html>
