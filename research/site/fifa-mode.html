@@ -18,8 +18,7 @@
       <nav class="site-nav">
         <a href="index.html">Overview</a>
         <a href="interactive-plays.html">Interactive Plays</a>
-        <a href="transformer-chemistry.html">Transformer Chemistry</a>
-        <a href="pairs.html">Top Pairs</a>
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a>
         <a href="teams.html">Team Maps</a>
         <a href="team-builder.html">Team Builder</a>
         <a href="club-vs-national.html">Club vs National</a>
@@ -31,28 +30,34 @@
   </header>
 
   <main>
-    <h1>FIFA Mode: paper talent vs. what actually happens</h1>
+    <h1>FIFA Mode: paper talent vs. what actually happened</h1>
     <p class="lede">
-      EA Sports publishes a deterministic team rating for every national side.
-      It's a weighted average of the best 11 players' Overall scores — it
-      knows nothing about chemistry, form, manager, or who actually starts.
-      That makes it a useful <em>null model</em>: how far did each team finish
-      from where their paper rating said they should?
+      EA Sports publishes a deterministic number for every nation and every player —
+      a weighted average of in-game attributes. It knows nothing about chemistry,
+      form, manager, or who actually starts. That makes it a useful <em>null model</em>.
     </p>
 
     <div class="callout" role="note" style="margin-bottom: 1.5rem;">
-      <p class="mt-0"><strong>The non-linearity.</strong> A football match plays 11 players. FIFA's team rating is dominated by those 11.
-      Depth (player 12-23) barely shifts the number, even though depth wins tournaments through fatigue, injury, and rotation. <strong>So the rating systematically over-rewards top-loaded squads.</strong>
-      France in 2022 had the largest top-11 / 12-23 gap of any major nation: brilliant XI, ordinary depth. They reached the final and ran out of legs in extra time.</p>
+      <p class="mt-0"><strong>The gap between paper rating and what actually happened is where chemistry lives.</strong>
+      A team that overperforms its paper rank by 4 (Argentina, WC22) is telling us paper talent isn't the whole story.
+      A team that underperforms by 12 (Belgium) is telling us the same thing, in reverse. The whole rest of this site is
+      an attempt to explain that gap — to put a number on the chemistry, the dependency, the depth.
+      FIFA Mode is the prior we're arguing against.</p>
+      <p><strong>And the non-linearity that matters.</strong> A football match plays 11. FIFA's team rating is dominated by those 11.
+      Depth (player 12-23) barely shifts the number, even though depth wins tournaments through fatigue, injury, and rotation.
+      <strong>So the rating systematically over-rewards top-loaded squads.</strong>
+      France in 2022 had the largest top-11 / 12-23 gap of any major nation: brilliant XI, ordinary depth, ran out of legs in the final.</p>
     </div>
 
-    <div class="tab-bar" role="tablist">
-      <button data-view="wc22" class="active">World Cup 2022 — paper vs result</button>
-      <button data-view="wc26">World Cup 2026 — paper-only prediction</button>
+    <div class="mode-bar" role="tablist">
+      <button data-view="wc22-teams" class="active">WC22 · teams vs paper</button>
+      <button data-view="wc22-players">WC22 · players vs paper</button>
+      <button data-view="wc26">WC26 · paper-only prediction</button>
     </div>
 
-    <div id="wc22-view" class="fifa-view">
-      <h2>WC 2022 · FIFA 23 rating vs tournament result</h2>
+    <!-- =============================================================== -->
+    <section id="wc22-teams-view" class="mode-section active">
+      <h2>How did each WC22 team do vs its paper rating?</h2>
       <p class="dim small">
         FIFA 23 was released 30 Sep 2022, exactly two months before the tournament. Each team's
         <strong>Overall</strong> is EA's published number from the launch patch. The
@@ -75,67 +80,126 @@
       <div id="wc22-table" class="fifa-table"></div>
 
       <h3 class="mt-2">Paper rating vs how far they actually got</h3>
-      <p class="dim small">Each dot = one team. X axis = FIFA 23 Overall rating (paper talent). Y axis = stage reached (Group → Winner). The diagonal is "result matches paper rank". Points <em>above</em> the diagonal overperformed; <em>below</em> underperformed.</p>
+      <p class="dim small">Each dot = one team. X axis = FIFA 23 Overall rating (paper talent). Y axis = stage reached (Group → Winner). The diagonal traces "result matches paper rank". Points <em>above</em> the diagonal overperformed; <em>below</em> underperformed.</p>
       <div id="wc22-scatter" class="fifa-scatter"></div>
 
-      <h3 class="mt-2">The five biggest stories</h3>
+      <h3 class="mt-2">The five biggest team-level stories</h3>
       <div id="wc22-stories" class="story-grid"></div>
-    </div>
+    </section>
 
-    <div id="wc26-view" class="fifa-view hidden">
-      <h2>WC 2026 · FIFA 26 paper-talent ranking</h2>
+    <!-- =============================================================== -->
+    <section id="wc22-players-view" class="mode-section">
+      <h2>How did each WC22 player do vs their paper rating?</h2>
       <p class="dim small">
-        FIFA 26 was released 26 Sep 2025. WC26 hasn't happened — these are the
-        ratings as of launch. Treat them as <em>paper</em> rankings, not
-        predictions. The whole point of the WC22 table on the previous tab is
-        that paper rank and result rank disagree, often by a lot.
+        Each dot = one outfield player with ≥150 minutes at the tournament.
+        X axis = the player's FIFA 23 Overall (paper). Y axis = their actual offensive contribution per 90 from
+        <a href="club-vs-national.html">OI/90</a> — a chemistry-aware xG-style metric. The trend line is the
+        league-of-the-tournament fit: where most players sat. Players <em>above</em> the line outperformed their paper rating;
+        <em>below</em> means underperformed.
       </p>
+
+      <div class="callout" role="note" style="margin-bottom: 1.2rem;">
+        <p class="mt-0"><strong>The OI/90-vs-FIFA scatter is essentially flat.</strong> The linear fit's slope through the
+        forward/midfield sample is near zero — knowing a player's FIFA 23 Overall told you almost nothing about how productive
+        they'd be at the tournament. That's the player-level version of the team-level story.</p>
+      </div>
+
+      <div id="players-scatter" class="fifa-scatter"></div>
+
+      <h3 class="mt-2">Headline over- and underperformers</h3>
+      <div id="players-stories" class="story-grid"></div>
+
+      <h3 class="mt-2">All players</h3>
+      <p class="dim small">Sortable. Click any column header. Δ residual is the player's OI/90 minus what the FIFA-23-vs-OI/90 fit line predicted for someone at their rating.</p>
+      <div class="controls">
+        <div>
+          <label for="players-role">Role</label>
+          <select id="players-role">
+            <option value="all">All outfield</option>
+            <option value="FWD">Forwards</option>
+            <option value="MID">Midfielders</option>
+            <option value="DEF">Defenders</option>
+          </select>
+        </div>
+        <div>
+          <label for="players-min">Min. minutes</label>
+          <select id="players-min">
+            <option value="90">90+</option>
+            <option value="150" selected>150+</option>
+            <option value="270">270+ (3 full games)</option>
+          </select>
+        </div>
+      </div>
+      <div id="players-table" class="fifa-table"></div>
+    </section>
+
+    <!-- =============================================================== -->
+    <section id="wc26-view" class="mode-section">
+      <h2>WC 2026 · paper-only prediction</h2>
+      <p class="dim small">
+        FIFA 26 was released 26 Sep 2025. WC26 hasn't happened — these are ratings as of launch.
+        <strong>If paper talent decided the tournament, here's how it would go.</strong>
+        The whole rest of this site is the argument for why it won't.
+      </p>
+
+      <div class="callout" role="note" style="margin-bottom: 1.2rem;">
+        <p class="mt-0"><strong>Licensing note.</strong> EA FC 26 licenses only 28 men's national teams (down from 30).
+        Brazil, Belgium, Senegal, Uruguay, Colombia, Switzerland, Australia, Japan, Korea, Canada, Saudi Arabia, and Iran are
+        <em>not in the game</em>. For those nations the row is marked "analyst proxy" — the rating is aggregated from individual player Overalls (which EA does still publish), using the same top-11 weighting EA uses internally. Treat it as a careful guess, not an EA number.</p>
+      </div>
+
       <div id="wc26-table" class="fifa-table"></div>
-      <p class="bookend mt-2">
-        <strong>Where to look for upsets.</strong> Apply the WC22 patterns:
-        narrow depth gaps (deeper squads survive tournaments better);
-        midfield-heavy ratings tend to overperform attack-heavy ones (Croatia
-        2018-2022 was the cleanest example); top-loaded squads underperform
-        when their stars are tired or marked.
+
+      <h3 class="mt-2">Where to look for upsets</h3>
+      <p class="bookend mt-1">
+        Apply the WC22 patterns:
+        narrow depth gaps survive tournaments better;
+        midfield-heavy ratings tend to overperform attack-heavy ones (Croatia 2018-2022 was the cleanest example);
+        top-loaded squads underperform when their stars are tired or marked. Look at the
+        <strong>depth gap</strong> column. Norway 8.x, France 8.2, England 6.0 — the obvious ones to fade if you're betting against paper.
       </p>
-    </div>
+    </section>
 
     <details class="method-drawer">
       <summary>Method &amp; sources</summary>
       <p>
-        <strong>FIFA ratings</strong> are EA Sports' published national-team
+        <strong>FIFA team ratings</strong> are EA Sports' published national-team
         overall ratings from the relevant game version: FIFA 23 (released
         30&nbsp;Sep&nbsp;2022) for WC22 and FIFA 26 (released
         26&nbsp;Sep&nbsp;2025) for WC26. They're a weighted aggregate of the
-        top-11 players' individual Overall ratings, with bonuses for synergy
-        within positions. <strong>Depth gap</strong> is the average rating of
+        top-11 players' individual Overall ratings. <strong>Depth gap</strong> is the average rating of
         the top-11 minus the average of squad members 12-23.
+      </p>
+      <p>
+        <strong>FIFA 23 individual ratings</strong> were cross-referenced from
+        dexerto's WC22 player ratings article, fifaratings.com, FUTBIN, and sofifa archives.
+        Matched against the WC22 PFF tracking-data player roster (633 players) by normalized name;
+        ~370 players matched. Players with &lt;150 minutes are excluded from the scatter (sample-size noise dominates).
+      </p>
+      <p>
+        <strong>OI/90</strong> (offensive impact per 90) is the same chemistry-aware metric used on the
+        <a href="club-vs-national.html">Club vs National</a> tab — Bransen &amp; Van Haaren's
+        offensive xT-like score derived from event tracking. It accounts for what a player does <em>on the ball</em>;
+        it doesn't see chemistry, off-ball runs, or pressing (that's what the rest of the site is for).
+      </p>
+      <p>
+        <strong>FIFA 26 ratings</strong> were scraped from fifaratings.com country pages (sofifa.com was 403-walled this session).
+        For the 12 WC26-likely nations EA did not license, the team-Overall is aggregated from individual player Overalls.
       </p>
       <p>
         <strong>Tournament result rank</strong>: winner=1, RU=2, 3rd=3, 4th=4,
         QF losers ranked 5-8 by group-stage points, R16 losers 9-16, group-stage
         exits 17-32 by points then goal diff. Standard FIFA tournament ranking.
       </p>
-      <p>
-        <strong>What FIFA Mode is good for.</strong> Identifying systematic
-        over- and underperformers, framing the basketball-analogy question
-        ("most talent on paper" vs "most likely to win"), and giving a
-        shared baseline for fans who haven't watched every match. <strong>What it
-        is not good for.</strong> Predicting the next match. Capturing
-        chemistry (the whole point of the rest of the site). Anything that
-        depends on the manager's tactical fit.
-      </p>
     </details>
 
     <p class="small muted" style="margin-top: 1.5rem;">
-      <strong>Next →</strong> the <a href="club-vs-national.html">Club vs National</a> tab is the
-      players' analogue of this team-level lens, and <a href="pairs.html">Top Pairs</a>
-      is where chemistry — the thing FIFA's number ignores — actually shows up.
+      <strong>Next →</strong> the <a href="club-vs-national.html">Club vs National</a> tab is the players' analogue of the team-level lens, and <a href="pairs.html">Top Pairs</a> is where chemistry — the thing FIFA's number ignores — actually shows up.
     </p>
   </main>
 
   <footer class="site-footer">
-    FIFA Mode reads paper ratings from EA Sports' FIFA 23 (WC22) and FIFA 26 (WC26 prediction); tournament results from FIFA's official records.
+    FIFA Mode reads paper ratings from EA Sports' FIFA 23 (WC22) and FIFA 26 (WC26 prediction); tournament results from FIFA's official records; player OI/90 from this site's tracking data.
   </footer>
 
   <script type="module" src="assets/js/fifa-mode.js"></script>
