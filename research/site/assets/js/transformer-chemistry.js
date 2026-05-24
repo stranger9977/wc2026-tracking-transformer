@@ -175,8 +175,9 @@ function renderPairsTable(rows) {
       num: true, digits: 2, defaultSort: true, defaultDir: "desc",
       render: (r) => `<span class="tabular"><strong>${fmtNum(r.attention_lift, 2)}×</strong></span>` },
   ];
+  // makeSortableTable doesn't render until .render() is called.
   makeSortableTable({ data: rows, columns: cols, container: tableEl,
-    emptyLabel: "No attention pairs." });
+    emptyLabel: "No attention pairs." }).render();
 }
 
 function renderGroupsTable(rows) {
@@ -201,7 +202,7 @@ function renderGroupsTable(rows) {
       render: (r) => `<span class="tabular"><strong>${fmtNum(r.attention_lift, 2)}×</strong></span>` },
   ];
   makeSortableTable({ data: rows, columns: cols, container: tableEl,
-    emptyLabel: "No groups." });
+    emptyLabel: "No groups." }).render();
 }
 
 function renderSparkline(rows) {
