@@ -134,6 +134,15 @@ function applyGroupFilters(rows) {
 }
 
 function renderTable() {
+  // Always re-read the current select value — this avoids a desync where the
+  // change event missed (autofill, keyboard nav, browser caching) and JS state
+  // disagrees with what the DOM shows.
+  if (sizeSelect) {
+    const fromDom = Number(sizeSelect.value);
+    if (Number.isFinite(fromDom) && fromDom > 0) state.size = fromDom;
+  }
+  document.getElementById("attn-min-min-row")?.classList.toggle("hidden", state.size !== 2);
+
   if (state.size === 2) {
     const rows = applyPairFilters(pairsRaw);
     renderPairsTable(rows);
