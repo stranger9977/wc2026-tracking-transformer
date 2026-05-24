@@ -41,7 +41,54 @@
       Does it lift VAEP, and which pairs come out on top?
     </p>
 
-    <h2 id="auc-lift">Frame-level P(score) / P(concede) — model performance</h2>
+    <h2 id="top-attention-pairs">Attention chemistry leaderboard</h2>
+    <p class="dim small">
+      Every pair the transformer attended to most across the 44 WC22 matches with tracking,
+      grouped by what kind of partnership it is. <strong>Offensive</strong> = both players
+      forward of midfield. <strong>Defensive</strong> = both players defenders or GK.
+      <strong>Cross</strong> = one off, one def — the lines that connect the two halves
+      of the team. The same three colours show up on the team maps below.
+    </p>
+    <div class="tab-bar attn-tabs" role="tablist">
+      <button data-cat="all"   class="active">All pairs</button>
+      <button data-cat="off">Offensive · Off ↔ Off</button>
+      <button data-cat="def">Defensive · Def ↔ Def</button>
+      <button data-cat="cross">Cross · Off ↔ Def</button>
+    </div>
+    <div class="controls">
+      <div>
+        <label for="attn-group-size">Group size</label>
+        <select id="attn-group-size">
+          <option value="2" selected>Pairs (2)</option>
+          <option value="3">Triples (3) · mini-units</option>
+          <option value="4">Quads (4) · full lines</option>
+        </select>
+      </div>
+      <div>
+        <label for="attn-search">Search player or team</label>
+        <input id="attn-search" type="search" placeholder="e.g. Messi, Argentina…">
+      </div>
+      <div id="attn-min-min-row">
+        <label for="attn-min-min">Min minutes together</label>
+        <input id="attn-min-min" type="number" value="60" min="0" step="30" style="width:6rem">
+      </div>
+    </div>
+    <p class="dim small mt-0">
+      <strong>Lift</strong> normalizes attention against each team's median pair — so the
+      ranking surfaces partnerships the model watches together <em>more than its
+      typical pair from that team</em>, not just pairs of players who happen to log
+      a lot of minutes. <strong>2×</strong> means "twice the attention of a baseline
+      pair from the same squad." Triples and quads use the same scaling: average
+      pair-attention inside the group, divided by the team baseline.
+    </p>
+    <div class="pairs-with-spark">
+      <div id="attention-pairs-spark" class="spark-panel">
+        <div class="empty-state small">Distribution will render once attention pairs load.</div>
+      </div>
+      <div id="attention-pairs-table"></div>
+    </div>
+
+    <h2 id="auc-lift">Frame-level model performance</h2>
     <aside class="callout" aria-label="How to read this">
       <h4>How to read this</h4>
       <p>
@@ -68,8 +115,9 @@
       For each WC22 team we render a pitch with the 11 starters at their formation
       positions; edge width encodes the total ball-token attention the
       transformer placed on each pair, summed frame-by-frame across every match
-      the team played. These edges capture pairs the model "watched together,"
-      including in moments with no on-ball event.
+      the team played. <strong>Edge colour is the same off / def / cross
+      classification as the leaderboard above</strong> — rust = offence ↔ offence,
+      steel blue = defence ↔ defence, violet = cross.
     </p>
     <div class="controls">
       <div>
@@ -82,15 +130,6 @@
         <strong>Attention figures not rendered yet.</strong>
         <span>Run <code>research/scripts/render_attention_figures.py</code> to populate <code>data/attention_figures_index.json</code>.</span>
       </div>
-    </div>
-
-    <h2 id="top-attention-pairs">Top attention pairs (across the tournament)</h2>
-    <p class="dim small">All pairs sorted by per-90 attention. The cross-team analogue of the JOI top-pairs table, but attention catches non-event interactions. The sparkline shows the full distribution; the marker is the leading pair.</p>
-    <div class="pairs-with-spark">
-      <div id="attention-pairs-spark" class="spark-panel">
-        <div class="empty-state small">Distribution will render once attention pairs are available.</div>
-      </div>
-      <div id="attention-pairs-table"></div>
     </div>
 
     <details class="method-drawer">

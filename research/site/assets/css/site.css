@@ -807,6 +807,21 @@ table.data-table th.num { text-align: right; }
 .fifa-data-table td { padding: 0.45rem 0.55rem; font-size: 0.88rem; }
 .fifa-data-table .team-cell { display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
 .fifa-data-table .chip { padding: 0.1rem 0.45rem; font-size: 0.78rem; }
+/* Category chip used in the transformer-chemistry leaderboard */
+.cat-chip {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.attn-tabs button { font-size: 0.85rem; }
+.attn-tabs button[data-cat="off"].active   { border-color: #d4793a; color: #d4793a; }
+.attn-tabs button[data-cat="def"].active   { border-color: #3b6ea0; color: #3b6ea0; }
+.attn-tabs button[data-cat="cross"].active { border-color: #7a4f9a; color: #7a4f9a; }
+
 /* Tufte: chart sits directly on the page. No box, no fill. The data is the
    foreground, the page is the ground. */
 .fifa-scatter {

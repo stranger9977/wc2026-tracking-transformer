@@ -16,11 +16,35 @@ from matplotlib.colors import LinearSegmentedColormap
 from .pitch_chemistry import (_draw_pitch, _fetch_flag_image, _last_name,
                                _player_xy_from_cell, _resolve_team_name,
                                _resolve_unique_cells, PITCH_LENGTH, PITCH_WIDTH)
+from ..joint.grid import grid_role
 from ..teams_meta import flag_code as _flag_code
 
 CMAP_ATTN = LinearSegmentedColormap.from_list(
     "attn_seq", ["#1a3f6a", "#56a0d3", "#ffd76b", "#f25b3c"], N=256
 )
+
+# Three semantic edge colors, used both in the matplotlib team plots and as a
+# parallel signal on the site's leaderboard chips. Restrained palette so they
+# read clearly on the dark-on-light pitch and on the dark site theme alike.
+EDGE_COLORS = {
+    "off": "#d4793a",   # Offence ↔ offence: warm rust, "creative" colour
+    "def": "#3b6ea0",   # Defence ↔ defence: cool steel blue
+    "cross": "#7a4f9a", # Cross-role linking attack to defence: violet
+}
+
+OFFENSIVE_ROLES = {"FWD", "MID"}
+DEFENSIVE_ROLES = {"DEF", "GK"}
+
+
+def pair_category(pos_a: str | None, pos_b: str | None) -> str:
+    """Classify a pair into off/def/cross by their grid roles."""
+    a = grid_role(pos_a)
+    b = grid_role(pos_b)
+    if a in OFFENSIVE_ROLES and b in OFFENSIVE_ROLES:
+        return "off"
+    if a in DEFENSIVE_ROLES and b in DEFENSIVE_ROLES:
+        return "def"
+    return "cross"
 
 
 def draw_team_attention(
@@ -88,10 +112,12 @@ def draw_team_attention(
             p = pid_to_player[int(row.player_p)]
             q = pid_to_player[int(row.player_q)]
             t = (float(row.attention_per90) - min_v) / rng
-            color = CMAP_ATTN(t)
+            # Edge colour by pair category (off/def/cross), opacity by strength.
+            cat = pair_category(p["position"], q["position"])
+            base = EDGE_COLORS[cat]
             lw = 1.4 + 4.0 * t
             ax.plot([p["x"], q["x"]], [p["y"], q["y"]],
-                    color=color, linewidth=lw, alpha=0.88,
+                    color=base, linewidth=lw, alpha=0.55 + 0.40 * t,
                     solid_capstyle="round", antialiased=True, zorder=2)
 
     for p in players:
@@ -108,6 +134,17 @@ def draw_team_attention(
 
     ax.set_title(f"{team_name} — Attention Chemistry (Transformer)",
                  fontsize=14, color="#111", pad=10, fontweight="bold")
+
+    # Edge-colour legend, lower-left corner of the pitch.
+    legend_handles = [
+        mpatches.Patch(color=EDGE_COLORS["off"],   label="Off ↔ Off"),
+        mpatches.Patch(color=EDGE_COLORS["def"],   label="Def ↔ Def"),
+        mpatches.Patch(color=EDGE_COLORS["cross"], label="Cross (Off ↔ Def)"),
+    ]
+    ax.legend(handles=legend_handles, loc="lower left", frameon=True,
+              facecolor="white", edgecolor="none", framealpha=0.92,
+              fontsize=8.5, title="Edge type", title_fontsize=8.5)
+
     fig.tight_layout()
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
