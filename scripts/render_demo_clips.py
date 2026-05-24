@@ -15,35 +15,49 @@ REPO = Path(__file__).resolve().parents[1]
 
 # (match_id, period, start_s, end_s, label, title, summary)
 CLIPS = [
+    # (match_id, period, start_s, end_s, label, title, summary)
+    # IMPORTANT: start/end are PERIOD-RELATIVE seconds (P2 timestamps run 0-2700
+    # from kickoff, NOT 2700-5400 in absolute gameClock). Always verify the goal
+    # is INSIDE the window — keep a few seconds of cushion past the strike.
     (
-        "10517", 1, 2080, 2120,
+        # Di María goal: P1-relative 2121s. Window centres on the strike.
+        "10517", 1, 2090, 2135,
         "argentina-france-di-maria",
         "Di María 36' (Argentina v France, final)",
         "Argentina's third goal in a 30-pass move starting from Tagliafico's interception. "
         "Watch the attention follow Mac Allister and Di María through the chain.",
     ),
     (
-        "10517", 2, 4830, 4870,
-        "argentina-france-mbappe-equalizer",
-        "Mbappé 80' equalizer (France v Argentina, final)",
-        "France's second goal in 97 seconds. P(concede) for Argentina spikes immediately "
-        "before the goal as the model sees the attacking shape collapse.",
+        # The 80' Mbappé equalizer is a penalty — tracking goes dead for 29s after
+        # the spot kick (ball out of play, restart from kickoff), leaving only ~5
+        # usable frames. The 81' Mbappé volley is open play with 120+ continuous
+        # frames of buildup. P2-relative 2158s = gameClock 4858.
+        "10517", 2, 2118, 2165,
+        "argentina-france-mbappe-volley",
+        "Mbappé 81' volley (France v Argentina, final)",
+        "Mbappé's second goal in 97 seconds, this one off the volley. Watch P(concede) "
+        "for Argentina spike as France break in transition before the strike.",
     ),
     (
-        "10502", 1, 540, 580,
+        # Memphis goal: P1-relative 571s.
+        "10502", 1, 540, 585,
         "netherlands-usa-memphis",
         "Memphis 10' (Netherlands v USA, R16)",
         "Netherlands' opener. Memphis at the end of a 20-pass Dutch sequence.",
     ),
     (
-        "10510", 1, 600, 640,
+        # Japan v Spain is match 3854 (not 10510 — that's Croatia v Brazil!).
+        # Doan goal: P2-relative 168s (gameClock 2868, 48' of game).
+        "3854", 2, 140, 185,
         "japan-spain-doan",
         "Doan 48' (Japan v Spain, group stage)",
         "Japan equalize from a press-and-recover sequence — Doan's strike that knocked "
         "Spain off top of the group.",
     ),
     (
-        "10515", 1, 2400, 2440,
+        # Argentina v Croatia semi is match 10514 (not 10515 — that's France v Morocco!).
+        # Álvarez first goal: P1-relative 2305s (gameClock 2305, 39' of game).
+        "10514", 1, 2280, 2325,
         "argentina-croatia-julian",
         "Álvarez 39' (Argentina v Croatia, semi-final)",
         "Julián Álvarez beats three defenders. Watch P(score) climb as he carries.",

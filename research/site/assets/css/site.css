@@ -377,9 +377,73 @@ details.code-toggle code { color: #d1d8e6; font-family: ui-monospace, "SF Mono",
   line-height: 1.5;
 }
 .clip-meta .chip { margin: 0 0.1rem; }
+
+/* Scrub bar markers (goal + event ticks below the slider) */
+.scrub-wrap { display: flex; flex-direction: column; }
+.scrub-markers {
+  position: relative;
+  height: 10px;
+  margin-top: 2px;
+}
+.scrub-markers .marker {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 10px;
+  transform: translateX(-1px);
+}
+.scrub-markers .marker.event {
+  background: var(--text-dim, #7f8896);
+  opacity: 0.55;
+}
+.scrub-markers .marker.goal {
+  background: #ffd166;
+  width: 4px;
+  height: 12px;
+  transform: translateX(-2px);
+  box-shadow: 0 0 6px rgba(255, 209, 102, 0.7);
+}
+
+/* Per-frame event strip */
+.event-strip {
+  padding: 0.5rem 0.85rem;
+  background: var(--bg-elev);
+  border-left: 3px solid var(--text-dim, #7f8896);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  min-height: 1.4em;
+  line-height: 1.4;
+}
+.event-strip.muted {
+  color: var(--text-dim, #7f8896);
+  border-left-color: transparent;
+  background: transparent;
+  padding-left: 0;
+}
+.event-strip.goal {
+  background: rgba(255, 209, 102, 0.12);
+  border-left-color: #ffd166;
+  color: #ffd166;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+/* Top-attended row inside clip-meta */
+.top-attn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.25rem;
+}
+.top-attn-row .chip {
+  font-size: 0.82rem;
+  padding: 0.18rem 0.5rem;
+}
+
 @media (max-width: 600px) {
   .clip-controls { gap: 0.3rem; }
   .clip-controls input[type=range] { min-width: 100%; order: 2; }
+  .scrub-wrap { width: 100%; order: 2; }
 }
 
 /* Buttons */
@@ -735,6 +799,54 @@ table.data-table th.num { text-align: right; }
   border-color: transparent;
 }
 .tab-bar button:hover { color: var(--text); }
+
+/* FIFA Mode */
+.fifa-view { margin-top: 1rem; }
+.fifa-table { margin-top: 0.5rem; overflow-x: auto; }
+.fifa-data-table th,
+.fifa-data-table td { padding: 0.45rem 0.55rem; font-size: 0.88rem; }
+.fifa-data-table .team-cell { display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
+.fifa-data-table .chip { padding: 0.1rem 0.45rem; font-size: 0.78rem; }
+.fifa-scatter {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.5rem 0.25rem;
+  background: var(--bg-elev);
+  border-radius: 6px;
+}
+.scatter-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  padding: 0.4rem 0.5rem 0.5rem;
+  align-items: center;
+}
+.scatter-legend .dot {
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 0.25rem;
+}
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.story-card {
+  background: var(--bg-elev);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  border-left: 3px solid var(--text-dim, #7f8896);
+}
+.story-card.over { border-left-color: #54c875; }
+.story-card.under { border-left-color: #e07474; }
+.story-card header { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+.story-card .story-heading { font-size: 0.92rem; margin: 0.3rem 0; }
+.story-card.over .story-heading { color: #54c875; }
+.story-card.under .story-heading { color: #e07474; }
+.story-card p { margin: 0; opacity: 0.85; line-height: 1.45; }
 
 .download-list {
   list-style: none;

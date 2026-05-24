@@ -112,6 +112,11 @@ def build_player_match(
     sb_by_norm: dict[str, list[tuple[int, str]]] = defaultdict(list)
     sb_by_last: dict[str, list[tuple[int, str]]] = defaultdict(list)
     sb_by_last_initial: dict[tuple[str, str], list[tuple[int, str]]] = defaultdict(list)
+    # Word-set index: every SB player indexed by every word in their normalized
+    # name. Lets us match the PFF short form "Lionel Messi" to SB's full legal
+    # name "Lionel Andrés Messi Cuccittini" when {lionel, messi} ⊆ {lionel,
+    # andres, messi, cuccittini}.
+    sb_full: list[tuple[int, str, frozenset[str]]] = []
     for r in sb_players.itertuples():
         norm = normalize_name(r.name)
         sb_by_norm[norm].append((int(r.statsbomb_player_id), r.name))
@@ -120,6 +125,9 @@ def build_player_match(
         fi = first_initial(r.name)
         if ln and fi:
             sb_by_last_initial[(ln, fi)].append((int(r.statsbomb_player_id), r.name))
+        words = frozenset(w for w in norm.split() if len(w) >= 2)
+        if words:
+            sb_full.append((int(r.statsbomb_player_id), r.name, words))
 
     out: list[dict] = []
     for r in pff_players.itertuples():
@@ -144,7 +152,19 @@ def build_player_match(
                         "name_pff": pff_name, "name_sb": sname,
                         "strategy": "exact", "confidence": 1.0})
             continue
-        # 3. Last + first initial
+        # 3. Word-subset: PFF name's words ⊆ SB name's words. This catches the
+        # "Lionel Messi" → "Lionel Andrés Messi Cuccittini" pattern (PFF
+        # publishes short common names; SB publishes legal full names).
+        pff_words = frozenset(w for w in norm.split() if len(w) >= 2)
+        if len(pff_words) >= 2:
+            cands = [(sid, sname) for sid, sname, sw in sb_full if pff_words.issubset(sw)]
+            if len(cands) == 1:
+                sid, sname = cands[0]
+                out.append({"pff_player_id": pff_id, "statsbomb_player_id": sid,
+                            "name_pff": pff_name, "name_sb": sname,
+                            "strategy": "word_subset", "confidence": 0.92})
+                continue
+        # 4. Last + first initial
         ln = last_name_key(pff_name); fi = first_initial(pff_name)
         cands = sb_by_last_initial.get((ln, fi), [])
         if len(cands) == 1:
@@ -153,7 +173,7 @@ def build_player_match(
                         "name_pff": pff_name, "name_sb": sname,
                         "strategy": "last+initial", "confidence": 0.85})
             continue
-        # 4. Pure last name
+        # 5. Pure last name
         cands = sb_by_last.get(ln, [])
         if len(cands) == 1:
             sid, sname = cands[0]
@@ -161,5 +181,16 @@ def build_player_match(
                         "name_pff": pff_name, "name_sb": sname,
                         "strategy": "last_only", "confidence": 0.7})
             continue
+        # 6. Reverse word-subset: SB short name ⊆ PFF long name. PFF sometimes
+        # carries full legal names while SB lists short ones.
+        if len(pff_words) >= 2:
+            cands = [(sid, sname) for sid, sname, sw in sb_full
+                     if len(sw) >= 2 and sw.issubset(pff_words)]
+            if len(cands) == 1:
+                sid, sname = cands[0]
+                out.append({"pff_player_id": pff_id, "statsbomb_player_id": sid,
+                            "name_pff": pff_name, "name_sb": sname,
+                            "strategy": "reverse_word_subset", "confidence": 0.85})
+                continue
 
     return pd.DataFrame(out)

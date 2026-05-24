@@ -19,8 +19,13 @@ if (!idx || !Array.isArray(idx) || idx.length === 0) {
           <button class="btn small" data-clip="${escapeHTML(c.label)}" data-action="prev">◀ prev</button>
           <button class="btn small" data-clip="${escapeHTML(c.label)}" data-action="play">▶ play</button>
           <button class="btn small" data-clip="${escapeHTML(c.label)}" data-action="next">next ▶</button>
-          <input type="range" id="scrub-${escapeHTML(c.label)}" min="0" max="0" value="0" style="flex:1;">
+          <button class="btn small" data-clip="${escapeHTML(c.label)}" data-action="goal" title="Jump to the goal frame">⚽ goal</button>
+          <div class="scrub-wrap" style="flex:1; position:relative;">
+            <input type="range" id="scrub-${escapeHTML(c.label)}" min="0" max="0" value="0" style="width:100%;">
+            <div class="scrub-markers" id="markers-${escapeHTML(c.label)}"></div>
+          </div>
         </div>
+        <div id="event-${escapeHTML(c.label)}" class="event-strip"></div>
         <div id="meta-${escapeHTML(c.label)}" class="clip-meta small dim"></div>
       </div>
     </section>`).join("");
@@ -36,25 +41,75 @@ function initClip(c, detail) {
   const img = document.getElementById(`img-${c.label}`);
   const scrub = document.getElementById(`scrub-${c.label}`);
   const meta = document.getElementById(`meta-${c.label}`);
+  const evtStrip = document.getElementById(`event-${c.label}`);
+  const markersEl = document.getElementById(`markers-${c.label}`);
   const n = detail.n_frames;
   if (!img || !scrub) return;
   scrub.max = String(n - 1);
   let idx = 0;
   let playTimer = null;
 
+  // Find the goal frame, if any.
+  const goalFrame = detail.frames.findIndex(f => f.is_goal_event);
+
+  // Render markers on the scrub bar: goal as gold, other events as muted dots.
+  if (markersEl) {
+    const marks = [];
+    detail.frames.forEach((f, i) => {
+      if (f.is_goal_event) {
+        marks.push(`<span class="marker goal" style="left:${(i/(n-1))*100}%" title="GOAL"></span>`);
+      } else if (f.event_label) {
+        marks.push(`<span class="marker event" style="left:${(i/(n-1))*100}%" title="${escapeHTML(f.event_label)}"></span>`);
+      }
+    });
+    markersEl.innerHTML = marks.join("");
+  }
+
   function setFrame(i) {
     idx = Math.max(0, Math.min(n - 1, i));
     scrub.value = String(idx);
     img.src = detail.image_pattern.replace("{idx:03d}", String(idx).padStart(3, "0"));
     const f = detail.frames[idx];
-    const top = (f.top_attended || []).map(t => `slot ${t.slot} (${fmtNum(t.attention, 3)})`).join("  •  ");
+
+    // Persistent event strip — large, prominent on goal frames; muted otherwise.
+    if (evtStrip) {
+      if (f.is_goal_event) {
+        evtStrip.className = "event-strip goal";
+        evtStrip.innerHTML = `⚽ <strong>GOAL</strong> — ${escapeHTML(f.event_label || "")}`;
+      } else if (f.event_label) {
+        evtStrip.className = "event-strip";
+        evtStrip.innerHTML = escapeHTML(f.event_label);
+      } else {
+        // Show countdown to next goal if there is one in the clip.
+        if (goalFrame >= 0) {
+          const ahead = goalFrame - idx;
+          if (ahead > 0) {
+            const secs = (ahead * 0.2).toFixed(1);
+            evtStrip.className = "event-strip muted";
+            evtStrip.innerHTML = `⚽ goal in ${secs}s →`;
+          } else {
+            evtStrip.className = "event-strip muted";
+            evtStrip.innerHTML = `after goal`;
+          }
+        } else {
+          evtStrip.className = "event-strip muted";
+          evtStrip.innerHTML = "&nbsp;";
+        }
+      }
+    }
+
+    const top = (f.top_attended || []).map(t => {
+      const name = t.name ? `${t.name.split(" ").slice(-1)[0]}${t.position ? " · " + t.position : ""}` : `slot ${t.slot}`;
+      return `<span class="chip">${escapeHTML(name)} <span class="muted">${fmtNum(t.attention, 2)}</span></span>`;
+    }).join(" ");
     meta.innerHTML = `
       <strong>Frame ${idx + 1}/${n}</strong> &nbsp;•&nbsp;
       P(score, next&nbsp;10&nbsp;s) <span class="chip green tabular">${fmtNum(f.p_score, 3)}</span> &nbsp;
       P(concede, next&nbsp;10&nbsp;s) <span class="chip red tabular">${fmtNum(f.p_concede, 3)}</span> &nbsp;
       Frame-VAEP (Δ&nbsp;P) <span class="chip tabular">${fmtNum(f.vaep, 3)}</span>
       <span class="muted small">(unitless probability)</span><br>
-      Top attended players (ball→player attention weight): ${escapeHTML(top || "—")}`;
+      <span class="small muted">Top attended players (ball → player attention weight):</span>
+      <div class="top-attn-row">${top || "<span class='muted'>—</span>"}</div>`;
   }
   setFrame(0);
 
@@ -65,6 +120,9 @@ function initClip(c, detail) {
       const a = btn.dataset.action;
       if (a === "prev") setFrame(idx - 1);
       else if (a === "next") setFrame(idx + 1);
+      else if (a === "goal") {
+        if (goalFrame >= 0) setFrame(goalFrame);
+      }
       else if (a === "play") {
         if (playTimer) { clearInterval(playTimer); playTimer = null; btn.textContent = "▶ play"; }
         else {

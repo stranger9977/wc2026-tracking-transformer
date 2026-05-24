@@ -48,6 +48,12 @@ data/processed/**
 # Cached StatsBomb open-data JSONs (re-downloadable; 600+ MB)
 research/data/raw_statsbomb/
 
+# Cached/derived large data (re-derivable from source)
+research/data/frame_vaep_cache/
+research/data/pre_event_eda/
+research/data/transformer_features_shards/
+research/data/attention_chemistry_shards/
+
 # Model checkpoints / training artifacts
 models/
 checkpoints/

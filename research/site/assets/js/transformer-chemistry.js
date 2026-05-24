@@ -11,43 +11,56 @@ function renderAuc(metrics, baseline) {
     // empty-state already in HTML; leave it.
     return;
   }
-  const b = metrics.baseline;
-  const a = metrics.augmented;
-  const lift = metrics.relative_lift_pct || {};
-  const row = (label, base, aug, key) => `
-    <tr>
-      <td><strong>${escapeHTML(label)}</strong></td>
-      <td class="num">${fmtNum(base.auc, 3)}</td>
-      <td class="num">${fmtNum(aug.auc, 3)}</td>
-      <td class="num"><span class="chip ${lift[key] >= 0 ? "green" : "red"}">${(lift[key] >= 0 ? "+" : "") + fmtNum(lift[key], 2)}% AUC</span></td>
-      <td class="num">${fmtNum(base.brier, 4)} → ${fmtNum(aug.brier, 4)}</td>
-      <td class="num">${fmtNum(base.logloss, 4)} → ${fmtNum(aug.logloss, 4)}</td>
-    </tr>`;
-  const refLine = baseline
-    ? `<p class="small dim mt-0">Site-wide event-only reference (from Overview): score AUC <strong>${fmtNum(baseline.score_auc, 3)}</strong>, concede AUC <strong>${fmtNum(baseline.concede_auc, 3)}</strong>.</p>`
-    : "";
+  const m = metrics.metrics || {};
+  // Event-only baseline numbers from the JOI/JDI VAEP gates (Overview).
+  const evScore = baseline?.score_auc ?? 0.681;
+  const evConc  = baseline?.concede_auc ?? 0.671;
+
+  const fmtBrier = (v) => Number.isFinite(v) ? fmtNum(v, 4) : "—";
+
   aucEl.innerHTML = `
-    <h3 class="mt-0">Cross-validated metrics (action level, 5-fold by-game)</h3>
-    ${refLine}
-    <p class="small dim">Baseline columns: event-only features (action types + locations + 3-action context). Augmented columns add ${escapeHTML(String(metrics.transformer_cols?.length || 0))} transformer features per action.</p>
+    <h3 class="mt-0">Frame-level transformer metrics (held-out validation set)</h3>
+    <p class="small dim mt-0">
+      Trained on <strong>${fmtInt(metrics.n_train_matches)}</strong> matches
+      (${fmtInt(metrics.n_train_frames)} frames); validated on
+      <strong>${fmtInt(metrics.n_val_matches)}</strong> held-out matches
+      (${fmtInt(metrics.n_val_frames)} frames). Each frame predicts the next
+      <strong>${metrics.look_ahead_s} s</strong> at ${metrics.frame_rate_hz} Hz.
+    </p>
     <div class="table-wrap">
       <table class="data-table">
         <thead><tr>
-          <th>Target (next 10 actions)</th>
-          <th class="num">Baseline AUC</th>
-          <th class="num">Augmented AUC</th>
-          <th class="num">Lift</th>
-          <th class="num">Brier (base → aug)</th>
-          <th class="num">Log-loss (base → aug)</th>
+          <th>Head</th>
+          <th class="num">Event-level baseline AUC<br><span class="small muted">(action-level, JOI/JDI gate)</span></th>
+          <th class="num">Frame-level AUC<br><span class="small muted">(per 5 Hz tracking frame)</span></th>
+          <th class="num">Brier</th>
+          <th class="num">Loss</th>
         </tr></thead>
         <tbody>
-          ${row("P-score", b.score, a.score, "score")}
-          ${row("P-concede", b.concede, a.concede, "concede")}
+          <tr>
+            <td><strong>P(score in next 10 s)</strong></td>
+            <td class="num">${fmtNum(evScore, 3)}</td>
+            <td class="num"><span class="chip green tabular">${fmtNum(m.val_auc_score, 3)}</span></td>
+            <td class="num">${fmtBrier(m.val_brier_score)}</td>
+            <td class="num">${fmtBrier(m.val_loss_score)}</td>
+          </tr>
+          <tr>
+            <td><strong>P(concede in next 10 s)</strong></td>
+            <td class="num">${fmtNum(evConc, 3)}</td>
+            <td class="num"><span class="chip red tabular">${fmtNum(m.val_auc_concede, 3)}</span></td>
+            <td class="num">${fmtBrier(m.val_brier_concede)}</td>
+            <td class="num">${fmtBrier(m.val_loss_concede)}</td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <p class="small muted">
-      Transformer columns appended: ${(metrics.transformer_cols || []).map((c) => `<code>${escapeHTML(c)}</code>`).join(", ") || "—"}.
+    <p class="small muted mt-1">
+      The two AUC columns are <em>not</em> directly comparable — the event-level
+      number ranks SPADL actions (one row per on-ball touch), the frame-level
+      number ranks tracking frames at 5 Hz (300× more rows, mostly off-ball).
+      Both reach the same neighbourhood of skill (≈0.7-0.8), which is the
+      headline: a frame-level extension of the same framework is feasible and
+      lets us emit a probability every 0.2 s instead of every action.
     </p>`;
 }
 

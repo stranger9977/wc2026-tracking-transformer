@@ -4,7 +4,7 @@
   "match_id": "10502",
   "period": 1,
   "start_s": 540.0,
-  "end_s": 580.0,
+  "end_s": 585.0,
   "n_frames": 158,
   "home_team": {
     "id": "366",
@@ -6138,7 +6138,7 @@
         39.5099983215332,
         4.099999904632568
       ],
-      "event_label": "\u26bd GOAL \u2014 Memphis Depay",
+      "event_label": "GOAL  \u2014  Memphis Depay",
       "is_goal_event": true,
       "frame_idx": 154,
       "frame_id": 22478,
@@ -6177,7 +6177,7 @@
         39.52000045776367,
         0.14000000059604645
       ],
-      "event_label": "\u26bd GOAL \u2014 Memphis Depay",
+      "event_label": "GOAL  \u2014  Memphis Depay",
       "is_goal_event": true,
       "frame_idx": 155,
       "frame_id": 22484,

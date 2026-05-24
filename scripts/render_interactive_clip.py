@@ -581,24 +581,31 @@ def main() -> None:
         else:
             slot_pid = _slot_to_player_id_for_frame(tensors[i], best_ev)
 
-        # Event annotation: only when an event lies within 200 ms of this frame
+        # Event annotation: an event within 200 ms of this frame. Prefer goals
+        # over other events when they share a timestamp (PFF often logs a
+        # 'clearance' or 'tackle' on the same ms as the GOAL event).
         ev_in_frame = None
         is_goal = False
+        nearest_non_goal = None
         for ev in in_window:
             if ev["period"] != f.period:
                 continue
             dt = abs(ev["period_rel_ms"] - f.timestamp_ms)
             if dt <= 200:
-                ev_in_frame = ev
                 if ev["is_goal"]:
+                    ev_in_frame = ev
                     is_goal = True
-                break
+                    break
+                if nearest_non_goal is None:
+                    nearest_non_goal = ev
+        if ev_in_frame is None:
+            ev_in_frame = nearest_non_goal
         event_label = None
         if ev_in_frame:
             actor = ev_in_frame.get("actor_name") or ""
             t = ev_in_frame.get("type_label") or ev_in_frame.get("type_raw")
             if t == "GOAL":
-                event_label = f"⚽ GOAL — {actor}"
+                event_label = f"GOAL  —  {actor}"
             elif t == "shot":
                 event_label = f"shot — {actor}"
             elif t in ("pass", "cross", "carry", "touch"):
