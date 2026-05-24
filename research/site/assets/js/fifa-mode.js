@@ -95,44 +95,57 @@ function initWc26(rows) {
 }
 
 function renderScatter(rows) {
-  // Big enough that labels can breathe. Aspect ~16:9 reads natural on wide
-  // monitors; on mobile the SVG shrinks proportionally via width:100%.
-  const W = 1200, H = 680, padL = 78, padR = 32, padT = 28, padB = 78;
+  // Tufte: aspect ratio close to 5:3 (golden-section-ish). No box, no
+  // background fill — let the data sit on the page. SVG width:100% and
+  // height defined by viewBox so it scales cleanly on every screen.
+  const W = 1100, H = 520;
+  const padL = 86, padR = 24, padT = 22, padB = 56;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
 
   const xs = rows.map(r => r.overall);
   const xmin = Math.min(...xs) - 1, xmax = Math.max(...xs) + 1;
-  const ymin = 1, ymax = 9;  // stage_int range
+  const ymin = 1.4, ymax = 8.4;  // stage_int range, padded so dots aren't on the axis
   const sx = (x) => padL + ((x - xmin) / (xmax - xmin)) * innerW;
   const sy = (y) => padT + innerH - ((y - ymin) / (ymax - ymin)) * innerH;
 
-  // Diagonal trend line: ranks → ranks. Map overall to expected stage based on rank ordering.
+  // Expected stage by paper rank (from public WC bracket sizes).
   const sortedByOverall = [...rows].sort((a, b) => b.overall - a.overall);
   const expectedStage = (rank) => rank === 1 ? 8 : rank === 2 ? 7 : rank <= 4 ? 6 : rank <= 8 ? 5 : rank <= 16 ? 4 : 2;
-  const diagonalPts = sortedByOverall.map((r, i) => `${sx(r.overall)},${sy(expectedStage(i+1))}`);
 
-  // Gridlines
-  const yTicks = [2, 4, 5, 6, 7, 8];
-  const yLabels = { 2: "Group", 4: "R16", 5: "QF", 6: "Semi", 7: "Final", 8: "Winner" };
+  // Y reference levels — only horizontal rules at actual outcome tiers. No box.
+  const yLevels = [
+    { y: 2, label: "Group" },
+    { y: 4, label: "R16" },
+    { y: 5, label: "QF" },
+    { y: 6, label: "Semi" },
+    { y: 7, label: "Final" },
+    { y: 8, label: "Winner" },
+  ];
   const xTicks = [70, 75, 80, 85];
 
-  const grid = [
-    ...yTicks.map(y => `<line x1="${padL}" y1="${sy(y)}" x2="${W-padR}" y2="${sy(y)}" stroke="currentColor" stroke-width="0.5" opacity="0.16"/>`),
-    ...yTicks.map(y => `<text x="${padL - 10}" y="${sy(y) + 5}" font-size="15" fill="currentColor" opacity="0.85" text-anchor="end">${yLabels[y]}</text>`),
-    ...xTicks.map(x => `<text x="${sx(x)}" y="${H - padB + 22}" font-size="14" fill="currentColor" opacity="0.85" text-anchor="middle">${x}</text>`),
-    `<text x="${W/2}" y="${H - 14}" font-size="15" fill="currentColor" opacity="0.95" text-anchor="middle">FIFA 23 team Overall (paper talent)</text>`,
-    `<text transform="translate(${padL - 52},${padT + innerH/2}) rotate(-90)" font-size="15" fill="currentColor" opacity="0.95" text-anchor="middle">Tournament stage reached</text>`,
-  ].join("");
+  // Tufte: very pale rules, in-line tier labels, no surrounding box.
+  const yRules = yLevels.map(({ y, label }) => `
+    <line x1="${padL}" y1="${sy(y)}" x2="${W - padR}" y2="${sy(y)}"
+          stroke="currentColor" stroke-width="0.5" opacity="0.10"/>
+    <text x="${padL - 8}" y="${sy(y) + 4}" font-size="12" font-weight="500"
+          fill="currentColor" opacity="0.65" text-anchor="end">${label}</text>
+  `).join("");
+  const xTickSvg = xTicks.map(x => `
+    <text x="${sx(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
+          opacity="0.55" text-anchor="middle">${x}</text>
+  `).join("");
 
-  const diag = `<polyline points="${diagonalPts.join(' ')}" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 5" opacity="0.4"/>`;
+  // Expected diagonal as a soft "rank-matches-result" line. Single curve, no
+  // dashes (Tufte prefers continuous strokes — dashes add visual noise).
+  const diagonalPts = sortedByOverall.map((r, i) =>
+    `${sx(r.overall).toFixed(1)},${sy(expectedStage(i + 1)).toFixed(1)}`);
+  const diag = `<polyline points="${diagonalPts.join(' ')}" fill="none"
+    stroke="currentColor" stroke-width="0.8" opacity="0.32"/>`;
 
-  // Position labels so they don't collide. Each team gets a candidate slot
-  // (right of dot); if it overlaps an already-placed label, try left, then
-  // stagger vertically. Greedy but works well for ~32 points.
-  const labelW = 64;   // approx px label box width at 13px font
-  const labelH = 17;
-  const placed = [];  // {x1,y1,x2,y2}
+  // Greedy collision-free label placement.
+  const labelW = 58, labelH = 14;
+  const placed = [];
   const intersects = (a, b) => !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
 
   const annotated = rows.map((r) => {
@@ -140,53 +153,63 @@ function renderScatter(rows) {
     const rank = sortedByOverall.findIndex(x => x.team === r.team) + 1;
     const exp = expectedStage(rank);
     const over = r.stage_int - exp;
-    const color = over >= 1 ? "#54c875" : over <= -1 ? "#e07474" : "#a0a8b3";
+    // Tufte: only three semantic values, two-tone (over/under) plus neutral.
+    const color = over >= 1 ? "#3ea16a" : over <= -1 ? "#c25b5b" : "#6b7280";
 
-    // Candidate label positions: right, left, below-right, above-right, below-left, above-left
-    const candidates = [
-      { anchor: "start", dx:  10, dy: 4 },
-      { anchor: "end",   dx: -10, dy: 4 },
-      { anchor: "start", dx:  10, dy: 18 },
-      { anchor: "start", dx:  10, dy: -10 },
-      { anchor: "end",   dx: -10, dy: 18 },
-      { anchor: "end",   dx: -10, dy: -10 },
+    const slots = [
+      { anchor: "start", dx:  9, dy: 4 },
+      { anchor: "end",   dx: -9, dy: 4 },
+      { anchor: "start", dx:  9, dy: -10 },
+      { anchor: "start", dx:  9, dy: 16 },
+      { anchor: "end",   dx: -9, dy: -10 },
+      { anchor: "end",   dx: -9, dy: 16 },
     ];
-    let pick = candidates[0];
-    for (const c of candidates) {
-      const lx = cx + c.dx;
-      const ly = cy + c.dy;
+    let pick = slots[0];
+    for (const c of slots) {
+      const lx = cx + c.dx, ly = cy + c.dy;
       const box = c.anchor === "start"
         ? { x1: lx, y1: ly - labelH, x2: lx + labelW, y2: ly + 2 }
         : { x1: lx - labelW, y1: ly - labelH, x2: lx, y2: ly + 2 };
-      // also keep inside chart area
-      if (box.x1 < padL || box.x2 > W - padR || box.y1 < padT || box.y2 > H - padB) continue;
-      if (!placed.some(p => intersects(p, box))) {
-        pick = c; placed.push(box); break;
-      }
+      if (box.x1 < padL - 4 || box.x2 > W - padR + 4) continue;
+      if (box.y1 < padT - 4 || box.y2 > H - padB + 4) continue;
+      if (!placed.some(p => intersects(p, box))) { pick = c; placed.push(box); break; }
     }
     return { r, cx, cy, color, pick };
   });
 
-  // Dots first (under labels)
-  const dotsSvg = annotated.map(({ r, cx, cy, color }) =>
-    `<circle cx="${cx}" cy="${cy}" r="7.5" fill="${color}" fill-opacity="0.85" stroke="#0b1220" stroke-width="1.0"/>`
+  // Dots — small, opaque, one stroke for legibility on dark backgrounds.
+  const dotsSvg = annotated.map(({ cx, cy, color }) =>
+    `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5.5"
+             fill="${color}" stroke="var(--bg, #0b1220)" stroke-width="1.2"/>`
   ).join("");
+  // Direct labels — Tufte: name the points, no legend lookup needed.
   const labelsSvg = annotated.map(({ r, cx, cy, pick }) =>
-    `<text x="${cx + pick.dx}" y="${cy + pick.dy}" font-size="13" font-weight="500" fill="currentColor" opacity="0.95" text-anchor="${pick.anchor}">${escapeHTML(r.team)}</text>`
+    `<text x="${(cx + pick.dx).toFixed(1)}" y="${(cy + pick.dy).toFixed(1)}"
+           font-size="11.5" font-weight="500" fill="currentColor"
+           opacity="0.92" text-anchor="${pick.anchor}">${escapeHTML(r.team)}</text>`
   ).join("");
 
+  // Axis titles, terse.
+  const axisX = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - 6}"
+    font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle">
+    FIFA 23 team Overall</text>`;
+
   wc22Scatter.innerHTML = `
-    <svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" class="spark-svg" role="img" aria-label="Paper rating vs tournament stage scatter">
-      ${grid}
+    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
+         class="fifa-scatter-svg" role="img"
+         aria-label="Paper rating vs tournament stage scatter">
+      ${yRules}
+      ${xTickSvg}
       ${diag}
       ${dotsSvg}
       ${labelsSvg}
+      ${axisX}
     </svg>
     <div class="scatter-legend small muted">
-      <span><span class="dot" style="background:#54c875"></span> overperformed</span>
-      <span><span class="dot" style="background:#a0a8b3"></span> matched paper</span>
-      <span><span class="dot" style="background:#e07474"></span> underperformed</span>
-      <span class="muted">Dashed diagonal = result that matches paper rank.</span>
+      <span><span class="dot" style="background:#3ea16a"></span> overperformed paper rank</span>
+      <span><span class="dot" style="background:#6b7280"></span> matched</span>
+      <span><span class="dot" style="background:#c25b5b"></span> underperformed</span>
+      <span class="muted">Curve traces "result that matches paper rank".</span>
     </div>`;
 }
 

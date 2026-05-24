@@ -807,21 +807,15 @@ table.data-table th.num { text-align: right; }
 .fifa-data-table td { padding: 0.45rem 0.55rem; font-size: 0.88rem; }
 .fifa-data-table .team-cell { display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
 .fifa-data-table .chip { padding: 0.1rem 0.45rem; font-size: 0.78rem; }
+/* Tufte: chart sits directly on the page. No box, no fill. The data is the
+   foreground, the page is the ground. */
 .fifa-scatter {
-  margin-top: 0.75rem;
-  padding: 0.75rem;
-  background: var(--bg-elev);
-  border-radius: 6px;
+  margin-top: 0.5rem;
 }
-.fifa-scatter svg {
+.fifa-scatter-svg {
   display: block;
   width: 100%;
   height: auto;
-  min-height: 480px;
-  max-height: 78vh;
-}
-@media (max-width: 600px) {
-  .fifa-scatter svg { min-height: 320px; }
 }
 .scatter-legend {
   display: flex;
