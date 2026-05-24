@@ -1,0 +1,148 @@
+{
+  "label": "argentina-france-mbappe-equalizer",
+  "title": "Mbapp\u00e9 80' equalizer (France v Argentina, final)",
+  "match_id": "10517",
+  "period": 2,
+  "start_s": 2034.0,
+  "end_s": 2074.0,
+  "n_frames": 3,
+  "home_team": {
+    "id": "364",
+    "name": "Argentina",
+    "short": "ARG",
+    "color": "#ffffff"
+  },
+  "away_team": {
+    "name": "France",
+    "short": "FRA",
+    "color": "#003366"
+  },
+  "events_in_window": [
+    {
+      "period_rel_ms": 2064000,
+      "type": "GOAL",
+      "actor_name": "Kylian Mbapp\u00e9",
+      "is_goal": true
+    }
+  ],
+  "frames": [
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.17999404668807983
+        },
+        {
+          "slot": 18,
+          "player_id": 4012,
+          "name": "Eduardo Camavinga",
+          "position": "CM",
+          "attention": 0.13528846204280853
+        },
+        {
+          "slot": 10,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.12320738285779953
+        }
+      ],
+      "ball_xy": [
+        41.4900016784668,
+        -3.1500000953674316
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 0,
+      "frame_id": 162107,
+      "period": 2,
+      "timestamp_ms": 2064330,
+      "in_possession_team_id": "363",
+      "p_score": 0.4867295026779175,
+      "p_concede": 0.11061979830265045,
+      "vaep": 0.37610970437526703
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.11255061626434326
+        },
+        {
+          "slot": 16,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.10312953591346741
+        },
+        {
+          "slot": 19,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.09835495799779892
+        }
+      ],
+      "ball_xy": [
+        46.33000183105469,
+        -1.4299999475479126
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 1,
+      "frame_id": 162113,
+      "period": 2,
+      "timestamp_ms": 2064530,
+      "in_possession_team_id": "363",
+      "p_score": 0.8632316589355469,
+      "p_concede": 0.0003843115409836173,
+      "vaep": 0.8628473473945633
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.20681652426719666
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.12121708691120148
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.06325923651456833
+        }
+      ],
+      "ball_xy": [
+        51.15999984741211,
+        0.28999999165534973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 2,
+      "frame_id": 162119,
+      "period": 2,
+      "timestamp_ms": 2064731,
+      "in_possession_team_id": "364",
+      "p_score": 0.0011172672966495156,
+      "p_concede": 0.6850403547286987,
+      "vaep": -0.6839230874320492
+    }
+  ],
+  "image_pattern": "assets/clips/argentina-france-mbappe-equalizer/frame_{idx:03d}.png"
+}

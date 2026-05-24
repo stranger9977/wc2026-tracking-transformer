@@ -31,11 +31,17 @@
 
   <main>
     <h1>Team chemistry maps</h1>
-    <p class="dim">
-      One card per squad. The offensive map shades the pitch by JOI density —
-      where this team's high-chemistry pairs combined to create threat. The
-      defensive map shades by JDI — where they jointly suppressed expected
-      opponent threat. Click any image to download the PNG.
+    <p>
+      The <a href="pairs.html">Top Pairs</a> leaderboards rank pairs as numbers.
+      This tab puts those same pairs <em>on a pitch</em>, one card per squad.
+      The offensive map shades the pitch by JOI density (where each team's
+      high-chemistry pairs combined to create threat); the defensive map
+      shades by JDI (where they jointly suppressed expected opponent threat).
+      Click any image to download the PNG.
+    </p>
+    <p class="small muted">
+      JOI / JDI are defined on <a href="methodology.html">Methodology</a>;
+      the per-team optimal XI lives on <a href="team-builder.html">Team Builder</a>.
     </p>
 
     <div class="controls">
@@ -56,6 +62,11 @@
     <div id="team-grid" class="team-grid">
       <div class="empty-state" style="grid-column: 1 / -1;">Loading…</div>
     </div>
+
+    <p class="small muted" style="margin-top: 1.5rem;">
+      <strong>Next →</strong> pick a squad and see its
+      <a href="team-builder.html">chemistry-optimal XI</a>.
+    </p>
   </main>
 
   <footer class="site-footer">

@@ -18,11 +18,12 @@ from chemistry.teams_meta import flag_code as _flag_code
 
 PITCH_LENGTH = 105.0  # vertical (y)
 PITCH_WIDTH = 68.0    # horizontal (x)
-LINE_COLOR = "#ffffff"
-PITCH_COLOR = "#2d8a4f"
-
+# Tufte-style muted grey-green pitch with restrained line colour.
+LINE_COLOR = "#9aa3aa"
+PITCH_COLOR = "#dbe2dc"
+# Sequential amber: lighter == weaker, darker == stronger. Single hue, no diverge.
 CMAP = LinearSegmentedColormap.from_list(
-    "chem_div", ["#c0392b", "#888888", "#1a8a1a"], N=256
+    "chem_seq", ["#f3e9c6", "#e9b949", "#8a5a00"], N=256
 )
 
 
@@ -245,40 +246,27 @@ def draw_team_chemistry(
     fig, ax = plt.subplots(figsize=(7.5, 11.2), dpi=160)
     _draw_pitch(ax)
 
-    # Translucent flag in the background (above pitch fill, below lines/edges)
-    team_name_for_flag = (
-        _resolve_team_name(team_id, matches) if matches is not None else None
-    )
-    flag = _fetch_flag_image(_flag_code(team_name_for_flag) if team_name_for_flag else None)
-    if flag is not None:
-        ax.imshow(
-            flag,
-            extent=(0, PITCH_WIDTH, 0, PITCH_LENGTH),
-            aspect="auto",
-            alpha=0.32,
-            zorder=0.5,
-            interpolation="bilinear",
-        )
+    # Tufte: drop the flag overlay. A muted grey-green pitch carries no chartjunk.
+    # (Team identity belongs in the title/caption, not behind the data.)
 
     drawn_pairs: list[dict[str, Any]] = []
     if len(team_pairs) > 0:
-        deltas = (team_pairs[metric] - median_val).abs()
-        max_delta = float(deltas.max()) if deltas.max() > 0 else 1.0
         vals = team_pairs[metric].to_numpy()
-        # Symmetric normalization around the median for the diverging cmap
-        bound = float(np.max(np.abs(vals - median_val))) or 1.0
+        vmin = float(np.min(vals))
+        vmax = float(np.max(vals)) if np.max(vals) > vmin else vmin + 1.0
+        span = vmax - vmin or 1.0
         for _, row in team_pairs.iterrows():
             p = pid_to_player[int(row.player_p)]
             q = pid_to_player[int(row.player_q)]
             val = float(row[metric])
-            t = 0.5 + 0.5 * ((val - median_val) / bound)
-            t = float(np.clip(t, 0.0, 1.0))
+            # Sequential map: weakest → light, strongest → dark amber.
+            t = float(np.clip((val - vmin) / span, 0.0, 1.0))
             color = CMAP(t)
-            norm_delta = abs(val - median_val) / max_delta
-            lw = 1.5 + 3.0 * float(np.clip(norm_delta, 0.0, 1.0))
+            # Width also encodes strength but stays restrained.
+            lw = 1.0 + 2.2 * t
             ax.plot(
                 [p["x"], q["x"]], [p["y"], q["y"]],
-                color=color, linewidth=lw, alpha=0.85,
+                color=color, linewidth=lw, alpha=0.92,
                 solid_capstyle="round", antialiased=True, zorder=2,
             )
             drawn_pairs.append({
@@ -290,43 +278,56 @@ def draw_team_chemistry(
                 "minutes_together": float(row.minutes_together),
             })
 
-    # Player nodes + labels (one per unique cell, no jitter)
+    # Player nodes + labels (small dots, no halos, no box around the name).
     for p in players:
-        ax.add_patch(mpatches.Circle((p["x"], p["y"]), 2.4,
-                                     facecolor=accent_color,
-                                     edgecolor="white", linewidth=1.4,
+        ax.add_patch(mpatches.Circle((p["x"], p["y"]), 1.6,
+                                     facecolor="#111111",
+                                     edgecolor="none",
                                      zorder=3))
-        # Label position: above forwards (low row), below defenders (high row)
         label = _last_name(p["name"])
         pos_tag = p["position"]
         if p["row"] <= 2:
-            ly = p["y"] + 4.2
+            ly = p["y"] + 3.4
             va = "bottom"
         else:
-            ly = p["y"] - 4.2
+            ly = p["y"] - 3.4
             va = "top"
+        # Direct label, no chart-box. Inherits paper background.
         ax.text(
             p["x"], ly,
-            f"{label}\n{pos_tag}",
-            ha="center", va=va, fontsize=8.0, color="#101010",
-            bbox=dict(facecolor="white", edgecolor="none",
-                      boxstyle="round,pad=0.25", alpha=0.92),
+            f"{label}  {pos_tag}",
+            ha="center", va=va, fontsize=8.0, color="#111111",
             zorder=4, linespacing=1.0,
         )
 
-    # Title
+    # Title (figure-style, set in roman) and caption underneath.
     team_name = (
         _resolve_team_name(team_id, matches) if matches is not None else f"Team {team_id}"
     )
-    figure_title = title or f"{team_name} - {metric} ({mode_label})"
-    ax.set_title(figure_title, fontsize=14, color="#111111", pad=10,
-                 fontweight="bold")
+    side_label = "offensive" if metric == "joi90" else "defensive"
+    metric_units = "JOI per 90 (action-VAEP·90/min)" if metric == "joi90" else "JDI per 90 (expected-OI saved·90/min)"
+    figure_title = title or f"{team_name} — {side_label} chemistry"
+    ax.set_title(figure_title, fontsize=13, color="#111111", pad=8,
+                 fontweight="normal", loc="left")
+
+    # Caption directly under the chart (Tufte print convention).
+    caption = (
+        f"Edges connect same-team pairs with ≥ {int(min_minutes)} shared minutes; "
+        f"line darkness and width encode {metric_units}. "
+        f"n = {len(drawn_pairs)} pairs."
+    )
+    ax.text(
+        PITCH_WIDTH / 2, -6.0,
+        caption,
+        ha="center", va="top", fontsize=7.5, color="#555b62",
+        wrap=True,
+    )
 
     fig.tight_layout()
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_path, dpi=160, bbox_inches="tight",
-                facecolor="white")
+                facecolor="#f7f5ef")  # warm print-paper
     plt.close(fig)
 
     return {

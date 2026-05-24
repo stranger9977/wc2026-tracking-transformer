@@ -32,15 +32,23 @@
   </header>
 
   <main>
-    <h1>What is player chemistry?</h1>
+    <h1>What does chemistry look like on a football field?</h1>
     <p>
-      Chemistry, in this project, is a measure of how well two players' actions
-      <em>compound</em> on the pitch — how much offensive value they create together
-      and how much defensive value they preserve. The framework comes from Lotte
-      Bransen and Jan Van Haaren's 2020 MIT Sloan paper,
-      <em>Player Chemistry: Striving for a Perfectly Balanced Soccer Team</em>.
-      We reapply it here to the <strong>2022 FIFA Men's World Cup</strong>
-      using PFF event data (64 matches, all 32 squads).
+      This site answers one question: <strong>which World Cup teams had the
+      best chemistry, on offence and on defence — and what does it look like
+      in a live play?</strong> Chemistry here is how much two players' actions
+      <em>compound</em>: the offensive value they create together (JOI) and the
+      opponent value they jointly suppress (JDI). The framework is Lotte
+      Bransen &amp; Jan Van Haaren's 2020 MIT Sloan paper,
+      <em>Player Chemistry: Striving for a Perfectly Balanced Soccer Team</em>,
+      reapplied to <strong>2022 FIFA Men's World Cup</strong> PFF event data
+      (64 matches, all 32 squads).
+    </p>
+    <p class="small muted">
+      The leaderboards live on <a href="pairs.html">Top Pairs</a> (offensive
+      and defensive). The play-by-play backup lives on
+      <a href="interactive-plays.html">Interactive Plays</a>. Everything
+      else on the site is one of those two views, sliced a different way.
     </p>
 
     <div class="card">
@@ -64,18 +72,18 @@
       </p>
     </div>
 
-    <h2>Three views of chemistry on this site</h2>
+    <h2>How to read this site</h2>
     <div class="grid-2">
       <div class="card">
-        <h3 class="mt-0">Event-level (JOI / JDI)</h3>
-        <p class="small">Bransen-style action-level VAEP attributed to consecutive same-team interactions. Strength: clean per-pair totals across 64 matches. Weakness: only on-ball moments. Used by Top Pairs, Team Maps, Team Builder, Club vs National.</p>
+        <h3 class="mt-0">The leaderboards (event-level JOI / JDI)</h3>
+        <p class="small">Bransen-style action-level VAEP attributed to consecutive same-team interactions. Strength: clean per-pair totals across 64 matches. Weakness: only on-ball moments. Powers <a href="pairs.html">Top Pairs</a> (the offensive and defensive leaderboards), <a href="teams.html">Team Maps</a>, <a href="team-builder.html">Team Builder</a>, and <a href="club-vs-national.html">Club vs National</a>.</p>
       </div>
       <div class="card">
-        <h3 class="mt-0">Frame-level (Interactive Plays)</h3>
-        <p class="small">Same VAEP idea — P(score) − P(concede) — but predicted 5× per second from the full 22-player tracking state via a transformer. Strength: catches off-ball runs that move the probability before any event fires. The chemistry signal is the per-frame VAEP delta attributed by the model's attention to player pairs.</p>
+        <h3 class="mt-0">The live-play view (frame-level transformer)</h3>
+        <p class="small">Same VAEP idea — P(score) − P(concede) — predicted 5× per second from all 22 players + ball via a tracking transformer. Strength: catches off-ball runs that move the probability before any event fires. Powers <a href="transformer-chemistry.html">Transformer Chemistry</a> (per-team attention networks) and <a href="interactive-plays.html">Interactive Plays</a> (clip-by-clip scrubber).</p>
       </div>
     </div>
-    <p class="small muted">The two are complementary: event-level for season-long rankings, frame-level for clip-by-clip storytelling. Both live under one definition of chemistry — <em>the part of expected goal difference that depends on which teammates are configured together at this moment</em>.</p>
+    <p class="small muted">Event-level for the season-long leaderboard. Frame-level to <em>see</em> a chemistry edge happen. Both share one definition: <em>the part of expected goal difference that depends on which teammates are configured together at this moment</em>. The formal math is on <a href="methodology.html">Methodology</a>.</p>
 
     <h2>The two metrics</h2>
 
@@ -178,17 +186,22 @@
     </div>
     <div class="grid-2" id="overview-form"></div>
 
-    <h2>How to use this site</h2>
+    <h2>The story arc, tab by tab</h2>
     <ul>
-      <li><a href="pairs.html">Top Pairs</a> — sortable tables of offensive, defensive, and cross-chemistry pair rankings.</li>
-      <li><a href="teams.html">Team Maps</a> — per-team pitch maps showing JOI and JDI hotspots.</li>
-      <li><a href="team-builder.html">Team Builder</a>
-        <a href="club-vs-national.html">Club vs National</a>
-        <a href="transformer-chemistry.html">Transformer Chemistry</a>
-        <a href="interactive-plays.html">Interactive Plays</a> — Bransen's mixed-integer-programming optimal XI per squad.</li>
-      <li><a href="methodology.html">Methodology</a> — the full math (VAEP → JOI / JDI → predictor), 5-fold CV metrics, and limitations.</li>
+      <li><a href="pairs.html">Top Pairs</a> — the offensive (JOI90) and defensive (JDI90) chemistry leaderboards. Start here.</li>
+      <li><a href="teams.html">Team Maps</a> — per-team pitch maps showing where each squad's JOI and JDI lived.</li>
+      <li><a href="team-builder.html">Team Builder</a> — given the chemistry signal, Bransen's MIP-optimal XI per squad.</li>
+      <li><a href="club-vs-national.html">Club vs National</a> — does the chemistry travel? Each player's WC22 OI/90 against their club / Euro / Copa OI/90.</li>
+      <li><a href="transformer-chemistry.html">Transformer Chemistry</a> — the off-ball complement: pair attention networks from a tracking transformer.</li>
+      <li><a href="interactive-plays.html">Interactive Plays</a> — scrub through individual plays and see a chemistry edge form frame by frame.</li>
+      <li><a href="methodology.html">Methodology</a> — the formal math (VAEP → JOI / JDI → predictor), 5-fold CV metrics, and limitations.</li>
       <li><a href="downloads.html">Downloads</a> — every figure as PNG, every table as CSV, raw JSON.</li>
     </ul>
+
+    <p class="small muted" style="margin-top: 1.5rem;">
+      <strong>Next →</strong> open <a href="pairs.html">Top Pairs</a> for the
+      offensive and defensive chemistry leaderboards.
+    </p>
   </main>
 
   <footer class="site-footer">
@@ -253,19 +266,19 @@
       if (data.top_joi_pair) {
         const p = data.top_joi_pair;
         const m = mins(p);
-        cards.push(`<div class="card"><h3 class="mt-0">Top JOI pair</h3>
+        cards.push(`<div class="card"><h3 class="mt-0">Top JOI pair (offensive chemistry)</h3>
           <p><strong>${escapeHTML(pName(p))}</strong> &nbsp;+&nbsp; <strong>${escapeHTML(qName(p))}</strong></p>
-          <p class="dim small">${escapeHTML(tName(p))}${m !== null ? ` · ${fmtNum(m, 0)} minutes together` : ""}</p>
-          <p>JOI90: <span class="chip green">${fmtNum(p.joi90, 3)}</span></p>
+          <p class="dim small">${escapeHTML(tName(p))}${m !== null ? ` · ${fmtNum(m, 0)} minutes shared on pitch` : ""}</p>
+          <p>JOI90 <span class="chip green tabular">${fmtNum(p.joi90, 3)}</span> <span class="muted small">VAEP·90/min</span></p>
         </div>`);
       }
       if (data.top_jdi_pair) {
         const p = data.top_jdi_pair;
         const m = mins(p);
-        cards.push(`<div class="card"><h3 class="mt-0">Top JDI pair</h3>
+        cards.push(`<div class="card"><h3 class="mt-0">Top JDI pair (defensive chemistry)</h3>
           <p><strong>${escapeHTML(pName(p))}</strong> &nbsp;+&nbsp; <strong>${escapeHTML(qName(p))}</strong></p>
-          <p class="dim small">${escapeHTML(tName(p))}${m !== null ? ` · ${fmtNum(m, 0)} minutes together` : ""}</p>
-          <p>JDI90: <span class="chip red">${fmtNum(p.jdi90, 3)}</span></p>
+          <p class="dim small">${escapeHTML(tName(p))}${m !== null ? ` · ${fmtNum(m, 0)} minutes shared on pitch` : ""}</p>
+          <p>JDI90 <span class="chip red tabular">${fmtNum(p.jdi90, 3)}</span> <span class="muted small">VAEP·90/min, opponent-OI shortfall</span></p>
         </div>`);
       }
       topPairsEl.innerHTML = cards.join("");
@@ -273,14 +286,45 @@
 
     const storiesEl = document.getElementById("overview-stories");
     const stories = await loadJSON("data/chemistry_stories.json").catch(() => null);
+    // Build a global JOI90 distribution from `data/pairs.json` so each story
+    // card can show where its top pair sits among all qualifying WC22 pairs.
+    const pairsAll = await loadJSON("data/pairs.json").catch(() => null);
+    const joi90Sorted = Array.isArray(pairsAll)
+      ? pairsAll.map((p) => Number(p.joi90)).filter((v) => Number.isFinite(v)).sort((a, b) => a - b)
+      : [];
+    const jdi90Sorted = Array.isArray(pairsAll)
+      ? pairsAll.map((p) => Number(p.jdi90)).filter((v) => Number.isFinite(v)).sort((a, b) => a - b)
+      : [];
+
+    function percentile(sorted, v) {
+      if (!sorted.length || !Number.isFinite(v)) return null;
+      let lo = 0, hi = sorted.length;
+      while (lo < hi) {
+        const m = (lo + hi) >> 1;
+        if (sorted[m] < v) lo = m + 1; else hi = m;
+      }
+      return lo / sorted.length;
+    }
+    // Sparkline: a single tick marking this team's top pair against the global cdf.
+    function distroSpark(sorted, v, color) {
+      if (!sorted.length || !Number.isFinite(v)) return "";
+      const W = 120, H = 14;
+      const pct = percentile(sorted, v);
+      const x = (pct ?? 0) * W;
+      const pctTxt = pct === null ? "" : `${(pct * 100).toFixed(0)}th pctile`;
+      return `<svg class="spark-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="${pctTxt}" style="width:120px;height:14px;display:inline-block;vertical-align:middle;margin-left:0.4em" role="img">
+        <line x1="0" x2="${W}" y1="${H/2}" y2="${H/2}" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+        <line x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="2" y2="${H-2}" stroke="${color}" stroke-width="2"/>
+      </svg><span class="muted small">${pctTxt}</span>`;
+    }
     if (storiesEl && Array.isArray(stories)) {
       storiesEl.innerHTML = stories.map((s) => `
         <div class="card flag-bg-wrap">
           ${s.flag_code ? `<div class="flag-bg" style="background-image:url(https://flagcdn.com/640x480/${escapeHTML(s.flag_code)}.png)"></div>` : ""}
           <h3 class="mt-0">${flagHTML(s.flag_code, { size: "lg", alt: s.team })}${escapeHTML(s.team)}</h3>
           <p class="small">${escapeHTML(s.story)}</p>
-          <p class="small mb-0"><span class="chip green">Top JOI</span> <strong>${escapeHTML(s.top_joi.p)}</strong> + <strong>${escapeHTML(s.top_joi.q)}</strong> · <span class="muted">${fmtNum(s.top_joi.val, 2)}/90, ${fmtNum(s.top_joi.min, 0)} min</span></p>
-          <p class="small mb-0"><span class="chip red">Top JDI</span> <strong>${escapeHTML(s.top_jdi.p)}</strong> + <strong>${escapeHTML(s.top_jdi.q)}</strong> · <span class="muted">${fmtNum(s.top_jdi.val, 3)}/90, ${fmtNum(s.top_jdi.min, 0)} min</span></p>
+          <p class="small mb-0"><span class="chip green">Top JOI</span> <strong>${escapeHTML(s.top_joi.p)}</strong> + <strong>${escapeHTML(s.top_joi.q)}</strong> · <span class="muted tabular">${fmtNum(s.top_joi.val, 2)} VAEP·90/min, ${fmtNum(s.top_joi.min, 0)} min shared</span>${distroSpark(joi90Sorted, Number(s.top_joi.val), "#6dd58c")}</p>
+          <p class="small mb-0"><span class="chip red">Top JDI</span> <strong>${escapeHTML(s.top_jdi.p)}</strong> + <strong>${escapeHTML(s.top_jdi.q)}</strong> · <span class="muted tabular">${fmtNum(s.top_jdi.val, 3)} VAEP·90/min, ${fmtNum(s.top_jdi.min, 0)} min shared</span>${distroSpark(jdi90Sorted, Number(s.top_jdi.val), "#e98074")}</p>
         </div>`).join("");
     }
 
@@ -305,7 +349,7 @@
       };
       const overs = (formData.over_performers || []).slice(0, 8).map((p) => fmtRow(p, "+")).join("");
       const unders = (formData.under_performers || []).slice(0, 8).map((p) => fmtRow(p, "-")).join("");
-      const headers = `<thead><tr><th>Player</th><th>Team</th><th class="num">Matches</th><th class="num">Min</th><th class="num">Δ OI/90</th></tr></thead>`;
+      const headers = `<thead><tr><th>Player</th><th>Team</th><th class="num">Matches</th><th class="num">Min (played)</th><th class="num">Δ OI/90 (VAEP·90/min)</th></tr></thead>`;
       formEl.innerHTML = `
         <div class="card"><h3 class="mt-0">Over-performers</h3>
           <table class="data-table">${headers}<tbody>${overs}</tbody></table>

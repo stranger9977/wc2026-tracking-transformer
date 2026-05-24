@@ -17,7 +17,8 @@
   --accent-red-soft: rgba(192, 57, 43, 0.18);
   --link: #6aa8ff;
   --link-hover: #9cc3ff;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.25);
+  /* Reduced drop-shadow; data-ink ratio over decoration. */
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
   --radius: 10px;
   --radius-sm: 6px;
   --font: -apple-system, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -752,3 +753,102 @@ table.data-table th.num { text-align: right; }
 .download-list li:last-child { border-bottom: none; }
 .download-list .file-name { font-family: var(--mono); font-size: 0.85rem; }
 .download-list .file-desc { color: var(--text-mute); font-size: 0.8rem; flex: 1; min-width: 0; }
+
+/* ============================================================
+   Tufte-style page elements (lede, callout, drawer, sparkline)
+   ============================================================ */
+
+.lede {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  margin: 0.2em 0 1.2em;
+  max-width: 60ch;
+  line-height: 1.45;
+}
+
+.callout {
+  border-left: 2px solid var(--text-mute);
+  padding: 0.1rem 0 0.1rem 0.9rem;
+  margin: 0.4em 0 1em;
+  max-width: 64ch;
+}
+.callout h4 {
+  margin: 0.4em 0 0.2em;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.callout p { margin: 0.3em 0 0.6em; color: var(--text-dim); font-size: 0.92rem; }
+.callout strong { color: var(--text); }
+
+.method-drawer {
+  margin: 2em 0 1em;
+  border-top: 1px solid var(--border);
+  padding-top: 0.6em;
+}
+.method-drawer > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  padding: 0.3em 0;
+  list-style: none;
+}
+.method-drawer > summary::-webkit-details-marker { display: none; }
+.method-drawer > summary::before {
+  content: "▸ ";
+  display: inline-block;
+  transition: transform 0.15s ease;
+  color: var(--text-mute);
+}
+.method-drawer[open] > summary::before { content: "▾ "; }
+.method-drawer p { color: var(--text-dim); max-width: 70ch; }
+.method-drawer pre { margin-top: 0.6em; }
+
+.bookend {
+  margin-top: 2.4em;
+  padding-top: 1em;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  max-width: 64ch;
+}
+
+.pairs-with-spark {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+@media (min-width: 760px) {
+  .pairs-with-spark {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+.spark-panel {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  min-width: 0;
+}
+.spark-title {
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-bottom: 0.3em;
+}
+.spark-svg {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  color: var(--text);
+}
+.spark-caption {
+  color: var(--text-mute);
+  font-size: 0.78rem;
+  margin-top: 0.2em;
+  line-height: 1.35;
+  max-width: 320px;
+}

@@ -1,0 +1,6271 @@
+{
+  "label": "netherlands-usa-memphis",
+  "title": "Memphis 10' (Netherlands v USA, R16)",
+  "match_id": "10502",
+  "period": 1,
+  "start_s": 540.0,
+  "end_s": 580.0,
+  "n_frames": 158,
+  "home_team": {
+    "id": "366",
+    "name": "Netherlands",
+    "short": "NED",
+    "color": "#ff9933"
+  },
+  "away_team": {
+    "name": "United States",
+    "short": "USA",
+    "color": "#ffffff"
+  },
+  "events_in_window": [
+    {
+      "period_rel_ms": 542000,
+      "type": "pass",
+      "actor_name": "Frenkie de Jong",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 545000,
+      "type": "tackle",
+      "actor_name": "Christian Pulisic",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 548000,
+      "type": "pass",
+      "actor_name": "Jurrien Timber",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 550000,
+      "type": "pass",
+      "actor_name": "Frenkie de Jong",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 553000,
+      "type": "pass",
+      "actor_name": "Virgil van Dijk",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 556000,
+      "type": "pass",
+      "actor_name": "Nathan Ak\u00e9",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 558000,
+      "type": "pass",
+      "actor_name": "Daley Blind",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 559000,
+      "type": "pass",
+      "actor_name": "Memphis Depay",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 561000,
+      "type": "pass",
+      "actor_name": "Marten De Roon",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 561000,
+      "type": "pass",
+      "actor_name": "Davy Klaassen",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 562000,
+      "type": "pass",
+      "actor_name": "Memphis Depay",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 567000,
+      "type": "pass",
+      "actor_name": "Cody Gakpo",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 569000,
+      "type": "pass",
+      "actor_name": "Denzel Dumfries",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 571000,
+      "type": "GOAL",
+      "actor_name": "Memphis Depay",
+      "is_goal": true
+    }
+  ],
+  "frames": [
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.3135828971862793
+        },
+        {
+          "slot": 4,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.11684345453977585
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.1156342476606369
+        }
+      ],
+      "ball_xy": [
+        -28.35999870300293,
+        -24.440000534057617
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 0,
+      "frame_id": 21554,
+      "period": 1,
+      "timestamp_ms": 540139,
+      "in_possession_team_id": "366",
+      "p_score": 0.00862610712647438,
+      "p_concede": 0.48034563660621643,
+      "vaep": -0.47171952947974205
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.3118433952331543
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.12481598556041718
+        },
+        {
+          "slot": 4,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.11522495746612549
+        }
+      ],
+      "ball_xy": [
+        -28.670000076293945,
+        -24.420000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 1,
+      "frame_id": 21560,
+      "period": 1,
+      "timestamp_ms": 540340,
+      "in_possession_team_id": "366",
+      "p_score": 0.009925195015966892,
+      "p_concede": 0.4621387720108032,
+      "vaep": -0.45221357699483633
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.30878692865371704
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.13685151934623718
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.11257710307836533
+        }
+      ],
+      "ball_xy": [
+        -28.910001754760742,
+        -24.3799991607666
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 2,
+      "frame_id": 21566,
+      "period": 1,
+      "timestamp_ms": 540540,
+      "in_possession_team_id": "366",
+      "p_score": 0.011527524329721928,
+      "p_concede": 0.44240111112594604,
+      "vaep": -0.4308735867962241
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.3061205744743347
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.14778445661067963
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.10968047380447388
+        }
+      ],
+      "ball_xy": [
+        -29.090002059936523,
+        -24.309999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 3,
+      "frame_id": 21572,
+      "period": 1,
+      "timestamp_ms": 540740,
+      "in_possession_team_id": "366",
+      "p_score": 0.013443602249026299,
+      "p_concede": 0.4215847849845886,
+      "vaep": -0.4081411827355623
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.3035723567008972
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.15583807229995728
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.10655847191810608
+        }
+      ],
+      "ball_xy": [
+        -29.209999084472656,
+        -24.219999313354492
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 4,
+      "frame_id": 21578,
+      "period": 1,
+      "timestamp_ms": 540940,
+      "in_possession_team_id": "366",
+      "p_score": 0.0157652385532856,
+      "p_concede": 0.40168753266334534,
+      "vaep": -0.38592229411005974
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.3027009963989258
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.1606619954109192
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.10379469394683838
+        }
+      ],
+      "ball_xy": [
+        -29.290000915527344,
+        -24.100000381469727
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 5,
+      "frame_id": 21584,
+      "period": 1,
+      "timestamp_ms": 541140,
+      "in_possession_team_id": "366",
+      "p_score": 0.01847895048558712,
+      "p_concede": 0.3871772885322571,
+      "vaep": -0.36869833804666996
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.3014666736125946
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.1630818396806717
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.10107484459877014
+        }
+      ],
+      "ball_xy": [
+        -29.32000160217285,
+        -23.959999084472656
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 6,
+      "frame_id": 21590,
+      "period": 1,
+      "timestamp_ms": 541341,
+      "in_possession_team_id": "366",
+      "p_score": 0.021901268512010574,
+      "p_concede": 0.3781783878803253,
+      "vaep": -0.35627711936831474
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.3014202117919922
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.16288504004478455
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.09864053130149841
+        }
+      ],
+      "ball_xy": [
+        -29.32000160217285,
+        -23.799999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 7,
+      "frame_id": 21596,
+      "period": 1,
+      "timestamp_ms": 541541,
+      "in_possession_team_id": "366",
+      "p_score": 0.025426747277379036,
+      "p_concede": 0.37166887521743774,
+      "vaep": -0.3462421279400587
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.3018389642238617
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.16122068464756012
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.09640168398618698
+        }
+      ],
+      "ball_xy": [
+        -29.290000915527344,
+        -23.6200008392334
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 8,
+      "frame_id": 21602,
+      "period": 1,
+      "timestamp_ms": 541741,
+      "in_possession_team_id": "366",
+      "p_score": 0.02977960929274559,
+      "p_concede": 0.3674873113632202,
+      "vaep": -0.3377077020704746
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.30290651321411133
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.15864726901054382
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.09434548020362854
+        }
+      ],
+      "ball_xy": [
+        -29.23000144958496,
+        -23.40999984741211
+      ],
+      "event_label": "pass \u2014 Frenkie de Jong",
+      "is_goal_event": false,
+      "frame_idx": 9,
+      "frame_id": 21608,
+      "period": 1,
+      "timestamp_ms": 541941,
+      "in_possession_team_id": "366",
+      "p_score": 0.03582927957177162,
+      "p_concede": 0.36538028717041016,
+      "vaep": -0.32955100759863853
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.3052522540092468
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.15426135063171387
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.09220042824745178
+        }
+      ],
+      "ball_xy": [
+        -29.14999771118164,
+        -23.18000030517578
+      ],
+      "event_label": "pass \u2014 Frenkie de Jong",
+      "is_goal_event": false,
+      "frame_idx": 10,
+      "frame_id": 21614,
+      "period": 1,
+      "timestamp_ms": 542141,
+      "in_possession_team_id": "366",
+      "p_score": 0.042291659861803055,
+      "p_concede": 0.3576902747154236,
+      "vaep": -0.31539861485362053
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.2318294495344162
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.08870190382003784
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.08093436807394028
+        }
+      ],
+      "ball_xy": [
+        -29.389999389648438,
+        -18.950000762939453
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 11,
+      "frame_id": 21620,
+      "period": 1,
+      "timestamp_ms": 542342,
+      "in_possession_team_id": "51",
+      "p_score": 0.3103870451450348,
+      "p_concede": 0.026399696245789528,
+      "vaep": 0.28398734889924526
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.235210582613945
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.11362254619598389
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.07468529045581818
+        }
+      ],
+      "ball_xy": [
+        -29.96999740600586,
+        -10.729999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 12,
+      "frame_id": 21626,
+      "period": 1,
+      "timestamp_ms": 542542,
+      "in_possession_team_id": "366",
+      "p_score": 0.06386301666498184,
+      "p_concede": 0.36373084783554077,
+      "vaep": -0.29986783117055893
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.23916295170783997
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.1219298243522644
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.0790373682975769
+        }
+      ],
+      "ball_xy": [
+        -30.55000114440918,
+        -2.5199999809265137
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 13,
+      "frame_id": 21632,
+      "period": 1,
+      "timestamp_ms": 542742,
+      "in_possession_team_id": "366",
+      "p_score": 0.07564491778612137,
+      "p_concede": 0.36006882786750793,
+      "vaep": -0.28442391008138657
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.24470967054367065
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.11258018016815186
+        },
+        {
+          "slot": 0,
+          "player_id": 8033,
+          "name": "Davy Klaassen",
+          "position": "AM",
+          "attention": 0.05822315812110901
+        }
+      ],
+      "ball_xy": [
+        -31.1299991607666,
+        5.699999809265137
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 14,
+      "frame_id": 21638,
+      "period": 1,
+      "timestamp_ms": 542942,
+      "in_possession_team_id": "366",
+      "p_score": 0.18578891456127167,
+      "p_concede": 0.3721154034137726,
+      "vaep": -0.18632648885250092
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.20608314871788025
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.0774441659450531
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.07045508176088333
+        }
+      ],
+      "ball_xy": [
+        -31.700000762939453,
+        13.920000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 15,
+      "frame_id": 21644,
+      "period": 1,
+      "timestamp_ms": 543142,
+      "in_possession_team_id": "51",
+      "p_score": 0.34617140889167786,
+      "p_concede": 0.05393749102950096,
+      "vaep": 0.2922339178621769
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.23134958744049072
+        },
+        {
+          "slot": 10,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.08529575169086456
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.057929154485464096
+        }
+      ],
+      "ball_xy": [
+        -32.279998779296875,
+        22.139999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 16,
+      "frame_id": 21650,
+      "period": 1,
+      "timestamp_ms": 543343,
+      "in_possession_team_id": "366",
+      "p_score": 0.17159685492515564,
+      "p_concede": 0.3469541668891907,
+      "vaep": -0.17535731196403503
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.2450980842113495
+        },
+        {
+          "slot": 10,
+          "player_id": 1971,
+          "name": "Tim Ream",
+          "position": "LCB",
+          "attention": 0.08815944194793701
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.06421687453985214
+        }
+      ],
+      "ball_xy": [
+        -32.38999938964844,
+        26.389999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 17,
+      "frame_id": 21656,
+      "period": 1,
+      "timestamp_ms": 543543,
+      "in_possession_team_id": "366",
+      "p_score": 0.19477665424346924,
+      "p_concede": 0.33882278203964233,
+      "vaep": -0.1440461277961731
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.21029964089393616
+        },
+        {
+          "slot": 10,
+          "player_id": 1971,
+          "name": "Tim Ream",
+          "position": "LCB",
+          "attention": 0.06946396827697754
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.06327886134386063
+        }
+      ],
+      "ball_xy": [
+        -32.0099983215332,
+        26.68000030517578
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 18,
+      "frame_id": 21662,
+      "period": 1,
+      "timestamp_ms": 543743,
+      "in_possession_team_id": "366",
+      "p_score": 0.24386446177959442,
+      "p_concede": 0.2787408232688904,
+      "vaep": -0.03487636148929596
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.19498303532600403
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.06326637417078018
+        },
+        {
+          "slot": 10,
+          "player_id": 1971,
+          "name": "Tim Ream",
+          "position": "LCB",
+          "attention": 0.060849085450172424
+        }
+      ],
+      "ball_xy": [
+        -31.579999923706055,
+        26.970001220703125
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 19,
+      "frame_id": 21668,
+      "period": 1,
+      "timestamp_ms": 543943,
+      "in_possession_team_id": "366",
+      "p_score": 0.28602105379104614,
+      "p_concede": 0.25650593638420105,
+      "vaep": 0.029515117406845093
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.18817654252052307
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.06344889104366302
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06187459081411362
+        }
+      ],
+      "ball_xy": [
+        -31.1200008392334,
+        27.270000457763672
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 20,
+      "frame_id": 21674,
+      "period": 1,
+      "timestamp_ms": 544143,
+      "in_possession_team_id": "366",
+      "p_score": 0.3276568651199341,
+      "p_concede": 0.2332991361618042,
+      "vaep": 0.09435772895812988
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.18485361337661743
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.06355958431959152
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06243589520454407
+        }
+      ],
+      "ball_xy": [
+        -30.6299991607666,
+        27.579999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 21,
+      "frame_id": 21680,
+      "period": 1,
+      "timestamp_ms": 544344,
+      "in_possession_team_id": "366",
+      "p_score": 0.3684409260749817,
+      "p_concede": 0.21026843786239624,
+      "vaep": 0.15817248821258545
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.1827784925699234
+        },
+        {
+          "slot": 4,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.06337712705135345
+        },
+        {
+          "slot": 17,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.06249304488301277
+        }
+      ],
+      "ball_xy": [
+        -30.110000610351562,
+        27.889999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 22,
+      "frame_id": 21686,
+      "period": 1,
+      "timestamp_ms": 544544,
+      "in_possession_team_id": "366",
+      "p_score": 0.39618444442749023,
+      "p_concede": 0.19203424453735352,
+      "vaep": 0.20415019989013672
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.18086057901382446
+        },
+        {
+          "slot": 4,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.06300940364599228
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06246861815452576
+        }
+      ],
+      "ball_xy": [
+        -29.55999755859375,
+        28.209999084472656
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 23,
+      "frame_id": 21692,
+      "period": 1,
+      "timestamp_ms": 544744,
+      "in_possession_team_id": "366",
+      "p_score": 0.4200802743434906,
+      "p_concede": 0.1764758825302124,
+      "vaep": 0.2436043918132782
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.1783585399389267
+        },
+        {
+          "slot": 5,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.06277113407850266
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06259911507368088
+        }
+      ],
+      "ball_xy": [
+        -28.989999771118164,
+        28.520000457763672
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 24,
+      "frame_id": 21698,
+      "period": 1,
+      "timestamp_ms": 544944,
+      "in_possession_team_id": "366",
+      "p_score": 0.44099050760269165,
+      "p_concede": 0.16299480199813843,
+      "vaep": 0.2779957056045532
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.1760464459657669
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06282221525907516
+        },
+        {
+          "slot": 5,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.06281746178865433
+        }
+      ],
+      "ball_xy": [
+        -28.420000076293945,
+        28.84000015258789
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 25,
+      "frame_id": 21704,
+      "period": 1,
+      "timestamp_ms": 545144,
+      "in_possession_team_id": "366",
+      "p_score": 0.45972248911857605,
+      "p_concede": 0.15125015377998352,
+      "vaep": 0.30847233533859253
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.1737481653690338
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.06378131359815598
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06317205727100372
+        }
+      ],
+      "ball_xy": [
+        -27.84000015258789,
+        29.149999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 26,
+      "frame_id": 21710,
+      "period": 1,
+      "timestamp_ms": 545345,
+      "in_possession_team_id": "366",
+      "p_score": 0.47666749358177185,
+      "p_concede": 0.13998408615589142,
+      "vaep": 0.33668340742588043
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.17131662368774414
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.06707635521888733
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06362251192331314
+        }
+      ],
+      "ball_xy": [
+        -27.26999855041504,
+        29.450000762939453
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 27,
+      "frame_id": 21716,
+      "period": 1,
+      "timestamp_ms": 545545,
+      "in_possession_team_id": "366",
+      "p_score": 0.4879341721534729,
+      "p_concede": 0.13100533187389374,
+      "vaep": 0.35692884027957916
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.16954180598258972
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.07030452787876129
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.0642356127500534
+        }
+      ],
+      "ball_xy": [
+        -26.700000762939453,
+        29.75
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 28,
+      "frame_id": 21722,
+      "period": 1,
+      "timestamp_ms": 545745,
+      "in_possession_team_id": "366",
+      "p_score": 0.49766916036605835,
+      "p_concede": 0.1221885159611702,
+      "vaep": 0.37548064440488815
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.16801798343658447
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.07348482310771942
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06488440930843353
+        }
+      ],
+      "ball_xy": [
+        -26.15999984741211,
+        30.040000915527344
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 29,
+      "frame_id": 21728,
+      "period": 1,
+      "timestamp_ms": 545945,
+      "in_possession_team_id": "366",
+      "p_score": 0.5015196800231934,
+      "p_concede": 0.11440020054578781,
+      "vaep": 0.38711947947740555
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.16646596789360046
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.0765819177031517
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06583058834075928
+        }
+      ],
+      "ball_xy": [
+        -25.639999389648438,
+        30.31999969482422
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 30,
+      "frame_id": 21734,
+      "period": 1,
+      "timestamp_ms": 546145,
+      "in_possession_team_id": "366",
+      "p_score": 0.5007249116897583,
+      "p_concede": 0.10784485936164856,
+      "vaep": 0.39288005232810974
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.16482499241828918
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.07915700972080231
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06708090007305145
+        }
+      ],
+      "ball_xy": [
+        -25.15999984741211,
+        30.579999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 31,
+      "frame_id": 21740,
+      "period": 1,
+      "timestamp_ms": 546346,
+      "in_possession_team_id": "366",
+      "p_score": 0.4915238916873932,
+      "p_concede": 0.102777861058712,
+      "vaep": 0.3887460306286812
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.1631600260734558
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08106792718172073
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.06856262683868408
+        }
+      ],
+      "ball_xy": [
+        -24.719999313354492,
+        30.829999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 32,
+      "frame_id": 21746,
+      "period": 1,
+      "timestamp_ms": 546546,
+      "in_possession_team_id": "366",
+      "p_score": 0.4696761667728424,
+      "p_concede": 0.09937600046396255,
+      "vaep": 0.37030016630887985
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.1605650782585144
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08236819505691528
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.07034936547279358
+        }
+      ],
+      "ball_xy": [
+        -24.31999969482422,
+        31.059999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 33,
+      "frame_id": 21752,
+      "period": 1,
+      "timestamp_ms": 546746,
+      "in_possession_team_id": "366",
+      "p_score": 0.4371204078197479,
+      "p_concede": 0.09879111498594284,
+      "vaep": 0.3383292928338051
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.1569511890411377
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08263284713029861
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.07218210399150848
+        }
+      ],
+      "ball_xy": [
+        -23.979999542236328,
+        31.280000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 34,
+      "frame_id": 21758,
+      "period": 1,
+      "timestamp_ms": 546946,
+      "in_possession_team_id": "366",
+      "p_score": 0.38646435737609863,
+      "p_concede": 0.10003720968961716,
+      "vaep": 0.2864271476864815
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.15093667805194855
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08221296221017838
+        },
+        {
+          "slot": 9,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.07381339371204376
+        }
+      ],
+      "ball_xy": [
+        -23.700000762939453,
+        31.469999313354492
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 35,
+      "frame_id": 21764,
+      "period": 1,
+      "timestamp_ms": 547146,
+      "in_possession_team_id": "366",
+      "p_score": 0.31691399216651917,
+      "p_concede": 0.10420462489128113,
+      "vaep": 0.21270936727523804
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.14111781120300293
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08089544624090195
+        },
+        {
+          "slot": 9,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.07511061429977417
+        }
+      ],
+      "ball_xy": [
+        -23.479999542236328,
+        31.639999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 36,
+      "frame_id": 21770,
+      "period": 1,
+      "timestamp_ms": 547347,
+      "in_possession_team_id": "366",
+      "p_score": 0.22610944509506226,
+      "p_concede": 0.11213703453540802,
+      "vaep": 0.11397241055965424
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.12699757516384125
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.07871115207672119
+        },
+        {
+          "slot": 9,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.07594873756170273
+        }
+      ],
+      "ball_xy": [
+        -23.31999969482422,
+        31.780000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 37,
+      "frame_id": 21776,
+      "period": 1,
+      "timestamp_ms": 547547,
+      "in_possession_team_id": "366",
+      "p_score": 0.14091746509075165,
+      "p_concede": 0.12030741572380066,
+      "vaep": 0.02061004936695099
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.10941284894943237
+        },
+        {
+          "slot": 9,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.07601405680179596
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.07561278343200684
+        }
+      ],
+      "ball_xy": [
+        -23.229999542236328,
+        31.899999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 38,
+      "frame_id": 21782,
+      "period": 1,
+      "timestamp_ms": 547747,
+      "in_possession_team_id": "366",
+      "p_score": 0.0809352770447731,
+      "p_concede": 0.1245197132229805,
+      "vaep": -0.0435844361782074
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.09204110503196716
+        },
+        {
+          "slot": 9,
+          "player_id": 8342,
+          "name": "Memphis Depay",
+          "position": "CF",
+          "attention": 0.07580003887414932
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.0717264711856842
+        }
+      ],
+      "ball_xy": [
+        -23.190000534057617,
+        31.989999771118164
+      ],
+      "event_label": "pass \u2014 Jurrien Timber",
+      "is_goal_event": false,
+      "frame_idx": 39,
+      "frame_id": 21788,
+      "period": 1,
+      "timestamp_ms": 547947,
+      "in_possession_team_id": "366",
+      "p_score": 0.04624103754758835,
+      "p_concede": 0.12437965720891953,
+      "vaep": -0.07813861966133118
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 6,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.08040475845336914
+        },
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.07826804369688034
+        },
+        {
+          "slot": 9,
+          "player_id": 8342,
+          "name": "Memphis Depay",
+          "position": "CF",
+          "attention": 0.07501989603042603
+        }
+      ],
+      "ball_xy": [
+        -23.209999084472656,
+        32.060001373291016
+      ],
+      "event_label": "pass \u2014 Jurrien Timber",
+      "is_goal_event": false,
+      "frame_idx": 40,
+      "frame_id": 21794,
+      "period": 1,
+      "timestamp_ms": 548147,
+      "in_possession_team_id": "366",
+      "p_score": 0.02702520787715912,
+      "p_concede": 0.12238524854183197,
+      "vaep": -0.09536004066467285
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 6,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.08493752777576447
+        },
+        {
+          "slot": 9,
+          "player_id": 8342,
+          "name": "Memphis Depay",
+          "position": "CF",
+          "attention": 0.07411648333072662
+        },
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.0689457356929779
+        }
+      ],
+      "ball_xy": [
+        -23.280000686645508,
+        32.11000061035156
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 41,
+      "frame_id": 21800,
+      "period": 1,
+      "timestamp_ms": 548348,
+      "in_possession_team_id": "366",
+      "p_score": 0.01634756475687027,
+      "p_concede": 0.1211957037448883,
+      "vaep": -0.10484813898801804
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 6,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.08410083502531052
+        },
+        {
+          "slot": 2,
+          "player_id": 8033,
+          "name": "Davy Klaassen",
+          "position": "AM",
+          "attention": 0.07824520766735077
+        },
+        {
+          "slot": 9,
+          "player_id": 8342,
+          "name": "Memphis Depay",
+          "position": "CF",
+          "attention": 0.07311202585697174
+        }
+      ],
+      "ball_xy": [
+        -23.389999389648438,
+        32.13999938964844
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 42,
+      "frame_id": 21806,
+      "period": 1,
+      "timestamp_ms": 548548,
+      "in_possession_team_id": "366",
+      "p_score": 0.011037014424800873,
+      "p_concede": 0.12214874476194382,
+      "vaep": -0.11111173033714294
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 2,
+          "player_id": 8033,
+          "name": "Davy Klaassen",
+          "position": "AM",
+          "attention": 0.09015639126300812
+        },
+        {
+          "slot": 6,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.08089251816272736
+        },
+        {
+          "slot": 9,
+          "player_id": 8342,
+          "name": "Memphis Depay",
+          "position": "CF",
+          "attention": 0.0721200555562973
+        }
+      ],
+      "ball_xy": [
+        -23.540000915527344,
+        32.150001525878906
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 43,
+      "frame_id": 21812,
+      "period": 1,
+      "timestamp_ms": 548748,
+      "in_possession_team_id": "366",
+      "p_score": 0.008119238540530205,
+      "p_concede": 0.12198921293020248,
+      "vaep": -0.11386997438967228
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.13074913620948792
+        },
+        {
+          "slot": 19,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.08001896739006042
+        },
+        {
+          "slot": 2,
+          "player_id": 8033,
+          "name": "Davy Klaassen",
+          "position": "AM",
+          "attention": 0.06275370717048645
+        }
+      ],
+      "ball_xy": [
+        -22.829999923706055,
+        24.979999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 44,
+      "frame_id": 21818,
+      "period": 1,
+      "timestamp_ms": 548948,
+      "in_possession_team_id": "51",
+      "p_score": 0.0734228864312172,
+      "p_concede": 0.018369117751717567,
+      "vaep": 0.055053768679499626
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.15248654782772064
+        },
+        {
+          "slot": 19,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.06748892366886139
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.06698701530694962
+        }
+      ],
+      "ball_xy": [
+        -21.690000534057617,
+        14.229999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 45,
+      "frame_id": 21824,
+      "period": 1,
+      "timestamp_ms": 549148,
+      "in_possession_team_id": "366",
+      "p_score": 0.009544179774820805,
+      "p_concede": 0.16103261709213257,
+      "vaep": -0.15148843731731176
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.16453082859516144
+        },
+        {
+          "slot": 9,
+          "player_id": 8342,
+          "name": "Memphis Depay",
+          "position": "CF",
+          "attention": 0.08836837857961655
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.06784475594758987
+        }
+      ],
+      "ball_xy": [
+        -20.540000915527344,
+        3.4800000190734863
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 46,
+      "frame_id": 21830,
+      "period": 1,
+      "timestamp_ms": 549349,
+      "in_possession_team_id": "366",
+      "p_score": 0.0066164396703243256,
+      "p_concede": 0.15504781901836395,
+      "vaep": -0.14843137934803963
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.19579675793647766
+        },
+        {
+          "slot": 19,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.08172459900379181
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.06610867381095886
+        }
+      ],
+      "ball_xy": [
+        -19.389999389648438,
+        -7.279999732971191
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 47,
+      "frame_id": 21836,
+      "period": 1,
+      "timestamp_ms": 549549,
+      "in_possession_team_id": "51",
+      "p_score": 0.03275798261165619,
+      "p_concede": 0.00562010845169425,
+      "vaep": 0.02713787415996194
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.18985137343406677
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.07349781692028046
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.07207560539245605
+        }
+      ],
+      "ball_xy": [
+        -18.6200008392334,
+        -14.539999961853027
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 48,
+      "frame_id": 21842,
+      "period": 1,
+      "timestamp_ms": 549749,
+      "in_possession_team_id": "366",
+      "p_score": 0.00764110404998064,
+      "p_concede": 0.16320279240608215,
+      "vaep": -0.1555616883561015
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.17820975184440613
+        },
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.14770658314228058
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.07887323945760727
+        }
+      ],
+      "ball_xy": [
+        -18.6200008392334,
+        -14.84000015258789
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 49,
+      "frame_id": 21848,
+      "period": 1,
+      "timestamp_ms": 549949,
+      "in_possession_team_id": "366",
+      "p_score": 0.004520316142588854,
+      "p_concede": 0.16382794082164764,
+      "vaep": -0.1593076246790588
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.18934684991836548
+        },
+        {
+          "slot": 1,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.17244631052017212
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08205894380807877
+        }
+      ],
+      "ball_xy": [
+        -18.6200008392334,
+        -15.15999984741211
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 50,
+      "frame_id": 21854,
+      "period": 1,
+      "timestamp_ms": 550149,
+      "in_possession_team_id": "366",
+      "p_score": 0.004366719163954258,
+      "p_concede": 0.1781320422887802,
+      "vaep": -0.17376532312482595
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.20605148375034332
+        },
+        {
+          "slot": 1,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.16851599514484406
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08370725810527802
+        }
+      ],
+      "ball_xy": [
+        -18.6200008392334,
+        -15.520000457763672
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 51,
+      "frame_id": 21860,
+      "period": 1,
+      "timestamp_ms": 550350,
+      "in_possession_team_id": "366",
+      "p_score": 0.004272403195500374,
+      "p_concede": 0.19199280440807343,
+      "vaep": -0.18772040121257305
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.21522563695907593
+        },
+        {
+          "slot": 1,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.16454260051250458
+        },
+        {
+          "slot": 3,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08396798372268677
+        }
+      ],
+      "ball_xy": [
+        -18.6299991607666,
+        -15.899999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 52,
+      "frame_id": 21866,
+      "period": 1,
+      "timestamp_ms": 550550,
+      "in_possession_team_id": "366",
+      "p_score": 0.004184290301054716,
+      "p_concede": 0.20778627693653107,
+      "vaep": -0.20360198663547635
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.2736722230911255
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.10886254906654358
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.08260255306959152
+        }
+      ],
+      "ball_xy": [
+        -19.59000015258789,
+        -14.819999694824219
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 53,
+      "frame_id": 21872,
+      "period": 1,
+      "timestamp_ms": 550750,
+      "in_possession_team_id": "366",
+      "p_score": 0.006279235705733299,
+      "p_concede": 0.2725006341934204,
+      "vaep": -0.2662213984876871
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.27572101354599
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.11815981566905975
+        },
+        {
+          "slot": 19,
+          "player_id": 1973,
+          "name": "Antonee Robinson",
+          "position": "LB",
+          "attention": 0.08599194139242172
+        }
+      ],
+      "ball_xy": [
+        -22.440000534057617,
+        -10.770000457763672
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 54,
+      "frame_id": 21878,
+      "period": 1,
+      "timestamp_ms": 550950,
+      "in_possession_team_id": "366",
+      "p_score": 0.005220239516347647,
+      "p_concede": 0.3300342857837677,
+      "vaep": -0.32481404626742005
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.2783278524875641
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.11462228000164032
+        },
+        {
+          "slot": 20,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.10555511713027954
+        }
+      ],
+      "ball_xy": [
+        -25.290000915527344,
+        -6.71999979019165
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 55,
+      "frame_id": 21884,
+      "period": 1,
+      "timestamp_ms": 551150,
+      "in_possession_team_id": "51",
+      "p_score": 0.1885543018579483,
+      "p_concede": 0.011825702153146267,
+      "vaep": 0.17672859970480204
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.2786254584789276
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.14799471199512482
+        },
+        {
+          "slot": 20,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.12814809381961823
+        }
+      ],
+      "ball_xy": [
+        -28.14000129699707,
+        -2.680000066757202
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 56,
+      "frame_id": 21890,
+      "period": 1,
+      "timestamp_ms": 551351,
+      "in_possession_team_id": "51",
+      "p_score": 0.19267241656780243,
+      "p_concede": 0.012071356177330017,
+      "vaep": 0.1806010603904724
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.27847597002983093
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.16462433338165283
+        },
+        {
+          "slot": 20,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.14160798490047455
+        }
+      ],
+      "ball_xy": [
+        -30.989999771118164,
+        1.3700000047683716
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 57,
+      "frame_id": 21896,
+      "period": 1,
+      "timestamp_ms": 551551,
+      "in_possession_team_id": "51",
+      "p_score": 0.19174188375473022,
+      "p_concede": 0.012542126700282097,
+      "vaep": 0.17919975705444813
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.2743269205093384
+        },
+        {
+          "slot": 20,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.10697400569915771
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.09066388756036758
+        }
+      ],
+      "ball_xy": [
+        -33.84000015258789,
+        5.420000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 58,
+      "frame_id": 21902,
+      "period": 1,
+      "timestamp_ms": 551751,
+      "in_possession_team_id": "366",
+      "p_score": 0.008775906637310982,
+      "p_concede": 0.3500012159347534,
+      "vaep": -0.34122530929744244
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.27223822474479675
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.11419105529785156
+        },
+        {
+          "slot": 20,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.09117671847343445
+        }
+      ],
+      "ball_xy": [
+        -36.689998626708984,
+        9.460000038146973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 59,
+      "frame_id": 21908,
+      "period": 1,
+      "timestamp_ms": 551951,
+      "in_possession_team_id": "366",
+      "p_score": 0.009913665242493153,
+      "p_concede": 0.35526391863822937,
+      "vaep": -0.3453502533957362
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.2672147750854492
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.1253138929605484
+        },
+        {
+          "slot": 19,
+          "player_id": 1973,
+          "name": "Antonee Robinson",
+          "position": "LB",
+          "attention": 0.09582804143428802
+        }
+      ],
+      "ball_xy": [
+        -37.220001220703125,
+        9.84000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 60,
+      "frame_id": 21914,
+      "period": 1,
+      "timestamp_ms": 552151,
+      "in_possession_team_id": "366",
+      "p_score": 0.007787920068949461,
+      "p_concede": 0.33765360713005066,
+      "vaep": -0.3298656870611012
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.247121199965477
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.14351169764995575
+        },
+        {
+          "slot": 19,
+          "player_id": 1973,
+          "name": "Antonee Robinson",
+          "position": "LB",
+          "attention": 0.0906776487827301
+        }
+      ],
+      "ball_xy": [
+        -37.2599983215332,
+        9.460000038146973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 61,
+      "frame_id": 21920,
+      "period": 1,
+      "timestamp_ms": 552352,
+      "in_possession_team_id": "366",
+      "p_score": 0.008754015900194645,
+      "p_concede": 0.2845381200313568,
+      "vaep": -0.27578410413116217
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.23896916210651398
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.15022361278533936
+        },
+        {
+          "slot": 19,
+          "player_id": 1973,
+          "name": "Antonee Robinson",
+          "position": "LB",
+          "attention": 0.08694720268249512
+        }
+      ],
+      "ball_xy": [
+        -37.290000915527344,
+        9.09000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 62,
+      "frame_id": 21926,
+      "period": 1,
+      "timestamp_ms": 552552,
+      "in_possession_team_id": "366",
+      "p_score": 0.010241755284368992,
+      "p_concede": 0.27875494956970215,
+      "vaep": -0.26851319428533316
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.23530824482440948
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.15325292944908142
+        },
+        {
+          "slot": 0,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.0889052003622055
+        }
+      ],
+      "ball_xy": [
+        -37.290000915527344,
+        8.710000038146973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 63,
+      "frame_id": 21932,
+      "period": 1,
+      "timestamp_ms": 552752,
+      "in_possession_team_id": "366",
+      "p_score": 0.012236000038683414,
+      "p_concede": 0.2642974555492401,
+      "vaep": -0.2520614555105567
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.2330232709646225
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.1545744240283966
+        },
+        {
+          "slot": 0,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.08944272994995117
+        }
+      ],
+      "ball_xy": [
+        -37.27000045776367,
+        8.319999694824219
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 64,
+      "frame_id": 21938,
+      "period": 1,
+      "timestamp_ms": 552952,
+      "in_possession_team_id": "366",
+      "p_score": 0.014579846523702145,
+      "p_concede": 0.24938629567623138,
+      "vaep": -0.23480644915252924
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.17283494770526886
+        },
+        {
+          "slot": 9,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.10326328873634338
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.0845939964056015
+        }
+      ],
+      "ball_xy": [
+        -36.9900016784668,
+        6.800000190734863
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 65,
+      "frame_id": 21944,
+      "period": 1,
+      "timestamp_ms": 553152,
+      "in_possession_team_id": "366",
+      "p_score": 0.017848722636699677,
+      "p_concede": 0.22313345968723297,
+      "vaep": -0.2052847370505333
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.13111922144889832
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.12192071229219437
+        },
+        {
+          "slot": 4,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.07903899252414703
+        }
+      ],
+      "ball_xy": [
+        -36.459999084472656,
+        4.119999885559082
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 66,
+      "frame_id": 21950,
+      "period": 1,
+      "timestamp_ms": 553353,
+      "in_possession_team_id": "366",
+      "p_score": 0.023043274879455566,
+      "p_concede": 0.18724316358566284,
+      "vaep": -0.16419988870620728
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.13929222524166107
+        },
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.11462470889091492
+        },
+        {
+          "slot": 4,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.0899137556552887
+        }
+      ],
+      "ball_xy": [
+        -35.93000030517578,
+        1.4500000476837158
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 67,
+      "frame_id": 21956,
+      "period": 1,
+      "timestamp_ms": 553553,
+      "in_possession_team_id": "366",
+      "p_score": 0.02712765894830227,
+      "p_concede": 0.1679385006427765,
+      "vaep": -0.14081084169447422
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.14796298742294312
+        },
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.10851474106311798
+        },
+        {
+          "slot": 4,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.09636306762695312
+        }
+      ],
+      "ball_xy": [
+        -35.400001525878906,
+        -1.2200000286102295
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 68,
+      "frame_id": 21962,
+      "period": 1,
+      "timestamp_ms": 553753,
+      "in_possession_team_id": "366",
+      "p_score": 0.032716572284698486,
+      "p_concede": 0.14340056478977203,
+      "vaep": -0.11068399250507355
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.1551041603088379
+        },
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.10716164112091064
+        },
+        {
+          "slot": 4,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.09340745210647583
+        }
+      ],
+      "ball_xy": [
+        -34.869998931884766,
+        -3.9000000953674316
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 69,
+      "frame_id": 21968,
+      "period": 1,
+      "timestamp_ms": 553953,
+      "in_possession_team_id": "366",
+      "p_score": 0.032079748809337616,
+      "p_concede": 0.13928145170211792,
+      "vaep": -0.1072017028927803
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.20135486125946045
+        },
+        {
+          "slot": 21,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.0783722773194313
+        },
+        {
+          "slot": 4,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.07700144499540329
+        }
+      ],
+      "ball_xy": [
+        -34.34000015258789,
+        -6.570000171661377
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 70,
+      "frame_id": 21974,
+      "period": 1,
+      "timestamp_ms": 554153,
+      "in_possession_team_id": "51",
+      "p_score": 0.11417098343372345,
+      "p_concede": 0.026338154450058937,
+      "vaep": 0.08783282898366451
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.22639155387878418
+        },
+        {
+          "slot": 4,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.07059360295534134
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.06565071642398834
+        }
+      ],
+      "ball_xy": [
+        -33.810001373291016,
+        -9.239999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 71,
+      "frame_id": 21980,
+      "period": 1,
+      "timestamp_ms": 554354,
+      "in_possession_team_id": "51",
+      "p_score": 0.11067470908164978,
+      "p_concede": 0.030658403411507607,
+      "vaep": 0.08001630567014217
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.24262884259223938
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.06889039278030396
+        },
+        {
+          "slot": 17,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.059060245752334595
+        }
+      ],
+      "ball_xy": [
+        -33.279998779296875,
+        -11.920000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 72,
+      "frame_id": 21986,
+      "period": 1,
+      "timestamp_ms": 554554,
+      "in_possession_team_id": "51",
+      "p_score": 0.10659203678369522,
+      "p_concede": 0.03614354133605957,
+      "vaep": 0.07044849544763565
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.20771361887454987
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08838094770908356
+        },
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.08268585801124573
+        }
+      ],
+      "ball_xy": [
+        -32.75,
+        -14.59000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 73,
+      "frame_id": 21992,
+      "period": 1,
+      "timestamp_ms": 554754,
+      "in_possession_team_id": "366",
+      "p_score": 0.05335453897714615,
+      "p_concede": 0.08611602336168289,
+      "vaep": -0.03276148438453674
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.19488507509231567
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.09864801168441772
+        },
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.09329231083393097
+        }
+      ],
+      "ball_xy": [
+        -32.220001220703125,
+        -17.270000457763672
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 74,
+      "frame_id": 21998,
+      "period": 1,
+      "timestamp_ms": 554954,
+      "in_possession_team_id": "366",
+      "p_score": 0.06018069386482239,
+      "p_concede": 0.07939212769269943,
+      "vaep": -0.019211433827877045
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.19138504564762115
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.10435505211353302
+        },
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.09824520349502563
+        }
+      ],
+      "ball_xy": [
+        -31.689998626708984,
+        -19.940000534057617
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 75,
+      "frame_id": 22004,
+      "period": 1,
+      "timestamp_ms": 555154,
+      "in_possession_team_id": "366",
+      "p_score": 0.06545804440975189,
+      "p_concede": 0.07572589069604874,
+      "vaep": -0.010267846286296844
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.19205445051193237
+        },
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.10591791570186615
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.09922754019498825
+        }
+      ],
+      "ball_xy": [
+        -31.3700008392334,
+        -21.55999755859375
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 76,
+      "frame_id": 22010,
+      "period": 1,
+      "timestamp_ms": 555355,
+      "in_possession_team_id": "366",
+      "p_score": 0.06648287177085876,
+      "p_concede": 0.07933913916349411,
+      "vaep": -0.012856267392635345
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.19457098841667175
+        },
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.1430070549249649
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.10368578135967255
+        }
+      ],
+      "ball_xy": [
+        -31.290000915527344,
+        -22.1200008392334
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 77,
+      "frame_id": 22016,
+      "period": 1,
+      "timestamp_ms": 555555,
+      "in_possession_team_id": "366",
+      "p_score": 0.06400096416473389,
+      "p_concede": 0.10447318851947784,
+      "vaep": -0.04047222435474396
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.19387388229370117
+        },
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.16260980069637299
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.10640305280685425
+        }
+      ],
+      "ball_xy": [
+        -31.23999786376953,
+        -22.639999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 78,
+      "frame_id": 22022,
+      "period": 1,
+      "timestamp_ms": 555755,
+      "in_possession_team_id": "366",
+      "p_score": 0.06310097873210907,
+      "p_concede": 0.10942794382572174,
+      "vaep": -0.04632696509361267
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.19137078523635864
+        },
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.17336194217205048
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.10801726579666138
+        }
+      ],
+      "ball_xy": [
+        -31.219999313354492,
+        -23.1200008392334
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 79,
+      "frame_id": 22028,
+      "period": 1,
+      "timestamp_ms": 555955,
+      "in_possession_team_id": "366",
+      "p_score": 0.06242191046476364,
+      "p_concede": 0.1143883615732193,
+      "vaep": -0.05196645110845566
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.20246745645999908
+        },
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.1541154980659485
+        },
+        {
+          "slot": 5,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.10423952341079712
+        }
+      ],
+      "ball_xy": [
+        -30.87999725341797,
+        -23.65999984741211
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 80,
+      "frame_id": 22034,
+      "period": 1,
+      "timestamp_ms": 556155,
+      "in_possession_team_id": "366",
+      "p_score": 0.06571270525455475,
+      "p_concede": 0.11544732749462128,
+      "vaep": -0.04973462224006653
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.2099928855895996
+        },
+        {
+          "slot": 5,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.12061819434165955
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.0964014083147049
+        }
+      ],
+      "ball_xy": [
+        -28.780000686645508,
+        -24.639999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 81,
+      "frame_id": 22040,
+      "period": 1,
+      "timestamp_ms": 556356,
+      "in_possession_team_id": "366",
+      "p_score": 0.08354222774505615,
+      "p_concede": 0.08947955071926117,
+      "vaep": -0.005937322974205017
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.2018568217754364
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08449986577033997
+        },
+        {
+          "slot": 5,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.07955318689346313
+        }
+      ],
+      "ball_xy": [
+        -26.690000534057617,
+        -25.6200008392334
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 82,
+      "frame_id": 22046,
+      "period": 1,
+      "timestamp_ms": 556556,
+      "in_possession_team_id": "51",
+      "p_score": 0.09972374141216278,
+      "p_concede": 0.0632317066192627,
+      "vaep": 0.036492034792900085
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.21104103326797485
+        },
+        {
+          "slot": 5,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.11402949690818787
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08595451712608337
+        }
+      ],
+      "ball_xy": [
+        -24.59000015258789,
+        -26.599998474121094
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 83,
+      "frame_id": 22052,
+      "period": 1,
+      "timestamp_ms": 556756,
+      "in_possession_team_id": "366",
+      "p_score": 0.07884958386421204,
+      "p_concede": 0.10259156674146652,
+      "vaep": -0.023741982877254486
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.21528109908103943
+        },
+        {
+          "slot": 5,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.13166272640228271
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08497723191976547
+        }
+      ],
+      "ball_xy": [
+        -22.489999771118164,
+        -27.579999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 84,
+      "frame_id": 22058,
+      "period": 1,
+      "timestamp_ms": 556956,
+      "in_possession_team_id": "366",
+      "p_score": 0.07780306041240692,
+      "p_concede": 0.11116745322942734,
+      "vaep": -0.033364392817020416
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.22698837518692017
+        },
+        {
+          "slot": 5,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.13012710213661194
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08425678312778473
+        }
+      ],
+      "ball_xy": [
+        -21.100000381469727,
+        -28.279998779296875
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 85,
+      "frame_id": 22064,
+      "period": 1,
+      "timestamp_ms": 557156,
+      "in_possession_team_id": "366",
+      "p_score": 0.07314960658550262,
+      "p_concede": 0.1301455944776535,
+      "vaep": -0.05699598789215088
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.21727757155895233
+        },
+        {
+          "slot": 5,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.11964432150125504
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.10231121629476547
+        }
+      ],
+      "ball_xy": [
+        -21.110000610351562,
+        -28.40999984741211
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 86,
+      "frame_id": 22070,
+      "period": 1,
+      "timestamp_ms": 557357,
+      "in_possession_team_id": "366",
+      "p_score": 0.062418270856142044,
+      "p_concede": 0.17065921425819397,
+      "vaep": -0.10824094340205193
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.21504150331020355
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.1335984766483307
+        },
+        {
+          "slot": 5,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.11568335443735123
+        }
+      ],
+      "ball_xy": [
+        -21.100000381469727,
+        -28.530000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 87,
+      "frame_id": 22076,
+      "period": 1,
+      "timestamp_ms": 557557,
+      "in_possession_team_id": "366",
+      "p_score": 0.06495043635368347,
+      "p_concede": 0.18068192899227142,
+      "vaep": -0.11573149263858795
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.21601565182209015
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.14619196951389313
+        },
+        {
+          "slot": 5,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.11445268988609314
+        }
+      ],
+      "ball_xy": [
+        -21.06999969482422,
+        -28.639999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 88,
+      "frame_id": 22082,
+      "period": 1,
+      "timestamp_ms": 557757,
+      "in_possession_team_id": "366",
+      "p_score": 0.07048574090003967,
+      "p_concede": 0.18956318497657776,
+      "vaep": -0.11907744407653809
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.217999666929245
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.15141044557094574
+        },
+        {
+          "slot": 5,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.1146901398897171
+        }
+      ],
+      "ball_xy": [
+        -21.030000686645508,
+        -28.739999771118164
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 89,
+      "frame_id": 22088,
+      "period": 1,
+      "timestamp_ms": 557957,
+      "in_possession_team_id": "366",
+      "p_score": 0.07815312594175339,
+      "p_concede": 0.19632640480995178,
+      "vaep": -0.1181732788681984
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.16942532360553741
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.15066003799438477
+        },
+        {
+          "slot": 5,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.11407479643821716
+        }
+      ],
+      "ball_xy": [
+        -20.209999084472656,
+        -28.25
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 90,
+      "frame_id": 22094,
+      "period": 1,
+      "timestamp_ms": 558157,
+      "in_possession_team_id": "366",
+      "p_score": 0.13979674875736237,
+      "p_concede": 0.18238306045532227,
+      "vaep": -0.0425863116979599
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.13422586023807526
+        },
+        {
+          "slot": 5,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.10832458734512329
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.10055848956108093
+        }
+      ],
+      "ball_xy": [
+        -17.8799991607666,
+        -26.610000610351562
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 91,
+      "frame_id": 22100,
+      "period": 1,
+      "timestamp_ms": 558358,
+      "in_possession_team_id": "366",
+      "p_score": 0.21502485871315002,
+      "p_concede": 0.14736580848693848,
+      "vaep": 0.06765905022621155
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.12783508002758026
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.10558994114398956
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.09113700687885284
+        }
+      ],
+      "ball_xy": [
+        -15.5600004196167,
+        -24.96999740600586
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 92,
+      "frame_id": 22106,
+      "period": 1,
+      "timestamp_ms": 558558,
+      "in_possession_team_id": "366",
+      "p_score": 0.2461462765932083,
+      "p_concede": 0.13489149510860443,
+      "vaep": 0.11125478148460388
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.10188184678554535
+        },
+        {
+          "slot": 7,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.08713316172361374
+        },
+        {
+          "slot": 11,
+          "player_id": 8033,
+          "name": "Davy Klaassen",
+          "position": "AM",
+          "attention": 0.08439276367425919
+        }
+      ],
+      "ball_xy": [
+        -13.230000495910645,
+        -23.329999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 93,
+      "frame_id": 22112,
+      "period": 1,
+      "timestamp_ms": 558758,
+      "in_possession_team_id": "51",
+      "p_score": 0.10704390704631805,
+      "p_concede": 0.11784803867340088,
+      "vaep": -0.010804131627082825
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 11,
+          "player_id": 8033,
+          "name": "Davy Klaassen",
+          "position": "AM",
+          "attention": 0.11391731351613998
+        },
+        {
+          "slot": 7,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.10460002720355988
+        },
+        {
+          "slot": 16,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.08860307186841965
+        }
+      ],
+      "ball_xy": [
+        -10.899999618530273,
+        -21.690000534057617
+      ],
+      "event_label": "pass \u2014 Memphis Depay",
+      "is_goal_event": false,
+      "frame_idx": 94,
+      "frame_id": 22118,
+      "period": 1,
+      "timestamp_ms": 558958,
+      "in_possession_team_id": "51",
+      "p_score": 0.10538407415151596,
+      "p_concede": 0.12576451897621155,
+      "vaep": -0.020380444824695587
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 11,
+          "player_id": 8033,
+          "name": "Davy Klaassen",
+          "position": "AM",
+          "attention": 0.12741157412528992
+        },
+        {
+          "slot": 7,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.11580342799425125
+        },
+        {
+          "slot": 16,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.09235381335020065
+        }
+      ],
+      "ball_xy": [
+        -8.579999923706055,
+        -20.049999237060547
+      ],
+      "event_label": "pass \u2014 Memphis Depay",
+      "is_goal_event": false,
+      "frame_idx": 95,
+      "frame_id": 22124,
+      "period": 1,
+      "timestamp_ms": 559158,
+      "in_possession_team_id": "51",
+      "p_score": 0.10337403416633606,
+      "p_concede": 0.13502134382724762,
+      "vaep": -0.03164730966091156
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.10940013825893402
+        },
+        {
+          "slot": 7,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.09069317579269409
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.0829247310757637
+        }
+      ],
+      "ball_xy": [
+        -6.25,
+        -18.40999984741211
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 96,
+      "frame_id": 22130,
+      "period": 1,
+      "timestamp_ms": 559359,
+      "in_possession_team_id": "366",
+      "p_score": 0.39377596974372864,
+      "p_concede": 0.06368815898895264,
+      "vaep": 0.330087810754776
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.12092245370149612
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.09085716307163239
+        },
+        {
+          "slot": 7,
+          "player_id": 1973,
+          "name": "Antonee Robinson",
+          "position": "LB",
+          "attention": 0.08204498887062073
+        }
+      ],
+      "ball_xy": [
+        -4.489999771118164,
+        -17.239999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 97,
+      "frame_id": 22136,
+      "period": 1,
+      "timestamp_ms": 559559,
+      "in_possession_team_id": "366",
+      "p_score": 0.41627225279808044,
+      "p_concede": 0.04333470016717911,
+      "vaep": 0.37293755263090134
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.12989240884780884
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.12813109159469604
+        },
+        {
+          "slot": 3,
+          "player_id": 107,
+          "name": "Christian Pulisic",
+          "position": "LW",
+          "attention": 0.08946646749973297
+        }
+      ],
+      "ball_xy": [
+        -5.550000190734863,
+        -18.440000534057617
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 98,
+      "frame_id": 22142,
+      "period": 1,
+      "timestamp_ms": 559759,
+      "in_possession_team_id": "366",
+      "p_score": 0.3540830910205841,
+      "p_concede": 0.06189606338739395,
+      "vaep": 0.29218702763319016
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.15102283656597137
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.13012370467185974
+        },
+        {
+          "slot": 3,
+          "player_id": 107,
+          "name": "Christian Pulisic",
+          "position": "LW",
+          "attention": 0.11350706219673157
+        }
+      ],
+      "ball_xy": [
+        -6.610000133514404,
+        -19.639999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 99,
+      "frame_id": 22148,
+      "period": 1,
+      "timestamp_ms": 559959,
+      "in_possession_team_id": "366",
+      "p_score": 0.3865091800689697,
+      "p_concede": 0.0455143079161644,
+      "vaep": 0.34099487215280533
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.2303120195865631
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.13819675147533417
+        },
+        {
+          "slot": 3,
+          "player_id": 107,
+          "name": "Christian Pulisic",
+          "position": "LW",
+          "attention": 0.0793786495923996
+        }
+      ],
+      "ball_xy": [
+        -7.6700005531311035,
+        -20.829999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 100,
+      "frame_id": 22154,
+      "period": 1,
+      "timestamp_ms": 560159,
+      "in_possession_team_id": "51",
+      "p_score": 0.09430035203695297,
+      "p_concede": 0.15546537935733795,
+      "vaep": -0.06116502732038498
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.26851606369018555
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.13636337220668793
+        },
+        {
+          "slot": 16,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.07060690224170685
+        }
+      ],
+      "ball_xy": [
+        -8.729999542236328,
+        -22.030000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 101,
+      "frame_id": 22160,
+      "period": 1,
+      "timestamp_ms": 560360,
+      "in_possession_team_id": "51",
+      "p_score": 0.0872303768992424,
+      "p_concede": 0.183809295296669,
+      "vaep": -0.0965789183974266
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.28806158900260925
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.13024882972240448
+        },
+        {
+          "slot": 16,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.0770464688539505
+        }
+      ],
+      "ball_xy": [
+        -9.789999961853027,
+        -23.219999313354492
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 102,
+      "frame_id": 22166,
+      "period": 1,
+      "timestamp_ms": 560560,
+      "in_possession_team_id": "51",
+      "p_score": 0.07555784285068512,
+      "p_concede": 0.20527443289756775,
+      "vaep": -0.12971659004688263
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.21985924243927002
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.11424507200717926
+        },
+        {
+          "slot": 8,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.10696026682853699
+        }
+      ],
+      "ball_xy": [
+        -10.850000381469727,
+        -24.420000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 103,
+      "frame_id": 22172,
+      "period": 1,
+      "timestamp_ms": 560760,
+      "in_possession_team_id": "366",
+      "p_score": 0.4312502443790436,
+      "p_concede": 0.022742358967661858,
+      "vaep": 0.4085078854113817
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.18938317894935608
+        },
+        {
+          "slot": 8,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.12805835902690887
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.10467812418937683
+        }
+      ],
+      "ball_xy": [
+        -11.920000076293945,
+        -25.6200008392334
+      ],
+      "event_label": "pass \u2014 Marten De Roon",
+      "is_goal_event": false,
+      "frame_idx": 104,
+      "frame_id": 22178,
+      "period": 1,
+      "timestamp_ms": 560960,
+      "in_possession_team_id": "366",
+      "p_score": 0.4329882264137268,
+      "p_concede": 0.01907394826412201,
+      "vaep": 0.4139142781496048
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.1538809835910797
+        },
+        {
+          "slot": 11,
+          "player_id": 8033,
+          "name": "Davy Klaassen",
+          "position": "AM",
+          "attention": 0.11394046247005463
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.10511104017496109
+        }
+      ],
+      "ball_xy": [
+        -11.819999694824219,
+        -24.530000686645508
+      ],
+      "event_label": "pass \u2014 Marten De Roon",
+      "is_goal_event": false,
+      "frame_idx": 105,
+      "frame_id": 22184,
+      "period": 1,
+      "timestamp_ms": 561160,
+      "in_possession_team_id": "51",
+      "p_score": 0.030130350962281227,
+      "p_concede": 0.29942432045936584,
+      "vaep": -0.2692939694970846
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.19322025775909424
+        },
+        {
+          "slot": 11,
+          "player_id": 8033,
+          "name": "Davy Klaassen",
+          "position": "AM",
+          "attention": 0.1460907757282257
+        },
+        {
+          "slot": 17,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.077043317258358
+        }
+      ],
+      "ball_xy": [
+        -11.149999618530273,
+        -22.309999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 106,
+      "frame_id": 22190,
+      "period": 1,
+      "timestamp_ms": 561361,
+      "in_possession_team_id": "51",
+      "p_score": 0.0216822512447834,
+      "p_concede": 0.3125402331352234,
+      "vaep": -0.29085798189044
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.21965757012367249
+        },
+        {
+          "slot": 11,
+          "player_id": 8342,
+          "name": "Memphis Depay",
+          "position": "CF",
+          "attention": 0.15822507441043854
+        },
+        {
+          "slot": 17,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.08629019558429718
+        }
+      ],
+      "ball_xy": [
+        -10.489999771118164,
+        -20.09000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 107,
+      "frame_id": 22196,
+      "period": 1,
+      "timestamp_ms": 561561,
+      "in_possession_team_id": "51",
+      "p_score": 0.015357804484665394,
+      "p_concede": 0.3367944657802582,
+      "vaep": -0.3214366612955928
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.2412438988685608
+        },
+        {
+          "slot": 5,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.10528726130723953
+        },
+        {
+          "slot": 11,
+          "player_id": 8342,
+          "name": "Memphis Depay",
+          "position": "CF",
+          "attention": 0.0846109464764595
+        }
+      ],
+      "ball_xy": [
+        -9.819999694824219,
+        -17.8700008392334
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 108,
+      "frame_id": 22202,
+      "period": 1,
+      "timestamp_ms": 561761,
+      "in_possession_team_id": "366",
+      "p_score": 0.5483422875404358,
+      "p_concede": 0.003299430711194873,
+      "vaep": 0.5450428568292409
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.2385948896408081
+        },
+        {
+          "slot": 5,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.13378264009952545
+        },
+        {
+          "slot": 8,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.0726790651679039
+        }
+      ],
+      "ball_xy": [
+        -8.859999656677246,
+        -16.09000015258789
+      ],
+      "event_label": "pass \u2014 Memphis Depay",
+      "is_goal_event": false,
+      "frame_idx": 109,
+      "frame_id": 22208,
+      "period": 1,
+      "timestamp_ms": 561961,
+      "in_possession_team_id": "366",
+      "p_score": 0.5920848846435547,
+      "p_concede": 0.002504018135368824,
+      "vaep": 0.5895808665081859
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.177923321723938
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.1574806571006775
+        },
+        {
+          "slot": 5,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08100738376379013
+        }
+      ],
+      "ball_xy": [
+        -6.46999979019165,
+        -16.540000915527344
+      ],
+      "event_label": "pass \u2014 Memphis Depay",
+      "is_goal_event": false,
+      "frame_idx": 110,
+      "frame_id": 22214,
+      "period": 1,
+      "timestamp_ms": 562161,
+      "in_possession_team_id": "51",
+      "p_score": 0.010012265294790268,
+      "p_concede": 0.43415889143943787,
+      "vaep": -0.4241466261446476
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.21680334210395813
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.1508854776620865
+        },
+        {
+          "slot": 11,
+          "player_id": 8342,
+          "name": "Memphis Depay",
+          "position": "CF",
+          "attention": 0.08978165686130524
+        }
+      ],
+      "ball_xy": [
+        -4.079999923706055,
+        -16.989999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 111,
+      "frame_id": 22220,
+      "period": 1,
+      "timestamp_ms": 562362,
+      "in_possession_team_id": "51",
+      "p_score": 0.0097932955250144,
+      "p_concede": 0.47857385873794556,
+      "vaep": -0.46878056321293116
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.1780170500278473
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.13546380400657654
+        },
+        {
+          "slot": 5,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.11169583350419998
+        }
+      ],
+      "ball_xy": [
+        -1.6899999380111694,
+        -17.440000534057617
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 112,
+      "frame_id": 22226,
+      "period": 1,
+      "timestamp_ms": 562562,
+      "in_possession_team_id": "366",
+      "p_score": 0.7008099555969238,
+      "p_concede": 0.0009496884304098785,
+      "vaep": 0.699860267166514
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.15925590693950653
+        },
+        {
+          "slot": 5,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.13639995455741882
+        },
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.13175106048583984
+        }
+      ],
+      "ball_xy": [
+        0.38999998569488525,
+        -17.34000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 113,
+      "frame_id": 22232,
+      "period": 1,
+      "timestamp_ms": 562762,
+      "in_possession_team_id": "366",
+      "p_score": 0.7279687523841858,
+      "p_concede": 0.0009766514413058758,
+      "vaep": 0.7269921009428799
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.21772295236587524
+        },
+        {
+          "slot": 5,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.1605154275894165
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.08508440852165222
+        }
+      ],
+      "ball_xy": [
+        0.9399999976158142,
+        -14.489999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 114,
+      "frame_id": 22238,
+      "period": 1,
+      "timestamp_ms": 562962,
+      "in_possession_team_id": "366",
+      "p_score": 0.7283926010131836,
+      "p_concede": 0.0015201603528112173,
+      "vaep": 0.7268724406603724
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.24549409747123718
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.1030690148472786
+        },
+        {
+          "slot": 5,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08705740422010422
+        }
+      ],
+      "ball_xy": [
+        1.5,
+        -11.640000343322754
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 115,
+      "frame_id": 22244,
+      "period": 1,
+      "timestamp_ms": 563162,
+      "in_possession_team_id": "51",
+      "p_score": 0.008406603708863258,
+      "p_concede": 0.6261876821517944,
+      "vaep": -0.6177810784429312
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.2586408853530884
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.11502823233604431
+        },
+        {
+          "slot": 17,
+          "player_id": 13121,
+          "name": "Yunus Musah",
+          "position": "CM",
+          "attention": 0.09860335290431976
+        }
+      ],
+      "ball_xy": [
+        2.049999952316284,
+        -8.790000915527344
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 116,
+      "frame_id": 22250,
+      "period": 1,
+      "timestamp_ms": 563363,
+      "in_possession_team_id": "51",
+      "p_score": 0.00812260340899229,
+      "p_concede": 0.6503522992134094,
+      "vaep": -0.6422296958044171
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 8026,
+          "name": "Daley Blind",
+          "position": "LWB",
+          "attention": 0.27687084674835205
+        },
+        {
+          "slot": 5,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.12916171550750732
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.06494000554084778
+        }
+      ],
+      "ball_xy": [
+        2.609999895095825,
+        -5.940000057220459
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 117,
+      "frame_id": 22256,
+      "period": 1,
+      "timestamp_ms": 563563,
+      "in_possession_team_id": "366",
+      "p_score": 0.8038573265075684,
+      "p_concede": 0.0009282318642362952,
+      "vaep": 0.8029290946433321
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.28614431619644165
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.16171365976333618
+        },
+        {
+          "slot": 8,
+          "player_id": 1339,
+          "name": "Tyler Adams",
+          "position": "CM",
+          "attention": 0.049485404044389725
+        }
+      ],
+      "ball_xy": [
+        3.1600000858306885,
+        -3.0899999141693115
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 118,
+      "frame_id": 22262,
+      "period": 1,
+      "timestamp_ms": 563763,
+      "in_possession_team_id": "366",
+      "p_score": 0.822177529335022,
+      "p_concede": 0.0009715631604194641,
+      "vaep": 0.8212059661746025
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.2258608192205429
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.1719634234905243
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.08289925009012222
+        }
+      ],
+      "ball_xy": [
+        3.7699999809265137,
+        -2.190000057220459
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 119,
+      "frame_id": 22268,
+      "period": 1,
+      "timestamp_ms": 563963,
+      "in_possession_team_id": "366",
+      "p_score": 0.8482117652893066,
+      "p_concede": 0.00109662557952106,
+      "vaep": 0.8471151397097856
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.18580244481563568
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.16525205969810486
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.1188950166106224
+        }
+      ],
+      "ball_xy": [
+        4.400000095367432,
+        -1.6699999570846558
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 120,
+      "frame_id": 22274,
+      "period": 1,
+      "timestamp_ms": 564163,
+      "in_possession_team_id": "366",
+      "p_score": 0.8698250651359558,
+      "p_concede": 0.0011441785609349608,
+      "vaep": 0.8686808865750208
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.16962018609046936
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.16153104603290558
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.13445959985256195
+        }
+      ],
+      "ball_xy": [
+        5.039999961853027,
+        -1.1200000047683716
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 121,
+      "frame_id": 22280,
+      "period": 1,
+      "timestamp_ms": 564364,
+      "in_possession_team_id": "366",
+      "p_score": 0.8789013624191284,
+      "p_concede": 0.001235330244526267,
+      "vaep": 0.8776660321746022
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.1635887622833252
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.15954919159412384
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.14107093214988708
+        }
+      ],
+      "ball_xy": [
+        5.710000038146973,
+        -0.5600000023841858
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 122,
+      "frame_id": 22286,
+      "period": 1,
+      "timestamp_ms": 564564,
+      "in_possession_team_id": "366",
+      "p_score": 0.8866361975669861,
+      "p_concede": 0.001290464191697538,
+      "vaep": 0.8853457333752885
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.16223439574241638
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.15825912356376648
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.14347738027572632
+        }
+      ],
+      "ball_xy": [
+        6.389999866485596,
+        0.029999999329447746
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 123,
+      "frame_id": 22292,
+      "period": 1,
+      "timestamp_ms": 564764,
+      "in_possession_team_id": "366",
+      "p_score": 0.8921927809715271,
+      "p_concede": 0.0013568690046668053,
+      "vaep": 0.8908359119668603
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.16267094016075134
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.15675899386405945
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.14430579543113708
+        }
+      ],
+      "ball_xy": [
+        7.099999904632568,
+        0.6299999952316284
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 124,
+      "frame_id": 22298,
+      "period": 1,
+      "timestamp_ms": 564964,
+      "in_possession_team_id": "366",
+      "p_score": 0.8991217613220215,
+      "p_concede": 0.0014841738156974316,
+      "vaep": 0.897637587506324
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.16366419196128845
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.15628677606582642
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.1444949507713318
+        }
+      ],
+      "ball_xy": [
+        7.830000400543213,
+        1.2400000095367432
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 125,
+      "frame_id": 22304,
+      "period": 1,
+      "timestamp_ms": 565164,
+      "in_possession_team_id": "366",
+      "p_score": 0.9045380353927612,
+      "p_concede": 0.0016277048271149397,
+      "vaep": 0.9029103305656463
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.1645653247833252
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.15622365474700928
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.1443970799446106
+        }
+      ],
+      "ball_xy": [
+        8.579999923706055,
+        1.8600000143051147
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 126,
+      "frame_id": 22310,
+      "period": 1,
+      "timestamp_ms": 565365,
+      "in_possession_team_id": "366",
+      "p_score": 0.9105110764503479,
+      "p_concede": 0.001880829338915646,
+      "vaep": 0.9086302471114323
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.16555237770080566
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.1582234501838684
+        },
+        {
+          "slot": 4,
+          "player_id": 107,
+          "name": "Christian Pulisic",
+          "position": "LW",
+          "attention": 0.1442774087190628
+        }
+      ],
+      "ball_xy": [
+        9.359999656677246,
+        2.5
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 127,
+      "frame_id": 22316,
+      "period": 1,
+      "timestamp_ms": 565565,
+      "in_possession_team_id": "366",
+      "p_score": 0.915330708026886,
+      "p_concede": 0.0020643332973122597,
+      "vaep": 0.9132663747295737
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.16669905185699463
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.16002602875232697
+        },
+        {
+          "slot": 4,
+          "player_id": 107,
+          "name": "Christian Pulisic",
+          "position": "LW",
+          "attention": 0.15268856287002563
+        }
+      ],
+      "ball_xy": [
+        10.15999984741211,
+        3.1500000953674316
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 128,
+      "frame_id": 22322,
+      "period": 1,
+      "timestamp_ms": 565765,
+      "in_possession_team_id": "366",
+      "p_score": 0.9187925457954407,
+      "p_concede": 0.002151401713490486,
+      "vaep": 0.9166411440819502
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.16787557303905487
+        },
+        {
+          "slot": 5,
+          "player_id": 1522,
+          "name": "Frenkie de Jong",
+          "position": "CM",
+          "attention": 0.16129662096500397
+        },
+        {
+          "slot": 4,
+          "player_id": 107,
+          "name": "Christian Pulisic",
+          "position": "LW",
+          "attention": 0.16049358248710632
+        }
+      ],
+      "ball_xy": [
+        10.979999542236328,
+        3.799999952316284
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 129,
+      "frame_id": 22328,
+      "period": 1,
+      "timestamp_ms": 565965,
+      "in_possession_team_id": "366",
+      "p_score": 0.9213605523109436,
+      "p_concede": 0.0021473118104040623,
+      "vaep": 0.9192132405005395
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.1692313551902771
+        },
+        {
+          "slot": 4,
+          "player_id": 107,
+          "name": "Christian Pulisic",
+          "position": "LW",
+          "attention": 0.16762736439704895
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.16128605604171753
+        }
+      ],
+      "ball_xy": [
+        11.8100004196167,
+        4.46999979019165
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 130,
+      "frame_id": 22334,
+      "period": 1,
+      "timestamp_ms": 566165,
+      "in_possession_team_id": "366",
+      "p_score": 0.9225685000419617,
+      "p_concede": 0.00206192908808589,
+      "vaep": 0.9205065709538758
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.17462486028671265
+        },
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.17036011815071106
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.16017483174800873
+        }
+      ],
+      "ball_xy": [
+        12.65999984741211,
+        5.130000114440918
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 131,
+      "frame_id": 22340,
+      "period": 1,
+      "timestamp_ms": 566366,
+      "in_possession_team_id": "366",
+      "p_score": 0.9233313798904419,
+      "p_concede": 0.0019293857039883733,
+      "vaep": 0.9214019941864535
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.18107068538665771
+        },
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.1710241436958313
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.15827243030071259
+        }
+      ],
+      "ball_xy": [
+        13.529998779296875,
+        5.809999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 132,
+      "frame_id": 22346,
+      "period": 1,
+      "timestamp_ms": 566566,
+      "in_possession_team_id": "366",
+      "p_score": 0.9240779876708984,
+      "p_concede": 0.0018675064202398062,
+      "vaep": 0.9222104812506586
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 8022,
+          "name": "Jurrien Timber",
+          "position": "RCB",
+          "attention": 0.18657049536705017
+        },
+        {
+          "slot": 21,
+          "player_id": 1336,
+          "name": "Timothy Weah",
+          "position": "RW",
+          "attention": 0.1711714267730713
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.15577790141105652
+        }
+      ],
+      "ball_xy": [
+        14.399999618530273,
+        6.480000019073486
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 133,
+      "frame_id": 22352,
+      "period": 1,
+      "timestamp_ms": 566766,
+      "in_possession_team_id": "366",
+      "p_score": 0.9246546030044556,
+      "p_concede": 0.0018159402534365654,
+      "vaep": 0.922838662751019
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.19197198748588562
+        },
+        {
+          "slot": 21,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.17098291218280792
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.152680441737175
+        }
+      ],
+      "ball_xy": [
+        15.289999961853027,
+        7.159999847412109
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 134,
+      "frame_id": 22358,
+      "period": 1,
+      "timestamp_ms": 566966,
+      "in_possession_team_id": "366",
+      "p_score": 0.9248684644699097,
+      "p_concede": 0.0017407425912097096,
+      "vaep": 0.9231277218787
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.1966465711593628
+        },
+        {
+          "slot": 21,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.17040589451789856
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.14935602247714996
+        }
+      ],
+      "ball_xy": [
+        16.18000030517578,
+        7.829999923706055
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 135,
+      "frame_id": 22364,
+      "period": 1,
+      "timestamp_ms": 567166,
+      "in_possession_team_id": "366",
+      "p_score": 0.9247486591339111,
+      "p_concede": 0.0016767324414104223,
+      "vaep": 0.9230719266925007
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.2010943442583084
+        },
+        {
+          "slot": 21,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.16946879029273987
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.14573878049850464
+        }
+      ],
+      "ball_xy": [
+        17.06999969482422,
+        8.510000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 136,
+      "frame_id": 22370,
+      "period": 1,
+      "timestamp_ms": 567367,
+      "in_possession_team_id": "366",
+      "p_score": 0.9244216680526733,
+      "p_concede": 0.0016256774542853236,
+      "vaep": 0.922795990598388
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.206978440284729
+        },
+        {
+          "slot": 21,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.1700502634048462
+        },
+        {
+          "slot": 5,
+          "player_id": 802,
+          "name": "Jes\u00fas Ferreira",
+          "position": "CF",
+          "attention": 0.1503806859254837
+        }
+      ],
+      "ball_xy": [
+        18.84000015258789,
+        9.829999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 137,
+      "frame_id": 22376,
+      "period": 1,
+      "timestamp_ms": 567567,
+      "in_possession_team_id": "366",
+      "p_score": 0.9243689775466919,
+      "p_concede": 0.0015350752510130405,
+      "vaep": 0.9228339022956789
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.21127283573150635
+        },
+        {
+          "slot": 21,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.16938647627830505
+        },
+        {
+          "slot": 5,
+          "player_id": 8342,
+          "name": "Memphis Depay",
+          "position": "CF",
+          "attention": 0.1502842903137207
+        }
+      ],
+      "ball_xy": [
+        20.610000610351562,
+        11.149999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 138,
+      "frame_id": 22382,
+      "period": 1,
+      "timestamp_ms": 567767,
+      "in_possession_team_id": "366",
+      "p_score": 0.9237066507339478,
+      "p_concede": 0.0014679450541734695,
+      "vaep": 0.9222387056797743
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.20352303981781006
+        },
+        {
+          "slot": 21,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.15109391510486603
+        },
+        {
+          "slot": 4,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.10281438380479813
+        }
+      ],
+      "ball_xy": [
+        22.3799991607666,
+        12.459999084472656
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 139,
+      "frame_id": 22388,
+      "period": 1,
+      "timestamp_ms": 567967,
+      "in_possession_team_id": "51",
+      "p_score": 0.004078562371432781,
+      "p_concede": 0.9341630935668945,
+      "vaep": -0.9300845311954618
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.23563534021377563
+        },
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.1428198218345642
+        },
+        {
+          "slot": 18,
+          "player_id": 1971,
+          "name": "Tim Ream",
+          "position": "LCB",
+          "attention": 0.0854908749461174
+        }
+      ],
+      "ball_xy": [
+        24.139999389648438,
+        13.779999732971191
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 140,
+      "frame_id": 22394,
+      "period": 1,
+      "timestamp_ms": 568167,
+      "in_possession_team_id": "51",
+      "p_score": 0.003976495936512947,
+      "p_concede": 0.9351898431777954,
+      "vaep": -0.9312133472412825
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.2510475218296051
+        },
+        {
+          "slot": 21,
+          "player_id": 940,
+          "name": "Matt Turner",
+          "position": "GK",
+          "attention": 0.13926611840724945
+        },
+        {
+          "slot": 18,
+          "player_id": 1971,
+          "name": "Tim Ream",
+          "position": "LCB",
+          "attention": 0.09719198942184448
+        }
+      ],
+      "ball_xy": [
+        25.90999984741211,
+        15.100000381469727
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 141,
+      "frame_id": 22400,
+      "period": 1,
+      "timestamp_ms": 568368,
+      "in_possession_team_id": "51",
+      "p_score": 0.003797943005338311,
+      "p_concede": 0.9356150031089783,
+      "vaep": -0.93181706010364
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.259101927280426
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.13847048580646515
+        },
+        {
+          "slot": 18,
+          "player_id": 1971,
+          "name": "Tim Ream",
+          "position": "LCB",
+          "attention": 0.10262694954872131
+        }
+      ],
+      "ball_xy": [
+        27.680002212524414,
+        16.420000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 142,
+      "frame_id": 22406,
+      "period": 1,
+      "timestamp_ms": 568568,
+      "in_possession_team_id": "51",
+      "p_score": 0.0031722337007522583,
+      "p_concede": 0.9295406341552734,
+      "vaep": -0.9263684004545212
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.26360806822776794
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.1383381187915802
+        },
+        {
+          "slot": 18,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.10640248656272888
+        }
+      ],
+      "ball_xy": [
+        29.450002670288086,
+        17.739999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 143,
+      "frame_id": 22412,
+      "period": 1,
+      "timestamp_ms": 568768,
+      "in_possession_team_id": "51",
+      "p_score": 0.003045559860765934,
+      "p_concede": 0.9286122918128967,
+      "vaep": -0.9255667319521308
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.2664993703365326
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.138496533036232
+        },
+        {
+          "slot": 18,
+          "player_id": 916,
+          "name": "Walker Zimmerman",
+          "position": "RCB",
+          "attention": 0.10928454995155334
+        }
+      ],
+      "ball_xy": [
+        31.219999313354492,
+        19.049999237060547
+      ],
+      "event_label": "pass \u2014 Denzel Dumfries",
+      "is_goal_event": false,
+      "frame_idx": 144,
+      "frame_id": 22418,
+      "period": 1,
+      "timestamp_ms": 568968,
+      "in_possession_team_id": "51",
+      "p_score": 0.0029011969454586506,
+      "p_concede": 0.9270349740982056,
+      "vaep": -0.9241337771527469
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.19711768627166748
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.14970487356185913
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.1338522881269455
+        }
+      ],
+      "ball_xy": [
+        32.97999954223633,
+        20.3700008392334
+      ],
+      "event_label": "pass \u2014 Denzel Dumfries",
+      "is_goal_event": false,
+      "frame_idx": 145,
+      "frame_id": 22424,
+      "period": 1,
+      "timestamp_ms": 569168,
+      "in_possession_team_id": "366",
+      "p_score": 0.9092442393302917,
+      "p_concede": 0.000784688105341047,
+      "vaep": 0.9084595512249507
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.18618805706501007
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.166432186961174
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.15321266651153564
+        }
+      ],
+      "ball_xy": [
+        34.75,
+        21.690000534057617
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 146,
+      "frame_id": 22430,
+      "period": 1,
+      "timestamp_ms": 569369,
+      "in_possession_team_id": "366",
+      "p_score": 0.9089192152023315,
+      "p_concede": 0.0007397565641440451,
+      "vaep": 0.9081794586381875
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.20955288410186768
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.153260737657547
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.15241093933582306
+        }
+      ],
+      "ball_xy": [
+        36.52000045776367,
+        23.010000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 147,
+      "frame_id": 22436,
+      "period": 1,
+      "timestamp_ms": 569569,
+      "in_possession_team_id": "366",
+      "p_score": 0.9100239276885986,
+      "p_concede": 0.0007289279019460082,
+      "vaep": 0.9092949997866526
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.21921710669994354
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.14807260036468506
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.14795634150505066
+        }
+      ],
+      "ball_xy": [
+        38.290000915527344,
+        24.329999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 148,
+      "frame_id": 22442,
+      "period": 1,
+      "timestamp_ms": 569769,
+      "in_possession_team_id": "366",
+      "p_score": 0.9126216173171997,
+      "p_concede": 0.0007619134266860783,
+      "vaep": 0.9118597038905136
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.19919347763061523
+        },
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.16375532746315002
+        },
+        {
+          "slot": 5,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.12902627885341644
+        }
+      ],
+      "ball_xy": [
+        39.470001220703125,
+        23.8799991607666
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 149,
+      "frame_id": 22448,
+      "period": 1,
+      "timestamp_ms": 569969,
+      "in_possession_team_id": "366",
+      "p_score": 0.9201143383979797,
+      "p_concede": 0.0006412834627553821,
+      "vaep": 0.9194730549352244
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.24756328761577606
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.10817132890224457
+        },
+        {
+          "slot": 5,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.07973074913024902
+        }
+      ],
+      "ball_xy": [
+        39.47999954223633,
+        19.93000030517578
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 150,
+      "frame_id": 22454,
+      "period": 1,
+      "timestamp_ms": 570169,
+      "in_possession_team_id": "51",
+      "p_score": 0.005229446571320295,
+      "p_concede": 0.8973987698554993,
+      "vaep": -0.892169323284179
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.2862343192100525
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.06721153110265732
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.05942864716053009
+        }
+      ],
+      "ball_xy": [
+        39.47999954223633,
+        15.970000267028809
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 151,
+      "frame_id": 22460,
+      "period": 1,
+      "timestamp_ms": 570370,
+      "in_possession_team_id": "51",
+      "p_score": 0.004930874798446894,
+      "p_concede": 0.8898701071739197,
+      "vaep": -0.8849392323754728
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.3044731914997101
+        },
+        {
+          "slot": 14,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.06274473667144775
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.050073929131031036
+        }
+      ],
+      "ball_xy": [
+        39.4900016784668,
+        12.010000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 152,
+      "frame_id": 22466,
+      "period": 1,
+      "timestamp_ms": 570570,
+      "in_possession_team_id": "51",
+      "p_score": 0.004261801019310951,
+      "p_concede": 0.8815774321556091,
+      "vaep": -0.8773156311362982
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.31303462386131287
+        },
+        {
+          "slot": 14,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.061709530651569366
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.04458071291446686
+        }
+      ],
+      "ball_xy": [
+        39.5,
+        8.050000190734863
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 153,
+      "frame_id": 22472,
+      "period": 1,
+      "timestamp_ms": 570770,
+      "in_possession_team_id": "51",
+      "p_score": 0.003537756623700261,
+      "p_concede": 0.870471179485321,
+      "vaep": -0.8669334228616208
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.3174516260623932
+        },
+        {
+          "slot": 14,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.06153798848390579
+        },
+        {
+          "slot": 12,
+          "player_id": 8327,
+          "name": "Marten De Roon",
+          "position": "CM",
+          "attention": 0.041196662932634354
+        }
+      ],
+      "ball_xy": [
+        39.5099983215332,
+        4.099999904632568
+      ],
+      "event_label": "\u26bd GOAL \u2014 Memphis Depay",
+      "is_goal_event": true,
+      "frame_idx": 154,
+      "frame_id": 22478,
+      "period": 1,
+      "timestamp_ms": 570970,
+      "in_possession_team_id": "51",
+      "p_score": 0.0032588865142315626,
+      "p_concede": 0.8594098091125488,
+      "vaep": -0.8561509225983173
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.2666364312171936
+        },
+        {
+          "slot": 4,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.08451452106237411
+        },
+        {
+          "slot": 5,
+          "player_id": 284,
+          "name": "Nathan Ak\u00e9",
+          "position": "LCB",
+          "attention": 0.05504024773836136
+        }
+      ],
+      "ball_xy": [
+        39.52000045776367,
+        0.14000000059604645
+      ],
+      "event_label": "\u26bd GOAL \u2014 Memphis Depay",
+      "is_goal_event": true,
+      "frame_idx": 155,
+      "frame_id": 22484,
+      "period": 1,
+      "timestamp_ms": 571170,
+      "in_possession_team_id": "366",
+      "p_score": 0.8636969327926636,
+      "p_concede": 0.0008220349554903805,
+      "vaep": 0.8628748978371732
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.2808282971382141
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.08747300505638123
+        },
+        {
+          "slot": 5,
+          "player_id": 37,
+          "name": "Virgil van Dijk",
+          "position": "MCB",
+          "attention": 0.06449642777442932
+        }
+      ],
+      "ball_xy": [
+        42.86000061035156,
+        -0.5299999713897705
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 156,
+      "frame_id": 22490,
+      "period": 1,
+      "timestamp_ms": 571371,
+      "in_possession_team_id": "51",
+      "p_score": 0.0012092279503121972,
+      "p_concede": 0.903470516204834,
+      "vaep": -0.9022612882545218
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 1,
+          "player_id": 11241,
+          "name": "Andries Noppert",
+          "position": "GK",
+          "attention": 0.2802813649177551
+        },
+        {
+          "slot": 21,
+          "player_id": 8134,
+          "name": "Denzel Dumfries",
+          "position": "RWB",
+          "attention": 0.1100681871175766
+        },
+        {
+          "slot": 20,
+          "player_id": 11094,
+          "name": "Cody Gakpo",
+          "position": "CF",
+          "attention": 0.06998039782047272
+        }
+      ],
+      "ball_xy": [
+        46.869998931884766,
+        -0.5299999713897705
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 157,
+      "frame_id": 22496,
+      "period": 1,
+      "timestamp_ms": 571571,
+      "in_possession_team_id": "51",
+      "p_score": 0.000992397079244256,
+      "p_concede": 0.8925419449806213,
+      "vaep": -0.8915495479013771
+    }
+  ],
+  "image_pattern": "assets/clips/netherlands-usa-memphis/frame_{idx:03d}.png"
+}

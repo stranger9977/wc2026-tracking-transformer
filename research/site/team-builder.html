@@ -30,12 +30,17 @@
   </header>
 
   <main>
-    <h1>Optimal XI by team</h1>
-    <p class="dim">
-      For each squad, this is the eleven-player lineup that maximizes total
-      predicted pair chemistry under formation constraints — Bransen's
-      mixed-integer-programming formulation, recomputed on PFF WC22 actions.
-      Pick a team to see the lineup and its chemistry score.
+    <h1>The chemistry-optimal XI per squad</h1>
+    <p>
+      Given the pair chemistry signal from <a href="pairs.html">Top Pairs</a>,
+      <strong>what eleven should each team actually have started?</strong> For
+      every squad this tab solves Bransen's mixed-integer program — the
+      eleven-player lineup that maximises total predicted pair chemistry under
+      formation constraints (recomputed on PFF WC22 actions). Pick a team to
+      see the lineup, its formation, and its total chemistry score.
+    </p>
+    <p class="small muted">
+      The MIP formulation lives on <a href="methodology.html">Methodology §4</a>.
     </p>
 
     <div class="controls">
@@ -45,17 +50,29 @@
       </div>
       <div>
         <label>Formation</label>
-        <div id="formation-out" class="stat" style="padding:0.55rem 0.7rem;"><span class="value" id="formation-val">—</span></div>
+        <div id="formation-out" class="stat" style="padding:0.55rem 0.7rem;">
+          <span class="value" id="formation-val">—</span>
+          <span class="sub">GK – DEF – MID – FWD slot counts</span>
+        </div>
       </div>
       <div>
         <label>Total chemistry score</label>
-        <div class="stat" style="padding:0.55rem 0.7rem;"><span class="value" id="score-val">—</span></div>
+        <div class="stat" style="padding:0.55rem 0.7rem;">
+          <span class="value tabular" id="score-val">—</span>
+          <span class="sub">Σ predicted pair-chemistry, α·JOI90 + (1−α)·JDI90 (VAEP·90/min)</span>
+        </div>
       </div>
     </div>
 
     <div id="builder-body">
       <div class="empty-state">Loading…</div>
     </div>
+
+    <p class="small muted" style="margin-top: 1.5rem;">
+      <strong>Next →</strong> ask whether the chemistry travels —
+      <a href="club-vs-national.html">Club vs National</a> compares each
+      player's WC22 OI/90 to his club season.
+    </p>
   </main>
 
   <footer class="site-footer">

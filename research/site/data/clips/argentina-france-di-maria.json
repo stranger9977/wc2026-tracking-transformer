@@ -1,0 +1,6907 @@
+{
+  "label": "argentina-france-di-maria",
+  "title": "Di Mar\u00eda 36' (Argentina v France, final)",
+  "match_id": "10517",
+  "period": 1,
+  "start_s": 2080.0,
+  "end_s": 2120.0,
+  "n_frames": 174,
+  "home_team": {
+    "id": "364",
+    "name": "Argentina",
+    "short": "ARG",
+    "color": "#ffffff"
+  },
+  "away_team": {
+    "name": "France",
+    "short": "FRA",
+    "color": "#003366"
+  },
+  "events_in_window": [
+    {
+      "period_rel_ms": 2081000,
+      "type": "pass",
+      "actor_name": "Cristian Romero",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2084000,
+      "type": "pass",
+      "actor_name": "Emiliano Mart\u00ednez",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2087000,
+      "type": "pass",
+      "actor_name": "Nicol\u00e1s Otamendi",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2090000,
+      "type": "pass",
+      "actor_name": "Emiliano Mart\u00ednez",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2093000,
+      "type": "pass",
+      "actor_name": "Cristian Romero",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2094000,
+      "type": "touch",
+      "actor_name": "Nahuel Molina",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2100000,
+      "type": "pass",
+      "actor_name": "Theo Hernandez",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2101000,
+      "type": "tackle",
+      "actor_name": "Cristian Romero",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2103000,
+      "type": "pass",
+      "actor_name": "Nahuel Molina",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2104000,
+      "type": "clearance",
+      "actor_name": "Emiliano Mart\u00ednez",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2109000,
+      "type": "pass",
+      "actor_name": "Dayot Upamecano",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2111000,
+      "type": "pass",
+      "actor_name": "Nahuel Molina",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2112000,
+      "type": "pass",
+      "actor_name": "Alexis Mac Allister",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2114000,
+      "type": "pass",
+      "actor_name": "Lionel Messi",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2115000,
+      "type": "pass",
+      "actor_name": "Julian Alvarez",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2119000,
+      "type": "pass",
+      "actor_name": "Alexis Mac Allister",
+      "is_goal": false
+    }
+  ],
+  "frames": [
+    {
+      "top_attended": [
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12376156449317932
+        },
+        {
+          "slot": 5,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.11770869791507721
+        },
+        {
+          "slot": 10,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.08709568530321121
+        }
+      ],
+      "ball_xy": [
+        -5.929999828338623,
+        5.059999942779541
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 0,
+      "frame_id": 66973,
+      "period": 1,
+      "timestamp_ms": 2080181,
+      "in_possession_team_id": "364",
+      "p_score": 0.051781438291072845,
+      "p_concede": 0.078274667263031,
+      "vaep": -0.02649322897195816
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12461509555578232
+        },
+        {
+          "slot": 5,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.11331260204315186
+        },
+        {
+          "slot": 10,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.08586089313030243
+        }
+      ],
+      "ball_xy": [
+        -6.159999847412109,
+        5.409999847412109
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 1,
+      "frame_id": 66979,
+      "period": 1,
+      "timestamp_ms": 2080381,
+      "in_possession_team_id": "364",
+      "p_score": 0.04744601994752884,
+      "p_concede": 0.08745305985212326,
+      "vaep": -0.04000703990459442
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12579724192619324
+        },
+        {
+          "slot": 5,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.10636728256940842
+        },
+        {
+          "slot": 10,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.08375748991966248
+        }
+      ],
+      "ball_xy": [
+        -6.420000076293945,
+        5.760000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 2,
+      "frame_id": 66985,
+      "period": 1,
+      "timestamp_ms": 2080581,
+      "in_possession_team_id": "364",
+      "p_score": 0.04346371814608574,
+      "p_concede": 0.09979748725891113,
+      "vaep": -0.056333769112825394
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12716752290725708
+        },
+        {
+          "slot": 5,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.09874583780765533
+        },
+        {
+          "slot": 19,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.08207042515277863
+        }
+      ],
+      "ball_xy": [
+        -6.699999809265137,
+        6.100000381469727
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 3,
+      "frame_id": 66991,
+      "period": 1,
+      "timestamp_ms": 2080781,
+      "in_possession_team_id": "364",
+      "p_score": 0.039930760860443115,
+      "p_concede": 0.11562225222587585,
+      "vaep": -0.07569149136543274
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.1275203824043274
+        },
+        {
+          "slot": 19,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.09115931391716003
+        },
+        {
+          "slot": 5,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.09107932448387146
+        }
+      ],
+      "ball_xy": [
+        -7.019999980926514,
+        6.449999809265137
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 4,
+      "frame_id": 66997,
+      "period": 1,
+      "timestamp_ms": 2080981,
+      "in_possession_team_id": "364",
+      "p_score": 0.03587745502591133,
+      "p_concede": 0.13644996285438538,
+      "vaep": -0.10057250782847404
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12783727049827576
+        },
+        {
+          "slot": 19,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.10076504945755005
+        },
+        {
+          "slot": 5,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.08426836878061295
+        }
+      ],
+      "ball_xy": [
+        -7.369999885559082,
+        6.78000020980835
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 5,
+      "frame_id": 67003,
+      "period": 1,
+      "timestamp_ms": 2081182,
+      "in_possession_team_id": "364",
+      "p_score": 0.03311707451939583,
+      "p_concede": 0.16497808694839478,
+      "vaep": -0.13186101242899895
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.1287422627210617
+        },
+        {
+          "slot": 19,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1265217363834381
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.09000810980796814
+        }
+      ],
+      "ball_xy": [
+        -9.079999923706055,
+        6.179999828338623
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 6,
+      "frame_id": 67009,
+      "period": 1,
+      "timestamp_ms": 2081382,
+      "in_possession_team_id": "364",
+      "p_score": 0.03312525153160095,
+      "p_concede": 0.24502462148666382,
+      "vaep": -0.21189936995506287
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.1413305103778839
+        },
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12798906862735748
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.09982849657535553
+        }
+      ],
+      "ball_xy": [
+        -11.0600004196167,
+        5.400000095367432
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 7,
+      "frame_id": 67015,
+      "period": 1,
+      "timestamp_ms": 2081582,
+      "in_possession_team_id": "364",
+      "p_score": 0.031460635364055634,
+      "p_concede": 0.2981843948364258,
+      "vaep": -0.26672375947237015
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.15240895748138428
+        },
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12662163376808167
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.10503329336643219
+        }
+      ],
+      "ball_xy": [
+        -13.039999961853027,
+        4.619999885559082
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 8,
+      "frame_id": 67021,
+      "period": 1,
+      "timestamp_ms": 2081782,
+      "in_possession_team_id": "364",
+      "p_score": 0.029535608366131783,
+      "p_concede": 0.35115158557891846,
+      "vaep": -0.3216159772127867
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.16157463192939758
+        },
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12509863078594208
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.10756704211235046
+        }
+      ],
+      "ball_xy": [
+        -15.020001411437988,
+        3.8399999141693115
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 9,
+      "frame_id": 67027,
+      "period": 1,
+      "timestamp_ms": 2081982,
+      "in_possession_team_id": "364",
+      "p_score": 0.02792765572667122,
+      "p_concede": 0.4041431248188019,
+      "vaep": -0.37621546909213066
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.16952568292617798
+        },
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12310388684272766
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.10869826376438141
+        }
+      ],
+      "ball_xy": [
+        -16.989999771118164,
+        3.0500001907348633
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 10,
+      "frame_id": 67033,
+      "period": 1,
+      "timestamp_ms": 2082183,
+      "in_possession_team_id": "364",
+      "p_score": 0.02645755745470524,
+      "p_concede": 0.4435938000679016,
+      "vaep": -0.4171362426131964
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1751319020986557
+        },
+        {
+          "slot": 2,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12101471424102783
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.10868027806282043
+        }
+      ],
+      "ball_xy": [
+        -18.969999313354492,
+        2.2699999809265137
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 11,
+      "frame_id": 67039,
+      "period": 1,
+      "timestamp_ms": 2082383,
+      "in_possession_team_id": "364",
+      "p_score": 0.024901216849684715,
+      "p_concede": 0.4717528820037842,
+      "vaep": -0.44685166515409946
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.20854796469211578
+        },
+        {
+          "slot": 2,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1141744926571846
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.10004748404026031
+        }
+      ],
+      "ball_xy": [
+        -20.950000762939453,
+        1.4900000095367432
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 12,
+      "frame_id": 67045,
+      "period": 1,
+      "timestamp_ms": 2082583,
+      "in_possession_team_id": "364",
+      "p_score": 0.015893535688519478,
+      "p_concede": 0.44342249631881714,
+      "vaep": -0.42752896063029766
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.22593462467193604
+        },
+        {
+          "slot": 2,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.10990208387374878
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.09581749886274338
+        }
+      ],
+      "ball_xy": [
+        -22.93000030517578,
+        0.7100000381469727
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 13,
+      "frame_id": 67051,
+      "period": 1,
+      "timestamp_ms": 2082783,
+      "in_possession_team_id": "364",
+      "p_score": 0.014774146489799023,
+      "p_concede": 0.4632934629917145,
+      "vaep": -0.44851931650191545
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.23511087894439697
+        },
+        {
+          "slot": 2,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1070881187915802
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.0933026373386383
+        }
+      ],
+      "ball_xy": [
+        -24.90999984741211,
+        -0.07999999821186066
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 14,
+      "frame_id": 67057,
+      "period": 1,
+      "timestamp_ms": 2082983,
+      "in_possession_team_id": "364",
+      "p_score": 0.013938398100435734,
+      "p_concede": 0.4755876958370209,
+      "vaep": -0.46164929773658514
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.24015769362449646
+        },
+        {
+          "slot": 2,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.10547152161598206
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.09109041094779968
+        }
+      ],
+      "ball_xy": [
+        -26.87999725341797,
+        -0.8600000143051147
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 15,
+      "frame_id": 67063,
+      "period": 1,
+      "timestamp_ms": 2083184,
+      "in_possession_team_id": "364",
+      "p_score": 0.013326478190720081,
+      "p_concede": 0.4850296974182129,
+      "vaep": -0.4717032192274928
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.24281448125839233
+        },
+        {
+          "slot": 2,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1046922355890274
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.08906426280736923
+        }
+      ],
+      "ball_xy": [
+        -28.860002517700195,
+        -1.6399999856948853
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 16,
+      "frame_id": 67069,
+      "period": 1,
+      "timestamp_ms": 2083384,
+      "in_possession_team_id": "364",
+      "p_score": 0.012839587405323982,
+      "p_concede": 0.4918542802333832,
+      "vaep": -0.4790146928280592
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.24435675144195557
+        },
+        {
+          "slot": 2,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.10489153861999512
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.0870676040649414
+        }
+      ],
+      "ball_xy": [
+        -30.84000015258789,
+        -2.4200000762939453
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 17,
+      "frame_id": 67075,
+      "period": 1,
+      "timestamp_ms": 2083584,
+      "in_possession_team_id": "364",
+      "p_score": 0.012541908770799637,
+      "p_concede": 0.4938373565673828,
+      "vaep": -0.4812954477965832
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2452443540096283
+        },
+        {
+          "slot": 2,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1057637631893158
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.08547115325927734
+        }
+      ],
+      "ball_xy": [
+        -32.81999969482422,
+        -3.2100000381469727
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 18,
+      "frame_id": 67081,
+      "period": 1,
+      "timestamp_ms": 2083784,
+      "in_possession_team_id": "364",
+      "p_score": 0.012314350344240665,
+      "p_concede": 0.4937756359577179,
+      "vaep": -0.48146128561347723
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25263291597366333
+        },
+        {
+          "slot": 2,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.10076539218425751
+        },
+        {
+          "slot": 12,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.0955653041601181
+        }
+      ],
+      "ball_xy": [
+        -33.380001068115234,
+        -3.609999895095825
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 19,
+      "frame_id": 67087,
+      "period": 1,
+      "timestamp_ms": 2083984,
+      "in_possession_team_id": "364",
+      "p_score": 0.011740953661501408,
+      "p_concede": 0.4962427318096161,
+      "vaep": -0.4845017781481147
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1646089255809784
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.10914630442857742
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.06983883678913116
+        }
+      ],
+      "ball_xy": [
+        -32.36000061035156,
+        -4.960000038146973
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 20,
+      "frame_id": 67093,
+      "period": 1,
+      "timestamp_ms": 2084185,
+      "in_possession_team_id": "364",
+      "p_score": 0.014780130237340927,
+      "p_concede": 0.41546157002449036,
+      "vaep": -0.40068143978714943
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.1372852325439453
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.11108539253473282
+        },
+        {
+          "slot": 1,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.06355660408735275
+        }
+      ],
+      "ball_xy": [
+        -31.06999969482422,
+        -6.510000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 21,
+      "frame_id": 67099,
+      "period": 1,
+      "timestamp_ms": 2084385,
+      "in_possession_team_id": "364",
+      "p_score": 0.013373149558901787,
+      "p_concede": 0.4202668070793152,
+      "vaep": -0.4068936575204134
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.1517602503299713
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.08381347358226776
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.06656552106142044
+        }
+      ],
+      "ball_xy": [
+        -29.790000915527344,
+        -8.0600004196167
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 22,
+      "frame_id": 67105,
+      "period": 1,
+      "timestamp_ms": 2084585,
+      "in_possession_team_id": "364",
+      "p_score": 0.01258656196296215,
+      "p_concede": 0.42089638113975525,
+      "vaep": -0.4083098191767931
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.15946580469608307
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.07093842327594757
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.06754060089588165
+        }
+      ],
+      "ball_xy": [
+        -28.510000228881836,
+        -9.609999656677246
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 23,
+      "frame_id": 67111,
+      "period": 1,
+      "timestamp_ms": 2084785,
+      "in_possession_team_id": "364",
+      "p_score": 0.019858727231621742,
+      "p_concede": 0.39774948358535767,
+      "vaep": -0.3778907563537359
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.16444343328475952
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.07284486293792725
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.0584239698946476
+        }
+      ],
+      "ball_xy": [
+        -27.219999313354492,
+        -11.15999984741211
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 24,
+      "frame_id": 67117,
+      "period": 1,
+      "timestamp_ms": 2084985,
+      "in_possession_team_id": "364",
+      "p_score": 0.019288593903183937,
+      "p_concede": 0.3929113447666168,
+      "vaep": -0.3736227508634329
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.16835349798202515
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.0731840431690216
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.056375689804553986
+        }
+      ],
+      "ball_xy": [
+        -25.940000534057617,
+        -12.710000038146973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 25,
+      "frame_id": 67123,
+      "period": 1,
+      "timestamp_ms": 2085186,
+      "in_possession_team_id": "364",
+      "p_score": 0.018550867214798927,
+      "p_concede": 0.3840276896953583,
+      "vaep": -0.36547682248055935
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.17178091406822205
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.07274690270423889
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.05642310902476311
+        }
+      ],
+      "ball_xy": [
+        -24.649999618530273,
+        -14.260000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 26,
+      "frame_id": 67129,
+      "period": 1,
+      "timestamp_ms": 2085386,
+      "in_possession_team_id": "364",
+      "p_score": 0.01794586144387722,
+      "p_concede": 0.3699531853199005,
+      "vaep": -0.3520073238760233
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.16544044017791748
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.14008226990699768
+        },
+        {
+          "slot": 2,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.08238876610994339
+        }
+      ],
+      "ball_xy": [
+        -24.90999984741211,
+        -14.6899995803833
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 27,
+      "frame_id": 67135,
+      "period": 1,
+      "timestamp_ms": 2085586,
+      "in_possession_team_id": "364",
+      "p_score": 0.015582104213535786,
+      "p_concede": 0.37673330307006836,
+      "vaep": -0.3611511988565326
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.21727325022220612
+        },
+        {
+          "slot": 2,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.12598983943462372
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.10253588855266571
+        }
+      ],
+      "ball_xy": [
+        -25.450000762939453,
+        -14.890000343322754
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 28,
+      "frame_id": 67141,
+      "period": 1,
+      "timestamp_ms": 2085786,
+      "in_possession_team_id": "364",
+      "p_score": 0.014652284793555737,
+      "p_concede": 0.40906772017478943,
+      "vaep": -0.3944154353812337
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25875768065452576
+        },
+        {
+          "slot": 2,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.1469959318637848
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.0948421061038971
+        }
+      ],
+      "ball_xy": [
+        -25.969999313354492,
+        -15.09000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 29,
+      "frame_id": 67147,
+      "period": 1,
+      "timestamp_ms": 2085986,
+      "in_possession_team_id": "364",
+      "p_score": 0.014526121318340302,
+      "p_concede": 0.39232009649276733,
+      "vaep": -0.37779397517442703
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.28274938464164734
+        },
+        {
+          "slot": 2,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.15720513463020325
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.09760619699954987
+        }
+      ],
+      "ball_xy": [
+        -26.46000099182129,
+        -15.300000190734863
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 30,
+      "frame_id": 67153,
+      "period": 1,
+      "timestamp_ms": 2086187,
+      "in_possession_team_id": "364",
+      "p_score": 0.014568236656486988,
+      "p_concede": 0.3800962269306183,
+      "vaep": -0.3655279902741313
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2981218695640564
+        },
+        {
+          "slot": 2,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.16146227717399597
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.0990506261587143
+        }
+      ],
+      "ball_xy": [
+        -26.920000076293945,
+        -15.489999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 31,
+      "frame_id": 67159,
+      "period": 1,
+      "timestamp_ms": 2086387,
+      "in_possession_team_id": "364",
+      "p_score": 0.014664714224636555,
+      "p_concede": 0.3774124085903168,
+      "vaep": -0.3627476943656802
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.3091237545013428
+        },
+        {
+          "slot": 2,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.16345834732055664
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.09955625236034393
+        }
+      ],
+      "ball_xy": [
+        -27.3700008392334,
+        -15.680000305175781
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 32,
+      "frame_id": 67165,
+      "period": 1,
+      "timestamp_ms": 2086587,
+      "in_possession_team_id": "364",
+      "p_score": 0.01481800526380539,
+      "p_concede": 0.37516048550605774,
+      "vaep": -0.36034248024225235
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.31829482316970825
+        },
+        {
+          "slot": 2,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.1629151701927185
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.09950819611549377
+        }
+      ],
+      "ball_xy": [
+        -27.790000915527344,
+        -15.859999656677246
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 33,
+      "frame_id": 67171,
+      "period": 1,
+      "timestamp_ms": 2086787,
+      "in_possession_team_id": "364",
+      "p_score": 0.014997606165707111,
+      "p_concede": 0.37023264169692993,
+      "vaep": -0.3552350355312228
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.3261224925518036
+        },
+        {
+          "slot": 2,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.160731703042984
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.09869169443845749
+        }
+      ],
+      "ball_xy": [
+        -28.190000534057617,
+        -16.040000915527344
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 34,
+      "frame_id": 67177,
+      "period": 1,
+      "timestamp_ms": 2086987,
+      "in_possession_team_id": "364",
+      "p_score": 0.015044976025819778,
+      "p_concede": 0.3625827133655548,
+      "vaep": -0.34753773733973503
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.333154559135437
+        },
+        {
+          "slot": 2,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.1560932993888855
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.09722980856895447
+        }
+      ],
+      "ball_xy": [
+        -28.56999969482422,
+        -16.200000762939453
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 35,
+      "frame_id": 67183,
+      "period": 1,
+      "timestamp_ms": 2087188,
+      "in_possession_team_id": "364",
+      "p_score": 0.015120038762688637,
+      "p_concede": 0.3515113294124603,
+      "vaep": -0.3363912906497717
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.3389803171157837
+        },
+        {
+          "slot": 2,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.14784371852874756
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.09482651948928833
+        }
+      ],
+      "ball_xy": [
+        -28.93000030517578,
+        -16.350000381469727
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 36,
+      "frame_id": 67189,
+      "period": 1,
+      "timestamp_ms": 2087388,
+      "in_possession_team_id": "364",
+      "p_score": 0.015137780457735062,
+      "p_concede": 0.3334563374519348,
+      "vaep": -0.31831855699419975
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.34364646673202515
+        },
+        {
+          "slot": 2,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.1357290893793106
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.090775266289711
+        }
+      ],
+      "ball_xy": [
+        -29.280000686645508,
+        -16.479999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 37,
+      "frame_id": 67195,
+      "period": 1,
+      "timestamp_ms": 2087588,
+      "in_possession_team_id": "364",
+      "p_score": 0.015475528314709663,
+      "p_concede": 0.3097534775733948,
+      "vaep": -0.2942779492586851
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.3163110613822937
+        },
+        {
+          "slot": 2,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.11488746106624603
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.07765279710292816
+        }
+      ],
+      "ball_xy": [
+        -30.180002212524414,
+        -15.489999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 38,
+      "frame_id": 67201,
+      "period": 1,
+      "timestamp_ms": 2087788,
+      "in_possession_team_id": "364",
+      "p_score": 0.015555932186543941,
+      "p_concede": 0.33322498202323914,
+      "vaep": -0.3176690498366952
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.27560359239578247
+        },
+        {
+          "slot": 2,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.09921154379844666
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.08477062731981277
+        }
+      ],
+      "ball_xy": [
+        -31.64999771118164,
+        -13.390000343322754
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 39,
+      "frame_id": 67207,
+      "period": 1,
+      "timestamp_ms": 2087988,
+      "in_possession_team_id": "364",
+      "p_score": 0.01606019400060177,
+      "p_concede": 0.2742732763290405,
+      "vaep": -0.25821308232843876
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.255870521068573
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.09250713884830475
+        },
+        {
+          "slot": 2,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.09015142172574997
+        }
+      ],
+      "ball_xy": [
+        -33.119998931884766,
+        -11.289999961853027
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 40,
+      "frame_id": 67213,
+      "period": 1,
+      "timestamp_ms": 2088189,
+      "in_possession_team_id": "364",
+      "p_score": 0.016423741355538368,
+      "p_concede": 0.2533031702041626,
+      "vaep": -0.23687942884862423
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.24790312349796295
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.09786723554134369
+        },
+        {
+          "slot": 14,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.08574587106704712
+        }
+      ],
+      "ball_xy": [
+        -34.599998474121094,
+        -9.180000305175781
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 41,
+      "frame_id": 67219,
+      "period": 1,
+      "timestamp_ms": 2088389,
+      "in_possession_team_id": "363",
+      "p_score": 0.3958505094051361,
+      "p_concede": 0.02017344906926155,
+      "vaep": 0.37567706033587456
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2413465678691864
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.08948607742786407
+        },
+        {
+          "slot": 14,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.07522991299629211
+        }
+      ],
+      "ball_xy": [
+        -36.06999969482422,
+        -7.079999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 42,
+      "frame_id": 67225,
+      "period": 1,
+      "timestamp_ms": 2088589,
+      "in_possession_team_id": "364",
+      "p_score": 0.015323936007916927,
+      "p_concede": 0.20595891773700714,
+      "vaep": -0.1906349817290902
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.23802214860916138
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.10300848633050919
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07545702159404755
+        }
+      ],
+      "ball_xy": [
+        -37.540000915527344,
+        -4.969999313354492
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 43,
+      "frame_id": 67231,
+      "period": 1,
+      "timestamp_ms": 2088789,
+      "in_possession_team_id": "364",
+      "p_score": 0.015110334381461143,
+      "p_concede": 0.19299432635307312,
+      "vaep": -0.17788399197161198
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.23652629554271698
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.11386673152446747
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07758991420269012
+        }
+      ],
+      "ball_xy": [
+        -39.0099983215332,
+        -2.869999885559082
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 44,
+      "frame_id": 67237,
+      "period": 1,
+      "timestamp_ms": 2088989,
+      "in_possession_team_id": "364",
+      "p_score": 0.014664220623672009,
+      "p_concede": 0.1862909495830536,
+      "vaep": -0.17162672895938158
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.23511195182800293
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.12327580153942108
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07653258740901947
+        }
+      ],
+      "ball_xy": [
+        -40.47999954223633,
+        -0.7599999904632568
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 45,
+      "frame_id": 67243,
+      "period": 1,
+      "timestamp_ms": 2089190,
+      "in_possession_team_id": "364",
+      "p_score": 0.0142472293227911,
+      "p_concede": 0.17988063395023346,
+      "vaep": -0.16563340462744236
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.23397381603717804
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.13163970410823822
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07387691736221313
+        }
+      ],
+      "ball_xy": [
+        -41.959999084472656,
+        1.340000033378601
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 46,
+      "frame_id": 67249,
+      "period": 1,
+      "timestamp_ms": 2089390,
+      "in_possession_team_id": "364",
+      "p_score": 0.013982822187244892,
+      "p_concede": 0.17679326236248016,
+      "vaep": -0.16281044017523527
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2723352611064911
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.14605633914470673
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07736372947692871
+        }
+      ],
+      "ball_xy": [
+        -42.2400016784668,
+        1.7899999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 47,
+      "frame_id": 67255,
+      "period": 1,
+      "timestamp_ms": 2089590,
+      "in_possession_team_id": "364",
+      "p_score": 0.015047418884932995,
+      "p_concede": 0.14768683910369873,
+      "vaep": -0.13263942021876574
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.29379501938819885
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.1550479233264923
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07774919271469116
+        }
+      ],
+      "ball_xy": [
+        -42.529998779296875,
+        2.200000047683716
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 48,
+      "frame_id": 67261,
+      "period": 1,
+      "timestamp_ms": 2089790,
+      "in_possession_team_id": "364",
+      "p_score": 0.01497754454612732,
+      "p_concede": 0.1499064713716507,
+      "vaep": -0.13492892682552338
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.30698975920677185
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.16031020879745483
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07712837308645248
+        }
+      ],
+      "ball_xy": [
+        -42.81999969482422,
+        2.569999933242798
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 49,
+      "frame_id": 67267,
+      "period": 1,
+      "timestamp_ms": 2089990,
+      "in_possession_team_id": "364",
+      "p_score": 0.014997388236224651,
+      "p_concede": 0.15531489253044128,
+      "vaep": -0.14031750429421663
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.31603914499282837
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.16276749968528748
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07647731155157089
+        }
+      ],
+      "ball_xy": [
+        -43.099998474121094,
+        2.9000000953674316
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 50,
+      "frame_id": 67273,
+      "period": 1,
+      "timestamp_ms": 2090191,
+      "in_possession_team_id": "364",
+      "p_score": 0.015019077807664871,
+      "p_concede": 0.16339628398418427,
+      "vaep": -0.1483772061765194
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.3228759169578552
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.16330310702323914
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07589028775691986
+        }
+      ],
+      "ball_xy": [
+        -43.38999938964844,
+        3.190000057220459
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 51,
+      "frame_id": 67279,
+      "period": 1,
+      "timestamp_ms": 2090391,
+      "in_possession_team_id": "364",
+      "p_score": 0.0148833729326725,
+      "p_concede": 0.17133575677871704,
+      "vaep": -0.15645238384604454
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.3013933002948761
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.1620093286037445
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07142071425914764
+        }
+      ],
+      "ball_xy": [
+        -43.220001220703125,
+        4.369999885559082
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 52,
+      "frame_id": 67285,
+      "period": 1,
+      "timestamp_ms": 2090591,
+      "in_possession_team_id": "364",
+      "p_score": 0.017525553703308105,
+      "p_concede": 0.16123247146606445,
+      "vaep": -0.14370691776275635
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2786162495613098
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.15913918614387512
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.06768633425235748
+        }
+      ],
+      "ball_xy": [
+        -42.61000061035156,
+        6.449999809265137
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 53,
+      "frame_id": 67291,
+      "period": 1,
+      "timestamp_ms": 2090791,
+      "in_possession_team_id": "364",
+      "p_score": 0.01841377466917038,
+      "p_concede": 0.171720951795578,
+      "vaep": -0.15330717712640762
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2667980194091797
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.15713848173618317
+        },
+        {
+          "slot": 14,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.06895516067743301
+        }
+      ],
+      "ball_xy": [
+        -41.9900016784668,
+        8.529999732971191
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 54,
+      "frame_id": 67297,
+      "period": 1,
+      "timestamp_ms": 2090991,
+      "in_possession_team_id": "364",
+      "p_score": 0.018345076590776443,
+      "p_concede": 0.18075832724571228,
+      "vaep": -0.16241325065493584
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2599785327911377
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.15523356199264526
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.0743546187877655
+        }
+      ],
+      "ball_xy": [
+        -41.380001068115234,
+        10.609999656677246
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 55,
+      "frame_id": 67303,
+      "period": 1,
+      "timestamp_ms": 2091192,
+      "in_possession_team_id": "364",
+      "p_score": 0.021926701068878174,
+      "p_concede": 0.22488056123256683,
+      "vaep": -0.20295386016368866
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2557176351547241
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.15340816974639893
+        },
+        {
+          "slot": 2,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.0788951888680458
+        }
+      ],
+      "ball_xy": [
+        -40.77000045776367,
+        12.6899995803833
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 56,
+      "frame_id": 67309,
+      "period": 1,
+      "timestamp_ms": 2091392,
+      "in_possession_team_id": "364",
+      "p_score": 0.020844530314207077,
+      "p_concede": 0.24254149198532104,
+      "vaep": -0.22169696167111397
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25470787286758423
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.15159697830677032
+        },
+        {
+          "slot": 2,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.08201156556606293
+        }
+      ],
+      "ball_xy": [
+        -40.29999923706055,
+        14.460000038146973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 57,
+      "frame_id": 67315,
+      "period": 1,
+      "timestamp_ms": 2091592,
+      "in_possession_team_id": "364",
+      "p_score": 0.01903366483747959,
+      "p_concede": 0.26285555958747864,
+      "vaep": -0.24382189474999905
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2538573145866394
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.145620197057724
+        },
+        {
+          "slot": 2,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.08419380336999893
+        }
+      ],
+      "ball_xy": [
+        -40.58000183105469,
+        14.640000343322754
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 58,
+      "frame_id": 67321,
+      "period": 1,
+      "timestamp_ms": 2091792,
+      "in_possession_team_id": "364",
+      "p_score": 0.011361162178218365,
+      "p_concede": 0.31593480706214905,
+      "vaep": -0.3045736448839307
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2544817626476288
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.14138975739479065
+        },
+        {
+          "slot": 2,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.0849505364894867
+        }
+      ],
+      "ball_xy": [
+        -40.81999969482422,
+        14.819999694824219
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 59,
+      "frame_id": 67327,
+      "period": 1,
+      "timestamp_ms": 2091992,
+      "in_possession_team_id": "364",
+      "p_score": 0.010722397826611996,
+      "p_concede": 0.3366890549659729,
+      "vaep": -0.3259666571393609
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2562550902366638
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.13762599229812622
+        },
+        {
+          "slot": 2,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.08487783372402191
+        }
+      ],
+      "ball_xy": [
+        -41.040000915527344,
+        15.020000457763672
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 60,
+      "frame_id": 67333,
+      "period": 1,
+      "timestamp_ms": 2092193,
+      "in_possession_team_id": "364",
+      "p_score": 0.010100237093865871,
+      "p_concede": 0.36310726404190063,
+      "vaep": -0.35300702694803476
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25776374340057373
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.13397186994552612
+        },
+        {
+          "slot": 2,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.08443726599216461
+        }
+      ],
+      "ball_xy": [
+        -41.220001220703125,
+        15.220000267028809
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 61,
+      "frame_id": 67339,
+      "period": 1,
+      "timestamp_ms": 2092393,
+      "in_possession_team_id": "364",
+      "p_score": 0.00957250501960516,
+      "p_concede": 0.39074456691741943,
+      "vaep": -0.3811720618978143
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25968819856643677
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.12989988923072815
+        },
+        {
+          "slot": 2,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.08364616334438324
+        }
+      ],
+      "ball_xy": [
+        -41.380001068115234,
+        15.420000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 62,
+      "frame_id": 67345,
+      "period": 1,
+      "timestamp_ms": 2092593,
+      "in_possession_team_id": "364",
+      "p_score": 0.009178555570542812,
+      "p_concede": 0.4239577651023865,
+      "vaep": -0.41477920953184366
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.26065653562545776
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.12539717555046082
+        },
+        {
+          "slot": 2,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.08256139606237411
+        }
+      ],
+      "ball_xy": [
+        -41.5,
+        15.630000114440918
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 63,
+      "frame_id": 67351,
+      "period": 1,
+      "timestamp_ms": 2092793,
+      "in_possession_team_id": "364",
+      "p_score": 0.009036687202751637,
+      "p_concede": 0.4489419460296631,
+      "vaep": -0.43990525882691145
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.260994553565979
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.12040652334690094
+        },
+        {
+          "slot": 2,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.08111982047557831
+        }
+      ],
+      "ball_xy": [
+        -41.599998474121094,
+        15.850000381469727
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 64,
+      "frame_id": 67357,
+      "period": 1,
+      "timestamp_ms": 2092993,
+      "in_possession_team_id": "364",
+      "p_score": 0.00905176904052496,
+      "p_concede": 0.4676152467727661,
+      "vaep": -0.45856347773224115
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2599305808544159
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1150016039609909
+        },
+        {
+          "slot": 2,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.0792984813451767
+        }
+      ],
+      "ball_xy": [
+        -41.66999816894531,
+        16.06999969482422
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 65,
+      "frame_id": 67363,
+      "period": 1,
+      "timestamp_ms": 2093194,
+      "in_possession_team_id": "364",
+      "p_score": 0.00922301597893238,
+      "p_concede": 0.4771168828010559,
+      "vaep": -0.4678938668221235
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25764143466949463
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1093672513961792
+        },
+        {
+          "slot": 2,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.07663983106613159
+        }
+      ],
+      "ball_xy": [
+        -41.720001220703125,
+        16.299999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 66,
+      "frame_id": 67369,
+      "period": 1,
+      "timestamp_ms": 2093394,
+      "in_possession_team_id": "364",
+      "p_score": 0.009468582458794117,
+      "p_concede": 0.480095237493515,
+      "vaep": -0.4706266550347209
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2534652352333069
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.10325133055448532
+        },
+        {
+          "slot": 14,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.0749516710639
+        }
+      ],
+      "ball_xy": [
+        -41.7400016784668,
+        16.530000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 67,
+      "frame_id": 67375,
+      "period": 1,
+      "timestamp_ms": 2093594,
+      "in_possession_team_id": "364",
+      "p_score": 0.009850837290287018,
+      "p_concede": 0.4763454794883728,
+      "vaep": -0.4664946421980858
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.24985623359680176
+        },
+        {
+          "slot": 7,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.09764140844345093
+        },
+        {
+          "slot": 14,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.07367372512817383
+        }
+      ],
+      "ball_xy": [
+        -41.400001525878906,
+        17.209999084472656
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 68,
+      "frame_id": 67381,
+      "period": 1,
+      "timestamp_ms": 2093794,
+      "in_possession_team_id": "364",
+      "p_score": 0.012078960426151752,
+      "p_concede": 0.4560999274253845,
+      "vaep": -0.44402096699923277
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.2213255763053894
+        },
+        {
+          "slot": 7,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.09165240079164505
+        },
+        {
+          "slot": 2,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.07406709343194962
+        }
+      ],
+      "ball_xy": [
+        -39.349998474121094,
+        20.1200008392334
+      ],
+      "event_label": "touch \u2014 Nahuel Molina",
+      "is_goal_event": false,
+      "frame_idx": 69,
+      "frame_id": 67387,
+      "period": 1,
+      "timestamp_ms": 2093994,
+      "in_possession_team_id": "364",
+      "p_score": 0.016532881185412407,
+      "p_concede": 0.44906356930732727,
+      "vaep": -0.43253068812191486
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.15573278069496155
+        },
+        {
+          "slot": 14,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.08077850192785263
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.06063154339790344
+        }
+      ],
+      "ball_xy": [
+        -37.29999923706055,
+        23.030000686645508
+      ],
+      "event_label": "touch \u2014 Nahuel Molina",
+      "is_goal_event": false,
+      "frame_idx": 70,
+      "frame_id": 67393,
+      "period": 1,
+      "timestamp_ms": 2094195,
+      "in_possession_team_id": "363",
+      "p_score": 0.427379310131073,
+      "p_concede": 0.03053729608654976,
+      "vaep": 0.39684201404452324
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.12028826028108597
+        },
+        {
+          "slot": 14,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.08909666538238525
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.07922542095184326
+        }
+      ],
+      "ball_xy": [
+        -35.2599983215332,
+        25.940000534057617
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 71,
+      "frame_id": 67399,
+      "period": 1,
+      "timestamp_ms": 2094395,
+      "in_possession_team_id": "363",
+      "p_score": 0.39201828837394714,
+      "p_concede": 0.03003460355103016,
+      "vaep": 0.361983684822917
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.14139023423194885
+        },
+        {
+          "slot": 15,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.06980374455451965
+        },
+        {
+          "slot": 14,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.06628982722759247
+        }
+      ],
+      "ball_xy": [
+        -33.209999084472656,
+        28.850000381469727
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 72,
+      "frame_id": 67405,
+      "period": 1,
+      "timestamp_ms": 2094595,
+      "in_possession_team_id": "364",
+      "p_score": 0.017156491056084633,
+      "p_concede": 0.42088693380355835,
+      "vaep": -0.4037304427474737
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.14483055472373962
+        },
+        {
+          "slot": 15,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.08125680685043335
+        },
+        {
+          "slot": 2,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.062272462993860245
+        }
+      ],
+      "ball_xy": [
+        -31.15999984741211,
+        31.760000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 73,
+      "frame_id": 67411,
+      "period": 1,
+      "timestamp_ms": 2094795,
+      "in_possession_team_id": "364",
+      "p_score": 0.018649818375706673,
+      "p_concede": 0.41309064626693726,
+      "vaep": -0.3944408278912306
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.12503033876419067
+        },
+        {
+          "slot": 15,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.09697271883487701
+        },
+        {
+          "slot": 2,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.06363015621900558
+        }
+      ],
+      "ball_xy": [
+        -29.889999389648438,
+        32.47999954223633
+      ],
+      "event_label": "None",
+      "is_goal_event": false,
+      "frame_idx": 74,
+      "frame_id": 67417,
+      "period": 1,
+      "timestamp_ms": 2094995,
+      "in_possession_team_id": "364",
+      "p_score": 0.022234274074435234,
+      "p_concede": 0.39956703782081604,
+      "vaep": -0.3773327637463808
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 15,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.10270003229379654
+        },
+        {
+          "slot": 19,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.10071660578250885
+        },
+        {
+          "slot": 3,
+          "player_id": 3868,
+          "name": "\u00c1ngel Di Mar\u00eda",
+          "position": "LW",
+          "attention": 0.07036514580249786
+        }
+      ],
+      "ball_xy": [
+        -29.020000457763672,
+        32.099998474121094
+      ],
+      "event_label": "None",
+      "is_goal_event": false,
+      "frame_idx": 75,
+      "frame_id": 67423,
+      "period": 1,
+      "timestamp_ms": 2095196,
+      "in_possession_team_id": "364",
+      "p_score": 0.030917873606085777,
+      "p_concede": 0.4031648635864258,
+      "vaep": -0.37224698998034
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 15,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.11153239011764526
+        },
+        {
+          "slot": 19,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.08458365499973297
+        },
+        {
+          "slot": 3,
+          "player_id": 3868,
+          "name": "\u00c1ngel Di Mar\u00eda",
+          "position": "LW",
+          "attention": 0.07333493232727051
+        }
+      ],
+      "ball_xy": [
+        -28.14999771118164,
+        31.729999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 76,
+      "frame_id": 67429,
+      "period": 1,
+      "timestamp_ms": 2095396,
+      "in_possession_team_id": "364",
+      "p_score": 0.03729589283466339,
+      "p_concede": 0.40221673250198364,
+      "vaep": -0.36492083966732025
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.13813091814517975
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.12839870154857635
+        },
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.06000226363539696
+        }
+      ],
+      "ball_xy": [
+        -31.530000686645508,
+        31.75
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 77,
+      "frame_id": 67585,
+      "period": 1,
+      "timestamp_ms": 2100601,
+      "in_possession_team_id": "363",
+      "p_score": 0.7310909628868103,
+      "p_concede": 0.03533487021923065,
+      "vaep": 0.6957560926675797
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.15152141451835632
+        },
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.11082562804222107
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.0830799788236618
+        }
+      ],
+      "ball_xy": [
+        -33.779998779296875,
+        30.18000030517578
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 78,
+      "frame_id": 67591,
+      "period": 1,
+      "timestamp_ms": 2100801,
+      "in_possession_team_id": "364",
+      "p_score": 0.007583444006741047,
+      "p_concede": 0.7772873640060425,
+      "vaep": -0.7697039199993014
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.20098759233951569
+        },
+        {
+          "slot": 5,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.10367663204669952
+        },
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.0994734838604927
+        }
+      ],
+      "ball_xy": [
+        -36.040000915527344,
+        28.610000610351562
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 79,
+      "frame_id": 67597,
+      "period": 1,
+      "timestamp_ms": 2101001,
+      "in_possession_team_id": "364",
+      "p_score": 0.006963841151446104,
+      "p_concede": 0.7864229679107666,
+      "vaep": -0.7794591267593205
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.2296251356601715
+        },
+        {
+          "slot": 5,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.1141478419303894
+        },
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.09546104818582535
+        }
+      ],
+      "ball_xy": [
+        -38.290000915527344,
+        27.049999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 80,
+      "frame_id": 67603,
+      "period": 1,
+      "timestamp_ms": 2101202,
+      "in_possession_team_id": "364",
+      "p_score": 0.006365754175931215,
+      "p_concede": 0.7936857342720032,
+      "vaep": -0.787319980096072
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.23836320638656616
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.09806813299655914
+        },
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.09072691202163696
+        }
+      ],
+      "ball_xy": [
+        -40.540000915527344,
+        25.479999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 81,
+      "frame_id": 67609,
+      "period": 1,
+      "timestamp_ms": 2101402,
+      "in_possession_team_id": "363",
+      "p_score": 0.7564010620117188,
+      "p_concede": 0.005055688787251711,
+      "vaep": 0.751345373224467
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.24501961469650269
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.12353228777647018
+        },
+        {
+          "slot": 6,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.09557059407234192
+        }
+      ],
+      "ball_xy": [
+        -42.79999923706055,
+        23.920000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 82,
+      "frame_id": 67615,
+      "period": 1,
+      "timestamp_ms": 2101602,
+      "in_possession_team_id": "363",
+      "p_score": 0.7689535617828369,
+      "p_concede": 0.005030513741075993,
+      "vaep": 0.7639230480417609
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.204544335603714
+        },
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1521362066268921
+        },
+        {
+          "slot": 4,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.13163277506828308
+        }
+      ],
+      "ball_xy": [
+        -43.02000045776367,
+        23.649999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 83,
+      "frame_id": 67621,
+      "period": 1,
+      "timestamp_ms": 2101802,
+      "in_possession_team_id": "363",
+      "p_score": 0.7565588355064392,
+      "p_concede": 0.005328420549631119,
+      "vaep": 0.7512304149568081
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.18248334527015686
+        },
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.18241766095161438
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.13576632738113403
+        }
+      ],
+      "ball_xy": [
+        -43.22999954223633,
+        23.18000030517578
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 84,
+      "frame_id": 67627,
+      "period": 1,
+      "timestamp_ms": 2102002,
+      "in_possession_team_id": "363",
+      "p_score": 0.7660208940505981,
+      "p_concede": 0.005541667342185974,
+      "vaep": 0.7604792267084122
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1927245557308197
+        },
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.17639850080013275
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.13794803619384766
+        }
+      ],
+      "ball_xy": [
+        -43.45000076293945,
+        22.610000610351562
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 85,
+      "frame_id": 67633,
+      "period": 1,
+      "timestamp_ms": 2102203,
+      "in_possession_team_id": "363",
+      "p_score": 0.7729620933532715,
+      "p_concede": 0.005704557057470083,
+      "vaep": 0.7672575362958014
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.19346857070922852
+        },
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.17848479747772217
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.13844379782676697
+        }
+      ],
+      "ball_xy": [
+        -43.65999984741211,
+        22.040000915527344
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 86,
+      "frame_id": 67639,
+      "period": 1,
+      "timestamp_ms": 2102403,
+      "in_possession_team_id": "363",
+      "p_score": 0.7743874192237854,
+      "p_concede": 0.0059379106387495995,
+      "vaep": 0.7684495085850358
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1889822781085968
+        },
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.18537652492523193
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.13791809976100922
+        }
+      ],
+      "ball_xy": [
+        -43.869998931884766,
+        21.469999313354492
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 87,
+      "frame_id": 67645,
+      "period": 1,
+      "timestamp_ms": 2102603,
+      "in_possession_team_id": "363",
+      "p_score": 0.773195207118988,
+      "p_concede": 0.006248754914849997,
+      "vaep": 0.766946452204138
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.19548894464969635
+        },
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.18108949065208435
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.13705945014953613
+        }
+      ],
+      "ball_xy": [
+        -44.09000015258789,
+        20.889999389648438
+      ],
+      "event_label": "pass \u2014 Nahuel Molina",
+      "is_goal_event": false,
+      "frame_idx": 88,
+      "frame_id": 67651,
+      "period": 1,
+      "timestamp_ms": 2102803,
+      "in_possession_team_id": "363",
+      "p_score": 0.7701886296272278,
+      "p_concede": 0.006625264883041382,
+      "vaep": 0.7635633647441864
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.2224726378917694
+        },
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.15398187935352325
+        },
+        {
+          "slot": 14,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.08227474987506866
+        }
+      ],
+      "ball_xy": [
+        -44.29999923706055,
+        20.31999969482422
+      ],
+      "event_label": "pass \u2014 Nahuel Molina",
+      "is_goal_event": false,
+      "frame_idx": 89,
+      "frame_id": 67657,
+      "period": 1,
+      "timestamp_ms": 2103003,
+      "in_possession_team_id": "364",
+      "p_score": 0.0032729003578424454,
+      "p_concede": 0.7534122467041016,
+      "vaep": -0.7501393463462591
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.24065831303596497
+        },
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.13193684816360474
+        },
+        {
+          "slot": 5,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.09001423418521881
+        }
+      ],
+      "ball_xy": [
+        -44.5099983215332,
+        19.75
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 90,
+      "frame_id": 67663,
+      "period": 1,
+      "timestamp_ms": 2103204,
+      "in_possession_team_id": "364",
+      "p_score": 0.0032225088216364384,
+      "p_concede": 0.7469127774238586,
+      "vaep": -0.7436902686022222
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.2551501989364624
+        },
+        {
+          "slot": 15,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.11231156438589096
+        },
+        {
+          "slot": 5,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.102512426674366
+        }
+      ],
+      "ball_xy": [
+        -44.720001220703125,
+        19.18000030517578
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 91,
+      "frame_id": 67669,
+      "period": 1,
+      "timestamp_ms": 2103404,
+      "in_possession_team_id": "364",
+      "p_score": 0.0031742709688842297,
+      "p_concede": 0.7393906712532043,
+      "vaep": -0.7362164002843201
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.2684873342514038
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.11036109924316406
+        },
+        {
+          "slot": 15,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.094874307513237
+        }
+      ],
+      "ball_xy": [
+        -44.939998626708984,
+        18.610000610351562
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 92,
+      "frame_id": 67675,
+      "period": 1,
+      "timestamp_ms": 2103604,
+      "in_possession_team_id": "364",
+      "p_score": 0.0031578841153532267,
+      "p_concede": 0.7297563552856445,
+      "vaep": -0.7265984711702913
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.2678648829460144
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.1093568503856659
+        },
+        {
+          "slot": 6,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.09904805570840836
+        }
+      ],
+      "ball_xy": [
+        -45.56999969482422,
+        16.850000381469727
+      ],
+      "event_label": "clearance",
+      "is_goal_event": false,
+      "frame_idx": 93,
+      "frame_id": 67681,
+      "period": 1,
+      "timestamp_ms": 2103804,
+      "in_possession_team_id": "364",
+      "p_score": 0.0036078053526580334,
+      "p_concede": 0.7323973178863525,
+      "vaep": -0.7287895125336945
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.2304912507534027
+        },
+        {
+          "slot": 6,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.11129111051559448
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.08880201727151871
+        }
+      ],
+      "ball_xy": [
+        -46.40999984741211,
+        14.5
+      ],
+      "event_label": "clearance",
+      "is_goal_event": false,
+      "frame_idx": 94,
+      "frame_id": 67687,
+      "period": 1,
+      "timestamp_ms": 2104004,
+      "in_possession_team_id": "364",
+      "p_score": 0.005291719920933247,
+      "p_concede": 0.7230094075202942,
+      "vaep": -0.7177176875993609
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.21203795075416565
+        },
+        {
+          "slot": 6,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.1139797493815422
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.07753606885671616
+        }
+      ],
+      "ball_xy": [
+        -47.2599983215332,
+        12.15999984741211
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 95,
+      "frame_id": 67693,
+      "period": 1,
+      "timestamp_ms": 2104205,
+      "in_possession_team_id": "364",
+      "p_score": 0.0061956229619681835,
+      "p_concede": 0.7040329575538635,
+      "vaep": -0.6978373345918953
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1959792971611023
+        },
+        {
+          "slot": 6,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.10841813683509827
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.07041476666927338
+        }
+      ],
+      "ball_xy": [
+        -48.099998474121094,
+        9.8100004196167
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 96,
+      "frame_id": 67699,
+      "period": 1,
+      "timestamp_ms": 2104405,
+      "in_possession_team_id": "364",
+      "p_score": 0.007766776718199253,
+      "p_concede": 0.6507403254508972,
+      "vaep": -0.642973548732698
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.18645571172237396
+        },
+        {
+          "slot": 6,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.1014976054430008
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.066165991127491
+        }
+      ],
+      "ball_xy": [
+        -48.95000076293945,
+        7.460000038146973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 97,
+      "frame_id": 67705,
+      "period": 1,
+      "timestamp_ms": 2104605,
+      "in_possession_team_id": "364",
+      "p_score": 0.009632796980440617,
+      "p_concede": 0.6246787309646606,
+      "vaep": -0.61504593398422
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.21395298838615417
+        },
+        {
+          "slot": 6,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.10144124925136566
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.06979794055223465
+        }
+      ],
+      "ball_xy": [
+        -49.290000915527344,
+        5.699999809265137
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 98,
+      "frame_id": 67711,
+      "period": 1,
+      "timestamp_ms": 2104805,
+      "in_possession_team_id": "364",
+      "p_score": 0.008489629253745079,
+      "p_concede": 0.5837580561637878,
+      "vaep": -0.5752684269100428
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.22424769401550293
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.09608834236860275
+        },
+        {
+          "slot": 6,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.062393203377723694
+        }
+      ],
+      "ball_xy": [
+        -47.15999984741211,
+        6.909999847412109
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 99,
+      "frame_id": 67717,
+      "period": 1,
+      "timestamp_ms": 2105005,
+      "in_possession_team_id": "364",
+      "p_score": 0.010483836755156517,
+      "p_concede": 0.5215886235237122,
+      "vaep": -0.5111047867685556
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.22344544529914856
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.10630525648593903
+        },
+        {
+          "slot": 7,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.07324313372373581
+        }
+      ],
+      "ball_xy": [
+        -45.029998779296875,
+        8.130000114440918
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 100,
+      "frame_id": 67723,
+      "period": 1,
+      "timestamp_ms": 2105206,
+      "in_possession_team_id": "364",
+      "p_score": 0.015992015600204468,
+      "p_concede": 0.5111225843429565,
+      "vaep": -0.4951305687427521
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.21742962300777435
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.10787445306777954
+        },
+        {
+          "slot": 7,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.08250188827514648
+        }
+      ],
+      "ball_xy": [
+        -42.900001525878906,
+        9.34000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 101,
+      "frame_id": 67729,
+      "period": 1,
+      "timestamp_ms": 2105406,
+      "in_possession_team_id": "364",
+      "p_score": 0.021859126165509224,
+      "p_concede": 0.46256500482559204,
+      "vaep": -0.4407058786600828
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.20797991752624512
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.10480279475450516
+        },
+        {
+          "slot": 7,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.08895629644393921
+        }
+      ],
+      "ball_xy": [
+        -40.77000045776367,
+        10.550000190734863
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 102,
+      "frame_id": 67735,
+      "period": 1,
+      "timestamp_ms": 2105606,
+      "in_possession_team_id": "364",
+      "p_score": 0.028353525325655937,
+      "p_concede": 0.4128783643245697,
+      "vaep": -0.38452483899891376
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.1955655962228775
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.09945498406887054
+        },
+        {
+          "slot": 7,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.09248706698417664
+        }
+      ],
+      "ball_xy": [
+        -38.63999938964844,
+        11.760000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 103,
+      "frame_id": 67741,
+      "period": 1,
+      "timestamp_ms": 2105806,
+      "in_possession_team_id": "364",
+      "p_score": 0.03482721745967865,
+      "p_concede": 0.37052449584007263,
+      "vaep": -0.335697278380394
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.1845475435256958
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.09460458159446716
+        },
+        {
+          "slot": 7,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.09112609177827835
+        }
+      ],
+      "ball_xy": [
+        -36.5099983215332,
+        12.970000267028809
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 104,
+      "frame_id": 67747,
+      "period": 1,
+      "timestamp_ms": 2106006,
+      "in_possession_team_id": "364",
+      "p_score": 0.03941378742456436,
+      "p_concede": 0.3636886477470398,
+      "vaep": -0.32427486032247543
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.1723465919494629
+        },
+        {
+          "slot": 7,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.08999480307102203
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.08731058239936829
+        }
+      ],
+      "ball_xy": [
+        -34.380001068115234,
+        14.180000305175781
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 105,
+      "frame_id": 67753,
+      "period": 1,
+      "timestamp_ms": 2106207,
+      "in_possession_team_id": "364",
+      "p_score": 0.046332381665706635,
+      "p_concede": 0.3338537812232971,
+      "vaep": -0.2875213995575905
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.1564984917640686
+        },
+        {
+          "slot": 15,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.07104998826980591
+        },
+        {
+          "slot": 5,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.05602476745843887
+        }
+      ],
+      "ball_xy": [
+        -32.25,
+        15.390000343322754
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 106,
+      "frame_id": 67759,
+      "period": 1,
+      "timestamp_ms": 2106407,
+      "in_possession_team_id": "363",
+      "p_score": 0.38135477900505066,
+      "p_concede": 0.10429173707962036,
+      "vaep": 0.2770630419254303
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.15050657093524933
+        },
+        {
+          "slot": 15,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.09179717302322388
+        },
+        {
+          "slot": 16,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.05986049026250839
+        }
+      ],
+      "ball_xy": [
+        -30.1200008392334,
+        16.610000610351562
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 107,
+      "frame_id": 67765,
+      "period": 1,
+      "timestamp_ms": 2106607,
+      "in_possession_team_id": "363",
+      "p_score": 0.34730979800224304,
+      "p_concede": 0.10994888097047806,
+      "vaep": 0.23736091703176498
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.14869245886802673
+        },
+        {
+          "slot": 15,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.09867794066667557
+        },
+        {
+          "slot": 16,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.06455174088478088
+        }
+      ],
+      "ball_xy": [
+        -27.989999771118164,
+        17.81999969482422
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 108,
+      "frame_id": 67771,
+      "period": 1,
+      "timestamp_ms": 2106807,
+      "in_possession_team_id": "363",
+      "p_score": 0.31695544719696045,
+      "p_concede": 0.11010584235191345,
+      "vaep": 0.206849604845047
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.14751794934272766
+        },
+        {
+          "slot": 15,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.09784309566020966
+        },
+        {
+          "slot": 16,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.0671301931142807
+        }
+      ],
+      "ball_xy": [
+        -25.860000610351562,
+        19.030000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 109,
+      "frame_id": 67777,
+      "period": 1,
+      "timestamp_ms": 2107007,
+      "in_possession_team_id": "363",
+      "p_score": 0.27022597193717957,
+      "p_concede": 0.108416847884655,
+      "vaep": 0.16180912405252457
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.1435423344373703
+        },
+        {
+          "slot": 10,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.0655488669872284
+        },
+        {
+          "slot": 0,
+          "player_id": 3868,
+          "name": "\u00c1ngel Di Mar\u00eda",
+          "position": "LW",
+          "attention": 0.05619216710329056
+        }
+      ],
+      "ball_xy": [
+        -23.729999542236328,
+        20.239999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 110,
+      "frame_id": 67783,
+      "period": 1,
+      "timestamp_ms": 2107208,
+      "in_possession_team_id": "364",
+      "p_score": 0.12058369070291519,
+      "p_concede": 0.19558393955230713,
+      "vaep": -0.07500024884939194
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.1404944658279419
+        },
+        {
+          "slot": 10,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.08014411479234695
+        },
+        {
+          "slot": 8,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.06637368351221085
+        }
+      ],
+      "ball_xy": [
+        -21.600000381469727,
+        21.450000762939453
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 111,
+      "frame_id": 67789,
+      "period": 1,
+      "timestamp_ms": 2107408,
+      "in_possession_team_id": "364",
+      "p_score": 0.13735128939151764,
+      "p_concede": 0.1715027242898941,
+      "vaep": -0.034151434898376465
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.1375044882297516
+        },
+        {
+          "slot": 10,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.0891956239938736
+        },
+        {
+          "slot": 8,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.07196807861328125
+        }
+      ],
+      "ball_xy": [
+        -19.469999313354492,
+        22.65999984741211
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 112,
+      "frame_id": 67795,
+      "period": 1,
+      "timestamp_ms": 2107608,
+      "in_possession_team_id": "364",
+      "p_score": 0.14280836284160614,
+      "p_concede": 0.1512739509344101,
+      "vaep": -0.008465588092803955
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.13454243540763855
+        },
+        {
+          "slot": 10,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.09466120600700378
+        },
+        {
+          "slot": 8,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.07296223938465118
+        }
+      ],
+      "ball_xy": [
+        -17.34000015258789,
+        23.8799991607666
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 113,
+      "frame_id": 67801,
+      "period": 1,
+      "timestamp_ms": 2107808,
+      "in_possession_team_id": "364",
+      "p_score": 0.1477343738079071,
+      "p_concede": 0.1352793276309967,
+      "vaep": 0.0124550461769104
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.13209810853004456
+        },
+        {
+          "slot": 10,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.0978105366230011
+        },
+        {
+          "slot": 0,
+          "player_id": 3868,
+          "name": "\u00c1ngel Di Mar\u00eda",
+          "position": "LW",
+          "attention": 0.07352742552757263
+        }
+      ],
+      "ball_xy": [
+        -15.209999084472656,
+        25.09000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 114,
+      "frame_id": 67807,
+      "period": 1,
+      "timestamp_ms": 2108008,
+      "in_possession_team_id": "364",
+      "p_score": 0.15930259227752686,
+      "p_concede": 0.12385984510183334,
+      "vaep": 0.03544274717569351
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.12366878986358643
+        },
+        {
+          "slot": 10,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.06837649643421173
+        },
+        {
+          "slot": 0,
+          "player_id": 3868,
+          "name": "\u00c1ngel Di Mar\u00eda",
+          "position": "LW",
+          "attention": 0.05547491833567619
+        }
+      ],
+      "ball_xy": [
+        -13.079999923706055,
+        26.299999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 115,
+      "frame_id": 67813,
+      "period": 1,
+      "timestamp_ms": 2108209,
+      "in_possession_team_id": "363",
+      "p_score": 0.07493516802787781,
+      "p_concede": 0.0865078866481781,
+      "vaep": -0.011572718620300293
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.12019111216068268
+        },
+        {
+          "slot": 13,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.06403712928295135
+        },
+        {
+          "slot": 16,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.05989369750022888
+        }
+      ],
+      "ball_xy": [
+        -10.949999809265137,
+        27.510000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 116,
+      "frame_id": 67819,
+      "period": 1,
+      "timestamp_ms": 2108409,
+      "in_possession_team_id": "363",
+      "p_score": 0.07433288544416428,
+      "p_concede": 0.08403199911117554,
+      "vaep": -0.009699113667011261
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.11392667889595032
+        },
+        {
+          "slot": 13,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.07171682268381119
+        },
+        {
+          "slot": 16,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.0636325553059578
+        }
+      ],
+      "ball_xy": [
+        -9.149999618530273,
+        28.579999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 117,
+      "frame_id": 67825,
+      "period": 1,
+      "timestamp_ms": 2108609,
+      "in_possession_team_id": "363",
+      "p_score": 0.07461278140544891,
+      "p_concede": 0.08086992800235748,
+      "vaep": -0.006257146596908569
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.09401990473270416
+        },
+        {
+          "slot": 13,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.07807198166847229
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.06990867108106613
+        }
+      ],
+      "ball_xy": [
+        -9.050000190734863,
+        28.899999618530273
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 118,
+      "frame_id": 67831,
+      "period": 1,
+      "timestamp_ms": 2108809,
+      "in_possession_team_id": "363",
+      "p_score": 0.0698913037776947,
+      "p_concede": 0.06549464911222458,
+      "vaep": 0.004396654665470123
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.11217830330133438
+        },
+        {
+          "slot": 13,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.08068341016769409
+        },
+        {
+          "slot": 16,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.060877613723278046
+        }
+      ],
+      "ball_xy": [
+        -8.960000038146973,
+        29.18000030517578
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 119,
+      "frame_id": 67837,
+      "period": 1,
+      "timestamp_ms": 2109009,
+      "in_possession_team_id": "363",
+      "p_score": 0.07170503586530685,
+      "p_concede": 0.06430718302726746,
+      "vaep": 0.007397852838039398
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12099820375442505
+        },
+        {
+          "slot": 13,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.08135506510734558
+        },
+        {
+          "slot": 16,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.06149979680776596
+        }
+      ],
+      "ball_xy": [
+        -8.880000114440918,
+        29.420000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 120,
+      "frame_id": 67843,
+      "period": 1,
+      "timestamp_ms": 2109210,
+      "in_possession_team_id": "363",
+      "p_score": 0.07268410176038742,
+      "p_concede": 0.06314532458782196,
+      "vaep": 0.00953877717256546
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12531091272830963
+        },
+        {
+          "slot": 13,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.08100946247577667
+        },
+        {
+          "slot": 16,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.06261322647333145
+        }
+      ],
+      "ball_xy": [
+        -8.8100004196167,
+        29.610000610351562
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 121,
+      "frame_id": 67849,
+      "period": 1,
+      "timestamp_ms": 2109410,
+      "in_possession_team_id": "363",
+      "p_score": 0.07465427368879318,
+      "p_concede": 0.06244746595621109,
+      "vaep": 0.012206807732582092
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.1273476779460907
+        },
+        {
+          "slot": 13,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.08033832907676697
+        },
+        {
+          "slot": 16,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.06388779729604721
+        }
+      ],
+      "ball_xy": [
+        -8.75,
+        29.75
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 122,
+      "frame_id": 67855,
+      "period": 1,
+      "timestamp_ms": 2109610,
+      "in_possession_team_id": "363",
+      "p_score": 0.07900313287973404,
+      "p_concede": 0.06209574639797211,
+      "vaep": 0.016907386481761932
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.12860813736915588
+        },
+        {
+          "slot": 13,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.07939554005861282
+        },
+        {
+          "slot": 16,
+          "player_id": 6895,
+          "name": "Rodrigo de Paul",
+          "position": "CM",
+          "attention": 0.06508412212133408
+        }
+      ],
+      "ball_xy": [
+        -8.6899995803833,
+        29.84000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 123,
+      "frame_id": 67861,
+      "period": 1,
+      "timestamp_ms": 2109810,
+      "in_possession_team_id": "363",
+      "p_score": 0.08235260844230652,
+      "p_concede": 0.06176232174038887,
+      "vaep": 0.02059028670191765
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.12980732321739197
+        },
+        {
+          "slot": 13,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.0675223097205162
+        },
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.06704339385032654
+        }
+      ],
+      "ball_xy": [
+        -10.100000381469727,
+        29.399999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 124,
+      "frame_id": 67867,
+      "period": 1,
+      "timestamp_ms": 2110010,
+      "in_possession_team_id": "363",
+      "p_score": 0.09704356640577316,
+      "p_concede": 0.05132027342915535,
+      "vaep": 0.04572329297661781
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.08486375212669373
+        },
+        {
+          "slot": 6,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.08032689988613129
+        },
+        {
+          "slot": 12,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.07957027852535248
+        }
+      ],
+      "ball_xy": [
+        -12.979999542236328,
+        28.479999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 125,
+      "frame_id": 67873,
+      "period": 1,
+      "timestamp_ms": 2110211,
+      "in_possession_team_id": "364",
+      "p_score": 0.11740092933177948,
+      "p_concede": 0.11485486477613449,
+      "vaep": 0.002546064555644989
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.15680482983589172
+        },
+        {
+          "slot": 12,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.0990990474820137
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.08637086302042007
+        }
+      ],
+      "ball_xy": [
+        -15.850000381469727,
+        27.559999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 126,
+      "frame_id": 67879,
+      "period": 1,
+      "timestamp_ms": 2110411,
+      "in_possession_team_id": "363",
+      "p_score": 0.1318090409040451,
+      "p_concede": 0.050448548048734665,
+      "vaep": 0.08136049285531044
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.1994406282901764
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.11317510902881622
+        },
+        {
+          "slot": 12,
+          "player_id": 13222,
+          "name": "Nahuel Molina",
+          "position": "RB",
+          "attention": 0.10914864391088486
+        }
+      ],
+      "ball_xy": [
+        -18.729999542236328,
+        26.639999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 127,
+      "frame_id": 67885,
+      "period": 1,
+      "timestamp_ms": 2110611,
+      "in_possession_team_id": "363",
+      "p_score": 0.1406073421239853,
+      "p_concede": 0.0531674399971962,
+      "vaep": 0.08743990212678909
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.16274362802505493
+        },
+        {
+          "slot": 6,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.08663132786750793
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.08007270097732544
+        }
+      ],
+      "ball_xy": [
+        -21.600000381469727,
+        25.719999313354492
+      ],
+      "event_label": "pass \u2014 Nahuel Molina",
+      "is_goal_event": false,
+      "frame_idx": 128,
+      "frame_id": 67891,
+      "period": 1,
+      "timestamp_ms": 2110811,
+      "in_possession_team_id": "364",
+      "p_score": 0.13006429374217987,
+      "p_concede": 0.10709585249423981,
+      "vaep": 0.022968441247940063
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.1473802924156189
+        },
+        {
+          "slot": 6,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.11065782606601715
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.06475440412759781
+        }
+      ],
+      "ball_xy": [
+        -24.479999542236328,
+        24.799999237060547
+      ],
+      "event_label": "pass \u2014 Nahuel Molina",
+      "is_goal_event": false,
+      "frame_idx": 129,
+      "frame_id": 67897,
+      "period": 1,
+      "timestamp_ms": 2111011,
+      "in_possession_team_id": "364",
+      "p_score": 0.1349097490310669,
+      "p_concede": 0.10263583064079285,
+      "vaep": 0.03227391839027405
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.14267519116401672
+        },
+        {
+          "slot": 6,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.12173622101545334
+        },
+        {
+          "slot": 14,
+          "player_id": 1531,
+          "name": "Lionel Messi",
+          "position": "RW",
+          "attention": 0.05905726179480553
+        }
+      ],
+      "ball_xy": [
+        -27.350000381469727,
+        23.8799991607666
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 130,
+      "frame_id": 67903,
+      "period": 1,
+      "timestamp_ms": 2111212,
+      "in_possession_team_id": "364",
+      "p_score": 0.16347242891788483,
+      "p_concede": 0.09440753608942032,
+      "vaep": 0.06906489282846451
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 6,
+          "player_id": 453,
+          "name": "Alexis Mac Allister",
+          "position": "CM",
+          "attention": 0.13377143442630768
+        },
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.09406265616416931
+        },
+        {
+          "slot": 8,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.06050741672515869
+        }
+      ],
+      "ball_xy": [
+        -27.760000228881836,
+        22.709999084472656
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 131,
+      "frame_id": 67909,
+      "period": 1,
+      "timestamp_ms": 2111412,
+      "in_possession_team_id": "364",
+      "p_score": 0.27939170598983765,
+      "p_concede": 0.07163750380277634,
+      "vaep": 0.2077542021870613
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 6,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.09804090112447739
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.09483204036951065
+        },
+        {
+          "slot": 8,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07235584408044815
+        }
+      ],
+      "ball_xy": [
+        -25.709999084472656,
+        21.280000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 132,
+      "frame_id": 67915,
+      "period": 1,
+      "timestamp_ms": 2111612,
+      "in_possession_team_id": "364",
+      "p_score": 0.43154817819595337,
+      "p_concede": 0.05068161338567734,
+      "vaep": 0.38086656481027603
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.11523322761058807
+        },
+        {
+          "slot": 6,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.07899802178144455
+        },
+        {
+          "slot": 8,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.07898326218128204
+        }
+      ],
+      "ball_xy": [
+        -23.649999618530273,
+        19.860000610351562
+      ],
+      "event_label": "pass \u2014 Alexis Mac Allister",
+      "is_goal_event": false,
+      "frame_idx": 133,
+      "frame_id": 67921,
+      "period": 1,
+      "timestamp_ms": 2111812,
+      "in_possession_team_id": "364",
+      "p_score": 0.4592162072658539,
+      "p_concede": 0.04606165736913681,
+      "vaep": 0.41315454989671707
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.20168474316596985
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.07105351239442825
+        },
+        {
+          "slot": 18,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.05271989107131958
+        }
+      ],
+      "ball_xy": [
+        -21.59000015258789,
+        18.440000534057617
+      ],
+      "event_label": "pass \u2014 Alexis Mac Allister",
+      "is_goal_event": false,
+      "frame_idx": 134,
+      "frame_id": 67927,
+      "period": 1,
+      "timestamp_ms": 2112012,
+      "in_possession_team_id": "363",
+      "p_score": 0.09412868320941925,
+      "p_concede": 0.3187941610813141,
+      "vaep": -0.22466547787189484
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.24575503170490265
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.08353127539157867
+        },
+        {
+          "slot": 18,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.06532405316829681
+        }
+      ],
+      "ball_xy": [
+        -19.530000686645508,
+        17.010000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 135,
+      "frame_id": 67933,
+      "period": 1,
+      "timestamp_ms": 2112213,
+      "in_possession_team_id": "363",
+      "p_score": 0.08637063205242157,
+      "p_concede": 0.34979671239852905,
+      "vaep": -0.2634260803461075
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.2683112919330597
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.09013259410858154
+        },
+        {
+          "slot": 18,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.07112912833690643
+        }
+      ],
+      "ball_xy": [
+        -17.479999542236328,
+        15.59000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 136,
+      "frame_id": 67939,
+      "period": 1,
+      "timestamp_ms": 2112413,
+      "in_possession_team_id": "363",
+      "p_score": 0.07642560452222824,
+      "p_concede": 0.38327208161354065,
+      "vaep": -0.3068464770913124
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.2022937834262848
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.06493707001209259
+        },
+        {
+          "slot": 3,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.05752567574381828
+        }
+      ],
+      "ball_xy": [
+        -15.420000076293945,
+        14.170000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 137,
+      "frame_id": 67945,
+      "period": 1,
+      "timestamp_ms": 2112613,
+      "in_possession_team_id": "364",
+      "p_score": 0.5776262283325195,
+      "p_concede": 0.02768588811159134,
+      "vaep": 0.5499403402209282
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.16944172978401184
+        },
+        {
+          "slot": 3,
+          "player_id": 5116,
+          "name": "Cristian Romero",
+          "position": "RCB",
+          "attention": 0.07245972752571106
+        },
+        {
+          "slot": 9,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.06688123941421509
+        }
+      ],
+      "ball_xy": [
+        -13.359999656677246,
+        12.739999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 138,
+      "frame_id": 67951,
+      "period": 1,
+      "timestamp_ms": 2112813,
+      "in_possession_team_id": "364",
+      "p_score": 0.5970451831817627,
+      "p_concede": 0.023982496932148933,
+      "vaep": 0.5730626862496138
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.1324872374534607
+        },
+        {
+          "slot": 8,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.09121860563755035
+        },
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.0878722220659256
+        }
+      ],
+      "ball_xy": [
+        -11.220000267028809,
+        13.25
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 139,
+      "frame_id": 67957,
+      "period": 1,
+      "timestamp_ms": 2113013,
+      "in_possession_team_id": "364",
+      "p_score": 0.6791707277297974,
+      "p_concede": 0.019130898639559746,
+      "vaep": 0.6600398290902376
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.14685466885566711
+        },
+        {
+          "slot": 19,
+          "player_id": 4606,
+          "name": "Dayot Upamecano",
+          "position": "LCB",
+          "attention": 0.11013036966323853
+        },
+        {
+          "slot": 11,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.05557689070701599
+        }
+      ],
+      "ball_xy": [
+        -9.050000190734863,
+        14.139999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 140,
+      "frame_id": 67963,
+      "period": 1,
+      "timestamp_ms": 2113214,
+      "in_possession_team_id": "363",
+      "p_score": 0.04290635511279106,
+      "p_concede": 0.6051199436187744,
+      "vaep": -0.5622135885059834
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.13069306313991547
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.10445085167884827
+        },
+        {
+          "slot": 8,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.10085907578468323
+        }
+      ],
+      "ball_xy": [
+        -6.8899993896484375,
+        15.039999961853027
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 141,
+      "frame_id": 67969,
+      "period": 1,
+      "timestamp_ms": 2113414,
+      "in_possession_team_id": "364",
+      "p_score": 0.7402851581573486,
+      "p_concede": 0.010519606992602348,
+      "vaep": 0.7297655511647463
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.1403270959854126
+        },
+        {
+          "slot": 8,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.1294902116060257
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.08735422790050507
+        }
+      ],
+      "ball_xy": [
+        -4.71999979019165,
+        15.930000305175781
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 142,
+      "frame_id": 67975,
+      "period": 1,
+      "timestamp_ms": 2113614,
+      "in_possession_team_id": "364",
+      "p_score": 0.76033616065979,
+      "p_concede": 0.007854191586375237,
+      "vaep": 0.7524819690734148
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.15318122506141663
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.1450902372598648
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.08690042048692703
+        }
+      ],
+      "ball_xy": [
+        -3.6500000953674316,
+        16.43000030517578
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 143,
+      "frame_id": 67981,
+      "period": 1,
+      "timestamp_ms": 2113814,
+      "in_possession_team_id": "364",
+      "p_score": 0.7752401232719421,
+      "p_concede": 0.006034912541508675,
+      "vaep": 0.7692052107304335
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.16787737607955933
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.12568607926368713
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.0806000605225563
+        }
+      ],
+      "ball_xy": [
+        -3.640000104904175,
+        16.540000915527344
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 144,
+      "frame_id": 67987,
+      "period": 1,
+      "timestamp_ms": 2114014,
+      "in_possession_team_id": "364",
+      "p_score": 0.7765015363693237,
+      "p_concede": 0.006142192054539919,
+      "vaep": 0.7703593443147838
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.1778898537158966
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.11610433459281921
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.08317409455776215
+        }
+      ],
+      "ball_xy": [
+        -3.5699996948242188,
+        16.6299991607666
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 145,
+      "frame_id": 67993,
+      "period": 1,
+      "timestamp_ms": 2114215,
+      "in_possession_team_id": "364",
+      "p_score": 0.7943140268325806,
+      "p_concede": 0.005061568692326546,
+      "vaep": 0.789252458140254
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.18545113503932953
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.1108129695057869
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.08861534297466278
+        }
+      ],
+      "ball_xy": [
+        -3.4600002765655518,
+        16.700000762939453
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 146,
+      "frame_id": 67999,
+      "period": 1,
+      "timestamp_ms": 2114415,
+      "in_possession_team_id": "364",
+      "p_score": 0.8088905215263367,
+      "p_concede": 0.004338582046329975,
+      "vaep": 0.8045519394800067
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 11856,
+          "name": "Enzo Fernandez",
+          "position": "CM",
+          "attention": 0.19449380040168762
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.14473803341388702
+        },
+        {
+          "slot": 3,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.07005870342254639
+        }
+      ],
+      "ball_xy": [
+        -3.1700000762939453,
+        17.469999313354492
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 147,
+      "frame_id": 68005,
+      "period": 1,
+      "timestamp_ms": 2114615,
+      "in_possession_team_id": "364",
+      "p_score": 0.8054744601249695,
+      "p_concede": 0.004141568206250668,
+      "vaep": 0.8013328919187188
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1748851090669632
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.10339462012052536
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.07180143892765045
+        }
+      ],
+      "ball_xy": [
+        -2.619999885559082,
+        19.68000030517578
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 148,
+      "frame_id": 68011,
+      "period": 1,
+      "timestamp_ms": 2114815,
+      "in_possession_team_id": "363",
+      "p_score": 0.01309939380735159,
+      "p_concede": 0.8475884199142456,
+      "vaep": -0.834489026106894
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.18552090227603912
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.08883965015411377
+        },
+        {
+          "slot": 11,
+          "player_id": 3870,
+          "name": "Kylian Mbapp\u00e9",
+          "position": "LW",
+          "attention": 0.07522357255220413
+        }
+      ],
+      "ball_xy": [
+        -2.0799999237060547,
+        21.889999389648438
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 149,
+      "frame_id": 68017,
+      "period": 1,
+      "timestamp_ms": 2115015,
+      "in_possession_team_id": "363",
+      "p_score": 0.01263717096298933,
+      "p_concede": 0.8606398701667786,
+      "vaep": -0.8480026992037892
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.19763615727424622
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.13104712963104248
+        },
+        {
+          "slot": 3,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.06071071699261665
+        }
+      ],
+      "ball_xy": [
+        -1.5399999618530273,
+        24.110000610351562
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 150,
+      "frame_id": 68023,
+      "period": 1,
+      "timestamp_ms": 2115216,
+      "in_possession_team_id": "364",
+      "p_score": 0.8074855208396912,
+      "p_concede": 0.002515356056392193,
+      "vaep": 0.804970164783299
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.20260155200958252
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.17277763783931732
+        },
+        {
+          "slot": 3,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.07239031046628952
+        }
+      ],
+      "ball_xy": [
+        -0.9900000691413879,
+        26.31999969482422
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 151,
+      "frame_id": 68029,
+      "period": 1,
+      "timestamp_ms": 2115416,
+      "in_possession_team_id": "364",
+      "p_score": 0.8156337738037109,
+      "p_concede": 0.0019358423305675387,
+      "vaep": 0.8136979314731434
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.2016310691833496
+        },
+        {
+          "slot": 19,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.18221783638000488
+        },
+        {
+          "slot": 3,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.0906989723443985
+        }
+      ],
+      "ball_xy": [
+        -0.2800000011920929,
+        27.15999984741211
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 152,
+      "frame_id": 68035,
+      "period": 1,
+      "timestamp_ms": 2115616,
+      "in_possession_team_id": "364",
+      "p_score": 0.8364582657814026,
+      "p_concede": 0.001519637182354927,
+      "vaep": 0.8349386285990477
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.20188671350479126
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.13621151447296143
+        },
+        {
+          "slot": 3,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.1165841743350029
+        }
+      ],
+      "ball_xy": [
+        0.6100000143051147,
+        26.599998474121094
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 153,
+      "frame_id": 68041,
+      "period": 1,
+      "timestamp_ms": 2115816,
+      "in_possession_team_id": "364",
+      "p_score": 0.859284520149231,
+      "p_concede": 0.0008791022701188922,
+      "vaep": 0.8584054178791121
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.1887800097465515
+        },
+        {
+          "slot": 3,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.13710810244083405
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.11785614490509033
+        }
+      ],
+      "ball_xy": [
+        2.200000047683716,
+        25.81999969482422
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 154,
+      "frame_id": 68047,
+      "period": 1,
+      "timestamp_ms": 2116016,
+      "in_possession_team_id": "364",
+      "p_score": 0.8636895418167114,
+      "p_concede": 0.0006785518489778042,
+      "vaep": 0.8630109899677336
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.1802803874015808
+        },
+        {
+          "slot": 3,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.14908680319786072
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.12274164706468582
+        }
+      ],
+      "ball_xy": [
+        3.930000066757202,
+        24.979999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 155,
+      "frame_id": 68053,
+      "period": 1,
+      "timestamp_ms": 2116217,
+      "in_possession_team_id": "364",
+      "p_score": 0.8678579330444336,
+      "p_concede": 0.0005767851835116744,
+      "vaep": 0.8672811478609219
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.1773434579372406
+        },
+        {
+          "slot": 3,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.1558219939470291
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.13026122748851776
+        }
+      ],
+      "ball_xy": [
+        5.650000095367432,
+        24.149999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 156,
+      "frame_id": 68059,
+      "period": 1,
+      "timestamp_ms": 2116417,
+      "in_possession_team_id": "364",
+      "p_score": 0.87160325050354,
+      "p_concede": 0.0005061313277110457,
+      "vaep": 0.871097119175829
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.17630311846733093
+        },
+        {
+          "slot": 3,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.15981197357177734
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.13483521342277527
+        }
+      ],
+      "ball_xy": [
+        7.369999885559082,
+        23.309999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 157,
+      "frame_id": 68065,
+      "period": 1,
+      "timestamp_ms": 2116617,
+      "in_possession_team_id": "364",
+      "p_score": 0.8752636313438416,
+      "p_concede": 0.0004700694407802075,
+      "vaep": 0.8747935619030613
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.19725987315177917
+        },
+        {
+          "slot": 19,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.10594921559095383
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.09772596508264542
+        }
+      ],
+      "ball_xy": [
+        9.100000381469727,
+        22.479999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 158,
+      "frame_id": 68071,
+      "period": 1,
+      "timestamp_ms": 2116817,
+      "in_possession_team_id": "363",
+      "p_score": 0.011105384677648544,
+      "p_concede": 0.9347121715545654,
+      "vaep": -0.9236067868769169
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.22852391004562378
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1118243932723999
+        },
+        {
+          "slot": 16,
+          "player_id": 8583,
+          "name": "Theo Hernandez",
+          "position": "LB",
+          "attention": 0.1107359230518341
+        }
+      ],
+      "ball_xy": [
+        10.819999694824219,
+        21.639999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 159,
+      "frame_id": 68077,
+      "period": 1,
+      "timestamp_ms": 2117017,
+      "in_possession_team_id": "363",
+      "p_score": 0.009915018454194069,
+      "p_concede": 0.9334006309509277,
+      "vaep": -0.9234856124967337
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.24415835738182068
+        },
+        {
+          "slot": 16,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.12582579255104065
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.11662623286247253
+        }
+      ],
+      "ball_xy": [
+        12.550000190734863,
+        20.809999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 160,
+      "frame_id": 68083,
+      "period": 1,
+      "timestamp_ms": 2117218,
+      "in_possession_team_id": "363",
+      "p_score": 0.00931242760270834,
+      "p_concede": 0.9319779872894287,
+      "vaep": -0.9226655596867204
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.2521035671234131
+        },
+        {
+          "slot": 16,
+          "player_id": 8054,
+          "name": "Adrien Rabiot",
+          "position": "CM",
+          "attention": 0.1342637836933136
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12008899450302124
+        }
+      ],
+      "ball_xy": [
+        14.269999504089355,
+        19.969999313354492
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 161,
+      "frame_id": 68089,
+      "period": 1,
+      "timestamp_ms": 2117418,
+      "in_possession_team_id": "363",
+      "p_score": 0.009061581455171108,
+      "p_concede": 0.9300352334976196,
+      "vaep": -0.9209736520424485
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.25623971223831177
+        },
+        {
+          "slot": 16,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.13906748592853546
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12210514396429062
+        }
+      ],
+      "ball_xy": [
+        15.989999771118164,
+        19.1299991607666
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 162,
+      "frame_id": 68095,
+      "period": 1,
+      "timestamp_ms": 2117618,
+      "in_possession_team_id": "363",
+      "p_score": 0.008896728046238422,
+      "p_concede": 0.9289741516113281,
+      "vaep": -0.9200774235650897
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.2584715783596039
+        },
+        {
+          "slot": 16,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.14193394780158997
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1232902854681015
+        }
+      ],
+      "ball_xy": [
+        17.719999313354492,
+        18.299999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 163,
+      "frame_id": 68101,
+      "period": 1,
+      "timestamp_ms": 2117818,
+      "in_possession_team_id": "363",
+      "p_score": 0.008635573089122772,
+      "p_concede": 0.9285246133804321,
+      "vaep": -0.9198890402913094
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.2599914073944092
+        },
+        {
+          "slot": 16,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.1436191201210022
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12388421595096588
+        }
+      ],
+      "ball_xy": [
+        19.440000534057617,
+        17.459999084472656
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 164,
+      "frame_id": 68107,
+      "period": 1,
+      "timestamp_ms": 2118018,
+      "in_possession_team_id": "363",
+      "p_score": 0.008259274065494537,
+      "p_concede": 0.9282145500183105,
+      "vaep": -0.919955275952816
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.26110702753067017
+        },
+        {
+          "slot": 16,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.14453688263893127
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12426591664552689
+        }
+      ],
+      "ball_xy": [
+        21.170000076293945,
+        16.6299991607666
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 165,
+      "frame_id": 68113,
+      "period": 1,
+      "timestamp_ms": 2118219,
+      "in_possession_team_id": "363",
+      "p_score": 0.007818788290023804,
+      "p_concede": 0.9282602667808533,
+      "vaep": -0.9204414784908295
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.2622584104537964
+        },
+        {
+          "slot": 16,
+          "player_id": 10715,
+          "name": "Julian Alvarez",
+          "position": "CF",
+          "attention": 0.14513492584228516
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1241532415151596
+        }
+      ],
+      "ball_xy": [
+        22.889999389648438,
+        15.789999961853027
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 166,
+      "frame_id": 68119,
+      "period": 1,
+      "timestamp_ms": 2118419,
+      "in_possession_team_id": "363",
+      "p_score": 0.007375415880233049,
+      "p_concede": 0.9285652041435242,
+      "vaep": -0.9211897882632911
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.2029622197151184
+        },
+        {
+          "slot": 19,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.11698491871356964
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.10781294852495193
+        }
+      ],
+      "ball_xy": [
+        24.6200008392334,
+        14.960000038146973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 167,
+      "frame_id": 68125,
+      "period": 1,
+      "timestamp_ms": 2118619,
+      "in_possession_team_id": "364",
+      "p_score": 0.8786352276802063,
+      "p_concede": 0.00027067752671428025,
+      "vaep": 0.878364550153492
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.1740773618221283
+        },
+        {
+          "slot": 8,
+          "player_id": 11,
+          "name": "Nicol\u00e1s Otamendi",
+          "position": "LCB",
+          "attention": 0.14811822772026062
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.11539368331432343
+        }
+      ],
+      "ball_xy": [
+        26.34000015258789,
+        14.119999885559082
+      ],
+      "event_label": "pass \u2014 Alexis Mac Allister",
+      "is_goal_event": false,
+      "frame_idx": 168,
+      "frame_id": 68131,
+      "period": 1,
+      "timestamp_ms": 2118819,
+      "in_possession_team_id": "364",
+      "p_score": 0.8797746300697327,
+      "p_concede": 0.00026622647419571877,
+      "vaep": 0.879508403595537
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.16678693890571594
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.1603870391845703
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.1288454532623291
+        }
+      ],
+      "ball_xy": [
+        28.05999755859375,
+        13.289999961853027
+      ],
+      "event_label": "pass \u2014 Alexis Mac Allister",
+      "is_goal_event": false,
+      "frame_idx": 169,
+      "frame_id": 68137,
+      "period": 1,
+      "timestamp_ms": 2119019,
+      "in_possession_team_id": "364",
+      "p_score": 0.881984531879425,
+      "p_concede": 0.0002654582494869828,
+      "vaep": 0.8817190736299381
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.17379020154476166
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.15438827872276306
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.13439984619617462
+        }
+      ],
+      "ball_xy": [
+        29.790000915527344,
+        12.449999809265137
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 170,
+      "frame_id": 68143,
+      "period": 1,
+      "timestamp_ms": 2119220,
+      "in_possession_team_id": "364",
+      "p_score": 0.8840558528900146,
+      "p_concede": 0.00026271832757629454,
+      "vaep": 0.8837931345624384
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.1729610562324524
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.16051165759563446
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.1322186291217804
+        }
+      ],
+      "ball_xy": [
+        31.06999969482422,
+        11.09000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 171,
+      "frame_id": 68149,
+      "period": 1,
+      "timestamp_ms": 2119420,
+      "in_possession_team_id": "364",
+      "p_score": 0.8805496096611023,
+      "p_concede": 0.0002460631658323109,
+      "vaep": 0.88030354649527
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 8,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.18680649995803833
+        },
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.18145959079265594
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.12353233993053436
+        }
+      ],
+      "ball_xy": [
+        31.46000099182129,
+        8.649999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 172,
+      "frame_id": 68155,
+      "period": 1,
+      "timestamp_ms": 2119620,
+      "in_possession_team_id": "364",
+      "p_score": 0.8600601553916931,
+      "p_concede": 0.0003414877282921225,
+      "vaep": 0.859718667663401
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 4,
+          "player_id": 144,
+          "name": "Emiliano Mart\u00ednez",
+          "position": "GK",
+          "attention": 0.2474479079246521
+        },
+        {
+          "slot": 8,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.10988152027130127
+        },
+        {
+          "slot": 3,
+          "player_id": 8025,
+          "name": "Nicolas Tagliafico",
+          "position": "LB",
+          "attention": 0.0791877880692482
+        }
+      ],
+      "ball_xy": [
+        31.860002517700195,
+        6.210000038146973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 173,
+      "frame_id": 68161,
+      "period": 1,
+      "timestamp_ms": 2119820,
+      "in_possession_team_id": "363",
+      "p_score": 0.0047823297791182995,
+      "p_concede": 0.9145370125770569,
+      "vaep": -0.9097546827979386
+    }
+  ],
+  "image_pattern": "assets/clips/argentina-france-di-maria/frame_{idx:03d}.png"
+}

@@ -30,13 +30,16 @@
   </header>
 
   <main>
-    <h1>Club vs national: who travels?</h1>
+    <h1>Club vs national: does the chemistry travel?</h1>
     <p>
-      This tab cross-references each WC22 player's offensive impact per 90
-      (OI/90) at the World Cup against their OI/90 in every other competition
-      we have event data for. The framing question: "is the player who
-      under-performs at the tournament also under-performing at their club —
-      or is it a national-team friction effect?"
+      The <a href="pairs.html">leaderboards</a> tell you who clicked at WC22.
+      This tab asks the follow-up: <strong>did those players bring it from
+      their club, or is the country a different story?</strong> We cross-reference
+      each WC22 player's offensive impact per 90 (OI/90) against their OI/90 in
+      every other competition we have event data for — club leagues, Euro 2024,
+      Copa America 2024. If a player under-performs at the tournament <em>and</em>
+      under-performs at his club, it's just form; if only at the tournament,
+      it's a national-team friction signal.
     </p>
 
     <div class="card" style="border-left: 3px solid #ffd47a;">
@@ -155,6 +158,12 @@ all_rows["z_oi_per90"] = (
       whichever provider opens it up; combine with the frame-by-frame transformer
       VAEP (proposal at <code>research/notebooks/FRAME_BY_FRAME_VAEP_PROPOSAL.md</code>)
       to catch off-ball chemistry that event data misses.
+    </p>
+
+    <p class="small muted" style="margin-top: 1.5rem;">
+      <strong>Next →</strong> see the off-ball complement —
+      <a href="transformer-chemistry.html">Transformer Chemistry</a> uses a
+      tracking model to catch the chemistry signal events can't see.
     </p>
   </main>
 

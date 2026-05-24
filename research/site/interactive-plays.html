@@ -30,12 +30,13 @@
   </header>
 
   <main>
-    <h1>Step through chemistry on the pitch</h1>
+    <h1>See chemistry happen, frame by frame</h1>
     <p>
-      The other tabs aggregate chemistry across whole tournaments. This one
-      zooms all the way in — to a single play, frame by frame. For every play
-      below, our tracking transformer (trained on PFF tracking) emits two
-      per-frame probabilities:
+      <strong>This is the play-by-play backup to the
+      <a href="pairs.html">leaderboards</a>.</strong> The other tabs aggregate
+      chemistry across whole tournaments; this one zooms all the way in — to
+      a single play, frame by frame. For every play below, our tracking
+      transformer (trained on PFF tracking) emits two per-frame probabilities:
     </p>
     <ul>
       <li><strong>P(score next 10s)</strong> — chance the team currently in possession scores in the next 10 seconds, conditional on the full 22-player state.</li>
@@ -88,6 +89,12 @@
       and to all 22 players — chemistry as a continuous trace rather than a
       tally. The two are complementary: JOI/JDI for season-long rankings,
       this view for individual partnerships and clip-level storytelling.
+    </p>
+
+    <p class="small muted" style="margin-top: 1.5rem;">
+      <strong>Next →</strong> the full math for VAEP, JOI, JDI, and the
+      transformer is on <a href="methodology.html">Methodology</a>. All raw
+      tables and PNGs are on <a href="downloads.html">Downloads</a>.
     </p>
   </main>
 

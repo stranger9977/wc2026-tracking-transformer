@@ -27,8 +27,10 @@ function fmtTeam(row) {
 function fmtGoalsAssists(row) {
   const g = row.goals_together || 0;
   const a = row.assists_together || 0;
-  if (g === 0 && a === 0) return `<span class="muted">0 / 0</span>`;
-  return `<span class="chip green">⚽ ${g}</span> <span class="chip">🅰 ${a}</span>`;
+  // Tufte: a number-pair is read with eyes. Drop the unlabelled emoji chips,
+  // align right with tabular-nums, and let the column header carry the unit.
+  if (g === 0 && a === 0) return `<span class="muted tabular">0 / 0</span>`;
+  return `<span class="tabular">${g} <span class="muted">/</span> ${a}</span>`;
 }
 
 function zNormalize(values) {
@@ -86,35 +88,88 @@ function applyFilters() {
   }
 
   table.setData(pool);
+  renderSparkline(pool);
+}
+
+function activeMetricKey() {
+  if (mode === "off") return "joi90";
+  if (mode === "def") return "jdi90";
+  return "cross_chem";
+}
+
+function metricLabel() {
+  if (mode === "off") return "JOI90 (VAEP·90/min)";
+  if (mode === "def") return "JDI90 (VAEP·90/min)";
+  return "Cross-chem (z-blend)";
+}
+
+function renderSparkline(pool) {
+  const svg = document.getElementById("pairs-spark-svg");
+  const cap = document.getElementById("pairs-spark-caption");
+  if (!svg || !cap) return;
+  const key = activeMetricKey();
+  const sorted = pool
+    .map((r) => Number(r[key]))
+    .filter((v) => Number.isFinite(v))
+    .sort((a, b) => b - a);
+  if (sorted.length < 2) {
+    svg.innerHTML = "";
+    cap.textContent = "Not enough qualifying pairs to draw a distribution.";
+    return;
+  }
+  const W = 320, H = 60, pad = 2;
+  const innerW = W - pad * 2;
+  const innerH = H - pad * 2;
+  const vmin = Math.min(...sorted);
+  const vmax = Math.max(...sorted);
+  const span = (vmax - vmin) || 1;
+  const n = sorted.length;
+  const barW = Math.max(0.6, innerW / n - 0.5);
+  let bars = "";
+  for (let i = 0; i < n; i++) {
+    const v = sorted[i];
+    const x = pad + (i / n) * innerW;
+    const h = Math.max(1, ((v - vmin) / span) * innerH);
+    const y = pad + (innerH - h);
+    bars += `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${barW.toFixed(2)}" height="${h.toFixed(2)}" fill="currentColor" opacity="0.65"></rect>`;
+  }
+  // Median rule.
+  const mid = sorted[Math.floor(n / 2)];
+  const midY = pad + innerH - ((mid - vmin) / span) * innerH;
+  bars += `<line x1="${pad}" x2="${W - pad}" y1="${midY.toFixed(2)}" y2="${midY.toFixed(2)}" stroke="currentColor" stroke-width="0.5" opacity="0.35" stroke-dasharray="2 2"/>`;
+  svg.innerHTML = bars;
+  const fmt = (v) => (Math.abs(v) >= 100 ? v.toFixed(0) : v.toFixed(2));
+  cap.textContent = `${n} pairs, ${metricLabel()}. min ${fmt(vmin)} · median ${fmt(mid)} · max ${fmt(vmax)}.`;
 }
 
 function buildTable() {
+  // Column labels carry units — Tufte: numeric columns always state the unit.
   const baseCols = [
     { key: "team_name", label: "Team", render: fmtTeam },
     { key: "name_p", label: "Pair", render: fmtPlayers },
-    { key: "minutes_together", label: "Min", num: true, digits: 0 },
-    { key: "goals_together", label: "G / A", render: fmtGoalsAssists },
+    { key: "minutes_together", label: "Min (shared)", num: true, digits: 0 },
+    { key: "goals_together", label: "Goals / Assists (together)", render: fmtGoalsAssists },
   ];
 
   let cols;
   if (mode === "off") {
     cols = [
       ...baseCols,
-      { key: "joi", label: "JOI", num: true, digits: 2 },
-      { key: "joi90", label: "JOI90", num: true, digits: 2, defaultSort: true, defaultDir: "desc" },
+      { key: "joi", label: "JOI (raw, VAEP)", num: true, digits: 2 },
+      { key: "joi90", label: "JOI90 (VAEP·90/min)", num: true, digits: 2, defaultSort: true, defaultDir: "desc" },
     ];
   } else if (mode === "def") {
     cols = [
       ...baseCols,
-      { key: "jdi", label: "JDI", num: true, digits: 3 },
-      { key: "jdi90", label: "JDI90", num: true, digits: 3, defaultSort: true, defaultDir: "desc" },
+      { key: "jdi", label: "JDI (raw, VAEP saved)", num: true, digits: 3 },
+      { key: "jdi90", label: "JDI90 (VAEP·90/min)", num: true, digits: 3, defaultSort: true, defaultDir: "desc" },
     ];
   } else {
     cols = [
       ...baseCols,
-      { key: "joi90", label: "JOI90", num: true, digits: 2 },
-      { key: "jdi90", label: "JDI90", num: true, digits: 3 },
-      { key: "cross_chem", label: "Cross", num: true, digits: 2, defaultSort: true, defaultDir: "desc" },
+      { key: "joi90", label: "JOI90 (VAEP·90/min)", num: true, digits: 2 },
+      { key: "jdi90", label: "JDI90 (VAEP·90/min)", num: true, digits: 3 },
+      { key: "cross_chem", label: "Cross-chem (z-blend)", num: true, digits: 2, defaultSort: true, defaultDir: "desc" },
     ];
   }
 

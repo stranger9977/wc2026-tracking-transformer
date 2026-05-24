@@ -31,40 +31,44 @@
   </header>
 
   <main>
-    <h1>Transformer Chemistry</h1>
-    <p>
-      The JOI / JDI metrics on the other tabs use <strong>event-level VAEP</strong> —
-      one number per on-ball action. That throws away ~95% of the game: every
-      off-ball run, every defensive shape adjustment, every moment where a player
-      pulls a defender out of position without touching the ball.
+    <h1>Transformer Chemistry: the off-ball view</h1>
+    <p class="lede">
+      The <a href="pairs.html">JOI / JDI leaderboards</a> see only on-ball
+      events. This tab is the off-ball complement: a tracking transformer
+      watches all 22 players + ball at 5 Hz and tells us which pairs it
+      <em>actually watches together</em> — chemistry the event data can't see.
+      Does it lift VAEP, and which pairs come out on top?
     </p>
-    <p>
-      This tab uses a <strong>tracking transformer</strong> — a model that sees
-      all 22 players + ball at 5 Hz and emits a single expected-threat (xT)
-      prediction per frame plus an attention map showing which players the model
-      is reasoning about. We use that for two things:
-    </p>
-    <ol>
-      <li><strong>Augmented VAEP</strong> — fold transformer features into the
-        event-level P-score / P-concede classifiers and measure the AUC lift.</li>
-      <li><strong>Attention chemistry networks</strong> — sum the transformer's
-        pair attention across the tournament. The result is a chemistry metric
-        that captures off-ball signal that JOI/JDI can't see.</li>
-    </ol>
 
-    <h2 id="auc-lift">AUC lift over event-only VAEP</h2>
+    <h2 id="auc-lift">Frame-level P(score) / P(concede) — model performance</h2>
+    <aside class="callout" aria-label="How to read this">
+      <h4>How to read this</h4>
+      <p>
+        <strong>AUC</strong> is the chance a random scoring frame ranks above a
+        random non-scoring frame — 0.5 is a coin flip, 1.0 is perfect. The
+        event-only baseline (on actions, not frames) is <strong>score AUC
+        0.681</strong>, <strong>concede AUC 0.671</strong>. The tracking
+        transformer's frame-level heads reach <strong>val_auc_score ≈ 0.81</strong>
+        and <strong>val_auc_concede ≈ 0.82</strong> at the best epoch on the
+        held-out 8-match split — not directly comparable to the event-level
+        number (different prediction unit, different validation set) but
+        within the same family of metrics and substantially above chance.
+      </p>
+    </aside>
     <div id="auc-table" class="card">
-      <div class="empty-state">Loading metrics…</div>
+      <div class="empty-state">
+        <strong>Frame-level metrics not yet exported.</strong>
+        <span>The training script writes <code>output/training_metrics_frame_vaep.json</code>; an export step copies it into <code>data/vaep_metrics_transformer.json</code> for this page.</span>
+      </div>
     </div>
 
     <h2 id="attention-networks">Per-team attention chemistry networks</h2>
     <p class="dim small">
       For each WC22 team we render a pitch with the 11 starters at their formation
-      positions; edge color and width encode the total ball-token attention the
-      transformer placed on each pair (warmer / thicker = stronger). These edges
-      are derived <em>frame-by-frame</em> across every match the team played, so
-      they capture pairs that the model "watched together" — including in moments
-      with no on-ball event.
+      positions; edge width encodes the total ball-token attention the
+      transformer placed on each pair, summed frame-by-frame across every match
+      the team played. These edges capture pairs the model "watched together,"
+      including in moments with no on-ball event.
     </p>
     <div class="controls">
       <div>
@@ -73,27 +77,71 @@
       </div>
     </div>
     <div id="attention-grid" class="team-card-grid">
-      <div class="empty-state">Loading attention figures…</div>
+      <div class="empty-state">
+        <strong>Attention figures not rendered yet.</strong>
+        <span>Run <code>research/scripts/render_attention_figures.py</code> to populate <code>data/attention_figures_index.json</code>.</span>
+      </div>
     </div>
 
     <h2 id="top-attention-pairs">Top attention pairs (across the tournament)</h2>
-    <p class="dim small">All pairs sorted by per-90 attention. This is the cross-team analogue of the JOI top-pairs table; the difference is that attention chemistry catches non-event interactions.</p>
-    <div id="attention-pairs-table"></div>
+    <p class="dim small">All pairs sorted by per-90 attention. The cross-team analogue of the JOI top-pairs table, but attention catches non-event interactions. The sparkline shows the full distribution; the marker is the leading pair.</p>
+    <div class="pairs-with-spark">
+      <div id="attention-pairs-spark" class="spark-panel">
+        <div class="empty-state small">Distribution will render once attention pairs are available.</div>
+      </div>
+      <div id="attention-pairs-table"></div>
+    </div>
 
-    <h2 id="how">How the transformer fits in</h2>
-    <p>
-      The backbone is a 6-layer transformer encoder over a 23-token state (22 players + 1 ball), each token a 7-feature vector. We trained it to regress max-xT-next-1s as a continuous label (val Spearman ρ = <strong>0.714</strong>, +0.098 over an xT-lookup baseline). On this tab we use that model as both a feature source and as an attention extractor — the architecture and training script are at <code>src/wc2026_tracking_transformer/</code>.
-    </p>
-    <details class="code-toggle">
-      <summary>How the AUC features were assembled</summary>
-<pre><code class="lang-py"># research/scripts/extract_transformer_features.py
-# For each SPADL action, snapshot the nearest tracking frame's transformer state.
-# Append: t_xt_pred, t_attn_top1, t_attn_entropy,
-#         t_attn_to_actor, t_attn_to_teammates_sum, t_attn_to_opponents_sum.
-# research/scripts/retrain_vaep_with_transformer.py then concatenates these
-# columns onto the event-only feature matrix and refits the HistGBM
-# P-score / P-concede classifiers under the same 5-fold by-game CV.</code></pre>
+    <details class="method-drawer">
+      <summary>Method</summary>
+      <p>
+        The JOI / JDI metrics on the other tabs use <strong>event-level VAEP</strong> —
+        one number per on-ball action. That throws away ~95 % of the game: every
+        off-ball run, every defensive shape adjustment, every moment where a
+        player pulls a defender out of position without touching the ball.
+        This tab adds a <strong>tracking transformer</strong> — a model that
+        sees all 22 players plus ball at 5 Hz and emits two per-frame
+        probabilities (a frame-level lift of the same VAEP framework) plus an
+        attention map showing which players the model is conditioning on.
+        We use that for (1) per-frame chemistry traces in the
+        <a href="interactive-plays.html">Interactive Plays</a> tab and
+        (2) <em>attention chemistry networks</em> — sum the transformer's
+        pair attention across the tournament for a chemistry view that
+        catches off-ball signal that JOI/JDI can't see.
+      </p>
+      <p>
+        The backbone is a transformer encoder over a 23-token state
+        (22 players + 1 ball), each token a 7-feature vector. Two BCE
+        classification heads sit on top of the shared backbone:
+        <strong>P(team in possession scores within 10 s)</strong> and
+        <strong>P(team in possession concedes within 10 s)</strong>.
+        Targets are derived from PFF goal events; training uses a 36-match
+        train / 8-match val split with class-weighted BCE. Backbone +
+        training script live at <code>src/wc2026_tracking_transformer/</code>.
+        Best-epoch validation: score AUC ≈ 0.81, concede AUC ≈ 0.82.
+      </p>
+<pre><code class="lang-py"># scripts/train_frame_vaep.py
+# Two BCE heads on the shared transformer backbone:
+#   P(score   in next 10 s | full 22-player state)
+#   P(concede in next 10 s | full 22-player state)
+# Labels: per-frame, derived from PFF goal events;
+#         class-weighted to handle the heavy negative imbalance.
+# scripts/build_pre_event_eda.py runs the trained model on the 10s
+# windows preceding every goal, shot, key pass, etc. and accumulates
+# average P_score / P_concede curves + per-slot attention by class.
+# scripts/render_interactive_clip.py drives the per-frame PNG renderer
+# used by the Interactive Plays tab.</code></pre>
     </details>
+
+    <p class="bookend">
+      Chemistry, in this project, is the part of expected goal difference that
+      depends on <em>which teammates are configured together at this moment</em>.
+      Attention is one lens on that.
+    </p>
+    <p class="small muted" style="margin-top: 1.5rem;">
+      <strong>Next →</strong> <a href="interactive-plays.html">Interactive Plays</a>
+      lets you scrub through a single play and watch chemistry happen frame by frame.
+    </p>
   </main>
 
   <footer class="site-footer">

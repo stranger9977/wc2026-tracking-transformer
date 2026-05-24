@@ -1,0 +1,5554 @@
+{
+  "label": "argentina-croatia-julian",
+  "title": "\u00c1lvarez 39' (Argentina v Croatia, semi-final)",
+  "match_id": "10515",
+  "period": 1,
+  "start_s": 2400.0,
+  "end_s": 2440.0,
+  "n_frames": 141,
+  "home_team": {
+    "id": "363",
+    "name": "France",
+    "short": "FRA",
+    "color": "#003366"
+  },
+  "away_team": {
+    "name": "Morocco",
+    "short": "MAR",
+    "color": "#ff0000"
+  },
+  "events_in_window": [
+    {
+      "period_rel_ms": 2401000,
+      "type": "pass",
+      "actor_name": "Jawad El Yamiq",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2412000,
+      "type": "pass",
+      "actor_name": "Bono",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2420000,
+      "type": "pass",
+      "actor_name": "Jawad El Yamiq",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2424000,
+      "type": "pass",
+      "actor_name": "Selim Amallah",
+      "is_goal": false
+    },
+    {
+      "period_rel_ms": 2440000,
+      "type": "pass",
+      "actor_name": "Hugo Lloris",
+      "is_goal": false
+    }
+  ],
+  "frames": [
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2441517561674118
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.15582986176013947
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1472969651222229
+        }
+      ],
+      "ball_xy": [
+        23.530000686645508,
+        16.270000457763672
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 0,
+      "frame_id": 76801,
+      "period": 1,
+      "timestamp_ms": 2400199,
+      "in_possession_team_id": "374",
+      "p_score": 0.09211796522140503,
+      "p_concede": 0.02965562790632248,
+      "vaep": 0.06246233731508255
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.23842482268810272
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.16032618284225464
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.14407262206077576
+        }
+      ],
+      "ball_xy": [
+        23.280000686645508,
+        16.229999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 1,
+      "frame_id": 76807,
+      "period": 1,
+      "timestamp_ms": 2400400,
+      "in_possession_team_id": "374",
+      "p_score": 0.08408608287572861,
+      "p_concede": 0.03042382188141346,
+      "vaep": 0.05366226099431515
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2298991084098816
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.16637423634529114
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.13969740271568298
+        }
+      ],
+      "ball_xy": [
+        23.059999465942383,
+        16.200000762939453
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 2,
+      "frame_id": 76813,
+      "period": 1,
+      "timestamp_ms": 2400600,
+      "in_possession_team_id": "374",
+      "p_score": 0.07592710852622986,
+      "p_concede": 0.03148311376571655,
+      "vaep": 0.044443994760513306
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2190738022327423
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.17295002937316895
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.13447003066539764
+        }
+      ],
+      "ball_xy": [
+        22.8700008392334,
+        16.18000030517578
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 3,
+      "frame_id": 76819,
+      "period": 1,
+      "timestamp_ms": 2400800,
+      "in_possession_team_id": "374",
+      "p_score": 0.06845096498727798,
+      "p_concede": 0.033246226608753204,
+      "vaep": 0.03520473837852478
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.20647287368774414
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1797998994588852
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.12799105048179626
+        }
+      ],
+      "ball_xy": [
+        22.719999313354492,
+        16.15999984741211
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 4,
+      "frame_id": 76825,
+      "period": 1,
+      "timestamp_ms": 2401000,
+      "in_possession_team_id": "374",
+      "p_score": 0.06346327066421509,
+      "p_concede": 0.03513520956039429,
+      "vaep": 0.0283280611038208
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2397758811712265
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.2017248272895813
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.09500542283058167
+        }
+      ],
+      "ball_xy": [
+        22.889999389648438,
+        15.859999656677246
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 5,
+      "frame_id": 76831,
+      "period": 1,
+      "timestamp_ms": 2401200,
+      "in_possession_team_id": "374",
+      "p_score": 0.06375673413276672,
+      "p_concede": 0.04487083852291107,
+      "vaep": 0.018885895609855652
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2776221036911011
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1356433928012848
+        },
+        {
+          "slot": 20,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.08357694000005722
+        }
+      ],
+      "ball_xy": [
+        24.459999084472656,
+        14.069999694824219
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 6,
+      "frame_id": 76837,
+      "period": 1,
+      "timestamp_ms": 2401401,
+      "in_possession_team_id": "374",
+      "p_score": 0.09431538730859756,
+      "p_concede": 0.06473702937364578,
+      "vaep": 0.029578357934951782
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.29595595598220825
+        },
+        {
+          "slot": 20,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.10813777148723602
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.10333545506000519
+        }
+      ],
+      "ball_xy": [
+        26.030000686645508,
+        12.279999732971191
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 7,
+      "frame_id": 76843,
+      "period": 1,
+      "timestamp_ms": 2401601,
+      "in_possession_team_id": "374",
+      "p_score": 0.09167376905679703,
+      "p_concede": 0.06388082355260849,
+      "vaep": 0.027792945504188538
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.30564993619918823
+        },
+        {
+          "slot": 20,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.11980143189430237
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.08583749830722809
+        }
+      ],
+      "ball_xy": [
+        27.600000381469727,
+        10.489999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 8,
+      "frame_id": 76849,
+      "period": 1,
+      "timestamp_ms": 2401801,
+      "in_possession_team_id": "374",
+      "p_score": 0.08812354505062103,
+      "p_concede": 0.06276802718639374,
+      "vaep": 0.025355517864227295
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.3111850619316101
+        },
+        {
+          "slot": 20,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.12455964833498001
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.07861623167991638
+        }
+      ],
+      "ball_xy": [
+        29.170000076293945,
+        8.699999809265137
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 9,
+      "frame_id": 76855,
+      "period": 1,
+      "timestamp_ms": 2402001,
+      "in_possession_team_id": "374",
+      "p_score": 0.04929859936237335,
+      "p_concede": 0.05454010143876076,
+      "vaep": -0.005241502076387405
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.31467294692993164
+        },
+        {
+          "slot": 20,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.12683621048927307
+        },
+        {
+          "slot": 17,
+          "player_id": 1681,
+          "name": "Achraf Hakimi",
+          "position": "RWB",
+          "attention": 0.07529152929782867
+        }
+      ],
+      "ball_xy": [
+        30.75,
+        6.909999847412109
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 10,
+      "frame_id": 76861,
+      "period": 1,
+      "timestamp_ms": 2402201,
+      "in_possession_team_id": "374",
+      "p_score": 0.04919556528329849,
+      "p_concede": 0.05289984121918678,
+      "vaep": -0.0037042759358882904
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.3172171115875244
+        },
+        {
+          "slot": 20,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.12787288427352905
+        },
+        {
+          "slot": 17,
+          "player_id": 1681,
+          "name": "Achraf Hakimi",
+          "position": "RWB",
+          "attention": 0.07576046884059906
+        }
+      ],
+      "ball_xy": [
+        32.31999969482422,
+        5.130000114440918
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 11,
+      "frame_id": 76867,
+      "period": 1,
+      "timestamp_ms": 2402402,
+      "in_possession_team_id": "374",
+      "p_score": 0.049112603068351746,
+      "p_concede": 0.05082882195711136,
+      "vaep": -0.001716218888759613
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.31885290145874023
+        },
+        {
+          "slot": 20,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.1281784623861313
+        },
+        {
+          "slot": 17,
+          "player_id": 1681,
+          "name": "Achraf Hakimi",
+          "position": "RWB",
+          "attention": 0.07613000273704529
+        }
+      ],
+      "ball_xy": [
+        33.88999938964844,
+        3.3399999141693115
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 12,
+      "frame_id": 76873,
+      "period": 1,
+      "timestamp_ms": 2402602,
+      "in_possession_team_id": "374",
+      "p_score": 0.048483956605196,
+      "p_concede": 0.04882321134209633,
+      "vaep": -0.0003392547369003296
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.3201674222946167
+        },
+        {
+          "slot": 20,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.12812137603759766
+        },
+        {
+          "slot": 17,
+          "player_id": 1681,
+          "name": "Achraf Hakimi",
+          "position": "RWB",
+          "attention": 0.0763794332742691
+        }
+      ],
+      "ball_xy": [
+        35.459999084472656,
+        1.5499999523162842
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 13,
+      "frame_id": 76879,
+      "period": 1,
+      "timestamp_ms": 2402802,
+      "in_possession_team_id": "374",
+      "p_score": 0.047434188425540924,
+      "p_concede": 0.04755451902747154,
+      "vaep": -0.00012033060193061829
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.300683856010437
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1326291710138321
+        },
+        {
+          "slot": 20,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.09309729933738708
+        }
+      ],
+      "ball_xy": [
+        35.27000045776367,
+        1.4600000381469727
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 14,
+      "frame_id": 76885,
+      "period": 1,
+      "timestamp_ms": 2403002,
+      "in_possession_team_id": "374",
+      "p_score": 0.034545741975307465,
+      "p_concede": 0.033865801990032196,
+      "vaep": 0.0006799399852752686
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2944343686103821
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.16644904017448425
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.09248130768537521
+        }
+      ],
+      "ball_xy": [
+        35.08000183105469,
+        1.3600000143051147
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 15,
+      "frame_id": 76891,
+      "period": 1,
+      "timestamp_ms": 2403202,
+      "in_possession_team_id": "374",
+      "p_score": 0.03413927182555199,
+      "p_concede": 0.03395454213023186,
+      "vaep": 0.0001847296953201294
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2937306761741638
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.17959383130073547
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.10125000029802322
+        }
+      ],
+      "ball_xy": [
+        34.88999938964844,
+        1.25
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 16,
+      "frame_id": 76897,
+      "period": 1,
+      "timestamp_ms": 2403403,
+      "in_possession_team_id": "374",
+      "p_score": 0.03342350944876671,
+      "p_concede": 0.0342896431684494,
+      "vaep": -0.0008661337196826935
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.29422807693481445
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.18317478895187378
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.10524921119213104
+        }
+      ],
+      "ball_xy": [
+        34.70000076293945,
+        1.1399999856948853
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 17,
+      "frame_id": 76903,
+      "period": 1,
+      "timestamp_ms": 2403603,
+      "in_possession_team_id": "374",
+      "p_score": 0.03259054943919182,
+      "p_concede": 0.03474528342485428,
+      "vaep": -0.0021547339856624603
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.29491716623306274
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.182355135679245
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.10745062679052353
+        }
+      ],
+      "ball_xy": [
+        34.5099983215332,
+        1.0299999713897705
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 18,
+      "frame_id": 76909,
+      "period": 1,
+      "timestamp_ms": 2403803,
+      "in_possession_team_id": "374",
+      "p_score": 0.03174470365047455,
+      "p_concede": 0.03482688590884209,
+      "vaep": -0.0030821822583675385
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2978043556213379
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.17939548194408417
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.10814506560564041
+        }
+      ],
+      "ball_xy": [
+        34.31999969482422,
+        0.8999999761581421
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 19,
+      "frame_id": 76915,
+      "period": 1,
+      "timestamp_ms": 2404003,
+      "in_possession_team_id": "374",
+      "p_score": 0.031087081879377365,
+      "p_concede": 0.034792810678482056,
+      "vaep": -0.0037057287991046906
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2981335520744324
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.17536067962646484
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1102333515882492
+        }
+      ],
+      "ball_xy": [
+        34.130001068115234,
+        0.7799999713897705
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 20,
+      "frame_id": 76921,
+      "period": 1,
+      "timestamp_ms": 2404203,
+      "in_possession_team_id": "374",
+      "p_score": 0.030109915882349014,
+      "p_concede": 0.03410138934850693,
+      "vaep": -0.003991473466157913
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2993309795856476
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.17081570625305176
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.11208692193031311
+        }
+      ],
+      "ball_xy": [
+        33.939998626708984,
+        0.6499999761581421
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 21,
+      "frame_id": 76927,
+      "period": 1,
+      "timestamp_ms": 2404404,
+      "in_possession_team_id": "374",
+      "p_score": 0.02925390750169754,
+      "p_concede": 0.03345302864909172,
+      "vaep": -0.00419912114739418
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2996297776699066
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.16606405377388
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.11489453911781311
+        }
+      ],
+      "ball_xy": [
+        33.75,
+        0.5199999809265137
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 22,
+      "frame_id": 76933,
+      "period": 1,
+      "timestamp_ms": 2404604,
+      "in_possession_team_id": "374",
+      "p_score": 0.028288623318076134,
+      "p_concede": 0.03243662416934967,
+      "vaep": -0.004148000851273537
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.3002331852912903
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.16128034889698029
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.11801768839359283
+        }
+      ],
+      "ball_xy": [
+        33.560001373291016,
+        0.3799999952316284
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 23,
+      "frame_id": 76939,
+      "period": 1,
+      "timestamp_ms": 2404804,
+      "in_possession_team_id": "374",
+      "p_score": 0.027515091001987457,
+      "p_concede": 0.031052084639668465,
+      "vaep": -0.0035369936376810074
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.29735928773880005
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.15722253918647766
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.12379619479179382
+        }
+      ],
+      "ball_xy": [
+        33.36000061035156,
+        0.25
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 24,
+      "frame_id": 76945,
+      "period": 1,
+      "timestamp_ms": 2405004,
+      "in_possession_team_id": "374",
+      "p_score": 0.0267961286008358,
+      "p_concede": 0.02926442213356495,
+      "vaep": -0.002468293532729149
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2945554852485657
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.15377095341682434
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.12897516787052155
+        }
+      ],
+      "ball_xy": [
+        33.15999984741211,
+        0.11999999731779099
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 25,
+      "frame_id": 76951,
+      "period": 1,
+      "timestamp_ms": 2405204,
+      "in_possession_team_id": "374",
+      "p_score": 0.026339838281273842,
+      "p_concede": 0.02764207124710083,
+      "vaep": -0.0013022329658269882
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2896983325481415
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.15107178688049316
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1354253739118576
+        }
+      ],
+      "ball_xy": [
+        32.95000076293945,
+        -0.009999999776482582
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 26,
+      "frame_id": 76957,
+      "period": 1,
+      "timestamp_ms": 2405405,
+      "in_possession_team_id": "374",
+      "p_score": 0.026107359677553177,
+      "p_concede": 0.025844940915703773,
+      "vaep": 0.0002624187618494034
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2846793532371521
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.1490924209356308
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.14089970290660858
+        }
+      ],
+      "ball_xy": [
+        32.7400016784668,
+        -0.14000000059604645
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 27,
+      "frame_id": 76963,
+      "period": 1,
+      "timestamp_ms": 2405605,
+      "in_possession_team_id": "374",
+      "p_score": 0.02601301297545433,
+      "p_concede": 0.024426085874438286,
+      "vaep": 0.0015869271010160446
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.27385497093200684
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.14841535687446594
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.14718353748321533
+        }
+      ],
+      "ball_xy": [
+        32.5099983215332,
+        -0.25999999046325684
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 28,
+      "frame_id": 76969,
+      "period": 1,
+      "timestamp_ms": 2405805,
+      "in_possession_team_id": "374",
+      "p_score": 0.026008006185293198,
+      "p_concede": 0.023302603513002396,
+      "vaep": 0.002705402672290802
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2605428099632263
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.15555885434150696
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.1450050175189972
+        }
+      ],
+      "ball_xy": [
+        32.27000045776367,
+        -0.3700000047683716
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 29,
+      "frame_id": 76975,
+      "period": 1,
+      "timestamp_ms": 2406005,
+      "in_possession_team_id": "374",
+      "p_score": 0.02600993774831295,
+      "p_concede": 0.02254786342382431,
+      "vaep": 0.00346207432448864
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.24979981780052185
+        },
+        {
+          "slot": 16,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1618056297302246
+        },
+        {
+          "slot": 13,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1428338587284088
+        }
+      ],
+      "ball_xy": [
+        32.029998779296875,
+        -0.47999998927116394
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 30,
+      "frame_id": 76981,
+      "period": 1,
+      "timestamp_ms": 2406205,
+      "in_possession_team_id": "374",
+      "p_score": 0.02613539807498455,
+      "p_concede": 0.022145414724946022,
+      "vaep": 0.0039899833500385284
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.23682044446468353
+        },
+        {
+          "slot": 16,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.16820520162582397
+        },
+        {
+          "slot": 13,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.14027604460716248
+        }
+      ],
+      "ball_xy": [
+        31.779998779296875,
+        -0.5799999833106995
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 31,
+      "frame_id": 76987,
+      "period": 1,
+      "timestamp_ms": 2406406,
+      "in_possession_team_id": "374",
+      "p_score": 0.026075784116983414,
+      "p_concede": 0.022068804129958153,
+      "vaep": 0.004006979987025261
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.22156395018100739
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1745087206363678
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.13778434693813324
+        }
+      ],
+      "ball_xy": [
+        31.520000457763672,
+        -0.6600000262260437
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 32,
+      "frame_id": 76993,
+      "period": 1,
+      "timestamp_ms": 2406606,
+      "in_possession_team_id": "374",
+      "p_score": 0.02607121132314205,
+      "p_concede": 0.022045454010367393,
+      "vaep": 0.004025757312774658
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.21036949753761292
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.18054120242595673
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.13590720295906067
+        }
+      ],
+      "ball_xy": [
+        31.25,
+        -0.7400000095367432
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 33,
+      "frame_id": 76999,
+      "period": 1,
+      "timestamp_ms": 2406806,
+      "in_possession_team_id": "374",
+      "p_score": 0.026387955993413925,
+      "p_concede": 0.02220570668578148,
+      "vaep": 0.004182249307632446
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.20108088850975037
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.18559083342552185
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.13506469130516052
+        }
+      ],
+      "ball_xy": [
+        30.979999542236328,
+        -0.800000011920929
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 34,
+      "frame_id": 77005,
+      "period": 1,
+      "timestamp_ms": 2407006,
+      "in_possession_team_id": "374",
+      "p_score": 0.026681141927838326,
+      "p_concede": 0.022399552166461945,
+      "vaep": 0.004281589761376381
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1954553723335266
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1896003782749176
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.13485682010650635
+        }
+      ],
+      "ball_xy": [
+        30.709999084472656,
+        -0.8500000238418579
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 35,
+      "frame_id": 77011,
+      "period": 1,
+      "timestamp_ms": 2407206,
+      "in_possession_team_id": "374",
+      "p_score": 0.027295764535665512,
+      "p_concede": 0.022940196096897125,
+      "vaep": 0.004355568438768387
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1934148222208023
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.19297261536121368
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.13518011569976807
+        }
+      ],
+      "ball_xy": [
+        30.43000030517578,
+        -0.8899999856948853
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 36,
+      "frame_id": 77017,
+      "period": 1,
+      "timestamp_ms": 2407407,
+      "in_possession_team_id": "374",
+      "p_score": 0.028528256341814995,
+      "p_concede": 0.02378346584737301,
+      "vaep": 0.004744790494441986
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.19507752358913422
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.19495601952075958
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.13535118103027344
+        }
+      ],
+      "ball_xy": [
+        30.14999771118164,
+        -0.8999999761581421
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 37,
+      "frame_id": 77023,
+      "period": 1,
+      "timestamp_ms": 2407607,
+      "in_possession_team_id": "374",
+      "p_score": 0.030542420223355293,
+      "p_concede": 0.024992506951093674,
+      "vaep": 0.00554991327226162
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2012568861246109
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.19540399312973022
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.13482557237148285
+        }
+      ],
+      "ball_xy": [
+        29.860002517700195,
+        -0.9099999666213989
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 38,
+      "frame_id": 77029,
+      "period": 1,
+      "timestamp_ms": 2407807,
+      "in_possession_team_id": "374",
+      "p_score": 0.032908160239458084,
+      "p_concede": 0.025427302345633507,
+      "vaep": 0.007480857893824577
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.20728671550750732
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.19224175810813904
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.13275741040706635
+        }
+      ],
+      "ball_xy": [
+        29.579999923706055,
+        -0.8999999761581421
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 39,
+      "frame_id": 77035,
+      "period": 1,
+      "timestamp_ms": 2408007,
+      "in_possession_team_id": "374",
+      "p_score": 0.033745404332876205,
+      "p_concede": 0.025656528770923615,
+      "vaep": 0.008088875561952591
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.21569415926933289
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.18545177578926086
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.1280844509601593
+        }
+      ],
+      "ball_xy": [
+        29.299999237060547,
+        -0.8700000047683716
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 40,
+      "frame_id": 77041,
+      "period": 1,
+      "timestamp_ms": 2408207,
+      "in_possession_team_id": "374",
+      "p_score": 0.0337701141834259,
+      "p_concede": 0.02567041479051113,
+      "vaep": 0.008099699392914772
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.22646984457969666
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.17629623413085938
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.11865740269422531
+        }
+      ],
+      "ball_xy": [
+        29.010000228881836,
+        -0.8299999833106995
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 41,
+      "frame_id": 77047,
+      "period": 1,
+      "timestamp_ms": 2408408,
+      "in_possession_team_id": "374",
+      "p_score": 0.03319454938173294,
+      "p_concede": 0.02589953877031803,
+      "vaep": 0.007295010611414909
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.23362617194652557
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.16356641054153442
+        },
+        {
+          "slot": 13,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.10550176352262497
+        }
+      ],
+      "ball_xy": [
+        28.73000144958496,
+        -0.7799999713897705
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 42,
+      "frame_id": 77053,
+      "period": 1,
+      "timestamp_ms": 2408608,
+      "in_possession_team_id": "374",
+      "p_score": 0.03241611272096634,
+      "p_concede": 0.02668871358036995,
+      "vaep": 0.00572739914059639
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.24263766407966614
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.15213578939437866
+        },
+        {
+          "slot": 11,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.1252337545156479
+        }
+      ],
+      "ball_xy": [
+        28.440000534057617,
+        -0.7100000381469727
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 43,
+      "frame_id": 77059,
+      "period": 1,
+      "timestamp_ms": 2408808,
+      "in_possession_team_id": "374",
+      "p_score": 0.03154115006327629,
+      "p_concede": 0.02730315364897251,
+      "vaep": 0.00423799641430378
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2481493353843689
+        },
+        {
+          "slot": 11,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.1472066193819046
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1426168829202652
+        }
+      ],
+      "ball_xy": [
+        28.15999984741211,
+        -0.6299999952316284
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 44,
+      "frame_id": 77065,
+      "period": 1,
+      "timestamp_ms": 2409008,
+      "in_possession_team_id": "374",
+      "p_score": 0.030875297263264656,
+      "p_concede": 0.027937069535255432,
+      "vaep": 0.002938227728009224
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25152772665023804
+        },
+        {
+          "slot": 11,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.16403788328170776
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.13452079892158508
+        }
+      ],
+      "ball_xy": [
+        27.889999389648438,
+        -0.5199999809265137
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 45,
+      "frame_id": 77071,
+      "period": 1,
+      "timestamp_ms": 2409208,
+      "in_possession_team_id": "374",
+      "p_score": 0.030239591374993324,
+      "p_concede": 0.028205392882227898,
+      "vaep": 0.0020341984927654266
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2559332847595215
+        },
+        {
+          "slot": 11,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.1727907657623291
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.13092094659805298
+        }
+      ],
+      "ball_xy": [
+        27.610000610351562,
+        -0.4099999964237213
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 46,
+      "frame_id": 77077,
+      "period": 1,
+      "timestamp_ms": 2409409,
+      "in_possession_team_id": "374",
+      "p_score": 0.029789328575134277,
+      "p_concede": 0.02811945043504238,
+      "vaep": 0.001669878140091896
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25658488273620605
+        },
+        {
+          "slot": 11,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.18252933025360107
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.12581497430801392
+        }
+      ],
+      "ball_xy": [
+        27.350000381469727,
+        -0.27000001072883606
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 47,
+      "frame_id": 77083,
+      "period": 1,
+      "timestamp_ms": 2409609,
+      "in_possession_team_id": "374",
+      "p_score": 0.029324239119887352,
+      "p_concede": 0.02829982154071331,
+      "vaep": 0.0010244175791740417
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25744307041168213
+        },
+        {
+          "slot": 11,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.18861934542655945
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1226469948887825
+        }
+      ],
+      "ball_xy": [
+        27.090002059936523,
+        -0.10999999940395355
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 48,
+      "frame_id": 77089,
+      "period": 1,
+      "timestamp_ms": 2409809,
+      "in_possession_team_id": "374",
+      "p_score": 0.028800107538700104,
+      "p_concede": 0.028312139213085175,
+      "vaep": 0.0004879683256149292
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25749969482421875
+        },
+        {
+          "slot": 11,
+          "player_id": 13866,
+          "name": "Selim Amallah",
+          "position": "AM",
+          "attention": 0.1931256353855133
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.12067627906799316
+        }
+      ],
+      "ball_xy": [
+        26.84000015258789,
+        0.05999999865889549
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 49,
+      "frame_id": 77095,
+      "period": 1,
+      "timestamp_ms": 2410009,
+      "in_possession_team_id": "374",
+      "p_score": 0.028278013691306114,
+      "p_concede": 0.028459183871746063,
+      "vaep": -0.00018117018043994904
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.25677329301834106
+        },
+        {
+          "slot": 11,
+          "player_id": 13866,
+          "name": "Selim Amallah",
+          "position": "AM",
+          "attention": 0.19670049846172333
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.11927206069231033
+        }
+      ],
+      "ball_xy": [
+        26.600000381469727,
+        0.25
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 50,
+      "frame_id": 77101,
+      "period": 1,
+      "timestamp_ms": 2410209,
+      "in_possession_team_id": "374",
+      "p_score": 0.027783598750829697,
+      "p_concede": 0.02872350439429283,
+      "vaep": -0.0009399056434631348
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2552106976509094
+        },
+        {
+          "slot": 11,
+          "player_id": 13866,
+          "name": "Selim Amallah",
+          "position": "AM",
+          "attention": 0.19849693775177002
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.11918747425079346
+        }
+      ],
+      "ball_xy": [
+        26.3700008392334,
+        0.46000003814697266
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 51,
+      "frame_id": 77107,
+      "period": 1,
+      "timestamp_ms": 2410410,
+      "in_possession_team_id": "374",
+      "p_score": 0.02705540880560875,
+      "p_concede": 0.02899244800209999,
+      "vaep": -0.0019370391964912415
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2536284327507019
+        },
+        {
+          "slot": 11,
+          "player_id": 13866,
+          "name": "Selim Amallah",
+          "position": "AM",
+          "attention": 0.19658565521240234
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1221650242805481
+        }
+      ],
+      "ball_xy": [
+        26.149999618530273,
+        0.6800000071525574
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 52,
+      "frame_id": 77113,
+      "period": 1,
+      "timestamp_ms": 2410610,
+      "in_possession_team_id": "374",
+      "p_score": 0.02626032382249832,
+      "p_concede": 0.029376676306128502,
+      "vaep": -0.0031163524836301804
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.24998991191387177
+        },
+        {
+          "slot": 11,
+          "player_id": 13866,
+          "name": "Selim Amallah",
+          "position": "AM",
+          "attention": 0.19047029316425323
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.12901800870895386
+        }
+      ],
+      "ball_xy": [
+        25.950000762939453,
+        0.9200000762939453
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 53,
+      "frame_id": 77119,
+      "period": 1,
+      "timestamp_ms": 2410810,
+      "in_possession_team_id": "374",
+      "p_score": 0.025266511365771294,
+      "p_concede": 0.030151141807436943,
+      "vaep": -0.004884630441665649
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.24763402342796326
+        },
+        {
+          "slot": 11,
+          "player_id": 13866,
+          "name": "Selim Amallah",
+          "position": "AM",
+          "attention": 0.17737840116024017
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1420786827802658
+        }
+      ],
+      "ball_xy": [
+        25.760000228881836,
+        1.159999966621399
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 54,
+      "frame_id": 77125,
+      "period": 1,
+      "timestamp_ms": 2411010,
+      "in_possession_team_id": "374",
+      "p_score": 0.02437291108071804,
+      "p_concede": 0.031093575060367584,
+      "vaep": -0.006720663979649544
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.24399515986442566
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.16015909612178802
+        },
+        {
+          "slot": 11,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.1595391482114792
+        }
+      ],
+      "ball_xy": [
+        25.59000015258789,
+        1.3999998569488525
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 55,
+      "frame_id": 77131,
+      "period": 1,
+      "timestamp_ms": 2411210,
+      "in_possession_team_id": "374",
+      "p_score": 0.023480253294110298,
+      "p_concede": 0.03210802748799324,
+      "vaep": -0.008627774193882942
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2387838214635849
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1810210645198822
+        },
+        {
+          "slot": 11,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.1389552652835846
+        }
+      ],
+      "ball_xy": [
+        25.440000534057617,
+        1.649999976158142
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 56,
+      "frame_id": 77137,
+      "period": 1,
+      "timestamp_ms": 2411411,
+      "in_possession_team_id": "374",
+      "p_score": 0.022810330614447594,
+      "p_concede": 0.033453673124313354,
+      "vaep": -0.01064334250986576
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2329380065202713
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.20176871120929718
+        },
+        {
+          "slot": 11,
+          "player_id": 113,
+          "name": "Olivier Giroud",
+          "position": "CF",
+          "attention": 0.11856070160865784
+        }
+      ],
+      "ball_xy": [
+        25.309999465942383,
+        1.899999976158142
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 57,
+      "frame_id": 77143,
+      "period": 1,
+      "timestamp_ms": 2411611,
+      "in_possession_team_id": "374",
+      "p_score": 0.02234305813908577,
+      "p_concede": 0.03471507132053375,
+      "vaep": -0.012372013181447983
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.22936952114105225
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.2217075228691101
+        },
+        {
+          "slot": 11,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.09832057356834412
+        }
+      ],
+      "ball_xy": [
+        25.190000534057617,
+        2.140000104904175
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 58,
+      "frame_id": 77149,
+      "period": 1,
+      "timestamp_ms": 2411811,
+      "in_possession_team_id": "374",
+      "p_score": 0.022338977083563805,
+      "p_concede": 0.03564827889204025,
+      "vaep": -0.013309301808476448
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.2399166226387024
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.22164997458457947
+        },
+        {
+          "slot": 11,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.07951883971691132
+        }
+      ],
+      "ball_xy": [
+        25.100000381469727,
+        2.380000114440918
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 59,
+      "frame_id": 77155,
+      "period": 1,
+      "timestamp_ms": 2412011,
+      "in_possession_team_id": "374",
+      "p_score": 0.022780250757932663,
+      "p_concede": 0.03623088821768761,
+      "vaep": -0.013450637459754944
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.2557317614555359
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2152831256389618
+        },
+        {
+          "slot": 15,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.06912294030189514
+        }
+      ],
+      "ball_xy": [
+        25.030000686645508,
+        2.5999999046325684
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 60,
+      "frame_id": 77161,
+      "period": 1,
+      "timestamp_ms": 2412211,
+      "in_possession_team_id": "374",
+      "p_score": 0.02374717965722084,
+      "p_concede": 0.03576788306236267,
+      "vaep": -0.01202070340514183
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.19540724158287048
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.16520151495933533
+        },
+        {
+          "slot": 11,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.08200159668922424
+        }
+      ],
+      "ball_xy": [
+        24.469999313354492,
+        4.159999847412109
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 61,
+      "frame_id": 77167,
+      "period": 1,
+      "timestamp_ms": 2412412,
+      "in_possession_team_id": "374",
+      "p_score": 0.02129058539867401,
+      "p_concede": 0.031252481043338776,
+      "vaep": -0.009961895644664764
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.16598807275295258
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1381702572107315
+        },
+        {
+          "slot": 11,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.08801905065774918
+        }
+      ],
+      "ball_xy": [
+        23.81999969482422,
+        5.989999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 62,
+      "frame_id": 77173,
+      "period": 1,
+      "timestamp_ms": 2412612,
+      "in_possession_team_id": "374",
+      "p_score": 0.022318707779049873,
+      "p_concede": 0.02964424155652523,
+      "vaep": -0.007325533777475357
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.15534460544586182
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.126252681016922
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.09556601196527481
+        }
+      ],
+      "ball_xy": [
+        23.170000076293945,
+        7.809999942779541
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 63,
+      "frame_id": 77179,
+      "period": 1,
+      "timestamp_ms": 2412812,
+      "in_possession_team_id": "374",
+      "p_score": 0.02348630130290985,
+      "p_concede": 0.027578754350543022,
+      "vaep": -0.004092453047633171
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1509593427181244
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12079811096191406
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.0992322564125061
+        }
+      ],
+      "ball_xy": [
+        22.520000457763672,
+        9.640000343322754
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 64,
+      "frame_id": 77185,
+      "period": 1,
+      "timestamp_ms": 2413012,
+      "in_possession_team_id": "374",
+      "p_score": 0.024675708264112473,
+      "p_concede": 0.025756346061825752,
+      "vaep": -0.0010806377977132797
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.15291725099086761
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12538442015647888
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.0965060368180275
+        }
+      ],
+      "ball_xy": [
+        21.860000610351562,
+        11.470000267028809
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 65,
+      "frame_id": 77191,
+      "period": 1,
+      "timestamp_ms": 2413212,
+      "in_possession_team_id": "374",
+      "p_score": 0.038328491151332855,
+      "p_concede": 0.022767582908272743,
+      "vaep": 0.015560908243060112
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.15269792079925537
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12711600959300995
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.09472416341304779
+        }
+      ],
+      "ball_xy": [
+        21.209999084472656,
+        13.299999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 66,
+      "frame_id": 77197,
+      "period": 1,
+      "timestamp_ms": 2413413,
+      "in_possession_team_id": "374",
+      "p_score": 0.03956958279013634,
+      "p_concede": 0.02118961326777935,
+      "vaep": 0.018379969522356987
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.15045031905174255
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12761831283569336
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.09364687651395798
+        }
+      ],
+      "ball_xy": [
+        20.559999465942383,
+        15.130000114440918
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 67,
+      "frame_id": 77203,
+      "period": 1,
+      "timestamp_ms": 2413613,
+      "in_possession_team_id": "374",
+      "p_score": 0.04072649031877518,
+      "p_concede": 0.019896700978279114,
+      "vaep": 0.020829789340496063
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.14626699686050415
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12740686535835266
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.09290158748626709
+        }
+      ],
+      "ball_xy": [
+        19.90999984741211,
+        16.959999084472656
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 68,
+      "frame_id": 77209,
+      "period": 1,
+      "timestamp_ms": 2413813,
+      "in_possession_team_id": "374",
+      "p_score": 0.04137197136878967,
+      "p_concede": 0.01884530670940876,
+      "vaep": 0.022526664659380913
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.18988162279129028
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.17723283171653748
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.08027426898479462
+        }
+      ],
+      "ball_xy": [
+        19.5,
+        17.110000610351562
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 69,
+      "frame_id": 77215,
+      "period": 1,
+      "timestamp_ms": 2414013,
+      "in_possession_team_id": "374",
+      "p_score": 0.04926060140132904,
+      "p_concede": 0.019441716372966766,
+      "vaep": 0.029818885028362274
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.21783289313316345
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.19168324768543243
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.08871413767337799
+        }
+      ],
+      "ball_xy": [
+        19.139999389648438,
+        16.920000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 70,
+      "frame_id": 77221,
+      "period": 1,
+      "timestamp_ms": 2414213,
+      "in_possession_team_id": "374",
+      "p_score": 0.04896731674671173,
+      "p_concede": 0.019230976700782776,
+      "vaep": 0.029736340045928955
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.22830818593502045
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.19503328204154968
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.09610982984304428
+        }
+      ],
+      "ball_xy": [
+        18.790000915527344,
+        16.729999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 71,
+      "frame_id": 77227,
+      "period": 1,
+      "timestamp_ms": 2414414,
+      "in_possession_team_id": "374",
+      "p_score": 0.04725825786590576,
+      "p_concede": 0.018357325345277786,
+      "vaep": 0.028900932520627975
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.23104985058307648
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1926695704460144
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1034577339887619
+        }
+      ],
+      "ball_xy": [
+        18.440000534057617,
+        16.530000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 72,
+      "frame_id": 77233,
+      "period": 1,
+      "timestamp_ms": 2414614,
+      "in_possession_team_id": "374",
+      "p_score": 0.045528218150138855,
+      "p_concede": 0.017518509179353714,
+      "vaep": 0.02800970897078514
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.2301512062549591
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.18780983984470367
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.11014409363269806
+        }
+      ],
+      "ball_xy": [
+        18.09000015258789,
+        16.329999923706055
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 73,
+      "frame_id": 77239,
+      "period": 1,
+      "timestamp_ms": 2414814,
+      "in_possession_team_id": "374",
+      "p_score": 0.04461805894970894,
+      "p_concede": 0.016910670325160027,
+      "vaep": 0.027707388624548912
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.22655636072158813
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1809583306312561
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.11675387620925903
+        }
+      ],
+      "ball_xy": [
+        17.75,
+        16.139999389648438
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 74,
+      "frame_id": 77245,
+      "period": 1,
+      "timestamp_ms": 2415014,
+      "in_possession_team_id": "374",
+      "p_score": 0.043798841536045074,
+      "p_concede": 0.01634012721478939,
+      "vaep": 0.027458714321255684
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.22224535048007965
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.17380055785179138
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.12251927703619003
+        }
+      ],
+      "ball_xy": [
+        17.40999984741211,
+        15.9399995803833
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 75,
+      "frame_id": 77251,
+      "period": 1,
+      "timestamp_ms": 2415214,
+      "in_possession_team_id": "374",
+      "p_score": 0.04367730766534805,
+      "p_concede": 0.016240622848272324,
+      "vaep": 0.02743668481707573
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.21769081056118011
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.16702473163604736
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.12724684178829193
+        }
+      ],
+      "ball_xy": [
+        17.06999969482422,
+        15.729999542236328
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 76,
+      "frame_id": 77257,
+      "period": 1,
+      "timestamp_ms": 2415415,
+      "in_possession_team_id": "374",
+      "p_score": 0.04360469803214073,
+      "p_concede": 0.01646697148680687,
+      "vaep": 0.027137726545333862
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.212214395403862
+        },
+        {
+          "slot": 16,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.1598576009273529
+        },
+        {
+          "slot": 13,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1309860795736313
+        }
+      ],
+      "ball_xy": [
+        16.739999771118164,
+        15.529999732971191
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 77,
+      "frame_id": 77263,
+      "period": 1,
+      "timestamp_ms": 2415615,
+      "in_possession_team_id": "374",
+      "p_score": 0.04410077631473541,
+      "p_concede": 0.017039189115166664,
+      "vaep": 0.02706158719956875
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.20716291666030884
+        },
+        {
+          "slot": 16,
+          "player_id": 8027,
+          "name": "Noussair Mazraoui",
+          "position": "LWB",
+          "attention": 0.15343070030212402
+        },
+        {
+          "slot": 13,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.13339629769325256
+        }
+      ],
+      "ball_xy": [
+        16.40999984741211,
+        15.319999694824219
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 78,
+      "frame_id": 77269,
+      "period": 1,
+      "timestamp_ms": 2415815,
+      "in_possession_team_id": "374",
+      "p_score": 0.04499790444970131,
+      "p_concede": 0.01783967949450016,
+      "vaep": 0.02715822495520115
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.20160305500030518
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.14765405654907227
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.13489201664924622
+        }
+      ],
+      "ball_xy": [
+        16.09000015258789,
+        15.109999656677246
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 79,
+      "frame_id": 77275,
+      "period": 1,
+      "timestamp_ms": 2416015,
+      "in_possession_team_id": "374",
+      "p_score": 0.045860640704631805,
+      "p_concede": 0.018897846341133118,
+      "vaep": 0.026962794363498688
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.19589972496032715
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.14259065687656403
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.13551554083824158
+        }
+      ],
+      "ball_xy": [
+        15.779998779296875,
+        14.890000343322754
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 80,
+      "frame_id": 77281,
+      "period": 1,
+      "timestamp_ms": 2416215,
+      "in_possession_team_id": "374",
+      "p_score": 0.04658824950456619,
+      "p_concede": 0.020395474508404732,
+      "vaep": 0.02619277499616146
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.19059406220912933
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.13792166113853455
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1357034146785736
+        }
+      ],
+      "ball_xy": [
+        15.480000495910645,
+        14.65999984741211
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 81,
+      "frame_id": 77287,
+      "period": 1,
+      "timestamp_ms": 2416416,
+      "in_possession_team_id": "374",
+      "p_score": 0.046755269169807434,
+      "p_concede": 0.02234947681427002,
+      "vaep": 0.024405792355537415
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1859070211648941
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1351308822631836
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1341467797756195
+        }
+      ],
+      "ball_xy": [
+        15.189998626708984,
+        14.430000305175781
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 82,
+      "frame_id": 77293,
+      "period": 1,
+      "timestamp_ms": 2416616,
+      "in_possession_team_id": "374",
+      "p_score": 0.04662878438830376,
+      "p_concede": 0.024708494544029236,
+      "vaep": 0.02192028984427452
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1825299710035324
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.13407301902770996
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.13118112087249756
+        }
+      ],
+      "ball_xy": [
+        14.899999618530273,
+        14.189998626708984
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 83,
+      "frame_id": 77299,
+      "period": 1,
+      "timestamp_ms": 2416816,
+      "in_possession_team_id": "374",
+      "p_score": 0.04580060765147209,
+      "p_concede": 0.027399614453315735,
+      "vaep": 0.018400993198156357
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.17976388335227966
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1327795684337616
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.12953639030456543
+        }
+      ],
+      "ball_xy": [
+        14.619998931884766,
+        13.9399995803833
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 84,
+      "frame_id": 77305,
+      "period": 1,
+      "timestamp_ms": 2417016,
+      "in_possession_team_id": "374",
+      "p_score": 0.0445982962846756,
+      "p_concede": 0.030236104503273964,
+      "vaep": 0.014362191781401634
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1782408058643341
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.13134953379631042
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.12943997979164124
+        }
+      ],
+      "ball_xy": [
+        14.340001106262207,
+        13.670000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 85,
+      "frame_id": 77311,
+      "period": 1,
+      "timestamp_ms": 2417216,
+      "in_possession_team_id": "374",
+      "p_score": 0.04323268681764603,
+      "p_concede": 0.03337962180376053,
+      "vaep": 0.009853065013885498
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.17721126973628998
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.13095493614673615
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.12943077087402344
+        }
+      ],
+      "ball_xy": [
+        14.070000648498535,
+        13.399999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 86,
+      "frame_id": 77317,
+      "period": 1,
+      "timestamp_ms": 2417417,
+      "in_possession_team_id": "374",
+      "p_score": 0.042043257504701614,
+      "p_concede": 0.03663655370473862,
+      "vaep": 0.0054067037999629974
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1768796145915985
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.13353101909160614
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1274774968624115
+        }
+      ],
+      "ball_xy": [
+        13.800000190734863,
+        13.130000114440918
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 87,
+      "frame_id": 77323,
+      "period": 1,
+      "timestamp_ms": 2417617,
+      "in_possession_team_id": "374",
+      "p_score": 0.040457725524902344,
+      "p_concede": 0.03965425491333008,
+      "vaep": 0.0008034706115722656
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.17746233940124512
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1383388787508011
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.12511716783046722
+        }
+      ],
+      "ball_xy": [
+        13.529998779296875,
+        12.850000381469727
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 88,
+      "frame_id": 77329,
+      "period": 1,
+      "timestamp_ms": 2417817,
+      "in_possession_team_id": "374",
+      "p_score": 0.03941965848207474,
+      "p_concede": 0.04325379058718681,
+      "vaep": -0.003834132105112076
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.17877227067947388
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.14465337991714478
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.1222476214170456
+        }
+      ],
+      "ball_xy": [
+        13.260000228881836,
+        12.5600004196167
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 89,
+      "frame_id": 77335,
+      "period": 1,
+      "timestamp_ms": 2418017,
+      "in_possession_team_id": "374",
+      "p_score": 0.038334574550390244,
+      "p_concede": 0.04655301198363304,
+      "vaep": -0.008218437433242798
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.17933328449726105
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.15167781710624695
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.11872801929712296
+        }
+      ],
+      "ball_xy": [
+        12.979999542236328,
+        12.279999732971191
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 90,
+      "frame_id": 77341,
+      "period": 1,
+      "timestamp_ms": 2418217,
+      "in_possession_team_id": "374",
+      "p_score": 0.0373658686876297,
+      "p_concede": 0.04942424222826958,
+      "vaep": -0.012058373540639877
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.18004313111305237
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.15940329432487488
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.11507425457239151
+        }
+      ],
+      "ball_xy": [
+        12.680000305175781,
+        11.989999771118164
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 91,
+      "frame_id": 77347,
+      "period": 1,
+      "timestamp_ms": 2418418,
+      "in_possession_team_id": "374",
+      "p_score": 0.03658784180879593,
+      "p_concede": 0.051328420639038086,
+      "vaep": -0.014740578830242157
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1802525520324707
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.16713452339172363
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.11041867733001709
+        }
+      ],
+      "ball_xy": [
+        12.380000114440918,
+        11.710000038146973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 92,
+      "frame_id": 77353,
+      "period": 1,
+      "timestamp_ms": 2418618,
+      "in_possession_team_id": "374",
+      "p_score": 0.035665594041347504,
+      "p_concede": 0.052776262164115906,
+      "vaep": -0.017110668122768402
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.17972171306610107
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.17474286258220673
+        },
+        {
+          "slot": 13,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.10581208765506744
+        }
+      ],
+      "ball_xy": [
+        12.050000190734863,
+        11.430000305175781
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 93,
+      "frame_id": 77359,
+      "period": 1,
+      "timestamp_ms": 2418818,
+      "in_possession_team_id": "374",
+      "p_score": 0.03478756919503212,
+      "p_concede": 0.053034957498311996,
+      "vaep": -0.018247388303279877
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1823517382144928
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.17874839901924133
+        },
+        {
+          "slot": 15,
+          "player_id": 3890,
+          "name": "Youssouf Fofana",
+          "position": "CM",
+          "attention": 0.10446146130561829
+        }
+      ],
+      "ball_xy": [
+        11.699999809265137,
+        11.15999984741211
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 94,
+      "frame_id": 77365,
+      "period": 1,
+      "timestamp_ms": 2419018,
+      "in_possession_team_id": "374",
+      "p_score": 0.03365270048379898,
+      "p_concede": 0.052385978400707245,
+      "vaep": -0.018733277916908264
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.18997520208358765
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.17796292901039124
+        },
+        {
+          "slot": 15,
+          "player_id": 3890,
+          "name": "Youssouf Fofana",
+          "position": "CM",
+          "attention": 0.10465306788682938
+        }
+      ],
+      "ball_xy": [
+        11.329999923706055,
+        10.899999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 95,
+      "frame_id": 77371,
+      "period": 1,
+      "timestamp_ms": 2419218,
+      "in_possession_team_id": "374",
+      "p_score": 0.03260008990764618,
+      "p_concede": 0.050706084817647934,
+      "vaep": -0.018105994910001755
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1981666088104248
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.17896704375743866
+        },
+        {
+          "slot": 15,
+          "player_id": 3890,
+          "name": "Youssouf Fofana",
+          "position": "CM",
+          "attention": 0.1041472852230072
+        }
+      ],
+      "ball_xy": [
+        10.930000305175781,
+        10.640000343322754
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 96,
+      "frame_id": 77377,
+      "period": 1,
+      "timestamp_ms": 2419419,
+      "in_possession_team_id": "374",
+      "p_score": 0.03169398754835129,
+      "p_concede": 0.047159962356090546,
+      "vaep": -0.015465974807739258
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.20482377707958221
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1830650269985199
+        },
+        {
+          "slot": 15,
+          "player_id": 3890,
+          "name": "Youssouf Fofana",
+          "position": "CM",
+          "attention": 0.10289764404296875
+        }
+      ],
+      "ball_xy": [
+        10.489999771118164,
+        10.399999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 97,
+      "frame_id": 77383,
+      "period": 1,
+      "timestamp_ms": 2419619,
+      "in_possession_team_id": "374",
+      "p_score": 0.030890142545104027,
+      "p_concede": 0.04273276776075363,
+      "vaep": -0.011842625215649605
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.21126970648765564
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.18924948573112488
+        },
+        {
+          "slot": 15,
+          "player_id": 3890,
+          "name": "Youssouf Fofana",
+          "position": "CM",
+          "attention": 0.10092955082654953
+        }
+      ],
+      "ball_xy": [
+        10.020000457763672,
+        10.170000076293945
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 98,
+      "frame_id": 77389,
+      "period": 1,
+      "timestamp_ms": 2419819,
+      "in_possession_team_id": "374",
+      "p_score": 0.03082355111837387,
+      "p_concede": 0.038463663309812546,
+      "vaep": -0.007640112191438675
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.2160293310880661
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.19810697436332703
+        },
+        {
+          "slot": 15,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.097908616065979
+        }
+      ],
+      "ball_xy": [
+        9.5,
+        9.949999809265137
+      ],
+      "event_label": "IT",
+      "is_goal_event": false,
+      "frame_idx": 99,
+      "frame_id": 77395,
+      "period": 1,
+      "timestamp_ms": 2420019,
+      "in_possession_team_id": "374",
+      "p_score": 0.031722549349069595,
+      "p_concede": 0.03424010053277016,
+      "vaep": -0.0025175511837005615
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.18142610788345337
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.1647484302520752
+        },
+        {
+          "slot": 15,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.09579318761825562
+        }
+      ],
+      "ball_xy": [
+        8.520000457763672,
+        10.170000076293945
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 100,
+      "frame_id": 77401,
+      "period": 1,
+      "timestamp_ms": 2420219,
+      "in_possession_team_id": "374",
+      "p_score": 0.03340747207403183,
+      "p_concede": 0.028956934809684753,
+      "vaep": 0.004450537264347076
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.0947335883975029
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.08874175697565079
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.08683288842439651
+        }
+      ],
+      "ball_xy": [
+        5.349999904632568,
+        12.569999694824219
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 101,
+      "frame_id": 77407,
+      "period": 1,
+      "timestamp_ms": 2420420,
+      "in_possession_team_id": "363",
+      "p_score": 0.010710574686527252,
+      "p_concede": 0.1680762618780136,
+      "vaep": -0.15736568719148636
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.0982004925608635
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.09428462386131287
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.08564253896474838
+        }
+      ],
+      "ball_xy": [
+        2.180000066757202,
+        14.960000038146973
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 102,
+      "frame_id": 77413,
+      "period": 1,
+      "timestamp_ms": 2420620,
+      "in_possession_team_id": "363",
+      "p_score": 0.010108668357133865,
+      "p_concede": 0.18132270872592926,
+      "vaep": -0.1712140403687954
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.1022179052233696
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.10113335400819778
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.10006926208734512
+        }
+      ],
+      "ball_xy": [
+        -0.9900000691413879,
+        17.360000610351562
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 103,
+      "frame_id": 77419,
+      "period": 1,
+      "timestamp_ms": 2420820,
+      "in_possession_team_id": "363",
+      "p_score": 0.009306157007813454,
+      "p_concede": 0.1941615343093872,
+      "vaep": -0.18485537730157375
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.13793262839317322
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.11365513503551483
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.09754660725593567
+        }
+      ],
+      "ball_xy": [
+        -4.150000095367432,
+        19.75
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 104,
+      "frame_id": 77425,
+      "period": 1,
+      "timestamp_ms": 2421020,
+      "in_possession_team_id": "374",
+      "p_score": 0.04106586053967476,
+      "p_concede": 0.020074786618351936,
+      "vaep": 0.020991073921322823
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.1561649888753891
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.128368079662323
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12489041686058044
+        }
+      ],
+      "ball_xy": [
+        -7.320000171661377,
+        22.149999618530273
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 105,
+      "frame_id": 77431,
+      "period": 1,
+      "timestamp_ms": 2421220,
+      "in_possession_team_id": "374",
+      "p_score": 0.040875840932130814,
+      "p_concede": 0.017833314836025238,
+      "vaep": 0.023042526096105576
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.16548174619674683
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.13784955441951752
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.13749109208583832
+        }
+      ],
+      "ball_xy": [
+        -10.489999771118164,
+        24.549999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 106,
+      "frame_id": 77437,
+      "period": 1,
+      "timestamp_ms": 2421421,
+      "in_possession_team_id": "374",
+      "p_score": 0.04141843318939209,
+      "p_concede": 0.01574917510151863,
+      "vaep": 0.02566925808787346
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.12161774933338165
+        },
+        {
+          "slot": 20,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.10817480087280273
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.10741983354091644
+        }
+      ],
+      "ball_xy": [
+        -13.220000267028809,
+        26.559999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 107,
+      "frame_id": 77533,
+      "period": 1,
+      "timestamp_ms": 2424624,
+      "in_possession_team_id": "374",
+      "p_score": 0.8102572560310364,
+      "p_concede": 0.09581221640110016,
+      "vaep": 0.7144450396299362
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.1250392347574234
+        },
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.12005232274532318
+        },
+        {
+          "slot": 20,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.10690363496541977
+        }
+      ],
+      "ball_xy": [
+        -13.660000801086426,
+        26.520000457763672
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 108,
+      "frame_id": 77539,
+      "period": 1,
+      "timestamp_ms": 2424824,
+      "in_possession_team_id": "374",
+      "p_score": 0.2412354052066803,
+      "p_concede": 0.00955373514443636,
+      "vaep": 0.23168167006224394
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 9,
+          "player_id": 61,
+          "name": "Hugo Lloris",
+          "position": "GK",
+          "attention": 0.13088712096214294
+        },
+        {
+          "slot": 20,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.11898142099380493
+        },
+        {
+          "slot": 16,
+          "player_id": 401,
+          "name": "Sofiane Boufal",
+          "position": "LW",
+          "attention": 0.11687780916690826
+        }
+      ],
+      "ball_xy": [
+        -14.959999084472656,
+        26.03000259399414
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 109,
+      "frame_id": 77545,
+      "period": 1,
+      "timestamp_ms": 2425024,
+      "in_possession_team_id": "374",
+      "p_score": 0.29303354024887085,
+      "p_concede": 0.010460917837917805,
+      "vaep": 0.28257262241095304
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1491369903087616
+        },
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.12263020873069763
+        },
+        {
+          "slot": 20,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.0759219229221344
+        }
+      ],
+      "ball_xy": [
+        -16.260000228881836,
+        25.530000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 110,
+      "frame_id": 77551,
+      "period": 1,
+      "timestamp_ms": 2425224,
+      "in_possession_team_id": "363",
+      "p_score": 0.004252971149981022,
+      "p_concede": 0.6159493327140808,
+      "vaep": -0.6116963615640998
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.14577914774417877
+        },
+        {
+          "slot": 9,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.10897408425807953
+        },
+        {
+          "slot": 20,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.10274162888526917
+        }
+      ],
+      "ball_xy": [
+        -17.549999237060547,
+        25.030000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 111,
+      "frame_id": 77557,
+      "period": 1,
+      "timestamp_ms": 2425425,
+      "in_possession_team_id": "374",
+      "p_score": 0.33795833587646484,
+      "p_concede": 0.01243859063833952,
+      "vaep": 0.3255197452381253
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.15087544918060303
+        },
+        {
+          "slot": 9,
+          "player_id": 1675,
+          "name": "Raphael Varane",
+          "position": "RCB",
+          "attention": 0.12611958384513855
+        },
+        {
+          "slot": 20,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.11391198635101318
+        }
+      ],
+      "ball_xy": [
+        -18.850000381469727,
+        24.530000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 112,
+      "frame_id": 77563,
+      "period": 1,
+      "timestamp_ms": 2425625,
+      "in_possession_team_id": "374",
+      "p_score": 0.3561771810054779,
+      "p_concede": 0.013904000632464886,
+      "vaep": 0.342273180373013
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.16930148005485535
+        },
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.12714120745658875
+        },
+        {
+          "slot": 20,
+          "player_id": 1532,
+          "name": "Ousmane Dembele",
+          "position": "RW",
+          "attention": 0.07663854956626892
+        }
+      ],
+      "ball_xy": [
+        -20.149999618530273,
+        24.029998779296875
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 113,
+      "frame_id": 77569,
+      "period": 1,
+      "timestamp_ms": 2425825,
+      "in_possession_team_id": "363",
+      "p_score": 0.004476532340049744,
+      "p_concede": 0.6399251222610474,
+      "vaep": -0.6354485899209976
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.17602962255477905
+        },
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.15107248723506927
+        },
+        {
+          "slot": 10,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.09958147257566452
+        }
+      ],
+      "ball_xy": [
+        -21.450000762939453,
+        23.530000686645508
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 114,
+      "frame_id": 77575,
+      "period": 1,
+      "timestamp_ms": 2426025,
+      "in_possession_team_id": "363",
+      "p_score": 0.004322641529142857,
+      "p_concede": 0.6368082165718079,
+      "vaep": -0.632485575042665
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1773107349872589
+        },
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.16169172525405884
+        },
+        {
+          "slot": 10,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.11277294158935547
+        }
+      ],
+      "ball_xy": [
+        -22.75,
+        23.040000915527344
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 115,
+      "frame_id": 77581,
+      "period": 1,
+      "timestamp_ms": 2426225,
+      "in_possession_team_id": "363",
+      "p_score": 0.0041621290147304535,
+      "p_concede": 0.6243413686752319,
+      "vaep": -0.6201792396605015
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1754181683063507
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.16616955399513245
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.12064038217067719
+        }
+      ],
+      "ball_xy": [
+        -24.040000915527344,
+        22.540000915527344
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 116,
+      "frame_id": 77587,
+      "period": 1,
+      "timestamp_ms": 2426426,
+      "in_possession_team_id": "363",
+      "p_score": 0.0041458262130618095,
+      "p_concede": 0.6030794978141785,
+      "vaep": -0.5989336716011167
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1724361777305603
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.16839131712913513
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.1251930594444275
+        }
+      ],
+      "ball_xy": [
+        -25.34000015258789,
+        22.040000915527344
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 117,
+      "frame_id": 77593,
+      "period": 1,
+      "timestamp_ms": 2426626,
+      "in_possession_team_id": "363",
+      "p_score": 0.004310011863708496,
+      "p_concede": 0.5718569159507751,
+      "vaep": -0.5675469040870667
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.16930001974105835
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.1692020744085312
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.12787649035453796
+        }
+      ],
+      "ball_xy": [
+        -26.64000129699707,
+        21.540000915527344
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 118,
+      "frame_id": 77599,
+      "period": 1,
+      "timestamp_ms": 2426826,
+      "in_possession_team_id": "363",
+      "p_score": 0.004576934967190027,
+      "p_concede": 0.5245857238769531,
+      "vaep": -0.5200087889097631
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.16949646174907684
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1665465235710144
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.1285487413406372
+        }
+      ],
+      "ball_xy": [
+        -27.940000534057617,
+        21.040000915527344
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 119,
+      "frame_id": 77605,
+      "period": 1,
+      "timestamp_ms": 2427026,
+      "in_possession_team_id": "363",
+      "p_score": 0.004843262489885092,
+      "p_concede": 0.4699572026729584,
+      "vaep": -0.4651139401830733
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.17037434875965118
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1644834578037262
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.12711283564567566
+        }
+      ],
+      "ball_xy": [
+        -29.23999786376953,
+        20.549999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 120,
+      "frame_id": 77611,
+      "period": 1,
+      "timestamp_ms": 2427226,
+      "in_possession_team_id": "363",
+      "p_score": 0.005020849872380495,
+      "p_concede": 0.4139658808708191,
+      "vaep": -0.4089450309984386
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.17055174708366394
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.16162046790122986
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.1242501437664032
+        }
+      ],
+      "ball_xy": [
+        -30.530000686645508,
+        20.049999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 121,
+      "frame_id": 77617,
+      "period": 1,
+      "timestamp_ms": 2427427,
+      "in_possession_team_id": "363",
+      "p_score": 0.00559699023142457,
+      "p_concede": 0.3701237142086029,
+      "vaep": -0.36452672397717834
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.17201769351959229
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1595373898744583
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.11872123926877975
+        }
+      ],
+      "ball_xy": [
+        -31.829998016357422,
+        19.549999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 122,
+      "frame_id": 77623,
+      "period": 1,
+      "timestamp_ms": 2427627,
+      "in_possession_team_id": "363",
+      "p_score": 0.005424827802926302,
+      "p_concede": 0.31578749418258667,
+      "vaep": -0.31036266637966037
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.17352032661437988
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.15792471170425415
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.11156006157398224
+        }
+      ],
+      "ball_xy": [
+        -33.130001068115234,
+        19.049999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 123,
+      "frame_id": 77629,
+      "period": 1,
+      "timestamp_ms": 2427827,
+      "in_possession_team_id": "363",
+      "p_score": 0.005141884088516235,
+      "p_concede": 0.2669982612133026,
+      "vaep": -0.2618563771247864
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.17386561632156372
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1564502716064453
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.10388126969337463
+        }
+      ],
+      "ball_xy": [
+        -34.43000030517578,
+        18.549999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 124,
+      "frame_id": 77635,
+      "period": 1,
+      "timestamp_ms": 2428027,
+      "in_possession_team_id": "363",
+      "p_score": 0.0048684109933674335,
+      "p_concede": 0.2266290783882141,
+      "vaep": -0.22176066739484668
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.17172271013259888
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.15574637055397034
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.09769678860902786
+        }
+      ],
+      "ball_xy": [
+        -35.72999954223633,
+        18.049999237060547
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 125,
+      "frame_id": 77641,
+      "period": 1,
+      "timestamp_ms": 2428227,
+      "in_possession_team_id": "363",
+      "p_score": 0.004843357019126415,
+      "p_concede": 0.1953570544719696,
+      "vaep": -0.1905136974528432
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.16714932024478912
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.15651923418045044
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.09383680671453476
+        }
+      ],
+      "ball_xy": [
+        -37.02000045776367,
+        17.559999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 126,
+      "frame_id": 77647,
+      "period": 1,
+      "timestamp_ms": 2428428,
+      "in_possession_team_id": "363",
+      "p_score": 0.005211859475821257,
+      "p_concede": 0.17159131169319153,
+      "vaep": -0.16637945221737027
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.1602892279624939
+        },
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1577119082212448
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.09382851421833038
+        }
+      ],
+      "ball_xy": [
+        -38.31999969482422,
+        17.059999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 127,
+      "frame_id": 77653,
+      "period": 1,
+      "timestamp_ms": 2428628,
+      "in_possession_team_id": "363",
+      "p_score": 0.005940624512732029,
+      "p_concede": 0.15280306339263916,
+      "vaep": -0.14686243887990713
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.15993162989616394
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.1526007056236267
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.0958041399717331
+        }
+      ],
+      "ball_xy": [
+        -39.619998931884766,
+        16.559999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 128,
+      "frame_id": 77659,
+      "period": 1,
+      "timestamp_ms": 2428828,
+      "in_possession_team_id": "363",
+      "p_score": 0.006860768888145685,
+      "p_concede": 0.14263242483139038,
+      "vaep": -0.1357716559432447
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.16305559873580933
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.14496001601219177
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.09838400781154633
+        }
+      ],
+      "ball_xy": [
+        -40.91999816894531,
+        16.059999465942383
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 129,
+      "frame_id": 77665,
+      "period": 1,
+      "timestamp_ms": 2429028,
+      "in_possession_team_id": "363",
+      "p_score": 0.00787008460611105,
+      "p_concede": 0.13550828397274017,
+      "vaep": -0.12763819936662912
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1655559539794922
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.1410505175590515
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.09776625037193298
+        }
+      ],
+      "ball_xy": [
+        -42.209999084472656,
+        15.560001373291016
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 130,
+      "frame_id": 77671,
+      "period": 1,
+      "timestamp_ms": 2429228,
+      "in_possession_team_id": "363",
+      "p_score": 0.00747589860111475,
+      "p_concede": 0.11892184615135193,
+      "vaep": -0.11144594755023718
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1679665744304657
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.1371757686138153
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.09688577800989151
+        }
+      ],
+      "ball_xy": [
+        -43.5099983215332,
+        15.069999694824219
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 131,
+      "frame_id": 77677,
+      "period": 1,
+      "timestamp_ms": 2429429,
+      "in_possession_team_id": "363",
+      "p_score": 0.00805593840777874,
+      "p_concede": 0.1163920909166336,
+      "vaep": -0.10833615250885487
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.17083214223384857
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.13319262862205505
+        },
+        {
+          "slot": 10,
+          "player_id": 1789,
+          "name": "Jules Kounde",
+          "position": "RB",
+          "attention": 0.09569308161735535
+        }
+      ],
+      "ball_xy": [
+        -44.810001373291016,
+        14.569999694824219
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 132,
+      "frame_id": 77683,
+      "period": 1,
+      "timestamp_ms": 2429629,
+      "in_possession_team_id": "363",
+      "p_score": 0.008584843948483467,
+      "p_concede": 0.11501520127058029,
+      "vaep": -0.10643035732209682
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1807841807603836
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.1407465636730194
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.0752793699502945
+        }
+      ],
+      "ball_xy": [
+        -44.970001220703125,
+        14.59000015258789
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 133,
+      "frame_id": 77689,
+      "period": 1,
+      "timestamp_ms": 2429829,
+      "in_possession_team_id": "363",
+      "p_score": 0.009894896298646927,
+      "p_concede": 0.09758134931325912,
+      "vaep": -0.0876864530146122
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.17751340568065643
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.14446191489696503
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.07668127119541168
+        }
+      ],
+      "ball_xy": [
+        -44.90999984741211,
+        14.6899995803833
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 134,
+      "frame_id": 77695,
+      "period": 1,
+      "timestamp_ms": 2430029,
+      "in_possession_team_id": "363",
+      "p_score": 0.010778352618217468,
+      "p_concede": 0.09234157204627991,
+      "vaep": -0.08156321942806244
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1744534820318222
+        },
+        {
+          "slot": 5,
+          "player_id": 3888,
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "CM",
+          "attention": 0.14321282505989075
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.07734650373458862
+        }
+      ],
+      "ball_xy": [
+        -44.86000061035156,
+        14.75
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 135,
+      "frame_id": 77701,
+      "period": 1,
+      "timestamp_ms": 2430229,
+      "in_possession_team_id": "363",
+      "p_score": 0.011117818765342236,
+      "p_concede": 0.09079776704311371,
+      "vaep": -0.07967994827777147
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.1707233190536499
+        },
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.1401706039905548
+        },
+        {
+          "slot": 20,
+          "player_id": 13044,
+          "name": "Jawad El Yamiq",
+          "position": "LCB",
+          "attention": 0.07786396145820618
+        }
+      ],
+      "ball_xy": [
+        -44.79999923706055,
+        14.779999732971191
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 136,
+      "frame_id": 77707,
+      "period": 1,
+      "timestamp_ms": 2430430,
+      "in_possession_team_id": "363",
+      "p_score": 0.011457465589046478,
+      "p_concede": 0.08912036567926407,
+      "vaep": -0.07766290009021759
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.16776198148727417
+        },
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.13589072227478027
+        },
+        {
+          "slot": 7,
+          "player_id": 1810,
+          "name": "Youssef En-Nesyri",
+          "position": "CF",
+          "attention": 0.07996873557567596
+        }
+      ],
+      "ball_xy": [
+        -44.7400016784668,
+        14.779999732971191
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 137,
+      "frame_id": 77713,
+      "period": 1,
+      "timestamp_ms": 2430630,
+      "in_possession_team_id": "363",
+      "p_score": 0.011793782003223896,
+      "p_concede": 0.08824178576469421,
+      "vaep": -0.07644800376147032
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.16558897495269775
+        },
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.13094960153102875
+        },
+        {
+          "slot": 7,
+          "player_id": 1810,
+          "name": "Youssef En-Nesyri",
+          "position": "CF",
+          "attention": 0.08152470737695694
+        }
+      ],
+      "ball_xy": [
+        -44.689998626708984,
+        14.760000228881836
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 138,
+      "frame_id": 77719,
+      "period": 1,
+      "timestamp_ms": 2430830,
+      "in_possession_team_id": "363",
+      "p_score": 0.01219635084271431,
+      "p_concede": 0.08718135207891464,
+      "vaep": -0.07498500123620033
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.16315719485282898
+        },
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.12608075141906738
+        },
+        {
+          "slot": 7,
+          "player_id": 1810,
+          "name": "Youssef En-Nesyri",
+          "position": "CF",
+          "attention": 0.08312910795211792
+        }
+      ],
+      "ball_xy": [
+        -44.630001068115234,
+        14.699999809265137
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 139,
+      "frame_id": 77725,
+      "period": 1,
+      "timestamp_ms": 2431030,
+      "in_possession_team_id": "363",
+      "p_score": 0.012687992304563522,
+      "p_concede": 0.08668028563261032,
+      "vaep": -0.0739922933280468
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 14,
+          "player_id": 1785,
+          "name": "Bono",
+          "position": "GK",
+          "attention": 0.16155244410037994
+        },
+        {
+          "slot": 5,
+          "player_id": 1534,
+          "name": "Antoine Griezmann",
+          "position": "AM",
+          "attention": 0.12084323167800903
+        },
+        {
+          "slot": 7,
+          "player_id": 1810,
+          "name": "Youssef En-Nesyri",
+          "position": "CF",
+          "attention": 0.08400879055261612
+        }
+      ],
+      "ball_xy": [
+        -44.58000183105469,
+        14.619999885559082
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 140,
+      "frame_id": 77731,
+      "period": 1,
+      "timestamp_ms": 2431230,
+      "in_possession_team_id": "363",
+      "p_score": 0.013192313723266125,
+      "p_concede": 0.08605853468179703,
+      "vaep": -0.0728662209585309
+    }
+  ],
+  "image_pattern": "assets/clips/argentina-croatia-julian/frame_{idx:03d}.png"
+}

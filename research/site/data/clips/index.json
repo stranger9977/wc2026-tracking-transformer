@@ -1,9 +1,37 @@
 [
   {
-    "label": "netherlands-usa-memphis-smoke",
-    "title": "Memphis 10' (Netherlands v USA, R16) \u2014 smoke build",
-    "summary": "Smoke-trained checkpoint on 2 matches \u2014 calibration is not final (probabilities will compress with the full 64-match run). The scrubber + attention overlay work as advertised.",
+    "label": "argentina-france-di-maria",
+    "title": "Di Mar\u00eda 36' (Argentina v France, final)",
+    "summary": "Argentina build the third goal from Tagliafico's interception. Watch attention follow Mac Allister and Di Mar\u00eda through the chain \u2014 and how P(score) climbs as the defence is spread before any pass on the goal is made.",
+    "match": "10517",
+    "period": 1
+  },
+  {
+    "label": "argentina-france-mbappe-equalizer",
+    "title": "Mbapp\u00e9 80' equalizer (France v Argentina, final)",
+    "summary": "France's first goal in their 97-second double. P(concede) for Argentina spikes before the shot as their attacking shape collapses.",
+    "match": "10517",
+    "period": 2
+  },
+  {
+    "label": "netherlands-usa-memphis",
+    "title": "Memphis 10' (Netherlands v USA, R16)",
+    "summary": "Netherlands' opener. Memphis at the end of a 20-pass Dutch sequence.",
     "match": "10502",
+    "period": 1
+  },
+  {
+    "label": "japan-spain-doan",
+    "title": "Doan 48' (Japan v Spain, group stage)",
+    "summary": "Japan equalize from a press-and-recover sequence \u2014 Doan's strike that knocked Spain off top of the group.",
+    "match": "10510",
+    "period": 1
+  },
+  {
+    "label": "argentina-croatia-julian",
+    "title": "\u00c1lvarez 39' (Argentina v Croatia, semi-final)",
+    "summary": "Juli\u00e1n \u00c1lvarez beats three defenders. Watch P(score) climb as he carries.",
+    "match": "10515",
     "period": 1
   }
 ]

@@ -50,10 +50,11 @@ function initClip(c, detail) {
     const top = (f.top_attended || []).map(t => `slot ${t.slot} (${fmtNum(t.attention, 3)})`).join("  •  ");
     meta.innerHTML = `
       <strong>Frame ${idx + 1}/${n}</strong> &nbsp;•&nbsp;
-      P(score) <span class="chip green">${fmtNum(f.p_score, 3)}</span> &nbsp;
-      P(concede) <span class="chip red">${fmtNum(f.p_concede, 3)}</span> &nbsp;
-      Frame-VAEP <span class="chip">${fmtNum(f.vaep, 3)}</span><br>
-      Top attended: ${escapeHTML(top || "—")}`;
+      P(score, next&nbsp;10&nbsp;s) <span class="chip green tabular">${fmtNum(f.p_score, 3)}</span> &nbsp;
+      P(concede, next&nbsp;10&nbsp;s) <span class="chip red tabular">${fmtNum(f.p_concede, 3)}</span> &nbsp;
+      Frame-VAEP (Δ&nbsp;P) <span class="chip tabular">${fmtNum(f.vaep, 3)}</span>
+      <span class="muted small">(unitless probability)</span><br>
+      Top attended players (ball→player attention weight): ${escapeHTML(top || "—")}`;
   }
   setFrame(0);
 

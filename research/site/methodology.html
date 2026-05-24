@@ -65,7 +65,7 @@ df["vaep_value"] = (pS - pC) - prev_value_self_persp</code></pre>
     </details>
     <p id="vaep-metrics" class="small dim">VAEP out-of-fold metrics will load here.</p>
 
-    <h2>2. Joint Offensive Impact (JOI)</h2>
+    <h2 id="joi">2. Joint Offensive Impact (JOI)</h2>
     <p>
       For an ordered pair of consecutive actions \((a_i, a_{i+1})\) by teammates
       \(p\) and \(q\), both VAEP values contribute to JOI(p, q). We sum across
@@ -94,7 +94,7 @@ joi90 = joi * 90.0 / minutes_together</code></pre>
       \( \mathrm{JOI90}(p,q) = 90 \cdot \mathrm{JOI}(p,q) / m_{p,q} \).
     </p>
 
-    <h2>3. Joint Defensive Impact (JDI)</h2>
+    <h2 id="jdi">3. Joint Defensive Impact (JDI)</h2>
     <p>
       Match event data describes the actions that <em>happened</em>, not the
       actions a defender <em>prevented</em>. JDI sidesteps this by giving credit
@@ -230,6 +230,12 @@ for fname, slots in FORMATIONS.items():
       <a href="downloads.html">Downloads</a> page. The full SPADL + VAEP pipeline
       and the JOI/JDI compute live in <code>research/scripts/</code>. Model artifacts
       (<code>predictor.joblib</code>, <code>vaep_bundle.joblib</code>) are also published.
+    </p>
+
+    <p class="small muted" style="margin-top: 1.5rem;">
+      <strong>Next →</strong> grab the raw artifacts from
+      <a href="downloads.html">Downloads</a>, or jump back to
+      <a href="pairs.html">Top Pairs</a> for the leaderboards themselves.
     </p>
   </main>
 
