@@ -60,6 +60,10 @@ checkpoints/
 *.ckpt
 *.pt
 *.pth
+# …but the browser-side ONNX export under the static site IS tracked, so the
+# GitHub Pages deploy can serve it.
+!research/site/assets/models/
+!research/site/assets/models/**
 lightning_logs/
 tb_logs/
 

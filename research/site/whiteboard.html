@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WC22 Player Chemistry — Digital Whiteboard</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/whiteboard.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-title">
+        <a href="index.html">WC22 Player Chemistry
+          <span class="sub">Bransen &amp; Van Haaren, applied to 2022</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <!-- TODO: add nav entry for this page (whiteboard.html) when the
+           Chemistry Leaderboard sibling agent lands its nav update. -->
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="interactive-plays.html">Interactive Plays</a>
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a>
+        <a href="teams.html">Team Maps</a>
+        <a href="team-builder.html">Team Builder</a>
+        <a href="club-vs-national.html">Club vs National</a>
+        <a href="fifa-mode.html">FIFA Mode</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Digital Whiteboard — drag chemistry into a real play</h1>
+    <p>
+      Each card on the right names a <strong>chemistry mechanism</strong>
+      from <a href="methodology.html">the dossier</a> — Third-Man Triangle,
+      Decoy Run, Pin the Fullback, Rest-Defense Anchoring — and shows what
+      happens to <em>P(score)</em> and <em>P(concede)</em> when you apply
+      that mechanism as a counterfactual on the play below. Click a card to
+      see the shift animate on the pitch and the delta curves over time.
+      Reset to return to what actually happened.
+    </p>
+
+    <section class="card whiteboard-controls">
+      <label class="play-picker">
+        <span class="dim small">Play</span>
+        <select id="play-select" aria-label="Pick a play"></select>
+      </label>
+      <div class="play-meta" id="play-meta"></div>
+      <div class="play-actions">
+        <button class="btn" id="reset-btn" type="button">↺ reset to original</button>
+        <button class="btn" id="play-btn" type="button">▶ play</button>
+        <button class="btn" id="freestyle-btn" type="button" title="Drag any player to test your own counterfactual (loads ONNX runtime — ~5 MB)">✋ freestyle: drag any player</button>
+      </div>
+    </section>
+
+    <div id="freestyle-status" class="dim small" style="margin: 0.4rem 0;"></div>
+
+    <div class="whiteboard-layout">
+      <section class="whiteboard-stage card" aria-label="Pitch">
+        <div class="pitch-wrap">
+          <svg id="pitch" viewBox="-55 -36 110 72" preserveAspectRatio="xMidYMid meet" role="img"
+               aria-label="Tactical pitch — drag a card to see chemistry as a counterfactual"></svg>
+        </div>
+        <div class="frame-controls">
+          <input type="range" id="frame-scrub" min="0" max="0" value="0" step="1" aria-label="Frame">
+          <span class="frame-counter dim small" id="frame-counter">frame 0/0</span>
+        </div>
+        <div class="prob-strip" id="prob-strip"></div>
+        <div class="delta-chart-wrap">
+          <canvas id="delta-chart" width="900" height="200" aria-label="Δ P(score) and Δ P(concede) over time"></canvas>
+        </div>
+      </section>
+
+      <aside class="moves-panel" aria-label="Suggested moves">
+        <h2 class="moves-title">Suggested moves</h2>
+        <p class="dim small moves-help">
+          Each move is a tactical counterfactual — a real chemistry concept
+          applied to this play. Click to test it; the pitch updates and the
+          chart below shows the Δ over time.
+        </p>
+        <div id="moves-list"></div>
+      </aside>
+    </div>
+
+    <details class="card mt-3" open>
+      <summary><strong>How to read this</strong></summary>
+      <ul>
+        <li><strong>Δ P(score)</strong> is the model's swing in scoring
+          probability over the next 10 s for the team in possession, if you
+          applied that single move. Positive = the move would have helped them
+          score; negative = it would have hurt.</li>
+        <li><strong>Δ P(concede)</strong> is the symmetric defensive swing.
+          A move that's "good for chemistry" tends to push score up *and*
+          concede down — both arrows pointing the same way.</li>
+        <li><strong>Mechanism tags</strong> link the move to the named
+          chemistry concept it tests. The bigger the |Δ net| the more the
+          model thinks <em>that specific geometry</em> was load-bearing in
+          the real frame.</li>
+        <li>Cards with no mechanism tag are free-form sweeps over the
+          most-attended off-ball players — surfaced when they produce a
+          larger swing than the curated mechanisms, as a sanity check.</li>
+      </ul>
+    </details>
+
+    <p class="small muted">
+      Frame-VAEP transformer (P_score / P_concede). 22 players + ball tokens,
+      pre-norm encoder, 2 layers × 4 heads. CPU inference ≈ 0.2 ms/frame.
+      Mechanism dossier at <code>research/site/data/chemistry_concepts.json</code>.
+      Underlying counterfactuals pre-computed by
+      <code>research/scripts/compute_whiteboard_counterfactuals.py</code>.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    Pre-computed counterfactuals · frame-VAEP transformer on PFF WC '22 tracking.
+  </footer>
+
+  <script type="module" src="assets/js/whiteboard.js"></script>
+</body>
+</html>

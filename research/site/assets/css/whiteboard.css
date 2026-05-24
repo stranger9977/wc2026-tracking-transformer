@@ -1,0 +1,248 @@
+/* Whiteboard tab — counterfactual chemistry on real WC22 plays.
+   Mobile-first, layered on top of site.css. Uses the same vars (--bg-elev,
+   --text-dim, etc.) so the page reads as part of the same site. */
+
+.whiteboard-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.9rem 1rem;
+}
+
+.play-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: 1 1 auto;
+  min-width: 200px;
+}
+
+.play-picker select {
+  background: var(--bg-elev-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.6rem;
+  font: inherit;
+  flex: 1 1 auto;
+  max-width: 22rem;
+}
+
+.play-meta {
+  flex: 1 1 100%;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+}
+
+.play-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Two-column layout: pitch on the left, moves panel on the right. */
+.whiteboard-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 960px) {
+  .whiteboard-layout {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  }
+}
+
+.whiteboard-stage {
+  padding: 0.9rem;
+}
+
+.pitch-wrap {
+  background: #0d4d2c;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+
+#pitch {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 110 / 72;
+}
+
+/* Pitch primitives */
+.pitch-bg { fill: #0d4d2c; }
+.pitch-line { fill: none; stroke: #dceadb; stroke-width: 0.25; }
+.pitch-spot { fill: #dceadb; }
+
+/* Players */
+.player-dot {
+  stroke: white;
+  stroke-width: 0.18;
+  transition: transform 280ms cubic-bezier(0.4, 0.0, 0.2, 1), opacity 220ms;
+}
+.player-dot.home { fill: #5eead4; }
+.player-dot.away { fill: #f87171; }
+.player-dot.gk-ring {
+  stroke: #00d68f;
+  stroke-width: 0.35;
+  fill: none;
+}
+.player-dot.shifted-from { opacity: 0.32; }
+.player-dot.shifted-to {
+  stroke: #ffd166;
+  stroke-width: 0.32;
+}
+
+.player-label {
+  font-family: var(--mono);
+  font-size: 1.1px;
+  fill: #f0f4f8;
+  paint-order: stroke fill;
+  stroke: rgba(11, 18, 32, 0.85);
+  stroke-width: 0.25px;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.ball-dot {
+  fill: #ffd166;
+  stroke: white;
+  stroke-width: 0.2;
+}
+
+.shift-arrow {
+  stroke: #ffd166;
+  stroke-width: 0.32;
+  fill: none;
+  stroke-dasharray: 0.7 0.5;
+  opacity: 0.85;
+}
+
+/* Frame controls under the pitch */
+.frame-controls {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+.frame-controls input[type="range"] {
+  flex: 1 1 auto;
+  accent-color: var(--accent-green);
+}
+.frame-counter { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.prob-strip {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.2rem;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  color: var(--text);
+}
+.prob-strip .swatch {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  margin-right: 0.35rem;
+  vertical-align: middle;
+}
+.prob-strip .swatch.score { background: #6dd58c; }
+.prob-strip .swatch.concede { background: #e98074; }
+.prob-strip .swatch.score-cf { background: #6dd58c; outline: 2px dashed #ffd166; outline-offset: 1px; }
+.prob-strip .swatch.concede-cf { background: #e98074; outline: 2px dashed #ffd166; outline-offset: 1px; }
+
+.delta-chart-wrap {
+  margin-top: 0.75rem;
+  background: var(--bg-elev-2);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.5rem 0.3rem;
+}
+#delta-chart {
+  width: 100%;
+  height: 180px;
+  display: block;
+}
+
+/* Suggested moves panel */
+.moves-panel { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+.moves-title { margin: 0 0 0.25rem; font-size: 1.1rem; }
+.moves-help { margin: 0 0 0.5rem; }
+
+.move-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.8rem;
+  cursor: pointer;
+  transition: background 140ms, border-color 140ms;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.move-card:hover { background: var(--bg-elev-2); border-color: #3a4554; }
+.move-card.active {
+  background: var(--bg-elev-2);
+  border-color: #ffd166;
+  box-shadow: 0 0 0 1px rgba(255, 209, 102, 0.32);
+}
+
+.move-card .mech-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+}
+.move-card .mech-tag {
+  display: inline-block;
+  padding: 0.08rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(106, 168, 255, 0.12);
+  border: 1px solid rgba(106, 168, 255, 0.3);
+  color: #9cc3ff;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+.move-card .mech-tag.no-mech {
+  background: rgba(150, 160, 175, 0.08);
+  border-color: rgba(150, 160, 175, 0.3);
+  color: var(--text-dim);
+}
+
+.move-card .move-label {
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.3;
+}
+.move-card .move-narrative {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.move-card .move-deltas {
+  display: flex;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+.move-card .delta-chip {
+  padding: 0.1rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+}
+.move-card .delta-chip.pos { color: #6dd58c; border-color: rgba(109, 213, 140, 0.25); }
+.move-card .delta-chip.neg { color: #e98074; border-color: rgba(233, 128, 116, 0.25); }
+.move-card .delta-chip.neutral { color: var(--text-dim); }
