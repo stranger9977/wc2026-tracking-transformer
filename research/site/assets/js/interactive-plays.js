@@ -252,8 +252,19 @@ function initClip(c, detail) {
     });
     gHalos.innerHTML = halosHTML;
 
-    // --- ball
-    gBall.innerHTML = `<circle cx="${bxy[0]}" cy="${bxy[1]}" r="5.5" fill="#ffd166" stroke="#fff" stroke-width="1" />`;
+    // --- ball: a clear white-and-black soccer ball, well above player dots.
+    // Outer "glow" ring makes it pop against a halo-rich scene; the central
+    // disc + a couple of pentagon-style chips give it the visual signature of
+    // a real ball without needing a raster image.
+    const bx = bxy[0], by = bxy[1];
+    const R = 8.5;
+    gBall.innerHTML = `
+      <circle cx="${bx}" cy="${by}" r="${R + 3.5}" fill="none" stroke="#000" stroke-width="1.2" stroke-opacity="0.55" />
+      <circle cx="${bx}" cy="${by}" r="${R}" fill="#ffffff" stroke="#111" stroke-width="1.6" />
+      <polygon points="${bx},${by - R * 0.55} ${bx + R * 0.52},${by - R * 0.17} ${bx + R * 0.32},${by + R * 0.45} ${bx - R * 0.32},${by + R * 0.45} ${bx - R * 0.52},${by - R * 0.17}" fill="#111" />
+      <circle cx="${bx - R * 0.62}" cy="${by + R * 0.55}" r="${R * 0.18}" fill="#111" />
+      <circle cx="${bx + R * 0.62}" cy="${by + R * 0.55}" r="${R * 0.18}" fill="#111" />
+      <circle cx="${bx}" cy="${by - R * 0.78}" r="${R * 0.16}" fill="#111" />`;
 
     // --- labels with collision avoidance
     let labelsHTML = "";
@@ -410,13 +421,28 @@ function pitchSvgScaffold(detail) {
   const [x0, y0, x1, y1] = corners;
   const w = x1 - x0, h = y1 - y0;
   const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
-  // pitch lines
+  // pitch lines — brighter green so the field reads distinctly against the dark page,
+  // visible goal mouths drawn OUTSIDE the touchline at both ends, beefier penalty boxes.
+  const sixYardW  = (5.5  / PITCH_LENGTH_M) * w;
+  const sixYardH  = (18.32 / PITCH_WIDTH_M) * h;
+  const penBoxW   = (16.5 / PITCH_LENGTH_M) * w;
+  const penBoxH   = (40.32 / PITCH_WIDTH_M) * h;
+  const goalDepth = (2.0  / PITCH_LENGTH_M) * w;
+  const goalH     = (7.32 / PITCH_WIDTH_M) * h;
+  const penSpotR  = Math.max(1.4, (0.3 / PITCH_LENGTH_M) * w);
   const lines = `
-    <rect x="${x0}" y="${y0}" width="${w}" height="${h}" fill="#0d4d2c" stroke="#dceadb" stroke-width="1.6" />
-    <line x1="${cx}" y1="${y0}" x2="${cx}" y2="${y1}" stroke="#dceadb" stroke-width="1.2" />
-    <circle cx="${cx}" cy="${cy}" r="${(9.15 / PITCH_LENGTH_M) * w}" fill="none" stroke="#dceadb" stroke-width="1.2" />
-    <rect x="${x0}" y="${cy - (40.32 / PITCH_WIDTH_M) * h / 2}" width="${(16.5 / PITCH_LENGTH_M) * w}" height="${(40.32 / PITCH_WIDTH_M) * h}" fill="none" stroke="#dceadb" stroke-width="1.2" />
-    <rect x="${x1 - (16.5 / PITCH_LENGTH_M) * w}" y="${cy - (40.32 / PITCH_WIDTH_M) * h / 2}" width="${(16.5 / PITCH_LENGTH_M) * w}" height="${(40.32 / PITCH_WIDTH_M) * h}" fill="none" stroke="#dceadb" stroke-width="1.2" />`;
+    <rect x="${x0}" y="${y0}" width="${w}" height="${h}" fill="#1f7a3f" stroke="#f4fbf6" stroke-width="2.2" />
+    <line x1="${cx}" y1="${y0}" x2="${cx}" y2="${y1}" stroke="#f4fbf6" stroke-width="1.4" />
+    <circle cx="${cx}" cy="${cy}" r="${(9.15 / PITCH_LENGTH_M) * w}" fill="none" stroke="#f4fbf6" stroke-width="1.4" />
+    <circle cx="${cx}" cy="${cy}" r="1.6" fill="#f4fbf6" />
+    <rect x="${x0}" y="${cy - penBoxH / 2}" width="${penBoxW}" height="${penBoxH}" fill="none" stroke="#f4fbf6" stroke-width="1.6" />
+    <rect x="${x1 - penBoxW}" y="${cy - penBoxH / 2}" width="${penBoxW}" height="${penBoxH}" fill="none" stroke="#f4fbf6" stroke-width="1.6" />
+    <rect x="${x0}" y="${cy - sixYardH / 2}" width="${sixYardW}" height="${sixYardH}" fill="none" stroke="#f4fbf6" stroke-width="1.2" />
+    <rect x="${x1 - sixYardW}" y="${cy - sixYardH / 2}" width="${sixYardW}" height="${sixYardH}" fill="none" stroke="#f4fbf6" stroke-width="1.2" />
+    <circle cx="${x0 + (11.0 / PITCH_LENGTH_M) * w}" cy="${cy}" r="${penSpotR}" fill="#f4fbf6" />
+    <circle cx="${x1 - (11.0 / PITCH_LENGTH_M) * w}" cy="${cy}" r="${penSpotR}" fill="#f4fbf6" />
+    <rect x="${x0 - goalDepth}" y="${cy - goalH / 2}" width="${goalDepth}" height="${goalH}" fill="#f4fbf6" stroke="#f4fbf6" stroke-width="1.4" opacity="0.95" />
+    <rect x="${x1}" y="${cy - goalH / 2}" width="${goalDepth}" height="${goalH}" fill="#f4fbf6" stroke="#f4fbf6" stroke-width="1.4" opacity="0.95" />`;
   const homeColor = detail.home_team?.color || "#5eead4";
   const awayColor = detail.away_team?.color || "#f87171";
   const homeShort = detail.home_team?.short || "HOM";

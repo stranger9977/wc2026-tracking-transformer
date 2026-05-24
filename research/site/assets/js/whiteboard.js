@@ -513,6 +513,30 @@ function activatePlay(play) {
   currentFrame = 0;
   if (playTimer) { clearInterval(playTimer); playTimer = null; playBtn.textContent = "▶ play"; }
 
+  // The pre-compute pipeline used unstable per-frame snapshot attribution, so
+  // slot→(player_id, name, team_id) can flip mid-play (e.g. slot 0 = Varane in
+  // frame 0 but Álvarez in frame 137). Pin the canonical mapping from frame 0
+  // and override every later frame so dots, labels and team colours stay
+  // consistent for the whole play.
+  if (play.frames && play.frames.length) {
+    const canonical = new Map();
+    for (const p of play.frames[0].players || []) {
+      canonical.set(p.slot, {
+        player_id: p.player_id,
+        name: p.name,
+        team_id: p.team_id,
+        position: p.position,
+        is_gk: p.is_gk,
+      });
+    }
+    for (const f of play.frames) {
+      for (const p of f.players || []) {
+        const c = canonical.get(p.slot);
+        if (c) Object.assign(p, c);
+      }
+    }
+  }
+
   // Meta line
   const goalFrame = (play.moves || []).length;  // not used directly
   playMeta.innerHTML = `
@@ -623,10 +647,23 @@ async function ensureOnnx() {
   freestyle.loading = true;
   setFreestyleStatus("Loading ONNX runtime (~5 MB)…");
   try {
-    // ESM CDN: onnxruntime-web ships an ESM bundle.
-    const ort = await import("https://cdn.jsdelivr.net/npm/onnxruntime-web@1.18.0/dist/ort.min.js");
-    // The module exports the default `ort` namespace on `default` in ESM mode.
-    const ns = ort.default ?? ort;
+    // jsdelivr's ort.min.js is the UMD bundle: a dynamic import() wraps it
+    // but `env.wasm` ends up undefined because UMD writes to `window.ort`.
+    // Inject as a classic <script> instead and pick up the global namespace,
+    // which is the canonical way onnxruntime-web's UMD is meant to be used.
+    await new Promise((resolve, reject) => {
+      if (window.ort && window.ort.env) return resolve();
+      const s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.18.0/dist/ort.min.js";
+      s.async = true;
+      s.onload = () => resolve();
+      s.onerror = (e) => reject(new Error("Could not load onnxruntime-web bundle"));
+      document.head.appendChild(s);
+    });
+    const ns = window.ort;
+    if (!ns || !ns.env || !ns.env.wasm) {
+      throw new Error("onnxruntime-web global did not expose env.wasm");
+    }
     ns.env.wasm.wasmPaths = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.18.0/dist/";
     freestyle.ort = ns;
     setFreestyleStatus("Loading frame-VAEP model (525 KiB)…");
