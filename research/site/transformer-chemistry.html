@@ -19,10 +19,11 @@
       <nav class="site-nav">
         <a href="index.html">Overview</a>
         <a href="interactive-plays.html">Interactive Plays</a>
-        <a href="transformer-chemistry.html">Transformer Chemistry</a>
-        <a href="pairs.html">Top Pairs</a>
+        <a href="what-is-chemistry.html">What is Chemistry?</a>
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a>
         <a href="teams.html">Team Maps</a>
         <a href="team-builder.html">Team Builder</a>
+        <a href="whiteboard.html">Digital Whiteboard</a>
         <a href="club-vs-national.html">Club vs National</a>
         <a href="fifa-mode.html">FIFA Mode</a>
         <a href="methodology.html">Methodology</a>
@@ -32,6 +33,11 @@
   </header>
 
   <main>
+    <div class="moved-banner">
+      This view has moved — see
+      <a href="chemistry-leaderboard.html"><strong>Chemistry Leaderboards</strong></a>
+      for the unified event-based + attention-based leaderboard.
+    </div>
     <h1>Transformer Chemistry: the off-ball view</h1>
     <p class="lede">
       The <a href="pairs.html">JOI / JDI leaderboards</a> see only on-ball
@@ -72,7 +78,17 @@
         <label for="attn-min-min">Min minutes together</label>
         <input id="attn-min-min" type="number" value="60" min="0" step="30" style="width:6rem">
       </div>
+      <div>
+        <label>GK pairs</label>
+        <label class="toggle-row" style="margin-top:0.35rem">
+          <input id="attn-show-gks" type="checkbox">
+          Show GK pairs
+        </label>
+      </div>
     </div>
+    <p class="dim small mt-0" style="margin-top:0.2rem">
+      GKs dominate raw attention because they touch the ball every defensive sequence; hidden by default.
+    </p>
     <p class="dim small mt-0">
       <strong>Lift</strong> normalizes attention against each team's median pair — so the
       ranking surfaces partnerships the model watches together <em>more than its

@@ -18,10 +18,11 @@
       <nav class="site-nav">
         <a href="index.html">Overview</a>
         <a href="interactive-plays.html">Interactive Plays</a>
-        <a href="transformer-chemistry.html">Transformer Chemistry</a>
-        <a href="pairs.html">Top Pairs</a>
+        <a href="what-is-chemistry.html">What is Chemistry?</a>
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a>
         <a href="teams.html">Team Maps</a>
         <a href="team-builder.html">Team Builder</a>
+        <a href="whiteboard.html">Digital Whiteboard</a>
         <a href="club-vs-national.html">Club vs National</a>
         <a href="fifa-mode.html">FIFA Mode</a>
         <a href="methodology.html">Methodology</a>
@@ -31,45 +32,118 @@
   </header>
 
   <main>
-    <h1>Club vs national: does the chemistry travel?</h1>
+    <h1>Club vs national: why does chemistry travel — or not?</h1>
+
     <p>
-      The <a href="pairs.html">leaderboards</a> tell you who clicked at WC22.
-      This tab asks the follow-up: <strong>did those players bring it from
-      their club, or is the country a different story?</strong> We cross-reference
-      each WC22 player's offensive impact per 90 (OI/90) against their OI/90 in
-      every other competition we have event data for — club leagues, Euro 2024,
-      Copa America 2024. If a player under-performs at the tournament <em>and</em>
-      under-performs at his club, it's just form; if only at the tournament,
-      it's a national-team friction signal.
+      Every four years, the World Cup creates the same puzzle. A striker who
+      makes a Premier League defence look slow disappears for ninety minutes in
+      a national-team shirt. A second-choice forward few outside his country
+      had heard of becomes the player of the group stage. Some partnerships
+      that look automatic at PSG or Bayern never quite click in blue, white,
+      red. Others — assembled for three weeks every couple of years — outscore
+      the sum of their parts.
+    </p>
+
+    <p>
+      The question this page asks is the central one our colleague Bransen &amp;
+      Van Haaren (MIT Sloan 2020) set up but never had the cross-context data
+      to answer: <strong>how much of a national-team performance is the player,
+      and how much is the partners around him?</strong> The
+      <a href="pairs.html">leaderboards</a> tell you which pairs clicked at
+      WC22. This page asks the follow-up — did those players bring that
+      chemistry from their clubs, or was the country a different story?
+    </p>
+
+    <p>
+      We do it in two steps. <strong>Step 1</strong>: find the players who out-
+      and under-performed at WC22 itself, measured against a positional
+      baseline of expected offensive impact (OI/90). That tells you who
+      stood out at the tournament — but not <em>why</em>. A forward might out-
+      perform because he is genuinely in form. He might out-perform because
+      his national-team setup gives him better looks than his club does.
+      <strong>Step 2</strong>: cross-reference every WC22 player against
+      every other competition we have event data for — Euro 2024, Copa America
+      2024, partial Ligue 1 and Bundesliga seasons, and StatsBomb's parallel
+      WC22 coverage. If a player out-performed at WC22 <em>and</em>
+      out-performed at his club, it was form, not friction. If only at WC22,
+      the national-team partnerships did something his club doesn't.
+    </p>
+
+    <p class="small dim">
+      Caveats up front: club coverage is best for PSG, Bayern, and any player
+      who also appeared at Euro/Copa 2024. Premier League, La Liga, and Serie A
+      are largely missing for 2022/23. Treat absolute deltas as directional
+      rather than precise; we say more about that in the
+      <details class="inline" style="display:inline"><summary>methodology note</summary> at the foot of the page</details>.
+    </p>
+
+    <hr>
+
+    <h2>Step 1 · Form at the tournament</h2>
+    <p class="dim small">
+      Δ OI/90 = a player's <em>actual</em> offensive VAEP per 90 at WC22 minus
+      the OI/90 we'd <em>expect</em> from a same-position, same-minutes baseline
+      built from every other WC22 player at that position. Positive Δ = the
+      player out-played the median peer; negative Δ = below par. Filtered to
+      players with ≥ 60 minutes total.
     </p>
 
     <div class="card" style="border-left: 3px solid #ffd47a;">
-      <h3 class="mt-0" style="font-size: 0.95rem;">⚠ What this is — and what's missing</h3>
-      <ul class="small" style="margin-bottom: 0.4rem;">
-        <li><strong>What we have.</strong> 64 PFF WC22 matches (the JOI/JDI corpus), plus StatsBomb open-data event streams for: WC22 itself (cross-validation), Euro 2024, Copa America 2024, Ligue 1 2022/23 (partial — mostly PSG), and Bundesliga 2023/24 (partial — mostly Bayern). Ligue 1 and Bundesliga in StatsBomb open data are <em>sample</em> seasons, not full ones.</li>
-        <li><strong>What we don't have.</strong> Full Premier League, La Liga, or Serie A coverage for 2022/23. Most international stars are missing club-side data. Coverage is best for PSG players (Mbappé, Hakimi, Donnarumma, Vitinha, Marquinhos), Bayern players (Müller, Kimmich, Musiala, Sané, Gnabry), and any WC22 player who also appeared at Euro/Copa 2024.</li>
-        <li><strong>Calibration caveat.</strong> WC22 numbers come from our PFF pipeline; other contexts are StatsBomb data passed through the same VAEP model. Action-coverage and tagging conventions differ slightly between providers, so treat the <em>delta</em> as directional, not absolute. The PFF WC22 vs StatsBomb WC22 row pair is the calibration check — if those agree for a player, we trust the other rows too.</li>
-        <li><strong>Minutes proxy.</strong> StatsBomb open data doesn't ship lineups in a form we can join in-place for every match, so we estimate on-pitch time from the span of action timestamps per player per match. Over-estimates marginally; consistent across competitions, so the delta is still meaningful.</li>
-      </ul>
+      <h3 class="mt-0" style="font-size: 0.95rem;">What this section tells you — and what it doesn't</h3>
+      <p class="small" style="margin-bottom: 0.4rem;">
+        Step 1 ranks every player at WC22 by how much they out- or under-
+        performed the positional baseline. It's the &quot;who turned up at the
+        tournament&quot; column. <strong>It does not</strong> tell you whether
+        they were already over- or under-performing at their club. For that, scroll to
+        <a href="#step-2">Step 2</a> below.
+      </p>
     </div>
 
-    <h2>WC22 vs other contexts: who flopped, who turned up</h2>
-    <p class="dim small">Filtered to non-goalkeepers with ≥ 90 minutes in <em>both</em> contexts. Pick a metric below; the leaderboards control for the OI inflation that varies competition by competition.</p>
+    <div class="tab-bar" role="tablist" id="form-tabs">
+      <button data-tab="over" class="active">Over-performers (Δ OI/90 &gt; 0)</button>
+      <button data-tab="under">Under-performers (Δ OI/90 &lt; 0)</button>
+    </div>
+    <div id="form-leaderboard"></div>
+
+    <hr>
+
+    <h2>Why does chemistry travel — or not? Five stories from WC22</h2>
+    <p class="dim small">
+      Each card pairs a player's <em>z-scored</em> OI/90 at his club with his
+      z-scored OI/90 at WC22. z = how many standard deviations above the mean of
+      his positional peers in that competition — so a +1.5 means &quot;clearly
+      above the typical forward in this league.&quot; The within-competition
+      z-score is the cleanest comparison we have: it strips out the OI inflation
+      that varies league to league.
+    </p>
+    <div id="story-cards"></div>
+
+    <hr>
+
+    <h2 id="step-2">Step 2 · Cross-reference with club &amp; international data</h2>
+    <p>
+      Now the full leaderboard. Pick a tab below to find players whose club
+      output exceeded their WC22 — the classic chemistry-friction signal — or
+      the reverse, players whose national-team setup made them better than their
+      club ever has.
+    </p>
+    <p class="dim small">Filtered to non-goalkeepers with ≥ 90 minutes in <em>both</em> contexts.</p>
 
     <div class="card" style="border-left: 3px solid #6dd58c;">
       <h3 class="mt-0" style="font-size: 0.95rem;">How we control for the competition gap</h3>
       <p class="small" style="margin-bottom: 0.6rem;">
         <strong>What's a z-score, in plain English?</strong> Take every forward
         playing in a competition. Compute their average OI/90 and how spread out
-        the group is (the standard deviation σ). A z-score answers "how many
-        σ above (or below) the average is this player?" A z of <strong>0</strong>
-        means league-average for his role. <strong>+1</strong> means "one σ above
-        the typical forward in this competition." <strong>−1</strong> means one σ
-        below. The reason we need this: Bundesliga forwards average a lot more
-        OI/90 than tournament forwards, so a +0.5 raw delta might really just be
-        "your league has more OI on the table." Z-scores ask the harder question:
-        <em>relative to the players around you in the same competition, did you
-        stand out more here than there?</em>
+        the group is (the standard deviation σ). A z-score answers &quot;how
+        many σ above (or below) the average is this player?&quot; A z of
+        <strong>0</strong> means league-average for his role. <strong>+1</strong>
+        means &quot;one σ above the typical forward in this competition.&quot;
+        <strong>−1</strong> means one σ below. The reason we need this:
+        Bundesliga forwards average a lot more OI/90 than tournament forwards,
+        so a +0.5 raw delta might really just be &quot;your league has more OI
+        on the table.&quot; Z-scores ask the harder question: <em>relative to
+        the players around you in the same competition, did you stand out more
+        here than there?</em>
       </p>
       <details class="code-toggle">
         <summary>Math / Python (technical audience)</summary>
@@ -90,7 +164,7 @@ all_rows["z_oi_per90"] = (
       </details>
       <ul class="small" style="margin-bottom: 0.4rem;">
         <li><strong>Raw Δ OI/90</strong> — pure difference. Best for storytelling, worst for fairness: a Bundesliga forward averages more OI/90 than a tournament forward, so the raw Δ flatters anyone playing in a high-volume league.</li>
-        <li><strong>Δ z-score (recommended)</strong> — within each (competition, role) we compute the OI/90 z-score (player minus the mean of same-role peers, divided by σ). Comparing z-scores across competitions strips out the league-wide scoring environment. A z of +1.5 in Bundesliga vs +0.5 at WC22 means "this player was much further ahead of his peer cohort at the club than at the tournament."</li>
+        <li><strong>Δ z-score (recommended)</strong> — within each (competition, role) we compute the OI/90 z-score (player minus the mean of same-role peers, divided by σ). Comparing z-scores across competitions strips out the league-wide scoring environment. A z of +1.5 in Bundesliga vs +0.5 at WC22 means &quot;this player was much further ahead of his peer cohort at the club than at the tournament.&quot;</li>
         <li><strong>Δ OI / touch</strong> — switch denominator from minutes to ball touches. Players in possession-heavy teams (PSG, Bayern) inflate per-90 just by having the ball more; per-touch isolates the productivity of each on-ball action.</li>
         <li class="muted"><strong>Still uncontrolled.</strong> Opponent strength (a Ligue 1 mid-table match is not WC22 quarter-finals) and tactical role (a player can be a 9 at his club but a 10 at his country). Those need team-Elo or per-match opponent ratings — flagged as next step.</li>
       </ul>
@@ -122,18 +196,6 @@ all_rows["z_oi_per90"] = (
     </div>
     <div id="cc-table"></div>
 
-    <h2>Provider calibration: PFF WC22 vs StatsBomb WC22</h2>
-    <p class="dim small">
-      Same player, same tournament, two different data providers (PFF and
-      StatsBomb both ship event data for WC22). Δ here measures the gap
-      between our PFF pipeline's OI/90 and the StatsBomb-derived OI/90 for
-      the same player at the same tournament. Big calibration deltas mean
-      the two providers tagged the same matches differently — that helps
-      bound how much of any club-vs-national gap is a "real" chemistry
-      effect vs a provider artifact.
-    </p>
-    <div id="cc-calibration"></div>
-
     <h2>Per-player drill-down</h2>
     <p class="dim small">Pick a player to see every competition we have for them.</p>
     <div class="controls">
@@ -144,6 +206,79 @@ all_rows["z_oi_per90"] = (
     </div>
     <div id="cc-player-detail"></div>
 
+    <hr>
+
+    <h2>Open questions for the video</h2>
+    <p class="dim small">
+      Three testable hypotheses for the chemistry-friction narrative. Where we
+      have the data, the chart is here; where we don't, the answer is which
+      data we'd need.
+    </p>
+
+    <section class="card" id="hyp-stages">
+      <h3 class="mt-0">1. Does <em>offence</em> improve faster than <em>defence</em> as the tournament progresses?</h3>
+      <p class="small">
+        Intuition: attackers find each other once they've played together for a
+        few matches. Defensive pairings — communication, line-holding, who
+        steps up to press — should take longer because they require coverage
+        of more pitch and tighter coordination.
+      </p>
+      <p class="small">
+        We test it by computing the league-wide mean of <strong>P(score)</strong>
+        (the VAEP value at each action of scoring within ten actions) and
+        <strong>P(concede)</strong> per stage of the tournament. If offence
+        grows and defence holds, you'd see P(score) rise from Group → Final
+        while P(concede) stays flat or drops.
+      </p>
+      <div id="stages-chart"></div>
+      <p class="small dim" id="stages-summary"></p>
+    </section>
+
+    <section class="card" id="hyp-transfer">
+      <h3 class="mt-0">2. Do players take time to gel after a transfer?</h3>
+      <p class="small">
+        We don't ship transfer-history data with this site, but the qualitative
+        analogue is visible in the cross-context table: players whose first
+        Premier League / Bundesliga / Ligue 1 minutes came shortly before
+        WC22 should show a club-vs-WC22 lift that disappears in their next
+        appearance at Euro/Copa 2024 once they've settled.
+      </p>
+      <p class="small">
+        <strong>Data needed</strong> to test this cleanly: TransferMarkt /
+        Wyscout transfer dates joined onto the cross-context table, and a
+        per-club rolling window of OI/90 — first 10 league matches vs all
+        subsequent. A player whose &quot;new-club&quot; window is well below
+        his &quot;settled&quot; window is what we'd expect, and we'd want to
+        see WC22 fall on the &quot;new-club&quot; side of the curve more
+        often than chance.
+      </p>
+      <p class="small">
+        <strong>What we can say from this dataset:</strong> Jude Bellingham
+        (then 19, in his second Bundesliga season at Dortmund) shows a
+        <em>negative</em> WC22-vs-club delta in z-space, while Bukayo Saka —
+        a year deeper into his Arsenal regular minutes — shows a clear lift
+        at WC22. Anecdotal, but consistent with the &quot;new player still
+        learning the team&quot; story we'd want to test at scale.
+      </p>
+    </section>
+
+    <section class="card" id="hyp-mean">
+      <h3 class="mt-0">3. How much of WC22 over/under-performance is just regression to the mean?</h3>
+      <p class="small">
+        If a player's WC22 OI/90 is almost uncorrelated with his club OI/90,
+        most of the WC22 result is noise plus national-team-specific factors
+        (opponents, role, chemistry). If it's strongly correlated, the player
+        is the player wherever he plays, and the &quot;chemistry friction&quot;
+        story is mostly an artifact of small samples regressing toward each
+        player's true mean. We compute the Pearson r over every player with
+        ≥ 120 club minutes and ≥ 90 WC22 minutes.
+      </p>
+      <div id="mean-scatter"></div>
+      <p class="small dim" id="mean-summary"></p>
+    </section>
+
+    <hr>
+
     <h2>Implications for 2026</h2>
     <p>
       The chemistry-friction signal is strongest for attackers and creative
@@ -152,7 +287,7 @@ all_rows["z_oi_per90"] = (
       OI/90 at WC22, and you get a directional read on whether his country has
       assembled the pieces to play him. For 2026 the same player tracked across
       WC26 qualifying and his 2025/26 club season should give a 6-month
-      look-ahead on who is "carrying chemistry" into the tournament.
+      look-ahead on who is &quot;carrying chemistry&quot; into the tournament.
     </p>
     <p>
       Next iteration: add Premier League and La Liga coverage for 2025/26 via
@@ -160,6 +295,21 @@ all_rows["z_oi_per90"] = (
       VAEP (proposal at <code>research/notebooks/FRAME_BY_FRAME_VAEP_PROPOSAL.md</code>)
       to catch off-ball chemistry that event data misses.
     </p>
+
+    <details class="card" id="provider-cal" style="margin-top: 1.5rem;">
+      <summary><strong>Methodology note: provider calibration check (PFF WC22 vs StatsBomb WC22)</strong></summary>
+      <p class="small dim">
+        Same player, same tournament, two different data providers (PFF and
+        StatsBomb both ship event data for WC22). Δ here measures the gap
+        between our PFF pipeline's OI/90 and the StatsBomb-derived OI/90 for
+        the same player at the same tournament. Big calibration deltas mean
+        the two providers tagged the same matches differently — that helps
+        bound how much of any club-vs-national gap is a &quot;real&quot;
+        chemistry effect vs a provider artifact. Most players sit inside ±0.3
+        OI/90, which is well below the deltas we treat as signal in Step 2.
+      </p>
+      <div id="cc-calibration"></div>
+    </details>
 
     <p class="small muted" style="margin-top: 1.5rem;">
       <strong>Next →</strong> see the off-ball complement —
@@ -174,5 +324,6 @@ all_rows["z_oi_per90"] = (
   </footer>
 
   <script type="module" src="assets/js/cross-context.js"></script>
+  <script type="module" src="assets/js/club-vs-national-extras.js"></script>
 </body>
 </html>

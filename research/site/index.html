@@ -20,10 +20,11 @@
       <nav class="site-nav">
         <a href="index.html">Overview</a>
         <a href="interactive-plays.html">Interactive Plays</a>
-        <a href="transformer-chemistry.html">Transformer Chemistry</a>
-        <a href="pairs.html">Top Pairs</a>
+        <a href="what-is-chemistry.html">What is Chemistry?</a>
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a>
         <a href="teams.html">Team Maps</a>
         <a href="team-builder.html">Team Builder</a>
+        <a href="whiteboard.html">Digital Whiteboard</a>
         <a href="club-vs-national.html">Club vs National</a>
         <a href="fifa-mode.html">FIFA Mode</a>
         <a href="methodology.html">Methodology</a>
@@ -86,40 +87,72 @@
     </div>
     <p class="small muted">Event-level for the season-long leaderboard. Frame-level to <em>see</em> a chemistry edge happen. Both share one definition: <em>the part of expected goal difference that depends on which teammates are configured together at this moment</em>. The formal math is on <a href="methodology.html">Methodology</a>.</p>
 
-    <h2>The two metrics</h2>
+    <h2>The two metrics, in plain English</h2>
+
+    <p class="dim" style="max-width: 70ch;">
+      Before the formulas: every on-ball action — a pass, a dribble, a tackle,
+      a shot — gets a <strong>VAEP</strong> score from a model that asks
+      <em>"by how much did this action change my team's expected goal
+      difference over the next 10 actions?"</em> A clever through-ball that
+      sets up a chance gets a big positive number; a sloppy giveaway in
+      midfield gets a small negative one. VAEP turns the whole match into a
+      stream of action-values. JOI and JDI are just two ways of pooling those
+      action-values by <em>pair</em> instead of by player.
+    </p>
 
     <div class="grid-2">
       <div class="card">
         <h3 class="mt-0"><span class="chip green">JOI</span> Joint Offensive Impact</h3>
-        <p class="dim">
-          The sum of VAEP action-values along consecutive same-team interactions
-          between two players. If P passes to Q and Q's next action is a shot,
-          both VAEP values contribute to JOI(P, Q).
+        <p>
+          <strong>Plain English.</strong> JOI sums VAEP across <em>pairs of
+          teammates whose actions touch each other</em> — P passes, Q
+          receives. It asks: <em>"when these two play together, does the ball
+          flow through them productively?"</em> A high JOI pair lights up
+          every time their consecutive on-ball touches build something.
         </p>
-        <div class="formula" id="joi-formula">
-          \( \mathrm{JOI}(p, q) = \sum_{(a_i, a_{i+1}) \in S_{p,q}} V(a_i) + V(a_{i+1}) \)
-        </div>
-        <p class="small dim">
-          Normalized per 90 minutes shared on the pitch (JOI90) to compare pairs
-          with different playing time.
+        <p class="small dim mb-0">
+          Normalized per 90 minutes shared on the pitch (JOI90) so pairs with
+          different playing time are comparable.
         </p>
+        <details class="code-toggle">
+          <summary>The math</summary>
+          <div class="formula" id="joi-formula" style="margin: 0.4rem 0 0;">
+            \( \mathrm{JOI}(p, q) = \sum_{(a_i, a_{i+1}) \in S_{p,q}} V(a_i) + V(a_{i+1}) \)
+          </div>
+          <p class="small dim" style="margin-top: 0.6rem; margin-bottom: 0;">
+            \( S_{p,q} \) is the set of consecutive same-team action pairs where
+            one belongs to \( p \) and the next to \( q \) (or vice versa).
+            \( V \) is the VAEP value of that action.
+          </p>
+        </details>
       </div>
 
       <div class="card">
         <h3 class="mt-0"><span class="chip red">JDI</span> Joint Defensive Impact</h3>
-        <p class="dim">
-          For every opponent \(o\) a pair faces, JDI credits the pair when \(o\)'s
-          actual offensive impact comes in <em>below</em> expectation. The credit
-          is split among same-team pairs by their responsibility share \(R(p,q,o)\),
-          derived from the 5×5 position grid (closer to the threat → larger share).
+        <p>
+          <strong>Plain English.</strong> JDI credits a pair when the
+          opponents they share defensive responsibility for
+          <em>under-perform their expected VAEP</em>. It asks:
+          <em>"when these two are on the pitch together, do the attackers
+          they're tasked with stopping get fewer dangerous touches than
+          usual?"</em> The credit for an opponent's missing output is split
+          across the pairs nearest him on the pitch.
         </p>
-        <div class="formula" id="jdi-formula">
-          \( \mathrm{JDI}_m(p, q) = \sum_o \big( \mathbb{E}[\mathrm{OI}_o] - \mathrm{OI}_o \big) \cdot R_m(p, q, o) \cdot \tfrac{\mathrm{mins}_m(p,q,o)}{90} \)
-        </div>
-        <p class="small dim">
-          \( R_m(p,q,o) = \tfrac{1}{2}\big(r_p(o) + r_q(o)\big) \) and \( r_p(o) \propto 1/d(p,o) \)
-          in the (mirrored) 5×5 grid. Aggregates per 90 minutes shared on the pitch (JDI90).
+        <p class="small dim mb-0">
+          Same per-90 normalization as JOI (JDI90).
         </p>
+        <details class="code-toggle">
+          <summary>The math</summary>
+          <div class="formula" id="jdi-formula" style="margin: 0.4rem 0 0;">
+            \( \mathrm{JDI}_m(p, q) = \sum_o \big( \mathbb{E}[\mathrm{OI}_o] - \mathrm{OI}_o \big) \cdot R_m(p, q, o) \cdot \tfrac{\mathrm{mins}_m(p,q,o)}{90} \)
+          </div>
+          <p class="small dim" style="margin-top: 0.6rem; margin-bottom: 0;">
+            \( R_m(p,q,o) = \tfrac{1}{2}\big(r_p(o) + r_q(o)\big) \) and
+            \( r_p(o) \propto 1/d(p,o) \) in the (mirrored) 5×5 grid.
+            \( \mathbb{E}[\mathrm{OI}_o] \) is the opponent's expected
+            offensive impact per minute, modeled across the corpus.
+          </p>
+        </details>
       </div>
     </div>
 
@@ -147,6 +180,7 @@
     </div>
 
     <div class="grid-2" id="overview-top-pairs"></div>
+    <p class="small muted" id="overview-rule-note" style="margin-top: 0.4rem;"></p>
 
     <h2>Tournament stories: chemistry on the pitch</h2>
     <p class="dim">
@@ -157,35 +191,30 @@
     </p>
     <div class="grid-2" id="overview-stories"></div>
 
-    <h2>Form at the tournament: who out-played the positional baseline?</h2>
+    <h2>Preview: the off-ball view (Transformer Chemistry)</h2>
     <p class="dim">
-      For each player we compare their per-90 offensive impact (OI) at WC22
-      to an <em>expected</em> per-90 computed only from this dataset. Because
-      most players appear in just 2–4 matches, the expected per-90 is heavily
-      shrunk toward a positional prior (the average OI/90 of GK / DEF / MID /
-      FWD players in the corpus). Δ OI/90 > 0 means a player outran what a
-      typical player of their position produced at the tournament.
+      The leaderboards above are <em>on-ball</em> — they only fire when a
+      player touches the ball. The tracking transformer fills in what
+      happens between touches: which teammates the model <em>looks at</em>
+      to predict the next 10 seconds of threat. Pick a side below to see
+      its attention chemistry network.
     </p>
-    <div class="card" style="border-left: 3px solid #ffd47a;">
-      <h3 class="mt-0" style="font-size: 0.95rem;">⚠ What this is and isn't</h3>
-      <p class="small">
-        With only WC22 data this is <strong>not</strong> a club-vs-national
-        comparison. It's a within-tournament gap against a positional baseline
-        — useful for flagging surprise performances, but it can't directly
-        answer "did this player look worse than at his club." For that we
-        need their club season too.
-      </p>
-      <p class="small mb-0">
-        <strong>Next step:</strong> join the open StatsBomb event corpus
-        (some 2021–22 Premier League / La Liga / Champions League seasons)
-        on player_id, recompute each player's VAEP OI/90 across their club
-        matches, and compare to their WC22 OI/90. That delta is the real
-        chemistry-friction signal. The pipeline here is structured so it
-        slots in: see <code>research/src/chemistry/loaders/</code> for the
-        loader pattern.
+    <div class="card" id="overview-attn-card">
+      <div class="controls" style="grid-template-columns: 1fr; margin-bottom: 0.8rem;">
+        <div>
+          <label for="overview-attn-team">Team</label>
+          <select id="overview-attn-team" aria-label="Pick a team to preview its attention chemistry network"></select>
+        </div>
+      </div>
+      <div id="overview-attn-figure">
+        <div class="empty-state">Loading attention figures…</div>
+      </div>
+      <p id="overview-attn-story" class="small dim mb-0" style="margin-top: 0.6rem;"></p>
+      <p class="small muted mb-0" style="margin-top: 0.4rem;">
+        Full per-team network browser lives on
+        <a href="transformer-chemistry.html">Transformer Chemistry</a>.
       </p>
     </div>
-    <div class="grid-2" id="overview-form"></div>
 
     <h2>The story arc, tab by tab</h2>
     <ul>
@@ -199,10 +228,25 @@
       <li><a href="downloads.html">Downloads</a> — every figure as PNG, every table as CSV, raw JSON.</li>
     </ul>
 
-    <p class="small muted" style="margin-top: 1.5rem;">
-      <strong>Next →</strong> open <a href="pairs.html">Top Pairs</a> for the
-      offensive and defensive chemistry leaderboards.
-    </p>
+    <a class="next-card" href="pairs.html" aria-label="Next: Top Pairs — the chemistry leaderboards">
+      <div class="next-card-thumb" aria-hidden="true">
+        <div class="next-card-thumb-rows">
+          <span class="row r1"></span>
+          <span class="row r2"></span>
+          <span class="row r3"></span>
+          <span class="row r4"></span>
+          <span class="row r5"></span>
+        </div>
+      </div>
+      <div class="next-card-body">
+        <div class="next-card-eyebrow">Next ›</div>
+        <h3 class="next-card-title">Top Pairs — the chemistry leaderboards</h3>
+        <p class="next-card-blurb">
+          The full JOI90 and JDI90 rankings across all 4,366 qualifying pairs.
+          Filterable by team and position. Start here.
+        </p>
+      </div>
+    </a>
   </main>
 
   <footer class="site-footer">
@@ -264,25 +308,41 @@
       const tName = (x) => x.team_name || x.team || "";
       const mins  = (x) => x.minutes_together ?? x.minutes ?? null;
 
+      const nInter = (x) => x.n_interactions ?? null;
+      const subline = (p) => {
+        const parts = [];
+        const tn = tName(p);
+        if (tn) parts.push(escapeHTML(tn));
+        const m = mins(p);
+        if (m !== null) parts.push(`${fmtNum(m, 0)} min shared`);
+        const ni = nInter(p);
+        if (ni !== null) parts.push(`${fmtInt(ni)} interactions`);
+        return parts.join(" · ");
+      };
+
       if (data.top_joi_pair) {
         const p = data.top_joi_pair;
-        const m = mins(p);
         cards.push(`<div class="card"><h3 class="mt-0">Top JOI pair (offensive chemistry)</h3>
           <p><strong>${escapeHTML(pName(p))}</strong> &nbsp;+&nbsp; <strong>${escapeHTML(qName(p))}</strong></p>
-          <p class="dim small">${escapeHTML(tName(p))}${m !== null ? ` · ${fmtNum(m, 0)} minutes shared on pitch` : ""}</p>
+          <p class="dim small">${subline(p)}</p>
           <p>JOI90 <span class="chip green tabular">${fmtNum(p.joi90, 3)}</span> <span class="muted small">VAEP·90/min</span></p>
         </div>`);
       }
       if (data.top_jdi_pair) {
         const p = data.top_jdi_pair;
-        const m = mins(p);
         cards.push(`<div class="card"><h3 class="mt-0">Top JDI pair (defensive chemistry)</h3>
           <p><strong>${escapeHTML(pName(p))}</strong> &nbsp;+&nbsp; <strong>${escapeHTML(qName(p))}</strong></p>
-          <p class="dim small">${escapeHTML(tName(p))}${m !== null ? ` · ${fmtNum(m, 0)} minutes shared on pitch` : ""}</p>
+          <p class="dim small">${subline(p)}</p>
           <p>JDI90 <span class="chip red tabular">${fmtNum(p.jdi90, 3)}</span> <span class="muted small">VAEP·90/min, opponent-OI shortfall</span></p>
         </div>`);
       }
       topPairsEl.innerHTML = cards.join("");
+
+      const ruleEl = document.getElementById("overview-rule-note");
+      if (ruleEl && data.qualification_rule) {
+        const r = data.qualification_rule;
+        ruleEl.innerHTML = `Qualifying rule: pair must clear <strong>${fmtInt(r.min_minutes_together)} minutes shared</strong> on the pitch <em>and</em> <strong>${fmtInt(r.min_interactions)} consecutive same-team interactions</strong>. This filters out small-sample pairs that briefly produced a big JOI on one or two touches.`;
+      }
     }
 
     const storiesEl = document.getElementById("overview-stories");
@@ -329,37 +389,57 @@
         </div>`).join("");
     }
 
-    const formEl = document.getElementById("overview-form");
-    const formData = await loadJSON("data/player_form.json").catch(() => null);
-    const teamsForFlags = await loadJSON("data/teams.json").catch(() => []);
-    if (formEl && formData) {
-      const flagFor = (tname) => {
-        const t = (teamsForFlags || []).find((x) => x.team_name === tname);
-        return t ? flagHTML(t.flag_code, { alt: tname }) : "";
-      };
-      const fmtRow = (p, sign) => {
-        const delta = Number(p.delta_per90 ?? 0);
-        const chip = sign === "+" ? "green" : "red";
-        return `<tr>
-          <td><strong>${escapeHTML(p.player_name || "")}</strong>${posChip(p.position)}</td>
-          <td>${flagFor(p.team_name)}<span class="muted small">${escapeHTML(p.team_name || "")}</span></td>
-          <td class="num">${fmtInt(p.n_matches)}</td>
-          <td class="num">${fmtNum(p.total_minutes, 0)}</td>
-          <td class="num"><span class="chip ${chip}">${(delta >= 0 ? "+" : "") + fmtNum(delta, 2)}</span></td>
-        </tr>`;
-      };
-      const overs = (formData.over_performers || []).slice(0, 8).map((p) => fmtRow(p, "+")).join("");
-      const unders = (formData.under_performers || []).slice(0, 8).map((p) => fmtRow(p, "-")).join("");
-      const headers = `<thead><tr><th>Player</th><th>Team</th><th class="num">Matches</th><th class="num">Min (played)</th><th class="num">Δ OI/90 (VAEP·90/min)</th></tr></thead>`;
-      formEl.innerHTML = `
-        <div class="card"><h3 class="mt-0">Over-performers</h3>
-          <table class="data-table">${headers}<tbody>${overs}</tbody></table>
-          <p class="small muted">Δ &gt; 0 = WC22 OI/90 above the positional baseline.</p>
-        </div>
-        <div class="card"><h3 class="mt-0">Under-performers</h3>
-          <table class="data-table">${headers}<tbody>${unders}</tbody></table>
-          <p class="small muted">Δ &lt; 0 = WC22 OI/90 below the positional baseline. Not yet a club-vs-national gap (see note above).</p>
-        </div>`;
+    // ----- Inline interactive: per-team attention chemistry preview -----
+    const attnTeamSelect = document.getElementById("overview-attn-team");
+    const attnFigEl = document.getElementById("overview-attn-figure");
+    const attnStoryEl = document.getElementById("overview-attn-story");
+
+    const attnIndex = await loadJSON("data/attention_figures_index.json").catch(() => null);
+    const attnPairs = await loadJSON("data/attention_pairs.json").catch(() => null);
+
+    if (attnTeamSelect && attnFigEl && Array.isArray(attnIndex) && attnIndex.length) {
+      const teamsSorted = attnIndex.slice().sort((a, b) => a.team_name.localeCompare(b.team_name));
+      const defaultId = teamsSorted.some((t) => t.team_id === "364") ? "364" : teamsSorted[0].team_id;
+
+      attnTeamSelect.innerHTML = teamsSorted
+        .map((t) => `<option value="${escapeHTML(t.team_id)}"${t.team_id === defaultId ? " selected" : ""}>${escapeHTML(t.team_name)}</option>`)
+        .join("");
+
+      // Build a story for a team using the top attention pair we can find for them.
+      // Prefer non-GK pairs (off-ball runs that aren't dominated by the keeper);
+      // fall back to the top overall pair if the team has none on file.
+      function teamStory(teamId, teamName) {
+        if (!Array.isArray(attnPairs)) return "";
+        const own = attnPairs.filter((p) => String(p.team_id) === String(teamId));
+        if (!own.length) return `No attention pair index available for ${escapeHTML(teamName)} yet.`;
+
+        const nonGK = own.filter((p) => p.role_p !== "GK" && p.role_q !== "GK");
+        const pool = nonGK.length ? nonGK : own;
+        const top = pool.slice().sort((a, b) => Number(b.attention_lift) - Number(a.attention_lift))[0];
+        if (!top) return "";
+
+        const lift = Number(top.attention_lift);
+        const liftMult = Number.isFinite(lift) ? `${lift.toFixed(1)}×` : "—";
+        const same = top.role_p === top.role_q;
+        const roleNote = same
+          ? `both ${escapeHTML(top.pos_p)}/${escapeHTML(top.pos_q)}`
+          : `different roles (${escapeHTML(top.pos_p)} and ${escapeHTML(top.pos_q)})`;
+        const gkNote = nonGK.length ? "" : " (keeper-anchored — the off-ball pairs are dominated by the goalkeeper)";
+
+        return `${escapeHTML(teamName)}'s strongest off-ball link is <strong>${escapeHTML(top.name_p)}</strong> ↔ <strong>${escapeHTML(top.name_q)}</strong> — the transformer attends to them together <strong>${liftMult}</strong> more than the team baseline, despite ${roleNote}.${gkNote}`;
+      }
+
+      function render(teamId) {
+        const team = teamsSorted.find((t) => t.team_id === teamId) || teamsSorted[0];
+        attnFigEl.innerHTML = `<img class="overview-attn-img" src="${escapeHTML(team.path)}" alt="Attention chemistry network for ${escapeHTML(team.team_name)}" loading="lazy">`;
+        attnStoryEl.innerHTML = teamStory(team.team_id, team.team_name);
+      }
+
+      attnTeamSelect.addEventListener("change", (e) => render(e.target.value));
+      render(defaultId);
+    } else if (attnFigEl) {
+      renderEmpty(attnFigEl, "Attention figures index not found.",
+        "Expected data/attention_figures_index.json with per-team PNG paths.");
     }
   </script>
 </body>

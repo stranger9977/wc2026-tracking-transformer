@@ -1,0 +1,246 @@
+/* What is Chemistry? — narrative tab styles.
+ *
+ * Card grid for the 12 mechanisms, with three accent tints:
+ *   rust       — in-possession offence
+ *   steel blue — out-of-possession defence
+ *   violet     — cross-team off-ball
+ *
+ * The mechanism-colour palette intentionally rhymes with the
+ * Transformer Chemistry attention edges (same-team vs cross-team).
+ */
+
+:root {
+  --mech-offence:        #b8543a;        /* rust */
+  --mech-offence-soft:   rgba(184, 84, 58, 0.16);
+  --mech-defence:        #4a7fa8;        /* steel blue */
+  --mech-defence-soft:   rgba(74, 127, 168, 0.16);
+  --mech-cross:          #8a6dc4;        /* violet */
+  --mech-cross-soft:     rgba(138, 109, 196, 0.16);
+}
+
+/* --- Lede paragraph ----------------------------------------------------- */
+.lede {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  max-width: 72ch;
+  color: var(--text);
+  border-left: 3px solid var(--mech-cross);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 1.1rem 0 1.4rem;
+}
+
+/* --- Definition card ---------------------------------------------------- */
+.definition-card {
+  border-left: 4px solid var(--accent-green);
+  background: linear-gradient(180deg,
+    rgba(26, 138, 58, 0.06) 0%,
+    var(--bg-elev) 60%);
+}
+.definition-card p { max-width: 75ch; }
+
+/* --- Mechanism colour-legend strip ------------------------------------- */
+.mech-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.6rem 0 1rem;
+}
+.mech-chip {
+  display: inline-block;
+  font-size: 0.78rem;
+  padding: 0.25em 0.75em;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev-2);
+  color: var(--text-dim);
+}
+.mech-chip--offence {
+  background: var(--mech-offence-soft);
+  color: #e8a48f;
+  border-color: transparent;
+}
+.mech-chip--defence {
+  background: var(--mech-defence-soft);
+  color: #9fc1de;
+  border-color: transparent;
+}
+.mech-chip--cross {
+  background: var(--mech-cross-soft);
+  color: #c2afe6;
+  border-color: transparent;
+}
+
+/* --- Mechanism grid ----------------------------------------------------- */
+.mech-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  margin: 1rem 0 1.5rem;
+}
+@media (min-width: 640px) {
+  .mech-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1024px) {
+  .mech-grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* --- Mechanism card ---------------------------------------------------- */
+.mech-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.mech-card::before {
+  /* The accent stripe on the left edge */
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--mech-offence);
+}
+.mech-card--offence::before { background: var(--mech-offence); }
+.mech-card--defence::before { background: var(--mech-defence); }
+.mech-card--cross::before   { background: var(--mech-cross); }
+
+.mech-card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  align-items: flex-start;
+}
+.mech-name {
+  font-size: 1.05rem;
+  margin: 0;
+  line-height: 1.25;
+  color: var(--text);
+}
+.mech-cat-chip {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.15em 0.6em;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--border);
+  background: var(--bg-elev-2);
+  color: var(--text-dim);
+}
+.mech-cat-chip--offence {
+  background: var(--mech-offence-soft);
+  color: #e8a48f;
+  border-color: transparent;
+}
+.mech-cat-chip--defence {
+  background: var(--mech-defence-soft);
+  color: #9fc1de;
+  border-color: transparent;
+}
+.mech-cat-chip--cross {
+  background: var(--mech-cross-soft);
+  color: #c2afe6;
+  border-color: transparent;
+}
+
+.mech-what {
+  font-size: 0.93rem;
+  margin: 0;
+  color: var(--text);
+  line-height: 1.45;
+}
+.mech-example {
+  font-size: 0.85rem;
+  margin: 0;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* --- Tags row ---------------------------------------------------------- */
+.mech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+}
+.mech-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 0.15em 0.55em;
+  border-radius: 999px;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  white-space: nowrap;
+  cursor: help;
+}
+.tag-yes     { background: rgba(26, 138, 58, 0.20); color: #6dd58c; border-color: transparent; }
+.tag-partial { background: rgba(245, 158, 11, 0.18); color: #f5c780; border-color: transparent; }
+.tag-no      { background: rgba(192, 57, 43, 0.22); color: #e98074; border-color: transparent; }
+.tag-off-ball { background: var(--bg-elev-2); color: var(--text-dim); }
+
+/* --- Whiteboard action button ----------------------------------------- */
+.mech-action {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  text-decoration: none;
+  margin-top: 0.4rem;
+  padding: 0.55em 0.85em;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.88rem;
+  background: var(--accent-green-soft);
+  border: 1px solid transparent;
+  color: #6dd58c;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.mech-action:hover {
+  background: rgba(26, 138, 58, 0.28);
+  color: #8fe1a5;
+  text-decoration: none;
+}
+.mech-action--placeholder {
+  background: var(--bg-elev-2);
+  color: var(--text-mute);
+  cursor: not-allowed;
+  border: 1px dashed var(--border);
+  font-weight: 500;
+}
+.mech-action--placeholder:hover { background: var(--bg-elev-2); color: var(--text-mute); }
+
+/* --- Open questions ---------------------------------------------------- */
+.open-questions {
+  margin: 0.4rem 0 1.6rem;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.open-questions li.open-question {
+  line-height: 1.5;
+  max-width: 75ch;
+}
+
+/* --- Next-step cards --------------------------------------------------- */
+.next-card-row {
+  margin-top: 0.6rem;
+}
+.next-card {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  border-left: 3px solid var(--accent-green);
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+.next-card:hover {
+  background: rgba(26, 138, 58, 0.06);
+  text-decoration: none;
+  color: var(--text);
+}
+.next-card h3 { color: var(--text); }
