@@ -18,8 +18,7 @@
       <nav class="site-nav">
         <a href="index.html">Overview</a>
         <a href="interactive-plays.html">Interactive Plays</a>
-        <a href="transformer-chemistry.html">Transformer Chemistry</a>
-        <a href="pairs.html">Top Pairs</a>
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a>
         <a href="teams.html">Team Maps</a>
         <a href="team-builder.html">Team Builder</a>
         <a href="club-vs-national.html">Club vs National</a>
@@ -34,14 +33,16 @@
     <h1>Downloads</h1>
     <p class="dim">
       Every figure as PNG, every parquet as CSV, plus the raw JSON the site
-      consumes — the leaderboards (<a href="pairs.html">Top Pairs</a>), team
-      maps, builder lineups, and model artifacts. Right-click or tap-and-hold
-      to save individual files; <a href="methodology.html">Methodology</a> has
-      the math behind them.
+      consumes — leaderboards, attention chemistry pairs &amp; groups,
+      tactical-mechanism taxonomy, team maps, builder lineups, and the trained
+      model checkpoints. Right-click or tap-and-hold to save individual files;
+      <a href="methodology.html">Methodology</a> has the math behind each one.
     </p>
 
+    <!-- ===================== EVENT-PIPELINE JSON ===================== -->
     <div class="card">
-      <h3 class="mt-0">JSON used by this site</h3>
+      <h3 class="mt-0">Event-pipeline JSON (VAEP / JOI / JDI)</h3>
+      <p class="small dim">Used by Overview, Top Pairs, Team Maps, and the Team Builder.</p>
       <ul class="download-list">
         <li>
           <span class="file-name">data/overview.json</span>
@@ -68,9 +69,112 @@
           <span class="file-desc">MIP-optimal XI and formation per squad</span>
           <a class="btn" href="data/team_builder.json" download>Download</a>
         </li>
+        <li>
+          <span class="file-name">data/matches.json</span>
+          <span class="file-desc">match-level metadata for the 64-match corpus</span>
+          <a class="btn" href="data/matches.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/player_form.json</span>
+          <span class="file-desc">per-player Δ OI/90 vs positional prior</span>
+          <a class="btn" href="data/player_form.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/chemistry_stories.json</span>
+          <span class="file-desc">narrative blurbs for top teams (one-liners)</span>
+          <a class="btn" href="data/chemistry_stories.json" download>Download</a>
+        </li>
       </ul>
     </div>
 
+    <!-- ===================== TRANSFORMER ATTENTION CHEMISTRY ===================== -->
+    <div class="card">
+      <h3 class="mt-0">Attention chemistry (tracking transformer)</h3>
+      <p class="small dim">
+        Output of the frame-VAEP transformer described in
+        <a href="methodology.html#section-2">Methodology §2–3</a>. The
+        per-pair and per-group attention totals are what the
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a> render.
+      </p>
+      <ul class="download-list">
+        <li>
+          <span class="file-name">data/attention_pairs.json</span>
+          <span class="file-desc">pair attention chemistry — total, per-90, lift vs team baseline</span>
+          <a class="btn" href="data/attention_pairs.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/attention_groups.json</span>
+          <span class="file-desc">triples + quads with attention lift</span>
+          <a class="btn" href="data/attention_groups.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/attention_figures_index.json</span>
+          <span class="file-desc">per-team attention heatmap PNG pointers</span>
+          <a class="btn" href="data/attention_figures_index.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/chemistry_concepts.json</span>
+          <span class="file-desc">12-mechanism tactical taxonomy (third-man triangle, overlap, etc.)</span>
+          <a class="btn" href="data/chemistry_concepts.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/vaep_metrics_transformer.json</span>
+          <span class="file-desc">frame-VAEP head val metrics (AUC / Brier / loss)</span>
+          <a class="btn" href="data/vaep_metrics_transformer.json" download>Download</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ===================== CLUB VS NATIONAL / FIFA MODE ===================== -->
+    <div class="card">
+      <h3 class="mt-0">Club vs National &amp; FIFA Mode</h3>
+      <p class="small dim">
+        Cross-context comparisons (StatsBomb open data passed through the same
+        VAEP model) and the FIFA-rating crosswalk used by
+        <a href="fifa-mode.html">FIFA Mode</a>.
+      </p>
+      <ul class="download-list">
+        <li>
+          <span class="file-name">data/cross_context.json</span>
+          <span class="file-desc">per-player OI/90 across WC22 / Euro 2024 / Copa 2024 / club</span>
+          <a class="btn" href="data/cross_context.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/cross_chem.json</span>
+          <span class="file-desc">cross-context chemistry deltas</span>
+          <a class="btn" href="data/cross_chem.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">data/fifa_mode.json</span>
+          <span class="file-desc">FIFA 23 vs FIFA 26 national-team ratings crosswalk</span>
+          <a class="btn" href="data/fifa_mode.json" download>Download</a>
+        </li>
+      </ul>
+      <p class="small muted" id="wc26-rosters-note" style="margin: 0.4rem 0 0 0; display:none;">
+        <code>data/wc26_rosters.json</code> ships when the FIFA-26 roster
+        rebuild lands — link will appear here automatically.
+      </p>
+    </div>
+
+    <!-- ===================== WHITEBOARD ===================== -->
+    <div class="card" id="whiteboard-card" style="display:none;">
+      <h3 class="mt-0">Digital Whiteboard</h3>
+      <p class="small dim">
+        Counterfactual swap outputs from the
+        <a href="methodology.html#section-2">frame-VAEP transformer</a> —
+        what happens to predicted scoring probability when you sub one player
+        out for another over a real possession sequence.
+      </p>
+      <ul class="download-list">
+        <li>
+          <span class="file-name">data/whiteboard_moves.json</span>
+          <span class="file-desc">precomputed counterfactual swap deltas</span>
+          <a class="btn" href="data/whiteboard_moves.json" download>Download</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ===================== CSV ===================== -->
     <div class="card">
       <h3 class="mt-0">Tabular data (CSV)</h3>
       <p class="small dim">Generated from parquet sources by the export pipeline.</p>
@@ -79,6 +183,7 @@
       </ul>
     </div>
 
+    <!-- ===================== FIGURES ===================== -->
     <div class="card">
       <h3 class="mt-0">Figures (PNG)</h3>
       <p class="small dim">Per-team offensive and defensive chemistry maps. The
@@ -88,12 +193,18 @@
       </ul>
     </div>
 
+    <!-- ===================== MODEL ARTIFACTS ===================== -->
     <div class="card">
       <h3 class="mt-0">Model artifacts</h3>
+      <p class="small dim">
+        Event-pipeline classifiers (joblib) plus PyTorch Lightning checkpoints
+        for the tracking transformer. Loading recipes are in
+        <a href="methodology.html#section-6">Methodology §6</a>.
+      </p>
       <ul class="download-list">
         <li>
           <span class="file-name">vaep_bundle.joblib</span>
-          <span class="file-desc">trained score &amp; concede classifiers + feature spec</span>
+          <span class="file-desc">trained score &amp; concede classifiers + feature spec (event VAEP)</span>
           <a class="btn" href="data/vaep_bundle.joblib" download>Download</a>
         </li>
         <li>
@@ -101,13 +212,31 @@
           <span class="file-desc">expected-OI-per-zone regressor used for JDI</span>
           <a class="btn" href="data/predictor.joblib" download>Download</a>
         </li>
+        <li>
+          <span class="file-name">training_metrics_xt.json</span>
+          <span class="file-desc">xT-regression val metrics (Spearman ρ = 0.714, MAE, lift over xT-lookup)</span>
+          <a class="btn" href="data/training_metrics_xt.json" download>Download</a>
+        </li>
+        <li>
+          <span class="file-name">training_metrics_frame_vaep.json</span>
+          <span class="file-desc">frame-VAEP val metrics (BCE AUC ≈ 0.80 / 0.79 for score / concede heads)</span>
+          <a class="btn" href="data/training_metrics_frame_vaep.json" download>Download</a>
+        </li>
       </ul>
+      <p class="small muted" style="margin: 0.6rem 0 0 0;">
+        Transformer checkpoints (<code>transformer_xt_regression.ckpt</code>,
+        <code>transformer_frame_vaep.ckpt</code>) are gitignored to keep the
+        repo light — rebuild them from the
+        <a href="methodology.html#section-6">repro recipe</a> in ~10 minutes on
+        a single GPU, or contact us for a direct link.
+      </p>
     </div>
   </main>
 
   <footer class="site-footer">
-    PFF event data, 64 matches, FIFA World Cup 2022. Method recreated from
-    Bransen &amp; Van Haaren (MIT Sloan, 2020).
+    PFF event &amp; tracking data, 64 matches, FIFA World Cup 2022. Event-data
+    method recreated from Bransen &amp; Van Haaren (MIT Sloan, 2020);
+    transformer adapted from SumerSports SportsTrackingTransformer.
   </footer>
 
   <script type="module">
@@ -151,6 +280,16 @@
          </li>`;
       }).join("");
     }
+
+    // Reveal whiteboard / wc26 rosters cards only if the files actually exist.
+    async function showIfExists(url, elId) {
+      try {
+        const r = await fetch(url, { method: "HEAD" });
+        if (r.ok) document.getElementById(elId).style.display = "";
+      } catch (e) { /* file missing — leave hidden */ }
+    }
+    showIfExists("data/whiteboard_moves.json", "whiteboard-card");
+    showIfExists("data/wc26_rosters.json", "wc26-rosters-note");
   </script>
 </body>
 </html>

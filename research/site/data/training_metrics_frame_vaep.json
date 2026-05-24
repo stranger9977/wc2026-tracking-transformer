@@ -1,0 +1,22 @@
+{
+  "metrics": {
+    "val_loss": 1.0738855600357056,
+    "val_loss_score": 1.268582820892334,
+    "val_loss_concede": 0.8791882395744324,
+    "val_auc_score": 0.8010326623916626,
+    "val_ap_score": 0.025957992300391197,
+    "val_brier_score": 0.18657471239566803,
+    "val_auc_concede": 0.7924069762229919,
+    "val_ap_concede": 0.013653112575411797,
+    "val_brier_concede": 0.06885632872581482,
+    "train_loss": 0.6735437512397766,
+    "train_loss_score": 0.887204110622406,
+    "train_loss_concede": 0.4598815143108368
+  },
+  "n_train_frames": 629634,
+  "n_val_frames": 138793,
+  "n_train_matches": 36,
+  "n_val_matches": 8,
+  "look_ahead_s": 10.0,
+  "frame_rate_hz": 5.0
+}
