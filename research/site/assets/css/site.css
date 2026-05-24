@@ -809,9 +809,19 @@ table.data-table th.num { text-align: right; }
 .fifa-data-table .chip { padding: 0.1rem 0.45rem; font-size: 0.78rem; }
 .fifa-scatter {
   margin-top: 0.75rem;
-  padding: 0.5rem 0.5rem 0.25rem;
+  padding: 0.75rem;
   background: var(--bg-elev);
   border-radius: 6px;
+}
+.fifa-scatter svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 480px;
+  max-height: 78vh;
+}
+@media (max-width: 600px) {
+  .fifa-scatter svg { min-height: 320px; }
 }
 .scatter-legend {
   display: flex;

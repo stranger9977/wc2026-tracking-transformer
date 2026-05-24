@@ -95,20 +95,20 @@ function initWc26(rows) {
 }
 
 function renderScatter(rows) {
-  const W = 720, H = 360, padL = 50, padR = 20, padT = 20, padB = 50;
+  // Big enough that labels can breathe. Aspect ~16:9 reads natural on wide
+  // monitors; on mobile the SVG shrinks proportionally via width:100%.
+  const W = 1200, H = 680, padL = 78, padR = 32, padT = 28, padB = 78;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
 
   const xs = rows.map(r => r.overall);
   const xmin = Math.min(...xs) - 1, xmax = Math.max(...xs) + 1;
-  const ymin = 0, ymax = 9;  // stage_int range
+  const ymin = 1, ymax = 9;  // stage_int range
   const sx = (x) => padL + ((x - xmin) / (xmax - xmin)) * innerW;
   const sy = (y) => padT + innerH - ((y - ymin) / (ymax - ymin)) * innerH;
 
   // Diagonal trend line: ranks → ranks. Map overall to expected stage based on rank ordering.
   const sortedByOverall = [...rows].sort((a, b) => b.overall - a.overall);
-  // For paper rank i (1..32), expected stage:
-  // 1: 8 (winner), 2: 7 (final), 3-4: 6 (semi), 5-8: 5 (QF), 9-16: 4 (R16), 17-32: 2 (group)
   const expectedStage = (rank) => rank === 1 ? 8 : rank === 2 ? 7 : rank <= 4 ? 6 : rank <= 8 ? 5 : rank <= 16 ? 4 : 2;
   const diagonalPts = sortedByOverall.map((r, i) => `${sx(r.overall)},${sy(expectedStage(i+1))}`);
 
@@ -118,34 +118,73 @@ function renderScatter(rows) {
   const xTicks = [70, 75, 80, 85];
 
   const grid = [
-    ...yTicks.map(y => `<line x1="${padL}" y1="${sy(y)}" x2="${W-padR}" y2="${sy(y)}" stroke="currentColor" stroke-width="0.4" opacity="0.18"/>`),
-    ...yTicks.map(y => `<text x="${padL - 6}" y="${sy(y) + 3}" font-size="10" fill="currentColor" opacity="0.75" text-anchor="end">${yLabels[y]}</text>`),
-    ...xTicks.map(x => `<text x="${sx(x)}" y="${H - padB + 18}" font-size="10" fill="currentColor" opacity="0.75" text-anchor="middle">${x}</text>`),
-    `<text x="${W/2}" y="${H - 8}" font-size="11" fill="currentColor" opacity="0.85" text-anchor="middle">FIFA 23 team Overall (paper talent)</text>`,
-    `<text transform="translate(${padL - 38},${padT + innerH/2}) rotate(-90)" font-size="11" fill="currentColor" opacity="0.85" text-anchor="middle">Tournament stage reached</text>`,
+    ...yTicks.map(y => `<line x1="${padL}" y1="${sy(y)}" x2="${W-padR}" y2="${sy(y)}" stroke="currentColor" stroke-width="0.5" opacity="0.16"/>`),
+    ...yTicks.map(y => `<text x="${padL - 10}" y="${sy(y) + 5}" font-size="15" fill="currentColor" opacity="0.85" text-anchor="end">${yLabels[y]}</text>`),
+    ...xTicks.map(x => `<text x="${sx(x)}" y="${H - padB + 22}" font-size="14" fill="currentColor" opacity="0.85" text-anchor="middle">${x}</text>`),
+    `<text x="${W/2}" y="${H - 14}" font-size="15" fill="currentColor" opacity="0.95" text-anchor="middle">FIFA 23 team Overall (paper talent)</text>`,
+    `<text transform="translate(${padL - 52},${padT + innerH/2}) rotate(-90)" font-size="15" fill="currentColor" opacity="0.95" text-anchor="middle">Tournament stage reached</text>`,
   ].join("");
 
-  const diag = `<polyline points="${diagonalPts.join(' ')}" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity="0.4"/>`;
+  const diag = `<polyline points="${diagonalPts.join(' ')}" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 5" opacity="0.4"/>`;
 
-  const dots = rows.map((r) => {
-    const exp = expectedStage([...sortedByOverall].findIndex(x => x.team === r.team) + 1);
+  // Position labels so they don't collide. Each team gets a candidate slot
+  // (right of dot); if it overlaps an already-placed label, try left, then
+  // stagger vertically. Greedy but works well for ~32 points.
+  const labelW = 64;   // approx px label box width at 13px font
+  const labelH = 17;
+  const placed = [];  // {x1,y1,x2,y2}
+  const intersects = (a, b) => !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
+
+  const annotated = rows.map((r) => {
+    const cx = sx(r.overall), cy = sy(r.stage_int);
+    const rank = sortedByOverall.findIndex(x => x.team === r.team) + 1;
+    const exp = expectedStage(rank);
     const over = r.stage_int - exp;
-    const color = over > 1 ? "#54c875" : over < -1 ? "#e07474" : "#888";
-    return `<g>
-      <circle cx="${sx(r.overall)}" cy="${sy(r.stage_int)}" r="6" fill="${color}" fill-opacity="0.78" stroke="#0b1220" stroke-width="0.8"/>
-      <text x="${sx(r.overall) + 8}" y="${sy(r.stage_int) + 3}" font-size="9.5" fill="currentColor" opacity="0.86">${escapeHTML(r.team)}</text>
-    </g>`;
-  }).join("");
+    const color = over >= 1 ? "#54c875" : over <= -1 ? "#e07474" : "#a0a8b3";
+
+    // Candidate label positions: right, left, below-right, above-right, below-left, above-left
+    const candidates = [
+      { anchor: "start", dx:  10, dy: 4 },
+      { anchor: "end",   dx: -10, dy: 4 },
+      { anchor: "start", dx:  10, dy: 18 },
+      { anchor: "start", dx:  10, dy: -10 },
+      { anchor: "end",   dx: -10, dy: 18 },
+      { anchor: "end",   dx: -10, dy: -10 },
+    ];
+    let pick = candidates[0];
+    for (const c of candidates) {
+      const lx = cx + c.dx;
+      const ly = cy + c.dy;
+      const box = c.anchor === "start"
+        ? { x1: lx, y1: ly - labelH, x2: lx + labelW, y2: ly + 2 }
+        : { x1: lx - labelW, y1: ly - labelH, x2: lx, y2: ly + 2 };
+      // also keep inside chart area
+      if (box.x1 < padL || box.x2 > W - padR || box.y1 < padT || box.y2 > H - padB) continue;
+      if (!placed.some(p => intersects(p, box))) {
+        pick = c; placed.push(box); break;
+      }
+    }
+    return { r, cx, cy, color, pick };
+  });
+
+  // Dots first (under labels)
+  const dotsSvg = annotated.map(({ r, cx, cy, color }) =>
+    `<circle cx="${cx}" cy="${cy}" r="7.5" fill="${color}" fill-opacity="0.85" stroke="#0b1220" stroke-width="1.0"/>`
+  ).join("");
+  const labelsSvg = annotated.map(({ r, cx, cy, pick }) =>
+    `<text x="${cx + pick.dx}" y="${cy + pick.dy}" font-size="13" font-weight="500" fill="currentColor" opacity="0.95" text-anchor="${pick.anchor}">${escapeHTML(r.team)}</text>`
+  ).join("");
 
   wc22Scatter.innerHTML = `
-    <svg viewBox="0 0 ${W} ${H}" width="100%" height="auto" class="spark-svg" role="img" aria-label="Paper rating vs tournament stage scatter">
+    <svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" class="spark-svg" role="img" aria-label="Paper rating vs tournament stage scatter">
       ${grid}
       ${diag}
-      ${dots}
+      ${dotsSvg}
+      ${labelsSvg}
     </svg>
     <div class="scatter-legend small muted">
       <span><span class="dot" style="background:#54c875"></span> overperformed</span>
-      <span><span class="dot" style="background:#888"></span> matched paper</span>
+      <span><span class="dot" style="background:#a0a8b3"></span> matched paper</span>
       <span><span class="dot" style="background:#e07474"></span> underperformed</span>
       <span class="muted">Dashed diagonal = result that matches paper rank.</span>
     </div>`;
