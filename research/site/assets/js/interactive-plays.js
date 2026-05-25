@@ -317,9 +317,11 @@ function initClip(c, detail) {
       const target = playerDOM[s];
       if (!target) continue;
       const a = smoothAttn[s] || 0;
-      // Map attention to edge thickness 0.8..5.5
-      const w = 0.8 + Math.min(0.6, a) * 8.0;
-      const opacity = 0.35 + Math.min(0.6, a) * 0.8;
+      // Map attention to edge thickness 1.2..5.5 with a minimum width and
+      // opacity so every selected edge is visible even when its attention
+      // value is tiny (which is the common case past rank 3).
+      const w = 1.2 + Math.min(0.6, a) * 7.0;
+      const opacity = 0.55 + Math.min(0.6, a) * 0.6;
       // Same-team vs cross-team (relative to the ball-carrying team if known).
       const carrierTeam = ballCarrierTeamId(f, players);
       const same = carrierTeam && String(target.p.team_id) === String(carrierTeam);
@@ -328,16 +330,24 @@ function initClip(c, detail) {
     }
     gEdges.innerHTML = edgesHTML;
 
-    // --- halos on top-K (smoothed radius + pulse on rank-0)
+    // --- halos on top-K (smoothed radius + pulse on rank-0). Opacity falls
+    // off smoothly with rank but is floored so every selected player gets a
+    // visible halo, regardless of how big topK is. Without the floor, halos
+    // 5+ collapse to opacity 0 and the user can't see that "all 22" / "top
+    // 7" controls actually applied.
     let halosHTML = "";
     const pulse = 1 + 0.15 * Math.sin(((performance.now() - pulseStart) / PULSE_PERIOD_MS) * Math.PI * 2);
+    const nTop = Math.max(1, topIdx.length);
     topIdx.forEach((s, rank) => {
       const target = playerDOM[s];
       if (!target) return;
       const a = smoothAttn[s] || 0;
       const r = 14 + Math.min(0.5, a) * 28;       // base radius
       const rPulse = rank === 0 ? r * pulse : r;
-      halosHTML += `<circle cx="${target.sx}" cy="${target.sy}" r="${rPulse.toFixed(1)}" fill="none" stroke="#fde047" stroke-width="2" stroke-opacity="${(0.65 - rank * 0.15).toFixed(2)}" />`;
+      // Opacity: rank-0 at 0.7, decays gently to 0.25 minimum, so even with
+      // topK=22 every selected halo is at least dimly visible.
+      const op = 0.25 + (1 - rank / nTop) * 0.45;
+      halosHTML += `<circle cx="${target.sx}" cy="${target.sy}" r="${rPulse.toFixed(1)}" fill="none" stroke="#fde047" stroke-width="2" stroke-opacity="${op.toFixed(2)}" />`;
     });
     gHalos.innerHTML = halosHTML;
 
