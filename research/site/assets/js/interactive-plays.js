@@ -422,7 +422,11 @@ function initClip(c, detail) {
     }
     if (f.is_goal_event) {
       evtStrip.className = "event-strip goal";
-      evtStrip.innerHTML = `⚽ <strong>GOAL</strong> — ${escapeHTML(cleanEventLabel(f.event_label) || "")}`;
+      // The "GOAL" event is tagged at the shooter's contact, not at the
+      // moment the ball crosses the line — make the timing explicit.
+      // Strip any redundant leading "GOAL  —  " from the upstream label.
+      const cleaned = (cleanEventLabel(f.event_label) || "").replace(/^GOAL\s*[—-]\s*/i, "");
+      evtStrip.innerHTML = `⚽ <strong>Goal shot</strong> (ball released) — ${escapeHTML(cleaned)}`;
     } else if (evLabel) {
       evtStrip.className = "event-strip";
       evtStrip.innerHTML = escapeHTML(evLabel);
