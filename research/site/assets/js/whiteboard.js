@@ -44,6 +44,48 @@ const focusBand = document.getElementById("focus-band");
 const scrubOverlay = document.getElementById("scrub-overlay");
 const scrubWrap = scrubOverlay ? scrubOverlay.parentElement : null;
 const keyDecisionMarker = document.getElementById("key-decision-marker");
+const chartPerspective = document.getElementById("chart-perspective");
+
+// 'raw' | 'home' | 'away' — controls the delta chart + prob strip rendering.
+let perspective = "home";
+
+// Smoothing window for the net curve (centered, in frames). At 5 Hz, 7 frames = ~1.4 s.
+const NET_SMOOTH_WIN = 7;
+
+// Convert two-head outputs into a fixed-team net value, accounting for who
+// is currently in possession. From a fixed team's POV:
+//   • if my team is in possession:   my_score = p_score, my_concede = p_concede
+//   • if opponent is in possession:  my_score = p_concede, my_concede = p_score
+// (because "opponent will concede" from their POV means "I will score" from mine).
+// Returns p_score - p_concede in that POV.
+function netFromPOV(frames, povTeamId, cfScore, cfConcede) {
+  const n = frames.length;
+  const out = new Array(n);
+  for (let i = 0; i < n; i++) {
+    const f = frames[i];
+    const possIsPov = String(f.in_possession_team_id) === String(povTeamId);
+    const ps = (cfScore && cfScore[i] != null) ? cfScore[i] : f.p_score;
+    const pc = (cfConcede && cfConcede[i] != null) ? cfConcede[i] : f.p_concede;
+    const myScore = possIsPov ? ps : pc;
+    const myConcede = possIsPov ? pc : ps;
+    out[i] = myScore - myConcede;
+  }
+  return out;
+}
+
+function smoothCentered(arr, win) {
+  const out = new Array(arr.length);
+  const half = Math.floor(win / 2);
+  for (let i = 0; i < arr.length; i++) {
+    let sum = 0, cnt = 0;
+    for (let j = Math.max(0, i - half); j <= Math.min(arr.length - 1, i + half); j++) {
+      const v = arr[j];
+      if (Number.isFinite(v)) { sum += v; cnt++; }
+    }
+    out[i] = cnt > 0 ? sum / cnt : 0;
+  }
+  return out;
+}
 
 // ------------------------------------------------------------
 // State
@@ -565,19 +607,25 @@ function drawDeltaChart(play, move, cursorFrame) {
     ctx.stroke();
   }
 
-  // y-axis range: scale to include all values
+  // y-axis range. In 'raw' mode we scale to the data; in net mode we fix
+  // [-1, +1] so the zero line lives at the middle and the smoothed net curve
+  // has a stable visual frame across plays.
   let yMin = 0, yMax = 1;
-  const allVals = [];
-  for (const f of play.frames) { allVals.push(f.p_score, f.p_concede); }
-  if (move) {
-    for (const v of move.per_frame.p_score) allVals.push(v);
-    for (const v of move.per_frame.p_concede) allVals.push(v);
+  if (perspective === "raw") {
+    const allVals = [];
+    for (const f of play.frames) { allVals.push(f.p_score, f.p_concede); }
+    if (move) {
+      for (const v of move.per_frame.p_score) allVals.push(v);
+      for (const v of move.per_frame.p_concede) allVals.push(v);
+    }
+    if (freestyle.liveTrajectory) {
+      for (const v of freestyle.liveTrajectory.p_score) allVals.push(v);
+      for (const v of freestyle.liveTrajectory.p_concede) allVals.push(v);
+    }
+    yMax = Math.min(1.0, Math.max(0.05, Math.max(...allVals) * 1.05));
+  } else {
+    yMin = -1.0; yMax = 1.0;
   }
-  if (freestyle.liveTrajectory) {
-    for (const v of freestyle.liveTrajectory.p_score) allVals.push(v);
-    for (const v of freestyle.liveTrajectory.p_concede) allVals.push(v);
-  }
-  yMax = Math.min(1.0, Math.max(0.05, Math.max(...allVals) * 1.05));
 
   const xToPx = (i) => padL + (i / (n - 1)) * plotW;
   const yToPx = (v) => padT + plotH - ((v - yMin) / (yMax - yMin)) * plotH;
@@ -598,7 +646,10 @@ function drawDeltaChart(play, move, cursorFrame) {
   ctx.textBaseline = "middle";
   for (let g = 0; g <= 4; g++) {
     const v = yMin + ((4 - g) / 4) * (yMax - yMin);
-    ctx.fillText((v * 100).toFixed(0) + "%", padL - 4, padT + (g / 4) * plotH);
+    let label;
+    if (perspective === "raw") label = (v * 100).toFixed(0) + "%";
+    else label = (v >= 0 ? "+" : "") + v.toFixed(1);
+    ctx.fillText(label, padL - 4, padT + (g / 4) * plotH);
   }
 
   // X label (frame number)
@@ -633,30 +684,68 @@ function drawDeltaChart(play, move, cursorFrame) {
     ctx.restore();
   }
 
-  // Fade baselines when the user is dragging in freestyle mode so the live
-  // counterfactual curves are the visual focus.
   const baselineAlpha = freestyle.liveTrajectory ? 0.45 : 1.0;
-  const psBase = play.frames.map(f => f.p_score);
-  const pcBase = play.frames.map(f => f.p_concede);
-  drawSeries(psBase, "#6dd58c", false, { alpha: baselineAlpha });
-  drawSeries(pcBase, "#e98074", false, { alpha: baselineAlpha });
 
-  if (move) {
-    drawSeries(move.per_frame.p_score, "#ffd166", true);
-    drawSeries(move.per_frame.p_concede, "#ff8c5a", true);
-  }
+  if (perspective === "raw") {
+    // Original two-curves view (both per-frame P_score and P_concede).
+    const psBase = play.frames.map(f => f.p_score);
+    const pcBase = play.frames.map(f => f.p_concede);
+    drawSeries(psBase, "#6dd58c", false, { alpha: baselineAlpha });
+    drawSeries(pcBase, "#e98074", false, { alpha: baselineAlpha });
 
-  // Live freestyle trajectory: drawn only over the focus window. Same colours
-  // as the curated cf curves (ffd166 / ff8c5a) so the visual language is
-  // consistent. Bolder line weight to make it pop against the faded baseline.
-  if (freestyle.liveTrajectory) {
-    const tr = freestyle.liveTrajectory;
-    drawSeries(tr.p_score, "#ffd166", true,
-               { start: tr.startFrame, end: tr.startFrame + tr.p_score.length - 1,
-                 offset: 0, lineWidth: 2.1 });
-    drawSeries(tr.p_concede, "#ff8c5a", true,
-               { start: tr.startFrame, end: tr.startFrame + tr.p_concede.length - 1,
-                 offset: 0, lineWidth: 2.1 });
+    if (move) {
+      drawSeries(move.per_frame.p_score, "#ffd166", true);
+      drawSeries(move.per_frame.p_concede, "#ff8c5a", true);
+    }
+    if (freestyle.liveTrajectory) {
+      const tr = freestyle.liveTrajectory;
+      drawSeries(tr.p_score, "#ffd166", true,
+                 { start: tr.startFrame, end: tr.startFrame + tr.p_score.length - 1,
+                   offset: 0, lineWidth: 2.1 });
+      drawSeries(tr.p_concede, "#ff8c5a", true,
+                 { start: tr.startFrame, end: tr.startFrame + tr.p_concede.length - 1,
+                   offset: 0, lineWidth: 2.1 });
+    }
+  } else {
+    // Single net curve from the chosen team's POV, lightly smoothed.
+    // Y-axis already auto-ranges from collected values; replace allVals
+    // contribution below (we collected raw curves earlier — that's fine for
+    // bounds, the smoothed net will be within ±1 anyway).
+    const povTeam = perspective === "home" ? play.home.team_id : play.away.team_id;
+    const netBaseRaw = netFromPOV(play.frames, povTeam);
+    const netBase = smoothCentered(netBaseRaw, NET_SMOOTH_WIN);
+    // Replot zero line for orientation
+    const zeroY = yToPx(0);
+    ctx.strokeStyle = "rgba(200, 208, 220, 0.18)";
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(padL, zeroY); ctx.lineTo(padL + plotW, zeroY); ctx.stroke();
+    drawSeries(netBase, "#6dd58c", false, { alpha: baselineAlpha, lineWidth: 1.8 });
+
+    if (move) {
+      const netMoveRaw = netFromPOV(play.frames, povTeam,
+                                    move.per_frame.p_score,
+                                    move.per_frame.p_concede);
+      const netMove = smoothCentered(netMoveRaw, NET_SMOOTH_WIN);
+      drawSeries(netMove, "#ffd166", true, { lineWidth: 2.0 });
+    }
+    if (freestyle.liveTrajectory) {
+      const tr = freestyle.liveTrajectory;
+      // Build full-length p_score/p_concede arrays where focus-window slots
+      // use cf values and the rest use the baseline.
+      const psFull = play.frames.map(f => f.p_score);
+      const pcFull = play.frames.map(f => f.p_concede);
+      for (let k = 0; k < tr.p_score.length; k++) {
+        psFull[tr.startFrame + k] = tr.p_score[k];
+        pcFull[tr.startFrame + k] = tr.p_concede[k];
+      }
+      const netFsRaw = netFromPOV(play.frames, povTeam, psFull, pcFull);
+      const netFs = smoothCentered(netFsRaw, NET_SMOOTH_WIN);
+      drawSeries(netFs, "#ffd166", true,
+                 { start: tr.startFrame,
+                   end: tr.startFrame + tr.p_score.length - 1,
+                   offset: tr.startFrame,
+                   lineWidth: 2.2 });
+    }
   }
 
   // Cursor (vertical line at the current frame)
@@ -687,15 +776,23 @@ function drawDeltaChart(play, move, cursorFrame) {
     ctx.fillText(label, padL + 28, legY);
     legY += 12;
   }
-  legendItem("#6dd58c", "P(score) baseline", false);
-  legendItem("#e98074", "P(concede) baseline", false);
-  if (move) {
-    legendItem("#ffd166", "P(score) counterfactual", true);
-    legendItem("#ff8c5a", "P(concede) counterfactual", true);
-  }
-  if (freestyle.liveTrajectory) {
-    legendItem("#ffd166", "P(score) freestyle (focus)", true);
-    legendItem("#ff8c5a", "P(concede) freestyle (focus)", true);
+  if (perspective === "raw") {
+    legendItem("#6dd58c", "P(score) baseline", false);
+    legendItem("#e98074", "P(concede) baseline", false);
+    if (move) {
+      legendItem("#ffd166", "P(score) counterfactual", true);
+      legendItem("#ff8c5a", "P(concede) counterfactual", true);
+    }
+    if (freestyle.liveTrajectory) {
+      legendItem("#ffd166", "P(score) freestyle (focus)", true);
+      legendItem("#ff8c5a", "P(concede) freestyle (focus)", true);
+    }
+  } else {
+    const team = perspective === "home" ? play.home : play.away;
+    const teamName = (team.short || team.name || "team");
+    legendItem("#6dd58c", `Net P (smoothed) · from ${teamName}`, false);
+    if (move) legendItem("#ffd166", "Net P · counterfactual", true);
+    if (freestyle.liveTrajectory) legendItem("#ffd166", "Net P · freestyle (focus)", true);
   }
 }
 
@@ -906,6 +1003,16 @@ async function init() {
       if (currentPlay) renderFrame(currentFrame);
       if (freestyle.enabled && freestyle.liveShifts.size > 0) {
         runFreestyleTrajectory();
+      }
+    });
+  }
+  if (chartPerspective) {
+    chartPerspective.addEventListener("change", () => {
+      perspective = chartPerspective.value;
+      if (currentPlay) {
+        drawDeltaChart(currentPlay, currentMove, currentFrame);
+        // Prob strip also reads perspective so refresh frame.
+        renderFrame(currentFrame);
       }
     });
   }

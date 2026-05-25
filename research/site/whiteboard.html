@@ -64,6 +64,14 @@
           <input type="checkbox" id="linked-toggle" checked>
           <span>Linked movement</span>
         </label>
+        <span class="wb-toggle" style="cursor:default" title="Raw shows both P(score) and P(concede) from the in-possession team's perspective (so they alternate with possession flips). 'From <team>' collapses to a single net = P_score − P_concede line, always from that team's POV, with light smoothing for readability.">
+          <span style="color:var(--text)">View:</span>
+          <select id="chart-perspective" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
+            <option value="raw" selected>Raw (both curves)</option>
+            <option value="home">From home perspective (net)</option>
+            <option value="away">From away perspective (net)</option>
+          </select>
+        </span>
       </div>
     </section>
 
