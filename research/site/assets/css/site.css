@@ -790,13 +790,19 @@ table.data-table th.num { text-align: right; }
   transform: translateX(-50%);
 }
 
-.player-dot {
+/* HTML-only formation-card dot (builder.js / lineup cards). Scoped to
+   `div.player-dot` so it can't bleed onto SVG `<circle class="player-dot">`
+   elements used by the whiteboard / interactive-plays renderers — applying
+   `position: absolute; transform: translate(-50%, -50%)` to SVG circles
+   resolves the percentages against the SVG viewport and shoves the dots off
+   the pitch entirely. */
+div.player-dot {
   position: absolute;
   transform: translate(-50%, -50%);
   text-align: center;
   width: 76px;
 }
-.player-dot .ring {
+div.player-dot .ring {
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -805,7 +811,7 @@ table.data-table th.num { text-align: right; }
   border: 2px solid rgba(0, 0, 0, 0.4);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
-.player-dot .name {
+div.player-dot .name {
   font-size: 0.72rem;
   color: white;
   margin-top: 0.15rem;
@@ -815,7 +821,7 @@ table.data-table th.num { text-align: right; }
   display: inline-block;
   white-space: nowrap;
 }
-.player-dot .role {
+div.player-dot .role {
   font-size: 0.6rem;
   color: var(--text-mute);
   margin-top: 0.1rem;
