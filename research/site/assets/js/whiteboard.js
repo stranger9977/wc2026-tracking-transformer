@@ -215,7 +215,7 @@ function renderFrame(frameIdx, opts = {}) {
       const fromDot = document.createElementNS(SVG_NS, "circle");
       fromDot.setAttribute("cx", p.x);
       fromDot.setAttribute("cy", p.y);
-      fromDot.setAttribute("r", 1.05);
+      fromDot.setAttribute("r", 1.55);
       fromDot.setAttribute("class", `player-dot ${teamClass(currentPlay, p)} shifted-from`);
       fromDot.setAttribute("fill", fillForTeam(currentPlay, p));
       gPlayers.appendChild(fromDot);
@@ -233,7 +233,7 @@ function renderFrame(frameIdx, opts = {}) {
     const cy = p.y + (shift ? shift.dy : 0);
     dot.setAttribute("cx", cx);
     dot.setAttribute("cy", cy);
-    dot.setAttribute("r", 1.25);
+    dot.setAttribute("r", 1.95);
     let cls = `player-dot ${teamClass(currentPlay, p)}`;
     if (shift) cls += " shifted-to";
     if (freestyle.enabled) cls += " freestyle-draggable";
@@ -251,16 +251,17 @@ function renderFrame(frameIdx, opts = {}) {
     if (p.is_gk) {
       const ring = document.createElementNS(SVG_NS, "circle");
       ring.setAttribute("cx", cx); ring.setAttribute("cy", cy);
-      ring.setAttribute("r", 1.85);
+      ring.setAttribute("r", 2.65);
       ring.setAttribute("class", "player-dot gk-ring");
       gPlayers.appendChild(ring);
     }
 
-    // Player label (surname) — small, centered above
+    // Player label (surname) — small, centered just above the dot.
+    // Bumped offset so the bigger r=1.95 dots don't overlap the text.
     if (p.name) {
       const t = document.createElementNS(SVG_NS, "text");
       t.setAttribute("x", cx);
-      t.setAttribute("y", cy - 1.7);
+      t.setAttribute("y", cy - 2.4);
       t.setAttribute("class", "player-label");
       t.textContent = shortName(p.name);
       gLabels.appendChild(t);

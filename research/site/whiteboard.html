@@ -57,6 +57,36 @@
       </div>
     </section>
 
+    <aside class="callout how-to-use" aria-label="How to use this">
+      <h4 style="margin-top:0">How to use this</h4>
+      <ol style="margin:0; padding-left:1.2rem;">
+        <li>
+          <strong>Use a Suggested move</strong> (panel on the right →). Each card
+          is a real tactical concept — Third-Man Triangle, Decoy Run, Pin —
+          applied to <em>this</em> play. <strong>Click a card</strong> to apply it:
+          the named players slide to their counterfactual positions on the
+          pitch, the <em>Δ P(score)</em> and <em>Δ P(concede)</em> chips
+          show the model's verdict, and the chart below the pitch shows the
+          per-frame swing. <strong>Click the same card again or hit "reset to
+          original"</strong> to return to what actually happened.
+        </li>
+        <li>
+          <strong>Or go freestyle.</strong> Hit "✋ freestyle: drag any
+          player" once (~5 MB ONNX runtime loads in your browser).
+          <strong>Then drag any player dot to a new spot.</strong> The model
+          re-runs on the modified frame and the "cf P(score)" / "cf P(concede)"
+          line above the pitch updates in &lt; 5 ms. Drag the same player
+          back to undo, or hit reset.
+        </li>
+        <li>
+          <strong>Scrub the timeline</strong> (slider below the pitch) to pick
+          which frame the counterfactual applies to. Suggested moves use the
+          peak-|Δ| frame by default — that's the moment the move would have
+          mattered most.
+        </li>
+      </ol>
+    </aside>
+
     <div id="freestyle-status" class="dim small" style="margin: 0.4rem 0;"></div>
 
     <div class="whiteboard-layout">
@@ -76,11 +106,13 @@
       </section>
 
       <aside class="moves-panel" aria-label="Suggested moves">
-        <h2 class="moves-title">Suggested moves</h2>
+        <h2 class="moves-title">Suggested moves &nbsp;<span class="dim small" style="font-weight:normal;">← click a card</span></h2>
         <p class="dim small moves-help">
           Each move is a tactical counterfactual — a real chemistry concept
-          applied to this play. Click to test it; the pitch updates and the
-          chart below shows the Δ over time.
+          applied to this play. <strong>Click a card</strong> to apply it: the
+          named players animate to their counterfactual positions, the deltas
+          chip up, and the chart under the pitch fills in. Click the same card
+          (or "↺ reset") to undo.
         </p>
         <div id="moves-list"></div>
       </aside>
