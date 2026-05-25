@@ -34,20 +34,62 @@ const SVG_H = 600;
 const PITCH_PAD = 14;           // margin inside the SVG for labels
 const CHART_H = 110;
 
-// Global P-chart perspective state. Controlled by the #iplay-perspective dropdown
-// at the top of the page. Each clip registers a redraw callback so a single
-// dropdown change refreshes every chart on the page.
+// Global state for page-level controls. Each clip registers callbacks so
+// changing a single dropdown refreshes every chart / pitch on the page.
 const chartRedraws = [];
+const frameRedraws = [];   // re-renders the pitch overlay (attention edges, halos, etc.)
+const focusUpdates = [];   // updates focus-mode min/max on each clip's scrubber
+
 function currentPerspective() {
-  const sel = document.getElementById("iplay-perspective");
-  return sel ? sel.value : "raw";
+  const el = document.getElementById("iplay-perspective");
+  return el ? el.value : "raw";
 }
+function focusEnabled() {
+  const el = document.getElementById("iplay-focus-toggle");
+  return !!(el && el.checked);
+}
+function currentTopN() {
+  const el = document.getElementById("iplay-top-n");
+  const v = el ? el.value : "3";
+  return v === "all" ? 22 : parseInt(v, 10) || 3;
+}
+function currentIncludeGk() {
+  const el = document.getElementById("iplay-include-gk");
+  return !!(el && el.checked);
+}
+function currentEdgeFilter() {
+  const el = document.getElementById("iplay-edge-filter");
+  return el ? el.value : "all";
+}
+
 function registerChartRedraw(fn) { chartRedraws.push(fn); }
+function registerFrameRedraw(fn) { frameRedraws.push(fn); }
+function registerFocusUpdate(fn) { focusUpdates.push(fn); }
+
 document.getElementById("iplay-perspective")?.addEventListener("change", () => {
-  for (const fn of chartRedraws) {
-    try { fn(); } catch (e) { console.warn("[iplay] chart redraw failed:", e); }
-  }
+  for (const fn of chartRedraws) { try { fn(); } catch (e) { console.warn(e); } }
 });
+function refreshAllFrames() {
+  for (const fn of frameRedraws) { try { fn(); } catch (e) { console.warn(e); } }
+}
+function refreshAllFocus() {
+  for (const fn of focusUpdates) { try { fn(); } catch (e) { console.warn(e); } }
+}
+document.getElementById("iplay-focus-toggle")?.addEventListener("change", refreshAllFocus);
+document.getElementById("iplay-top-n")?.addEventListener("change", refreshAllFrames);
+document.getElementById("iplay-include-gk")?.addEventListener("change", refreshAllFrames);
+document.getElementById("iplay-edge-filter")?.addEventListener("change", refreshAllFrames);
+
+// Suppress junk event labels — raw PFF event codes the renderer couldn't
+// resolve to a human label. "None" comes from f"{None}" stringification;
+// "IT" is a PFF event-type code (likely "indirect touch") not handled
+// upstream. Treat both as missing.
+function cleanEventLabel(s) {
+  if (!s) return "";
+  const t = String(s).trim();
+  if (!t || t === "None" || t === "IT" || t.endsWith(" — None") || t.endsWith(" — ")) return "";
+  return t;
+}
 
 const idx = await loadJSON("data/clips/index.json").catch(() => null);
 
@@ -247,14 +289,25 @@ function initClip(c, detail) {
     }
     gPlayers.innerHTML = dotsHTML;
 
-    // --- attention edges (ball → top-3 non-GK) with smoothed widths.
-    // GKs are excluded because they monopolise raw attention in defensive
-    // sequences and their inclusion drowns out the outfield chemistry we're
-    // actually trying to surface.
-    const topK = 3;
+    // --- attention edges to top-N attended players, with user-controlled
+    // GK inclusion + offense/defense category filter.
+    const topK = currentTopN();
+    const includeGk = currentIncludeGk();
+    const edgeFilter = currentEdgeFilter();
+    const isOff = (p) => p && (p.position === "FWD" || p.position === "MID"
+                               || /^(CF|ST|LW|RW|AM|CM|DM|LM|RM)$/i.test(String(p.position || "")));
+    const isDef = (p) => p && (p.position === "DEF" || p.position === "GK"
+                               || /^(CB|LB|RB|LCB|RCB|GK)$/i.test(String(p.position || "")));
     const topIdx = smoothAttn
       .map((v, i) => [v, i])
-      .filter(([, i]) => !(playerDOM[i] && playerDOM[i].p && playerDOM[i].p.is_gk))
+      .filter(([, i]) => {
+        const t = playerDOM[i] && playerDOM[i].p;
+        if (!t) return false;
+        if (!includeGk && t.is_gk) return false;
+        if (edgeFilter === "off" && !isOff(t)) return false;
+        if (edgeFilter === "def" && !isDef(t)) return false;
+        return true;
+      })
       .sort((a, b) => b[0] - a[0])
       .slice(0, topK)
       .map(([, i]) => i);
@@ -347,7 +400,7 @@ function initClip(c, detail) {
     gGoalHighlight.innerHTML = highlightHTML;
 
     // --- event strip + auto-pause when an event lands
-    const evLabel = f.event_label;
+    const evLabel = cleanEventLabel(f.event_label);
     if (evLabel && lastEventIdxShown !== i) {
       lastEventIdxShown = i;
       if (playTimer) {
@@ -359,10 +412,10 @@ function initClip(c, detail) {
     }
     if (f.is_goal_event) {
       evtStrip.className = "event-strip goal";
-      evtStrip.innerHTML = `⚽ <strong>GOAL</strong> — ${escapeHTML(f.event_label || "")}`;
-    } else if (f.event_label) {
+      evtStrip.innerHTML = `⚽ <strong>GOAL</strong> — ${escapeHTML(cleanEventLabel(f.event_label) || "")}`;
+    } else if (evLabel) {
       evtStrip.className = "event-strip";
-      evtStrip.innerHTML = escapeHTML(f.event_label);
+      evtStrip.innerHTML = escapeHTML(evLabel);
     } else if (goalFrame >= 0) {
       const ahead = goalFrame - i;
       if (ahead > 0) {
@@ -400,11 +453,29 @@ function initClip(c, detail) {
     }
   }
 
+  function clampToFocus(j) {
+    if (!focusEnabled() || goalFrame < 0) return Math.max(0, Math.min(n - 1, j));
+    const lo = Math.max(0, goalFrame - 50);    // 10s @ 5 Hz
+    const hi = Math.min(n - 1, goalFrame);
+    return Math.max(lo, Math.min(hi, j));
+  }
   function setFrame(j) {
-    i = Math.max(0, Math.min(n - 1, j));
+    i = clampToFocus(j);
     scrub.value = String(i);
     renderFrame(true);
   }
+  function applyFocus() {
+    if (focusEnabled() && goalFrame >= 0) {
+      scrub.min = String(Math.max(0, goalFrame - 50));
+      scrub.max = String(Math.min(n - 1, goalFrame));
+      setFrame(Number(scrub.value));
+    } else {
+      scrub.min = "0";
+      scrub.max = String(n - 1);
+    }
+  }
+  registerFocusUpdate(applyFocus);
+  registerFrameRedraw(() => renderFrame(true));
 
   // RAF loop for smooth halo pulse + attention easing even when not stepping.
   function tick() {
@@ -414,6 +485,7 @@ function initClip(c, detail) {
   rafId = requestAnimationFrame(tick);
 
   setFrame(0);
+  applyFocus();
 
   scrub.addEventListener("input", (e) => setFrame(Number(e.target.value)));
 

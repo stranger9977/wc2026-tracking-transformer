@@ -400,6 +400,16 @@ details.code-toggle code { color: #d1d8e6; font-family: ui-monospace, "SF Mono",
   width: 100%;
   height: auto;
   display: block;
+  /* Cap the pitch height so the whole card stays roughly within one
+     screen — the chart + meta below need vertical space too. */
+  max-height: 58vh;
+  object-fit: contain;
+}
+@media (min-width: 1100px) {
+  .iplay .iplay-pitch { max-height: 60vh; }
+}
+@media (max-width: 700px) {
+  .iplay .iplay-pitch { max-height: 72vh; }
 }
 .iplay .iplay-pitch text { user-select: none; pointer-events: none; }
 .iplay .iplay-label rect { stroke: rgba(255,255,255,0.08); stroke-width: 0.6; }

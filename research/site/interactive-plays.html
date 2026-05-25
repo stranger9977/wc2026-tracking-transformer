@@ -53,13 +53,38 @@
       transferring to the shooter.
     </p>
 
-    <div class="controls" style="margin: 0.4rem 0 1rem;">
-      <span class="wb-toggle" style="cursor:default" title="The two heads (P_score, P_concede) are conditioned on whichever team is in possession, so they flip on every turnover — that's why raw curves alternate. 'From <team>' collapses to a single net = P_score − P_concede line, always from that team's POV, with light smoothing for readability.">
-        <span style="color:var(--text)">Chart view:</span>
+    <div class="controls iplay-globals" style="margin: 0.4rem 0 1rem; display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center;">
+      <span class="wb-toggle" style="cursor:default" title="The two heads (P_score, P_concede) are conditioned on whichever team is in possession, so they flip on every turnover — that's why raw curves alternate. 'From <team>' collapses to a single net = P_score − P_concede line.">
+        <span style="color:var(--text)">Chart:</span>
         <select id="iplay-perspective" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
           <option value="raw" selected>Raw (both curves)</option>
-          <option value="home">From home perspective (net)</option>
-          <option value="away">From away perspective (net)</option>
+          <option value="home">From home (net)</option>
+          <option value="away">From away (net)</option>
+        </select>
+      </span>
+      <label class="wb-toggle" title="Restrict the scrubber to the 10 seconds before the goal frame — the window where a different decision would have mattered most.">
+        <input type="checkbox" id="iplay-focus-toggle">
+        <span>10s pre-goal focus</span>
+      </label>
+      <span class="wb-toggle" style="cursor:default" title="How many top-attended players to ring with a halo + draw a ball→player attention line to.">
+        <span>Top attended:</span>
+        <select id="iplay-top-n" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
+          <option value="3" selected>3</option>
+          <option value="5">5</option>
+          <option value="7">7</option>
+          <option value="all">all 22</option>
+        </select>
+      </span>
+      <label class="wb-toggle" title="Include goalkeepers when picking the top-attended players. GKs often dominate raw attention during defensive sequences.">
+        <input type="checkbox" id="iplay-include-gk">
+        <span>Include GKs</span>
+      </label>
+      <span class="wb-toggle" style="cursor:default" title="Filter the attention edges to a specific category.">
+        <span>Edges:</span>
+        <select id="iplay-edge-filter" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
+          <option value="all" selected>All</option>
+          <option value="off">Offense only</option>
+          <option value="def">Defense only</option>
         </select>
       </span>
     </div>
