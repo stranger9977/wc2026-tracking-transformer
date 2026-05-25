@@ -292,6 +292,17 @@
       if (pm.jdi_r2 !== undefined) {
         stats.push({ label: "JDI predictor R²", value: fmtNum(pm.jdi_r2, 3), sub: "5-fold CV" });
       }
+      // Frame-VAEP transformer val metrics — sit next to the event-VAEP AUCs
+      // so the reader sees the on-ball vs frame-level signals side by side.
+      const tm = await loadJSON("data/training_metrics_frame_vaep.json").catch(() => null);
+      if (tm && tm.metrics) {
+        if (tm.metrics.val_auc_score !== undefined) {
+          stats.push({ label: "Frame-VAEP score AUC", value: fmtNum(tm.metrics.val_auc_score, 3), sub: `held-out (${tm.n_val_matches || "?"} matches)` });
+        }
+        if (tm.metrics.val_auc_concede !== undefined) {
+          stats.push({ label: "Frame-VAEP concede AUC", value: fmtNum(tm.metrics.val_auc_concede, 3), sub: `held-out (${tm.n_val_matches || "?"} matches)` });
+        }
+      }
       if (data.n_goals !== undefined) {
         stats.push({ label: "Goals scored", value: fmtInt(data.n_goals) });
       }
