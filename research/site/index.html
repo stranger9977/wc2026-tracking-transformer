@@ -349,6 +349,27 @@
 
     const storiesEl = document.getElementById("overview-stories");
     const stories = await loadJSON("data/chemistry_stories.json").catch(() => null);
+    // Attention-based top off-off pair per team (score-frame lift). Lets each
+    // story card show event-based AND attention-based chemistry side-by-side.
+    const attnByOutcome = await loadJSON("data/attention_by_outcome.json").catch(() => null);
+    const topAttnByTeam = new Map();
+    if (Array.isArray(attnByOutcome)) {
+      for (const r of attnByOutcome) {
+        if (r.category !== "off") continue;
+        if (r.role_p === "GK" || r.role_q === "GK") continue;
+        const k = r.team_name;
+        const cur = topAttnByTeam.get(k);
+        if (!cur || (r.lift_score || 0) > (cur.lift_score || 0)) topAttnByTeam.set(k, r);
+      }
+    }
+    // Distribution of all score-frame lifts (off-off pairs, GK excluded) for the sparkline.
+    const liftScoreSorted = Array.isArray(attnByOutcome)
+      ? attnByOutcome
+          .filter(r => r.category === "off" && r.role_p !== "GK" && r.role_q !== "GK")
+          .map(r => Number(r.lift_score))
+          .filter(v => Number.isFinite(v))
+          .sort((a, b) => a - b)
+      : [];
     // Build a global JOI90 distribution from `data/pairs.json` so each story
     // card can show where its top pair sits among all qualifying WC22 pairs.
     const pairsAll = await loadJSON("data/pairs.json").catch(() => null);
@@ -381,14 +402,21 @@
       </svg><span class="muted small">${pctTxt}</span>`;
     }
     if (storiesEl && Array.isArray(stories)) {
-      storiesEl.innerHTML = stories.map((s) => `
+      storiesEl.innerHTML = stories.map((s) => {
+        const attn = topAttnByTeam.get(s.team);
+        const attnRow = attn
+          ? `<p class="small mb-0"><span class="chip" style="background:rgba(212,121,58,0.18);color:#f1ad7a;border:1px solid rgba(212,121,58,0.45)">Top ATTN</span> <strong>${escapeHTML(attn.name_p)}</strong> + <strong>${escapeHTML(attn.name_q)}</strong> · <span class="muted tabular">${fmtNum(attn.lift_score, 2)}× score-frame lift, ${fmtNum(attn.minutes_together, 0)} min shared</span>${distroSpark(liftScoreSorted, Number(attn.lift_score), "#d4793a")}</p>`
+          : "";
+        return `
         <div class="card flag-bg-wrap">
           ${s.flag_code ? `<div class="flag-bg" style="background-image:url(https://flagcdn.com/640x480/${escapeHTML(s.flag_code)}.png)"></div>` : ""}
           <h3 class="mt-0">${flagHTML(s.flag_code, { size: "lg", alt: s.team })}${escapeHTML(s.team)}</h3>
           <p class="small">${escapeHTML(s.story)}</p>
           <p class="small mb-0"><span class="chip green">Top JOI</span> <strong>${escapeHTML(s.top_joi.p)}</strong> + <strong>${escapeHTML(s.top_joi.q)}</strong> · <span class="muted tabular">${fmtNum(s.top_joi.val, 2)} VAEP·90/min, ${fmtNum(s.top_joi.min, 0)} min shared</span>${distroSpark(joi90Sorted, Number(s.top_joi.val), "#6dd58c")}</p>
           <p class="small mb-0"><span class="chip red">Top JDI</span> <strong>${escapeHTML(s.top_jdi.p)}</strong> + <strong>${escapeHTML(s.top_jdi.q)}</strong> · <span class="muted tabular">${fmtNum(s.top_jdi.val, 3)} VAEP·90/min, ${fmtNum(s.top_jdi.min, 0)} min shared</span>${distroSpark(jdi90Sorted, Number(s.top_jdi.val), "#e98074")}</p>
-        </div>`).join("");
+          ${attnRow}
+        </div>`;
+      }).join("");
     }
 
     // ----- Inline interactive: per-team attention chemistry preview -----
