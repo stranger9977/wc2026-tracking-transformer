@@ -53,6 +53,17 @@
       transferring to the shooter.
     </p>
 
+    <div class="controls" style="margin: 0.4rem 0 1rem;">
+      <span class="wb-toggle" style="cursor:default" title="The two heads (P_score, P_concede) are conditioned on whichever team is in possession, so they flip on every turnover — that's why raw curves alternate. 'From <team>' collapses to a single net = P_score − P_concede line, always from that team's POV, with light smoothing for readability.">
+        <span style="color:var(--text)">Chart view:</span>
+        <select id="iplay-perspective" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
+          <option value="raw" selected>Raw (both curves)</option>
+          <option value="home">From home perspective (net)</option>
+          <option value="away">From away perspective (net)</option>
+        </select>
+      </span>
+    </div>
+
     <div id="play-list">
       <div class="empty-state">Loading clips…</div>
     </div>

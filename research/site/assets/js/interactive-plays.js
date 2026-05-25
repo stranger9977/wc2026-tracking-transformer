@@ -34,6 +34,21 @@ const SVG_H = 600;
 const PITCH_PAD = 14;           // margin inside the SVG for labels
 const CHART_H = 110;
 
+// Global P-chart perspective state. Controlled by the #iplay-perspective dropdown
+// at the top of the page. Each clip registers a redraw callback so a single
+// dropdown change refreshes every chart on the page.
+const chartRedraws = [];
+function currentPerspective() {
+  const sel = document.getElementById("iplay-perspective");
+  return sel ? sel.value : "raw";
+}
+function registerChartRedraw(fn) { chartRedraws.push(fn); }
+document.getElementById("iplay-perspective")?.addEventListener("change", () => {
+  for (const fn of chartRedraws) {
+    try { fn(); } catch (e) { console.warn("[iplay] chart redraw failed:", e); }
+  }
+});
+
 const idx = await loadJSON("data/clips/index.json").catch(() => null);
 
 if (!idx || !Array.isArray(idx) || idx.length === 0) {
@@ -139,10 +154,23 @@ function initClip(c, detail) {
   }
 
   /* ---------- P-chart under the slider ---------- */
-  if (chartEl) {
-    chartEl.innerHTML = pChartSvg(frames);
+  let chartCursor = null;
+  function renderChart() {
+    if (!chartEl) return;
+    const perspective = currentPerspective();
+    let povTeamId = null, povName = "team";
+    if (perspective === "home") {
+      povTeamId = c.home_team?.team_id || c.home_team?.id || c.home_team?.short;
+      povName = c.home_team?.short || c.home_team?.name || "home";
+    } else if (perspective === "away") {
+      povTeamId = c.away_team?.team_id || c.away_team?.id || c.away_team?.short;
+      povName = c.away_team?.short || c.away_team?.name || "away";
+    }
+    chartEl.innerHTML = pChartSvg(frames, { perspective, povTeamId, povName });
+    chartCursor = chartEl.querySelector(".chart-cursor");
   }
-  const chartCursor = chartEl?.querySelector(".chart-cursor");
+  renderChart();
+  registerChartRedraw(renderChart);
 
   /* ---------- playback state ---------- */
   let i = 0;
@@ -552,22 +580,15 @@ function overlapArea(x, y, w, h, placed) {
    P-chart helpers
    ============================================================ */
 
-function pChartSvg(frames) {
+function pChartSvg(frames, opts = {}) {
   const n = frames.length;
   if (n === 0) return "";
-  // Plot p_score (green) and p_concede (red) over time.
   const w = 100, h = CHART_H;
   const pad = 4;
-  const pathFor = (key, color) => {
-    const ys = frames.map((f) => f[key] || 0);
-    const ymax = Math.max(0.05, ...ys, ...frames.map((f) => f.p_concede || 0), ...frames.map((f) => f.p_score || 0));
-    const pts = ys.map((y, i) => {
-      const px = (i / Math.max(1, n - 1)) * (w - 2 * pad) + pad;
-      const py = h - pad - (y / ymax) * (h - 2 * pad);
-      return `${px.toFixed(2)},${py.toFixed(2)}`;
-    });
-    return `<polyline fill="none" stroke="${color}" stroke-width="0.6" stroke-linecap="round" points="${pts.join(" ")}" />`;
-  };
+  const perspective = opts.perspective || "raw";
+  const povTeamId = opts.povTeamId;
+  const povName = opts.povName || "team";
+
   // Event markers along the time axis
   const evMarks = frames.map((f, i) => {
     if (!f.event_label) return "";
@@ -577,16 +598,64 @@ function pChartSvg(frames) {
     return `<line x1="${px}" y1="${h - dy}" x2="${px}" y2="${h}" stroke="${color}" stroke-width="${f.is_goal_event ? 0.9 : 0.4}" />`;
   }).join("");
 
+  if (perspective === "raw") {
+    const pathFor = (key, color) => {
+      const ys = frames.map((f) => f[key] || 0);
+      const ymax = Math.max(0.05, ...ys, ...frames.map((f) => f.p_concede || 0), ...frames.map((f) => f.p_score || 0));
+      const pts = ys.map((y, i) => {
+        const px = (i / Math.max(1, n - 1)) * (w - 2 * pad) + pad;
+        const py = h - pad - (y / ymax) * (h - 2 * pad);
+        return `${px.toFixed(2)},${py.toFixed(2)}`;
+      });
+      return `<polyline fill="none" stroke="${color}" stroke-width="0.6" stroke-linecap="round" points="${pts.join(" ")}" />`;
+    };
+    return `
+      <div class="chart-title">
+        <span><span class="dot" style="background:#54c875"></span>P(score)</span>
+        <span><span class="dot" style="background:#e07474"></span>P(concede)</span>
+        <span class="dim small">events tick the bottom; goal in gold</span>
+      </div>
+      <svg class="chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="${w}" height="${h}" fill="#0b1220" />
+        ${pathFor("p_concede", "#e07474")}
+        ${pathFor("p_score", "#54c875")}
+        ${evMarks}
+        <line class="chart-cursor" x1="0%" y1="0" x2="0%" y2="${h}" stroke="#fde047" stroke-width="0.4" stroke-opacity="0.85" />
+      </svg>`;
+  }
+
+  // Net mode: single smoothed curve from chosen team's POV, fixed [-1, +1] range.
+  const netRaw = frames.map((f) => {
+    const possIsPov = String(f.in_possession_team_id) === String(povTeamId);
+    const ps = f.p_score || 0, pc = f.p_concede || 0;
+    const myScore = possIsPov ? ps : pc;
+    const myConcede = possIsPov ? pc : ps;
+    return myScore - myConcede;
+  });
+  // Centered 7-frame smoothing (~1.4s at 5 Hz).
+  const win = 7, half = Math.floor(win / 2);
+  const net = netRaw.map((_, i) => {
+    let s = 0, c = 0;
+    for (let j = Math.max(0, i - half); j <= Math.min(netRaw.length - 1, i + half); j++) {
+      if (Number.isFinite(netRaw[j])) { s += netRaw[j]; c++; }
+    }
+    return c > 0 ? s / c : 0;
+  });
+  const yToPy = (v) => h - pad - ((v + 1) / 2) * (h - 2 * pad);  // map [-1, +1] → plot
+  const pts = net.map((v, i) => {
+    const px = (i / Math.max(1, n - 1)) * (w - 2 * pad) + pad;
+    return `${px.toFixed(2)},${yToPy(v).toFixed(2)}`;
+  });
+  const zeroY = yToPy(0).toFixed(2);
   return `
     <div class="chart-title">
-      <span><span class="dot" style="background:#54c875"></span>P(score)</span>
-      <span><span class="dot" style="background:#e07474"></span>P(concede)</span>
-      <span class="dim small">events tick the bottom; goal in gold</span>
+      <span><span class="dot" style="background:#54c875"></span>Net P · from ${escapeHTML(povName)} (smoothed)</span>
+      <span class="dim small">+1 = about to score &nbsp;·&nbsp; −1 = about to concede</span>
     </div>
     <svg class="chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="0" y="0" width="${w}" height="${h}" fill="#0b1220" />
-      ${pathFor("p_concede", "#e07474")}
-      ${pathFor("p_score", "#54c875")}
+      <line x1="${pad}" y1="${zeroY}" x2="${w - pad}" y2="${zeroY}" stroke="#3a4554" stroke-width="0.2" />
+      <polyline fill="none" stroke="#54c875" stroke-width="0.7" stroke-linecap="round" points="${pts.join(" ")}" />
       ${evMarks}
       <line class="chart-cursor" x1="0%" y1="0" x2="0%" y2="${h}" stroke="#fde047" stroke-width="0.4" stroke-opacity="0.85" />
     </svg>`;
