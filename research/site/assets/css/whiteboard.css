@@ -77,32 +77,33 @@
 .pitch-line { fill: none; stroke: #dceadb; stroke-width: 0.25; }
 .pitch-spot { fill: #dceadb; }
 
-/* Players */
+/* Players — fill comes from inline style.fill driven by the play's home/away
+   colors. No team-class fill rules here so the inline color always wins. */
 .player-dot {
   stroke: white;
-  stroke-width: 0.18;
-  transition: transform 280ms cubic-bezier(0.4, 0.0, 0.2, 1), opacity 220ms;
-}
-.player-dot.home { fill: #5eead4; }
-.player-dot.away { fill: #f87171; }
-.player-dot.gk-ring {
-  stroke: #00d68f;
   stroke-width: 0.35;
+  transition: opacity 220ms;
+}
+.player-dot.gk-ring {
+  stroke: #ffd166;
+  stroke-width: 0.4;
   fill: none;
 }
 .player-dot.shifted-from { opacity: 0.32; }
 .player-dot.shifted-to {
   stroke: #ffd166;
-  stroke-width: 0.32;
+  stroke-width: 0.45;
 }
+.player-group { pointer-events: auto; }
 
 .player-label {
   font-family: var(--mono);
-  font-size: 1.1px;
-  fill: #f0f4f8;
+  font-size: 1.6px;
+  font-weight: 600;
+  fill: #ffffff;
   paint-order: stroke fill;
-  stroke: rgba(11, 18, 32, 0.85);
-  stroke-width: 0.25px;
+  stroke: rgba(0, 0, 0, 0.85);
+  stroke-width: 0.45;
   text-anchor: middle;
   pointer-events: none;
 }

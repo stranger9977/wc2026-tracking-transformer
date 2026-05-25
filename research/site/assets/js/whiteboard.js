@@ -210,6 +210,12 @@ function renderFrame(frameIdx, opts = {}) {
       shift = freestyle.liveShifts.get(p.player_id);
     }
 
+    // Defensive: never let a bad p.x/p.y silently make a dot disappear to (0,0).
+    if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) {
+      console.warn("[whiteboard] player has non-finite x/y, skipping", p);
+      continue;
+    }
+
     // Original (pre-shift) dot (ghosted) if shifted
     if (shift) {
       const fromDot = document.createElementNS(SVG_NS, "circle");
@@ -217,10 +223,10 @@ function renderFrame(frameIdx, opts = {}) {
       fromDot.setAttribute("cy", p.y);
       fromDot.setAttribute("r", 1.55);
       fromDot.setAttribute("class", `player-dot ${teamClass(currentPlay, p)} shifted-from`);
-      fromDot.setAttribute("fill", fillForTeam(currentPlay, p));
+      fromDot.style.fill = fillForTeam(currentPlay, p);
+      fromDot.style.opacity = "0.35";
       gPlayers.appendChild(fromDot);
 
-      // Arrow from→to (in pitch metres)
       const arrow = document.createElementNS(SVG_NS, "line");
       arrow.setAttribute("x1", p.x); arrow.setAttribute("y1", p.y);
       arrow.setAttribute("x2", p.x + shift.dx); arrow.setAttribute("y2", p.y + shift.dy);
