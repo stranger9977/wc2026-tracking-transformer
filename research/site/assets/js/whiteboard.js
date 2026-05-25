@@ -228,17 +228,30 @@ function renderFrame(frameIdx, opts = {}) {
       gArrows.appendChild(arrow);
     }
 
-    const dot = document.createElementNS(SVG_NS, "circle");
+    // Render each player as ONE <g transform="translate(cx, cy)"> containing
+    // the dot, an optional GK ring, and the surname label. Bundling them as a
+    // single transformed group means the dot and its label can never appear at
+    // different positions regardless of any other bug — they share the
+    // group's transform.
     const cx = p.x + (shift ? shift.dx : 0);
     const cy = p.y + (shift ? shift.dy : 0);
-    dot.setAttribute("cx", cx);
-    dot.setAttribute("cy", cy);
-    dot.setAttribute("r", 1.95);
+    const g = document.createElementNS(SVG_NS, "g");
+    g.setAttribute("transform", `translate(${cx} ${cy})`);
+    g.setAttribute("class", "player-group");
+
+    const dot = document.createElementNS(SVG_NS, "circle");
+    dot.setAttribute("cx", 0);
+    dot.setAttribute("cy", 0);
+    dot.setAttribute("r", 2.2);
     let cls = `player-dot ${teamClass(currentPlay, p)}`;
     if (shift) cls += " shifted-to";
     if (freestyle.enabled) cls += " freestyle-draggable";
     dot.setAttribute("class", cls);
-    dot.setAttribute("fill", fillForTeam(currentPlay, p));
+    // style.fill beats the .home/.away CSS rules (which were forcing teal/red
+    // regardless of the team's actual color).
+    dot.style.fill = fillForTeam(currentPlay, p);
+    dot.style.stroke = "#ffffff";
+    dot.style.strokeWidth = "0.4";
     if (freestyle.enabled && p.player_id) {
       dot.style.cursor = "grab";
       dot.dataset.playerId = String(p.player_id);
@@ -246,26 +259,27 @@ function renderFrame(frameIdx, opts = {}) {
       dot.dataset.originY = String(p.y);
       dot.addEventListener("pointerdown", onDragStart);
     }
-    gPlayers.appendChild(dot);
+    g.appendChild(dot);
 
     if (p.is_gk) {
       const ring = document.createElementNS(SVG_NS, "circle");
-      ring.setAttribute("cx", cx); ring.setAttribute("cy", cy);
-      ring.setAttribute("r", 2.65);
+      ring.setAttribute("cx", 0); ring.setAttribute("cy", 0);
+      ring.setAttribute("r", 3.1);
       ring.setAttribute("class", "player-dot gk-ring");
-      gPlayers.appendChild(ring);
+      g.appendChild(ring);
     }
 
-    // Player label (surname) — small, centered just above the dot.
-    // Bumped offset so the bigger r=1.95 dots don't overlap the text.
     if (p.name) {
       const t = document.createElementNS(SVG_NS, "text");
-      t.setAttribute("x", cx);
-      t.setAttribute("y", cy - 2.4);
+      t.setAttribute("x", 0);
+      t.setAttribute("y", -3.0);
+      t.setAttribute("text-anchor", "middle");
       t.setAttribute("class", "player-label");
       t.textContent = shortName(p.name);
-      gLabels.appendChild(t);
+      g.appendChild(t);
     }
+
+    gPlayers.appendChild(g);
   }
 
   // Ball
