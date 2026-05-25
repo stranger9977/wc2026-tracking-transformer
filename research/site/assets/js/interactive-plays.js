@@ -219,9 +219,17 @@ function initClip(c, detail) {
     }
     gPlayers.innerHTML = dotsHTML;
 
-    // --- attention edges (ball → top-3) with smoothed widths
+    // --- attention edges (ball → top-3 non-GK) with smoothed widths.
+    // GKs are excluded because they monopolise raw attention in defensive
+    // sequences and their inclusion drowns out the outfield chemistry we're
+    // actually trying to surface.
     const topK = 3;
-    const topIdx = topKIndices(smoothAttn, topK);
+    const topIdx = smoothAttn
+      .map((v, i) => [v, i])
+      .filter(([, i]) => !(playerDOM[i] && playerDOM[i].p && playerDOM[i].p.is_gk))
+      .sort((a, b) => b[0] - a[0])
+      .slice(0, topK)
+      .map(([, i]) => i);
     const bxy = mToSvg(f.ball.x, f.ball.y);
     let edgesHTML = "";
     for (const s of topIdx) {
