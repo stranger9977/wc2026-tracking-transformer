@@ -55,6 +55,16 @@
         <button class="btn" id="play-btn" type="button">▶ play</button>
         <button class="btn" id="freestyle-btn" type="button" title="Drag any player to test your own counterfactual (loads ONNX runtime — ~5 MB)">✋ freestyle: drag any player</button>
       </div>
+      <div class="wb-toggles" role="group" aria-label="Freestyle settings">
+        <label class="wb-toggle" title="Restrict the scrubber to the 10 s leading up to the goal — the window where a different decision would have mattered most.">
+          <input type="checkbox" id="focus-toggle" checked>
+          <span>Goal-leadup focus (10 s)</span>
+        </label>
+        <label class="wb-toggle" title="When you drag a player, nearby teammates shift slightly to maintain shape — like a real defensive line ripple.">
+          <input type="checkbox" id="linked-toggle" checked>
+          <span>Linked movement</span>
+        </label>
+      </div>
     </section>
 
     <aside class="callout how-to-use" aria-label="How to use this">
@@ -74,15 +84,23 @@
           <strong>Or go freestyle.</strong> Hit "✋ freestyle: drag any
           player" once (~5 MB ONNX runtime loads in your browser).
           <strong>Then drag any player dot to a new spot.</strong> The model
-          re-runs on the modified frame and the "cf P(score)" / "cf P(concede)"
-          line above the pitch updates in &lt; 5 ms. Drag the same player
-          back to undo, or hit reset.
+          re-runs across the whole focus window and an orange "counterfactual"
+          curve overlays the faded baseline live as you drag — you see both
+          the original trajectory and the one that would have unfolded.
         </li>
         <li>
-          <strong>Scrub the timeline</strong> (slider below the pitch) to pick
-          which frame the counterfactual applies to. Suggested moves use the
-          peak-|Δ| frame by default — that's the moment the move would have
-          mattered most.
+          <strong>Linked movement</strong> (on by default): dragging a player
+          pulls their nearby teammates slightly along to maintain shape.
+          Dragging an LB nudges the CBs; dragging a striker tugs the CMs
+          forward. Same-team only — opponents stay put. Toggle it off to drag
+          a single player in isolation.
+        </li>
+        <li>
+          <strong>Goal-leadup focus</strong> (on by default) zooms the scrubber
+          to the 10 s before the goal — the window where a different decision
+          would have mattered. A small <em>⌃ key decision</em> marker on the
+          scrubber pinpoints the steepest P(score) rise in that window; click
+          it to jump there. Outside the focus window the slider is dimmed.
         </li>
       </ol>
     </aside>
@@ -96,7 +114,15 @@
                aria-label="Tactical pitch — drag a card to see chemistry as a counterfactual"></svg>
         </div>
         <div class="frame-controls">
-          <input type="range" id="frame-scrub" min="0" max="0" value="0" step="1" aria-label="Frame">
+          <div class="scrub-wrap">
+            <input type="range" id="frame-scrub" min="0" max="0" value="0" step="1" aria-label="Frame">
+            <div class="scrub-overlay" id="scrub-overlay" aria-hidden="true">
+              <div class="focus-band" id="focus-band"></div>
+              <button class="key-decision-marker" id="key-decision-marker" type="button" hidden
+                      title="Key decision frame — steepest P(score) rise in the leadup. Click to jump here."
+                      aria-label="Key decision frame">⌃</button>
+            </div>
+          </div>
           <span class="frame-counter dim small" id="frame-counter">frame 0/0</span>
         </div>
         <div class="prob-strip" id="prob-strip"></div>
@@ -163,6 +189,6 @@
     Pre-computed counterfactuals · frame-VAEP transformer on PFF WC '22 tracking.
   </footer>
 
-  <script type="module" src="assets/js/whiteboard.js?v=84821f4"></script>
+  <script type="module" src="assets/js/whiteboard.js?v=wb2cf-focus"></script>
 </body>
 </html>

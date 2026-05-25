@@ -38,6 +38,12 @@ const probStrip = document.getElementById("prob-strip");
 const deltaChart = document.getElementById("delta-chart");
 const resetBtn = document.getElementById("reset-btn");
 const playBtn = document.getElementById("play-btn");
+const focusToggle = document.getElementById("focus-toggle");
+const linkedToggle = document.getElementById("linked-toggle");
+const focusBand = document.getElementById("focus-band");
+const scrubOverlay = document.getElementById("scrub-overlay");
+const scrubWrap = scrubOverlay ? scrubOverlay.parentElement : null;
+const keyDecisionMarker = document.getElementById("key-decision-marker");
 
 // ------------------------------------------------------------
 // State
@@ -56,10 +62,33 @@ let freestyle = {
   session: null,       // InferenceSession
   loading: false,
   // Per-player metres-delta applied to the *current* frame only (live drag).
-  // map: player_id -> {dx, dy}
+  // map: player_id -> {dx, dy} (user-dragged primary players)
   liveShifts: new Map(),
+  // Derived ripple shifts (teammates pulled along by linked movement). Same
+  // shape as liveShifts, recomputed from liveShifts every drag move.
+  rippleShifts: new Map(),
   cf: null,            // last live cf result {p_score, p_concede}
+  // Per-frame counterfactual trajectories from the live drag, length = focus window.
+  // {startFrame, p_score: number[], p_concede: number[]}
+  liveTrajectory: null,
 };
+
+// Focus mode (10s leadup to goal). Stored per-play to avoid recompute.
+// {goalFrame, focusStart, focusEnd, keyDecisionFrame} in absolute frame indices.
+let focus = {
+  enabled: true,
+  linked: true,
+  byPlay: new Map(),
+};
+const FOCUS_WINDOW_FRAMES = 50;   // 10 s at 5 Hz
+const FOCUS_GOAL_THRESHOLD = 0.5; // last frame with p_score above this = goal
+
+// Linked-movement parameters. Inverse-distance falloff, capped at α_max with a
+// hard cutoff at LINKED_MAX_DIST so faraway teammates don't even twitch.
+const LINKED_ALPHA_MAX = 0.4;
+const LINKED_FALLOFF_M = 8.0;   // characteristic length scale (m)
+const LINKED_MAX_DIST_M = 25.0; // beyond this, no ripple
+const LINKED_THRESHOLD_M = 0.5; // ignore drags smaller than this
 const FREESTYLE_PITCH_RANGE = { xMin: -PITCH_L / 2 - 2, xMax: PITCH_L / 2 + 2,
                                  yMin: -PITCH_W / 2 - 2, yMax: PITCH_W / 2 + 2 };
 
@@ -175,6 +204,121 @@ function fillForTeam(play, p) {
 }
 
 // ------------------------------------------------------------
+// Focus window — detect the goal frame and the 10 s leadup
+// ------------------------------------------------------------
+function computeFocusWindow(play) {
+  // Goal-frame heuristic: the baseline P(score) curve hits >FOCUS_GOAL_THRESHOLD
+  // right before the goal, then collapses to near-zero in the very next frame
+  // (post-shot context). The last frame above the threshold is therefore an
+  // excellent proxy for "moment the ball crossed the line".
+  // Plays don't carry an explicit `events` array yet — when one is added,
+  // we'll prefer events[].frame here over the heuristic.
+  let goalFrame = play.frames.length - 1;
+  for (let i = play.frames.length - 1; i >= 1; i--) {
+    if (play.frames[i].p_score > FOCUS_GOAL_THRESHOLD) {
+      goalFrame = i;
+      break;
+    }
+  }
+  const focusStart = Math.max(0, goalFrame - FOCUS_WINDOW_FRAMES);
+  const focusEnd = goalFrame;
+
+  // Key decision frame: steepest positive rise in P(score) over a 3-frame
+  // window (smooths out noise) inside the focus window. This is the moment a
+  // different choice would have mattered most.
+  let bestSlope = -Infinity;
+  let keyFrame = focusStart;
+  for (let i = focusStart; i <= focusEnd; i++) {
+    const lo = Math.max(focusStart, i - 1);
+    const hi = Math.min(focusEnd, i + 1);
+    if (hi <= lo) continue;
+    const slope = (play.frames[hi].p_score - play.frames[lo].p_score) / (hi - lo);
+    if (slope > bestSlope) {
+      bestSlope = slope;
+      keyFrame = i;
+    }
+  }
+  return { goalFrame, focusStart, focusEnd, keyDecisionFrame: keyFrame };
+}
+
+function getFocus(play) {
+  if (!focus.byPlay.has(play.label)) {
+    focus.byPlay.set(play.label, computeFocusWindow(play));
+  }
+  return focus.byPlay.get(play.label);
+}
+
+function focusBounds(play) {
+  // Returns {min, max} for the scrubber — full range unless focus mode on.
+  const f = getFocus(play);
+  if (focus.enabled) return { min: f.focusStart, max: f.focusEnd };
+  return { min: 0, max: play.frames.length - 1 };
+}
+
+function clampToFocus(idx, play) {
+  const { min, max } = focusBounds(play);
+  return Math.min(max, Math.max(min, idx));
+}
+
+function updateFocusUI() {
+  if (!currentPlay || !scrubWrap) return;
+  const f = getFocus(currentPlay);
+  const n = currentPlay.frames.length;
+  if (n < 2) return;
+  // Position focus band + key-decision marker as % across the FULL slider range
+  // (scrubber still has full domain; we just paint a band and clamp).
+  const startPct = (f.focusStart / (n - 1)) * 100;
+  const endPct = (f.focusEnd / (n - 1)) * 100;
+  const keyPct = (f.keyDecisionFrame / (n - 1)) * 100;
+  if (focusBand) {
+    focusBand.style.left = startPct + "%";
+    focusBand.style.width = Math.max(0, endPct - startPct) + "%";
+  }
+  if (keyDecisionMarker) {
+    keyDecisionMarker.hidden = false;
+    keyDecisionMarker.style.left = keyPct + "%";
+  }
+  scrubWrap.classList.toggle("focus-active", focus.enabled);
+}
+
+// ------------------------------------------------------------
+// Linked-movement ripple — when a player is dragged, nearby teammates
+// shift slightly to maintain compactness. Same team only.
+// ------------------------------------------------------------
+function computeRippleShifts(play, frame) {
+  // For each user-dragged player d, walk every teammate t (not GK, not also
+  // being dragged by the user) and apply α(d) · (d.shift) decayed by distance.
+  // Multiple simultaneous drags compose additively (rare in practice — the UI
+  // is single-pointer — but we handle it for free).
+  const out = new Map();
+  if (!focus.linked || freestyle.liveShifts.size === 0) return out;
+  // Build a player-id → original-position index for fast lookup.
+  const byPid = new Map();
+  for (const p of frame.players) byPid.set(p.player_id, p);
+  for (const [draggedPid, sh] of freestyle.liveShifts.entries()) {
+    const d = byPid.get(draggedPid);
+    if (!d) continue;
+    const mag = Math.hypot(sh.dx, sh.dy);
+    if (mag < LINKED_THRESHOLD_M) continue;
+    for (const t of frame.players) {
+      if (t.player_id === draggedPid) continue;
+      if (t.team_id !== d.team_id) continue;        // teammates only
+      if (freestyle.liveShifts.has(t.player_id)) continue; // user owns this one
+      if (t.is_gk) continue;                         // GKs hold position
+      const dist = Math.hypot(t.x - d.x, t.y - d.y);
+      if (dist > LINKED_MAX_DIST_M) continue;
+      const alpha = LINKED_ALPHA_MAX * Math.exp(-dist / LINKED_FALLOFF_M);
+      const prev = out.get(t.player_id) || { dx: 0, dy: 0 };
+      out.set(t.player_id, {
+        dx: prev.dx + alpha * sh.dx,
+        dy: prev.dy + alpha * sh.dy,
+      });
+    }
+  }
+  return out;
+}
+
+// ------------------------------------------------------------
 // Render a single frame
 // ------------------------------------------------------------
 function renderFrame(frameIdx, opts = {}) {
@@ -203,11 +347,24 @@ function renderFrame(frameIdx, opts = {}) {
   const gArrows = document.getElementById("g-arrows");
   const gBall = document.getElementById("g-ball");
 
+  // Freestyle ripple shifts: derived teammates pulled along by the drag.
+  // Cheap to recompute once per render; depends on the current frame's
+  // teammate positions (which is the same data we render from).
+  if (freestyle.enabled) {
+    freestyle.rippleShifts = computeRippleShifts(currentPlay, frame);
+  } else {
+    freestyle.rippleShifts = new Map();
+  }
+
   for (const p of frame.players) {
     // Curated-move shift takes priority; freestyle live-drag overrides if set.
     let shift = shiftLookup ? shiftLookup.get(p.player_id) : null;
+    let isRipple = false;
     if (freestyle.enabled && freestyle.liveShifts.has(p.player_id)) {
       shift = freestyle.liveShifts.get(p.player_id);
+    } else if (freestyle.enabled && freestyle.rippleShifts.has(p.player_id)) {
+      shift = freestyle.rippleShifts.get(p.player_id);
+      isRipple = true;
     }
 
     // Defensive: never let a bad p.x/p.y silently make a dot disappear to (0,0).
@@ -250,7 +407,7 @@ function renderFrame(frameIdx, opts = {}) {
     dot.setAttribute("cy", 0);
     dot.setAttribute("r", 2.2);
     let cls = `player-dot ${teamClass(currentPlay, p)}`;
-    if (shift) cls += " shifted-to";
+    if (shift) cls += isRipple ? " ripple-to" : " shifted-to";
     if (freestyle.enabled) cls += " freestyle-draggable";
     dot.setAttribute("class", cls);
     // style.fill beats the .home/.away CSS rules (which were forcing teal/red
@@ -264,6 +421,12 @@ function renderFrame(frameIdx, opts = {}) {
       dot.dataset.originX = String(p.x);
       dot.dataset.originY = String(p.y);
       dot.addEventListener("pointerdown", onDragStart);
+      // SVG <title> children produce a native hover tooltip in all browsers.
+      const tip = document.createElementNS(SVG_NS, "title");
+      tip.textContent = focus.linked
+        ? `${p.name || "Player"} — drag me; teammates will shift with you.`
+        : `${p.name || "Player"} — drag me to test a new position.`;
+      dot.appendChild(tip);
     }
     g.appendChild(dot);
 
@@ -324,6 +487,16 @@ function updateProbStrip(frame) {
   const psCf = cf ? cf.p_score[t] : null;
   const pcCf = cf ? cf.p_concede[t] : null;
 
+  // Live freestyle counterfactual at the current frame, when we have one.
+  let psFs = null, pcFs = null;
+  if (freestyle.liveTrajectory) {
+    const i = t - freestyle.liveTrajectory.startFrame;
+    if (i >= 0 && i < freestyle.liveTrajectory.p_score.length) {
+      psFs = freestyle.liveTrajectory.p_score[i];
+      pcFs = freestyle.liveTrajectory.p_concede[i];
+    }
+  }
+
   let html = `
     <span><span class="swatch score"></span><strong>P(score)</strong> ${fmtPct(psBase)}</span>
     <span><span class="swatch concede"></span><strong>P(concede)</strong> ${fmtPct(pcBase)}</span>
@@ -334,6 +507,14 @@ function updateProbStrip(frame) {
     html += `
       <span><span class="swatch score-cf"></span>cf P(score) ${fmtPct(psCf)} <span class="${dScore >= 0 ? "delta-chip pos" : "delta-chip neg"}">${fmtDelta(dScore)}</span></span>
       <span><span class="swatch concede-cf"></span>cf P(concede) ${fmtPct(pcCf)} <span class="${dConcede >= 0 ? "delta-chip neg" : "delta-chip pos"}">${fmtDelta(dConcede)}</span></span>
+    `;
+  }
+  if (psFs != null) {
+    const dScore = psFs - psBase;
+    const dConcede = pcFs - pcBase;
+    html += `
+      <span><span class="swatch score-cf"></span>freestyle P(score) ${fmtPct(psFs)} <span class="${dScore >= 0 ? "delta-chip pos" : "delta-chip neg"}">${fmtDelta(dScore)}</span></span>
+      <span><span class="swatch concede-cf"></span>freestyle P(concede) ${fmtPct(pcFs)} <span class="${dConcede >= 0 ? "delta-chip neg" : "delta-chip pos"}">${fmtDelta(dConcede)}</span></span>
     `;
   }
   probStrip.innerHTML = html;
@@ -369,6 +550,21 @@ function drawDeltaChart(play, move, cursorFrame) {
   ctx.fillStyle = "#1a1f29";
   ctx.fillRect(padL, padT, plotW, plotH);
 
+  // Focus band overlay on chart (matches the slider focus band visually).
+  const fw = getFocus(play);
+  if (focus.enabled) {
+    const fx1 = padL + (fw.focusStart / (n - 1)) * plotW;
+    const fx2 = padL + (fw.focusEnd / (n - 1)) * plotW;
+    ctx.fillStyle = "rgba(255, 209, 102, 0.06)";
+    ctx.fillRect(fx1, padT, fx2 - fx1, plotH);
+    ctx.strokeStyle = "rgba(255, 209, 102, 0.28)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(fx1, padT); ctx.lineTo(fx1, padT + plotH);
+    ctx.moveTo(fx2, padT); ctx.lineTo(fx2, padT + plotH);
+    ctx.stroke();
+  }
+
   // y-axis range: scale to include all values
   let yMin = 0, yMax = 1;
   const allVals = [];
@@ -376,6 +572,10 @@ function drawDeltaChart(play, move, cursorFrame) {
   if (move) {
     for (const v of move.per_frame.p_score) allVals.push(v);
     for (const v of move.per_frame.p_concede) allVals.push(v);
+  }
+  if (freestyle.liveTrajectory) {
+    for (const v of freestyle.liveTrajectory.p_score) allVals.push(v);
+    for (const v of freestyle.liveTrajectory.p_concede) allVals.push(v);
   }
   yMax = Math.min(1.0, Math.max(0.05, Math.max(...allVals) * 1.05));
 
@@ -407,29 +607,56 @@ function drawDeltaChart(play, move, cursorFrame) {
   ctx.fillText("0", padL, padT + plotH + 4);
   ctx.fillText(String(n - 1), padL + plotW, padT + plotH + 4);
 
-  // Draw a series
-  function drawSeries(values, color, dashed) {
+  // Draw a series (with optional range — start/end inclusive)
+  function drawSeries(values, color, dashed, opts = {}) {
+    const start = opts.start ?? 0;
+    const end = opts.end ?? (values.length - 1);
+    const offset = opts.offset ?? 0;     // index in `values` corresponding to `start`
+    const alpha = opts.alpha ?? 1.0;
+    ctx.save();
+    ctx.globalAlpha = alpha;
     ctx.strokeStyle = color;
-    ctx.lineWidth = dashed ? 1.7 : 1.4;
+    ctx.lineWidth = opts.lineWidth ?? (dashed ? 1.7 : 1.4);
     ctx.setLineDash(dashed ? [4, 3] : []);
     ctx.beginPath();
-    for (let i = 0; i < n; i++) {
+    let started = false;
+    for (let i = start; i <= end; i++) {
+      const v = values[i - start + offset];
+      if (v == null || !Number.isFinite(v)) continue;
       const x = xToPx(i);
-      const y = yToPx(values[i]);
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      const y = yToPx(v);
+      if (!started) { ctx.moveTo(x, y); started = true; }
+      else ctx.lineTo(x, y);
     }
     ctx.stroke();
     ctx.setLineDash([]);
+    ctx.restore();
   }
 
+  // Fade baselines when the user is dragging in freestyle mode so the live
+  // counterfactual curves are the visual focus.
+  const baselineAlpha = freestyle.liveTrajectory ? 0.45 : 1.0;
   const psBase = play.frames.map(f => f.p_score);
   const pcBase = play.frames.map(f => f.p_concede);
-  drawSeries(psBase, "#6dd58c", false);
-  drawSeries(pcBase, "#e98074", false);
+  drawSeries(psBase, "#6dd58c", false, { alpha: baselineAlpha });
+  drawSeries(pcBase, "#e98074", false, { alpha: baselineAlpha });
 
   if (move) {
     drawSeries(move.per_frame.p_score, "#ffd166", true);
     drawSeries(move.per_frame.p_concede, "#ff8c5a", true);
+  }
+
+  // Live freestyle trajectory: drawn only over the focus window. Same colours
+  // as the curated cf curves (ffd166 / ff8c5a) so the visual language is
+  // consistent. Bolder line weight to make it pop against the faded baseline.
+  if (freestyle.liveTrajectory) {
+    const tr = freestyle.liveTrajectory;
+    drawSeries(tr.p_score, "#ffd166", true,
+               { start: tr.startFrame, end: tr.startFrame + tr.p_score.length - 1,
+                 offset: 0, lineWidth: 2.1 });
+    drawSeries(tr.p_concede, "#ff8c5a", true,
+               { start: tr.startFrame, end: tr.startFrame + tr.p_concede.length - 1,
+                 offset: 0, lineWidth: 2.1 });
   }
 
   // Cursor (vertical line at the current frame)
@@ -465,6 +692,10 @@ function drawDeltaChart(play, move, cursorFrame) {
   if (move) {
     legendItem("#ffd166", "P(score) counterfactual", true);
     legendItem("#ff8c5a", "P(concede) counterfactual", true);
+  }
+  if (freestyle.liveTrajectory) {
+    legendItem("#ffd166", "P(score) freestyle (focus)", true);
+    legendItem("#ff8c5a", "P(concede) freestyle (focus)", true);
   }
 }
 
@@ -522,7 +753,23 @@ function applyMove(move) {
 function resetMove() {
   currentMove = null;
   document.querySelectorAll(".move-card").forEach(c => c.classList.remove("active"));
-  renderFrame(currentFrame);
+  // Also clear freestyle drag state, ripple shifts, and live trajectory so
+  // "reset" really means "go back to the original timeline".
+  freestyle.liveShifts.clear();
+  freestyle.rippleShifts = new Map();
+  freestyle.liveTrajectory = null;
+  freestyle.cf = null;
+  // Restore default focus + linked toggles to ON (matches HTML defaults).
+  focus.enabled = true;
+  focus.linked = true;
+  if (focusToggle) focusToggle.checked = true;
+  if (linkedToggle) linkedToggle.checked = true;
+  setFreestyleStatus(freestyle.enabled ? "Freestyle ready — drag any player." : "");
+  if (currentPlay) {
+    const start = clampToFocus(currentFrame, currentPlay);
+    updateFocusUI();
+    renderFrame(start);
+  }
 }
 
 // ------------------------------------------------------------
@@ -567,11 +814,25 @@ function activatePlay(play) {
     <div class="dim small">${escapeHTML(play.summary || "")}</div>
   `;
 
+  frameScrub.min = "0";
   frameScrub.max = String(play.frames.length - 1);
   frameScrub.value = "0";
 
+  // Reset per-play freestyle state when switching plays.
+  freestyle.liveShifts.clear();
+  freestyle.rippleShifts = new Map();
+  freestyle.liveTrajectory = null;
+  freestyle.cf = null;
+
+  // Compute and display focus window + key decision marker.
+  getFocus(play);
+  updateFocusUI();
+
   renderMoves(play);
-  renderFrame(0);
+  // Start at the focus-window start so the first thing the user sees is the
+  // beginning of the 10s leadup (rather than 30s of midfield buildup).
+  const startFrame = focus.enabled ? focusBounds(play).min : 0;
+  renderFrame(startFrame);
 }
 
 // ------------------------------------------------------------
@@ -596,7 +857,15 @@ async function init() {
   });
 
   frameScrub.addEventListener("input", (e) => {
-    renderFrame(Number(e.target.value));
+    let idx = Number(e.target.value);
+    if (currentPlay && focus.enabled) {
+      const clamped = clampToFocus(idx, currentPlay);
+      if (clamped !== idx) {
+        idx = clamped;
+        frameScrub.value = String(idx);
+      }
+    }
+    renderFrame(idx);
   });
 
   resetBtn.addEventListener("click", resetMove);
@@ -609,13 +878,44 @@ async function init() {
     playTimer = setInterval(() => {
       if (!currentPlay) return;
       const next = currentFrame + 1;
-      if (next >= currentPlay.frames.length) {
+      const maxFrame = focus.enabled
+        ? focusBounds(currentPlay).max
+        : currentPlay.frames.length - 1;
+      if (next > maxFrame) {
         clearInterval(playTimer); playTimer = null; playBtn.textContent = "▶ play";
         return;
       }
       renderFrame(next);
     }, 200);  // 5 Hz playback to match the data rate
   });
+
+  if (focusToggle) {
+    focusToggle.addEventListener("change", () => {
+      focus.enabled = focusToggle.checked;
+      if (currentPlay) {
+        const next = clampToFocus(currentFrame, currentPlay);
+        updateFocusUI();
+        renderFrame(next);
+      }
+    });
+  }
+  if (linkedToggle) {
+    linkedToggle.addEventListener("change", () => {
+      focus.linked = linkedToggle.checked;
+      // If we're already dragging, recompute the ripple + re-fire inference.
+      if (currentPlay) renderFrame(currentFrame);
+      if (freestyle.enabled && freestyle.liveShifts.size > 0) {
+        runFreestyleTrajectory();
+      }
+    });
+  }
+  if (keyDecisionMarker) {
+    keyDecisionMarker.addEventListener("click", () => {
+      if (!currentPlay) return;
+      const f = getFocus(currentPlay);
+      renderFrame(f.keyDecisionFrame);
+    });
+  }
 
   // Redraw chart on resize (canvas needs re-rasterization)
   window.addEventListener("resize", () => {
@@ -716,6 +1016,8 @@ if (freestyleBtn) {
     } else {
       freestyle.enabled = false;
       freestyle.liveShifts.clear();
+      freestyle.rippleShifts = new Map();
+      freestyle.liveTrajectory = null;
       freestyle.cf = null;
       freestyleBtn.textContent = "✋ freestyle: drag any player";
       freestyleBtn.classList.remove("primary");
@@ -759,90 +1061,169 @@ function onDragMove(evt) {
   const y = Math.min(FREESTYLE_PITCH_RANGE.yMax, Math.max(FREESTYLE_PITCH_RANGE.yMin, pt.y));
   freestyle.liveShifts.set(_drag.pid, { dx: x - _drag.originX, dy: y - _drag.originY });
   renderFrame(currentFrame);
+  // Live trajectory: kick off a batched inference over the focus window.
+  // The runFreestyleTrajectory function coalesces concurrent calls so this
+  // stays responsive even with rapid pointermove events.
+  runFreestyleTrajectory();
 }
 
 async function onDragEnd(evt) {
   if (!_drag) return;
   window.removeEventListener("pointermove", onDragMove);
   _drag = null;
-  await runFreestyleInference();
+  // Final inference call to make sure the chart reflects the released position
+  // (handles the case where the last pointermove was coalesced).
+  await runFreestyleTrajectory();
 }
 
-// Build a single-frame input tensor (1, 23, 7) from current frame + live shifts.
-function buildFreestyleInput() {
-  const frame = currentPlay.frames[currentFrame];
-  const data = new Float32Array(23 * 7);
+// Build a per-frame input row (length 23*7 = 161 floats) from a play frame
+// plus the current liveShifts/rippleShifts. Pulled out so we can call it for
+// each frame in the focus window when building the live trajectory batch.
+function writeFreestyleFrame(frame, out, offset) {
   for (let s = 0; s < 22; s++) {
     const p = frame.players[s];
     let x_m = p.x; let y_m = p.y;
     if (freestyle.liveShifts.has(p.player_id)) {
       const sh = freestyle.liveShifts.get(p.player_id);
       x_m += sh.dx; y_m += sh.dy;
+    } else if (freestyle.rippleShifts.has(p.player_id)) {
+      const sh = freestyle.rippleShifts.get(p.player_id);
+      x_m += sh.dx; y_m += sh.dy;
     }
     // Normalize to [-1,1] using PITCH_L/2 and PITCH_W/2
     const x_n = x_m / (PITCH_L / 2);
     const y_n = y_m / (PITCH_W / 2);
-    // Velocity & flags: we don't have per-slot vx/vy in the exported per-frame
-    // payload (the curated counterfactual run pre-computed without storing
-    // those). Use zeros — this approximates a "frozen-time" inference, still
-    // sensitive to spatial structure but losing transition info. Acceptable
-    // for the drag-and-see freestyle mode.
-    const base = s * 7;
-    data[base + 0] = x_n;
-    data[base + 1] = y_n;
-    data[base + 2] = 0; // vx
-    data[base + 3] = 0; // vy
-    data[base + 4] = p.team_id === currentPlay.home.team_id
+    // Velocity & flags: per-frame vx/vy weren't exported. Use zeros (the
+    // curated counterfactual run did the same — see the original comment).
+    const base = offset + s * 7;
+    out[base + 0] = x_n;
+    out[base + 1] = y_n;
+    out[base + 2] = 0; // vx
+    out[base + 3] = 0; // vy
+    out[base + 4] = p.team_id === currentPlay.home.team_id
                        ? (frame.in_possession_team_id === currentPlay.home.team_id ? 1 : -1)
                        : (frame.in_possession_team_id === currentPlay.home.team_id ? -1 : 1);
-    data[base + 5] = p.is_gk ? 1 : 0;
-    data[base + 6] = 0; // has_possession heuristic — set later
+    out[base + 5] = p.is_gk ? 1 : 0;
+    out[base + 6] = 0; // has_possession heuristic — set below
   }
-  // Ball token at slot 22
-  const ballBase = 22 * 7;
-  data[ballBase + 0] = frame.ball.x / (PITCH_L / 2);
-  data[ballBase + 1] = frame.ball.y / (PITCH_W / 2);
-  // Ball features 2..6 left at zero (matches the loader convention).
+  // Ball token at slot 22 (after the 22 player tokens)
+  const ballBase = offset + 22 * 7;
+  out[ballBase + 0] = frame.ball.x / (PITCH_L / 2);
+  out[ballBase + 1] = frame.ball.y / (PITCH_W / 2);
+  // Ball features 2..6 stay at zero.
 
   // has_possession: nearest in-possession player to ball
   let bestSlot = -1, bestD = Infinity;
   for (let s = 0; s < 22; s++) {
     const p = frame.players[s];
     if (p.team_id !== frame.in_possession_team_id) continue;
-    const base = s * 7;
-    const dx = data[base+0] * (PITCH_L/2) - frame.ball.x;
-    const dy = data[base+1] * (PITCH_W/2) - frame.ball.y;
-    const d = dx*dx + dy*dy;
+    const base = offset + s * 7;
+    const dx = out[base + 0] * (PITCH_L / 2) - frame.ball.x;
+    const dy = out[base + 1] * (PITCH_W / 2) - frame.ball.y;
+    const d = dx * dx + dy * dy;
     if (d < bestD) { bestD = d; bestSlot = s; }
   }
-  if (bestSlot >= 0) data[bestSlot * 7 + 6] = 1;
-
-  return data;
+  if (bestSlot >= 0) out[offset + bestSlot * 7 + 6] = 1;
 }
 
-async function runFreestyleInference() {
-  if (!freestyle.session) return;
-  const data = buildFreestyleInput();
-  const tensor = new freestyle.ort.Tensor("float32", data, [1, 23, 7]);
-  const t0 = performance.now();
-  let out;
-  try {
-    out = await freestyle.session.run({ x: tensor });
-  } catch (err) {
-    console.error("ort inference failed", err);
-    setFreestyleStatus("Inference failed: " + (err.message || err));
-    return;
+// Build a per-frame ripple map for an arbitrary frame index. The dragged
+// player's shift comes from liveShifts (constant across frames — the
+// counterfactual is "they hold this offset throughout the leadup"), but the
+// teammates' ripple is computed against THAT frame's positions, so the
+// teammate that's closest in frame t responds in frame t.
+function computeRippleForFrame(play, frame) {
+  if (!focus.linked || freestyle.liveShifts.size === 0) return new Map();
+  const byPid = new Map();
+  for (const p of frame.players) byPid.set(p.player_id, p);
+  const out = new Map();
+  for (const [draggedPid, sh] of freestyle.liveShifts.entries()) {
+    const d = byPid.get(draggedPid);
+    if (!d) continue;
+    const mag = Math.hypot(sh.dx, sh.dy);
+    if (mag < LINKED_THRESHOLD_M) continue;
+    for (const t of frame.players) {
+      if (t.player_id === draggedPid) continue;
+      if (t.team_id !== d.team_id) continue;
+      if (freestyle.liveShifts.has(t.player_id)) continue;
+      if (t.is_gk) continue;
+      const dist = Math.hypot(t.x - d.x, t.y - d.y);
+      if (dist > LINKED_MAX_DIST_M) continue;
+      const alpha = LINKED_ALPHA_MAX * Math.exp(-dist / LINKED_FALLOFF_M);
+      const prev = out.get(t.player_id) || { dx: 0, dy: 0 };
+      out.set(t.player_id, {
+        dx: prev.dx + alpha * sh.dx,
+        dy: prev.dy + alpha * sh.dy,
+      });
+    }
   }
-  const dt = performance.now() - t0;
-  const ps = out.p_score.data[0];
-  const pc = out.p_concede.data[0];
-  freestyle.cf = { p_score: ps, p_concede: pc };
-  setFreestyleStatus(
-    `cf inference: ${dt.toFixed(1)} ms — cf P(score) ${(ps*100).toFixed(1)}% ` +
-    `(Δ ${(((ps - currentPlay.frames[currentFrame].p_score) >= 0 ? "+" : "−"))}${Math.abs(ps - currentPlay.frames[currentFrame].p_score).toFixed(3)}), ` +
-    `cf P(concede) ${(pc*100).toFixed(1)}% ` +
-    `(Δ ${(((pc - currentPlay.frames[currentFrame].p_concede) >= 0 ? "+" : "−"))}${Math.abs(pc - currentPlay.frames[currentFrame].p_concede).toFixed(3)})`
-  );
+  return out;
+}
+
+// Run model across the full focus window in a single batched call. Used for
+// the live overlay chart. Coalesced with requestAnimationFrame so rapid drag
+// events don't pile up: only the most-recent state actually runs.
+let _trajPending = false;
+let _trajInflight = false;
+async function runFreestyleTrajectory() {
+  if (!freestyle.session || !currentPlay) return;
+  if (_trajInflight) { _trajPending = true; return; }
+  _trajInflight = true;
+  try {
+    const { min, max } = focusBounds(currentPlay);
+    const n = max - min + 1;
+    if (n <= 0) return;
+    const data = new Float32Array(n * 23 * 7);
+    // Save & restore freestyle.rippleShifts so the per-frame ripple used for
+    // inference is computed against that frame's actual positions (not the
+    // currently-rendered frame's).
+    const savedRipple = freestyle.rippleShifts;
+    for (let i = 0; i < n; i++) {
+      const f = currentPlay.frames[min + i];
+      freestyle.rippleShifts = computeRippleForFrame(currentPlay, f);
+      writeFreestyleFrame(f, data, i * 23 * 7);
+    }
+    freestyle.rippleShifts = savedRipple;
+    const tensor = new freestyle.ort.Tensor("float32", data, [n, 23, 7]);
+    const t0 = performance.now();
+    let out;
+    try {
+      out = await freestyle.session.run({ x: tensor });
+    } catch (err) {
+      console.error("ort batched inference failed", err);
+      setFreestyleStatus("Inference failed: " + (err.message || err));
+      return;
+    }
+    const dt = performance.now() - t0;
+    const ps = Array.from(out.p_score.data);
+    const pc = Array.from(out.p_concede.data);
+    freestyle.liveTrajectory = { startFrame: min, p_score: ps, p_concede: pc };
+    // Single-frame cf for the prob-strip at the current frame.
+    const here = currentFrame - min;
+    if (here >= 0 && here < n) {
+      freestyle.cf = { p_score: ps[here], p_concede: pc[here] };
+    }
+    const base = currentPlay.frames[currentFrame];
+    const dScore = (freestyle.cf?.p_score ?? base.p_score) - base.p_score;
+    setFreestyleStatus(
+      `cf inference: ${dt.toFixed(0)} ms over ${n} frames — ` +
+      `live Δ P(score) at this frame ${dScore >= 0 ? "+" : "−"}${Math.abs(dScore).toFixed(3)}`
+    );
+    drawDeltaChart(currentPlay, currentMove, currentFrame);
+    updateProbStrip(currentPlay.frames[currentFrame]);
+  } finally {
+    _trajInflight = false;
+    if (_trajPending) {
+      _trajPending = false;
+      // Coalesce: schedule the next run on the animation frame.
+      requestAnimationFrame(() => runFreestyleTrajectory());
+    }
+  }
+}
+
+// Back-compat shim: any caller that wants a single-frame run gets the
+// trajectory, which is a superset.
+async function runFreestyleInference() {
+  return runFreestyleTrajectory();
 }
 
 init().catch((err) => {

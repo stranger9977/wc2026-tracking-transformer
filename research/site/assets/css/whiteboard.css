@@ -129,11 +129,101 @@
   align-items: center;
   margin-top: 0.75rem;
 }
-.frame-controls input[type="range"] {
+.scrub-wrap {
+  position: relative;
   flex: 1 1 auto;
-  accent-color: var(--accent-green);
+  display: flex;
+  align-items: center;
+  min-height: 24px;
 }
+.scrub-wrap input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent-green);
+  position: relative;
+  z-index: 2;
+}
+.scrub-wrap.focus-active input[type="range"]::-webkit-slider-runnable-track {
+  background: rgba(255, 209, 102, 0.08);
+}
+.scrub-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.focus-band {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 8px;
+  background: linear-gradient(90deg,
+    rgba(255, 209, 102, 0.18),
+    rgba(255, 209, 102, 0.32) 60%,
+    rgba(255, 140, 90, 0.36));
+  border: 1px solid rgba(255, 209, 102, 0.5);
+  border-radius: 4px;
+  display: none;
+}
+.scrub-wrap.focus-active .focus-band { display: block; }
+.key-decision-marker {
+  position: absolute;
+  top: -10px;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: #ffd166;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-shadow: 0 0 4px rgba(0,0,0,0.7);
+  cursor: pointer;
+  pointer-events: auto;
+  line-height: 1;
+  z-index: 3;
+}
+.key-decision-marker:hover { color: #fff; transform: translateX(-50%) scale(1.15); }
 .frame-counter { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Focus + linked-movement toggles */
+.wb-toggles {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 1 1 100%;
+  margin-top: 0.25rem;
+}
+.wb-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.86rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.18rem 0.55rem 0.18rem 0.4rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+}
+.wb-toggle input { accent-color: #ffd166; margin: 0; }
+.wb-toggle:hover { color: var(--text); border-color: #3a4554; }
+
+/* Linked-movement teammate ripple visual */
+.player-dot.ripple-to {
+  stroke: rgba(255, 209, 102, 0.7);
+  stroke-width: 0.35;
+  filter: drop-shadow(0 0 1.5px rgba(255, 209, 102, 0.45));
+}
+.player-dot.freestyle-draggable {
+  cursor: grab;
+}
+.player-dot.freestyle-draggable:hover {
+  stroke: #ffd166;
+  stroke-width: 0.55;
+}
 
 .prob-strip {
   margin-top: 0.6rem;
