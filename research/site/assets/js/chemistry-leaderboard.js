@@ -62,6 +62,7 @@ const sections = {
   event: document.getElementById("mode-event"),
   attention: document.getElementById("mode-attention"),
   disagree: document.getElementById("mode-disagree"),
+  outcome: document.getElementById("mode-outcome"),
 };
 let currentMode = "event";
 
@@ -73,6 +74,7 @@ modeButtons.forEach((b) => b.addEventListener("click", () => {
   }
   // disagree-mode needs a render kick if it hasn't shown yet
   if (currentMode === "disagree") renderDisagree();
+  if (currentMode === "outcome") ocRender();
 }));
 
 /* ═══════════════════════════════════════════════════════════
@@ -536,6 +538,80 @@ disSearchEl.addEventListener("input", renderDisagree);
 disDirEl.addEventListener("change", renderDisagree);
 disMinEl.addEventListener("input", renderDisagree);
 
+/* ═══════════════════════════════════════════════════════════
+   MODE 4 — Outcome-conditional attention
+   Score-frame lift = attn_score_per_frame / attn_neutral_per_frame.
+   Defaults to off-off (offensive chemistry isolated from GK bias).
+   ═══════════════════════════════════════════════════════════ */
+
+const ocState = { category: "off", rank: "lift_score", search: "", minMin: 60, showGks: false };
+const ocRaw = (await loadJSON("data/attention_by_outcome.json")) || [];
+const ocTabs = document.querySelectorAll("#oc-tabs button");
+const ocRankEl = document.getElementById("oc-rank");
+const ocSearchEl = document.getElementById("oc-search");
+const ocMinEl = document.getElementById("oc-min-min");
+const ocShowGksEl = document.getElementById("oc-show-gks");
+const ocTableEl = document.getElementById("oc-table");
+
+function ocFilter(rows) {
+  const q = ocState.search.trim().toLowerCase();
+  return rows.filter((r) => {
+    if (ocState.category !== "all" && r.category !== ocState.category) return false;
+    if ((r.minutes_together ?? 0) < ocState.minMin) return false;
+    if (!ocState.showGks && rowHasGk(r)) return false;
+    if (q) {
+      const hay = `${r.name_p || ""} ${r.name_q || ""} ${r.team_name || ""}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    // Require finite lift on the active rank metric.
+    return Number.isFinite(r[ocState.rank]);
+  });
+}
+
+function ocRender() {
+  if (!ocRaw.length) {
+    renderEmpty(ocTableEl, "Outcome-conditional attention not yet computed.",
+      "Run research/scripts/extract_attention_by_outcome.py then analyze_attention_by_outcome.py.");
+    return;
+  }
+  const rows = ocFilter(ocRaw).slice().sort((a, b) => b[ocState.rank] - a[ocState.rank]);
+  if (!rows.length) {
+    renderEmpty(ocTableEl, "No pairs match these filters.",
+      "Lower minutes, widen the category, or toggle GKs.");
+    return;
+  }
+  const rankLabel = ocState.rank === "lift_score" ? "Score lift" : "Concede lift";
+  const scoreCol = ocState.rank === "lift_score" ? "attn_score_per_frame" : "attn_concede_per_frame";
+  const scoreColLabel = ocState.rank === "lift_score" ? "Attn / frame (score)" : "Attn / frame (concede)";
+  const liftKey = ocState.rank;
+  const cols = [
+    { key: "team_name", label: "Team",
+      render: (r) => `${flagHTML(r.flag_code)}${escapeHTML(r.team_name || "")}` },
+    { key: "name_p", label: "Pair", render: fmtPair },
+    { key: "category", label: "Edge", render: (r) => categoryChip(r.category) },
+    { key: "minutes_together", label: "Min", num: true, digits: 0 },
+    { key: scoreCol, label: scoreColLabel, num: true, digits: 4 },
+    { key: "attn_neutral_per_frame", label: "Attn / frame (neutral)", num: true, digits: 4 },
+    { key: liftKey, label: `${rankLabel} (highlighted)`,
+      num: true, digits: 2, defaultSort: true, defaultDir: "desc",
+      render: (r) => `<span class="tabular delta-pos"><strong>${fmtNum(r[liftKey], 2)}×</strong></span>` },
+  ];
+  makeSortableTable({
+    data: rows.slice(0, 300), columns: cols, container: ocTableEl,
+    emptyLabel: "No outcome-conditional rows.",
+  }).render();
+}
+
+ocTabs.forEach((b) => b.addEventListener("click", () => {
+  ocTabs.forEach((x) => x.classList.toggle("active", x === b));
+  ocState.category = b.dataset.cat;
+  ocRender();
+}));
+ocRankEl.addEventListener("change", () => { ocState.rank = ocRankEl.value; ocRender(); });
+ocSearchEl.addEventListener("input", () => { ocState.search = ocSearchEl.value || ""; ocRender(); });
+ocMinEl.addEventListener("input", () => { ocState.minMin = Number(ocMinEl.value) || 0; ocRender(); });
+ocShowGksEl.addEventListener("change", () => { ocState.showGks = !!ocShowGksEl.checked; ocRender(); });
+
 /* ─────────── boot ─────────── */
 
 if (!pairsRaw.length) {
@@ -552,3 +628,5 @@ if (!attnPairsRaw.length) {
 }
 // Disagree mode renders on first show; pre-render so first click is instant.
 renderDisagree();
+// Outcome mode renders on first show; pre-render too.
+ocRender();

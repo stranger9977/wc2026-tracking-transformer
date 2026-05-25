@@ -45,6 +45,7 @@
       <button data-mode="event"     class="active">Event-based (JOI/JDI)</button>
       <button data-mode="attention">Attention-based</button>
       <button data-mode="disagree">Where they disagree</button>
+      <button data-mode="outcome">When scoring vs neutral</button>
     </div>
 
     <!-- ─────────── Mode 1: Event-based ─────────── -->
@@ -210,6 +211,67 @@
         joined by team + unordered player-pair. A pair only appears here if it has
         a non-zero attention record <em>and</em> survives the event-based minimum
         minutes filter on this page.
+      </p>
+    </section>
+
+    <!-- ─────────── Mode 4: Outcome-conditional attention ─────────── -->
+    <section id="mode-outcome" class="mode-section">
+      <aside class="callout">
+        <p>
+          These are the pairs the model watches <em>above its own baseline</em>
+          specifically when scoring is imminent. The <strong>off-off</strong>
+          category isolates offensive chemistry from the GK / defender attention
+          bias that dominates the raw leaderboard.
+        </p>
+      </aside>
+
+      <p class="dim small">
+        For every pair we split tracking frames into three buckets — <strong>score</strong>
+        (team scores within 10&thinsp;s), <strong>concede</strong> (concedes within 10&thinsp;s),
+        and <strong>neutral</strong> (everything else) — then compute mean attention per
+        frame in each bucket. The <strong>lift</strong> column is
+        <code>score-frame attn / neutral-frame attn</code>: pairs the transformer attends
+        to relatively more when goals are coming.
+      </p>
+
+      <div class="tab-bar attn-tabs" role="tablist" id="oc-tabs">
+        <button data-cat="off"   class="active">Offensive · Off ↔ Off</button>
+        <button data-cat="def">Defensive · Def ↔ Def</button>
+        <button data-cat="cross">Cross · Off ↔ Def</button>
+        <button data-cat="all">All pairs</button>
+      </div>
+
+      <div class="controls">
+        <div>
+          <label for="oc-rank">Rank by</label>
+          <select id="oc-rank">
+            <option value="lift_score" selected>Score-frame lift</option>
+            <option value="lift_concede">Concede-frame lift</option>
+          </select>
+        </div>
+        <div>
+          <label for="oc-search">Search player or team</label>
+          <input id="oc-search" type="search" placeholder="e.g. Mbappé, Argentina…">
+        </div>
+        <div>
+          <label for="oc-min-min">Min minutes together</label>
+          <input id="oc-min-min" type="number" value="60" min="0" step="30" style="width:6rem">
+        </div>
+        <div>
+          <label>GK pairs</label>
+          <label class="toggle-row" style="margin-top:0.35rem">
+            <input id="oc-show-gks" type="checkbox">
+            Show GK pairs
+          </label>
+        </div>
+      </div>
+
+      <div id="oc-table"></div>
+
+      <p class="small muted" style="margin-top: 1.2rem;">
+        Frame buckets come from the frame-VAEP label scheme (10&thinsp;s look-ahead).
+        Pair requires &ge; 60 min together and &ge; 50 frames in both score and neutral
+        buckets to qualify.
       </p>
     </section>
   </main>
