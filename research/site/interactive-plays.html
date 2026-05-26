@@ -90,8 +90,8 @@
       <span class="wb-toggle" style="cursor:default" title="Which model's ball→player attention drives the halos and edges. 'Shared model' is the two-head Frame-VAEP transformer (P_score + P_concede). 'Score specialist' is a single-head model trained only on P(score) — its attention tends to ring attackers/receivers instead of defenders.">
         <span>Attention source:</span>
         <select id="iplay-attn-source" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-          <option value="shared" selected>Shared model</option>
-          <option value="score_specialist">Score specialist</option>
+          <option value="score_specialist" selected>Score specialist (default)</option>
+          <option value="shared">Shared model</option>
         </select>
       </span>
     </div>
