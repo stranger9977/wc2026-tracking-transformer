@@ -63,6 +63,7 @@ const sections = {
   attention: document.getElementById("mode-attention"),
   disagree: document.getElementById("mode-disagree"),
   outcome: document.getElementById("mode-outcome"),
+  awjoi: document.getElementById("mode-awjoi"),
 };
 let currentMode = "event";
 
@@ -75,6 +76,7 @@ modeButtons.forEach((b) => b.addEventListener("click", () => {
   // disagree-mode needs a render kick if it hasn't shown yet
   if (currentMode === "disagree") renderDisagree();
   if (currentMode === "outcome") ocRender();
+  if (currentMode === "awjoi") awRender();
 }));
 
 /* ═══════════════════════════════════════════════════════════
@@ -611,6 +613,83 @@ ocRankEl.addEventListener("change", () => { ocState.rank = ocRankEl.value; ocRen
 ocSearchEl.addEventListener("input", () => { ocState.search = ocSearchEl.value || ""; ocRender(); });
 ocMinEl.addEventListener("input", () => { ocState.minMin = Number(ocMinEl.value) || 0; ocRender(); });
 ocShowGksEl.addEventListener("change", () => { ocState.showGks = !!ocShowGksEl.checked; ocRender(); });
+
+/* ═══════════════════════════════════════════════════════════
+   MODE 5 — AW-JOI · attention × value
+   Sum over frames of (attn[p] × attn[q]) × max(±ΔV, 0), per pair,
+   per-90 normalised. Score-specialist for AW-JOI side, concede-
+   specialist for AW-JDI side. Net = AW-JOI − AW-JDI.
+   ═══════════════════════════════════════════════════════════ */
+
+const awState = { category: "off", sortBy: "aw_net90", search: "", minMin: 60 };
+const awRaw = (await loadJSON("data/aw_chemistry.json")) || [];
+const awTabs = document.querySelectorAll("#aw-tabs button");
+const awSortEl = document.getElementById("aw-sort");
+const awSearchEl = document.getElementById("aw-search");
+const awMinEl = document.getElementById("aw-min-min");
+const awTableEl = document.getElementById("aw-table");
+
+function awFilter(rows) {
+  const q = awState.search.trim().toLowerCase();
+  return rows.filter((r) => {
+    if (awState.category !== "all" && r.category !== awState.category) return false;
+    if ((r.minutes_together ?? 0) < awState.minMin) return false;
+    // Always exclude GK pairs from AW-JOI (the metric is supposed to surface
+    // off-ball chemistry; GKs dominate raw attention regardless).
+    if (r.role_p === "GK" || r.role_q === "GK") return false;
+    if (q) {
+      const hay = `${r.name_p || ""} ${r.name_q || ""} ${r.team_name || ""}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return Number.isFinite(r[awState.sortBy]);
+  });
+}
+
+function awRender() {
+  if (!awRaw.length) {
+    renderEmpty(awTableEl, "AW-JOI not yet computed.",
+      "Run research/scripts/extract_aw_joi.py.");
+    return;
+  }
+  const rows = awFilter(awRaw).slice().sort((a, b) => b[awState.sortBy] - a[awState.sortBy]);
+  if (!rows.length) {
+    renderEmpty(awTableEl, "No pairs match these filters.",
+      "Lower minutes, widen the category, or change the sort.");
+    return;
+  }
+  const sortKey = awState.sortBy;
+  const cols = [
+    { key: "team_name", label: "Team",
+      render: (r) => `${flagHTML(r.flag_code)}${escapeHTML(r.team_name || "")}` },
+    { key: "name_p", label: "Pair", render: fmtPair },
+    { key: "category", label: "Edge", render: (r) => categoryChip(r.category) },
+    { key: "minutes_together", label: "Min", num: true, digits: 0 },
+    { key: "aw_joi90", label: "AW-JOI90", num: true, digits: 4,
+      render: (r) => `<span class="tabular">${fmtNum(r.aw_joi90, 4)}</span>` },
+    { key: "aw_jdi90", label: "AW-JDI90", num: true, digits: 4,
+      render: (r) => `<span class="tabular dim">${fmtNum(r.aw_jdi90, 4)}</span>` },
+    { key: "aw_net90", label: "Net (highlighted)",
+      num: true, digits: 4, defaultSort: true, defaultDir: "desc",
+      render: (r) => {
+        const v = r.aw_net90;
+        const cls = v >= 0 ? "delta-pos" : "delta-neg";
+        return `<span class="tabular ${cls}"><strong>${v >= 0 ? "+" : ""}${fmtNum(v, 4)}</strong></span>`;
+      }},
+  ];
+  makeSortableTable({
+    data: rows.slice(0, 300), columns: cols, container: awTableEl,
+    emptyLabel: "No AW-JOI rows.",
+  }).render();
+}
+
+awTabs.forEach((b) => b.addEventListener("click", () => {
+  awTabs.forEach((x) => x.classList.toggle("active", x === b));
+  awState.category = b.dataset.cat;
+  awRender();
+}));
+awSortEl.addEventListener("change", () => { awState.sortBy = awSortEl.value; awRender(); });
+awSearchEl.addEventListener("input", () => { awState.search = awSearchEl.value || ""; awRender(); });
+awMinEl.addEventListener("input", () => { awState.minMin = Number(awMinEl.value) || 0; awRender(); });
 
 /* ─────────── boot ─────────── */
 

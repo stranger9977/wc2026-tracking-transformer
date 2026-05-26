@@ -46,6 +46,7 @@
       <button data-mode="attention">Attention-based</button>
       <button data-mode="disagree">Where they disagree</button>
       <button data-mode="outcome">When scoring vs neutral</button>
+      <button data-mode="awjoi">AW-JOI · attention × value</button>
     </div>
 
     <!-- ─────────── Mode 1: Event-based ─────────── -->
@@ -281,6 +282,68 @@
         Frame buckets come from the frame-VAEP label scheme (10&thinsp;s look-ahead).
         Pair requires &ge; 60 min together and &ge; 50 frames in both score and neutral
         buckets to qualify.
+      </p>
+    </section>
+
+    <!-- ─────────── Mode 5: AW-JOI · attention × value ─────────── -->
+    <section id="mode-awjoi" class="mode-section">
+      <aside class="callout">
+        <p>
+          <strong>The continuous, value-weighted version of attention chemistry.</strong>
+          For every frame, we credit a pair by the product of the two players'
+          ball→player attentions <em>times</em> the change in
+          P(score) − P(concede) between consecutive frames. Sum across the
+          whole tournament, normalize per 90 minutes shared.
+        </p>
+        <p class="small mt-0" style="margin-bottom:0">
+          <strong>AW-JOI</strong> credits only positive-value frames (build-up
+          + scoring chances). <strong>AW-JDI</strong> credits negative-value
+          frames (collapses + chances against). <strong>Net = AW-JOI − AW-JDI</strong>
+          is the headline chemistry value. Attention from the score-specialist
+          for AW-JOI; concede-specialist for AW-JDI. See
+          <a href="methodology.html#section-2">Methodology §2.3.1</a>.
+        </p>
+      </aside>
+
+      <p class="dim small">
+        This metric is the frame-level analogue of event-based JOI/JDI —
+        but with attention as the pair coupling instead of "consecutive
+        on-ball actions." It fires every frame (continuous), it weights
+        by the model's "who matters here" judgment, and it's sign-correct.
+        The conditional <em>"When scoring vs neutral"</em> view uses a
+        binary score/neutral bucket cutoff; AW-JOI replaces that with a
+        continuous integral. Two views of the same underlying signal —
+        bucketed and continuous.
+      </p>
+
+      <div class="tab-bar attn-tabs" role="tablist" id="aw-tabs">
+        <button data-cat="off"   class="active">Offensive · Off ↔ Off</button>
+        <button data-cat="def">Defensive · Def ↔ Def</button>
+        <button data-cat="cross">Cross · Off ↔ Def</button>
+        <button data-cat="all">All pairs</button>
+      </div>
+      <div class="controls" style="margin-top: 1rem;">
+        <div>
+          <label for="aw-search">Search player or team</label>
+          <input id="aw-search" type="search" placeholder="e.g. Mbappé, Argentina…">
+        </div>
+        <div>
+          <label for="aw-min-min">Min minutes together</label>
+          <input id="aw-min-min" type="number" value="60" min="0" step="30" style="width:6rem">
+        </div>
+        <div>
+          <label for="aw-sort">Sort by</label>
+          <select id="aw-sort">
+            <option value="aw_net90" selected>Net (AW-JOI − AW-JDI)</option>
+            <option value="aw_joi90">AW-JOI90 (offensive)</option>
+            <option value="aw_jdi90">AW-JDI90 (defensive)</option>
+          </select>
+        </div>
+      </div>
+      <div id="aw-table"></div>
+      <p class="small dim" style="margin-top: 0.6rem;">
+        Pair requires ≥ 60 minutes together. AW-JOI90 + AW-JDI90 are
+        normalized per 90 minutes shared on the pitch.
       </p>
     </section>
   </main>
