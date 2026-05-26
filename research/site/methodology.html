@@ -302,6 +302,59 @@ def jdi_m(pair_p, pair_q, opponents):
       <a href="downloads.html">Downloads</a> page.
     </p>
 
+    <h3>2.3.1 Two-specialist experiment</h3>
+    <p>
+      The shared two-head backbone attends disproportionately to GKs and
+      defenders because P(concede) carries tighter spatial signal than
+      P(score) and dominates the gradient. To test whether a dedicated
+      offensive representation surfaces cleaner chemistry, we trained two
+      <strong>single-head specialists</strong> — score-only and concede-only —
+      on the same backbone (2 layers × 4 heads × 64 dim), same 36/8 split,
+      same class weighting, 6 epochs each.
+    </p>
+    <ul>
+      <li>Score specialist val AUC: <strong>0.816</strong> (shared model: 0.801, +0.015).</li>
+      <li>Concede specialist val AUC: <strong>0.799</strong> (shared model: 0.792, +0.007).</li>
+    </ul>
+    <p>
+      Both specialists modestly beat the shared model on their respective
+      head. We then re-extracted per-pair attention chemistry from each and
+      compared with the shared-model pipeline. Findings:
+    </p>
+    <ul class="small">
+      <li>The score specialist's top-10 off-off pairs overlap the shared
+        model's by 7/10. New entries surfaced include
+        <strong>Dembélé + Mbappé at #1</strong> (was #7 on shared) and
+        <strong>Vinícius + Raphinha</strong> (Brazil's Real Madrid duo, not
+        in the shared top-10 at all).</li>
+      <li>The conditional view (frames that lead to a goal in the next 10 s)
+        already does most of the interpretive work. The shared-model
+        conditional leaderboard and the specialist conditional leaderboard
+        surface largely the same pairs — Morocco's Ziyech / Ounahi /
+        En-Nesyri family at the top either way.</li>
+      <li>The PSG triangle (Argentina's Messi + Di María + Paredes) had
+        JOI90 = 0.33 for Messi–Di María, by far the highest pair in the
+        squad. The score specialist's tracking attention shows the triangle
+        at ratio 0.92× the team baseline — below average. The "rehearsal
+        carries over" pattern is event-bound (JOI), not visible in off-ball
+        attention even after specialising on the offensive head.</li>
+      <li>Germany Bayern is the cleanest reversal: it was the
+        <em>worst</em> cluster on JOI (Δ JOI90 = −0.101) but the
+        <em>only</em> nation with a significant positive shared-history
+        signal on the score-specialist's attention
+        (Δ attention = +471, Mann-Whitney p &lt; 0.001).
+        See <a href="club-vs-national.html#rehearsal">Club v National</a>
+        for the full multi-act write-up.</li>
+    </ul>
+    <p class="small dim">
+      Specialist checkpoints (<code>transformer_score_only.ckpt</code>,
+      <code>transformer_concede_only.ckpt</code>) are downloadable from the
+      <a href="downloads.html">Downloads</a> page. Per-pair attention
+      parquets ship under <code>research/data/</code> with
+      <code>_score_specialist</code> / <code>_concede_specialist</code>
+      suffixes.
+    </p>
+
     <h3>2.4 Attention extraction</h3>
     <p>
       The transformer exposes an <code>encode_with_attention</code> path that
