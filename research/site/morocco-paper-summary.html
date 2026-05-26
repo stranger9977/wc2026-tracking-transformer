@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Morocco at WC22 — Benhida et al. 2025 (summary deck)</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #131a2a;
+      --ink: #e8eef9;
+      --dim: #97a0b0;
+      --muted: #647082;
+      --accent: #f1ad7a;
+      --rule: #2a313d;
+      --mono: ui-monospace, "JetBrains Mono", Menlo, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); height: 100%; }
+    body { overflow: hidden; }
+
+    .deck { position: relative; height: 100vh; width: 100vw; }
+    .slide {
+      position: absolute; inset: 0;
+      padding: 5vh 6vw;
+      display: flex; flex-direction: column; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; }
+
+    h1 { font-size: clamp(28px, 4vw, 56px); margin: 0 0 0.8rem; line-height: 1.1; }
+    h2 { font-size: clamp(22px, 2.6vw, 38px); margin: 0 0 1rem; line-height: 1.15; color: var(--accent); font-weight: 700; }
+    .eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    p { font-size: clamp(16px, 1.4vw, 22px); line-height: 1.5; color: var(--ink); margin: 0.4rem 0; max-width: 70ch; }
+    p.dim { color: var(--dim); }
+    .stat-row { display: flex; gap: 1.6rem; flex-wrap: wrap; margin-top: 1.4rem; }
+    .stat { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 0.9rem 1.2rem; min-width: 140px; }
+    .stat .label { font-size: 0.78rem; font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .stat .value { font-size: clamp(22px, 2.2vw, 32px); font-weight: 700; margin-top: 0.2rem; font-family: var(--mono); }
+    .stat .sub { font-size: 0.85rem; color: var(--dim); margin-top: 0.15rem; }
+
+    table { border-collapse: collapse; margin: 1rem 0; font-size: clamp(13px, 1.1vw, 17px); }
+    th, td { padding: 0.5rem 0.9rem; text-align: left; border-bottom: 1px solid var(--rule); }
+    th { color: var(--muted); font-weight: 600; font-size: 0.85em; }
+    td.num { text-align: right; font-family: var(--mono); }
+
+    ul { margin: 0.4rem 0; padding-left: 1.4rem; }
+    li { font-size: clamp(15px, 1.3vw, 20px); line-height: 1.5; color: var(--ink); margin: 0.3rem 0; }
+    li strong { color: var(--accent); }
+
+    .footnote { position: absolute; bottom: 2.5vh; left: 6vw; right: 6vw; display: flex; justify-content: space-between; color: var(--muted); font-size: 0.8rem; font-family: var(--mono); }
+
+    .nav { position: fixed; bottom: 1rem; right: 1rem; display: flex; gap: 0.4rem; z-index: 10; }
+    .nav button {
+      background: var(--panel); color: var(--ink); border: 1px solid var(--rule);
+      border-radius: 6px; padding: 0.4rem 0.7rem; font-family: var(--mono); cursor: pointer; font-size: 0.8rem;
+    }
+    .nav button:hover { border-color: var(--accent); color: var(--accent); }
+    .progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: var(--rule); }
+    .progress-bar { height: 100%; background: var(--accent); transition: width 0.25s ease; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; }
+    @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; gap: 1rem; } }
+    .pull { font-family: var(--mono); font-size: clamp(18px, 1.8vw, 26px); line-height: 1.4; color: var(--accent); border-left: 3px solid var(--accent); padding-left: 1rem; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+
+<div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+
+<div class="deck" id="deck">
+
+  <section class="slide">
+    <div class="eyebrow">Independent corroboration · summary deck</div>
+    <h1>How Morocco reached the WC22 semifinals.</h1>
+    <p class="dim">Benhida, El Morchidy, Zeghari, Enneya &amp; Guerss (2025) ·
+      <em>Applied Sciences</em> 15(18), 9994.
+      <a href="https://doi.org/10.3390/app15189994" target="_blank" rel="noopener" style="color:var(--accent)">doi: 10.3390/app15189994</a></p>
+    <p>The first African nation to reach a World Cup semifinal. <strong>What
+      did the data actually show?</strong> An AI-assisted study of all 7
+      Morocco matches at WC22 finds the same story we found via off-ball
+      attention chemistry — from a completely different angle.</p>
+    <div class="footnote"><span>Press → to advance · ← to go back</span><span>1 / 9</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">Method</div>
+    <h2>FIFA reports + PCA + K-means.</h2>
+    <p>Seven matches: Croatia, Belgium, Canada, Spain, Portugal, France,
+      Croatia (3rd place). Inputs: official FIFA post-match indicators
+      (possession, passes, distance, sprints, pressing). Three steps:</p>
+    <ul>
+      <li><strong>Descriptive</strong> — KPIs per match (possession, distance, pressing).</li>
+      <li><strong>Visual profiling</strong> — radar charts, heatmaps, passing networks.</li>
+      <li><strong>Exploratory AI</strong> — PCA + K-means to cluster match types.</li>
+    </ul>
+    <p class="dim" style="margin-top:1rem">No model, no event data, no
+      tracking. Just public post-match indicators run through standard
+      multivariate methods. The conclusion lines up with ours anyway.</p>
+    <div class="footnote"><span>Section 2 of the paper</span><span>2 / 9</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">Headline finding · defence</div>
+    <h2>They defended without the ball — and outran everyone.</h2>
+    <div class="stat-row">
+      <div class="stat"><div class="label">Possession vs Spain</div><div class="value">23%</div><div class="sub">lowest of the tournament</div></div>
+      <div class="stat"><div class="label">Distance vs Spain</div><div class="value">120.2 km</div><div class="sub"><em>highest</em> of the tournament</div></div>
+      <div class="stat"><div class="label">Distance vs France</div><div class="value">118.9 km</div><div class="sub">2nd-highest</div></div>
+      <div class="stat"><div class="label">Possession (5 of 7)</div><div class="value">&lt; 40%</div><div class="sub">deliberate, not forced</div></div>
+    </div>
+    <p style="margin-top:1.4rem">Compact mid-block, 4-1-4-1 with Amrabat
+      dropping. The work to <em>not</em> have the ball was harder than
+      anyone else's work to keep it.</p>
+    <div class="footnote"><span>Tables 2 + 4 · §3.1</span><span>3 / 9</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">Headline finding · pressing</div>
+    <h2>They pressed in bursts at the biggest moments.</h2>
+    <div class="stat-row">
+      <div class="stat"><div class="label">Pressing actions vs Spain</div><div class="value">288</div></div>
+      <div class="stat"><div class="label">Pressing actions vs France</div><div class="value">299</div><div class="sub">peak</div></div>
+      <div class="stat"><div class="label">Pressing actions vs Portugal</div><div class="value">277</div></div>
+    </div>
+    <p class="pull">Compact organization + coordinated bursts of pressure.
+      Defensive solidity wasn't passive — it was a metered, opponent-specific
+      decision about when to compress.</p>
+    <div class="footnote"><span>Table 4 · §3.2</span><span>4 / 9</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">Headline finding · PCA</div>
+    <h2>Two axes explain 76% of the variance.</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:0.3rem"><strong style="color:var(--accent)">Axis 1 (52%) —</strong> physical intensity vs. technical mastery.</p>
+        <p class="dim" style="margin-top:0">When Morocco was running, they weren't passing.</p>
+      </div>
+      <div>
+        <p style="margin-bottom:0.3rem"><strong style="color:var(--accent)">Axis 2 (24%) —</strong> verticality vs. build-up.</p>
+        <p class="dim" style="margin-top:0">When Morocco was attacking, they went forward fast.</p>
+      </div>
+    </div>
+    <p style="margin-top:1.4rem">The second axis is the one that maps to our
+      finding. Morocco's score-frame attention pairs
+      <strong>Ziyech ↔ Hamdallah</strong> (2.02×),
+      <strong>Ziyech ↔ Aboukhlal</strong> (2.01×),
+      <strong>Ziyech ↔ Ounahi</strong> (1.74×),
+      <strong>En-Nesyri ↔ Ounahi</strong> (1.72×) are exactly the
+      "verticality" axis — the attacking transitions the model attends to
+      when scoring is imminent.</p>
+    <div class="footnote"><span>Figure 1 · §3.3</span><span>5 / 9</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">Headline finding · clustering</div>
+    <h2>Three different games against three different opponent types.</h2>
+    <table>
+      <thead><tr><th>Profile</th><th>Matches</th><th>What it looked like</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Low-block defensive</strong></td><td>Spain, Croatia (1)</td><td>23–35% possession, max distance, max compactness</td></tr>
+        <tr><td><strong>Transition-oriented</strong></td><td>Belgium, Portugal</td><td>27–33% possession, fast vertical recoveries — En-Nesyri's winner</td></tr>
+        <tr><td><strong>Open / shared</strong></td><td>France, Croatia (2)</td><td>45–49% possession, more proactive, more defensive exposure</td></tr>
+      </tbody>
+    </table>
+    <p class="pull">Adaptability, not a fixed style. Morocco played a different
+      game for each kind of opponent — and still kept the same defensive shape underneath.</p>
+    <div class="footnote"><span>K-means k=3 · §3.3 · §4</span><span>6 / 9</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">Headline finding · the right flank</div>
+    <h2>Hakimi ↔ Ziyech was the load-bearing axis.</h2>
+    <p>The passing networks (Figure 8) show right-flank dominance in every
+      critical match: Hakimi and Ziyech as the primary connection, Amrabat
+      as the central pivot dropping in for cover.</p>
+    <div class="two-col" style="margin-top:1.4rem">
+      <div>
+        <p style="margin-bottom:0.3rem"><strong style="color:var(--accent)">Amrabat</strong> — &gt;10 km every match, consistent.</p>
+        <p style="margin-bottom:0.3rem"><strong style="color:var(--accent)">Hakimi</strong> — explosive sprint profile from RB.</p>
+      </div>
+      <div>
+        <p style="margin-bottom:0.3rem"><strong style="color:var(--accent)">Ziyech</strong> — creator with variable defensive contribution.</p>
+        <p style="margin-bottom:0.3rem"><strong style="color:var(--accent)">Ounahi</strong> — dynamic midfielder, balanced output.</p>
+      </div>
+    </div>
+    <p style="margin-top:1.4rem">In our score-frame attention leaderboard,
+      <strong>Ziyech</strong> is in <em>five</em> of the top 20 off-off
+      pairs. He is the connective tissue between defensive recovery and
+      attacking transition — exactly what the paper's passing-network
+      diagrams show.</p>
+    <div class="footnote"><span>Figures 8 + 9 · Table 5</span><span>7 / 9</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">The paper's verdict</div>
+    <h2>"A hybrid performance model."</h2>
+    <p class="pull">"Fast transition football combined with technical skill,
+      strong defensive resilience, and rational tactical management... a
+      synthesis of collective intelligence built on transitions, defensive
+      solidity, and contextual adaptability."</p>
+    <p class="dim">— Benhida et al. (§4 + §5)</p>
+    <p style="margin-top:1.4rem">In other words: <strong>they didn't dominate
+      games, they shaped them.</strong> The opponent decided how much ball
+      Morocco would have. Morocco decided what to do with it.</p>
+    <div class="footnote"><span>Discussion + Conclusion</span><span>8 / 9</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">Why it matters for our analysis</div>
+    <h2>Two methods, one conclusion.</h2>
+    <table>
+      <thead><tr><th>Method</th><th>What it surfaced</th></tr></thead>
+      <tbody>
+        <tr><td>Benhida et al. — PCA on FIFA reports</td><td>Verticality + transition axis, Hakimi–Ziyech right flank, En-Nesyri's vertical winner</td></tr>
+        <tr><td>Our work — score-frame attention on tracking</td><td>Ziyech + Hamdallah / Aboukhlal / Ounahi / En-Nesyri dominate the top-20 off-off pairs at 1.7–2.0× baseline</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:1rem">The two studies cannot agree by accident — they
+      have no overlapping inputs. Benhida used aggregated FIFA stats; we used
+      per-frame tracking attention. The convergence is the validation.</p>
+    <p class="pull">If two methods that share no data both point at the same
+      attacking partnerships, the partnership is real.</p>
+    <p class="dim" style="margin-top:1rem">Back to
+      <a href="index.html" style="color:var(--accent)">the site</a> ·
+      Read the paper:
+      <a href="https://doi.org/10.3390/app15189994" target="_blank" rel="noopener" style="color:var(--accent)">10.3390/app15189994</a></p>
+    <div class="footnote"><span>Summary deck · WC22 chemistry project</span><span>9 / 9</span></div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button id="prev">◀ prev</button>
+  <button id="next">next ▶</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const bar = document.getElementById('progress-bar');
+  let i = 0;
+  function show(k) {
+    i = Math.max(0, Math.min(slides.length - 1, k));
+    slides.forEach((s, j) => s.classList.toggle('active', j === i));
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+  }
+  document.getElementById('prev').onclick = () => show(i - 1);
+  document.getElementById('next').onclick = () => show(i + 1);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') show(i + 1);
+    else if (e.key === 'ArrowLeft' || e.key === 'Backspace') show(i - 1);
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+  });
+  show(0);
+</script>
+
+</body>
+</html>
