@@ -47,6 +47,7 @@
       <button data-mode="disagree">Where they disagree</button>
       <button data-mode="outcome">When scoring vs neutral</button>
       <button data-mode="awjoi">AW-JOI · attention × value</button>
+      <button data-mode="nucleus">Nucleus networks</button>
     </div>
 
     <!-- ─────────── Mode 1: Event-based ─────────── -->
@@ -346,6 +347,57 @@
         Pair requires ≥ 60 minutes together. AW-JOI90 + AW-JDI90 are
         normalized per 90 minutes shared on the pitch.
       </p>
+    </section>
+
+    <!-- ─────────── Mode 6: Nucleus networks ─────────── -->
+    <section id="mode-nucleus" class="mode-section">
+      <aside class="callout">
+        <p>
+          <strong>Each player's chemistry network, anchored at them.</strong>
+          For every WC22 player we sum their AW-JOI across every teammate
+          they shared ≥ 60 minutes with; that's their <em>network mass</em>.
+          The leaderboard ranks players by their per-90 network mass; click
+          a row to see the star graph — nucleus in the centre, top-8 spokes
+          radiating out, edge thickness ∝ AW-JOI90 with each partner.
+        </p>
+        <p class="small mt-0" style="margin-bottom:0">
+          Goalkeepers excluded from the nucleus list (they trivially connect
+          to everyone). Minimum 200 minutes played to qualify. The "spokes"
+          can include GKs — Messi's #1 partner is Emiliano Martínez,
+          which says something real about how Argentina built from the
+          back through him.
+        </p>
+      </aside>
+
+      <div class="controls" style="margin-top: 1rem;">
+        <div>
+          <label for="nuc-search">Search player or team</label>
+          <input id="nuc-search" type="search" placeholder="e.g. Mbappé, Brazil…">
+        </div>
+        <div>
+          <label for="nuc-role">Role</label>
+          <select id="nuc-role">
+            <option value="all" selected>All outfield</option>
+            <option value="FWD">Forwards only</option>
+            <option value="MID">Midfielders only</option>
+            <option value="DEF">Defenders only</option>
+          </select>
+        </div>
+        <div>
+          <label for="nuc-sort">Sort by</label>
+          <select id="nuc-sort">
+            <option value="network_joi90" selected>Network AW-JOI90</option>
+            <option value="network_net90">Network Net (JOI − JDI)90</option>
+            <option value="network_joi_sum">Network AW-JOI sum (total)</option>
+          </select>
+        </div>
+      </div>
+      <div class="nucleus-layout">
+        <div id="nuc-table" class="nucleus-list"></div>
+        <div id="nuc-detail" class="nucleus-detail">
+          <div class="empty-state small">Click a player row to see their chemistry network.</div>
+        </div>
+      </div>
     </section>
   </main>
 

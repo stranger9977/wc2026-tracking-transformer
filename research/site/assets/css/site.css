@@ -1306,3 +1306,106 @@ div.player-dot .role {
   .next-card-thumb { width: 72px; height: 56px; padding: 0.4rem; }
   .next-card-thumb-rows .row { height: 5px; }
 }
+
+/* ============================================================
+   Nucleus networks (Tufte-style chemistry star graph)
+   ============================================================ */
+.nucleus-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(360px, 1.4fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+@media (max-width: 900px) {
+  .nucleus-layout { grid-template-columns: 1fr; }
+}
+.nucleus-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 720px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+.nucleus-row {
+  display: grid;
+  grid-template-columns: 28px 24px 1fr auto 64px;
+  gap: 0.5rem;
+  align-items: center;
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 0.45rem 0.55rem;
+  cursor: pointer;
+  transition: background 120ms, border-color 120ms;
+}
+.nucleus-row:hover { background: var(--bg-elev); border-color: rgba(255, 209, 102, 0.25); }
+.nucleus-row.active {
+  background: var(--bg-elev);
+  border-color: #f1ad7a;
+  box-shadow: 0 0 0 1px rgba(241, 173, 122, 0.4);
+}
+.nucleus-row .nuc-rank {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: right;
+}
+.nucleus-row .nuc-flag img,
+.nucleus-row .nuc-flag svg { width: 22px; height: 16px; vertical-align: middle; }
+.nucleus-row .nuc-name { font-weight: 600; }
+.nucleus-row .nuc-pos {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-left: 0.4rem;
+}
+.nucleus-row .nuc-team { font-size: 0.85rem; color: var(--text-dim); }
+.nucleus-row .nuc-val { font-family: var(--mono); text-align: right; }
+
+.nucleus-detail {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  min-height: 460px;
+  display: flex;
+  flex-direction: column;
+}
+.nucleus-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.5rem;
+}
+.nucleus-hd-name { font-size: 1.05rem; }
+.nucleus-hd-stats {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  font-size: 0.88rem;
+}
+.nucleus-hd-stats > span { display: inline-flex; align-items: baseline; gap: 0.35rem; }
+
+.nucleus-svg {
+  width: 100%;
+  height: auto;
+  max-height: 460px;
+  display: block;
+  margin: 0 auto;
+}
+.nuc-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--text);
+}
+.nuc-pos-small { font-size: 9px; fill: var(--text-dim); }
+.nuc-edge-val { font-family: var(--mono); font-size: 10px; fill: var(--text-dim); }
+.nuc-center-name { font-family: var(--sans); font-size: 11px; font-weight: 700; fill: var(--text); }
+.nuc-center-pos { font-family: var(--mono); font-size: 9px; fill: var(--text-dim); }

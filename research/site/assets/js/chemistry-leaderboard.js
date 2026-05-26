@@ -64,6 +64,7 @@ const sections = {
   disagree: document.getElementById("mode-disagree"),
   outcome: document.getElementById("mode-outcome"),
   awjoi: document.getElementById("mode-awjoi"),
+  nucleus: document.getElementById("mode-nucleus"),
 };
 let currentMode = "event";
 
@@ -77,6 +78,7 @@ modeButtons.forEach((b) => b.addEventListener("click", () => {
   if (currentMode === "disagree") renderDisagree();
   if (currentMode === "outcome") ocRender();
   if (currentMode === "awjoi") awRender();
+  if (currentMode === "nucleus") nucRender();
 }));
 
 /* ═══════════════════════════════════════════════════════════
@@ -722,6 +724,138 @@ awTabs.forEach((b) => b.addEventListener("click", () => {
 awSortEl.addEventListener("change", () => { awState.sortBy = awSortEl.value; awRender(); });
 awSearchEl.addEventListener("input", () => { awState.search = awSearchEl.value || ""; awRender(); });
 awMinEl.addEventListener("input", () => { awState.minMin = Number(awMinEl.value) || 0; awRender(); });
+
+/* ═══════════════════════════════════════════════════════════
+   MODE 6 — Nucleus networks
+   Each player's chemistry network = sum of their AW-JOI across all
+   teammates. Click a player to see their star-graph (nucleus + 8 spokes).
+   Tufte-styled: no chartjunk, edge thickness ∝ AW-JOI90, partner-dot
+   size ∝ AW-JOI90, partners arranged radially around the nucleus.
+   ═══════════════════════════════════════════════════════════ */
+
+const nucState = { role: "all", sortBy: "network_joi90", search: "", selected: null };
+const nucRaw = (await loadJSON("data/nucleus_networks.json")) || [];
+const nucSearchEl = document.getElementById("nuc-search");
+const nucRoleEl = document.getElementById("nuc-role");
+const nucSortEl = document.getElementById("nuc-sort");
+const nucTableEl = document.getElementById("nuc-table");
+const nucDetailEl = document.getElementById("nuc-detail");
+
+function nucFilter(rows) {
+  const q = nucState.search.trim().toLowerCase();
+  return rows.filter((r) => {
+    if (nucState.role !== "all" && r.role !== nucState.role) return false;
+    if (q) {
+      const hay = `${r.name || ""} ${r.team_name || ""}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return Number.isFinite(r[nucState.sortBy]);
+  });
+}
+
+function nucRender() {
+  if (!nucRaw.length) {
+    renderEmpty(nucTableEl, "Nucleus networks not yet computed.", "Run the AW-JOI pipeline first.");
+    return;
+  }
+  const rows = nucFilter(nucRaw).slice().sort((a, b) => b[nucState.sortBy] - a[nucState.sortBy]).slice(0, 50);
+  if (!rows.length) {
+    renderEmpty(nucTableEl, "No players match these filters.", "Lower minutes, widen the role, or change the sort.");
+    return;
+  }
+  const fmtField = nucState.sortBy === "network_joi_sum" ? (v) => fmtNum(v, 2) : (v) => fmtNum(v, 2);
+  nucTableEl.innerHTML = rows.map((r, i) => `
+    <button class="nucleus-row${r.player_id === nucState.selected ? " active" : ""}" data-pid="${r.player_id}">
+      <span class="nuc-rank">${i + 1}</span>
+      <span class="nuc-flag">${flagHTML(r.flag_code)}</span>
+      <span class="nuc-name">${escapeHTML(r.name)}<span class="nuc-pos">${escapeHTML(r.position || "")}</span></span>
+      <span class="nuc-team">${escapeHTML(r.team_name || "")}</span>
+      <span class="nuc-val tabular delta-pos"><strong>${fmtField(r[nucState.sortBy])}</strong></span>
+    </button>
+  `).join("");
+  // Default-select the top row if nothing's selected yet
+  if (!nucState.selected || !rows.find((r) => r.player_id === nucState.selected)) {
+    nucState.selected = rows[0].player_id;
+  }
+  nucTableEl.querySelectorAll(".nucleus-row").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      nucState.selected = Number(btn.dataset.pid);
+      nucTableEl.querySelectorAll(".nucleus-row").forEach((b) => b.classList.toggle("active", Number(b.dataset.pid) === nucState.selected));
+      drawNucleusDetail();
+    });
+  });
+  drawNucleusDetail();
+}
+
+function drawNucleusDetail() {
+  if (!nucState.selected) {
+    nucDetailEl.innerHTML = `<div class="empty-state small">Click a player row to see their chemistry network.</div>`;
+    return;
+  }
+  const r = nucRaw.find((x) => x.player_id === nucState.selected);
+  if (!r) return;
+  const spokes = (r.spokes || []).slice(0, 8);
+  // SVG layout
+  const W = 480, H = 420;
+  const cx = W / 2, cy = H / 2;
+  const rMin = 90, rMax = 175;
+  // Max AW-JOI90 across visible spokes used for normalising edge width / partner size
+  const maxAW = spokes.reduce((m, s) => Math.max(m, s.aw_joi90 || 0), 1e-6);
+  // Nucleus dot
+  let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="nucleus-svg" role="img" aria-label="${escapeHTML(r.name)} chemistry network">`;
+  // edges first (under dots)
+  spokes.forEach((s, i) => {
+    const angle = -Math.PI / 2 + (i * 2 * Math.PI / spokes.length);  // start at 12 o'clock
+    const ratio = (s.aw_joi90 || 0) / maxAW;
+    const dist = rMin + ratio * (rMax - rMin);
+    const x2 = cx + Math.cos(angle) * dist;
+    const y2 = cy + Math.sin(angle) * dist;
+    const width = 0.6 + ratio * 4.4;
+    svg += `<line x1="${cx}" y1="${cy}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#f1ad7a" stroke-opacity="${(0.35 + ratio * 0.5).toFixed(2)}" stroke-width="${width.toFixed(2)}" stroke-linecap="round" />`;
+  });
+  // Partner dots + labels
+  spokes.forEach((s, i) => {
+    const angle = -Math.PI / 2 + (i * 2 * Math.PI / spokes.length);
+    const ratio = (s.aw_joi90 || 0) / maxAW;
+    const dist = rMin + ratio * (rMax - rMin);
+    const x = cx + Math.cos(angle) * dist;
+    const y = cy + Math.sin(angle) * dist;
+    const dotR = 5 + ratio * 7;
+    svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${dotR.toFixed(1)}" fill="#1f2a3a" stroke="#e8eef9" stroke-width="1.2" />`;
+    // Label: position name outside the dot, along the radial direction
+    const lx = cx + Math.cos(angle) * (dist + dotR + 8);
+    const ly = cy + Math.sin(angle) * (dist + dotR + 8);
+    const surname = (s.partner_name || "").split(" ").slice(-1)[0] || s.partner_name;
+    const anchor = Math.abs(Math.cos(angle)) < 0.3 ? "middle"
+                 : (Math.cos(angle) > 0 ? "start" : "end");
+    svg += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" alignment-baseline="middle" class="nuc-label">${escapeHTML(surname)}<tspan dx="4" class="nuc-pos-small">${escapeHTML(s.partner_pos || "")}</tspan></text>`;
+    svg += `<text x="${lx.toFixed(1)}" y="${(ly + 13).toFixed(1)}" text-anchor="${anchor}" alignment-baseline="middle" class="nuc-edge-val">${fmtNum(s.aw_joi90, 3)}</text>`;
+  });
+  // Nucleus (on top)
+  svg += `<circle cx="${cx}" cy="${cy}" r="22" fill="#0b1220" stroke="#6dd58c" stroke-width="2" />`;
+  const surname = (r.name || "").split(" ").slice(-1)[0] || r.name;
+  svg += `<text x="${cx}" y="${cy - 1}" text-anchor="middle" alignment-baseline="middle" class="nuc-center-name">${escapeHTML(surname)}</text>`;
+  svg += `<text x="${cx}" y="${cy + 12}" text-anchor="middle" alignment-baseline="middle" class="nuc-center-pos">${escapeHTML(r.position || "")}</text>`;
+  svg += `</svg>`;
+
+  nucDetailEl.innerHTML = `
+    <div class="nucleus-header">
+      <div class="nucleus-hd-name">${flagHTML(r.flag_code)} <strong>${escapeHTML(r.name)}</strong> <span class="dim small">· ${escapeHTML(r.team_name || "")} · ${escapeHTML(r.position || "")}</span></div>
+      <div class="nucleus-hd-stats">
+        <span><span class="muted small">Network AW-JOI90</span> <strong class="tabular delta-pos">${fmtNum(r.network_joi90, 2)}</strong></span>
+        <span><span class="muted small">Network AW-JDI90</span> <strong class="tabular dim">${fmtNum(r.network_jdi90, 2)}</strong></span>
+        <span><span class="muted small">Partners</span> <strong class="tabular">${r.n_partners}</strong></span>
+        <span><span class="muted small">Minutes</span> <strong class="tabular">${fmtNum(r.minutes_played, 0)}</strong></span>
+      </div>
+    </div>
+    ${svg}
+    <p class="dim small" style="margin: 0 0.6rem;">Edge thickness ∝ AW-JOI90 with that partner. Numbers under each name are AW-JOI90 values. Top-8 partners shown.</p>
+  `;
+}
+
+nucSearchEl.addEventListener("input", () => { nucState.search = nucSearchEl.value || ""; nucRender(); });
+nucRoleEl.addEventListener("change", () => { nucState.role = nucRoleEl.value; nucRender(); });
+nucSortEl.addEventListener("change", () => { nucState.sortBy = nucSortEl.value; nucRender(); });
 
 /* ─────────── boot ─────────── */
 
