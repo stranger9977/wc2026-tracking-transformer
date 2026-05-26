@@ -61,6 +61,20 @@ function currentEdgeFilter() {
   const el = document.getElementById("iplay-edge-filter");
   return el ? el.value : "all";
 }
+function currentAttnSource() {
+  const el = document.getElementById("iplay-attn-source");
+  return el ? el.value : "shared";
+}
+// Resolve the per-frame attention vector based on the global Attention Source
+// dropdown. Falls back to the shared-model field if the requested specialist
+// field is missing (e.g. a clip that predates the score-specialist re-run).
+function attnVecForFrame(f) {
+  const src = currentAttnSource();
+  if (src === "score_specialist" && Array.isArray(f.attention_score_specialist)) {
+    return f.attention_score_specialist;
+  }
+  return f.attention;
+}
 
 function registerChartRedraw(fn) { chartRedraws.push(fn); }
 function registerFrameRedraw(fn) { frameRedraws.push(fn); }
@@ -79,6 +93,7 @@ document.getElementById("iplay-focus-toggle")?.addEventListener("change", refres
 document.getElementById("iplay-top-n")?.addEventListener("change", refreshAllFrames);
 document.getElementById("iplay-include-gk")?.addEventListener("change", refreshAllFrames);
 document.getElementById("iplay-edge-filter")?.addEventListener("change", refreshAllFrames);
+document.getElementById("iplay-attn-source")?.addEventListener("change", refreshAllFrames);
 
 // Suppress junk event labels — raw PFF event codes the renderer couldn't
 // resolve to a human label. "None" comes from f"{None}" stringification;
@@ -220,7 +235,14 @@ function initClip(c, detail) {
   let pauseUntil = 0;
   let lastEventIdxShown = -1;
   // Smoothed attention vector (length 22) for edge widths + halo radii.
-  let smoothAttn = (frames[0].attention || new Array(22).fill(0)).slice();
+  // Seeded from whichever attention source is currently active so the very
+  // first frame doesn't briefly show the shared-model halos when the user has
+  // already toggled to the specialist.
+  let smoothAttn = (attnVecForFrame(frames[0]) || new Array(22).fill(0)).slice();
+  // Track which attention source produced the current smoothAttn — when the
+  // user toggles the dropdown we hard-reset the smoothing so halos snap to the
+  // new model instead of crossfading through whatever the old source said.
+  let smoothAttnSrc = currentAttnSource();
   // Track wall-clock start of the current dwell on a particular frame
   // so the pulsing halo phase is continuous across frames.
   const pulseStart = performance.now();
@@ -252,9 +274,16 @@ function initClip(c, detail) {
     lastFrameTime = now;
 
     // Smooth the attention vector toward the current frame's attention.
-    const tgt = f.attention || smoothAttn;
-    for (let s = 0; s < 22; s++) {
-      smoothAttn[s] = easeStep(smoothAttn[s] || 0, tgt[s] || 0, dt);
+    // On a source toggle, hard-reset to the new model's vector so halos snap.
+    const curSrc = currentAttnSource();
+    const tgt = attnVecForFrame(f) || smoothAttn;
+    if (curSrc !== smoothAttnSrc) {
+      for (let s = 0; s < 22; s++) smoothAttn[s] = tgt[s] || 0;
+      smoothAttnSrc = curSrc;
+    } else {
+      for (let s = 0; s < 22; s++) {
+        smoothAttn[s] = easeStep(smoothAttn[s] || 0, tgt[s] || 0, dt);
+      }
     }
 
     // Player dots + labels (with collision avoidance).
@@ -456,7 +485,7 @@ function initClip(c, detail) {
       P(score, next&nbsp;10&nbsp;s) <span class="chip green tabular">${fmtNum(f.p_score, 3)}</span> &nbsp;
       P(concede, next&nbsp;10&nbsp;s) <span class="chip red tabular">${fmtNum(f.p_concede, 3)}</span> &nbsp;
       Frame-VAEP (Δ&nbsp;P) <span class="chip tabular">${fmtNum(f.vaep, 3)}</span><br>
-      <span class="small muted">Top attended (ball→player attention):</span>
+      <span class="small muted">Top attended (ball→player attention, ${currentAttnSource() === "score_specialist" ? "score specialist" : "shared model"}):</span>
       <div class="top-attn-row">${topChips || "<span class='muted'>—</span>"}</div>`;
 
     // --- chart cursor
