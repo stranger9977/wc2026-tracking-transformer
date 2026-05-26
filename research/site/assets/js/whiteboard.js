@@ -98,10 +98,18 @@ let playTimer = null;
 
 // Freestyle mode (stretch): if active, dots become draggable and onnxruntime-web
 // reruns the model on the modified frame to produce a one-frame counterfactual.
+//
+// As of the two-specialist swap, freestyle loads TWO ONNX sessions: a
+// score-specialist (outputs only `p_score`) and a concede-specialist (outputs
+// only `p_concede`). Each drag fans out to BOTH sessions and the results are
+// merged into the same {p_score, p_concede} trajectory the UI used to consume
+// from the single shared model. Wall-clock roughly doubles vs the shared model
+// but it still lands inside a single animation frame on CPU.
 let freestyle = {
   enabled: false,
   ort: null,           // onnxruntime-web namespace once loaded
-  session: null,       // InferenceSession
+  scoreSession: null,  // score-specialist InferenceSession
+  concedeSession: null,// concede-specialist InferenceSession
   loading: false,
   // Per-player metres-delta applied to the *current* frame only (live drag).
   // map: player_id -> {dx, dy} (user-dragged primary players)
@@ -1070,7 +1078,7 @@ function setFreestyleStatus(msg) {
 }
 
 async function ensureOnnx() {
-  if (freestyle.session) return true;
+  if (freestyle.scoreSession && freestyle.concedeSession) return true;
   if (freestyle.loading) return false;
   freestyle.loading = true;
   setFreestyleStatus("Loading ONNX runtime (~5 MB)…");
@@ -1094,10 +1102,23 @@ async function ensureOnnx() {
     }
     ns.env.wasm.wasmPaths = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.18.0/dist/";
     freestyle.ort = ns;
-    setFreestyleStatus("Loading frame-VAEP model (525 KiB)…");
-    freestyle.session = await ns.InferenceSession.create("assets/models/frame_vaep.onnx", {
-      executionProviders: ["wasm"],
-    });
+    // The shared two-head model has been replaced by TWO single-head
+    // specialists (val AUC 0.816 / 0.799 vs 0.801 / 0.792 on the shared one).
+    // Load them in parallel; both are ~490 KiB each.
+    setFreestyleStatus("Loading score + concede specialists (≈ 1 MB)…");
+    const tLoad0 = performance.now();
+    const [scoreSess, concedeSess] = await Promise.all([
+      ns.InferenceSession.create("assets/models/frame_vaep_score.onnx", {
+        executionProviders: ["wasm"],
+      }),
+      ns.InferenceSession.create("assets/models/frame_vaep_concede.onnx", {
+        executionProviders: ["wasm"],
+      }),
+    ]);
+    const tLoad = performance.now() - tLoad0;
+    freestyle.scoreSession = scoreSess;
+    freestyle.concedeSession = concedeSess;
+    console.log(`[whiteboard] specialist sessions ready in ${tLoad.toFixed(0)} ms`);
     setFreestyleStatus("Freestyle ready — drag any player.");
     return true;
   } catch (err) {
@@ -1272,7 +1293,7 @@ function computeRippleForFrame(play, frame) {
 let _trajPending = false;
 let _trajInflight = false;
 async function runFreestyleTrajectory() {
-  if (!freestyle.session || !currentPlay) return;
+  if (!freestyle.scoreSession || !freestyle.concedeSession || !currentPlay) return;
   if (_trajInflight) { _trajPending = true; return; }
   _trajInflight = true;
   try {
@@ -1292,17 +1313,22 @@ async function runFreestyleTrajectory() {
     freestyle.rippleShifts = savedRipple;
     const tensor = new freestyle.ort.Tensor("float32", data, [n, 23, 7]);
     const t0 = performance.now();
-    let out;
+    let scoreOut, concedeOut;
     try {
-      out = await freestyle.session.run({ x: tensor });
+      // Fan out to both specialists in parallel. Each returns its single
+      // named head; we stitch them into the shape the rest of the UI expects.
+      [scoreOut, concedeOut] = await Promise.all([
+        freestyle.scoreSession.run({ x: tensor }),
+        freestyle.concedeSession.run({ x: tensor }),
+      ]);
     } catch (err) {
       console.error("ort batched inference failed", err);
       setFreestyleStatus("Inference failed: " + (err.message || err));
       return;
     }
     const dt = performance.now() - t0;
-    const ps = Array.from(out.p_score.data);
-    const pc = Array.from(out.p_concede.data);
+    const ps = Array.from(scoreOut.p_score.data);
+    const pc = Array.from(concedeOut.p_concede.data);
     freestyle.liveTrajectory = { startFrame: min, p_score: ps, p_concede: pc };
     // Single-frame cf for the prob-strip at the current frame.
     const here = currentFrame - min;
@@ -1312,7 +1338,7 @@ async function runFreestyleTrajectory() {
     const base = currentPlay.frames[currentFrame];
     const dScore = (freestyle.cf?.p_score ?? base.p_score) - base.p_score;
     setFreestyleStatus(
-      `cf inference: ${dt.toFixed(0)} ms over ${n} frames — ` +
+      `cf inference (score+concede specialists): ${dt.toFixed(0)} ms over ${n} frames — ` +
       `live Δ P(score) at this frame ${dScore >= 0 ? "+" : "−"}${Math.abs(dScore).toFixed(3)}`
     );
     drawDeltaChart(currentPlay, currentMove, currentFrame);
