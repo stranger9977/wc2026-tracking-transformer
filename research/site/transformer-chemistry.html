@@ -135,6 +135,14 @@
       classification as the leaderboard above</strong> — rust = offence ↔ offence,
       steel blue = defence ↔ defence, violet = cross.
     </p>
+    <p class="dim small">
+      Networks are powered by the <strong>shared frame-VAEP backbone</strong> (two
+      heads, score + concede). We A/B-tested a score-only single-head specialist
+      to see whether removing the defensive head would surface more
+      offence-to-offence chemistry; across the 31 teams the specialist's top-20
+      off-off fraction averaged +0.2 percentage points over the shared model, so
+      we kept the shared deployment. See <code>research/notes/specialist_networks_diff.md</code>.
+    </p>
     <div class="controls">
       <div>
         <label for="att-search">Search team</label>

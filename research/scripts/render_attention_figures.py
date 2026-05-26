@@ -8,9 +8,16 @@ Writes:
     research/site/assets/figures/team_<id>_attention.png  (one per team)
     research/site/data/attention_figures_index.json       (path list for the site)
     research/site/data/attention_pairs.json               (top pairs for the page table)
+
+Use ``--source specialist`` to render from the score-specialist's
+baselined attention parquet instead. The output PNGs are written to
+``team_<id>_attention_score.png`` and the index/pairs JSON gets a
+``_score`` suffix so they sit alongside the shared-model artifacts
+without overwriting.
 """
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -27,10 +34,29 @@ from chemistry.viz.attention_pitch import render_all_teams_attention, pair_categ
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--source", choices=["shared", "specialist"], default="shared",
+                    help="shared = baselined frame-VAEP backbone; specialist = "
+                         "score-only single-head specialist baselined.")
+    args = ap.parse_args()
+
     data = REPO / "research" / "data"
     out_dir = REPO / "research" / "site" / "assets" / "figures"
     site_data = REPO / "research" / "site" / "data"
     site_data.mkdir(parents=True, exist_ok=True)
+
+    if args.source == "specialist":
+        baselined_path = data / "attention_chemistry_score_specialist_baselined.parquet"
+        png_suffix = "_attention_score.png"
+        index_name = "attention_figures_index_score.json"
+        pairs_name = "attention_pairs_score.json"
+        groups_name = "attention_groups_score.json"
+    else:
+        baselined_path = data / "attention_chemistry_baselined.parquet"
+        png_suffix = "_attention.png"
+        index_name = "attention_figures_index.json"
+        pairs_name = "attention_pairs.json"
+        groups_name = "attention_groups.json"
 
     # Use the ball-distance-baselined attention if available — same schema as
     # attention_chemistry.parquet but with ``pair_attention_baselined`` (raw
@@ -38,7 +64,6 @@ def main() -> None:
     # We swap that in as the ``pair_attention`` column so every downstream
     # aggregate (per-90, lift, group score) is computed off the corrected
     # signal instead of the GK-dominated raw sums.
-    baselined_path = data / "attention_chemistry_baselined.parquet"
     if baselined_path.exists():
         ac = pd.read_parquet(baselined_path)
         ac = ac.drop(columns=["pair_attention"]).rename(
@@ -61,7 +86,9 @@ def main() -> None:
     print(f"aggregated pairs (≥60min): {len(agg)}")
 
     # Render
-    metas = render_all_teams_attention(agg, ln, matches, out_dir=out_dir, min_pairs=5)
+    metas = render_all_teams_attention(
+        agg, ln, matches, out_dir=out_dir, min_pairs=5, filename_suffix=png_suffix,
+    )
     print(f"rendered {len(metas)} team figures")
 
     # Path normalize + attach team_name & flag
@@ -85,8 +112,8 @@ def main() -> None:
             "n_pairs": m["n_pairs"],
             "path": rel_path,
         })
-    (site_data / "attention_figures_index.json").write_text(json.dumps(index_rows, indent=2))
-    print(f"wrote attention_figures_index.json with {len(index_rows)} teams")
+    (site_data / index_name).write_text(json.dumps(index_rows, indent=2))
+    print(f"wrote {index_name} with {len(index_rows)} teams")
 
     # Top pairs across the tournament for the table on the page
     pos = ln.dropna(subset=["position"]).groupby("player_id").position.agg(lambda s: s.value_counts().index[0]).to_dict()
@@ -141,10 +168,10 @@ def main() -> None:
         "goals_together", "assists_together",
         "attention_total", "attention_per90", "team_baseline_per90", "attention_lift",
     ]]
-    (site_data / "attention_pairs.json").write_text(
+    (site_data / pairs_name).write_text(
         json.dumps(top.to_dict(orient="records"), indent=2, default=float)
     )
-    print(f"wrote attention_pairs.json with {len(top)} rows "
+    print(f"wrote {pairs_name} with {len(top)} rows "
           f"(off={(top.category=='off').sum()} "
           f"def={(top.category=='def').sum()} "
           f"cross={(top.category=='cross').sum()})")
@@ -224,8 +251,8 @@ def main() -> None:
             groups.extend(scored[:5])  # top-5 per team per size
 
     groups.sort(key=lambda x: x["attention_lift"], reverse=True)
-    (site_data / "attention_groups.json").write_text(json.dumps(groups, indent=2, default=float))
-    print(f"wrote attention_groups.json with {len(groups)} groups "
+    (site_data / groups_name).write_text(json.dumps(groups, indent=2, default=float))
+    print(f"wrote {groups_name} with {len(groups)} groups "
           f"(size 3: {sum(1 for g in groups if g['size']==3)} "
           f"size 4: {sum(1 for g in groups if g['size']==4)})")
 

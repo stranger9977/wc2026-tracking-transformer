@@ -165,13 +165,14 @@ def render_all_teams_attention(
     *,
     out_dir: Path,
     min_pairs: int = 5,
+    filename_suffix: str = "_attention.png",
 ) -> list[dict[str, Any]]:
     out_dir = Path(out_dir); out_dir.mkdir(parents=True, exist_ok=True)
     results = []
     counts = attention_pairs.groupby("team_id").size()
     eligible = [str(t) for t, n in counts.items() if n >= min_pairs]
     for team_id in sorted(eligible):
-        op = out_dir / f"team_{team_id}_attention.png"
+        op = out_dir / f"team_{team_id}{filename_suffix}"
         try:
             meta = draw_team_attention(
                 team_id, attention_pairs, lineups=lineups, out_path=op, matches=matches
