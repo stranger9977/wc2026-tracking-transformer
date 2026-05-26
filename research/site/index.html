@@ -297,11 +297,20 @@
       const tm = await loadJSON("data/training_metrics_frame_vaep.json").catch(() => null);
       if (tm && tm.metrics) {
         if (tm.metrics.val_auc_score !== undefined) {
-          stats.push({ label: "Frame-VAEP score AUC", value: fmtNum(tm.metrics.val_auc_score, 3), sub: `held-out (${tm.n_val_matches || "?"} matches)` });
+          stats.push({ label: "Frame-VAEP score AUC", value: fmtNum(tm.metrics.val_auc_score, 3), sub: `shared backbone, held-out` });
         }
         if (tm.metrics.val_auc_concede !== undefined) {
-          stats.push({ label: "Frame-VAEP concede AUC", value: fmtNum(tm.metrics.val_auc_concede, 3), sub: `held-out (${tm.n_val_matches || "?"} matches)` });
+          stats.push({ label: "Frame-VAEP concede AUC", value: fmtNum(tm.metrics.val_auc_concede, 3), sub: `shared backbone, held-out` });
         }
+      }
+      // Specialist single-head models (one BCE head each, same backbone).
+      const ts = await loadJSON("data/training_metrics_score_only.json").catch(() => null);
+      const tc = await loadJSON("data/training_metrics_concede_only.json").catch(() => null);
+      if (ts && ts.metrics && ts.metrics.val_auc_score !== undefined && Number.isFinite(ts.metrics.val_auc_score)) {
+        stats.push({ label: "Score-specialist AUC", value: fmtNum(ts.metrics.val_auc_score, 3), sub: "single-head, held-out" });
+      }
+      if (tc && tc.metrics && tc.metrics.val_auc_concede !== undefined && Number.isFinite(tc.metrics.val_auc_concede)) {
+        stats.push({ label: "Concede-specialist AUC", value: fmtNum(tc.metrics.val_auc_concede, 3), sub: "single-head, held-out" });
       }
       if (data.n_goals !== undefined) {
         stats.push({ label: "Goals scored", value: fmtInt(data.n_goals) });

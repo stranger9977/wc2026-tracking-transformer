@@ -1,0 +1,19 @@
+{
+  "head": "concede",
+  "metrics": {
+    "val_loss": 0.7894523739814758,
+    "val_auc_concede": 0.7988012433052063,
+    "val_ap_concede": 0.011240143328905106,
+    "val_brier_concede": 0.05380534008145332,
+    "train_loss": 0.5167850852012634
+  },
+  "n_train_frames": 629634,
+  "n_val_frames": 138793,
+  "n_train_matches": 36,
+  "n_val_matches": 8,
+  "pos_weight": 200.0,
+  "model_dim": 64,
+  "num_heads": 4,
+  "num_layers": 2,
+  "epochs": 6
+}
