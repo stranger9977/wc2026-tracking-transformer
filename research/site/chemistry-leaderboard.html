@@ -329,14 +329,15 @@
         </div>
         <div>
           <label for="aw-min-min">Min minutes together</label>
-          <input id="aw-min-min" type="number" value="60" min="0" step="30" style="width:6rem">
+          <input id="aw-min-min" type="number" value="200" min="0" step="30" style="width:6rem">
         </div>
         <div>
           <label for="aw-sort">Sort by</label>
           <select id="aw-sort">
-            <option value="aw_net90" selected>Net (AW-JOI − AW-JDI)</option>
-            <option value="aw_joi90">AW-JOI90 (offensive)</option>
-            <option value="aw_jdi90">AW-JDI90 (defensive)</option>
+            <option value="aw_joi90" selected>AW-JOI90 (offensive chemistry)</option>
+            <option value="aw_jdi90">AW-JDI90 (conceding risk)</option>
+            <option value="aw_joi_sum">AW-JOI sum (total over tournament)</option>
+            <option value="aw_net90">Net (AW-JOI − AW-JDI)</option>
           </select>
         </div>
       </div>
@@ -353,6 +354,6 @@
     Bransen &amp; Van Haaren (Sloan 2020) + a transformer encoder over 22-player tracking.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-leaderboard.js"></script>
+  <script type="module" src="assets/js/chemistry-leaderboard.js?v=awjoi-1"></script>
 </body>
 </html>

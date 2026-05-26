@@ -621,7 +621,13 @@ ocShowGksEl.addEventListener("change", () => { ocState.showGks = !!ocShowGksEl.c
    specialist for AW-JDI side. Net = AW-JOI − AW-JDI.
    ═══════════════════════════════════════════════════════════ */
 
-const awState = { category: "off", sortBy: "aw_net90", search: "", minMin: 60 };
+// Default sort: AW-JOI90 (positive offensive chemistry) rather than Net.
+// Net mixes AW-JOI and AW-JDI semantically and tilts toward forwards (who
+// naturally have low AW-JDI). Showing the two separately is more honest.
+// Default min minutes 200 — at 60 the per-90 normalisation gets dominated
+// by small-sample pairs from teams that exited early (e.g. Mitrović+Radonjić
+// 1.49 AW-JOI90 over 67 min vs Messi+Di María 0.63 over 294 min).
+const awState = { category: "off", sortBy: "aw_joi90", search: "", minMin: 200 };
 const awRaw = (await loadJSON("data/aw_chemistry.json")) || [];
 const awTabs = document.querySelectorAll("#aw-tabs button");
 const awSortEl = document.getElementById("aw-sort");
@@ -658,22 +664,48 @@ function awRender() {
     return;
   }
   const sortKey = awState.sortBy;
+  const isJoi = sortKey === "aw_joi90" || sortKey === "aw_joi_sum";
+  const isJdi = sortKey === "aw_jdi90";
   const cols = [
     { key: "team_name", label: "Team",
       render: (r) => `${flagHTML(r.flag_code)}${escapeHTML(r.team_name || "")}` },
     { key: "name_p", label: "Pair", render: fmtPair },
     { key: "category", label: "Edge", render: (r) => categoryChip(r.category) },
     { key: "minutes_together", label: "Min", num: true, digits: 0 },
-    { key: "aw_joi90", label: "AW-JOI90", num: true, digits: 4,
-      render: (r) => `<span class="tabular">${fmtNum(r.aw_joi90, 4)}</span>` },
-    { key: "aw_jdi90", label: "AW-JDI90", num: true, digits: 4,
-      render: (r) => `<span class="tabular dim">${fmtNum(r.aw_jdi90, 4)}</span>` },
-    { key: "aw_net90", label: "Net (highlighted)",
-      num: true, digits: 4, defaultSort: true, defaultDir: "desc",
+    { key: "aw_joi90", label: isJoi && sortKey === "aw_joi90" ? "AW-JOI90 ★" : "AW-JOI90",
+      num: true, digits: 4, defaultSort: sortKey === "aw_joi90", defaultDir: "desc",
+      render: (r) => {
+        const v = r.aw_joi90;
+        return sortKey === "aw_joi90"
+          ? `<span class="tabular delta-pos"><strong>${fmtNum(v, 4)}</strong></span>`
+          : `<span class="tabular">${fmtNum(v, 4)}</span>`;
+      }},
+    { key: "aw_jdi90", label: isJdi ? "AW-JDI90 ★" : "AW-JDI90",
+      num: true, digits: 4, defaultSort: isJdi, defaultDir: "desc",
+      render: (r) => {
+        const v = r.aw_jdi90;
+        return isJdi
+          ? `<span class="tabular delta-neg"><strong>${fmtNum(v, 4)}</strong></span>`
+          : `<span class="tabular dim">${fmtNum(v, 4)}</span>`;
+      }},
+    { key: "aw_net90", label: sortKey === "aw_net90" ? "Net ★" : "Net",
+      num: true, digits: 4, defaultSort: sortKey === "aw_net90", defaultDir: "desc",
       render: (r) => {
         const v = r.aw_net90;
         const cls = v >= 0 ? "delta-pos" : "delta-neg";
-        return `<span class="tabular ${cls}"><strong>${v >= 0 ? "+" : ""}${fmtNum(v, 4)}</strong></span>`;
+        const bold = sortKey === "aw_net90";
+        const sign = v >= 0 ? "+" : "";
+        return bold
+          ? `<span class="tabular ${cls}"><strong>${sign}${fmtNum(v, 4)}</strong></span>`
+          : `<span class="tabular ${cls}">${sign}${fmtNum(v, 4)}</span>`;
+      }},
+    { key: "aw_joi_sum", label: sortKey === "aw_joi_sum" ? "AW-JOI sum ★" : "AW-JOI sum",
+      num: true, digits: 2, defaultSort: sortKey === "aw_joi_sum", defaultDir: "desc",
+      render: (r) => {
+        const v = r.aw_joi_sum;
+        return sortKey === "aw_joi_sum"
+          ? `<span class="tabular delta-pos"><strong>${fmtNum(v, 2)}</strong></span>`
+          : `<span class="tabular dim">${fmtNum(v, 2)}</span>`;
       }},
   ];
   makeSortableTable({
