@@ -85,13 +85,18 @@
         off-ball half of chemistry — the runs that pull defenders, the
         teammate-aware positioning — we trained a transformer on
         <em>tracking</em> data (all 22 players, 5 frames per second). The model
-        learns to predict the threat the team in possession is about to create.
-        As a free byproduct it produces an <strong>attention map</strong> that
-        says, for every frame, which players the model needed to look at to
-        make its prediction. We sum the ball-token's attention by player pair,
-        normalize by each team's median pair, and call that the
-        <strong>attention-chemistry lift</strong>. A pair with a lift of 2.0 is
-        twice as "co-watched" by the model as a typical pair on its own team.
+        learns to predict the team in possession's frame-VAEP score and concede
+        probabilities. As a free byproduct it produces an
+        <strong>attention map</strong> that says, for every frame, which
+        players the model needed to look at to make its prediction. We sum
+        per-pair attention across the match, <em>subtract a ball-distance
+        baseline</em> (the average attention a random pair gets at the same
+        mean-distance-to-ball, so that defenders near the ball during set
+        pieces aren't double-counted as "chemistry"), then normalize by each
+        team's 75th-percentile pair to get the
+        <strong>attention-chemistry lift</strong>. A pair with a lift of 2.0
+        is twice as "co-watched" by the model as a typical above-mean pair
+        on its own team.
       </p>
     </div>
 
@@ -291,12 +296,10 @@ def jdi_m(pair_p, pair_q, opponents):
       <li>\(P_{\mathrm{concede}}^{\mathrm{frame}}\) val AUC ≈ <strong>0.79</strong>, Brier ≈ 0.069</li>
     </ul>
     <p class="small dim">
-      A separate xT-regression objective (predict \(\max(\text{xT})\) over the
-      next \(K\) seconds, Spearman ρ vs the static-grid xT-lookup baseline) is
-      the headline benchmark in the underlying repo — <strong>ρ = 0.714,
-      +0.098 lift over xT-lookup</strong> on the same PFF split. The chemistry
-      attention scores on this site use the frame-VAEP checkpoint; both
-      checkpoints are downloadable.
+      The site's attention chemistry uses the frame-VAEP checkpoint described
+      above — the model predicts \(P_{\mathrm{score}}\) / \(P_{\mathrm{concede}}\)
+      directly, not an xT proxy. The checkpoint is downloadable from the
+      <a href="downloads.html">Downloads</a> page.
     </p>
 
     <h3>2.4 Attention extraction</h3>
@@ -355,31 +358,81 @@ def encode_with_attention(self, x):
       same instant.
     </p>
 
-    <h3>3.2 Per-90 normalization</h3>
+    <h3>3.2 Ball-distance baseline subtraction</h3>
+    <p>
+      Raw \(A(p, q)\) is dominated by pairs that happen to sit close to the
+      ball a lot — goalkeepers during defensive sequences, centre-backs in
+      build-up. To isolate the <em>chemistry</em> signal from the
+      <em>geography</em> signal, we condition on the pair's mean Euclidean
+      distance to the ball. Let \(d_t(p, q) = \tfrac{1}{2}(\|x_t(p) - x_t(b)\| +
+      \|x_t(q) - x_t(b)\|)\), bin into ten 5-meter buckets (last bucket open at
+      45m+), and let \(\hat{\mu}_b\) be the average pair-attention across the
+      entire corpus inside bin \(b\):
+    </p>
+    <div class="formula">
+      \[ \hat{\mu}_b \;=\;
+         \frac{\sum_{(t, p, q)\ :\ d_t(p,q) \in b} \alpha_t(p, q)}
+              {\#\{(t, p, q) : d_t(p, q) \in b\}} \]
+    </div>
+    <p>
+      The pair's <strong>expected</strong> attention is the dot-product of its
+      per-bin frame counts with the corpus baseline, and the baseline-corrected
+      pair-attention is the difference between observed and expected:
+    </p>
+    <div class="formula">
+      \[ \tilde{A}(p, q) \;=\; A(p, q) \;-\;
+         \sum_{b} n_b(p, q) \cdot \hat{\mu}_b \]
+    </div>
+    <p>
+      \(\tilde{A}(p, q) > 0\) means the model attended to this pair
+      <em>more</em> than a random pair would at the same ball-distance
+      profile; \(\tilde{A}(p, q) < 0\) means less. Every downstream
+      aggregate — per-90, lift, group score — uses \(\tilde{A}\) instead of
+      \(A\), which is what removes the GK-and-build-up dominance from the
+      leaderboards.
+    </p>
+    <p class="small dim">
+      Concretely: ten distance bins span 0–45m in 5m steps (the tenth bin
+      is open at 45m+). For each accepted frame we compute every pair's
+      mean Euclidean distance to the ball and add its attention into the
+      matching bin; the per-bin corpus baseline is the unweighted mean of
+      every (pair, frame) contribution that landed in that bin across all
+      44 PFF matches. A pair's expected attention is its per-bin frame
+      counts dotted with this corpus-wide baseline vector, and the
+      published number is the raw sum minus that expected value. The
+      per-bin baseline rises monotonically with distance (0.063 in bin 0,
+      0.164 in bin 9), so deep CBs and GKs — who tend to live far from
+      the ball — give back proportionally more.
+    </p>
+
+    <h3>3.3 Per-90 normalization</h3>
     <p>
       Pairs with more shared minutes accumulate more attention by default, so
       we normalize identically to JOI / JDI:
     </p>
     <div class="formula">
-      \[ A_{90}(p, q) \;=\; 90 \cdot \frac{A(p, q)}{m_{p, q}} \]
+      \[ A_{90}(p, q) \;=\; 90 \cdot \frac{\tilde{A}(p, q)}{m_{p, q}} \]
     </div>
 
-    <h3>3.3 Team-baseline lift (PMI-style)</h3>
+    <h3>3.4 Team-baseline lift (PMI-style)</h3>
     <p>
       Different teams play different volumes of possession, so raw \(A_{90}\)
       isn't comparable across squads. We compute a <strong>lift</strong>
-      against each team's median pair — analogous to pointwise mutual
-      information against the team's "background distribution" of attention:
+      against each team's 75th-percentile pair — analogous to pointwise
+      mutual information against the team's "above-mean background
+      distribution" of attention. (The 75th percentile rather than the
+      median because \(\tilde{A}_{90}\) is now centered near zero by
+      construction — a divide-by-median would explode for teams whose
+      median pair sits near baseline.)
     </p>
     <div class="formula">
       \[ \mathrm{lift}(p, q) \;=\;
-         \frac{A_{90}(p, q)}{\mathrm{median}_{(p', q') \in \mathrm{team}}\ A_{90}(p', q')} \]
+         \frac{\tilde{A}_{90}(p, q)}{Q_{0.75,\ (p', q') \in \mathrm{team}}\ \tilde{A}_{90}(p', q')} \]
     </div>
     <p>
-      A lift of <strong>1.0</strong> is a perfectly typical pair on its team;
-      <strong>2.0</strong> is twice as co-watched as the team median;
-      <strong>5+</strong> is the kind of automatism that shows up in highlight
-      reels.
+      A lift of <strong>1.0</strong> is a typical above-mean pair on its team;
+      <strong>2.0</strong> is twice that; high values are the kind of
+      automatism that shows up in highlight reels.
     </p>
     <details class="code-toggle">
       <summary>Python implementation (excerpt)</summary>
@@ -404,7 +457,7 @@ def lift(per90, team_to_pairs):
     return out</code></pre>
     </details>
 
-    <h3>3.4 Triples and quads</h3>
+    <h3>3.5 Triples and quads</h3>
     <p>
       The same machinery extends to groups of three or four — the leaderboard's
       "groups" tab shows top-attention triangles and box-of-four
@@ -528,19 +581,15 @@ uv run pytest -q
 uv run python -m wc2026_tracking_transformer.train fit \
   --config configs/local_cpu.yaml
 
-# 4. Train the xT regression head (main benchmark)
-uv run python scripts/train_xt_regression.py \
-  --corpus pff --pff-n 22 --epochs 8
-
-# 5. Train the frame-VAEP heads used for attention chemistry
+# 4. Train the frame-VAEP heads used for attention chemistry
 uv run python scripts/train_frame_vaep.py \
   --corpus pff --pff-n 44 --epochs 8
 
-# 6. Build attention chemistry pairs / groups from a checkpoint
-uv run python research/scripts/build_attention_chemistry.py \
-  --ckpt output/transformer_frame_vaep.ckpt --source pff
+# 5. Extract per-pair attention with the ball-distance baseline
+uv run python research/scripts/extract_attention_with_baseline.py
+uv run python research/scripts/extract_attention_with_baseline.py --combine
 
-# 7. Render the buildup GIF for a specific match
+# 6. Render the buildup GIF for a specific match
 uv run python scripts/render_pff_gif.py --match 10502</code></pre>
     </details>
 

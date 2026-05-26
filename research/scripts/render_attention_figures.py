@@ -32,7 +32,24 @@ def main() -> None:
     site_data = REPO / "research" / "site" / "data"
     site_data.mkdir(parents=True, exist_ok=True)
 
-    ac = pd.read_parquet(data / "attention_chemistry.parquet")
+    # Use the ball-distance-baselined attention if available — same schema as
+    # attention_chemistry.parquet but with ``pair_attention_baselined`` (raw
+    # minus the expected attention at the pair's mean-distance-to-ball bin).
+    # We swap that in as the ``pair_attention`` column so every downstream
+    # aggregate (per-90, lift, group score) is computed off the corrected
+    # signal instead of the GK-dominated raw sums.
+    baselined_path = data / "attention_chemistry_baselined.parquet"
+    if baselined_path.exists():
+        ac = pd.read_parquet(baselined_path)
+        ac = ac.drop(columns=["pair_attention"]).rename(
+            columns={"pair_attention_baselined": "pair_attention"}
+        )
+        if "pair_attention_expected" in ac.columns:
+            ac = ac.drop(columns=["pair_attention_expected"])
+        print(f"using ball-distance-baselined attention from {baselined_path.name}")
+    else:
+        ac = pd.read_parquet(data / "attention_chemistry.parquet")
+        print("WARNING: baselined parquet missing, falling back to raw attention")
     pm = pd.read_parquet(data / "minutes" / "pair_minutes.parquet")
     ln = pd.read_parquet(data / "minutes" / "lineups.parquet")
     matches = pd.read_parquet(data / "matches.parquet")
@@ -100,16 +117,21 @@ def main() -> None:
         agg["goals_together"] = 0
         agg["assists_together"] = 0
 
-    # Normalize attention to a team-level baseline. The raw per90 number is
-    # dominated by who's on the pitch the most + GK-attacker pairings that the
-    # attention always covers. We want pairs the model attends to MORE than its
-    # average pair within the same team — the chemistry signal, not the
-    # "everybody attends to the goalkeeper" baseline.
-    team_baseline = (agg.groupby("team_id", as_index=False)
-                       .attention_per90.median()
-                       .rename(columns={"attention_per90": "team_baseline_per90"}))
-    agg = agg.merge(team_baseline, on="team_id", how="left")
-    agg["attention_lift"] = agg.attention_per90 / agg.team_baseline_per90.clip(lower=1e-6)
+    # Normalize attention to a team-level baseline. With the ball-distance
+    # baseline already subtracted upstream, ``attention_per90`` is the per-90
+    # attention surplus the model placed on this pair beyond the corpus-wide
+    # mean at the same ball-distance. The team median is now (correctly)
+    # close to zero — most pairs are roughly typical. To keep the "lift"
+    # column human-readable we compute it as a ratio against the team's
+    # positive 75th-percentile pair (i.e. how many "typical above-mean
+    # pairs" worth of attention this pair gets), with a small absolute
+    # floor to avoid divide-by-near-zero pathologies.
+    team_p75 = (agg.groupby("team_id", as_index=False)
+                  .attention_per90.quantile(0.75)
+                  .rename(columns={"attention_per90": "team_baseline_per90"}))
+    agg = agg.merge(team_p75, on="team_id", how="left")
+    floor = max(1.0, float(agg.attention_per90.abs().median()) * 0.1)
+    agg["attention_lift"] = agg.attention_per90 / agg.team_baseline_per90.clip(lower=floor)
 
     top = agg.sort_values("attention_lift", ascending=False).head(300).copy()
     top = top[[

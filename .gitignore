@@ -53,6 +53,7 @@ research/data/frame_vaep_cache/
 research/data/pre_event_eda/
 research/data/transformer_features_shards/
 research/data/attention_chemistry_shards/
+research/data/attention_chemistry_baselined_shards/
 
 # Model checkpoints / training artifacts
 models/
