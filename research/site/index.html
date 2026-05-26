@@ -106,15 +106,41 @@
       <div class="card">
         <h3 class="mt-0"><span class="chip green">JOI</span> Joint Offensive Impact</h3>
         <p>
-          <strong>Plain English.</strong> JOI sums VAEP across <em>pairs of
-          teammates whose actions touch each other</em> — P passes, Q
-          receives. It asks: <em>"when these two play together, does the ball
-          flow through them productively?"</em> A high JOI pair lights up
-          every time their consecutive on-ball touches build something.
+          <strong>Plain English.</strong> An <em>action</em> here is a
+          discrete <strong>on-ball event</strong> — a pass, a cross, a
+          dribble, a take-on, a shot. <strong>VAEP</strong> scores each
+          action by how much it shifts the team's expected goal difference
+          over the next ~10 actions. JOI sums VAEP across <em>pairs of
+          teammates whose actions touch each other</em>: P does something,
+          Q does the next thing for the same team. It asks
+          <em>"when these two play together, does the ball flow through
+          them productively?"</em>
         </p>
+        <p class="small">
+          <strong>Concrete examples</strong> of consecutive-action pairs
+          that produce high JOI:
+        </p>
+        <ul class="small" style="margin: 0.3rem 0 0.6rem 1rem;">
+          <li><strong>Through-ball into a shot.</strong> Mac Allister threads
+            a pass between the CBs (pass VAEP ↑) → Di María shoots and
+            scores (shot VAEP ↑↑). Both actions get a positive value and
+            both go into the JOI bucket for Mac Allister + Di María.</li>
+          <li><strong>1-2 wall pass.</strong> A plays to B, B returns it
+            into A's run, A shoots. Three or four consecutive actions
+            alternating between A and B — every adjacency pair counts.</li>
+          <li><strong>Carry + lay-off + finish.</strong> Messi carries past
+            two defenders (carry VAEP ↑), squares it to Álvarez (pass VAEP
+            ↑) — JOI(Messi, Álvarez) picks up both contributions.</li>
+          <li><strong>Recovery to release.</strong> A defender intercepts
+            and finds a midfielder breaking forward — the recovery is
+            valued, and the next pass that opens the counter is valued
+            too. The JOI for that defender + midfielder pair climbs.</li>
+        </ul>
         <p class="small dim mb-0">
-          Normalized per 90 minutes shared on the pitch (JOI90) so pairs with
-          different playing time are comparable.
+          Normalized per 90 minutes shared on the pitch (JOI90) so pairs
+          with different playing time are comparable. <strong>Negative
+          JOI</strong> happens when consecutive actions between the pair
+          mostly lose value (give-aways, blocked shots, dispossessions).
         </p>
         <details class="code-toggle">
           <summary>The math</summary>
