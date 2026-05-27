@@ -733,7 +733,11 @@ awMinEl.addEventListener("input", () => { awState.minMin = Number(awMinEl.value)
    size ∝ AW-JOI90, partners arranged radially around the nucleus.
    ═══════════════════════════════════════════════════════════ */
 
-const nucState = { role: "all", sortBy: "network_joi90", search: "", selected: null };
+// Default sort: breadth (# strong partners) — this is the story-rich metric.
+// Top 10 by this sort is 4 France / 3 Croatia / 2 Morocco / 1 Argentina —
+// the four deepest tournament sides. The "chemistry network shape predicts
+// how far you go" finding only surfaces under this aggregation.
+const nucState = { role: "all", sortBy: "n_strong_partners", search: "", selected: null };
 const nucRaw = (await loadJSON("data/nucleus_networks.json")) || [];
 const nucSearchEl = document.getElementById("nuc-search");
 const nucRoleEl = document.getElementById("nuc-role");

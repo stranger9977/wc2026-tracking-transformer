@@ -1329,9 +1329,11 @@ div.player-dot .role {
 }
 .nucleus-row {
   display: grid;
-  grid-template-columns: 28px 24px 1fr auto 64px;
+  grid-template-columns: 28px 24px minmax(0, 1fr) auto 72px;
   gap: 0.5rem;
   align-items: center;
+  width: 100%;
+  align-self: stretch;
   background: transparent;
   border: 1px solid transparent;
   border-bottom: 1px solid var(--border);
@@ -1342,6 +1344,13 @@ div.player-dot .role {
   padding: 0.45rem 0.55rem;
   cursor: pointer;
   transition: background 120ms, border-color 120ms;
+}
+.nucleus-row .nuc-name,
+.nucleus-row .nuc-team {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .nucleus-row:hover { background: var(--bg-elev); border-color: rgba(255, 209, 102, 0.25); }
 .nucleus-row.active {
@@ -1396,16 +1405,19 @@ div.player-dot .role {
 .nucleus-svg {
   width: 100%;
   height: auto;
+  max-width: 520px;
   max-height: 460px;
   display: block;
   margin: 0 auto;
 }
+/* Font sizes are in SVG user units (viewBox is 480 wide). A larger
+   font here renders proportionally bigger on screen — keep small. */
 .nuc-label {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 13px;
   fill: var(--text);
 }
-.nuc-pos-small { font-size: 9px; fill: var(--text-dim); }
-.nuc-edge-val { font-family: var(--mono); font-size: 10px; fill: var(--text-dim); }
-.nuc-center-name { font-family: var(--sans); font-size: 11px; font-weight: 700; fill: var(--text); }
-.nuc-center-pos { font-family: var(--mono); font-size: 9px; fill: var(--text-dim); }
+.nuc-pos-small { font-size: 11px; fill: var(--text-dim); }
+.nuc-edge-val { font-family: var(--mono); font-size: 12px; fill: var(--text-dim); }
+.nuc-center-name { font-family: var(--sans); font-size: 13px; font-weight: 700; fill: var(--text); }
+.nuc-center-pos { font-family: var(--mono); font-size: 11px; fill: var(--text-dim); }
