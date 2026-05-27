@@ -34,11 +34,21 @@
   <main>
     <h1>Chemistry leaderboards</h1>
     <p class="lede">
-      Two ways of measuring chemistry, in one place. The <strong>event-based</strong>
-      leaderboard ranks pairs by joint on-ball impact (JOI / JDI, built on VAEP);
-      the <strong>attention-based</strong> leaderboard ranks pairs the tracking
-      transformer watches together off the ball. The <strong>disagreement</strong>
-      view surfaces pairs where the two lenses tell very different stories.
+      Six views of chemistry, in one place. <strong>Event-based JOI/JDI</strong>
+      ranks pairs by joint on-ball impact (VAEP across consecutive on-ball
+      actions). <strong>Attention-based</strong> and <strong>When scoring vs
+      neutral</strong> rank pairs by the tracking transformer's off-ball
+      attention. <strong>AW-JOI</strong> is the continuous, value-weighted
+      version of attention chemistry — for every frame, attention coupling ×
+      ΔP(score). The <strong>Nucleus networks</strong> view re-anchors all
+      this around individual players. <strong>Where they disagree</strong>
+      surfaces pairs the lenses argue about.
+    </p>
+    <p class="small dim" style="margin-top:-0.5rem">
+      <strong>JOI vs AW-JOI in one line.</strong> JOI fires only when both
+      teammates touch the ball (passing / dribble chemistry). AW-JOI fires
+      every frame the model watches both together (positional / off-ball
+      chemistry). Same family, different aperture.
     </p>
 
     <div class="mode-bar" role="tablist">
@@ -354,25 +364,34 @@
       <aside class="callout">
         <p>
           <strong>Each player's chemistry network, anchored at them.</strong>
-          For every WC22 player we sum their AW-JOI across every teammate
-          they shared ≥ 60 minutes with; that's their <em>network mass</em>.
-          The leaderboard ranks players by their per-90 network mass; click
-          a row to see the star graph — nucleus in the centre, top-8 spokes
-          radiating out, edge thickness ∝ AW-JOI90 with each partner.
+          For every WC22 player we aggregate their AW-JOI across every teammate
+          they shared ≥ 120 minutes with — their <em>network</em>. Five different
+          ways to slice that network are in the sort dropdown; each tells a
+          different story. Click a player row to see the star graph — nucleus
+          in the centre, top-8 spokes radiating out, edge thickness ∝ AW-JOI90.
         </p>
-        <p class="small mt-0" style="margin-bottom:0">
+        <details style="margin-top:0.5rem">
+          <summary class="small" style="cursor:pointer; color:var(--text-dim)"><strong>What each sort surfaces</strong></summary>
+          <ul class="small" style="margin:0.4rem 0 0 1rem; color:var(--text-dim)">
+            <li><strong>Network AW-JOI90</strong> — per-90 average density. Surfaces star wingers + connective fullbacks (Vinícius, Raphinha, Mbappé, Acuña). Penalizes long-minute players.</li>
+            <li><strong># strong partners</strong> — count of teammates with AW-JOI90 ≥ 0.4. The <em>breadth</em> view. Messi ranks #3 here (14 strong partners), alongside Tchouaméni, Perišić, Varane, Gvardiol, Ziyech, Hakimi, Modrić — players who connected with their entire squad.</li>
+            <li><strong>Top-5 spokes sum</strong> — best 5 connections only. Caps long tails. Surfaces players with concentrated chemistry trios.</li>
+            <li><strong>Total AW-JOI sum</strong> — raw accumulation, not per-90. Rewards long-minute hub players: Mbappé, Theo Hernandez, Perišić, Messi (#4).</li>
+            <li><strong>Team-relative lift</strong> — player's AW-JOI90 / team mean. Surfaces players who stand out <em>within</em> their squad. Dalot (POR), Foden (ENG), Walker (ENG), Attiat-Allah (MAR) lead.</li>
+          </ul>
+        </details>
+        <p class="small mt-0" style="margin-bottom:0; color:var(--text-dim)">
           Goalkeepers excluded from the nucleus list (they trivially connect
-          to everyone). Minimum 200 minutes played to qualify. The "spokes"
-          can include GKs — Messi's #1 partner is Emiliano Martínez,
-          which says something real about how Argentina built from the
-          back through him.
+          to everyone). Min 200 min played to qualify. Spokes use ≥ 120 min
+          pairs only. Spokes CAN include GKs — Messi's top partner is
+          Emiliano Martínez (1.80 AW-JOI90), Argentina's build-from-back signal.
         </p>
       </aside>
 
       <div class="controls" style="margin-top: 1rem;">
         <div>
           <label for="nuc-search">Search player or team</label>
-          <input id="nuc-search" type="search" placeholder="e.g. Mbappé, Brazil…">
+          <input id="nuc-search" type="search" placeholder="e.g. Messi, Argentina…">
         </div>
         <div>
           <label for="nuc-role">Role</label>
@@ -386,9 +405,12 @@
         <div>
           <label for="nuc-sort">Sort by</label>
           <select id="nuc-sort">
-            <option value="network_joi90" selected>Network AW-JOI90</option>
-            <option value="network_net90">Network Net (JOI − JDI)90</option>
-            <option value="network_joi_sum">Network AW-JOI sum (total)</option>
+            <option value="network_joi90" selected>Network AW-JOI90 (per-90 density)</option>
+            <option value="n_strong_partners">Strong partners (breadth)</option>
+            <option value="network_top5_joi90">Top-5 spokes sum (concentration)</option>
+            <option value="network_joi_sum">Total AW-JOI sum (accumulation)</option>
+            <option value="team_lift">Team-relative lift (squad standout)</option>
+            <option value="network_net90">Net (JOI − JDI)90</option>
           </select>
         </div>
       </div>
