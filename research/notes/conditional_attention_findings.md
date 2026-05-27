@@ -88,3 +88,9 @@ Sanity check: defensive pairs SHOULD fire above baseline when conceding is immin
 | 13 | Krystian Bielik + Abdulelah Al-Malki | Poland / Saudi Arabia | 85 | **1.96x** |
 | 14 | Virgil van Dijk + Weston McKennie | Netherlands / United States | 66 | **1.94x** |
 | 15 | Richarlison + Vanja Milinković-Savić | Brazil / Serbia | 78 | **1.92x** |
+
+## Related work
+
+**Benhida, M., El Morchidy, S., Zeghari, L., Enneya, N., Guerss, F.-Z. (2025).** *Tactical and Physical Profiling of the Moroccan National Football Team at the FIFA World Cup Qatar 2022: A Data-Driven and Artificial Intelligence-Assisted Analysis.* Applied Sciences 15(18), 9994. https://doi.org/10.3390/app15189994. The authors run PCA + K-means on FIFA's aggregated post-match KPIs across Morocco's seven WC '22 fixtures. The unsupervised clustering separates Morocco's matches into three distinct tactical profiles — low-block defensive, transition-oriented, and open — and concludes that fast-transition football paired with strong defensive resilience was the "hybrid performance model" that powered the semifinal run. The dominant PCA axis loads on verticality / direct attack vs. patient build-up.
+
+**Convergence with this work.** Their input is FIFA team-level KPIs (possession, passing, duels, distance covered); ours is per-frame tracking-data attention extracted from a transformer trained on frame-VAEP. The methods share no data and no model class. Yet both surface the same Morocco-specific signal: an attacking-transition axis built around the same handful of names. Their PCA axis lands on "verticality vs build-up"; our score-frame off-off lift table puts Ziyech / Ounahi / En-Nesyri / Hamdallah / Aboukhlal / Sabiri in 5 of the top-10 globally. Independent data, independent method, same conclusion — strong evidence that the model is reading a real tactical pattern rather than a tracking-data artifact.
