@@ -7,7 +7,14 @@ const chemVsResultScatter = document.getElementById("chem-vs-result-scatter");
 const timeVsChemScatter   = document.getElementById("time-vs-chem-scatter");
 
 // --- Load data -----------------------------------------------------------
-const chem = await loadJSON("data/team_chemistry_vs_paper.json");
+const [chem, fifa] = await Promise.all([
+  loadJSON("data/team_chemistry_vs_paper.json"),
+  loadJSON("data/fifa_mode.json"),
+]);
+const fifaByTeam = new Map();
+if (fifa?.wc_2022) {
+  for (const r of fifa.wc_2022) fifaByTeam.set(r.team, r);
+}
 if (!chem) {
   chemTable.innerHTML = `<div class="empty-state"><strong>Team chemistry data missing.</strong></div>`;
 } else {
@@ -20,9 +27,11 @@ function initChemistryTab(rows) {
   function applySort() {
     const v = chemSortEl.value;
     let sorted;
+    const fifaOverall = (r) => fifaByTeam.get(r.team_name)?.overall ?? -1;
     if (v === "n_strong_total")          sorted = [...data].sort((a, b) => b.n_strong_total - a.n_strong_total);
     else if (v === "mean_aw_joi90_all")  sorted = [...data].sort((a, b) => b.mean_aw_joi90_all - a.mean_aw_joi90_all);
     else if (v === "total_prior_shared") sorted = [...data].sort((a, b) => b.total_prior_shared - a.total_prior_shared);
+    else if (v === "fifa_overall")       sorted = [...data].sort((a, b) => fifaOverall(b) - fifaOverall(a));
     else if (v === "result_rank")        sorted = [...data].sort((a, b) => a.result_rank - b.result_rank);
     else sorted = data;
     renderChemTable(sorted);
@@ -41,15 +50,26 @@ function renderChemTable(rows) {
       <th class="num" title="Pairs on the squad with AW-JOI per 90 ≥ 0.4. Frame-level chemistry density.">Strong pairs</th>
       <th class="num" title="Mean AW-JOI per 90 across all same-team pairs.">Mean AW-JOI90</th>
       <th class="num" title="Total minutes any two squad-mates were on the pitch together pre-WC22 (club + national).">Prior shared min</th>
+      <th class="num" title="EA Sports' published team Overall in FIFA 23.">FIFA Overall</th>
+      <th>Top players (FIFA 23)</th>
       <th>Result</th>
     </tr></thead>`;
   const body = rows.map((r) => {
+    const f = fifaByTeam.get(r.team_name);
+    const fifaCell = f ? `<strong class="tabular">${f.overall}</strong>
+        <span class="muted small">A${f.att}/M${f.mid}/D${f.def}</span>` : `<span class="muted">—</span>`;
+    const starsHTML = (f?.stars || []).slice(0, 4).map((s) => {
+      if (typeof s === "string") return `<span class="chip">${escapeHTML(s)}</span>`;
+      return `<span class="chip" title="${escapeHTML(s.position || "")}">${escapeHTML(s.name)} <span class="muted">${s.overall}</span></span>`;
+    }).join(" ");
     return `<tr>
       <td><span class="team-cell">${flagHTML(r.flag_code)} ${escapeHTML(r.team_name)}</span></td>
       <td class="num tabular"><strong>${r.n_strong_total}</strong>
         <span class="muted small">(off ${r.n_strong_off}/def ${r.n_strong_def}/cross ${r.n_strong_cross})</span></td>
       <td class="num tabular">${r.mean_aw_joi90_all.toFixed(2)}</td>
       <td class="num tabular">${(r.total_prior_shared / 1000).toFixed(1)}k</td>
+      <td class="num">${fifaCell}</td>
+      <td class="small">${starsHTML || `<span class="muted">—</span>`}</td>
       <td>${escapeHTML(r.stage)} <span class="muted small">#${r.result_rank}</span></td>
     </tr>`;
   }).join("");
