@@ -48,10 +48,12 @@
       The four densest chemistry networks in the tournament were the four semifinalists,
       <em>in finish order</em>: France, Croatia, Argentina, Morocco. Brazil (heavy bonds, fewer of them) shows
       the trade‑off — high per‑pair intensity, narrower distribution, out in the quarters.</p>
-      <p><strong>And the mechanism is partly time.</strong> Pre‑tournament shared minutes (club + national, any venue)
-      predicts a team's chemistry density at ρ&nbsp;=&nbsp;+0.43 (p&nbsp;=&nbsp;0.017) — real, but only partial.
-      Shared rehearsal time is one input to chemistry; it isn't the whole story. Morocco's 2022 squad had almost none
-      of it and still ran fourth.</p>
+      <p><strong>What about time together?</strong> The honest answer once we normalize for data coverage:
+      <em>weaker than it looks at first glance</em>. Coverage‑normalized "share of squad pairs who ever played together
+      at club or national level" predicts chemistry density at ρ&nbsp;=&nbsp;+0.29 (p&nbsp;=&nbsp;0.11) and mean AW‑JOI90 at
+      ρ&nbsp;=&nbsp;+0.37 (p&nbsp;=&nbsp;0.039). The earlier &nbsp;ρ&nbsp;=&nbsp;+0.43 figure was inflated by
+      <strong>roster‑history coverage bias</strong> — European squads have well‑documented club histories, others much
+      less so. Next pass: a coarser national‑team‑caps metric that doesn't depend on per‑league coverage.</p>
     </div>
 
     <!-- =============================================================== -->
@@ -91,25 +93,25 @@
               <td class="small">Per‑pair intensity matters less than network breadth.</td>
             </tr>
             <tr>
-              <td>Team prior shared minutes → tournament finish</td>
-              <td class="num tabular">+0.34</td>
-              <td class="num tabular">0.064</td>
+              <td>Ever‑shared % (coverage‑normalized) → tournament finish</td>
+              <td class="num tabular">+0.18</td>
+              <td class="num tabular">0.33</td>
               <td class="num tabular">31</td>
-              <td class="small">Direct effect of rehearsal time on results is marginal.</td>
+              <td class="small">Once we normalize for roster coverage, the direct effect on results is weak.</td>
             </tr>
             <tr>
-              <td>Team prior shared minutes → team chemistry density</td>
-              <td class="num tabular">+0.43</td>
-              <td class="num tabular">0.017</td>
+              <td>Ever‑shared % (coverage‑normalized) → team chemistry density</td>
+              <td class="num tabular">+0.29</td>
+              <td class="num tabular">0.11</td>
               <td class="num tabular">31</td>
-              <td class="small">Shared time helps build dense networks — partially.</td>
+              <td class="small">Suggestive, not significant. Coarser caps‑based metric coming next.</td>
             </tr>
             <tr>
-              <td>Team prior shared minutes → mean AW‑JOI90</td>
-              <td class="num tabular">+0.48</td>
-              <td class="num tabular">0.006</td>
+              <td>Ever‑shared % (coverage‑normalized) → mean AW‑JOI90</td>
+              <td class="num tabular">+0.37</td>
+              <td class="num tabular">0.039</td>
               <td class="num tabular">31</td>
-              <td class="small">Shared time correlates a bit more strongly with intensity than breadth.</td>
+              <td class="small">Shared history correlates more with per‑pair intensity than with network breadth.</td>
             </tr>
             <tr>
               <td><em>Pair</em> prior shared minutes → <em>pair</em> AW‑JOI90</td>
@@ -141,7 +143,7 @@
           <select id="chem-sort">
             <option value="n_strong_total" selected>Chemistry density (strong pairs)</option>
             <option value="mean_aw_joi90_all">Mean AW‑JOI90 (all pairs)</option>
-            <option value="total_prior_shared">Prior shared minutes (club + national)</option>
+            <option value="total_prior_shared">Ever-shared % (coverage-normalized)</option>
             <option value="fifa_overall">FIFA 23 Overall (paper rating)</option>
             <option value="result_rank">Tournament result (winner first)</option>
           </select>
@@ -150,45 +152,36 @@
       <div id="chem-table" class="fifa-table"></div>
 
       <h3 class="mt-2">3. Does prior time together predict chemistry?</h3>
-      <p class="dim small">
-        For each WC22 pair we computed <em>prior shared minutes</em> — every minute the two players were on the pitch together
-        in any club or national fixture before WC22. Then we asked: does that shared history predict the chemistry we measure
-        at the tournament, both at the <strong>event level</strong> (JOI90, who passes to whom) and the <strong>frame level</strong>
-        (AW‑JOI90, who the model co‑watches off the ball)?
-      </p>
 
       <div class="callout" role="note" style="margin-bottom: 1.2rem;">
-        <p class="mt-0"><strong>The honest answer: yes at the team scale, almost no at the pair scale.</strong></p>
-        <ul class="small" style="margin: 0.4rem 0 0 1.1rem;">
-          <li><strong>Pair level (n = 3,443 pairs).</strong> Prior shared minutes is essentially uncorrelated with
-              event‑level JOI90 (ρ = +0.02, p = 0.38) and barely correlated with frame‑level AW‑JOI90 (ρ = +0.05, p = 0.003 — significant
-              only because n is large; the effect is tiny). Knowing two players' shared‑minutes history tells you almost nothing about
-              how dense <em>their pair</em> will be at the World Cup.</li>
-          <li><strong>Binary "ever played together" is a hair stronger.</strong> Pairs that had ever shared a pitch
-              before WC22 averaged AW‑JOI90 = 2.93 vs 2.71 for pairs that hadn't (Mann‑Whitney p = 0.005). A real but small bump.</li>
-          <li><strong>Team level (n = 31 squads).</strong> Total prior shared minutes <em>does</em> predict team chemistry density
-              (ρ = +0.43, p = 0.017) and mean AW‑JOI90 (ρ = +0.48, p = 0.006). The signal exists at the squad scale, not the pair scale —
-              teams whose players collectively share more rehearsal hours build denser networks, but you can't point to any one pair
-              and say "they'll click because they've played together."</li>
-        </ul>
+        <p class="mt-0"><strong>Data provenance &amp; caveat.</strong> For each WC22 pair we joined PFF's roster history to
+        count <em>overlap_seasons</em> — the number of distinct club or national seasons the two players appeared in the same
+        squad pre‑2022. We then estimated minutes as <code>overlap_seasons × 2,500&nbsp;min</code> (≈ 60–80% of a 3,420‑minute
+        season). <strong>That estimate is biased by roster‑history coverage</strong> — Premier League / Bundesliga / La Liga /
+        Serie A players have near‑complete career trails; players from less‑tracked leagues do not. Germany's 308k figure is
+        partly inflated by how well its players' careers are indexed, not by extra time together.</p>
+        <p class="small">To control for this we coverage‑normalize: <strong>Ever‑shared %</strong> is the share of <em>squad‑pairs
+        where we have club history for both players</em> who ever shared a pitch pre‑WC22. After normalization the team‑level
+        signal weakens: ρ = +0.29 to chemistry density (p = 0.11), ρ = +0.37 to mean AW‑JOI90 (p = 0.039). Real, but suggestive
+        rather than significant. <strong>Next iteration</strong>: replace the PFF club‑history estimate with summed
+        national‑team caps (Wikipedia/Transfermarkt) — coarser, but uniform coverage across all 32 nations.</p>
       </div>
 
       <div id="time-vs-chem-scatter" class="fifa-scatter"></div>
       <p class="dim small mt-1">
-        The eight squads with the most pre‑WC22 shared minutes were Germany, England, Spain, Brazil, Saudi Arabia, Qatar, Netherlands,
-        Portugal — and most exited before the semis. So shared rehearsal time correlates with chemistry, but it isn't the recipe.
-        Morocco's 2022 squad had almost none of it and still ran fourth.
+        Each dot = one squad. X = ever‑shared % (coverage‑normalized). Dot fill = same metric, light → deep blue.
+        Notice that very high coverage (Spain, England, all 1.00) does not automatically mean high ever‑shared %.
       </p>
 
       <div class="callout" role="note" style="margin-top: 1.4rem;">
-        <p class="mt-0"><strong>Why pair‑level history fails and team‑level history succeeds.</strong> Two players sharing a
-        club for years guarantees nothing about WC chemistry — managers play different systems, partnerships rotate, and dense
-        on‑ball connections need both players in compatible roles. But a squad with <em>many</em> partially‑shared histories has
-        many chances to find one or two pairs that click, and that's what shows up in n_strong_pairs. Chemistry density is an
-        emergent property of the roster, not the sum of pair‑level shared minutes.</p>
-        <p><strong>What this means for WC26.</strong> Paper ratings overweight top‑loaded squads with marquee names.
-        Chemistry density rewards squads with many dense pair‑connections distributed across the lineup. Different shapes work — but
-        denser networks consistently advance further.</p>
+        <p class="mt-0"><strong>Pair scale: essentially null.</strong> At the individual pair level (n = 3,443),
+        prior shared minutes barely predicts chemistry: event‑level JOI90 ρ = +0.02 (p = 0.38), frame‑level AW‑JOI90 ρ = +0.05
+        (p = 0.003 — significant only because n is large; effect tiny). Pairs that had <em>ever</em> shared a pitch averaged
+        AW‑JOI90 = 2.93 vs 2.71 for pairs that hadn't (Mann‑Whitney p = 0.005). A real but small bump. You can't point to any
+        one pair and say "they'll click because they've played together."</p>
+        <p><strong>Team scale: real but smaller than it looked.</strong> Coverage‑normalized team‑level effect is weaker than
+        the raw‑minutes effect, and once we swap in caps‑based data we'll see whether it survives. Chemistry density remains the
+        much stronger predictor of finish (ρ = +0.76).</p>
       </div>
     </section>
 
