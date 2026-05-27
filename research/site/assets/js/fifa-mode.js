@@ -1,230 +1,110 @@
-import { loadJSON, escapeHTML, fmtNum, flagHTML, posChip, makeSortableTable } from "./site.js";
+import { loadJSON, escapeHTML, flagHTML } from "./site.js";
 
 // --- DOM handles ---------------------------------------------------------
-const sections = {
-  "wc22-teams":   document.getElementById("wc22-teams-view"),
-  "wc22-players": document.getElementById("wc22-players-view"),
-  "wc26":         document.getElementById("wc26-view"),
-};
-const tabs = document.querySelectorAll(".mode-bar button");
+const chemTable           = document.getElementById("chem-table");
+const chemSortEl          = document.getElementById("chem-sort");
+const chemVsResultScatter = document.getElementById("chem-vs-result-scatter");
+const timeVsChemScatter   = document.getElementById("time-vs-chem-scatter");
 
-const wc22Table   = document.getElementById("wc22-table");
-const wc22Scatter = document.getElementById("wc22-scatter");
-const wc22Stories = document.getElementById("wc22-stories");
-const teamSortEl  = document.getElementById("wc22-sort");
-
-const playersScatter = document.getElementById("players-scatter");
-const playersStories = document.getElementById("players-stories");
-const playersTable   = document.getElementById("players-table");
-const playersRoleEl  = document.getElementById("players-role");
-const playersMinEl   = document.getElementById("players-min");
-
-const wc26Table = document.getElementById("wc26-table");
-
-// --- Mode switching ------------------------------------------------------
-tabs.forEach((b) => b.addEventListener("click", () => {
-  tabs.forEach((x) => x.classList.toggle("active", x === b));
-  const v = b.dataset.view;
-  Object.entries(sections).forEach(([k, el]) => el.classList.toggle("active", k === v));
-}));
-
-// --- Load all data in parallel -------------------------------------------
-const [teams, players, wc26] = await Promise.all([
-  loadJSON("data/fifa_mode.json"),
-  loadJSON("data/fifa_players_wc22.json"),
-  loadJSON("data/wc26_rosters.json"),
-]);
-
-if (!teams) {
-  wc22Table.innerHTML = `<div class="empty-state"><strong>FIFA team data missing.</strong></div>`;
+// --- Load data -----------------------------------------------------------
+const chem = await loadJSON("data/team_chemistry_vs_paper.json");
+if (!chem) {
+  chemTable.innerHTML = `<div class="empty-state"><strong>Team chemistry data missing.</strong></div>`;
 } else {
-  initTeamsTab(teams.wc_2022);
-}
-if (!players) {
-  playersTable.innerHTML = `<div class="empty-state"><strong>Player FIFA 23 data missing.</strong></div>`;
-} else {
-  initPlayersTab(players.players);
-}
-if (!wc26) {
-  wc26Table.innerHTML = `<div class="empty-state"><strong>WC26 roster data missing.</strong></div>`;
-} else {
-  initWc26Tab(wc26.teams);
+  initChemistryTab(chem);
 }
 
-// =========================================================================
-// TEAMS TAB (WC22 paper vs result)
-// =========================================================================
-function stageLabel(stage_int) {
-  return ({ 8: "Winner", 7: "Final", 6: "Semi", 5: "QF", 4: "R16", 2: "Group" }[stage_int] || "—");
+function initChemistryTab(rows) {
+  const data = rows.filter(r => r.n_strong_total != null && r.stage_int != null);
+
+  function applySort() {
+    const v = chemSortEl.value;
+    let sorted;
+    if (v === "n_strong_total")          sorted = [...data].sort((a, b) => b.n_strong_total - a.n_strong_total);
+    else if (v === "mean_aw_joi90_all")  sorted = [...data].sort((a, b) => b.mean_aw_joi90_all - a.mean_aw_joi90_all);
+    else if (v === "total_prior_shared") sorted = [...data].sort((a, b) => b.total_prior_shared - a.total_prior_shared);
+    else if (v === "result_rank")        sorted = [...data].sort((a, b) => a.result_rank - b.result_rank);
+    else sorted = data;
+    renderChemTable(sorted);
+  }
+  chemSortEl.addEventListener("change", applySort);
+  applySort();
+
+  renderChemVsResultScatter(data);
+  renderTimeVsChemScatter(data);
 }
 
-function renderTeamTable(container, rows, options = {}) {
-  const showResult = options.showResult ?? true;
-  const showQual   = options.showQual   ?? false;
-  const showLicense = options.showLicense ?? false;
+function renderChemTable(rows) {
   const head = `
     <thead><tr>
       <th>Team</th>
-      <th class="num" title="EA Sports' published team Overall">Overall</th>
-      <th class="num">ATT</th>
-      <th class="num">MID</th>
-      <th class="num">DEF</th>
-      <th class="num" title="Top-11 avg minus 12-23 avg. Higher = more top-loaded squad.">Depth gap</th>
-      ${showResult ? '<th>Result</th><th class="num" title="Paper rank minus result rank. + = overperformed.">Δ rank</th>' : ''}
-      ${showQual ? '<th>Qualifier</th>' : ''}
-      <th>Stars</th>
+      <th class="num" title="Pairs on the squad with AW-JOI per 90 ≥ 0.4. Frame-level chemistry density.">Strong pairs</th>
+      <th class="num" title="Mean AW-JOI per 90 across all same-team pairs.">Mean AW-JOI90</th>
+      <th class="num" title="Total minutes any two squad-mates were on the pitch together pre-WC22 (club + national).">Prior shared min</th>
+      <th>Result</th>
     </tr></thead>`;
-
-  const sortedByOverall = [...rows].sort((a, b) => b.overall - a.overall);
-  const paperRank = new Map(sortedByOverall.map((r, i) => [r.team, i + 1]));
-
   const body = rows.map((r) => {
-    const pr = paperRank.get(r.team);
-    const dRank = showResult ? (pr - r.result_rank) : null;
-    const dCls = dRank == null ? "" : dRank > 0 ? "chip green" : dRank < 0 ? "chip red" : "chip";
-    const licNote = showLicense && r.ea_licensed === false
-      ? ` <span class="muted small" title="EA FC 26 does not license this nation; rating is aggregated from individual player Overalls.">analyst proxy</span>`
-      : "";
-    const starsHTML = (r.stars || []).map((s) => {
-      if (typeof s === "string") return `<span class="chip">${escapeHTML(s)}</span>`;
-      // wc26 format: {name, overall, position}
-      return `<span class="chip" title="${escapeHTML(s.position || "")}">${escapeHTML(s.name)} <span class="muted">${s.overall}</span></span>`;
-    }).join(" ");
     return `<tr>
-      <td><span class="team-cell">${flagHTML(r.flag)} ${escapeHTML(r.team)}</span>${licNote}</td>
-      <td class="num"><strong class="tabular">${r.overall}</strong> <span class="muted small">(#${pr})</span></td>
-      <td class="num tabular">${r.att}</td>
-      <td class="num tabular">${r.mid}</td>
-      <td class="num tabular">${r.def}</td>
-      <td class="num tabular">${r.depth_gap.toFixed(1)}</td>
-      ${showResult ? `<td>${escapeHTML(r.result)} <span class="muted small">#${r.result_rank}</span></td>
-                      <td class="num"><span class="${dCls} tabular">${dRank > 0 ? "+" + dRank : dRank}</span></td>` : ''}
-      ${showQual ? `<td><span class="small muted">${escapeHTML(r.qualification || "—")}</span></td>` : ''}
-      <td class="small">${starsHTML}</td>
+      <td><span class="team-cell">${flagHTML(r.flag_code)} ${escapeHTML(r.team_name)}</span></td>
+      <td class="num tabular"><strong>${r.n_strong_total}</strong>
+        <span class="muted small">(off ${r.n_strong_off}/def ${r.n_strong_def}/cross ${r.n_strong_cross})</span></td>
+      <td class="num tabular">${r.mean_aw_joi90_all.toFixed(2)}</td>
+      <td class="num tabular">${(r.total_prior_shared / 1000).toFixed(1)}k</td>
+      <td>${escapeHTML(r.stage)} <span class="muted small">#${r.result_rank}</span></td>
     </tr>`;
   }).join("");
-
-  container.innerHTML = `<div class="table-wrap"><table class="data-table fifa-data-table">${head}<tbody>${body}</tbody></table></div>`;
+  chemTable.innerHTML = `<div class="table-wrap"><table class="data-table fifa-data-table">${head}<tbody>${body}</tbody></table></div>`;
 }
 
-function initTeamsTab(rows) {
-  function applySort() {
-    const v = teamSortEl.value;
-    const sortedByOverall = [...rows].sort((a, b) => b.overall - a.overall);
-    const paperRank = new Map(sortedByOverall.map((r, i) => [r.team, i + 1]));
-    let sorted;
-    if (v === "overall") sorted = sortedByOverall;
-    else if (v === "result_rank") sorted = [...rows].sort((a, b) => a.result_rank - b.result_rank);
-    else if (v === "overperformance") sorted = [...rows].sort((a, b) =>
-      (paperRank.get(b.team) - b.result_rank) - (paperRank.get(a.team) - a.result_rank));
-    else if (v === "depth_gap") sorted = [...rows].sort((a, b) => b.depth_gap - a.depth_gap);
-    else sorted = sortedByOverall;
-    renderTeamTable(wc22Table, sorted, { showResult: true, showQual: false });
-  }
-  teamSortEl.addEventListener("change", applySort);
-  applySort();
-
-  renderTeamScatter(rows);
-  renderTeamStories(rows);
-}
-
-function initWc26Tab(rows) {
-  const sorted = [...rows].sort((a, b) => b.overall - a.overall);
-  renderTeamTable(wc26Table, sorted, { showResult: false, showQual: true, showLicense: true });
-}
-
-function renderTeamScatter(rows) {
+function renderChemVsResultScatter(rows) {
+  // X = n_strong_total; Y = stage_int (2..8)
   const W = 1100, H = 520;
   const padL = 86, padR = 24, padT = 22, padB = 56;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
 
-  const xs = rows.map(r => r.overall);
-  const xmin = Math.min(...xs) - 1, xmax = Math.max(...xs) + 1;
+  const xs = rows.map(r => r.n_strong_total);
+  const xmin = Math.min(...xs) - 2, xmax = Math.max(...xs) + 2;
   const ymin = 1.4, ymax = 8.4;
   const sx = (x) => padL + ((x - xmin) / (xmax - xmin)) * innerW;
   const sy = (y) => padT + innerH - ((y - ymin) / (ymax - ymin)) * innerH;
-
-  const sortedByOverall = [...rows].sort((a, b) => b.overall - a.overall);
-  const expectedStage = (rank) => rank === 1 ? 8 : rank === 2 ? 7 : rank <= 4 ? 6 : rank <= 8 ? 5 : rank <= 16 ? 4 : 2;
 
   const yLevels = [
     { y: 2, label: "Group" }, { y: 4, label: "R16" }, { y: 5, label: "QF" },
     { y: 6, label: "Semi" }, { y: 7, label: "Final" }, { y: 8, label: "Winner" },
   ];
-  const xTicks = [70, 75, 80, 85];
-
   const yRules = yLevels.map(({ y, label }) => `
     <line x1="${padL}" y1="${sy(y)}" x2="${W - padR}" y2="${sy(y)}"
           stroke="currentColor" stroke-width="0.5" opacity="0.10"/>
     <text x="${padL - 8}" y="${sy(y) + 4}" font-size="12" font-weight="500"
           fill="currentColor" opacity="0.65" text-anchor="end">${label}</text>
   `).join("");
-  const xTickSvg = xTicks.map(x => `
-    <text x="${sx(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
-          opacity="0.55" text-anchor="middle">${x}</text>
-  `).join("");
 
-  const diagonalPts = sortedByOverall.map((r, i) =>
-    `${sx(r.overall).toFixed(1)},${sy(expectedStage(i + 1)).toFixed(1)}`);
-  const diag = `<polyline points="${diagonalPts.join(' ')}" fill="none"
-    stroke="currentColor" stroke-width="0.8" opacity="0.32"/>`;
+  // Highlight top-4-by-n_strong (semifinalists)
+  const top4 = new Set([...rows].sort((a, b) => b.n_strong_total - a.n_strong_total).slice(0, 4).map(r => r.team_name));
+  const dotColor = (r) => top4.has(r.team_name) ? "#d4a23a" : "#6b7280";
 
-  // Deterministic collision avoidance.
-  //
-  // Step 1: group rows that occupy the exact same (overall, stage_int) point
-  //   and assign each member a vertical stack index so their labels never
-  //   overlap inside the cluster.
-  // Step 2: walk the assigned labels in a stable order and, whenever the next
-  //   label's bounding box would overlap an already-placed one, bump it by
-  //   one more line-height (in the same direction) until it clears. This
-  //   reliably resolves Mexico/Uruguay-style near-miss overlaps.
-  const labelW = 58, labelH = 14;
+  const dotsSvg = rows.map(r => {
+    const cx = sx(r.n_strong_total), cy = sy(r.stage_int);
+    return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5.5"
+             fill="${dotColor(r)}" stroke="var(--bg, #0b1220)" stroke-width="1.2"/>`;
+  }).join("");
+
+  // Simple non-overlap label placement
+  const labelW = 64, labelH = 14;
   const lineSpacing = labelH + 2;
-
-  const clusterKey = (r) => `${r.overall.toFixed(2)}|${r.stage_int}`;
-  const clusters = new Map();
-  for (const r of rows) {
-    const k = clusterKey(r);
-    if (!clusters.has(k)) clusters.set(k, []);
-    clusters.get(k).push(r);
-  }
-  for (const list of clusters.values()) {
-    list.sort((a, b) => (a.team < b.team ? -1 : a.team > b.team ? 1 : 0));
-  }
-
-  const intersects = (a, b) =>
-    !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
-
-  // Stable processing order: top-to-bottom, then left-to-right, then alpha.
-  // Means upper-stage rows place first and lower-stage rows yield around them.
-  const order = [...rows].sort((a, b) => {
-    if (b.stage_int !== a.stage_int) return b.stage_int - a.stage_int;
-    if (a.overall !== b.overall) return a.overall - b.overall;
-    return a.team < b.team ? -1 : a.team > b.team ? 1 : 0;
-  });
-
+  const intersects = (a, b) => !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
+  const order = [...rows].sort((a, b) => b.stage_int - a.stage_int || b.n_strong_total - a.n_strong_total);
   const placed = [];
   const picks = new Map();
   for (const r of order) {
-    const cx = sx(r.overall), cy = sy(r.stage_int);
-    const list = clusters.get(clusterKey(r));
-    const k = list.indexOf(r);
-    const n = list.length;
+    const cx = sx(r.n_strong_total), cy = sy(r.stage_int);
     const stackDown = r.stage_int <= 4;
-    const baseOffset = 10;
-    const initialDy = stackDown
-      ? baseOffset + k * lineSpacing
-      : -(baseOffset + (n - 1 - k) * lineSpacing);
-    const anchor = (n === 1)
-      ? (Math.round(r.overall * 2) % 2 === 0 ? "start" : "end")
-      : "start";
+    const anchor = (cx > padL + innerW * 0.6) ? "end" : "start";
     const dx = anchor === "start" ? 9 : -9;
-
-    let dy = initialDy;
-    let box;
+    let dy = stackDown ? 10 : -10;
     const step = stackDown ? lineSpacing : -lineSpacing;
-    // Cap on bumps so we don't loop forever near a saturated row.
+    let box;
     for (let bump = 0; bump < 14; bump++) {
       const lx = cx + dx, ly = cy + dy;
       box = anchor === "start"
@@ -234,323 +114,119 @@ function renderTeamScatter(rows) {
       dy += step;
     }
     placed.push(box);
-    picks.set(r.team, { anchor, dx, dy });
+    picks.set(r.team_name, { anchor, dx, dy });
   }
 
-  const annotated = rows.map((r) => {
-    const cx = sx(r.overall), cy = sy(r.stage_int);
-    const rank = sortedByOverall.findIndex((x) => x.team === r.team) + 1;
-    const exp = expectedStage(rank);
-    const over = r.stage_int - exp;
-    const color = over >= 1 ? "#3ea16a" : over <= -1 ? "#c25b5b" : "#6b7280";
-    const pick = picks.get(r.team) || { anchor: "start", dx: 9, dy: 4 };
-    return { r, cx, cy, color, pick };
-  });
+  const labelsSvg = rows.map(r => {
+    const cx = sx(r.n_strong_total), cy = sy(r.stage_int);
+    const pick = picks.get(r.team_name);
+    const fw = top4.has(r.team_name) ? 700 : 500;
+    return `<text x="${(cx + pick.dx).toFixed(1)}" y="${(cy + pick.dy).toFixed(1)}"
+           font-size="11.5" font-weight="${fw}" fill="currentColor"
+           opacity="0.92" text-anchor="${pick.anchor}">${escapeHTML(r.team_name)}</text>`;
+  }).join("");
 
-  const dotsSvg = annotated.map(({ cx, cy, color }) =>
-    `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5.5"
-             fill="${color}" stroke="var(--bg, #0b1220)" stroke-width="1.2"/>`
-  ).join("");
-  const labelsSvg = annotated.map(({ r, cx, cy, pick }) =>
-    `<text x="${(cx + pick.dx).toFixed(1)}" y="${(cy + pick.dy).toFixed(1)}"
-           font-size="11.5" font-weight="500" fill="currentColor"
-           opacity="0.92" text-anchor="${pick.anchor}">${escapeHTML(r.team)}</text>`
-  ).join("");
-
+  const xTicks = [40, 50, 60, 70, 80, 90];
+  const xTickSvg = xTicks.map(x => `
+    <text x="${sx(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
+          opacity="0.55" text-anchor="middle">${x}</text>
+  `).join("");
   const axisX = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - 6}"
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle">
-    FIFA 23 team Overall</text>`;
+    Strong AW-JOI pairs (AW-JOI90 ≥ 0.4)</text>`;
 
-  wc22Scatter.innerHTML = `
+  chemVsResultScatter.innerHTML = `
     <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
          class="fifa-scatter-svg" role="img"
-         aria-label="Paper rating vs tournament stage scatter">
+         aria-label="Chemistry density vs tournament stage scatter">
       ${yRules}
       ${xTickSvg}
-      ${diag}
       ${dotsSvg}
       ${labelsSvg}
       ${axisX}
     </svg>
     <div class="scatter-legend small muted">
-      <span><span class="dot" style="background:#3ea16a"></span> overperformed paper rank</span>
-      <span><span class="dot" style="background:#6b7280"></span> matched</span>
-      <span><span class="dot" style="background:#c25b5b"></span> underperformed</span>
-      <span class="muted">Curve traces "result that matches paper rank".</span>
+      <span><span class="dot" style="background:#d4a23a"></span> top 4 chemistry density = the 4 semifinalists</span>
+      <span><span class="dot" style="background:#6b7280"></span> other</span>
+      <span class="muted">Spearman ρ = +0.76 (p &lt; 0.001, n = 31).</span>
     </div>`;
 }
 
-function renderTeamStories(rows) {
-  const sortedByOverall = [...rows].sort((a, b) => b.overall - a.overall);
-  const paperRank = new Map(sortedByOverall.map((r, i) => [r.team, i + 1]));
-  const withDelta = rows.map((r) => ({ ...r, dRank: paperRank.get(r.team) - r.result_rank }));
-
-  const overperformers  = [...withDelta].sort((a, b) => b.dRank - a.dRank).slice(0, 3);
-  const underperformers = [...withDelta].sort((a, b) => a.dRank - b.dRank).slice(0, 2);
-  const stories = [...overperformers, ...underperformers];
-
-  wc22Stories.innerHTML = stories.map((r) => {
-    const dr = r.dRank;
-    const cls = dr > 0 ? "over" : "under";
-    const heading = dr > 0 ? `+${dr} ranks better than paper` : `${dr} ranks worse than paper`;
-    return `<article class="story-card ${cls}">
-      <header>${flagHTML(r.flag)} <strong>${escapeHTML(r.team)}</strong>
-        <span class="muted small">paper #${paperRank.get(r.team)} → ${escapeHTML(r.result)} #${r.result_rank}</span></header>
-      <div class="story-heading">${heading}</div>
-      <p class="small">${escapeHTML(r.notes || "")}</p>
-    </article>`;
-  }).join("");
-}
-
-// =========================================================================
-// PLAYERS TAB (WC22 FIFA23 vs OI/90)
-// =========================================================================
-let allPlayers = [];
-
-function linfit(xs, ys) {
-  const n = xs.length;
-  if (n < 2) return { slope: 0, intercept: 0 };
-  const mx = xs.reduce((a, b) => a + b, 0) / n;
-  const my = ys.reduce((a, b) => a + b, 0) / n;
-  let num = 0, den = 0;
-  for (let i = 0; i < n; i++) {
-    num += (xs[i] - mx) * (ys[i] - my);
-    den += (xs[i] - mx) ** 2;
-  }
-  const slope = den ? num / den : 0;
-  return { slope, intercept: my - slope * mx };
-}
-
-function initPlayersTab(allRows) {
-  allPlayers = allRows;
-  // Compute residuals using FWD/MID 150+ min sample (the headline scatter sample)
-  const fitSample = allRows.filter((r) => (r.role === "FWD" || r.role === "MID") && r.minutes >= 150);
-  const { slope, intercept } = linfit(
-    fitSample.map((r) => r.fifa23_overall),
-    fitSample.map((r) => r.oi_per90),
-  );
-  allRows.forEach((r) => {
-    const pred = slope * r.fifa23_overall + intercept;
-    r.resid = +(r.oi_per90 - pred).toFixed(3);
-  });
-
-  renderPlayersScatter(fitSample, { slope, intercept });
-  renderPlayerStories(allRows);
-
-  let tableHandle = null;
-  function refreshTable() {
-    const minMin = +playersMinEl.value;
-    const role = playersRoleEl.value;
-    let view = allPlayers.filter((r) => r.minutes >= minMin && r.role !== "GK");
-    if (role !== "all") view = view.filter((r) => r.role === role);
-    if (!tableHandle) {
-      tableHandle = makeSortableTable({
-        data: view,
-        container: playersTable,
-        emptyLabel: "No players match the current filters.",
-        columns: [
-          { key: "name", label: "Player", render: (r) =>
-              `${flagHTML(r.flag)} ${escapeHTML(r.name)}${posChip(r.position)}` },
-          { key: "team", label: "Team" },
-          { key: "fifa23_overall", label: "FIFA 23", num: true, digits: 0, defaultDir: "desc",
-            render: (r) => `<span class="tabular">${r.fifa23_overall}</span>` },
-          { key: "oi_per90", label: "OI/90", num: true, digits: 2, defaultSort: true, defaultDir: "desc",
-            render: (r) => `<span class="tabular">${r.oi_per90.toFixed(2)}</span>` },
-          { key: "minutes", label: "Min", num: true, digits: 0,
-            render: (r) => `<span class="muted tabular">${Math.round(r.minutes)}</span>` },
-          { key: "resid", label: "Δ resid", num: true, digits: 2,
-            render: (r) => {
-              const cls = r.resid > 0.3 ? "delta-pos" : r.resid < -0.3 ? "delta-neg" : "";
-              const sign = r.resid > 0 ? "+" : "";
-              return `<span class="tabular ${cls}">${sign}${r.resid.toFixed(2)}</span>`;
-            } },
-        ],
-      });
-      tableHandle.render();
-    } else {
-      tableHandle.setData(view);
-    }
-  }
-  playersMinEl.addEventListener("change", refreshTable);
-  playersRoleEl.addEventListener("change", refreshTable);
-  refreshTable();
-}
-
-function renderPlayersScatter(rows, fit) {
-  // Tufte-style: minimal chrome, named points for the storyline players, anonymous dots otherwise.
-  const W = 1100, H = 540;
+function renderTimeVsChemScatter(rows) {
+  // X = total_prior_shared (k minutes); Y = n_strong_total
+  const W = 1100, H = 480;
   const padL = 80, padR = 24, padT = 22, padB = 56;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
 
-  const xs = rows.map(r => r.fifa23_overall);
-  const ys = rows.map(r => r.oi_per90);
-  const xmin = Math.min(...xs) - 1, xmax = Math.max(...xs) + 1;
-  const ymin = Math.min(...ys, -0.4) - 0.1, ymax = Math.max(...ys) + 0.15;
+  const xs = rows.map(r => r.total_prior_shared / 1000);
+  const ys = rows.map(r => r.n_strong_total);
+  const xmin = 0, xmax = Math.max(...xs) * 1.05 + 5;
+  const ymin = Math.min(...ys) - 4, ymax = Math.max(...ys) + 4;
   const sx = (x) => padL + ((x - xmin) / (xmax - xmin)) * innerW;
   const sy = (y) => padT + innerH - ((y - ymin) / (ymax - ymin)) * innerH;
 
-  // Reference y rules (OI/90 = 0 and the median)
-  const sorted = [...ys].sort((a, b) => a - b);
-  const median = sorted[Math.floor(sorted.length / 2)];
-  const yRules = [
-    { y: 0, label: "OI/90 = 0", op: 0.18 },
-    { y: median, label: "median", op: 0.10 },
-  ].map(({ y, label, op }) => `
-    <line x1="${padL}" y1="${sy(y)}" x2="${W - padR}" y2="${sy(y)}"
-          stroke="currentColor" stroke-width="0.5" opacity="${op}"/>
-    <text x="${padL - 8}" y="${sy(y) + 4}" font-size="11" fill="currentColor"
-          opacity="0.55" text-anchor="end">${label}</text>
-  `).join("");
+  // Linear fit for visual trend
+  const n = xs.length;
+  const mx = xs.reduce((a, b) => a + b, 0) / n;
+  const my = ys.reduce((a, b) => a + b, 0) / n;
+  let num = 0, den = 0;
+  for (let i = 0; i < n; i++) { num += (xs[i] - mx) * (ys[i] - my); den += (xs[i] - mx) ** 2; }
+  const slope = den ? num / den : 0;
+  const intercept = my - slope * mx;
+  const fitLine = `<line x1="${sx(xmin)}" y1="${sy(slope*xmin+intercept)}"
+    x2="${sx(xmax)}" y2="${sy(slope*xmax+intercept)}"
+    stroke="currentColor" stroke-width="1.0" opacity="0.35" stroke-dasharray="4 4"/>`;
 
-  const xTicks = [70, 75, 80, 85, 90];
-  const xTickSvg = xTicks.map(x => `
-    <line x1="${sx(x)}" y1="${padT + innerH}" x2="${sx(x)}" y2="${padT + innerH + 4}"
-          stroke="currentColor" stroke-width="0.6" opacity="0.4"/>
-    <text x="${sx(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
-          opacity="0.55" text-anchor="middle">${x}</text>
-  `).join("");
+  // Highlight semifinalists in gold
+  const semis = new Set(["France", "Croatia", "Argentina", "Morocco"]);
+  const dotColor = (r) => semis.has(r.team_name) ? "#d4a23a" : "#6b7280";
 
-  // Fit line
-  const fitX1 = xmin + 0.5, fitX2 = xmax - 0.5;
-  const fitY1 = fit.slope * fitX1 + fit.intercept;
-  const fitY2 = fit.slope * fitX2 + fit.intercept;
-  const fitLine = `<line x1="${sx(fitX1)}" y1="${sy(fitY1)}"
-    x2="${sx(fitX2)}" y2="${sy(fitY2)}"
-    stroke="currentColor" stroke-width="1.0" opacity="0.4"
-    stroke-dasharray="4 4"/>`;
-  const slopeLabel = `<text x="${sx(fitX2) - 6}" y="${sy(fitY2) - 8}"
-    font-size="10.5" fill="currentColor" opacity="0.5" text-anchor="end">
-    fit slope ≈ ${fit.slope.toFixed(3)} (flat!)</text>`;
-
-  // Players to label: top-5 over/under by residual, plus a few storyline picks
-  const byResid = [...rows].sort((a, b) => b.resid - a.resid);
-  const headlineNames = new Set([
-    ...byResid.slice(0, 5).map(r => r.name),
-    ...byResid.slice(-5).map(r => r.name),
-    "Kylian Mbappé", "Lionel Messi", "Cristiano Ronaldo", "Neymar",
-    "Mohammed Kudus", "Bukayo Saka", "Harry Kane",
-  ]);
-
-  // Dot color by residual sign
-  const dotColor = (r) => r.resid >= 0.4 ? "#3ea16a" : r.resid <= -0.4 ? "#c25b5b" : "#6b7280";
-
-  // Anonymous dots (small)
-  const anonDots = rows.filter(r => !headlineNames.has(r.name))
-    .map(r => `<circle cx="${sx(r.fifa23_overall).toFixed(1)}" cy="${sy(r.oi_per90).toFixed(1)}"
-       r="3" fill="${dotColor(r)}" opacity="0.55"/>`).join("");
-
-  // Named dots (slightly larger + label).
-  // Deterministic collision avoidance: walk labels in a stable order
-  // (above-fit-first, top-to-bottom, left-to-right) and, for each label,
-  // place it just outside the dot then bump vertically by one line-height
-  // until the bounding box clears every already-placed label.
-  const named = rows.filter(r => headlineNames.has(r.name));
-  const labelW = 76, labelH = 13;
-  const lineSpacing = labelH + 2;
-  const intersects = (a, b) =>
-    !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
-
-  const order = [...named].sort((a, b) => {
-    // place above-line first (negative dy direction), then top-down/left-right
-    const aAbove = a.resid >= 0 ? 1 : 0;
-    const bAbove = b.resid >= 0 ? 1 : 0;
-    if (aAbove !== bAbove) return bAbove - aAbove;
-    if (b.oi_per90 !== a.oi_per90) return b.oi_per90 - a.oi_per90;
-    if (a.fifa23_overall !== b.fifa23_overall) return a.fifa23_overall - b.fifa23_overall;
-    return a.name < b.name ? -1 : 1;
-  });
-
-  const placedBoxes = [];
-  const picks = new Map();
-  for (const r of order) {
-    const cx = sx(r.fifa23_overall), cy = sy(r.oi_per90);
-    // Above-fit labels stack upward, below-fit labels downward.
-    const stackUp = r.resid >= 0;
-    const anchor = (Math.round(r.fifa23_overall) % 2 === 0) ? "start" : "end";
-    const dx = anchor === "start" ? 9 : -9;
-    let dy = stackUp ? -10 : 14;
-    const step = stackUp ? -lineSpacing : lineSpacing;
-    for (let bump = 0; bump < 14; bump++) {
-      const lx = cx + dx, ly = cy + dy;
-      const box = anchor === "start"
-        ? { x1: lx, y1: ly - labelH, x2: lx + labelW, y2: ly + 2 }
-        : { x1: lx - labelW, y1: ly - labelH, x2: lx, y2: ly + 2 };
-      // Stay inside the plot rect.
-      const inside =
-        box.x1 >= padL - 4 && box.x2 <= W - padR + 4 &&
-        box.y1 >= padT - 4 && box.y2 <= H - padB + 4;
-      const clear = !placedBoxes.some((p) => intersects(p, box));
-      if (inside && clear) {
-        placedBoxes.push(box);
-        picks.set(r.name, { anchor, dx, dy });
-        break;
-      }
-      dy += step;
-    }
-    if (!picks.has(r.name)) picks.set(r.name, { anchor, dx, dy: stackUp ? -10 : 14 });
-  }
-
-  const namedSvg = named.map(r => {
-    const cx = sx(r.fifa23_overall), cy = sy(r.oi_per90);
-    const pick = picks.get(r.name) || { anchor: "start", dx: 9, dy: 4 };
-    return `<g>
-      <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="4.5"
-              fill="${dotColor(r)}" stroke="var(--bg, #0b1220)" stroke-width="1.2"/>
-      <text x="${(cx + pick.dx).toFixed(1)}" y="${(cy + pick.dy).toFixed(1)}"
-            font-size="11" font-weight="500" fill="currentColor"
-            opacity="0.92" text-anchor="${pick.anchor}">${escapeHTML(r.name)}</text>
-    </g>`;
+  const dots = rows.map(r => {
+    const cx = sx(r.total_prior_shared / 1000), cy = sy(r.n_strong_total);
+    return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5"
+       fill="${dotColor(r)}" stroke="var(--bg, #0b1220)" stroke-width="1.0"/>`;
   }).join("");
 
+  // Label only: semifinalists + the four most extreme prior-shared teams (Germany, England, Spain, Brazil)
+  const highlight = new Set([...semis, "Germany", "England", "Spain", "Brazil"]);
+  const labels = rows.filter(r => highlight.has(r.team_name)).map(r => {
+    const cx = sx(r.total_prior_shared / 1000), cy = sy(r.n_strong_total);
+    const fw = semis.has(r.team_name) ? 700 : 500;
+    return `<text x="${(cx + 8).toFixed(1)}" y="${(cy - 6).toFixed(1)}"
+           font-size="11.5" font-weight="${fw}" fill="currentColor" opacity="0.92">
+           ${escapeHTML(r.team_name)}</text>`;
+  }).join("");
+
+  const xTicks = [0, 50, 100, 150, 200, 250, 300];
+  const xTickSvg = xTicks.map(x => `
+    <text x="${sx(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
+          opacity="0.55" text-anchor="middle">${x}k</text>
+  `).join("");
   const axisX = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - 6}"
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle">
-    FIFA 23 player Overall</text>`;
+    Prior shared minutes (sum across all pairs, k = thousands)</text>`;
   const axisY = `<text x="${20}" y="${padT + innerH / 2}"
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle"
-    transform="rotate(-90, 20, ${padT + innerH / 2})">WC22 OI/90</text>`;
+    transform="rotate(-90, 20, ${padT + innerH / 2})">Strong AW-JOI pairs</text>`;
 
-  playersScatter.innerHTML = `
+  timeVsChemScatter.innerHTML = `
     <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
          class="fifa-scatter-svg" role="img"
-         aria-label="Player paper rating vs WC22 OI/90 scatter">
-      ${yRules}
-      ${xTickSvg}
+         aria-label="Prior shared minutes vs chemistry density scatter">
       ${fitLine}
-      ${slopeLabel}
-      ${anonDots}
-      ${namedSvg}
+      ${xTickSvg}
+      ${dots}
+      ${labels}
       ${axisX}
       ${axisY}
     </svg>
     <div class="scatter-legend small muted">
-      <span><span class="dot" style="background:#3ea16a"></span> outperformed FIFA 23</span>
-      <span><span class="dot" style="background:#6b7280"></span> matched</span>
-      <span><span class="dot" style="background:#c25b5b"></span> underperformed</span>
-      <span class="muted">Sample: 150+ minutes, forwards and midfielders. n=${rows.length}.</span>
+      <span><span class="dot" style="background:#d4a23a"></span> WC22 semifinalists</span>
+      <span class="muted">Spearman ρ = +0.43 (p = 0.017, n = 31).</span>
     </div>`;
 }
 
-function renderPlayerStories(allRows) {
-  // Use the same fit sample's residuals.
-  const sample = allRows.filter((r) => (r.role === "FWD" || r.role === "MID") && r.minutes >= 150);
-  const top = [...sample].sort((a, b) => b.resid - a.resid).slice(0, 3);
-  const bot = [...sample].sort((a, b) => a.resid - b.resid).slice(0, 2);
-
-  const cards = [...top, ...bot].map((r) => {
-    const isOver = r.resid > 0;
-    const cls = isOver ? "over" : "under";
-    const heading = isOver
-      ? `+${r.resid.toFixed(2)} OI/90 above paper`
-      : `${r.resid.toFixed(2)} OI/90 below paper`;
-    return `<article class="story-card ${cls}">
-      <header>${flagHTML(r.flag)} <strong>${escapeHTML(r.name)}</strong>
-        <span class="muted small">${escapeHTML(r.team)} · ${escapeHTML(r.position)}</span></header>
-      <div class="story-heading">${heading}</div>
-      <p class="small">FIFA 23 said ${r.fifa23_overall}. The tournament said
-        OI/90 = ${r.oi_per90.toFixed(2)} over ${Math.round(r.minutes)} minutes.</p>
-    </article>`;
-  }).join("");
-
-  playersStories.innerHTML = cards;
-}
+// =========================================================================
+// (Old players tab removed — chemistry tab above is the new headline.)
+// =========================================================================

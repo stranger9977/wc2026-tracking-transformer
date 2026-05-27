@@ -32,184 +32,129 @@
   </header>
 
   <main>
-    <h1>FIFA Mode: paper talent vs. what actually happened</h1>
+    <h1>Chemistry, time, and the WC22 finish order</h1>
     <p class="lede">
-      EA Sports publishes a deterministic number for every nation and every player —
-      a weighted average of in-game attributes. It knows nothing about chemistry,
-      form, manager, or who actually starts. That makes it a useful <em>null model</em>.
+      Football is different. There are no plays — chemistry is being predictable to a teammate
+      and unpredictable to an opponent. We measure that off the ball with <strong>frame‑based AW‑JOI</strong>
+      (the same metric ranking Messi and Argentina at the top of
+      <a href="chemistry-leaderboard.html#mode-team">Team networks</a>), then ask two questions:
+      <em>does chemistry predict tournament finish?</em> and <em>does pre‑tournament shared time predict chemistry?</em>
     </p>
 
     <div class="callout" role="note" style="margin-bottom: 1.5rem;">
-      <p class="mt-0"><strong>The gap between paper rating and what actually happened is where chemistry lives.</strong>
-      A team that overperforms its paper rank by 4 (Argentina, WC22) is telling us paper talent isn't the whole story.
-      A team that underperforms by 12 (Belgium) is telling us the same thing, in reverse. The whole rest of this site is
-      an attempt to explain that gap — to put a number on the chemistry, the dependency, the depth.
-      FIFA Mode is the prior we're arguing against.</p>
-      <p><strong>And the non-linearity that matters.</strong> A football match plays 11. FIFA's team rating is dominated by those 11.
-      Depth (player 12-23) barely shifts the number, even though depth wins tournaments through fatigue, injury, and rotation.
-      <strong>So the rating systematically over-rewards top-loaded squads.</strong>
-      France in 2022 had the largest top-11 / 12-23 gap of any major nation: brilliant XI, ordinary depth, ran out of legs in the final.</p>
-    </div>
-
-    <div class="mode-bar" role="tablist">
-      <button data-view="wc22-teams" class="active">WC22 · teams vs paper</button>
-      <button data-view="wc22-players">WC22 · players vs paper</button>
-      <button data-view="wc26">WC26 · paper-only prediction</button>
+      <p class="mt-0"><strong>Headline result.</strong> Across 31 WC22 sides, team chemistry density —
+      the count of strong AW‑JOI pairs in each squad — predicts tournament finish at
+      <strong>Spearman&nbsp;ρ&nbsp;=&nbsp;+0.76 (p&nbsp;&lt;&nbsp;0.001)</strong>.
+      The four densest chemistry networks in the tournament were the four semifinalists,
+      <em>in finish order</em>: France, Croatia, Argentina, Morocco. Brazil (heavy bonds, fewer of them) shows
+      the trade‑off — high per‑pair intensity, narrower distribution, out in the quarters.</p>
+      <p><strong>And the mechanism is partly time.</strong> Pre‑tournament shared minutes (club + national, any venue)
+      predicts a team's chemistry density at ρ&nbsp;=&nbsp;+0.43 (p&nbsp;=&nbsp;0.017) — real, but only partial.
+      Shared rehearsal time is one input to chemistry; it isn't the whole story. Morocco's 2022 squad had almost none
+      of it and still ran fourth.</p>
     </div>
 
     <!-- =============================================================== -->
-    <section id="wc22-teams-view" class="mode-section active">
-      <h2>How did each WC22 team do vs its paper rating?</h2>
+    <section id="chemistry-view">
+      <h2>Team chemistry density predicts WC22 finish</h2>
       <p class="dim small">
-        FIFA 23 was released 30 Sep 2022, exactly two months before the tournament. Each team's
-        <strong>Overall</strong> is EA's published number from the launch patch. The
-        <strong>Δ rank</strong> column is paper rank minus final-result rank: positive = overperformed,
-        negative = underperformed.
+        <strong>n_strong_pairs</strong> counts pairs on the same squad with attention‑weighted JOI per 90 ≥ 0.4 —
+        a count of dense, repeatable connections inside the team. The metric is built from the off‑ball attention
+        of our tracking transformer (see <a href="methodology.html#attention">methodology</a> and the
+        <a href="chemistry-leaderboard.html">leaderboards</a>).
       </p>
 
+      <h3 class="mt-2">1. Chemistry density vs tournament finish &nbsp;<span class="dim small">(ρ = +0.76, n = 31)</span></h3>
+      <p class="dim small">Each dot = one WC22 team. X = strong AW‑JOI pairs in the squad. Y = stage reached (Group → Winner). Hover for team detail.</p>
+      <div id="chem-vs-result-scatter" class="fifa-scatter"></div>
+
+      <h3 class="mt-2">2. The four densest networks were the four semifinalists</h3>
+      <p class="dim small">Sortable. Default sort is chemistry density — the same strong‑pairs count from <a href="chemistry-leaderboard.html#mode-team">Team networks</a>.</p>
       <div class="controls">
         <div>
-          <label for="wc22-sort">Sort</label>
-          <select id="wc22-sort">
-            <option value="overall">Paper rating (high → low)</option>
+          <label for="chem-sort">Sort</label>
+          <select id="chem-sort">
+            <option value="n_strong_total" selected>Chemistry density (strong pairs)</option>
+            <option value="mean_aw_joi90_all">Mean AW‑JOI90 (all pairs)</option>
+            <option value="total_prior_shared">Prior shared minutes (club + national)</option>
             <option value="result_rank">Tournament result (winner first)</option>
-            <option value="overperformance">Overperformance vs paper rank</option>
-            <option value="depth_gap">Depth gap (top-11 vs reserves)</option>
           </select>
         </div>
       </div>
+      <div id="chem-table" class="fifa-table"></div>
 
-      <div id="wc22-table" class="fifa-table"></div>
-
-      <h3 class="mt-2">Paper rating vs how far they actually got</h3>
-      <p class="dim small">Each dot = one team. X axis = FIFA 23 Overall rating (paper talent). Y axis = stage reached (Group → Winner). The diagonal traces "result matches paper rank". Points <em>above</em> the diagonal overperformed; <em>below</em> underperformed.</p>
-      <div id="wc22-scatter" class="fifa-scatter"></div>
-
-      <h3 class="mt-2">The five biggest team-level stories</h3>
-      <div id="wc22-stories" class="story-grid"></div>
-    </section>
-
-    <!-- =============================================================== -->
-    <section id="wc22-players-view" class="mode-section">
-      <h2>How did each WC22 player do vs their paper rating?</h2>
+      <h3 class="mt-2">3. Does prior time together predict chemistry?</h3>
       <p class="dim small">
-        Each dot = one outfield player with ≥150 minutes at the tournament.
-        X axis = the player's FIFA 23 Overall (paper). Y axis = their actual offensive contribution per 90 from
-        <a href="club-vs-national.html">OI/90</a> — a chemistry-aware xG-style metric. The trend line is the
-        league-of-the-tournament fit: where most players sat. Players <em>above</em> the line outperformed their paper rating;
-        <em>below</em> means underperformed.
+        For each WC22 pair we computed <em>prior shared minutes</em> — every minute the two players were on the pitch together
+        in any club or national fixture before WC22. Then we asked: does that shared history predict the chemistry we measure
+        at the tournament, both at the <strong>event level</strong> (JOI90, who passes to whom) and the <strong>frame level</strong>
+        (AW‑JOI90, who the model co‑watches off the ball)?
       </p>
 
       <div class="callout" role="note" style="margin-bottom: 1.2rem;">
-        <p class="mt-0"><strong>The OI/90-vs-FIFA scatter is essentially flat.</strong> The linear fit's slope through the
-        forward/midfield sample is near zero — knowing a player's FIFA 23 Overall told you almost nothing about how productive
-        they'd be at the tournament. That's the player-level version of the team-level story.</p>
-        <p class="small mt-0">
-          The same null result shows up a different way over on
-          <a href="club-vs-national.html#hyp-mean">Club vs National</a>:
-          a player's WC22 OI/90 is essentially uncorrelated with his club OI/90 in
-          the same season (r = 0.03, n = 158). <strong>Two restatements of the same finding</strong> —
-          paper talent and club form are both terrible predictors of tournament output.
-          The gap is where chemistry lives.
-        </p>
+        <p class="mt-0"><strong>The honest answer: yes at the team scale, almost no at the pair scale.</strong></p>
+        <ul class="small" style="margin: 0.4rem 0 0 1.1rem;">
+          <li><strong>Pair level (n = 3,443 pairs).</strong> Prior shared minutes is essentially uncorrelated with
+              event‑level JOI90 (ρ = +0.02, p = 0.38) and barely correlated with frame‑level AW‑JOI90 (ρ = +0.05, p = 0.003 — significant
+              only because n is large; the effect is tiny). Knowing two players' shared‑minutes history tells you almost nothing about
+              how dense <em>their pair</em> will be at the World Cup.</li>
+          <li><strong>Binary "ever played together" is a hair stronger.</strong> Pairs that had ever shared a pitch
+              before WC22 averaged AW‑JOI90 = 2.93 vs 2.71 for pairs that hadn't (Mann‑Whitney p = 0.005). A real but small bump.</li>
+          <li><strong>Team level (n = 31 squads).</strong> Total prior shared minutes <em>does</em> predict team chemistry density
+              (ρ = +0.43, p = 0.017) and mean AW‑JOI90 (ρ = +0.48, p = 0.006). The signal exists at the squad scale, not the pair scale —
+              teams whose players collectively share more rehearsal hours build denser networks, but you can't point to any one pair
+              and say "they'll click because they've played together."</li>
+        </ul>
       </div>
 
-      <div id="players-scatter" class="fifa-scatter"></div>
-
-      <h3 class="mt-2">Headline over- and underperformers</h3>
-      <div id="players-stories" class="story-grid"></div>
-
-      <h3 class="mt-2">All players</h3>
-      <p class="dim small">Sortable. Click any column header. Δ residual is the player's OI/90 minus what the FIFA-23-vs-OI/90 fit line predicted for someone at their rating.</p>
-      <div class="controls">
-        <div>
-          <label for="players-role">Role</label>
-          <select id="players-role">
-            <option value="all">All outfield</option>
-            <option value="FWD">Forwards</option>
-            <option value="MID">Midfielders</option>
-            <option value="DEF">Defenders</option>
-          </select>
-        </div>
-        <div>
-          <label for="players-min">Min. minutes</label>
-          <select id="players-min">
-            <option value="90">90+</option>
-            <option value="150" selected>150+</option>
-            <option value="270">270+ (3 full games)</option>
-          </select>
-        </div>
-      </div>
-      <div id="players-table" class="fifa-table"></div>
-    </section>
-
-    <!-- =============================================================== -->
-    <section id="wc26-view" class="mode-section">
-      <h2>WC 2026 · paper-only prediction</h2>
-      <p class="dim small">
-        FIFA 26 was released 26 Sep 2025. WC26 hasn't happened — these are ratings as of launch.
-        <strong>If paper talent decided the tournament, here's how it would go.</strong>
-        The whole rest of this site is the argument for why it won't.
+      <div id="time-vs-chem-scatter" class="fifa-scatter"></div>
+      <p class="dim small mt-1">
+        The eight squads with the most pre‑WC22 shared minutes were Germany, England, Spain, Brazil, Saudi Arabia, Qatar, Netherlands,
+        Portugal — and most exited before the semis. So shared rehearsal time correlates with chemistry, but it isn't the recipe.
+        Morocco's 2022 squad had almost none of it and still ran fourth.
       </p>
 
-      <div class="callout" role="note" style="margin-bottom: 1.2rem;">
-        <p class="mt-0"><strong>Licensing note.</strong> EA FC 26 licenses only 28 men's national teams (down from 30).
-        Brazil, Belgium, Senegal, Uruguay, Colombia, Switzerland, Australia, Japan, Korea, Canada, Saudi Arabia, and Iran are
-        <em>not in the game</em>. For those nations the row is marked "analyst proxy" — the rating is aggregated from individual player Overalls (which EA does still publish), using the same top-11 weighting EA uses internally. Treat it as a careful guess, not an EA number.</p>
+      <div class="callout" role="note" style="margin-top: 1.4rem;">
+        <p class="mt-0"><strong>Why pair‑level history fails and team‑level history succeeds.</strong> Two players sharing a
+        club for years guarantees nothing about WC chemistry — managers play different systems, partnerships rotate, and dense
+        on‑ball connections need both players in compatible roles. But a squad with <em>many</em> partially‑shared histories has
+        many chances to find one or two pairs that click, and that's what shows up in n_strong_pairs. Chemistry density is an
+        emergent property of the roster, not the sum of pair‑level shared minutes.</p>
+        <p><strong>What this means for WC26.</strong> Paper ratings overweight top‑loaded squads with marquee names.
+        Chemistry density rewards squads with many dense pair‑connections distributed across the lineup. Different shapes work — but
+        denser networks consistently advance further.</p>
       </div>
-
-      <div id="wc26-table" class="fifa-table"></div>
-
-      <h3 class="mt-2">Where to look for upsets</h3>
-      <p class="bookend mt-1">
-        Apply the WC22 patterns:
-        narrow depth gaps survive tournaments better;
-        midfield-heavy ratings tend to overperform attack-heavy ones (Croatia 2018-2022 was the cleanest example);
-        top-loaded squads underperform when their stars are tired or marked. Look at the
-        <strong>depth gap</strong> column. Norway 8.x, France 8.2, England 6.0 — the obvious ones to fade if you're betting against paper.
-      </p>
     </section>
 
     <details class="method-drawer">
       <summary>Method &amp; sources</summary>
       <p>
-        <strong>FIFA team ratings</strong> are EA Sports' published national-team
-        overall ratings from the relevant game version: FIFA 23 (released
-        30&nbsp;Sep&nbsp;2022) for WC22 and FIFA 26 (released
-        26&nbsp;Sep&nbsp;2025) for WC26. They're a weighted aggregate of the
-        top-11 players' individual Overall ratings. <strong>Depth gap</strong> is the average rating of
-        the top-11 minus the average of squad members 12-23.
+        <strong>Strong AW‑JOI pairs</strong> are same‑team WC22 pair‑seasons with attention‑weighted JOI per 90
+        ≥ 0.4 — the same metric and threshold used on the
+        <a href="chemistry-leaderboard.html#mode-team">Team networks</a> leaderboard.
+        AW‑JOI itself is the per‑frame product of the two players' ball‑attention multiplied by max(ΔP<sub>score</sub>, 0),
+        accumulated across the tournament. See <a href="methodology.html#attention">methodology §attention</a> for the
+        full pipeline (frame‑VAEP heads, score‑specialist transformer, ball‑distance baseline).
       </p>
       <p>
-        <strong>FIFA 23 individual ratings</strong> were cross-referenced from
-        dexerto's WC22 player ratings article, fifaratings.com, FUTBIN, and sofifa archives.
-        Matched against the WC22 PFF tracking-data player roster (633 players) by normalized name;
-        ~370 players matched. Players with &lt;150 minutes are excluded from the scatter (sample-size noise dominates).
-      </p>
-      <p>
-        <strong>OI/90</strong> (offensive impact per 90) is the same chemistry-aware metric used on the
-        <a href="club-vs-national.html">Club vs National</a> tab — Bransen &amp; Van Haaren's
-        offensive xT-like score derived from event tracking. It accounts for what a player does <em>on the ball</em>;
-        it doesn't see chemistry, off-ball runs, or pressing (that's what the rest of the site is for).
-      </p>
-      <p>
-        <strong>FIFA 26 ratings</strong> were scraped from fifaratings.com country pages (sofifa.com was 403-walled this session).
-        For the 12 WC26-likely nations EA did not license, the team-Overall is aggregated from individual player Overalls.
+        <strong>Prior shared minutes</strong> are computed pre‑WC22 from PFF rosters and the
+        <code>player_club_history_wc22</code> table: every minute any two WC22 squad‑mates had played together
+        on the pitch at any club or national fixture before 2022‑11‑20 (Qatar kickoff).
       </p>
       <p>
         <strong>Tournament result rank</strong>: winner=1, RU=2, 3rd=3, 4th=4,
-        QF losers ranked 5-8 by group-stage points, R16 losers 9-16, group-stage
-        exits 17-32 by points then goal diff. Standard FIFA tournament ranking.
+        QF losers ranked 5–8 by group‑stage points, R16 losers 9–16, group‑stage
+        exits 17–32 by points then goal diff. Standard FIFA tournament ranking.
       </p>
     </details>
 
     <p class="small muted" style="margin-top: 1.5rem;">
-      <strong>Next →</strong> the <a href="club-vs-national.html">Club vs National</a> tab is the players' analogue of the team-level lens, and <a href="pairs.html">Top Pairs</a> is where chemistry — the thing FIFA's number ignores — actually shows up.
+      <strong>Next →</strong> the <a href="chemistry-leaderboard.html#mode-team">Team networks</a> tab is where every team's atom — the per‑pair AW‑JOI graph — is drawn, and <a href="club-vs-national.html">Club vs National</a> is the players' analogue of the same time‑and‑chemistry lens.
     </p>
   </main>
 
   <footer class="site-footer">
-    FIFA Mode reads paper ratings from EA Sports' FIFA 23 (WC22) and FIFA 26 (WC26 prediction); tournament results from FIFA's official records; player OI/90 from this site's tracking data.
+    Chemistry density from this site's AW‑JOI tracking pipeline; prior shared minutes from PFF club/national history; tournament results from FIFA's official records.
   </footer>
 
   <script type="module" src="assets/js/fifa-mode.js"></script>

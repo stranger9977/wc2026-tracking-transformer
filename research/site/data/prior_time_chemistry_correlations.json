@@ -1,0 +1,26 @@
+{
+  "n_pairs": 3443,
+  "n_ever_shared": 303,
+  "n_never_shared": 3140,
+  "pair_level": {
+    "prior_min_to_aw_joi90_spearman": 0.050768616093620954,
+    "prior_min_to_aw_joi90_p": 0.002884421692549393,
+    "prior_min_to_joi90_spearman": 0.014953845928561941,
+    "prior_min_to_joi90_p": 0.38038970461462845,
+    "ever_shared_aw_joi90_mean": 2.933808320804327,
+    "never_shared_aw_joi90_mean": 2.7117672521131286,
+    "ever_shared_joi90_mean": 0.05540275869159089,
+    "never_shared_joi90_mean": 0.05836775798563304,
+    "ever_vs_never_aw_joi90_mw_p": 0.005272100707432581
+  },
+  "team_level": {
+    "prior_min_to_n_strong_total_spearman": 0.427,
+    "prior_min_to_n_strong_total_p": 0.017,
+    "prior_min_to_mean_aw_joi90_spearman": 0.481,
+    "prior_min_to_mean_aw_joi90_p": 0.006,
+    "n_strong_total_to_stage_spearman": 0.757,
+    "n_strong_total_to_stage_p": 0.0,
+    "overall_to_stage_spearman": 0.549,
+    "overall_to_stage_p": 0.002
+  }
+}
