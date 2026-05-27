@@ -427,25 +427,32 @@
     <section id="mode-team" class="mode-section">
       <aside class="callout">
         <p>
-          <strong>How healthy is each team's chemistry network as a whole?</strong>
-          For every team we count how many of their same-team pairs cross the
-          strong-chemistry bar (AW-JOI90 ≥ 0.4) — split into offensive,
-          defensive, and cross-line pairs — plus the mean and the Gini
-          coefficient of the AW-JOI90 distribution (lower = more evenly
-          distributed across pairs).
+          <strong>Every team is an atom.</strong> The players are the
+          nuclei; the edges are the bonds; the bond strengths are AW-JOI90
+          values. <strong>Denser atoms hold more energy</strong> — more
+          strong pairs distributed across more players. But
+          <strong>different shapes can work</strong>: France is a wide web
+          built around Mbappé and the fullbacks, Croatia is a tight
+          midfield diamond, Brazil's bonds are heavy but concentrated on
+          the front three, Argentina is the most evenly distributed of all.
         </p>
         <p class="small mt-0" style="margin-bottom:0">
-          <strong>The headline:</strong> the top 4 teams by total strong pairs
-          are <em>exactly</em> the four semifinalists, in finish order — France
-          (86), Croatia (84), Argentina (82), Morocco (76). And all four have
-          Gini 0.28–0.30 — very even distribution. <strong>Concentrated
-          chemistry (high Gini, fewer pairs) loses to distributed chemistry
-          (low Gini, more pairs).</strong> Brazil illustrates the trade-off:
-          highest mean pair strength (1.00) but only 69 strong pairs total —
-          exited QF.
+          <strong>Pick a team from the table to see its atom.</strong>
+          For every team we count strong pairs (AW-JOI90 ≥ 0.4) split into
+          offensive / defensive / cross, plus Gini coefficient of the
+          AW-JOI90 distribution (lower = more even). Top 4 by total strong
+          pairs are <em>exactly</em> the four semifinalists, in finish
+          order — France 86, Croatia 84, Argentina 82, Morocco 76. Brazil
+          (69, highest mean 1.00) shows the trade-off: heavy bonds, fewer
+          of them, exited QF.
         </p>
       </aside>
-      <div id="team-table" style="margin-top: 1rem;"></div>
+      <div class="team-network-layout">
+        <div id="team-table" class="team-table-pane"></div>
+        <div id="team-atom" class="team-atom-pane">
+          <div class="empty-state small">Click a team row to see its atom.</div>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -454,6 +461,6 @@
     Bransen &amp; Van Haaren (Sloan 2020) + a transformer encoder over 22-player tracking.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-leaderboard.js?v=nucleus-3"></script>
+  <script type="module" src="assets/js/chemistry-leaderboard.js?v=atom-1"></script>
 </body>
 </html>

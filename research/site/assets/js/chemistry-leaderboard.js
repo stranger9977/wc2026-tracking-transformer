@@ -886,11 +886,32 @@ nucSortEl.addEventListener("change", () => { nucState.sortBy = nucSortEl.value; 
    ═══════════════════════════════════════════════════════════ */
 
 const teamRaw = (await loadJSON("data/team_networks.json")) || [];
+const teamFullNetworks = (await loadJSON("data/team_full_networks.json")) || {};
 const teamTableEl = document.getElementById("team-table");
+const teamAtomEl = document.getElementById("team-atom");
+let teamSelected = null;
 const STAGE_COLOR = {
   Winner: "#6dd58c", Final: "#a3d39c", "3rd": "#cbd76c", "4th": "#e3cf6c",
   QF: "#d1a273", R16: "#a87a7a", Group: "#777"
 };
+
+// Pitch coordinate map for the team-atom view. Position code → (x, y) in a
+// 100×64 pitch (left to right attacking). Forwards on the right edge.
+const POS_XY = {
+  GK: [8, 32],
+  LCB: [22, 22], RCB: [22, 42], CB: [22, 32],
+  LB: [28, 10], RB: [28, 54],
+  DM: [42, 32],
+  LM: [50, 16], RM: [50, 48], CM: [55, 32], AM: [65, 32],
+  LW: [78, 14], RW: [78, 50],
+  CF: [88, 32], ST: [88, 32],
+};
+function pitchXY(position, idx, sameCount) {
+  const base = POS_XY[position] || [55, 32];
+  // Multiple players at same position → fan them out vertically
+  const offset = sameCount > 1 ? (idx - (sameCount - 1) / 2) * 8 : 0;
+  return [base[0], Math.max(4, Math.min(60, base[1] + offset))];
+}
 
 function teamRender() {
   if (!teamRaw.length) {
@@ -899,7 +920,7 @@ function teamRender() {
   }
   const cols = [
     { key: "team_name", label: "Team",
-      render: (r) => `${flagHTML(r.flag_code)}<strong>${escapeHTML(r.team_name)}</strong>` },
+      render: (r) => `<button class="team-pick-btn${teamSelected === r.team_id ? ' active' : ''}" data-tid="${r.team_id}">${flagHTML(r.flag_code)}<strong>${escapeHTML(r.team_name)}</strong></button>` },
     { key: "stage_rank", label: "Stage",
       render: (r) => `<span class="chip" style="background:${STAGE_COLOR[r.stage] || '#444'}22; color:${STAGE_COLOR[r.stage] || '#888'}; border-color:transparent">${escapeHTML(r.stage)}</span>` },
     { key: "n_strong_total", label: "Strong pairs",
@@ -927,6 +948,95 @@ function teamRender() {
       }},
   ];
   makeSortableTable({ data: teamRaw, columns: cols, container: teamTableEl, emptyLabel: "No teams." }).render();
+  teamTableEl.querySelectorAll(".team-pick-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      teamSelected = btn.dataset.tid;
+      teamTableEl.querySelectorAll(".team-pick-btn").forEach((b) => b.classList.toggle("active", b.dataset.tid === teamSelected));
+      drawTeamAtom(teamSelected);
+    });
+  });
+  if (!teamSelected) {
+    teamSelected = teamRaw[0]?.team_id;
+    if (teamSelected) drawTeamAtom(teamSelected);
+  }
+}
+
+function drawTeamAtom(teamId) {
+  const net = teamFullNetworks[teamId];
+  const meta = teamRaw.find((t) => t.team_id === teamId);
+  if (!net || !meta) {
+    teamAtomEl.innerHTML = `<div class="empty-state small">Network data missing for ${escapeHTML(teamId)}.</div>`;
+    return;
+  }
+  // Layout: assign each node a pitch (x, y) based on its position. Group by position,
+  // then fan out same-position players.
+  const byPos = {};
+  for (const n of net.nodes) {
+    const p = n.position || 'CM';
+    (byPos[p] = byPos[p] || []).push(n);
+  }
+  const placed = new Map();
+  for (const pos in byPos) {
+    const list = byPos[pos];
+    list.sort((a, b) => b.minutes - a.minutes); // most minutes first
+    list.forEach((n, i) => {
+      const [x, y] = pitchXY(pos, i, list.length);
+      placed.set(n.player_id, { ...n, x, y });
+    });
+  }
+  // Edges — only draw those above min threshold so the atom doesn't go to mush.
+  const edges = net.edges.filter((e) => placed.has(e.p) && placed.has(e.q) && e.aw_joi90 >= 0.3);
+  const maxAW = Math.max(0.4, ...edges.map((e) => e.aw_joi90));
+  // SVG layout
+  const W = 100, H = 64, padX = 4, padY = 4;
+  const scaleX = (x) => padX + (x / 100) * (W - 2 * padX);
+  const scaleY = (y) => padY + (y / 64) * (H - 2 * padY);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="atom-svg" role="img" aria-label="${escapeHTML(meta.team_name)} chemistry atom">`;
+  // Pitch outline (subtle)
+  svg += `<rect x="${padX}" y="${padY}" width="${W - 2*padX}" height="${H - 2*padY}" fill="none" stroke="#2a313d" stroke-width="0.2" />`;
+  svg += `<line x1="${W/2}" y1="${padY}" x2="${W/2}" y2="${H - padY}" stroke="#2a313d" stroke-width="0.15" />`;
+  svg += `<circle cx="${W/2}" cy="${H/2}" r="5" stroke="#2a313d" stroke-width="0.15" fill="none" />`;
+  // Edges first
+  const catColor = { off: "#d4793a", def: "#3b6ea0", cross: "#7a4f9a" };
+  const lineups = pitchXY; // unused
+  // Determine category for each edge by partner positions
+  function isOff(pos) { return /^(CF|ST|LW|RW|AM|CM|DM|LM|RM)$/.test(pos || ""); }
+  function isDef(pos) { return /^(CB|LB|RB|LCB|RCB|GK)$/.test(pos || ""); }
+  for (const e of edges) {
+    const a = placed.get(e.p), b = placed.get(e.q);
+    if (!a || !b) continue;
+    const cat = (isOff(a.position) && isOff(b.position)) ? 'off'
+             : (isDef(a.position) && isDef(b.position)) ? 'def' : 'cross';
+    const ratio = e.aw_joi90 / maxAW;
+    const w = 0.15 + ratio * 0.9;
+    const op = (0.25 + ratio * 0.55).toFixed(2);
+    svg += `<line x1="${scaleX(a.x).toFixed(1)}" y1="${scaleY(a.y).toFixed(1)}" x2="${scaleX(b.x).toFixed(1)}" y2="${scaleY(b.y).toFixed(1)}" stroke="${catColor[cat]}" stroke-opacity="${op}" stroke-width="${w.toFixed(2)}" stroke-linecap="round"><title>${escapeHTML(e.name_p)} ↔ ${escapeHTML(e.name_q)}: AW-JOI90 ${fmtNum(e.aw_joi90, 2)}</title></line>`;
+  }
+  // Nodes (on top)
+  for (const n of placed.values()) {
+    const r = 0.9 + Math.min(1.0, n.minutes / 600) * 0.7;
+    svg += `<circle cx="${scaleX(n.x).toFixed(1)}" cy="${scaleY(n.y).toFixed(1)}" r="${r.toFixed(2)}" fill="#1f2a3a" stroke="#e8eef9" stroke-width="0.18"><title>${escapeHTML(n.name)} (${escapeHTML(n.position)}) · ${fmtNum(n.minutes, 0)} min</title></circle>`;
+    // Surname label below the dot
+    const surname = (n.name || "").split(" ").slice(-1)[0] || n.name;
+    svg += `<text x="${scaleX(n.x).toFixed(1)}" y="${(scaleY(n.y) + r + 1.6).toFixed(1)}" text-anchor="middle" class="atom-label">${escapeHTML(surname)}</text>`;
+  }
+  svg += `</svg>`;
+  // Header w/ team stats
+  const totalEdges = edges.length;
+  teamAtomEl.innerHTML = `
+    <div class="atom-header">
+      <div><strong>${flagHTML(meta.flag_code)} ${escapeHTML(meta.team_name)}</strong>
+        <span class="dim small">· ${escapeHTML(meta.stage)} · ${meta.n_strong_total} strong pairs · Gini ${fmtNum(meta.gini_aw_joi90, 2)}</span></div>
+      <div class="atom-legend small dim">
+        <span><span class="dot" style="background:#d4793a"></span>off↔off</span>
+        <span><span class="dot" style="background:#3b6ea0"></span>def↔def</span>
+        <span><span class="dot" style="background:#7a4f9a"></span>cross</span>
+      </div>
+    </div>
+    ${svg}
+    <p class="dim small" style="margin:0.4rem 0.6rem 0">${totalEdges} edges (AW-JOI90 ≥ 0.3) · edge thickness ∝ AW-JOI90 · dot size ∝ minutes played · hover an edge or dot for values</p>
+  `;
 }
 
 /* ─────────── boot ─────────── */

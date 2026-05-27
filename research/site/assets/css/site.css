@@ -1441,3 +1441,75 @@ div.player-dot .role {
   font-size: 10px;
   fill: var(--text-dim);
 }
+
+/* ============================================================
+   Team networks — atom view (full pair graph per team)
+   ============================================================ */
+.team-network-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+@media (min-width: 1100px) {
+  .team-network-layout {
+    grid-template-columns: minmax(360px, 1fr) minmax(420px, 1.5fr);
+  }
+}
+.team-table-pane { min-width: 0; overflow-x: auto; }
+.team-atom-pane {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.8rem;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+.team-pick-btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: var(--radius-sm);
+  text-decoration: underline dotted var(--text-mute);
+  text-underline-offset: 3px;
+}
+.team-pick-btn:hover { color: #f1ad7a; }
+.team-pick-btn.active { color: #f1ad7a; text-decoration: underline solid #f1ad7a; }
+.atom-svg {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  display: block;
+}
+.atom-label {
+  font-family: var(--mono);
+  font-size: 1.2px;     /* SVG user units; viewBox 100 wide */
+  fill: var(--text-dim);
+}
+.atom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.5rem;
+  font-size: 0.94rem;
+  flex-wrap: wrap;
+}
+.atom-legend { display: flex; gap: 0.8rem; font-family: var(--mono); }
+.atom-legend .dot {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  margin-right: 0.25rem;
+  vertical-align: middle;
+}
