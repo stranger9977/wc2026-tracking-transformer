@@ -128,18 +128,20 @@ function renderChemVsResultScatter(rows) {
              fill="${priorScale(priorOf(r))}" stroke="var(--bg, #0b1220)" stroke-width="1.2"/>`;
   }).join("");
 
-  // Color-ramp legend placed below the plot area so it doesn't clash with dots/labels.
-  const rampY = H - padB + 30;
+  // Color-ramp legend in the bottom-right corner, well clear of plot content.
+  const rampW = 170;
+  const rampX = W - padR - rampW;
+  const rampY = H - 14;
   const ramp = `
-    <g transform="translate(${padL}, ${rampY})">
-      <text x="0" y="0" font-size="10.5" fill="currentColor" opacity="0.75">
-        dot fill = ever-shared % (coverage-normalized)</text>
+    <g transform="translate(${rampX}, ${rampY})">
+      <text x="${rampW}" y="-18" font-size="10.5" fill="currentColor" opacity="0.75" text-anchor="end">
+        dot fill = ever-shared % (norm.)</text>
       ${[0, 0.25, 0.5, 0.75, 1.0].map((t, i) => {
         const v = priorMin + t * (priorMax - priorMin);
-        return `<rect x="${260 + i*30}" y="-9" width="30" height="9" fill="${priorScale(v)}"/>`;
+        return `<rect x="${i*(rampW/5)}" y="-10" width="${rampW/5}" height="9" fill="${priorScale(v)}"/>`;
       }).join("")}
-      <text x="252" y="-1" font-size="10" fill="currentColor" opacity="0.6" text-anchor="end">${priorMin.toFixed(0)}%</text>
-      <text x="416" y="-1" font-size="10" fill="currentColor" opacity="0.6">${priorMax.toFixed(0)}%</text>
+      <text x="0" y="6" font-size="10" fill="currentColor" opacity="0.6">${priorMin.toFixed(0)}%</text>
+      <text x="${rampW}" y="6" font-size="10" fill="currentColor" opacity="0.6" text-anchor="end">${priorMax.toFixed(0)}%</text>
     </g>`;
 
   // Simple non-overlap label placement
