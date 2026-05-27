@@ -64,6 +64,71 @@
         <a href="chemistry-leaderboard.html">leaderboards</a>).
       </p>
 
+      <h3 class="mt-2">Correlation summary</h3>
+      <p class="dim small">All Spearman rank correlations across the 31 WC22 sides (or 3,443 pairs, where noted).</p>
+      <div class="table-wrap" style="margin-bottom: 1.4rem;">
+        <table class="data-table fifa-data-table">
+          <thead><tr>
+            <th>Hypothesis</th>
+            <th class="num">Spearman ρ</th>
+            <th class="num">p</th>
+            <th class="num">n</th>
+            <th>Reading</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Team chemistry density</strong> → tournament finish</td>
+              <td class="num tabular"><strong>+0.76</strong></td>
+              <td class="num tabular">&lt; 0.001</td>
+              <td class="num tabular">31</td>
+              <td class="small">Top 4 by strong‑pair count = the 4 semifinalists, in finish order.</td>
+            </tr>
+            <tr>
+              <td>Mean AW‑JOI90 (all pairs) → tournament finish</td>
+              <td class="num tabular">+0.45</td>
+              <td class="num tabular">0.011</td>
+              <td class="num tabular">31</td>
+              <td class="small">Per‑pair intensity matters less than network breadth.</td>
+            </tr>
+            <tr>
+              <td>Team prior shared minutes → tournament finish</td>
+              <td class="num tabular">+0.34</td>
+              <td class="num tabular">0.064</td>
+              <td class="num tabular">31</td>
+              <td class="small">Direct effect of rehearsal time on results is marginal.</td>
+            </tr>
+            <tr>
+              <td>Team prior shared minutes → team chemistry density</td>
+              <td class="num tabular">+0.43</td>
+              <td class="num tabular">0.017</td>
+              <td class="num tabular">31</td>
+              <td class="small">Shared time helps build dense networks — partially.</td>
+            </tr>
+            <tr>
+              <td>Team prior shared minutes → mean AW‑JOI90</td>
+              <td class="num tabular">+0.48</td>
+              <td class="num tabular">0.006</td>
+              <td class="num tabular">31</td>
+              <td class="small">Shared time correlates a bit more strongly with intensity than breadth.</td>
+            </tr>
+            <tr>
+              <td><em>Pair</em> prior shared minutes → <em>pair</em> AW‑JOI90</td>
+              <td class="num tabular">+0.05</td>
+              <td class="num tabular">0.003</td>
+              <td class="num tabular">3,443</td>
+              <td class="small">Pair‑scale: significant only because n is large; effect is tiny.</td>
+            </tr>
+            <tr>
+              <td><em>Pair</em> prior shared minutes → <em>pair</em> event JOI90</td>
+              <td class="num tabular">+0.02</td>
+              <td class="num tabular">0.38</td>
+              <td class="num tabular">3,443</td>
+              <td class="small">No effect at pair scale on on‑ball chemistry.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <h3 class="mt-2">1. Chemistry density vs tournament finish &nbsp;<span class="dim small">(ρ = +0.76, n = 31)</span></h3>
       <p class="dim small">Each dot = one WC22 team. X = strong AW‑JOI pairs in the squad. Y = stage reached (Group → Winner). Hover for team detail.</p>
       <div id="chem-vs-result-scatter" class="fifa-scatter"></div>

@@ -80,15 +80,41 @@ function renderChemVsResultScatter(rows) {
           fill="currentColor" opacity="0.65" text-anchor="end">${label}</text>
   `).join("");
 
-  // Highlight top-4-by-n_strong (semifinalists)
-  const top4 = new Set([...rows].sort((a, b) => b.n_strong_total - a.n_strong_total).slice(0, 4).map(r => r.team_name));
-  const dotColor = (r) => top4.has(r.team_name) ? "#d4a23a" : "#6b7280";
+  // Dot colour encodes prior shared minutes (light → deep blue).
+  // Gold ring marks the four squads with the densest networks (= the 4 semifinalists).
+  const semis = new Set(["France", "Croatia", "Argentina", "Morocco"]);
+  const priorMax = Math.max(...rows.map(r => r.total_prior_shared));
+  const priorMin = Math.min(...rows.map(r => r.total_prior_shared));
+  const priorScale = (v) => {
+    const t = priorMax === priorMin ? 0 : (v - priorMin) / (priorMax - priorMin);
+    // Interpolate between light gray and deep teal-blue
+    const lo = [180, 190, 200], hi = [30, 90, 160];
+    const rr = Math.round(lo[0] + (hi[0]-lo[0]) * t);
+    const gg = Math.round(lo[1] + (hi[1]-lo[1]) * t);
+    const bb = Math.round(lo[2] + (hi[2]-lo[2]) * t);
+    return `rgb(${rr},${gg},${bb})`;
+  };
 
   const dotsSvg = rows.map(r => {
     const cx = sx(r.n_strong_total), cy = sy(r.stage_int);
-    return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5.5"
-             fill="${dotColor(r)}" stroke="var(--bg, #0b1220)" stroke-width="1.2"/>`;
+    const ring = semis.has(r.team_name)
+      ? `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="9" fill="none" stroke="#d4a23a" stroke-width="2"/>`
+      : "";
+    return `${ring}<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5.5"
+             fill="${priorScale(r.total_prior_shared)}" stroke="var(--bg, #0b1220)" stroke-width="1.2"/>`;
   }).join("");
+
+  // Tiny color-ramp legend in the SVG corner
+  const ramp = `
+    <g transform="translate(${W - padR - 220}, ${padT + 8})">
+      <text x="0" y="0" font-size="10.5" fill="currentColor" opacity="0.7">Prior shared minutes</text>
+      ${[0, 0.25, 0.5, 0.75, 1.0].map((t, i) => {
+        const v = priorMin + t * (priorMax - priorMin);
+        return `<rect x="${i*38}" y="6" width="38" height="9" fill="${priorScale(v)}"/>`;
+      }).join("")}
+      <text x="0" y="28" font-size="10" fill="currentColor" opacity="0.6">${Math.round(priorMin/1000)}k</text>
+      <text x="190" y="28" font-size="10" fill="currentColor" opacity="0.6" text-anchor="end">${Math.round(priorMax/1000)}k</text>
+    </g>`;
 
   // Simple non-overlap label placement
   const labelW = 64, labelH = 14;
@@ -120,7 +146,7 @@ function renderChemVsResultScatter(rows) {
   const labelsSvg = rows.map(r => {
     const cx = sx(r.n_strong_total), cy = sy(r.stage_int);
     const pick = picks.get(r.team_name);
-    const fw = top4.has(r.team_name) ? 700 : 500;
+    const fw = semis.has(r.team_name) ? 700 : 500;
     return `<text x="${(cx + pick.dx).toFixed(1)}" y="${(cy + pick.dy).toFixed(1)}"
            font-size="11.5" font-weight="${fw}" fill="currentColor"
            opacity="0.92" text-anchor="${pick.anchor}">${escapeHTML(r.team_name)}</text>`;
@@ -144,10 +170,11 @@ function renderChemVsResultScatter(rows) {
       ${dotsSvg}
       ${labelsSvg}
       ${axisX}
+      ${ramp}
     </svg>
     <div class="scatter-legend small muted">
-      <span><span class="dot" style="background:#d4a23a"></span> top 4 chemistry density = the 4 semifinalists</span>
-      <span><span class="dot" style="background:#6b7280"></span> other</span>
+      <span><span class="dot" style="background:#d4a23a; border-radius:50%; box-shadow:inset 0 0 0 1px #d4a23a;"></span> gold ring = WC22 semifinalist</span>
+      <span>dot fill = total prior shared minutes (light → deep blue)</span>
       <span class="muted">Spearman ρ = +0.76 (p &lt; 0.001, n = 31).</span>
     </div>`;
 }
