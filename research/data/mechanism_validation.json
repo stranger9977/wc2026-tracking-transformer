@@ -1,0 +1,477 @@
+{
+  "window_radius_frames": 10,
+  "metric": "AW-JOI(p,q,t) = attn_ball->p(t) * attn_ball->q(t) * max(dP_score(t), 0)",
+  "partner_selection": "same-team non-GK teammate with highest joint ball-attention with shifted player inside the window",
+  "results": [
+    {
+      "mechanism_id": "third_man_triangle",
+      "mechanism_name": "The Third-Man Triangle",
+      "clip_label": "argentina-france-di-maria",
+      "title": "Di Mar\u00eda 36' (Argentina v France, final)",
+      "peak_frame": 59,
+      "window": [
+        49,
+        70
+      ],
+      "shifted": {
+        "player_id": 13222,
+        "name": "Nahuel Molina",
+        "slot": 3
+      },
+      "partner": {
+        "name": "Alexis Mac Allister",
+        "slot": 7
+      },
+      "aw_joi_in_window_mean": 7.036583179824421e-05,
+      "aw_joi_baseline_mean": 7.27490777888564e-05,
+      "aw_joi_in_window_sum": 0.0014776824677631283,
+      "lift": 0.9672401896622083,
+      "in_window_n": 21,
+      "baseline_n": 115,
+      "move_mean_d_net": 0.004067825619131327,
+      "move_peak_abs_d_net": 0.09452927112579346
+    },
+    {
+      "mechanism_id": "decoy_run",
+      "mechanism_name": "The Decoy Run",
+      "clip_label": "argentina-france-di-maria",
+      "title": "Di Mar\u00eda 36' (Argentina v France, final)",
+      "peak_frame": 57,
+      "window": [
+        47,
+        68
+      ],
+      "shifted": {
+        "player_id": 8025,
+        "name": "Nicolas Tagliafico",
+        "slot": 10
+      },
+      "partner": {
+        "name": "Alexis Mac Allister",
+        "slot": 7
+      },
+      "aw_joi_in_window_mean": 7.039119036847295e-05,
+      "aw_joi_baseline_mean": 5.3583936268560224e-05,
+      "aw_joi_in_window_sum": 0.0014782149977379318,
+      "lift": 1.3136621769568315,
+      "in_window_n": 21,
+      "baseline_n": 115,
+      "move_mean_d_net": 0.0012788887834176421,
+      "move_peak_abs_d_net": 0.06825084984302521
+    },
+    {
+      "mechanism_id": "third_man_triangle",
+      "mechanism_name": "The Third-Man Triangle",
+      "clip_label": "argentina-france-di-maria",
+      "title": "Di Mar\u00eda 36' (Argentina v France, final)",
+      "peak_frame": 51,
+      "window": [
+        41,
+        62
+      ],
+      "shifted": {
+        "player_id": 10715,
+        "name": "Julian Alvarez",
+        "slot": 0
+      },
+      "partner": {
+        "name": "Lionel Messi",
+        "slot": 5
+      },
+      "aw_joi_in_window_mean": 4.943655499742474e-05,
+      "aw_joi_baseline_mean": 4.356053100945855e-05,
+      "aw_joi_in_window_sum": 0.0010381676549459195,
+      "lift": 1.1348933048288667,
+      "in_window_n": 21,
+      "baseline_n": 115,
+      "move_mean_d_net": -0.0009429152705706656,
+      "move_peak_abs_d_net": 0.02131805382668972
+    },
+    {
+      "mechanism_id": "the_pin",
+      "mechanism_name": "The Pin (Fixing the Defender)",
+      "clip_label": "argentina-france-di-maria",
+      "title": "Di Mar\u00eda 36' (Argentina v France, final)",
+      "peak_frame": 94,
+      "window": [
+        84,
+        105
+      ],
+      "shifted": {
+        "player_id": 8025,
+        "name": "Nicolas Tagliafico",
+        "slot": 10
+      },
+      "partner": {
+        "name": "Cristian Romero",
+        "slot": 8
+      },
+      "aw_joi_in_window_mean": 0.00014362607813681752,
+      "aw_joi_baseline_mean": 4.629031055804448e-05,
+      "aw_joi_in_window_sum": 0.0030161476408731677,
+      "lift": 3.102724445037401,
+      "in_window_n": 21,
+      "baseline_n": 115,
+      "move_mean_d_net": -0.00042812919127754867,
+      "move_peak_abs_d_net": 0.05234503000974655
+    },
+    {
+      "mechanism_id": "gegenpress_swarm",
+      "mechanism_name": "Gegenpressing Swarm",
+      "clip_label": "argentina-france-mbappe-volley",
+      "title": "Mbapp\u00e9 81' volley (France v Argentina, final)",
+      "peak_frame": 109,
+      "window": [
+        99,
+        120
+      ],
+      "shifted": {
+        "player_id": 1531,
+        "name": "Lionel Messi",
+        "slot": 5
+      },
+      "partner": {
+        "name": "Rodrigo de Paul",
+        "slot": 8
+      },
+      "aw_joi_in_window_mean": 0.00012373822752964795,
+      "aw_joi_baseline_mean": 7.592158907794211e-05,
+      "aw_joi_in_window_sum": 0.002598502778122607,
+      "lift": 1.6298160909490007,
+      "in_window_n": 21,
+      "baseline_n": 143,
+      "move_mean_d_net": -0.017336733639240265,
+      "move_peak_abs_d_net": 0.16875213384628296
+    },
+    {
+      "mechanism_id": "decoy_run",
+      "mechanism_name": "The Decoy Run",
+      "clip_label": "argentina-france-mbappe-volley",
+      "title": "Mbapp\u00e9 81' volley (France v Argentina, final)",
+      "peak_frame": 103,
+      "window": [
+        93,
+        114
+      ],
+      "shifted": {
+        "player_id": 1675,
+        "name": "Raphael Varane",
+        "slot": 11
+      },
+      "partner": {
+        "name": "Dayot Upamecano",
+        "slot": 15
+      },
+      "aw_joi_in_window_mean": 0.00012321156331505088,
+      "aw_joi_baseline_mean": 7.30459358341606e-05,
+      "aw_joi_in_window_sum": 0.0025874428296160687,
+      "lift": 1.6867682220511693,
+      "in_window_n": 21,
+      "baseline_n": 143,
+      "move_mean_d_net": -0.0071621546521782875,
+      "move_peak_abs_d_net": 0.059182703495025635
+    },
+    {
+      "mechanism_id": "the_pin",
+      "mechanism_name": "The Pin (Fixing the Defender)",
+      "clip_label": "argentina-france-mbappe-volley",
+      "title": "Mbapp\u00e9 81' volley (France v Argentina, final)",
+      "peak_frame": 155,
+      "window": [
+        145,
+        164
+      ],
+      "shifted": {
+        "player_id": 4606,
+        "name": "Dayot Upamecano",
+        "slot": 15
+      },
+      "partner": {
+        "name": "Kylian Mbapp\u00e9",
+        "slot": 13
+      },
+      "aw_joi_in_window_mean": 7.507205807777543e-05,
+      "aw_joi_baseline_mean": 4.8791288383272484e-05,
+      "aw_joi_in_window_sum": 0.0014263691034777331,
+      "lift": 1.538636518225516,
+      "in_window_n": 19,
+      "baseline_n": 145,
+      "move_mean_d_net": 0.003524631494656205,
+      "move_peak_abs_d_net": 0.0675840899348259
+    },
+    {
+      "mechanism_id": "rest_defense",
+      "mechanism_name": "Rest-Defense Anchoring",
+      "clip_label": "netherlands-usa-memphis",
+      "title": "Memphis 10' (Netherlands v USA, R16)",
+      "peak_frame": 109,
+      "window": [
+        99,
+        120
+      ],
+      "shifted": {
+        "player_id": 37,
+        "name": "Virgil van Dijk",
+        "slot": 4
+      },
+      "partner": {
+        "name": "Jurrien Timber",
+        "slot": 5
+      },
+      "aw_joi_in_window_mean": 0.00011374845164854094,
+      "aw_joi_baseline_mean": 7.317917735446496e-05,
+      "aw_joi_in_window_sum": 0.0023887174846193597,
+      "lift": 1.554382759696337,
+      "in_window_n": 21,
+      "baseline_n": 136,
+      "move_mean_d_net": 0.0054751206189394,
+      "move_peak_abs_d_net": 0.06941623240709305
+    },
+    {
+      "mechanism_id": "blind_pass",
+      "mechanism_name": "The Blind Pass / Scan-and-Release",
+      "clip_label": "netherlands-usa-memphis",
+      "title": "Memphis 10' (Netherlands v USA, R16)",
+      "peak_frame": 14,
+      "window": [
+        4,
+        25
+      ],
+      "shifted": {
+        "player_id": 11094,
+        "name": "Cody Gakpo",
+        "slot": 0
+      },
+      "partner": {
+        "name": "Memphis Depay",
+        "slot": 10
+      },
+      "aw_joi_in_window_mean": 0.00022808270952768734,
+      "aw_joi_baseline_mean": 2.3370501282513144e-05,
+      "aw_joi_in_window_sum": 0.004789736900081434,
+      "lift": 9.759427355473502,
+      "in_window_n": 21,
+      "baseline_n": 136,
+      "move_mean_d_net": -0.002304267371073365,
+      "move_peak_abs_d_net": 0.039497509598731995
+    },
+    {
+      "mechanism_id": "third_man_triangle",
+      "mechanism_name": "The Third-Man Triangle",
+      "clip_label": "netherlands-usa-memphis",
+      "title": "Memphis 10' (Netherlands v USA, R16)",
+      "peak_frame": 110,
+      "window": [
+        100,
+        121
+      ],
+      "shifted": {
+        "player_id": 8342,
+        "name": "Memphis Depay",
+        "slot": 10
+      },
+      "partner": {
+        "name": "Jurrien Timber",
+        "slot": 5
+      },
+      "aw_joi_in_window_mean": 0.00010712588736401408,
+      "aw_joi_baseline_mean": 5.1183494175645006e-05,
+      "aw_joi_in_window_sum": 0.002249643634644296,
+      "lift": 2.092977220281075,
+      "in_window_n": 21,
+      "baseline_n": 136,
+      "move_mean_d_net": -0.001997475977987051,
+      "move_peak_abs_d_net": 0.19026485085487366
+    },
+    {
+      "mechanism_id": "third_man_triangle",
+      "mechanism_name": "The Third-Man Triangle",
+      "clip_label": "netherlands-usa-memphis",
+      "title": "Memphis 10' (Netherlands v USA, R16)",
+      "peak_frame": 115,
+      "window": [
+        105,
+        126
+      ],
+      "shifted": {
+        "player_id": 1522,
+        "name": "Frenkie de Jong",
+        "slot": 2
+      },
+      "partner": {
+        "name": "Jurrien Timber",
+        "slot": 5
+      },
+      "aw_joi_in_window_mean": 8.371557836031028e-05,
+      "aw_joi_baseline_mean": 2.7940363043585134e-05,
+      "aw_joi_in_window_sum": 0.001758027145566516,
+      "lift": 2.9962237151220785,
+      "in_window_n": 21,
+      "baseline_n": 136,
+      "move_mean_d_net": -0.0012143966741859913,
+      "move_peak_abs_d_net": 0.028931159526109695
+    },
+    {
+      "mechanism_id": "gegenpress_swarm",
+      "mechanism_name": "Gegenpressing Swarm",
+      "clip_label": "japan-spain-doan",
+      "title": "Doan 48' (Japan v Spain, group stage)",
+      "peak_frame": 1,
+      "window": [
+        0,
+        12
+      ],
+      "shifted": {
+        "player_id": 13797,
+        "name": "Shogo Taniguchi",
+        "slot": 1
+      },
+      "partner": {
+        "name": "Junya Ito",
+        "slot": 5
+      },
+      "aw_joi_in_window_mean": 0.0002876766081371118,
+      "aw_joi_baseline_mean": 4.015997615557767e-05,
+      "aw_joi_in_window_sum": 0.0034521192976453416,
+      "lift": 7.163266407894953,
+      "in_window_n": 12,
+      "baseline_n": 133,
+      "move_mean_d_net": 0.001735330792143941,
+      "move_peak_abs_d_net": 0.09347614645957947
+    },
+    {
+      "mechanism_id": "decoy_run",
+      "mechanism_name": "The Decoy Run",
+      "clip_label": "japan-spain-doan",
+      "title": "Doan 48' (Japan v Spain, group stage)",
+      "peak_frame": 23,
+      "window": [
+        13,
+        34
+      ],
+      "shifted": {
+        "player_id": 1394,
+        "name": "Alvaro Morata",
+        "slot": 13
+      },
+      "partner": {
+        "name": "Dani Olmo",
+        "slot": 18
+      },
+      "aw_joi_in_window_mean": 3.254781966575862e-05,
+      "aw_joi_baseline_mean": 0.00011211076799700086,
+      "aw_joi_in_window_sum": 0.000683504212980931,
+      "lift": 0.2903184078324156,
+      "in_window_n": 21,
+      "baseline_n": 124,
+      "move_mean_d_net": -0.0005871608736924827,
+      "move_peak_abs_d_net": 0.06710078567266464
+    },
+    {
+      "mechanism_id": "the_pin",
+      "mechanism_name": "The Pin (Fixing the Defender)",
+      "clip_label": "argentina-croatia-julian",
+      "title": "\u00c1lvarez 39' (Argentina v Croatia, semi-final)",
+      "peak_frame": 30,
+      "window": [
+        20,
+        41
+      ],
+      "shifted": {
+        "player_id": 8025,
+        "name": "Nicolas Tagliafico",
+        "slot": 10
+      },
+      "partner": {
+        "name": "Nahuel Molina",
+        "slot": 3
+      },
+      "aw_joi_in_window_mean": 0.0001315365808320237,
+      "aw_joi_baseline_mean": 3.517494672412587e-05,
+      "aw_joi_in_window_sum": 0.0027622681974724976,
+      "lift": 3.7394962347392866,
+      "in_window_n": 21,
+      "baseline_n": 63,
+      "move_mean_d_net": 0.0023167270701378584,
+      "move_peak_abs_d_net": 0.05046895891427994
+    },
+    {
+      "mechanism_id": "decoy_run",
+      "mechanism_name": "The Decoy Run",
+      "clip_label": "argentina-croatia-julian",
+      "title": "\u00c1lvarez 39' (Argentina v Croatia, semi-final)",
+      "peak_frame": 26,
+      "window": [
+        16,
+        37
+      ],
+      "shifted": {
+        "player_id": 8025,
+        "name": "Nicolas Tagliafico",
+        "slot": 10
+      },
+      "partner": {
+        "name": "Nahuel Molina",
+        "slot": 3
+      },
+      "aw_joi_in_window_mean": 0.00013758488955572807,
+      "aw_joi_baseline_mean": 3.3158843816224397e-05,
+      "aw_joi_in_window_sum": 0.0028892826806702896,
+      "lift": 4.149266793446179,
+      "in_window_n": 21,
+      "baseline_n": 63,
+      "move_mean_d_net": -0.0005201181047596037,
+      "move_peak_abs_d_net": 0.05013367533683777
+    }
+  ],
+  "mechanism_coverage": {
+    "third_man_triangle": {
+      "name": "The Third-Man Triangle",
+      "n_examples": 4
+    },
+    "blind_pass": {
+      "name": "The Blind Pass / Scan-and-Release",
+      "n_examples": 1
+    },
+    "decoy_run": {
+      "name": "The Decoy Run",
+      "n_examples": 4
+    },
+    "gegenpress_swarm": {
+      "name": "Gegenpressing Swarm",
+      "n_examples": 2
+    },
+    "the_pin": {
+      "name": "The Pin (Fixing the Defender)",
+      "n_examples": 3
+    },
+    "near_post_flick_on": {
+      "name": "Near-Post Flick-On",
+      "n_examples": 0
+    },
+    "rest_defense": {
+      "name": "Rest-Defense Anchoring",
+      "n_examples": 1
+    },
+    "positional_rotations": {
+      "name": "Positional Rotations",
+      "n_examples": 0
+    },
+    "meat_wall": {
+      "name": "The Meat Wall",
+      "n_examples": 0
+    },
+    "short_corner_overload": {
+      "name": "Short-Corner Overload",
+      "n_examples": 0
+    },
+    "overlap_underlap": {
+      "name": "The Overlap / Underlap Handoff",
+      "n_examples": 0
+    },
+    "press_trap": {
+      "name": "The Press Trap (De Zerbi Bait)",
+      "n_examples": 0
+    }
+  }
+}

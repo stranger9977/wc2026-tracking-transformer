@@ -1,0 +1,63 @@
+<!--
+  Drop-in section for what-is-chemistry.html. Do not link to this file
+  directly; copy the <section>…</section> below into the live page once
+  the Morocco-citation sibling agent has finished editing it. Source data:
+  research/site/data/mechanism_validation.json. Notes:
+  research/notes/mechanism_validation.md.
+-->
+<section id="mechanisms-in-the-data" class="section">
+  <h2>Mechanisms we can see in the data</h2>
+  <p class="lede">
+    For each of the 12 named chemistry mechanisms, the Whiteboard already
+    flags one labelled example per featured play. We re-scored those
+    examples against the actual <strong>AW-JOI</strong> metric — per-frame
+    ball-attention coupling weighted by ΔP(score). If a mechanism is
+    chemistry-positive when it plays out, the affected pair's AW-JOI on
+    the move's window should sit above the same pair's clip baseline.
+  </p>
+  <p class="caption">
+    AW-JOI(p,q,t) = attn<sub>ball→p</sub>(t) · attn<sub>ball→q</sub>(t) ·
+    max(ΔP<sub>score</sub>(t), 0). Window = ±10 frames around the move's
+    peak; baseline = rest of the clip; lift = in-window / baseline.
+  </p>
+
+  <table class="mechanism-validation-table">
+    <thead>
+      <tr><th>Mechanism</th><th>Example clip</th><th>Pair</th><th>AW-JOI lift</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Third-Man Triangle</td><td>netherlands-usa-memphis</td><td>Frenkie de Jong → Jurrien Timber</td><td>3.00×</td></tr>
+      <tr><td>Third-Man Triangle</td><td>netherlands-usa-memphis</td><td>Memphis Depay → Jurrien Timber</td><td>2.09×</td></tr>
+      <tr><td>Decoy Run</td><td>argentina-croatia-julian</td><td>Tagliafico → Molina</td><td>4.15×</td></tr>
+      <tr><td>Decoy Run</td><td>argentina-france-mbappe-volley</td><td>Varane → Upamecano</td><td>1.69×</td></tr>
+      <tr><td>The Pin</td><td>argentina-croatia-julian</td><td>Tagliafico → Molina</td><td>3.74×</td></tr>
+      <tr><td>The Pin</td><td>argentina-france-di-maria</td><td>Tagliafico → Romero</td><td>3.10×</td></tr>
+      <tr><td>Gegenpressing Swarm</td><td>japan-spain-doan</td><td>Taniguchi → Ito</td><td>7.16×</td></tr>
+      <tr><td>Gegenpressing Swarm</td><td>argentina-france-mbappe-volley</td><td>Messi → De Paul</td><td>1.63×</td></tr>
+      <tr><td>Rest-Defense Anchoring</td><td>netherlands-usa-memphis</td><td>Van Dijk → Timber</td><td>1.55×</td></tr>
+      <tr><td>Blind Pass / Scan-and-Release</td><td>netherlands-usa-memphis</td><td>Gakpo → Depay</td><td>9.76×</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    Six of the nine open-play mechanisms have at least one labelled example
+    where AW-JOI on the move's window exceeds the rest of the clip — 13 of
+    15 mechanism-tagged moves clear lift &gt; 1.
+  </p>
+  <p>
+    Three mechanisms — <strong>Meat Wall</strong>,
+    <strong>Near-Post Flick-On</strong> and <strong>Short-Corner Overload</strong>
+    — cannot be validated yet: none of the five currently featured Whiteboard
+    plays are corners. A corner-clip slot is the obvious next addition.
+    <strong>Overlap / Underlap</strong>, <strong>Press Trap</strong> and
+    <strong>Positional Rotations</strong> have no top-7 candidate move tagged
+    on the existing five plays, so absent rather than negative.
+  </p>
+  <p class="caveat">
+    Sample size is tiny — 5 clips, 13 mechanism-tagged moves. This is a
+    structure check, not a population-level effect. The partner in each pair
+    is chosen post-hoc as the strongest same-team coupling inside the window;
+    the meaningful comparison is the <em>same</em> pair's AW-JOI in-window
+    vs out-of-window.
+  </p>
+</section>

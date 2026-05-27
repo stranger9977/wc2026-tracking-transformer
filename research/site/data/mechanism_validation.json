@@ -1,0 +1,82 @@
+{
+  "_doc": "Site-facing summary of mechanism validation. Source: research/scripts/validate_mechanisms_awjoi.py. Full results: research/data/mechanism_validation.json. Notes: research/notes/mechanism_validation.md.",
+  "window_radius_frames": 10,
+  "metric_caption": "AW-JOI per frame = attn_ball→p(t) · attn_ball→q(t) · max(ΔP_score(t), 0). In-window = ±10 frames around the move's peak; baseline = rest of clip. Lift = in-window mean / baseline mean.",
+  "mechanisms": [
+    {
+      "id": "third_man_triangle",
+      "name": "The Third-Man Triangle",
+      "verdict": "chemistry-positive",
+      "n_examples": 4,
+      "n_lift_gt1": 3,
+      "examples": [
+        {"clip": "argentina-france-di-maria", "pair": "Nahuel Molina → Alexis Mac Allister", "in_window": 7.04e-5, "baseline": 7.27e-5, "lift": 0.97},
+        {"clip": "argentina-france-di-maria", "pair": "Julian Alvarez → Lionel Messi", "in_window": 4.94e-5, "baseline": 4.36e-5, "lift": 1.13},
+        {"clip": "netherlands-usa-memphis", "pair": "Memphis Depay → Jurrien Timber", "in_window": 1.07e-4, "baseline": 5.12e-5, "lift": 2.09},
+        {"clip": "netherlands-usa-memphis", "pair": "Frenkie de Jong → Jurrien Timber", "in_window": 8.37e-5, "baseline": 2.79e-5, "lift": 3.00}
+      ]
+    },
+    {
+      "id": "decoy_run",
+      "name": "The Decoy Run",
+      "verdict": "chemistry-positive",
+      "n_examples": 4,
+      "n_lift_gt1": 3,
+      "examples": [
+        {"clip": "argentina-france-di-maria", "pair": "Nicolas Tagliafico → Alexis Mac Allister", "in_window": 7.04e-5, "baseline": 5.36e-5, "lift": 1.31},
+        {"clip": "argentina-france-mbappe-volley", "pair": "Raphael Varane → Dayot Upamecano", "in_window": 1.23e-4, "baseline": 7.30e-5, "lift": 1.69},
+        {"clip": "japan-spain-doan", "pair": "Alvaro Morata → Dani Olmo", "in_window": 3.25e-5, "baseline": 1.12e-4, "lift": 0.29},
+        {"clip": "argentina-croatia-julian", "pair": "Nicolas Tagliafico → Nahuel Molina", "in_window": 1.38e-4, "baseline": 3.32e-5, "lift": 4.15}
+      ]
+    },
+    {
+      "id": "the_pin",
+      "name": "The Pin (Fixing the Defender)",
+      "verdict": "chemistry-positive",
+      "n_examples": 3,
+      "n_lift_gt1": 3,
+      "examples": [
+        {"clip": "argentina-france-di-maria", "pair": "Nicolas Tagliafico → Cristian Romero", "in_window": 1.44e-4, "baseline": 4.63e-5, "lift": 3.10},
+        {"clip": "argentina-france-mbappe-volley", "pair": "Dayot Upamecano → Kylian Mbappé", "in_window": 7.51e-5, "baseline": 4.88e-5, "lift": 1.54},
+        {"clip": "argentina-croatia-julian", "pair": "Nicolas Tagliafico → Nahuel Molina", "in_window": 1.32e-4, "baseline": 3.52e-5, "lift": 3.74}
+      ]
+    },
+    {
+      "id": "gegenpress_swarm",
+      "name": "Gegenpressing Swarm",
+      "verdict": "chemistry-positive",
+      "n_examples": 2,
+      "n_lift_gt1": 2,
+      "examples": [
+        {"clip": "argentina-france-mbappe-volley", "pair": "Lionel Messi → Rodrigo de Paul", "in_window": 1.24e-4, "baseline": 7.59e-5, "lift": 1.63},
+        {"clip": "japan-spain-doan", "pair": "Shogo Taniguchi → Junya Ito", "in_window": 2.88e-4, "baseline": 4.02e-5, "lift": 7.16}
+      ]
+    },
+    {
+      "id": "rest_defense",
+      "name": "Rest-Defense Anchoring",
+      "verdict": "chemistry-positive",
+      "n_examples": 1,
+      "n_lift_gt1": 1,
+      "examples": [
+        {"clip": "netherlands-usa-memphis", "pair": "Virgil van Dijk → Jurrien Timber", "in_window": 1.14e-4, "baseline": 7.32e-5, "lift": 1.55}
+      ]
+    },
+    {
+      "id": "blind_pass",
+      "name": "The Blind Pass / Scan-and-Release",
+      "verdict": "chemistry-positive",
+      "n_examples": 1,
+      "n_lift_gt1": 1,
+      "examples": [
+        {"clip": "netherlands-usa-memphis", "pair": "Cody Gakpo → Memphis Depay", "in_window": 2.28e-4, "baseline": 2.34e-5, "lift": 9.76}
+      ]
+    },
+    {"id": "overlap_underlap", "name": "The Overlap / Underlap Handoff", "verdict": "no labelled example yet", "n_examples": 0},
+    {"id": "press_trap", "name": "The Press Trap (De Zerbi Bait)", "verdict": "no labelled example yet", "n_examples": 0},
+    {"id": "positional_rotations", "name": "Positional Rotations", "verdict": "no labelled example yet", "n_examples": 0},
+    {"id": "meat_wall", "name": "The Meat Wall", "verdict": "coming soon (corner-kick mechanism, no corner clip featured yet)", "n_examples": 0},
+    {"id": "near_post_flick_on", "name": "Near-Post Flick-On", "verdict": "coming soon (corner-kick mechanism, no corner clip featured yet)", "n_examples": 0},
+    {"id": "short_corner_overload", "name": "Short-Corner Overload", "verdict": "coming soon (corner-kick mechanism, no corner clip featured yet)", "n_examples": 0}
+  ]
+}
