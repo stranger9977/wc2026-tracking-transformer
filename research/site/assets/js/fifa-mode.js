@@ -215,14 +215,40 @@ function renderTimeVsChemScatter(rows) {
        fill="${dotColor(r)}" stroke="var(--bg, #0b1220)" stroke-width="1.0"/>`;
   }).join("");
 
-  // Label only: semifinalists + the four most extreme prior-shared teams (Germany, England, Spain, Brazil)
-  const highlight = new Set([...semis, "Germany", "England", "Spain", "Brazil"]);
-  const labels = rows.filter(r => highlight.has(r.team_name)).map(r => {
+  // Label every team with deterministic non-overlap placement.
+  const labelW = 64, labelH = 14;
+  const lineSpacing = labelH + 2;
+  const intersects = (a, b) => !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
+  const order = [...rows].sort((a, b) => b.n_strong_total - a.n_strong_total || b.total_prior_shared - a.total_prior_shared);
+  const placed = [];
+  const picks = new Map();
+  for (const r of order) {
     const cx = sx(r.total_prior_shared / 1000), cy = sy(r.n_strong_total);
+    const stackDown = r.n_strong_total < 50;
+    const anchor = (cx > padL + innerW * 0.65) ? "end" : "start";
+    const dx = anchor === "start" ? 8 : -8;
+    let dy = stackDown ? 10 : -8;
+    const step = stackDown ? lineSpacing : -lineSpacing;
+    let box;
+    for (let bump = 0; bump < 14; bump++) {
+      const lx = cx + dx, ly = cy + dy;
+      box = anchor === "start"
+        ? { x1: lx, y1: ly - labelH, x2: lx + labelW, y2: ly + 2 }
+        : { x1: lx - labelW, y1: ly - labelH, x2: lx, y2: ly + 2 };
+      if (!placed.some((p) => intersects(p, box))) break;
+      dy += step;
+    }
+    placed.push(box);
+    picks.set(r.team_name, { anchor, dx, dy });
+  }
+
+  const labels = rows.map(r => {
+    const cx = sx(r.total_prior_shared / 1000), cy = sy(r.n_strong_total);
+    const pick = picks.get(r.team_name);
     const fw = semis.has(r.team_name) ? 700 : 500;
-    return `<text x="${(cx + 8).toFixed(1)}" y="${(cy - 6).toFixed(1)}"
-           font-size="11.5" font-weight="${fw}" fill="currentColor" opacity="0.92">
-           ${escapeHTML(r.team_name)}</text>`;
+    return `<text x="${(cx + pick.dx).toFixed(1)}" y="${(cy + pick.dy).toFixed(1)}"
+           font-size="11" font-weight="${fw}" fill="currentColor"
+           opacity="0.92" text-anchor="${pick.anchor}">${escapeHTML(r.team_name)}</text>`;
   }).join("");
 
   const xTicks = [0, 50, 100, 150, 200, 250, 300];
