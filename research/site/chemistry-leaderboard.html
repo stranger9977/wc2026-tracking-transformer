@@ -407,6 +407,8 @@
           <label for="nuc-sort">Sort by</label>
           <select id="nuc-sort">
             <option value="n_strong_partners" selected>Strong partners (breadth) — default</option>
+            <option value="effective_n_strong">Effective strong partners (Hill number, continuous)</option>
+            <option value="chem_index">Chemistry index (top-5 mean × log breadth)</option>
             <option value="network_joi90">Network AW-JOI90 (per-90 density)</option>
             <option value="network_top5_joi90">Top-5 spokes sum (concentration)</option>
             <option value="network_joi_sum">Total AW-JOI sum (accumulation)</option>
@@ -461,6 +463,6 @@
     Bransen &amp; Van Haaren (Sloan 2020) + a transformer encoder over 22-player tracking.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-leaderboard.js?v=atom-1"></script>
+  <script type="module" src="assets/js/chemistry-leaderboard.js?v=atom-2"></script>
 </body>
 </html>

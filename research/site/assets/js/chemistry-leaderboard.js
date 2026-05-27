@@ -777,6 +777,8 @@ function nucRender() {
     network_net90:      (v) => (v >= 0 ? "+" : "") + fmtNum(v, 2),
     n_strong_partners:  (v) => String(Math.round(v)),
     team_lift:          (v) => fmtNum(v, 2) + "×",
+    effective_n_strong: (v) => fmtNum(v, 1),
+    chem_index:         (v) => fmtNum(v, 2),
   };
   const fmtField = fmts[nucState.sortBy] || ((v) => fmtNum(v, 2));
   nucTableEl.innerHTML = rows.map((r, i) => `
@@ -863,8 +865,10 @@ function drawNucleusDetail() {
       <div class="nucleus-hd-name">${flagHTML(r.flag_code)} <strong>${escapeHTML(r.name)}</strong> <span class="dim small">· ${escapeHTML(r.team_name || "")} · ${escapeHTML(r.position || "")}</span></div>
       <div class="nucleus-hd-stats">
         <span><span class="muted small">AW-JOI90</span> <strong class="tabular delta-pos">${fmtNum(r.network_joi90, 2)}</strong></span>
-        <span><span class="muted small">Top-5 sum</span> <strong class="tabular">${fmtNum(r.network_top5_joi90, 2)}</strong></span>
+        <span><span class="muted small">Effective strong</span> <strong class="tabular">${fmtNum(r.effective_n_strong || 0, 1)}</strong></span>
+        <span><span class="muted small">Chem index</span> <strong class="tabular">${fmtNum(r.chem_index || 0, 2)}</strong></span>
         <span><span class="muted small">Strong partners</span> <strong class="tabular">${r.n_strong_partners} / ${r.n_partners}</strong></span>
+        <span><span class="muted small">Top-5 mean</span> <strong class="tabular">${fmtNum(r.top5_mean || (r.network_top5_joi90 / 5) || 0, 2)}</strong></span>
         <span><span class="muted small">Team lift</span> <strong class="tabular">${fmtNum(r.team_lift, 2)}×</strong></span>
         <span><span class="muted small">Minutes</span> <strong class="tabular">${fmtNum(r.minutes_played, 0)}</strong></span>
       </div>
