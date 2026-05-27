@@ -65,6 +65,7 @@ const sections = {
   outcome: document.getElementById("mode-outcome"),
   awjoi: document.getElementById("mode-awjoi"),
   nucleus: document.getElementById("mode-nucleus"),
+  team: document.getElementById("mode-team"),
 };
 let currentMode = "event";
 
@@ -79,6 +80,7 @@ modeButtons.forEach((b) => b.addEventListener("click", () => {
   if (currentMode === "outcome") ocRender();
   if (currentMode === "awjoi") awRender();
   if (currentMode === "nucleus") nucRender();
+  if (currentMode === "team") teamRender();
 }));
 
 /* ═══════════════════════════════════════════════════════════
@@ -808,47 +810,52 @@ function drawNucleusDetail() {
   const r = nucRaw.find((x) => x.player_id === nucState.selected);
   if (!r) return;
   const spokes = (r.spokes || []).slice(0, 8);
-  // SVG layout
-  const W = 480, H = 420;
+  // Layout: wider canvas + more breathing room. Edges are fixed-length
+  // (deterministic geometry — easier to read than length-encoded), with
+  // partner-dot SIZE + edge THICKNESS doing the AW-JOI encoding.
+  const W = 560, H = 460;
   const cx = W / 2, cy = H / 2;
-  const rMin = 90, rMax = 175;
-  // Max AW-JOI90 across visible spokes used for normalising edge width / partner size
+  const radius = 150;
   const maxAW = spokes.reduce((m, s) => Math.max(m, s.aw_joi90 || 0), 1e-6);
-  // Nucleus dot
   let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="nucleus-svg" role="img" aria-label="${escapeHTML(r.name)} chemistry network">`;
-  // edges first (under dots)
-  spokes.forEach((s, i) => {
-    const angle = -Math.PI / 2 + (i * 2 * Math.PI / spokes.length);  // start at 12 o'clock
-    const ratio = (s.aw_joi90 || 0) / maxAW;
-    const dist = rMin + ratio * (rMax - rMin);
-    const x2 = cx + Math.cos(angle) * dist;
-    const y2 = cy + Math.sin(angle) * dist;
-    const width = 0.6 + ratio * 4.4;
-    svg += `<line x1="${cx}" y1="${cy}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#f1ad7a" stroke-opacity="${(0.35 + ratio * 0.5).toFixed(2)}" stroke-width="${width.toFixed(2)}" stroke-linecap="round" />`;
-  });
-  // Partner dots + labels
+  // Edges (under dots)
   spokes.forEach((s, i) => {
     const angle = -Math.PI / 2 + (i * 2 * Math.PI / spokes.length);
     const ratio = (s.aw_joi90 || 0) / maxAW;
-    const dist = rMin + ratio * (rMax - rMin);
-    const x = cx + Math.cos(angle) * dist;
-    const y = cy + Math.sin(angle) * dist;
-    const dotR = 5 + ratio * 7;
-    svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${dotR.toFixed(1)}" fill="#1f2a3a" stroke="#e8eef9" stroke-width="1.2" />`;
-    // Label: position name outside the dot, along the radial direction
-    const lx = cx + Math.cos(angle) * (dist + dotR + 8);
-    const ly = cy + Math.sin(angle) * (dist + dotR + 8);
-    const surname = (s.partner_name || "").split(" ").slice(-1)[0] || s.partner_name;
-    const anchor = Math.abs(Math.cos(angle)) < 0.3 ? "middle"
-                 : (Math.cos(angle) > 0 ? "start" : "end");
-    svg += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" alignment-baseline="middle" class="nuc-label">${escapeHTML(surname)}<tspan dx="4" class="nuc-pos-small">${escapeHTML(s.partner_pos || "")}</tspan></text>`;
-    svg += `<text x="${lx.toFixed(1)}" y="${(ly + 13).toFixed(1)}" text-anchor="${anchor}" alignment-baseline="middle" class="nuc-edge-val">${fmtNum(s.aw_joi90, 3)}</text>`;
+    const xEnd = cx + Math.cos(angle) * radius;
+    const yEnd = cy + Math.sin(angle) * radius;
+    // Stop the edge at the nucleus radius (28) so it doesn't overlap the center dot
+    const xStart = cx + Math.cos(angle) * 26;
+    const yStart = cy + Math.sin(angle) * 26;
+    const width = 1.0 + ratio * 5.0;
+    svg += `<line x1="${xStart.toFixed(1)}" y1="${yStart.toFixed(1)}" x2="${xEnd.toFixed(1)}" y2="${yEnd.toFixed(1)}" stroke="#f1ad7a" stroke-opacity="${(0.4 + ratio * 0.5).toFixed(2)}" stroke-width="${width.toFixed(2)}" stroke-linecap="round" />`;
   });
-  // Nucleus (on top)
-  svg += `<circle cx="${cx}" cy="${cy}" r="22" fill="#0b1220" stroke="#6dd58c" stroke-width="2" />`;
+  // Partner dots + labels (above edges)
+  spokes.forEach((s, i) => {
+    const angle = -Math.PI / 2 + (i * 2 * Math.PI / spokes.length);
+    const ratio = (s.aw_joi90 || 0) / maxAW;
+    const x = cx + Math.cos(angle) * radius;
+    const y = cy + Math.sin(angle) * radius;
+    const dotR = 6 + ratio * 6;
+    svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${dotR.toFixed(1)}" fill="#1f2a3a" stroke="#e8eef9" stroke-width="1.3" />`;
+    // Label: outside the dot, along the radial. The text-anchor flips so labels
+    // on the left of the circle right-align, labels on the right left-align.
+    const lOff = dotR + 9;
+    const lx = cx + Math.cos(angle) * (radius + lOff);
+    const ly = cy + Math.sin(angle) * (radius + lOff);
+    const cosA = Math.cos(angle);
+    const anchor = Math.abs(cosA) < 0.25 ? "middle" : (cosA > 0 ? "start" : "end");
+    // Stack name on top, value below — shift so the *pair* (name + value) is
+    // centered on the spoke endpoint.
+    const surname = (s.partner_name || "").split(" ").slice(-1)[0] || s.partner_name;
+    svg += `<text x="${lx.toFixed(1)}" y="${(ly - 4).toFixed(1)}" text-anchor="${anchor}" class="nuc-label">${escapeHTML(surname)} <tspan class="nuc-pos-small">${escapeHTML(s.partner_pos || "")}</tspan></text>`;
+    svg += `<text x="${lx.toFixed(1)}" y="${(ly + 11).toFixed(1)}" text-anchor="${anchor}" class="nuc-edge-val">${fmtNum(s.aw_joi90, 2)}</text>`;
+  });
+  // Nucleus (on top) — slightly larger + cleaner inner type
+  svg += `<circle cx="${cx}" cy="${cy}" r="26" fill="#0b1220" stroke="#6dd58c" stroke-width="2.2" />`;
   const surname = (r.name || "").split(" ").slice(-1)[0] || r.name;
-  svg += `<text x="${cx}" y="${cy - 1}" text-anchor="middle" alignment-baseline="middle" class="nuc-center-name">${escapeHTML(surname)}</text>`;
-  svg += `<text x="${cx}" y="${cy + 12}" text-anchor="middle" alignment-baseline="middle" class="nuc-center-pos">${escapeHTML(r.position || "")}</text>`;
+  svg += `<text x="${cx}" y="${(cy - 3).toFixed(1)}" text-anchor="middle" class="nuc-center-name">${escapeHTML(surname)}</text>`;
+  svg += `<text x="${cx}" y="${(cy + 12).toFixed(1)}" text-anchor="middle" class="nuc-center-pos">${escapeHTML(r.position || "")}</text>`;
   svg += `</svg>`;
 
   nucDetailEl.innerHTML = `
@@ -870,6 +877,57 @@ function drawNucleusDetail() {
 nucSearchEl.addEventListener("input", () => { nucState.search = nucSearchEl.value || ""; nucRender(); });
 nucRoleEl.addEventListener("change", () => { nucState.role = nucRoleEl.value; nucRender(); });
 nucSortEl.addEventListener("change", () => { nucState.sortBy = nucSortEl.value; nucRender(); });
+
+/* ═══════════════════════════════════════════════════════════
+   MODE 7 — Team networks
+   Per-team chemistry density: strong-pair counts (off / def / cross),
+   mean AW-JOI90, Gini coefficient of pair-AW-JOI90 distribution.
+   The headline pattern: top 4 by total strong pairs = 4 semifinalists.
+   ═══════════════════════════════════════════════════════════ */
+
+const teamRaw = (await loadJSON("data/team_networks.json")) || [];
+const teamTableEl = document.getElementById("team-table");
+const STAGE_COLOR = {
+  Winner: "#6dd58c", Final: "#a3d39c", "3rd": "#cbd76c", "4th": "#e3cf6c",
+  QF: "#d1a273", R16: "#a87a7a", Group: "#777"
+};
+
+function teamRender() {
+  if (!teamRaw.length) {
+    renderEmpty(teamTableEl, "Team networks not yet computed.", "Run the AW-JOI pipeline first.");
+    return;
+  }
+  const cols = [
+    { key: "team_name", label: "Team",
+      render: (r) => `${flagHTML(r.flag_code)}<strong>${escapeHTML(r.team_name)}</strong>` },
+    { key: "stage_rank", label: "Stage",
+      render: (r) => `<span class="chip" style="background:${STAGE_COLOR[r.stage] || '#444'}22; color:${STAGE_COLOR[r.stage] || '#888'}; border-color:transparent">${escapeHTML(r.stage)}</span>` },
+    { key: "n_strong_total", label: "Strong pairs",
+      num: true, digits: 0, defaultSort: true, defaultDir: "desc",
+      render: (r) => `<span class="tabular delta-pos"><strong>${r.n_strong_total}</strong></span>` },
+    { key: "n_strong_off", label: "off-off",
+      num: true, digits: 0,
+      render: (r) => `<span class="tabular">${r.n_strong_off}</span>` },
+    { key: "n_strong_def", label: "def-def",
+      num: true, digits: 0,
+      render: (r) => `<span class="tabular">${r.n_strong_def}</span>` },
+    { key: "n_strong_cross", label: "cross",
+      num: true, digits: 0,
+      render: (r) => `<span class="tabular dim">${r.n_strong_cross}</span>` },
+    { key: "mean_aw_joi90_all", label: "Mean AW-JOI90",
+      num: true, digits: 2 },
+    { key: "max_aw_joi90", label: "Max pair",
+      num: true, digits: 2 },
+    { key: "gini_aw_joi90", label: "Gini (lower = even)",
+      num: true, digits: 2,
+      render: (r) => {
+        const v = r.gini_aw_joi90;
+        const cls = v < 0.32 ? "delta-pos" : (v > 0.40 ? "delta-neg" : "");
+        return `<span class="tabular ${cls}">${fmtNum(v, 2)}</span>`;
+      }},
+  ];
+  makeSortableTable({ data: teamRaw, columns: cols, container: teamTableEl, emptyLabel: "No teams." }).render();
+}
 
 /* ─────────── boot ─────────── */
 

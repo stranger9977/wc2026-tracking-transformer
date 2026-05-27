@@ -1405,19 +1405,39 @@ div.player-dot .role {
 .nucleus-svg {
   width: 100%;
   height: auto;
-  max-width: 520px;
-  max-height: 460px;
+  max-width: 600px;
+  max-height: 480px;
   display: block;
   margin: 0 auto;
 }
-/* Font sizes are in SVG user units (viewBox is 480 wide). A larger
-   font here renders proportionally bigger on screen — keep small. */
+/* Font sizes are in SVG user units (viewBox is 560 wide). Calibrated so
+   labels read at roughly 11-12px when the SVG renders at typical desktop
+   widths. */
 .nuc-label {
-  font-family: var(--mono);
-  font-size: 13px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
   fill: var(--text);
 }
-.nuc-pos-small { font-size: 11px; fill: var(--text-dim); }
-.nuc-edge-val { font-family: var(--mono); font-size: 12px; fill: var(--text-dim); }
-.nuc-center-name { font-family: var(--sans); font-size: 13px; font-weight: 700; fill: var(--text); }
-.nuc-center-pos { font-family: var(--mono); font-size: 11px; fill: var(--text-dim); }
+.nuc-pos-small {
+  font-family: var(--mono);
+  font-size: 10px;
+  fill: var(--text-mute);
+  font-weight: 400;
+}
+.nuc-edge-val {
+  font-family: var(--mono);
+  font-size: 12px;
+  fill: var(--text-dim);
+}
+.nuc-center-name {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--text);
+}
+.nuc-center-pos {
+  font-family: var(--mono);
+  font-size: 10px;
+  fill: var(--text-dim);
+}

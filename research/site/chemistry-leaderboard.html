@@ -58,6 +58,7 @@
       <button data-mode="outcome">When scoring vs neutral</button>
       <button data-mode="awjoi">AW-JOI · attention × value</button>
       <button data-mode="nucleus">Nucleus networks</button>
+      <button data-mode="team">Team networks</button>
     </div>
 
     <!-- ─────────── Mode 1: Event-based ─────────── -->
@@ -421,6 +422,31 @@
         </div>
       </div>
     </section>
+
+    <!-- ─────────── Mode 7: Team networks ─────────── -->
+    <section id="mode-team" class="mode-section">
+      <aside class="callout">
+        <p>
+          <strong>How healthy is each team's chemistry network as a whole?</strong>
+          For every team we count how many of their same-team pairs cross the
+          strong-chemistry bar (AW-JOI90 ≥ 0.4) — split into offensive,
+          defensive, and cross-line pairs — plus the mean and the Gini
+          coefficient of the AW-JOI90 distribution (lower = more evenly
+          distributed across pairs).
+        </p>
+        <p class="small mt-0" style="margin-bottom:0">
+          <strong>The headline:</strong> the top 4 teams by total strong pairs
+          are <em>exactly</em> the four semifinalists, in finish order — France
+          (86), Croatia (84), Argentina (82), Morocco (76). And all four have
+          Gini 0.28–0.30 — very even distribution. <strong>Concentrated
+          chemistry (high Gini, fewer pairs) loses to distributed chemistry
+          (low Gini, more pairs).</strong> Brazil illustrates the trade-off:
+          highest mean pair strength (1.00) but only 69 strong pairs total —
+          exited QF.
+        </p>
+      </aside>
+      <div id="team-table" style="margin-top: 1rem;"></div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -428,6 +454,6 @@
     Bransen &amp; Van Haaren (Sloan 2020) + a transformer encoder over 22-player tracking.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-leaderboard.js?v=nucleus-2"></script>
+  <script type="module" src="assets/js/chemistry-leaderboard.js?v=nucleus-3"></script>
 </body>
 </html>
