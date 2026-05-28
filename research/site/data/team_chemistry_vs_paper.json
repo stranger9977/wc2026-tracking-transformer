@@ -25,7 +25,11 @@
     "mid": 68.0,
     "def": 70.0,
     "depth_gap": 1.8,
-    "notes": "First host to fail to win a match."
+    "notes": "First host to fail to win a match.",
+    "total_caps": 1472,
+    "mean_caps": 56.61538461538461,
+    "max_caps": 169,
+    "squad_size": 26
   },
   {
     "team_id": "361",
@@ -53,7 +57,11 @@
     "mid": 84.0,
     "def": 82.0,
     "depth_gap": 6.5,
-    "notes": "Pre-tournament favourite by paper rating; lost on PKs to Croatia in QF."
+    "notes": "Pre-tournament favourite by paper rating; lost on PKs to Croatia in QF.",
+    "total_caps": 952,
+    "mean_caps": 36.61538461538461,
+    "max_caps": 124,
+    "squad_size": 26
   },
   {
     "team_id": "362",
@@ -81,7 +89,11 @@
     "mid": 84.0,
     "def": 82.0,
     "depth_gap": 6.3,
-    "notes": "Pre-tournament dark horse; aging core, eliminated in groups."
+    "notes": "Pre-tournament dark horse; aging core, eliminated in groups.",
+    "total_caps": 1357,
+    "mean_caps": 52.19230769230769,
+    "max_caps": 142,
+    "squad_size": 26
   },
   {
     "team_id": "363",
@@ -109,7 +121,11 @@
     "mid": 84.0,
     "def": 84.0,
     "depth_gap": 7.8,
-    "notes": "Most talented attacking front in the field; finalists."
+    "notes": "Most talented attacking front in the field; finalists.",
+    "total_caps": 892,
+    "mean_caps": 34.30769230769231,
+    "max_caps": 139,
+    "squad_size": 26
   },
   {
     "team_id": "364",
@@ -137,7 +153,11 @@
     "mid": 84.0,
     "def": 82.0,
     "depth_gap": 5.1,
-    "notes": "Won the tournament from outside the top-3 paper rating."
+    "notes": "Won the tournament from outside the top-3 paper rating.",
+    "total_caps": 887,
+    "mean_caps": 34.11538461538461,
+    "max_caps": 165,
+    "squad_size": 26
   },
   {
     "team_id": "365",
@@ -165,7 +185,11 @@
     "mid": 83.0,
     "def": 82.0,
     "depth_gap": 6.0,
-    "notes": "Out to Morocco in QF."
+    "notes": "Out to Morocco in QF.",
+    "total_caps": 1068,
+    "mean_caps": 41.07692307692308,
+    "max_caps": 191,
+    "squad_size": 26
   },
   {
     "team_id": "366",
@@ -193,7 +217,11 @@
     "mid": 82.0,
     "def": 83.0,
     "depth_gap": 4.8,
-    "notes": "Lost to Argentina on penalties in QF."
+    "notes": "Lost to Argentina on penalties in QF.",
+    "total_caps": 683,
+    "mean_caps": 26.26923076923077,
+    "max_caps": 94,
+    "squad_size": 26
   },
   {
     "team_id": "367",
@@ -221,7 +249,11 @@
     "mid": 81.0,
     "def": 81.0,
     "depth_gap": 4.2,
-    "notes": "Pre-tournament dark horse; one goal scored, eliminated in groups."
+    "notes": "Pre-tournament dark horse; one goal scored, eliminated in groups.",
+    "total_caps": 1004,
+    "mean_caps": 38.61538461538461,
+    "max_caps": 121,
+    "squad_size": 26
   },
   {
     "team_id": "368",
@@ -249,7 +281,11 @@
     "mid": 84.0,
     "def": 81.0,
     "depth_gap": 5.5,
-    "notes": "Second consecutive group-stage exit."
+    "notes": "Second consecutive group-stage exit.",
+    "total_caps": 916,
+    "mean_caps": 35.23076923076923,
+    "max_caps": 118,
+    "squad_size": 26
   },
   {
     "team_id": "369",
@@ -277,7 +313,11 @@
     "mid": 80.0,
     "def": 79.0,
     "depth_gap": 4.5,
-    "notes": "Out on goal difference."
+    "notes": "Out on goal difference.",
+    "total_caps": 1183,
+    "mean_caps": 45.5,
+    "max_caps": 159,
+    "squad_size": 26
   },
   {
     "team_id": "370",
@@ -305,7 +345,11 @@
     "mid": 79.0,
     "def": 80.0,
     "depth_gap": 3.6,
-    "notes": "Out to Portugal in R16."
+    "notes": "Out to Portugal in R16.",
+    "total_caps": 1010,
+    "mean_caps": 38.84615384615385,
+    "max_caps": 109,
+    "squad_size": 26
   },
   {
     "team_id": "371",
@@ -333,7 +377,11 @@
     "mid": 84.0,
     "def": 78.0,
     "depth_gap": 4.0,
-    "notes": "Massive overperformance \u2014 3rd place from a top-15 paper rating."
+    "notes": "Massive overperformance \u2014 3rd place from a top-15 paper rating.",
+    "total_caps": 979,
+    "mean_caps": 37.65384615384615,
+    "max_caps": 155,
+    "squad_size": 26
   },
   {
     "team_id": "372",
@@ -361,7 +409,11 @@
     "mid": 77.0,
     "def": 77.0,
     "depth_gap": 3.5,
-    "notes": "Lost top star to injury pre-tournament; R16 exit to England."
+    "notes": "Lost top star to injury pre-tournament; R16 exit to England.",
+    "total_caps": 542,
+    "mean_caps": 20.846153846153847,
+    "max_caps": 96,
+    "squad_size": 26
   },
   {
     "team_id": "373",
@@ -389,7 +441,11 @@
     "mid": 70.0,
     "def": 71.0,
     "depth_gap": 2.1,
-    "notes": "Lost to USA in must-win."
+    "notes": "Lost to USA in must-win.",
+    "total_caps": 980,
+    "mean_caps": 39.2,
+    "max_caps": 121,
+    "squad_size": 25
   },
   {
     "team_id": "374",
@@ -417,7 +473,11 @@
     "mid": 75.0,
     "def": 76.0,
     "depth_gap": 3.0,
-    "notes": "Largest paper-rating overperformance of any team \u2014 semi-finals from #15 talent."
+    "notes": "Largest paper-rating overperformance of any team \u2014 semi-finals from #15 talent.",
+    "total_caps": 521,
+    "mean_caps": 20.03846153846154,
+    "max_caps": 66,
+    "squad_size": 26
   },
   {
     "team_id": "375",
@@ -445,7 +505,11 @@
     "mid": 75.0,
     "def": 74.0,
     "depth_gap": 3.6,
-    "notes": "Group of Death exit."
+    "notes": "Group of Death exit.",
+    "total_caps": 776,
+    "mean_caps": 29.846153846153847,
+    "max_caps": 91,
+    "squad_size": 26
   },
   {
     "team_id": "376",
@@ -473,7 +537,11 @@
     "mid": 75.0,
     "def": 77.0,
     "depth_gap": 3.4,
-    "notes": "Out to France."
+    "notes": "Out to France.",
+    "total_caps": 897,
+    "mean_caps": 34.5,
+    "max_caps": 134,
+    "squad_size": 26
   },
   {
     "team_id": "377",
@@ -501,7 +569,11 @@
     "mid": 75.0,
     "def": 75.0,
     "depth_gap": 3.2,
-    "notes": "Out to Brazil in R16."
+    "notes": "Out to Brazil in R16.",
+    "total_caps": 922,
+    "mean_caps": 35.46153846153846,
+    "max_caps": 104,
+    "squad_size": 26
   },
   {
     "team_id": "378",
@@ -529,7 +601,11 @@
     "mid": 72.0,
     "def": 73.0,
     "depth_gap": 2.4,
-    "notes": "Beat reigning champs France in dead rubber."
+    "notes": "Beat reigning champs France in dead rubber.",
+    "total_caps": 985,
+    "mean_caps": 37.88461538461539,
+    "max_caps": 88,
+    "squad_size": 26
   },
   {
     "team_id": "379",
@@ -557,7 +633,11 @@
     "mid": 72.0,
     "def": 72.0,
     "depth_gap": 2.5,
-    "notes": "Beat Brazil 1-0 in dead rubber."
+    "notes": "Beat Brazil 1-0 in dead rubber.",
+    "total_caps": 666,
+    "mean_caps": 25.615384615384617,
+    "max_caps": 92,
+    "squad_size": 26
   },
   {
     "team_id": "380",
@@ -585,7 +665,11 @@
     "mid": 73.0,
     "def": 74.0,
     "depth_gap": 2.9,
-    "notes": "First WC since 1986; 0 pts."
+    "notes": "First WC since 1986; 0 pts.",
+    "total_caps": 822,
+    "mean_caps": 31.615384615384617,
+    "max_caps": 98,
+    "squad_size": 26
   },
   {
     "team_id": "382",
@@ -613,7 +697,11 @@
     "mid": 68.0,
     "def": 69.0,
     "depth_gap": 2.0,
-    "notes": "Beat Argentina in the opener; biggest paper-rating upset of the tournament."
+    "notes": "Beat Argentina in the opener; biggest paper-rating upset of the tournament.",
+    "total_caps": 748,
+    "mean_caps": 28.76923076923077,
+    "max_caps": 72,
+    "squad_size": 26
   },
   {
     "team_id": "383",
@@ -641,7 +729,11 @@
     "mid": 72.0,
     "def": 72.0,
     "depth_gap": 2.4,
-    "notes": "Out on goal difference."
+    "notes": "Out on goal difference.",
+    "total_caps": 484,
+    "mean_caps": 18.615384615384617,
+    "max_caps": 110,
+    "squad_size": 26
   },
   {
     "team_id": "384",
@@ -669,7 +761,11 @@
     "mid": 74.0,
     "def": 75.0,
     "depth_gap": 3.0,
-    "notes": "First WC since 1958; 1 pt and out."
+    "notes": "First WC since 1958; 1 pt and out.",
+    "total_caps": 990,
+    "mean_caps": 38.07692307692308,
+    "max_caps": 109,
+    "squad_size": 26
   },
   {
     "team_id": "385",
@@ -697,7 +793,11 @@
     "mid": 71.0,
     "def": 72.0,
     "depth_gap": 2.3,
-    "notes": "Group exit."
+    "notes": "Group exit.",
+    "total_caps": 1153,
+    "mean_caps": 44.34615384615385,
+    "max_caps": 155,
+    "squad_size": 26
   },
   {
     "team_id": "386",
@@ -725,7 +825,11 @@
     "mid": 71.0,
     "def": 72.0,
     "depth_gap": 2.6,
-    "notes": "First R16 since 2006."
+    "notes": "First R16 since 2006.",
+    "total_caps": 537,
+    "mean_caps": 20.653846153846153,
+    "max_caps": 75,
+    "squad_size": 26
   },
   {
     "team_id": "50",
@@ -753,7 +857,11 @@
     "mid": 83.0,
     "def": 82.0,
     "depth_gap": 5.9,
-    "notes": "Eliminated by eventual finalists France; Kane missed late penalty."
+    "notes": "Eliminated by eventual finalists France; Kane missed late penalty.",
+    "total_caps": 820,
+    "mean_caps": 31.53846153846154,
+    "max_caps": 79,
+    "squad_size": 26
   },
   {
     "team_id": "51",
@@ -781,7 +889,11 @@
     "mid": null,
     "def": null,
     "depth_gap": null,
-    "notes": null
+    "notes": null,
+    "total_caps": 685,
+    "mean_caps": 26.346153846153847,
+    "max_caps": 75,
+    "squad_size": 26
   },
   {
     "team_id": "52",
@@ -809,7 +921,11 @@
     "mid": 84.0,
     "def": 82.0,
     "depth_gap": 5.4,
-    "notes": "Knocked out by Morocco on penalties."
+    "notes": "Knocked out by Morocco on penalties.",
+    "total_caps": 733,
+    "mean_caps": 28.192307692307693,
+    "max_caps": 139,
+    "squad_size": 26
   },
   {
     "team_id": "57",
@@ -837,7 +953,11 @@
     "mid": 73.0,
     "def": 74.0,
     "depth_gap": 2.8,
-    "notes": "Beat Spain and Germany in groups; lost R16 on penalties to Croatia."
+    "notes": "Beat Spain and Germany in groups; lost R16 on penalties to Croatia.",
+    "total_caps": 914,
+    "mean_caps": 35.15384615384615,
+    "max_caps": 138,
+    "squad_size": 26
   },
   {
     "team_id": "58",
@@ -865,6 +985,10 @@
     "mid": 78.0,
     "def": 79.0,
     "depth_gap": 3.1,
-    "notes": "First group exit since 1978."
+    "notes": "First group exit since 1978.",
+    "total_caps": 1317,
+    "mean_caps": 50.65384615384615,
+    "max_caps": 178,
+    "squad_size": 26
   }
 ]

@@ -31,7 +31,7 @@ function initChemistryTab(rows) {
     if (v === "n_strong_total")          sorted = [...data].sort((a, b) => b.n_strong_total - a.n_strong_total);
     else if (v === "mean_aw_joi90_all")  sorted = [...data].sort((a, b) => b.mean_aw_joi90_all - a.mean_aw_joi90_all);
     else if (v === "total_prior_shared") sorted = [...data].sort((a, b) =>
-      (b.ever_shared_pct_of_known ?? -1) - (a.ever_shared_pct_of_known ?? -1));
+      (b.total_caps ?? -1) - (a.total_caps ?? -1));
     else if (v === "fifa_overall")       sorted = [...data].sort((a, b) => fifaOverall(b) - fifaOverall(a));
     else if (v === "result_rank")        sorted = [...data].sort((a, b) => a.result_rank - b.result_rank);
     else sorted = data;
@@ -50,7 +50,7 @@ function renderChemTable(rows) {
       <th>Team</th>
       <th class="num" title="Pairs on the squad with AW-JOI per 90 ≥ 0.4. Frame-level chemistry density.">Strong pairs</th>
       <th class="num" title="Mean AW-JOI per 90 across all same-team pairs.">Mean AW-JOI90</th>
-      <th class="num" title="Coverage-normalized: of the squad-pairs where both players' club history is known, what % ever shared a pitch pre-WC22. Removes roster-coverage bias.">Ever-shared % (norm.)</th>
+      <th class="num" title="Sum of every WC22 squad member's senior national-team caps as of the start of the tournament (Wikipedia).">Total caps</th>
       <th class="num" title="EA Sports' published team Overall in FIFA 23.">FIFA Overall</th>
       <th>Top players (FIFA 23)</th>
       <th>Result</th>
@@ -68,8 +68,8 @@ function renderChemTable(rows) {
       <td class="num tabular"><strong>${r.n_strong_total}</strong>
         <span class="muted small">(off ${r.n_strong_off}/def ${r.n_strong_def}/cross ${r.n_strong_cross})</span></td>
       <td class="num tabular">${r.mean_aw_joi90_all.toFixed(2)}</td>
-      <td class="num tabular">${r.ever_shared_pct_of_known != null ? r.ever_shared_pct_of_known.toFixed(1) + "%" : "—"}
-        <span class="muted small">(cov ${((r.coverage_pct ?? 0) * 100).toFixed(0)}%)</span></td>
+      <td class="num tabular">${r.total_caps != null ? r.total_caps.toLocaleString() : "—"}
+        <span class="muted small">(μ ${r.mean_caps != null ? r.mean_caps.toFixed(0) : "—"})</span></td>
       <td class="num">${fifaCell}</td>
       <td class="small">${starsHTML || `<span class="muted">—</span>`}</td>
       <td>${escapeHTML(r.stage)} <span class="muted small">#${r.result_rank}</span></td>
@@ -80,8 +80,8 @@ function renderChemTable(rows) {
 
 function renderChemVsResultScatter(rows) {
   // X = n_strong_total; Y = stage_int (2..8)
-  const W = 1100, H = 560;
-  const padL = 86, padR = 24, padT = 22, padB = 96;
+  const W = 1100, H = 500;
+  const padL = 86, padR = 24, padT = 22, padB = 72;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
 
@@ -102,13 +102,13 @@ function renderChemVsResultScatter(rows) {
           fill="currentColor" opacity="0.65" text-anchor="end">${label}</text>
   `).join("");
 
-  // Dot colour encodes coverage-normalized ever-shared % (light → deep blue).
+  // Dot colour encodes total national-team caps in the WC22 squad (light → deep blue).
   // Gold ring marks the four squads with the densest networks (= the 4 semifinalists).
   const semis = new Set(["France", "Croatia", "Argentina", "Morocco"]);
-  const priorVals = rows.map(r => r.ever_shared_pct_of_known ?? 0);
+  const priorVals = rows.map(r => r.total_caps ?? 0).filter(v => v > 0);
   const priorMax = Math.max(...priorVals);
   const priorMin = Math.min(...priorVals);
-  const priorOf = (r) => r.ever_shared_pct_of_known ?? 0;
+  const priorOf = (r) => r.total_caps ?? priorMin;
   const priorScale = (v) => {
     const t = priorMax === priorMin ? 0 : (v - priorMin) / (priorMax - priorMin);
     // Interpolate between light gray and deep teal-blue
@@ -135,29 +135,34 @@ function renderChemVsResultScatter(rows) {
   const ramp = `
     <g transform="translate(${rampX}, ${rampY})">
       <text x="${rampW}" y="-18" font-size="10.5" fill="currentColor" opacity="0.75" text-anchor="end">
-        dot fill = ever-shared % (norm.)</text>
+        dot fill = total national-team caps</text>
       ${[0, 0.25, 0.5, 0.75, 1.0].map((t, i) => {
         const v = priorMin + t * (priorMax - priorMin);
         return `<rect x="${i*(rampW/5)}" y="-10" width="${rampW/5}" height="9" fill="${priorScale(v)}"/>`;
       }).join("")}
-      <text x="0" y="6" font-size="10" fill="currentColor" opacity="0.6">${priorMin.toFixed(0)}%</text>
-      <text x="${rampW}" y="6" font-size="10" fill="currentColor" opacity="0.6" text-anchor="end">${priorMax.toFixed(0)}%</text>
+      <text x="0" y="6" font-size="10" fill="currentColor" opacity="0.6">${Math.round(priorMin)}</text>
+      <text x="${rampW}" y="6" font-size="10" fill="currentColor" opacity="0.6" text-anchor="end">${Math.round(priorMax)}</text>
     </g>`;
 
   // Simple non-overlap label placement
   const labelW = 64, labelH = 14;
   const lineSpacing = labelH + 2;
   const intersects = (a, b) => !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
+  // Group row sits at the bottom of the plot — stacking those labels downward
+  // would collide with the x-axis. Stack them UPWARD into the empty band
+  // between the Group and R16 rows. R16 stacks downward into the same band but
+  // is reached second so it yields. All higher rows still stack downward.
   const order = [...rows].sort((a, b) => b.stage_int - a.stage_int || b.n_strong_total - a.n_strong_total);
   const placed = [];
   const picks = new Map();
   for (const r of order) {
     const cx = sx(r.n_strong_total), cy = sy(r.stage_int);
-    const stackDown = r.stage_int <= 4;
+    const stackUpFromBottom = r.stage_int === 2;  // Group row: stack up
+    const stackDown = !stackUpFromBottom && r.stage_int <= 4;
     const anchor = (cx > padL + innerW * 0.6) ? "end" : "start";
     const dx = anchor === "start" ? 9 : -9;
-    let dy = stackDown ? 10 : -10;
-    const step = stackDown ? lineSpacing : -lineSpacing;
+    let dy = stackUpFromBottom ? -10 : (stackDown ? 10 : -10);
+    const step = stackUpFromBottom ? -lineSpacing : (stackDown ? lineSpacing : -lineSpacing);
     let box;
     for (let bump = 0; bump < 14; bump++) {
       const lx = cx + dx, ly = cy + dy;
@@ -213,9 +218,10 @@ function renderTimeVsChemScatter(rows) {
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
 
-  const xs = rows.map(r => (r.ever_shared_pct_of_known ?? 0));
+  const xs = rows.map(r => (r.total_caps ?? 0));
   const ys = rows.map(r => r.n_strong_total);
-  const xmin = 0, xmax = Math.max(...xs) * 1.1 + 1;
+  const xmin = Math.min(...xs.filter(v => v > 0)) - 50;
+  const xmax = Math.max(...xs) + 80;
   const ymin = Math.min(...ys) - 4, ymax = Math.max(...ys) + 4;
   const sx = (x) => padL + ((x - xmin) / (xmax - xmin)) * innerW;
   const sy = (y) => padT + innerH - ((y - ymin) / (ymax - ymin)) * innerH;
@@ -237,7 +243,7 @@ function renderTimeVsChemScatter(rows) {
   const dotColor = (r) => semis.has(r.team_name) ? "#d4a23a" : "#6b7280";
 
   const dots = rows.map(r => {
-    const cx = sx((r.ever_shared_pct_of_known ?? 0)), cy = sy(r.n_strong_total);
+    const cx = sx((r.total_caps ?? 0)), cy = sy(r.n_strong_total);
     return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5"
        fill="${dotColor(r)}" stroke="var(--bg, #0b1220)" stroke-width="1.0"/>`;
   }).join("");
@@ -250,7 +256,7 @@ function renderTimeVsChemScatter(rows) {
   const placed = [];
   const picks = new Map();
   for (const r of order) {
-    const cx = sx((r.ever_shared_pct_of_known ?? 0)), cy = sy(r.n_strong_total);
+    const cx = sx((r.total_caps ?? 0)), cy = sy(r.n_strong_total);
     const stackDown = r.n_strong_total < 50;
     const anchor = (cx > padL + innerW * 0.65) ? "end" : "start";
     const dx = anchor === "start" ? 8 : -8;
@@ -270,7 +276,7 @@ function renderTimeVsChemScatter(rows) {
   }
 
   const labels = rows.map(r => {
-    const cx = sx((r.ever_shared_pct_of_known ?? 0)), cy = sy(r.n_strong_total);
+    const cx = sx((r.total_caps ?? 0)), cy = sy(r.n_strong_total);
     const pick = picks.get(r.team_name);
     const fw = semis.has(r.team_name) ? 700 : 500;
     return `<text x="${(cx + pick.dx).toFixed(1)}" y="${(cy + pick.dy).toFixed(1)}"
@@ -278,14 +284,14 @@ function renderTimeVsChemScatter(rows) {
            opacity="0.92" text-anchor="${pick.anchor}">${escapeHTML(r.team_name)}</text>`;
   }).join("");
 
-  const xTicks = [0, 5, 10, 15, 20, 25, 30, 35];
-  const xTickSvg = xTicks.filter(x => x <= xmax).map(x => `
+  const xTicks = [500, 700, 900, 1100, 1300, 1500];
+  const xTickSvg = xTicks.filter(x => x >= xmin && x <= xmax).map(x => `
     <text x="${sx(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
-          opacity="0.55" text-anchor="middle">${x}%</text>
+          opacity="0.55" text-anchor="middle">${x.toLocaleString()}</text>
   `).join("");
   const axisX = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - 6}"
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle">
-    Ever-shared % of squad-pairs with known club history (coverage-normalized)</text>`;
+    Total national-team caps in WC22 squad (Wikipedia)</text>`;
   const axisY = `<text x="${20}" y="${padT + innerH / 2}"
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle"
     transform="rotate(-90, 20, ${padT + innerH / 2})">Strong AW-JOI pairs</text>`;
@@ -303,7 +309,7 @@ function renderTimeVsChemScatter(rows) {
     </svg>
     <div class="scatter-legend small muted">
       <span><span class="dot" style="background:#d4a23a"></span> WC22 semifinalists</span>
-      <span class="muted">Spearman ρ = +0.29 (p = 0.11, n = 31). Coverage-normalized — see §3 for caveat.</span>
+      <span class="muted">Spearman ρ = <strong>−0.36</strong> (p = 0.045, n = 31). Surprising — high caps ≠ high chemistry.</span>
     </div>`;
 }
 
