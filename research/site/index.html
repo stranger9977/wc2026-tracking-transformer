@@ -251,6 +251,24 @@
       wide forward pinning a full-back.
     </p>
     <p>
+      <strong>How it figures out who matters — without being told.</strong>
+      Gradient descent. Picture training a kid to predict when a fight is
+      about to break out in a crowded bar. At first they look at everyone
+      equally. They guess. They're usually wrong. They watch what actually
+      happens. Each time they're wrong, they adjust which faces they pay
+      attention to next time. After a few hundred bars, clenched fists and
+      raised voices light up; people on their phones fade out. Nobody handed
+      them a rulebook — outcomes did. Our transformer learns the same way
+      across millions of soccer frames: predict P(score), look at the next
+      ten seconds, adjust which players to attend to, repeat. After enough
+      training, on a dangerous configuration it has learned to focus on the
+      striker making the diagonal run and the centre-back stepping up — not
+      the fullback standing still on the far side. We never told it the
+      words <em>striker</em>, <em>fullback</em>, or <em>diagonal run</em>.
+      The right weighting emerged because it was the only way to get the
+      probability right.
+    </p>
+    <p>
       <strong>How attention becomes chemistry.</strong> <strong>AW-JOI</strong>
       stands for <strong>Attention-Weighted Joint Offensive Impact</strong>.
       The "AW" is the part the paper can't compute. Across every frame, how
@@ -386,7 +404,9 @@
       Both pipelines predict the same two probabilities — P(score) and
       P(concede) — but on different inputs. The paper's VAEP classifier
       sees only the on-ball action stream; ours sees every frame of
-      tracking. Held-out AUC, same task framing:
+      tracking. Numbers below are <strong>held-out</strong>: our transformer
+      was trained on 36 PFF WC22 matches and the AUC is measured on the
+      <strong>8 matches it never saw during training</strong>. Same task framing:
     </p>
     <table class="compare-table">
       <thead>
