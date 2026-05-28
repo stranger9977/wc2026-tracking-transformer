@@ -185,7 +185,7 @@ function renderChemVsResultScatter(rows) {
            opacity="0.92" text-anchor="${pick.anchor}">${escapeHTML(r.team_name)}</text>`;
   }).join("");
 
-  const xTicks = [40, 50, 60, 70, 80, 90];
+  const xTicks = [0, 10, 20, 30, 40, 50, 60, 70, 80];
   const xTickSvg = xTicks.map(x => `
     <text x="${sx(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
           opacity="0.55" text-anchor="middle">${x}</text>
