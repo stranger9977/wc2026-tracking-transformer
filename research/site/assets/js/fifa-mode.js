@@ -192,7 +192,7 @@ function renderChemVsResultScatter(rows) {
   `).join("");
   const axisX = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - padB + 36}"
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle">
-    Strong AW-JOI pairs (AW-JOI90 ≥ 0.4)</text>`;
+    Team chemistry · strong AW-JOI pairs (AW-JOI90 ≥ 0.4)</text>`;
 
   chemVsResultScatter.innerHTML = `
     <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
@@ -294,7 +294,7 @@ function renderTimeVsChemScatter(rows) {
     Total national-team caps in WC22 squad (Wikipedia)</text>`;
   const axisY = `<text x="${20}" y="${padT + innerH / 2}"
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle"
-    transform="rotate(-90, 20, ${padT + innerH / 2})">Strong AW-JOI pairs</text>`;
+    transform="rotate(-90, 20, ${padT + innerH / 2})">Team chemistry · strong pairs</text>`;
 
   timeVsChemScatter.innerHTML = `
     <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
