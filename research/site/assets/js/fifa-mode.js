@@ -192,7 +192,7 @@ function renderChemVsResultScatter(rows) {
   `).join("");
   const axisX = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - padB + 36}"
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle">
-    Team chemistry · strong AW-JOI pairs (AW-JOI90 ≥ 0.4)</text>`;
+    Strong AW-JOI pairs (AW-JOI90 ≥ 0.4)</text>`;
 
   chemVsResultScatter.innerHTML = `
     <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
