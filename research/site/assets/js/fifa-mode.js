@@ -92,20 +92,65 @@ function renderFifaVsFinish(rows) {
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle"
     transform="rotate(-90, 20, ${padT + innerH / 2})">WC22 stage reached</text>`;
 
+  // Least-squares regression: "expected stage given FIFA Overall".
+  // Above this line = overachieved; below = underachieved.
+  const n = xs.length;
+  const meanX = xs.reduce((a, b) => a + b, 0) / n;
+  const meanY = ys.reduce((a, b) => a + b, 0) / n;
+  let num = 0, den = 0;
+  for (let i = 0; i < n; i++) {
+    num += (xs[i] - meanX) * (ys[i] - meanY);
+    den += (xs[i] - meanX) ** 2;
+  }
+  const slope = num / den;
+  const intercept = meanY - slope * meanX;
+  const lineYat = (x) => slope * x + intercept;
+  const lineX1 = xmin + 1, lineX2 = xmax - 1;
+  const lineY1 = Math.max(ymin, Math.min(ymax, lineYat(lineX1)));
+  const lineY2 = Math.max(ymin, Math.min(ymax, lineYat(lineX2)));
+  const trend = `
+    <line x1="${sxV(lineX1)}" y1="${syV(lineY1)}" x2="${sxV(lineX2)}" y2="${syV(lineY2)}"
+          stroke="#d4a23a" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>
+    <text x="${sxV(lineX2) - 6}" y="${syV(lineY2) - 6}" font-size="10.5"
+          fill="#d4a23a" opacity="0.85" text-anchor="end" font-style="italic">
+      expected finish given FIFA Overall</text>`;
+
+  // Annotate the most striking over/under-achievers.
+  // Residual = actual finish − expected finish given FIFA.
+  const annotated = rows
+    .map((r) => ({ ...r, residual: r.stage_int - lineYat(r.overall) }))
+    .sort((a, b) => Math.abs(b.residual) - Math.abs(a.residual))
+    .slice(0, 6);
+  const callouts = annotated.map((r) => {
+    const over = r.residual > 0;
+    const cx = sx(r), cy = sy(r);
+    const ax = over ? cx + 14 : cx + 14;
+    const ay = over ? cy - 22 : cy + 28;
+    const tag = over ? "+ overachieved" : "− underachieved";
+    const color = over ? "#6dd58c" : "#e07c7c";
+    return `
+      <line x1="${cx}" y1="${cy}" x2="${ax}" y2="${ay}"
+            stroke="${color}" stroke-width="1" opacity="0.55"/>
+      <text x="${ax + 3}" y="${ay + 4}" font-size="10.5"
+            fill="${color}" opacity="0.95" font-weight="600">${tag}</text>`;
+  }).join("");
+
   mount.innerHTML = `
     <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
          class="fifa-scatter-svg" role="img"
          aria-label="FIFA-23 Overall vs WC22 finish scatter">
       ${yRules}
       ${xTickSvg}
+      ${trend}
       ${dots}
       ${labels}
+      ${callouts}
       ${axisX}
       ${axisY}
     </svg>
     <div class="scatter-legend small muted">
       <span><span class="dot" style="background:#d4a23a; border-radius:50%;"></span> WC22 semifinalist (gold ring)</span>
-      <span class="muted">Above the diagonal = overachieved; below = underachieved.</span>
+      <span class="muted">Dashed gold line = least-squares fit (expected finish given FIFA Overall). Above = overachieved; below = underachieved.</span>
     </div>`;
 }
 
