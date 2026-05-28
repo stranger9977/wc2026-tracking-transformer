@@ -29,7 +29,11 @@
     "total_caps": 1472,
     "mean_caps": 56.61538461538461,
     "max_caps": 169,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 17,
+    "history_index_pct": 85.0,
+    "history_index_pairs": 40,
+    "history_index_squadN": 20
   },
   {
     "team_id": "361",
@@ -61,7 +65,11 @@
     "total_caps": 952,
     "mean_caps": 36.61538461538461,
     "max_caps": 124,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 17,
+    "history_index_pct": 65.38461538461539,
+    "history_index_pairs": 22,
+    "history_index_squadN": 26
   },
   {
     "team_id": "362",
@@ -93,7 +101,11 @@
     "total_caps": 1357,
     "mean_caps": 52.19230769230769,
     "max_caps": 142,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 9,
+    "history_index_pct": 45.0,
+    "history_index_pairs": 7,
+    "history_index_squadN": 20
   },
   {
     "team_id": "363",
@@ -125,7 +137,11 @@
     "total_caps": 892,
     "mean_caps": 34.30769230769231,
     "max_caps": 139,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 20,
+    "history_index_pct": 83.33333333333333,
+    "history_index_pairs": 26,
+    "history_index_squadN": 24
   },
   {
     "team_id": "364",
@@ -157,7 +173,11 @@
     "total_caps": 887,
     "mean_caps": 34.11538461538461,
     "max_caps": 165,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 18,
+    "history_index_pct": 75.0,
+    "history_index_pairs": 20,
+    "history_index_squadN": 24
   },
   {
     "team_id": "365",
@@ -189,7 +209,11 @@
     "total_caps": 1068,
     "mean_caps": 41.07692307692308,
     "max_caps": 191,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 19,
+    "history_index_pct": 79.16666666666667,
+    "history_index_pairs": 25,
+    "history_index_squadN": 24
   },
   {
     "team_id": "366",
@@ -221,7 +245,11 @@
     "total_caps": 683,
     "mean_caps": 26.26923076923077,
     "max_caps": 94,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 14,
+    "history_index_pct": 70.0,
+    "history_index_pairs": 28,
+    "history_index_squadN": 20
   },
   {
     "team_id": "367",
@@ -253,7 +281,11 @@
     "total_caps": 1004,
     "mean_caps": 38.61538461538461,
     "max_caps": 121,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 8,
+    "history_index_pct": 40.0,
+    "history_index_pairs": 7,
+    "history_index_squadN": 20
   },
   {
     "team_id": "368",
@@ -285,7 +317,11 @@
     "total_caps": 916,
     "mean_caps": 35.23076923076923,
     "max_caps": 118,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 13,
+    "history_index_pct": 65.0,
+    "history_index_pairs": 30,
+    "history_index_squadN": 20
   },
   {
     "team_id": "369",
@@ -317,7 +353,11 @@
     "total_caps": 1183,
     "mean_caps": 45.5,
     "max_caps": 159,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 6,
+    "history_index_pct": 31.57894736842105,
+    "history_index_pairs": 3,
+    "history_index_squadN": 19
   },
   {
     "team_id": "370",
@@ -349,7 +389,11 @@
     "total_caps": 1010,
     "mean_caps": 38.84615384615385,
     "max_caps": 109,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 8,
+    "history_index_pct": 33.333333333333336,
+    "history_index_pairs": 6,
+    "history_index_squadN": 24
   },
   {
     "team_id": "371",
@@ -381,7 +425,11 @@
     "total_caps": 979,
     "mean_caps": 37.65384615384615,
     "max_caps": 155,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 9,
+    "history_index_pct": 45.0,
+    "history_index_pairs": 8,
+    "history_index_squadN": 20
   },
   {
     "team_id": "372",
@@ -413,7 +461,11 @@
     "total_caps": 542,
     "mean_caps": 20.846153846153847,
     "max_caps": 96,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 6,
+    "history_index_pct": 30.0,
+    "history_index_pairs": 3,
+    "history_index_squadN": 20
   },
   {
     "team_id": "373",
@@ -445,7 +497,11 @@
     "total_caps": 980,
     "mean_caps": 39.2,
     "max_caps": 121,
-    "squad_size": 25
+    "squad_size": 25,
+    "history_index_count": 8,
+    "history_index_pct": 38.095238095238095,
+    "history_index_pairs": 6,
+    "history_index_squadN": 21
   },
   {
     "team_id": "374",
@@ -477,7 +533,11 @@
     "total_caps": 521,
     "mean_caps": 20.03846153846154,
     "max_caps": 66,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 6,
+    "history_index_pct": 24.0,
+    "history_index_pairs": 3,
+    "history_index_squadN": 25
   },
   {
     "team_id": "375",
@@ -509,7 +569,11 @@
     "total_caps": 776,
     "mean_caps": 29.846153846153847,
     "max_caps": 91,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 11,
+    "history_index_pct": 50.0,
+    "history_index_pairs": 8,
+    "history_index_squadN": 22
   },
   {
     "team_id": "376",
@@ -541,7 +605,11 @@
     "total_caps": 897,
     "mean_caps": 34.5,
     "max_caps": 134,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 3,
+    "history_index_pct": 14.285714285714286,
+    "history_index_pairs": 2,
+    "history_index_squadN": 21
   },
   {
     "team_id": "377",
@@ -573,7 +641,11 @@
     "total_caps": 922,
     "mean_caps": 35.46153846153846,
     "max_caps": 104,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 7,
+    "history_index_pct": 35.0,
+    "history_index_pairs": 9,
+    "history_index_squadN": 20
   },
   {
     "team_id": "378",
@@ -605,7 +677,11 @@
     "total_caps": 985,
     "mean_caps": 37.88461538461539,
     "max_caps": 88,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 0,
+    "history_index_pct": 0.0,
+    "history_index_pairs": 0,
+    "history_index_squadN": 21
   },
   {
     "team_id": "379",
@@ -637,7 +713,11 @@
     "total_caps": 666,
     "mean_caps": 25.615384615384617,
     "max_caps": 92,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 0,
+    "history_index_pct": 0.0,
+    "history_index_pairs": 0,
+    "history_index_squadN": 22
   },
   {
     "team_id": "380",
@@ -669,7 +749,11 @@
     "total_caps": 822,
     "mean_caps": 31.615384615384617,
     "max_caps": 98,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 7,
+    "history_index_pct": 36.8421052631579,
+    "history_index_pairs": 5,
+    "history_index_squadN": 19
   },
   {
     "team_id": "382",
@@ -701,7 +785,11 @@
     "total_caps": 748,
     "mean_caps": 28.76923076923077,
     "max_caps": 72,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 16,
+    "history_index_pct": 72.72727272727273,
+    "history_index_pairs": 44,
+    "history_index_squadN": 22
   },
   {
     "team_id": "383",
@@ -733,7 +821,11 @@
     "total_caps": 484,
     "mean_caps": 18.615384615384617,
     "max_caps": 110,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 0,
+    "history_index_pct": 0.0,
+    "history_index_pairs": 0,
+    "history_index_squadN": 19
   },
   {
     "team_id": "384",
@@ -765,7 +857,11 @@
     "total_caps": 990,
     "mean_caps": 38.07692307692308,
     "max_caps": 109,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 7,
+    "history_index_pct": 38.888888888888886,
+    "history_index_pairs": 4,
+    "history_index_squadN": 18
   },
   {
     "team_id": "385",
@@ -797,7 +893,11 @@
     "total_caps": 1153,
     "mean_caps": 44.34615384615385,
     "max_caps": 155,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 10,
+    "history_index_pct": 45.45454545454545,
+    "history_index_pairs": 9,
+    "history_index_squadN": 22
   },
   {
     "team_id": "386",
@@ -829,7 +929,11 @@
     "total_caps": 537,
     "mean_caps": 20.653846153846153,
     "max_caps": 75,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 2,
+    "history_index_pct": 10.0,
+    "history_index_pairs": 1,
+    "history_index_squadN": 20
   },
   {
     "team_id": "50",
@@ -861,7 +965,11 @@
     "total_caps": 820,
     "mean_caps": 31.53846153846154,
     "max_caps": 79,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 15,
+    "history_index_pct": 75.0,
+    "history_index_pairs": 19,
+    "history_index_squadN": 20
   },
   {
     "team_id": "51",
@@ -893,7 +1001,11 @@
     "total_caps": 685,
     "mean_caps": 26.346153846153847,
     "max_caps": 75,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 8,
+    "history_index_pct": 40.0,
+    "history_index_pairs": 4,
+    "history_index_squadN": 20
   },
   {
     "team_id": "52",
@@ -925,7 +1037,11 @@
     "total_caps": 733,
     "mean_caps": 28.192307692307693,
     "max_caps": 139,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 19,
+    "history_index_pct": 95.0,
+    "history_index_pairs": 30,
+    "history_index_squadN": 20
   },
   {
     "team_id": "57",
@@ -957,7 +1073,11 @@
     "total_caps": 914,
     "mean_caps": 35.15384615384615,
     "max_caps": 138,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 3,
+    "history_index_pct": 13.636363636363637,
+    "history_index_pairs": 2,
+    "history_index_squadN": 22
   },
   {
     "team_id": "58",
@@ -989,6 +1109,10 @@
     "total_caps": 1317,
     "mean_caps": 50.65384615384615,
     "max_caps": 178,
-    "squad_size": 26
+    "squad_size": 26,
+    "history_index_count": 10,
+    "history_index_pct": 47.61904761904762,
+    "history_index_pairs": 5,
+    "history_index_squadN": 21
   }
 ]

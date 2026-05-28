@@ -6,6 +6,18 @@ const chemSortEl          = document.getElementById("chem-sort");
 const chemVsResultScatter = document.getElementById("chem-vs-result-scatter");
 const timeVsChemScatter   = document.getElementById("time-vs-chem-scatter");
 
+// --- Tab switching -------------------------------------------------------
+const sections = {
+  "chemistry": document.getElementById("chemistry-view"),
+  "time":      document.getElementById("time-view"),
+};
+const tabs = document.querySelectorAll(".mode-bar button");
+tabs.forEach((b) => b.addEventListener("click", () => {
+  tabs.forEach((x) => x.classList.toggle("active", x === b));
+  const v = b.dataset.view;
+  Object.entries(sections).forEach(([k, el]) => el && el.classList.toggle("active", k === v));
+}));
+
 // --- Load data -----------------------------------------------------------
 const [chem, fifa] = await Promise.all([
   loadJSON("data/team_chemistry_vs_paper.json"),
@@ -50,7 +62,7 @@ function renderChemTable(rows) {
       <th>Team</th>
       <th class="num" title="Pairs on the squad with AW-JOI per 90 ≥ 0.4. Frame-level chemistry density.">Strong pairs</th>
       <th class="num" title="Mean AW-JOI per 90 across all same-team pairs.">Mean AW-JOI90</th>
-      <th class="num" title="Coverage-normalized: of the squad-pairs where both players' club history is known, what % ever shared a pitch pre-WC22.">Ever-shared % (norm.)</th>
+      <th class="num" title="History Index: count of WC22 squad players who have at least one current or former club-mate inside the same national squad.">History Index</th>
       <th class="num" title="EA Sports' published team Overall in FIFA 23.">FIFA Overall</th>
       <th>Top players (FIFA 23)</th>
       <th>Result</th>
@@ -68,8 +80,8 @@ function renderChemTable(rows) {
       <td class="num tabular"><strong>${r.n_strong_total}</strong>
         <span class="muted small">(off ${r.n_strong_off}/def ${r.n_strong_def}/cross ${r.n_strong_cross})</span></td>
       <td class="num tabular">${r.mean_aw_joi90_all.toFixed(2)}</td>
-      <td class="num tabular">${r.ever_shared_pct_of_known != null ? r.ever_shared_pct_of_known.toFixed(1) + "%" : "—"}
-        <span class="muted small">(cov ${((r.coverage_pct ?? 0) * 100).toFixed(0)}%)</span></td>
+      <td class="num tabular">${r.history_index_count != null ? r.history_index_count : "—"}
+        <span class="muted small">of ${r.history_index_squadN ?? "—"}</span></td>
       <td class="num">${fifaCell}</td>
       <td class="small">${starsHTML || `<span class="muted">—</span>`}</td>
       <td>${escapeHTML(r.stage)} <span class="muted small">#${r.result_rank}</span></td>
@@ -102,13 +114,13 @@ function renderChemVsResultScatter(rows) {
           fill="currentColor" opacity="0.65" text-anchor="end">${label}</text>
   `).join("");
 
-  // Dot colour encodes coverage-normalized ever-shared % (light → deep blue).
+  // Dot colour encodes the History Index (count of squad players with a club-mate inside the same national squad).
   // Gold ring marks the four squads with the densest networks (= the 4 semifinalists).
   const semis = new Set(["France", "Croatia", "Argentina", "Morocco"]);
-  const priorVals = rows.map(r => r.ever_shared_pct_of_known ?? 0);
+  const priorVals = rows.map(r => r.history_index_count ?? 0);
   const priorMax = Math.max(...priorVals);
   const priorMin = Math.min(...priorVals);
-  const priorOf = (r) => r.ever_shared_pct_of_known ?? 0;
+  const priorOf = (r) => r.history_index_count ?? 0;
   const priorScale = (v) => {
     const t = priorMax === priorMin ? 0 : (v - priorMin) / (priorMax - priorMin);
     // Interpolate between light gray and deep teal-blue
@@ -135,13 +147,13 @@ function renderChemVsResultScatter(rows) {
   const ramp = `
     <g transform="translate(${rampX}, ${rampY})">
       <text x="${rampW}" y="-18" font-size="10.5" fill="currentColor" opacity="0.75" text-anchor="end">
-        dot fill = ever-shared % (norm.)</text>
+        dot fill = History Index</text>
       ${[0, 0.25, 0.5, 0.75, 1.0].map((t, i) => {
         const v = priorMin + t * (priorMax - priorMin);
         return `<rect x="${i*(rampW/5)}" y="-10" width="${rampW/5}" height="9" fill="${priorScale(v)}"/>`;
       }).join("")}
-      <text x="0" y="6" font-size="10" fill="currentColor" opacity="0.6">${priorMin.toFixed(0)}%</text>
-      <text x="${rampW}" y="6" font-size="10" fill="currentColor" opacity="0.6" text-anchor="end">${priorMax.toFixed(0)}%</text>
+      <text x="0" y="6" font-size="10" fill="currentColor" opacity="0.6">${Math.round(priorMin)}</text>
+      <text x="${rampW}" y="6" font-size="10" fill="currentColor" opacity="0.6" text-anchor="end">${Math.round(priorMax)}</text>
     </g>`;
 
   // Simple non-overlap label placement
@@ -218,7 +230,7 @@ function renderTimeVsChemScatter(rows) {
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
 
-  const xs = rows.map(r => (r.ever_shared_pct_of_known ?? 0));
+  const xs = rows.map(r => (r.history_index_count ?? 0));
   const ys = rows.map(r => r.n_strong_total);
   const xmin = 0;
   const xmax = Math.max(...xs) * 1.1 + 1;
@@ -243,7 +255,7 @@ function renderTimeVsChemScatter(rows) {
   const dotColor = (r) => semis.has(r.team_name) ? "#d4a23a" : "#6b7280";
 
   const dots = rows.map(r => {
-    const cx = sx((r.ever_shared_pct_of_known ?? 0)), cy = sy(r.n_strong_total);
+    const cx = sx((r.history_index_count ?? 0)), cy = sy(r.n_strong_total);
     return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5"
        fill="${dotColor(r)}" stroke="var(--bg, #0b1220)" stroke-width="1.0"/>`;
   }).join("");
@@ -256,7 +268,7 @@ function renderTimeVsChemScatter(rows) {
   const placed = [];
   const picks = new Map();
   for (const r of order) {
-    const cx = sx((r.ever_shared_pct_of_known ?? 0)), cy = sy(r.n_strong_total);
+    const cx = sx((r.history_index_count ?? 0)), cy = sy(r.n_strong_total);
     const stackDown = r.n_strong_total < 50;
     const anchor = (cx > padL + innerW * 0.65) ? "end" : "start";
     const dx = anchor === "start" ? 8 : -8;
@@ -276,7 +288,7 @@ function renderTimeVsChemScatter(rows) {
   }
 
   const labels = rows.map(r => {
-    const cx = sx((r.ever_shared_pct_of_known ?? 0)), cy = sy(r.n_strong_total);
+    const cx = sx((r.history_index_count ?? 0)), cy = sy(r.n_strong_total);
     const pick = picks.get(r.team_name);
     const fw = semis.has(r.team_name) ? 700 : 500;
     return `<text x="${(cx + pick.dx).toFixed(1)}" y="${(cy + pick.dy).toFixed(1)}"
@@ -284,14 +296,14 @@ function renderTimeVsChemScatter(rows) {
            opacity="0.92" text-anchor="${pick.anchor}">${escapeHTML(r.team_name)}</text>`;
   }).join("");
 
-  const xTicks = [0, 5, 10, 15, 20, 25, 30, 35];
+  const xTicks = [0, 4, 8, 12, 16, 20];
   const xTickSvg = xTicks.filter(x => x <= xmax).map(x => `
     <text x="${sx(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
-          opacity="0.55" text-anchor="middle">${x}%</text>
+          opacity="0.55" text-anchor="middle">${x}</text>
   `).join("");
   const axisX = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - 6}"
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle">
-    Ever-shared % of squad-pairs with known club history (coverage-normalized)</text>`;
+    History Index — squad players with a club-mate inside the national squad</text>`;
   const axisY = `<text x="${20}" y="${padT + innerH / 2}"
     font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle"
     transform="rotate(-90, 20, ${padT + innerH / 2})">Team chemistry · strong pairs</text>`;
@@ -309,7 +321,7 @@ function renderTimeVsChemScatter(rows) {
     </svg>
     <div class="scatter-legend small muted">
       <span><span class="dot" style="background:#d4a23a"></span> WC22 semifinalists</span>
-      <span class="muted">Spearman ρ = +0.29 (p = 0.11, n = 31). Coverage-normalized — see §3 for caveat.</span>
+      <span class="muted">Spearman ρ = <strong>+0.36</strong> (p = 0.045, n = 31). Time helps build chemistry.</span>
     </div>`;
 }
 
