@@ -411,6 +411,14 @@ const PLAY_INDEX = {
     title: "Di María 36' (Argentina v France, final)",
     summary: "Argentina build the third goal from Tagliafico's interception — attention chains through Mac Allister to Messi to Di María. The off-ball spreading happens before any pass on the goal.",
   },
+  "croatia-japan-perisic": {
+    title: "Perišić equalizer (Croatia v Japan, R16)",
+    summary: "Croatia's midfield engine pivots wide to set up Perišić's header. The Modrić / Brozović / Kovačić triangle owns the buildup — watch attention orbit the middle third before snapping to the cross.",
+  },
+  "morocco-portugal-en-nesyri": {
+    title: "En-Nesyri header (Morocco v Portugal, QF)",
+    summary: "The defining Morocco moment. Open-play header that out-leaps the Portugal back line and Diogo Costa. Cross-team attention concentrates on the wide buildup; the off-ball runner pins the line a beat before the cross arrives.",
+  },
 };
 
 async function mountPlay(divId, label) {
@@ -426,6 +434,8 @@ async function mountPlay(divId, label) {
 
 await mountPlay("play-argentina", "argentina-croatia-julian");
 await mountPlay("play-france", "argentina-france-mbappe-volley");
+await mountPlay("play-morocco", "morocco-portugal-en-nesyri");
+await mountPlay("play-croatia", "croatia-japan-perisic");
 await mountPlay("play-appendix-1", "netherlands-usa-memphis");
 await mountPlay("play-appendix-2", "japan-spain-doan");
 await mountPlay("play-appendix-3", "argentina-france-di-maria");
