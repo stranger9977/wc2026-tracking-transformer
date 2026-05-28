@@ -272,6 +272,15 @@ df["vaep_value"] = (pS - pC) - prev_value_self_persp</code></pre>
       <em>chemistry</em> are the frame-VAEP specialists; the xT-regression
       head is the original supervised target and is retained for evaluation.
     </p>
+    <p class="small dim" style="margin: 0.2rem 0 0.6rem;">
+      <strong>Train / validation split.</strong> 36 PFF WC22 matches used for
+      training (629,634 frames at 5 Hz); <strong>8 held-out matches</strong>
+      (138,793 frames) used for the val metrics reported below. The val set
+      is match-disjoint from train — the model never sees any frame from
+      those 8 matches during training. This is a single train/val split, not
+      k-fold cross-validation; the headline numbers are best read as
+      "held-out on 8 of 44 matches," not "out-of-fold across folds."
+    </p>
     <ul>
       <li><strong>\(P_{\mathrm{score}}^{\mathrm{frame}}\) specialist:</strong>
         single sigmoid head, BCE loss with class weighting. Target = 1 iff
