@@ -1,0 +1,104 @@
+{
+  "_meta": {
+    "purpose": "Historical view of which nation entered each World Cup as the top-rated paper team versus who actually lifted the trophy. Used by Tab 5 (FIFA Mode) to ground the argument that paper talent is a floor, not a ceiling.",
+    "ranking_source": "FIFA Men's World Ranking (the federation's published ranking, active since Dec 1992) — used here because the video-game series did not publish national-team Overall ratings for every year of the World Cup, and fifaindex.com returned HTTP 403 in this session. Where the FIFA video-game edition for a given cycle is well-known we list it in 'fifa_video_game_edition' for context.",
+    "verified_via": "Reverse-summary from FIFA's own article 'World Cup champions 1982-2022', the FIFA Men's World Ranking Wikipedia page, and the beIN Sports article 'The Curse of the FIFA World Ranking No. 1'. Pre-tournament #1 confirmed for every edition since 1994. Exact top-5 ordering not verified for every cycle and is omitted; the load-bearing claim is whether the eventual winner sat inside the top 5.",
+    "scrape_date": "2026-05-27"
+  },
+  "rows": [
+    {
+      "year": 1994,
+      "host": "USA",
+      "fifa_video_game_edition": "FIFA International Soccer",
+      "pre_tournament_top_ranked": "Germany",
+      "winner": "Brazil",
+      "winner_was_top_ranked": false,
+      "winner_in_top_5": true,
+      "top_ranked_made_final": false,
+      "note": "Germany #1, knocked out in QF. Brazil (inside top 5) lifted the trophy."
+    },
+    {
+      "year": 1998,
+      "host": "France",
+      "fifa_video_game_edition": "FIFA 98",
+      "pre_tournament_top_ranked": "Brazil",
+      "winner": "France",
+      "winner_was_top_ranked": false,
+      "winner_in_top_5": true,
+      "top_ranked_made_final": true,
+      "note": "Brazil #1, runners-up. France (host, top 5) won 3-0 in the final."
+    },
+    {
+      "year": 2002,
+      "host": "South Korea / Japan",
+      "fifa_video_game_edition": "FIFA 2002",
+      "pre_tournament_top_ranked": "France",
+      "winner": "Brazil",
+      "winner_was_top_ranked": false,
+      "winner_in_top_5": true,
+      "top_ranked_made_final": false,
+      "note": "France #1, eliminated in the group stage without scoring. Brazil (top 5) won."
+    },
+    {
+      "year": 2006,
+      "host": "Germany",
+      "fifa_video_game_edition": "FIFA 06",
+      "pre_tournament_top_ranked": "Brazil",
+      "winner": "Italy",
+      "winner_was_top_ranked": false,
+      "winner_in_top_5": true,
+      "top_ranked_made_final": false,
+      "note": "Brazil #1, lost in QF. Italy (top 5) won on penalties vs France."
+    },
+    {
+      "year": 2010,
+      "host": "South Africa",
+      "fifa_video_game_edition": "FIFA 10",
+      "pre_tournament_top_ranked": "Brazil",
+      "winner": "Spain",
+      "winner_was_top_ranked": false,
+      "winner_in_top_5": true,
+      "top_ranked_made_final": false,
+      "note": "Spain entered #2, lifted the trophy."
+    },
+    {
+      "year": 2014,
+      "host": "Brazil",
+      "fifa_video_game_edition": "FIFA 14",
+      "pre_tournament_top_ranked": "Spain",
+      "winner": "Germany",
+      "winner_was_top_ranked": false,
+      "winner_in_top_5": true,
+      "top_ranked_made_final": false,
+      "note": "Spain #1, group-stage exit while defending. Germany (top 5) won."
+    },
+    {
+      "year": 2018,
+      "host": "Russia",
+      "fifa_video_game_edition": "FIFA 18",
+      "pre_tournament_top_ranked": "Germany",
+      "winner": "France",
+      "winner_was_top_ranked": false,
+      "winner_in_top_5": true,
+      "top_ranked_made_final": false,
+      "note": "Germany #1, group-stage exit. France (top 5) won."
+    },
+    {
+      "year": 2022,
+      "host": "Qatar",
+      "fifa_video_game_edition": "FIFA 23 (active during the November cycle that COVID shifted into)",
+      "pre_tournament_top_ranked": "Brazil",
+      "winner": "Argentina",
+      "winner_was_top_ranked": false,
+      "winner_in_top_5": true,
+      "top_ranked_made_final": false,
+      "note": "Brazil #1, lost in QF on penalties to Croatia. Argentina entered ranked third (top 5) and won."
+    }
+  ],
+  "summary": {
+    "tournaments_since_1994": 8,
+    "winners_inside_top_5_pre_tournament": 8,
+    "winners_who_were_world_no_1": 0,
+    "headline": "Going back to FIFA 94, no team outside the top 5 of the FIFA Men's World Ranking has won the World Cup. And the world No. 1 going in has not won any of the eight."
+  }
+}

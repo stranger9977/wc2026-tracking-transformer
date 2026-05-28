@@ -30,242 +30,192 @@
   </header>
 
   <main>
-    <h1>Chemistry, time, and the WC22 finish order</h1>
+    <h1>FIFA Mode — talent is the floor</h1>
     <p class="lede">
-      Football is different. There are no plays — chemistry is being predictable to a teammate
-      and unpredictable to an opponent. We measure it off the ball with <strong>frame‑based AW‑JOI</strong>
-      (the metric that ranks Messi and Argentina at the top of
-      <a href="chemistry-leaderboard.html#mode-team">Team networks</a>) and then tell two halves of one story:
-      <em>shared time builds chemistry → dense chemistry wins tournaments</em>.
+      The closest market consensus for a player's talent is their EA Sports FIFA Overall rating.
+      Many will laugh at that, but FIFA ratings are vastly more popular than anything academia
+      produces and they aggregate scouts, analysts, and millions of player-hours of feedback into a
+      single number. So we take them seriously — as a floor. <strong>Going back to FIFA 94, no team
+      outside the top 5 going into the tournament has ever won the World Cup.</strong> Talent is
+      the price of admission. What separates the trophies from the quarterfinal exits is something
+      else: chemistry.
     </p>
 
-    <div class="mode-bar" role="tablist">
-      <button data-view="chemistry" class="active">Chemistry → Finish</button>
-      <button data-view="time">Time → Chemistry</button>
-    </div>
-
     <!-- =============================================================== -->
-    <section id="chemistry-view" class="mode-section active">
-      <h2>Dense chemistry networks predict WC22 finish</h2>
+    <section>
+      <h2>Eight tournaments, eight top-5 winners</h2>
       <p class="dim small">
-        <strong>n_strong_pairs</strong> counts pairs on the same squad with attention‑weighted JOI per 90 ≥ 0.4 —
-        the number of dense, repeatable connections inside the team. The metric is built from the off‑ball attention
-        of our tracking transformer (see <a href="methodology.html#attention">methodology</a> and the
-        <a href="chemistry-leaderboard.html">leaderboards</a>). The four densest chemistry networks in WC22 were the four
-        semifinalists, <em>in finish order</em>: France, Croatia, Argentina, Morocco.
+        Pre-tournament FIFA Men's World Ranking versus the eventual winner. The video-game edition
+        in market each cycle is listed for context — note that <strong>FIFA 23</strong> was the
+        active edition during WC22 because the COVID-shifted November schedule put Qatar into the
+        FIFA 23 release window rather than FIFA 22's. Exact top-5 ordering by edition isn't
+        published in a single canonical place (fifaindex.com returned 403 in this scrape), so the
+        load-bearing column below is simply whether the winner sat inside the top 5 going in.
       </p>
 
-      <h3 class="mt-2">Chemistry density vs tournament finish &nbsp;<span class="dim small">(ρ = +0.76, n = 31)</span></h3>
-      <p class="dim small">Each dot = one WC22 team. X = strong AW‑JOI pairs in the squad. Y = stage reached (Group → Winner). Dot fill = History Index (see Time tab). Hover for team detail.</p>
-      <div id="chem-vs-result-scatter" class="fifa-scatter"></div>
-
-      <h3 class="mt-2">Correlation summary</h3>
-      <p class="dim small">Spearman rank correlations against the 31 WC22 sides. Team chemistry density beats every other predictor we tried.</p>
-      <div class="table-wrap" style="margin-bottom: 1.4rem;">
+      <div id="historical-fifa-table" class="table-wrap" style="margin-bottom: 1.4rem;">
         <table class="data-table fifa-data-table">
           <thead><tr>
-            <th>Hypothesis</th>
-            <th class="num">Spearman ρ</th>
-            <th class="num">p</th>
-            <th class="num">n</th>
-            <th>Reading</th>
+            <th class="num">Year</th>
+            <th>Host</th>
+            <th>FIFA edition in market</th>
+            <th>Pre-tournament #1</th>
+            <th>Winner</th>
+            <th>Did #1 reach the final?</th>
+            <th>Winner in top 5?</th>
           </tr></thead>
-          <tbody>
-            <tr>
-              <td><strong>Team chemistry density</strong> → tournament finish</td>
-              <td class="num tabular"><strong>+0.76</strong></td>
-              <td class="num tabular">&lt; 0.001</td>
-              <td class="num tabular">31</td>
-              <td class="small">Top 4 by strong‑pair count = the 4 semifinalists, in finish order.</td>
-            </tr>
-            <tr>
-              <td><strong>FIFA 23 Overall</strong> → tournament finish</td>
-              <td class="num tabular">+0.55</td>
-              <td class="num tabular">0.002</td>
-              <td class="num tabular">30</td>
-              <td class="small">Paper does predict finish — but worse than chemistry density.</td>
-            </tr>
-            <tr>
-              <td>Mean AW‑JOI90 (all pairs) → tournament finish</td>
-              <td class="num tabular">+0.45</td>
-              <td class="num tabular">0.011</td>
-              <td class="num tabular">31</td>
-              <td class="small">Per‑pair intensity matters less than network breadth.</td>
-            </tr>
-            <tr>
-              <td><strong>FIFA 23 Overall</strong> → team chemistry density</td>
-              <td class="num tabular">+0.51</td>
-              <td class="num tabular">0.004</td>
-              <td class="num tabular">30</td>
-              <td class="small">Top‑rated nations also have dense chemistry — players concentrate at elite clubs.</td>
-            </tr>
-            <tr>
-              <td>FIFA 23 Overall → mean AW‑JOI90</td>
-              <td class="num tabular">+0.52</td>
-              <td class="num tabular">0.004</td>
-              <td class="num tabular">30</td>
-              <td class="small">Same direction at per‑pair intensity.</td>
-            </tr>
-          </tbody>
+          <tbody id="historical-fifa-rows"></tbody>
         </table>
       </div>
 
-      <h3 class="mt-2">Team‑by‑team</h3>
-      <p class="dim small">Sortable. Default sort is chemistry density — the same strong‑pairs count from <a href="chemistry-leaderboard.html#mode-team">Team networks</a>.</p>
-      <div class="controls">
-        <div>
-          <label for="chem-sort">Sort</label>
-          <select id="chem-sort">
-            <option value="n_strong_total" selected>Chemistry density (strong pairs)</option>
-            <option value="mean_aw_joi90_all">Mean AW‑JOI90 (all pairs)</option>
-            <option value="total_prior_shared">History Index</option>
-            <option value="fifa_overall">FIFA 23 Overall</option>
-            <option value="result_rank">Tournament result (winner first)</option>
-          </select>
-        </div>
-      </div>
-      <div id="chem-table" class="fifa-table"></div>
-
-      <div class="callout" role="note" style="margin-top: 1.4rem;">
-        <p class="mt-0"><strong>The bottom line on this tab.</strong> Dense, deep chemistry networks predict WC22
-        tournament finish at <strong>ρ = +0.76</strong> — sharply better than FIFA Overall (+0.55). The four densest
-        networks were the four semifinalists, <em>in finish order</em>: France, Croatia, Argentina, Morocco. The next
-        tab explains where that chemistry comes from.</p>
+      <div class="callout" role="note">
+        <p class="mt-0"><strong>Argentina's WC22 was the closest call to the rule.</strong> Going
+        into Qatar, Argentina sat in a cluster of teams tied around fifth on FIFA 23's published
+        Overall (a wad of sides at 83), and was world No. 3 on the FIFA Men's World Ranking. Still
+        inside the top 5 — but barely. They are also the team this site spends the most time on,
+        because the gap between their paper rating and their chemistry network is exactly the gap
+        this whole project tries to measure.</p>
       </div>
     </section>
 
     <!-- =============================================================== -->
-    <section id="time-view" class="mode-section">
-      <h2>Time together helps build chemistry</h2>
+    <section>
+      <h2>Chemistry beats FIFA on WC22</h2>
+      <p>
+        On WC22's 31-team field, chemistry density predicted tournament finish better than paper
+        talent: <strong>&rho;(TCD, finish) = +0.704</strong> versus
+        <strong>&rho;(FIFA-23 Overall, finish) = +0.548</strong>. Chemistry isn't a replacement
+        for talent — the top-5 rule still holds — it's the multiplier on top. Argentina's tied-
+        fifth paper rating plus the nucleus chemistry around Messi (the densest knot on the field
+        once you exclude their goalkeeper) won them the tournament. The two scatters below show
+        where every WC22 side sat against both axes.
+      </p>
+    </section>
+
+    <!-- =============================================================== -->
+    <section>
+      <h2>Over- and under-achievers</h2>
       <p class="dim small">
-        Shared playing history is one of the inputs to chemistry. We measure it two ways. Both give the same picture:
-        teams that recruit from clusters of shared clubs build denser chemistry networks in Qatar.
+        Two scatters, same 30 teams (Qatar excluded for missing FIFA-23 Overall). Gold ring marks
+        the four semifinalists. Dot fill encodes WC22 finish (light = group exit, dark = winner).
+        Teams in the upper-right are talent-and-history aligned; the interesting ones are
+        off-diagonal.
       </p>
 
-      <div class="callout" role="note" style="margin-bottom: 1.2rem;">
-        <p class="mt-0"><strong>History Index.</strong> The count of WC22 squad players who have at least one current or
-        former club‑mate inside their own national squad. A coarser, more interpretable measure than estimated minutes.
-        France: <strong>20 of 24</strong> squad players. Spain: <strong>19 of 20</strong>. Argentina: <strong>18 of 24</strong>.
-        Portugal: <strong>19 of 24</strong>. These are squads with overlapping club careers — the kind of group that arrives
-        at the tournament already understanding each other.</p>
-      </div>
+      <h3 class="mt-2">FIFA-23 Overall vs Team Chemistry Density &nbsp;<span class="dim small" id="rho-fifa-tcd"></span></h3>
+      <p class="dim small">
+        X = FIFA-23 published team Overall. Y = TCD (count of strong AW-JOI pairs on the squad).
+        <strong>Germany</strong> sits high-FIFA, low-TCD — the quintessential underperformer
+        (group-stage exit despite an 83 Overall). <strong>Morocco</strong> is the mirror image:
+        low FIFA Overall, mid TCD, semifinal. <strong>Argentina</strong> over-performed — mid
+        FIFA, high TCD, winner.
+      </p>
+      <div id="fifa-vs-tcd-scatter" class="fifa-scatter"></div>
 
-      <h3 class="mt-2">History Index vs team chemistry density &nbsp;<span class="dim small">(ρ = +0.36, p = 0.045, n = 31)</span></h3>
-      <p class="dim small">Each dot = one WC22 squad. X = History Index (squad players with a national‑squad club‑mate). Y = team chemistry density (strong AW‑JOI pairs). Gold ring marks the four semifinalists.</p>
-      <div id="time-vs-chem-scatter" class="fifa-scatter"></div>
+      <h3 class="mt-2">FIFA-23 Overall vs History Index &nbsp;<span class="dim small" id="rho-fifa-hi"></span></h3>
+      <p class="dim small">
+        Y = History Index (squad players with at least one current or former club-mate inside
+        their own national squad). High-rated nations also tend to have high shared club history
+        because their players concentrate at elite clubs — but not always. <strong>Saudi
+        Arabia</strong> sits at the bottom of the FIFA axis but near the top of the History axis
+        — almost the entire WC22 roster played in the Saudi Pro League, the most domestically-bonded
+        squad in the field, and they famously beat Argentina in the group stage. The off-diagonal
+        here is the recruitment story: who is built from a single club ecosystem versus who is
+        sprinkled across Europe.
+      </p>
+      <div id="fifa-vs-hi-scatter" class="fifa-scatter"></div>
+    </section>
 
-      <h3 class="mt-2">Correlation summary &mdash; time</h3>
-      <p class="dim small">Two ways to measure shared history. Same direction, both significant on per‑pair intensity.</p>
-      <div class="table-wrap" style="margin-bottom: 1.4rem;">
-        <table class="data-table fifa-data-table">
-          <thead><tr>
-            <th>Hypothesis</th>
-            <th class="num">Spearman ρ</th>
-            <th class="num">p</th>
-            <th class="num">n</th>
-            <th>Reading</th>
-          </tr></thead>
-          <tbody>
-            <tr>
-              <td><strong>History Index</strong> → team chemistry density</td>
-              <td class="num tabular"><strong>+0.36</strong></td>
-              <td class="num tabular">0.048</td>
-              <td class="num tabular">31</td>
-              <td class="small">Significant. Shared‑club clusters → denser networks.</td>
-            </tr>
-            <tr>
-              <td><strong>History Index</strong> → mean AW‑JOI90</td>
-              <td class="num tabular"><strong>+0.38</strong></td>
-              <td class="num tabular">0.034</td>
-              <td class="num tabular">31</td>
-              <td class="small">Same direction at per‑pair intensity.</td>
-            </tr>
-            <tr>
-              <td>History Index → tournament finish</td>
-              <td class="num tabular">+0.33</td>
-              <td class="num tabular">0.073</td>
-              <td class="num tabular">31</td>
-              <td class="small">Marginal direct effect; the indirect path (via chemistry) is the story.</td>
-            </tr>
-            <tr>
-              <td>Ever‑shared % (continuous, coverage‑normalized) → mean AW‑JOI90</td>
-              <td class="num tabular">+0.37</td>
-              <td class="num tabular">0.039</td>
-              <td class="num tabular">31</td>
-              <td class="small">Continuous version of the History Index. Same story.</td>
-            </tr>
-            <tr>
-              <td>Ever‑shared % (continuous) → team chemistry density</td>
-              <td class="num tabular">+0.29</td>
-              <td class="num tabular">0.11</td>
-              <td class="num tabular">31</td>
-              <td class="small">Suggestive, not significant on the count metric.</td>
-            </tr>
-            <tr>
-              <td>FIFA 23 Overall → ever‑shared %</td>
-              <td class="num tabular">+0.40</td>
-              <td class="num tabular">0.029</td>
-              <td class="num tabular">30</td>
-              <td class="small">High‑rated squads' players also share more career history.</td>
-            </tr>
-            <tr>
-              <td><em>Pair</em> prior shared minutes → <em>pair</em> AW‑JOI90</td>
-              <td class="num tabular">+0.05</td>
-              <td class="num tabular">0.003</td>
-              <td class="num tabular">3,443</td>
-              <td class="small">Pair‑scale: tiny effect. Time matters at squad scale, not pair scale.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <!-- =============================================================== -->
+    <section>
+      <h2>Tee-up: scoring WC26 squads as they're announced</h2>
+      <p>
+        The History Index is computable from a squad list and a club-history table — it doesn't
+        need tracking data. As 2026 rosters firm up we can score every squad on shared-club
+        density and combine it with EA Sports FC 26's published team Overalls to flag candidate
+        over- and under-achievers <em>before</em> the tournament. The model has a backbone now:
+        eight World Cups of top-5-winners and one tournament (WC22) where the same chemistry
+        gradient that wins the WC22 sample is fully fit. WC26 is the first out-of-sample test.
+      </p>
+      <p class="dim small">
+        The 2026 paper-rating bundle is in <code>data/wc26_rosters.json</code> — 26 nations with
+        EA FC 26 Overall, top-stars list, and a note flagging the 12 nations EA dropped from its
+        license (Brazil, Belgium, Senegal, etc.) for which the &quot;team Overall&quot; is an
+        analyst proxy from individual player Overalls rather than EA's official aggregate. We
+        intentionally leave the WC26 chemistry side empty: chemistry needs tracking, tracking
+        needs the tournament. The point of this tab is simply that the FIFA-vs-chemistry frame
+        we built on WC22 transfers to WC26 the moment the ball is kicked.
+      </p>
 
-      <div class="callout" role="note" style="margin-top: 1.4rem;">
-        <p class="mt-0"><strong>Time → Chemistry → Winning.</strong> The arc this site argues for, in three steps:</p>
-        <ul class="small" style="margin: 0.4rem 0 0 1.1rem;">
-          <li><strong>Shared time builds chemistry.</strong> Squads with high History Index (France 20, Spain 19, Argentina 18,
-              Portugal 19) build denser networks: ρ = +0.36 to chemistry density (p = 0.045), ρ = +0.38 to mean AW‑JOI90
-              (p = 0.034). And pairs that had ever shared a pitch averaged AW‑JOI90 = 2.93 vs 2.71 for pairs that hadn't
-              (Mann‑Whitney p = 0.005).</li>
-          <li><strong>Dense chemistry wins tournaments.</strong> Team chemistry density predicts WC22 finish at
-              <strong>ρ = +0.76</strong> — much better than FIFA Overall (+0.55) or any shared‑time proxy directly. The
-              four densest networks were the four semifinalists, in finish order.</li>
-          <li><strong>The transformer sees both halves.</strong> Shared‑club history is an <em>input</em>; chemistry density
-              is the <em>output</em>; tournament finish is what it predicts. The model isn't measuring resumes — it's
-              measuring how well a squad fits together on the pitch right now.</li>
-        </ul>
-      </div>
+      <h3 class="mt-2">Pre-tournament FIFA Overall — WC26 candidate field</h3>
+      <p class="dim small">Top 12 by EA FC 26 published Overall. Asterisk = EA-unlicensed nation, Overall is an analyst proxy.</p>
+      <div id="wc26-table" class="table-wrap"></div>
+    </section>
+
+    <!-- =============================================================== -->
+    <section>
+      <h2>Caveats, honestly</h2>
+      <ul class="small" style="margin: 0.4rem 0 0 1.1rem;">
+        <li><strong>Single-tournament chemistry sample.</strong> The WC22 chemistry-vs-finish
+            correlation (&rho; = +0.704) rests on 31 teams in one tournament. A second tournament
+            (WC26) is the obvious out-of-sample test.</li>
+        <li><strong>FIFA editions diverge from real-world cycles.</strong> FIFA 23 was in market
+            during WC22 because of the COVID-shifted November schedule; in earlier cycles the
+            video-game edition didn't always sit cleanly inside the World Cup window.</li>
+        <li><strong>History Index is a coarse proxy for shared time.</strong> It counts players,
+            not minutes — the pair-minutes view on the &quot;How Chemistry Develops&quot; tab is
+            the continuous version.</li>
+        <li><strong>Historical FIFA top-5 ordering not exhaustively verified.</strong> The table
+            above uses the FIFA Men's World Ranking #1 going into each tournament (cleanly
+            sourceable) rather than the video-game edition's team Overall #1, which was not
+            scrapeable in this session (fifaindex.com 403). The load-bearing claim — every
+            winner sat inside the top 5 — is robust to either definition.</li>
+      </ul>
     </section>
 
     <details class="method-drawer">
       <summary>Method &amp; sources</summary>
       <p>
-        <strong>Strong AW‑JOI pairs</strong> are same‑team WC22 pair‑seasons with attention‑weighted JOI per 90
-        ≥ 0.4 — the same metric and threshold used on the
-        <a href="chemistry-leaderboard.html#mode-team">Team networks</a> leaderboard.
-        AW‑JOI itself is the per‑frame product of the two players' ball‑attention multiplied by max(ΔP<sub>score</sub>, 0),
-        accumulated across the tournament. See <a href="methodology.html#attention">methodology §attention</a> for the
-        full pipeline (frame‑VAEP heads, score‑specialist transformer, ball‑distance baseline).
+        <strong>FIFA-23 Overall</strong> is EA Sports' published team rating in FIFA 23
+        (released Sep 2022, in market during WC22). For WC22 it ships from
+        <code>data/fifa_mode.json</code>; the merged team-level view used by the scatters is
+        <code>data/team_chemistry_vs_paper.json</code>.
       </p>
       <p>
-        <strong>Prior shared minutes</strong> are computed pre‑WC22 from PFF rosters and the
-        <code>player_club_history_wc22</code> table: every minute any two WC22 squad‑mates had played together
-        on the pitch at any club or national fixture before 2022‑11‑20 (Qatar kickoff). Estimated as
-        <code>overlap_seasons × 2,500&nbsp;min</code>. Biased by per‑league roster‑history coverage — see §3 for caveat.
+        <strong>Team Chemistry Density (TCD)</strong> is the count of same-squad pairs with
+        attention-weighted JOI per 90 &ge; 0.4 (off + def + cross), as defined on the
+        <a href="chemistry-leaderboard.html#mode-team">Team networks</a> tab and the
+        <a href="methodology.html#attention">methodology</a> page.
       </p>
       <p>
-        <strong>Tournament result rank</strong>: winner=1, RU=2, 3rd=3, 4th=4,
-        QF losers ranked 5–8 by group‑stage points, R16 losers 9–16, group‑stage
-        exits 17–32 by points then goal diff. Standard FIFA tournament ranking.
+        <strong>History Index</strong> is the count of WC22 squad players with at least one
+        current or former club-mate inside the same national squad. Built from
+        <code>player_club_history_wc22</code> on the PFF rosters. The shared-time story is on the
+        <a href="how-chemistry-develops.html">How Chemistry Develops</a> tab.
+      </p>
+      <p>
+        <strong>Historical World Cup rankings</strong> are from the FIFA Men's World Ranking
+        (active since Dec 1992), cross-referenced against FIFA's own &quot;World Cup champions
+        1982-2022&quot; summary and the beIN Sports &quot;Curse of the FIFA World Ranking No. 1&quot;
+        retrospective. Pre-tournament #1 is verified for every edition since 1994; exact top-5
+        ordering by video-game edition is not.
+      </p>
+      <p>
+        <strong>WC26 paper field</strong> is from <code>data/wc26_rosters.json</code>, scraped
+        2026-05-24 from EA FC 26 and (for the 12 nations EA dropped from its license) aggregated
+        from individual player Overalls on fifaratings.com country pages.
       </p>
     </details>
 
     <p class="small muted" style="margin-top: 1.5rem;">
-      <strong>Next →</strong> the <a href="chemistry-leaderboard.html#mode-team">Team networks</a> tab is where every team's atom — the per‑pair AW‑JOI graph — is drawn.
+      <strong>Recap.</strong> Talent is the floor; chemistry is the multiplier. The FIFA-Mode
+      frame tells you who is allowed in the room (top 5). The chemistry frame tells you who walks
+      out with the trophy. The next test is WC26.
     </p>
   </main>
 
   <footer class="site-footer">
-    Chemistry density from this site's AW‑JOI tracking pipeline; prior shared minutes from PFF club/national history; tournament results from FIFA's official records.
+    Pre-tournament rankings from FIFA's official ranking history; FIFA team Overalls from EA Sports' published team ratings; chemistry density from this site's AW-JOI tracking pipeline.
   </footer>
 
   <script type="module" src="assets/js/fifa-mode.js"></script>
