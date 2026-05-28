@@ -20,6 +20,46 @@
 
 import { loadJSON, escapeHTML, fmtNum, renderEmpty } from "./site.js";
 
+/** Shared HTML scaffold for a single clip viewer. Both the gallery
+ *  page (interactive-plays.html) and the case-study page
+ *  (chemistry-wins.html) use this so the controls + chart shape stay
+ *  in sync. Caller is responsible for then calling initClip(c, detail). */
+export function clipScaffold(c) {
+  const label = escapeHTML(c.label);
+  return `
+    <section class="card iplay" id="clip-${label}">
+      <h2 class="mt-0">${escapeHTML(c.title)}</h2>
+      <p class="dim small">${escapeHTML(c.summary || "")}</p>
+      <div class="clip-viewer" data-clip="${label}">
+        <div class="iplay-stage" id="stage-${label}"></div>
+        <div class="clip-controls">
+          <button class="btn small" data-clip="${label}" data-action="prev">◀ prev</button>
+          <button class="btn small" data-clip="${label}" data-action="play">▶ play</button>
+          <button class="btn small" data-clip="${label}" data-action="next">next ▶</button>
+          <button class="btn small" data-clip="${label}" data-action="goal" title="Jump to the goal frame">⚽ goal</button>
+          <div class="scrub-wrap" style="flex:1; position:relative;">
+            <input type="range" id="scrub-${label}" min="0" max="0" value="0" style="width:100%;">
+            <div class="scrub-markers" id="markers-${label}"></div>
+          </div>
+        </div>
+        <div class="iplay-chart" id="chart-${label}"></div>
+        <div id="event-${label}" class="event-strip"></div>
+        <div id="meta-${label}" class="clip-meta small dim"></div>
+      </div>
+    </section>`;
+}
+
+/** Programmatically mount one clip into an existing container element.
+ *  Used by chemistry-wins.html. Loads the per-clip JSON and wires up
+ *  the same controller used by the gallery page. */
+export async function mountClipInto(containerEl, c) {
+  if (!containerEl) return;
+  containerEl.insertAdjacentHTML("beforeend", clipScaffold(c));
+  const detail = await loadJSON(`data/clips/${c.label}.json`).catch(() => null);
+  if (!detail) return;
+  initClip(c, detail);
+}
+
 const listEl = document.getElementById("play-list");
 
 // Tunables (kept here so they're easy to find).
@@ -106,41 +146,26 @@ function cleanEventLabel(s) {
   return t;
 }
 
-const idx = await loadJSON("data/clips/index.json").catch(() => null);
-
-if (!idx || !Array.isArray(idx) || idx.length === 0) {
-  renderEmpty(listEl,
-    "Clips not yet rendered.",
-    "Run scripts/render_interactive_clip.py for each play you want to publish.");
-} else {
-  listEl.innerHTML = idx.map((c) => `
-    <section class="card iplay" id="clip-${escapeHTML(c.label)}">
-      <h2 class="mt-0">${escapeHTML(c.title)}</h2>
-      <p class="dim small">${escapeHTML(c.summary || "")}</p>
-      <div class="clip-viewer" data-clip="${escapeHTML(c.label)}">
-        <div class="iplay-stage" id="stage-${escapeHTML(c.label)}"></div>
-        <div class="clip-controls">
-          <button class="btn small" data-clip="${escapeHTML(c.label)}" data-action="prev">◀ prev</button>
-          <button class="btn small" data-clip="${escapeHTML(c.label)}" data-action="play">▶ play</button>
-          <button class="btn small" data-clip="${escapeHTML(c.label)}" data-action="next">next ▶</button>
-          <button class="btn small" data-clip="${escapeHTML(c.label)}" data-action="goal" title="Jump to the goal frame">⚽ goal</button>
-          <div class="scrub-wrap" style="flex:1; position:relative;">
-            <input type="range" id="scrub-${escapeHTML(c.label)}" min="0" max="0" value="0" style="width:100%;">
-            <div class="scrub-markers" id="markers-${escapeHTML(c.label)}"></div>
-          </div>
-        </div>
-        <div class="iplay-chart" id="chart-${escapeHTML(c.label)}"></div>
-        <div id="event-${escapeHTML(c.label)}" class="event-strip"></div>
-        <div id="meta-${escapeHTML(c.label)}" class="clip-meta small dim"></div>
-      </div>
-    </section>`).join("");
-
-  for (const c of idx) {
-    const detail = await loadJSON(`data/clips/${c.label}.json`).catch(() => null);
-    if (!detail) continue;
-    initClip(c, detail);
+// Only auto-boot the gallery if the host page wires a #play-list mount point.
+// The case-study page (chemistry-wins.html) imports mountClipInto directly and
+// drives its own layout, so it intentionally has no #play-list.
+if (listEl) {
+  const idx = await loadJSON("data/clips/index.json").catch(() => null);
+  if (!idx || !Array.isArray(idx) || idx.length === 0) {
+    renderEmpty(listEl,
+      "Clips not yet rendered.",
+      "Run scripts/render_interactive_clip.py for each play you want to publish.");
+  } else {
+    listEl.innerHTML = idx.map((c) => clipScaffold(c)).join("");
+    for (const c of idx) {
+      const detail = await loadJSON(`data/clips/${c.label}.json`).catch(() => null);
+      if (!detail) continue;
+      initClip(c, detail);
+    }
   }
 }
+
+export { initClip };
 
 /* ============================================================
    Per-clip controller.
