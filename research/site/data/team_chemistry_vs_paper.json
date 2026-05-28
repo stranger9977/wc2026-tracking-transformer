@@ -33,7 +33,12 @@
     "history_index_count": 17,
     "history_index_pct": 85.0,
     "history_index_pairs": 40,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 54,
+    "tcd_off": 0,
+    "tcd_def": 2,
+    "tcd_cross_net": 52,
+    "tcd_rank": 27
   },
   {
     "team_id": "361",
@@ -69,7 +74,12 @@
     "history_index_count": 17,
     "history_index_pct": 65.38461538461539,
     "history_index_pairs": 22,
-    "history_index_squadN": 26
+    "history_index_squadN": 26,
+    "tcd": 121,
+    "tcd_off": 32,
+    "tcd_def": 16,
+    "tcd_cross_net": 73,
+    "tcd_rank": 2
   },
   {
     "team_id": "362",
@@ -105,7 +115,12 @@
     "history_index_count": 9,
     "history_index_pct": 45.0,
     "history_index_pairs": 7,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 69,
+    "tcd_off": 10,
+    "tcd_def": 6,
+    "tcd_cross_net": 53,
+    "tcd_rank": 19
   },
   {
     "team_id": "363",
@@ -141,7 +156,12 @@
     "history_index_count": 20,
     "history_index_pct": 83.33333333333333,
     "history_index_pairs": 26,
-    "history_index_squadN": 24
+    "history_index_squadN": 24,
+    "tcd": 139,
+    "tcd_off": 43,
+    "tcd_def": 15,
+    "tcd_cross_net": 81,
+    "tcd_rank": 1
   },
   {
     "team_id": "364",
@@ -177,7 +197,12 @@
     "history_index_count": 18,
     "history_index_pct": 75.0,
     "history_index_pairs": 20,
-    "history_index_squadN": 24
+    "history_index_squadN": 24,
+    "tcd": 98,
+    "tcd_off": 19,
+    "tcd_def": 12,
+    "tcd_cross_net": 67,
+    "tcd_rank": 7
   },
   {
     "team_id": "365",
@@ -213,7 +238,12 @@
     "history_index_count": 19,
     "history_index_pct": 79.16666666666667,
     "history_index_pairs": 25,
-    "history_index_squadN": 24
+    "history_index_squadN": 24,
+    "tcd": 103,
+    "tcd_off": 19,
+    "tcd_def": 10,
+    "tcd_cross_net": 74,
+    "tcd_rank": 5
   },
   {
     "team_id": "366",
@@ -249,7 +279,12 @@
     "history_index_count": 14,
     "history_index_pct": 70.0,
     "history_index_pairs": 28,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 93,
+    "tcd_off": 17,
+    "tcd_def": 3,
+    "tcd_cross_net": 73,
+    "tcd_rank": 9
   },
   {
     "team_id": "367",
@@ -285,7 +320,12 @@
     "history_index_count": 8,
     "history_index_pct": 40.0,
     "history_index_pairs": 7,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 67,
+    "tcd_off": 8,
+    "tcd_def": 3,
+    "tcd_cross_net": 56,
+    "tcd_rank": 21
   },
   {
     "team_id": "368",
@@ -321,7 +361,12 @@
     "history_index_count": 13,
     "history_index_pct": 65.0,
     "history_index_pairs": 30,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 71,
+    "tcd_off": 19,
+    "tcd_def": 9,
+    "tcd_cross_net": 43,
+    "tcd_rank": 16
   },
   {
     "team_id": "369",
@@ -357,7 +402,12 @@
     "history_index_count": 6,
     "history_index_pct": 31.57894736842105,
     "history_index_pairs": 3,
-    "history_index_squadN": 19
+    "history_index_squadN": 19,
+    "tcd": 48,
+    "tcd_off": 4,
+    "tcd_def": 4,
+    "tcd_cross_net": 40,
+    "tcd_rank": 30
   },
   {
     "team_id": "370",
@@ -393,7 +443,12 @@
     "history_index_count": 8,
     "history_index_pct": 33.333333333333336,
     "history_index_pairs": 6,
-    "history_index_squadN": 24
+    "history_index_squadN": 24,
+    "tcd": 84,
+    "tcd_off": 20,
+    "tcd_def": 9,
+    "tcd_cross_net": 55,
+    "tcd_rank": 10
   },
   {
     "team_id": "371",
@@ -429,7 +484,12 @@
     "history_index_count": 9,
     "history_index_pct": 45.0,
     "history_index_pairs": 8,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 115,
+    "tcd_off": 33,
+    "tcd_def": 13,
+    "tcd_cross_net": 69,
+    "tcd_rank": 3
   },
   {
     "team_id": "372",
@@ -465,7 +525,12 @@
     "history_index_count": 6,
     "history_index_pct": 30.0,
     "history_index_pairs": 3,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 70,
+    "tcd_off": 5,
+    "tcd_def": 5,
+    "tcd_cross_net": 60,
+    "tcd_rank": 18
   },
   {
     "team_id": "373",
@@ -501,7 +566,12 @@
     "history_index_count": 8,
     "history_index_pct": 38.095238095238095,
     "history_index_pairs": 6,
-    "history_index_squadN": 21
+    "history_index_squadN": 21,
+    "tcd": 40,
+    "tcd_off": 1,
+    "tcd_def": 4,
+    "tcd_cross_net": 35,
+    "tcd_rank": 31
   },
   {
     "team_id": "374",
@@ -537,7 +607,12 @@
     "history_index_count": 6,
     "history_index_pct": 24.0,
     "history_index_pairs": 3,
-    "history_index_squadN": 25
+    "history_index_squadN": 25,
+    "tcd": 107,
+    "tcd_off": 21,
+    "tcd_def": 14,
+    "tcd_cross_net": 72,
+    "tcd_rank": 4
   },
   {
     "team_id": "375",
@@ -573,7 +648,12 @@
     "history_index_count": 11,
     "history_index_pct": 50.0,
     "history_index_pairs": 8,
-    "history_index_squadN": 22
+    "history_index_squadN": 22,
+    "tcd": 72,
+    "tcd_off": 15,
+    "tcd_def": 2,
+    "tcd_cross_net": 55,
+    "tcd_rank": 13
   },
   {
     "team_id": "376",
@@ -609,7 +689,12 @@
     "history_index_count": 3,
     "history_index_pct": 14.285714285714286,
     "history_index_pairs": 2,
-    "history_index_squadN": 21
+    "history_index_squadN": 21,
+    "tcd": 62,
+    "tcd_off": 15,
+    "tcd_def": 4,
+    "tcd_cross_net": 43,
+    "tcd_rank": 23
   },
   {
     "team_id": "377",
@@ -645,7 +730,12 @@
     "history_index_count": 7,
     "history_index_pct": 35.0,
     "history_index_pairs": 9,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 77,
+    "tcd_off": 15,
+    "tcd_def": 7,
+    "tcd_cross_net": 55,
+    "tcd_rank": 12
   },
   {
     "team_id": "378",
@@ -681,7 +771,12 @@
     "history_index_count": 0,
     "history_index_pct": 0.0,
     "history_index_pairs": 0,
-    "history_index_squadN": 21
+    "history_index_squadN": 21,
+    "tcd": 51,
+    "tcd_off": 7,
+    "tcd_def": 3,
+    "tcd_cross_net": 41,
+    "tcd_rank": 28
   },
   {
     "team_id": "379",
@@ -717,7 +812,12 @@
     "history_index_count": 0,
     "history_index_pct": 0.0,
     "history_index_pairs": 0,
-    "history_index_squadN": 22
+    "history_index_squadN": 22,
+    "tcd": 72,
+    "tcd_off": 13,
+    "tcd_def": 6,
+    "tcd_cross_net": 53,
+    "tcd_rank": 14
   },
   {
     "team_id": "380",
@@ -753,7 +853,12 @@
     "history_index_count": 7,
     "history_index_pct": 36.8421052631579,
     "history_index_pairs": 5,
-    "history_index_squadN": 19
+    "history_index_squadN": 19,
+    "tcd": 72,
+    "tcd_off": 8,
+    "tcd_def": 4,
+    "tcd_cross_net": 60,
+    "tcd_rank": 15
   },
   {
     "team_id": "382",
@@ -789,7 +894,12 @@
     "history_index_count": 16,
     "history_index_pct": 72.72727272727273,
     "history_index_pairs": 44,
-    "history_index_squadN": 22
+    "history_index_squadN": 22,
+    "tcd": 57,
+    "tcd_off": 7,
+    "tcd_def": 10,
+    "tcd_cross_net": 40,
+    "tcd_rank": 25
   },
   {
     "team_id": "383",
@@ -825,7 +935,12 @@
     "history_index_count": 0,
     "history_index_pct": 0.0,
     "history_index_pairs": 0,
-    "history_index_squadN": 19
+    "history_index_squadN": 19,
+    "tcd": 68,
+    "tcd_off": 8,
+    "tcd_def": 5,
+    "tcd_cross_net": 55,
+    "tcd_rank": 20
   },
   {
     "team_id": "384",
@@ -861,7 +976,12 @@
     "history_index_count": 7,
     "history_index_pct": 38.888888888888886,
     "history_index_pairs": 4,
-    "history_index_squadN": 18
+    "history_index_squadN": 18,
+    "tcd": 49,
+    "tcd_off": 2,
+    "tcd_def": 2,
+    "tcd_cross_net": 45,
+    "tcd_rank": 29
   },
   {
     "team_id": "385",
@@ -897,7 +1017,12 @@
     "history_index_count": 10,
     "history_index_pct": 45.45454545454545,
     "history_index_pairs": 9,
-    "history_index_squadN": 22
+    "history_index_squadN": 22,
+    "tcd": 82,
+    "tcd_off": 10,
+    "tcd_def": 4,
+    "tcd_cross_net": 68,
+    "tcd_rank": 11
   },
   {
     "team_id": "386",
@@ -933,7 +1058,12 @@
     "history_index_count": 2,
     "history_index_pct": 10.0,
     "history_index_pairs": 1,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 71,
+    "tcd_off": 15,
+    "tcd_def": 7,
+    "tcd_cross_net": 49,
+    "tcd_rank": 17
   },
   {
     "team_id": "50",
@@ -969,7 +1099,12 @@
     "history_index_count": 15,
     "history_index_pct": 75.0,
     "history_index_pairs": 19,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 66,
+    "tcd_off": 8,
+    "tcd_def": 5,
+    "tcd_cross_net": 53,
+    "tcd_rank": 22
   },
   {
     "team_id": "51",
@@ -992,7 +1127,7 @@
     "stage": "R16",
     "result_rank": null,
     "stage_rank": 2,
-    "stage_int": null,
+    "stage_int": 4,
     "att": null,
     "mid": null,
     "def": null,
@@ -1005,7 +1140,12 @@
     "history_index_count": 8,
     "history_index_pct": 40.0,
     "history_index_pairs": 4,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 59,
+    "tcd_off": 4,
+    "tcd_def": 8,
+    "tcd_cross_net": 47,
+    "tcd_rank": 24
   },
   {
     "team_id": "52",
@@ -1041,7 +1181,12 @@
     "history_index_count": 19,
     "history_index_pct": 95.0,
     "history_index_pairs": 30,
-    "history_index_squadN": 20
+    "history_index_squadN": 20,
+    "tcd": 101,
+    "tcd_off": 26,
+    "tcd_def": 12,
+    "tcd_cross_net": 63,
+    "tcd_rank": 6
   },
   {
     "team_id": "57",
@@ -1077,7 +1222,12 @@
     "history_index_count": 3,
     "history_index_pct": 13.636363636363637,
     "history_index_pairs": 2,
-    "history_index_squadN": 22
+    "history_index_squadN": 22,
+    "tcd": 97,
+    "tcd_off": 10,
+    "tcd_def": 5,
+    "tcd_cross_net": 82,
+    "tcd_rank": 8
   },
   {
     "team_id": "58",
@@ -1113,6 +1263,11 @@
     "history_index_count": 10,
     "history_index_pct": 47.61904761904762,
     "history_index_pairs": 5,
-    "history_index_squadN": 21
+    "history_index_squadN": 21,
+    "tcd": 57,
+    "tcd_off": 5,
+    "tcd_def": 6,
+    "tcd_cross_net": 46,
+    "tcd_rank": 26
   }
 ]
