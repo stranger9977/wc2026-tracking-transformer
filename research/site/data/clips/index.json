@@ -47,5 +47,19 @@
     "summary": "Morocco's opener and the goal that put them into the semis. En-Nesyri rises above Diogo Costa on a cross from the right \u2014 watch the off-ball runner shape and the wide build-up.",
     "match": "10512",
     "period": 1
+  },
+  {
+    "label": "near-miss-netherlands-janssen",
+    "title": "Janssen 4' blocked (Senegal v Netherlands, group stage)",
+    "summary": "A near-miss: Netherlands work the ball into Senegal's box and P(score) climbs above 0.9 before Janssen's shot is blocked. The probability collapses as Senegal clears — the model picks up on chemistry that doesn't end in a goal.",
+    "match": "3812",
+    "period": 1
+  },
+  {
+    "label": "bad-chemistry-australia-argentina",
+    "title": "Australia turnover 78' (Argentina v Australia, R16)",
+    "summary": "What a breakdown looks like in the model. Australia start in possession with a positive net, lose the ball to Argentina, briefly win it back, then lose it again — net (P_score − P_concede) flips repeatedly between +0.9 and −0.9 as possession ping-pongs.",
+    "match": "10503",
+    "period": 2
   }
 ]
