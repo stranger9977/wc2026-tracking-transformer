@@ -104,16 +104,28 @@
         club history was the multiplier (or the missing ingredient).
       </p>
 
-      <h3 class="mt-2">FIFA-23 Overall vs WC22 finish &nbsp;<span class="dim small" id="rho-fifa-finish"></span></h3>
+      <h3 class="mt-2">FIFA Overall vs WC finish &nbsp;<span class="dim small" id="rho-fifa-finish"></span></h3>
       <p class="dim small">
-        The most direct over/under-performer view. X = FIFA-23 published Overall going into the
-        tournament. Y = WC22 stage reached. <strong>Germany, Belgium, Denmark</strong> sit
-        high-FIFA, low-finish &mdash; classic underperformers (group-stage exits despite top-10
-        Overalls). <strong>Morocco, Croatia, Argentina</strong> sit on or above their FIFA line
-        &mdash; talent translated, with chemistry as the multiplier. The next two scatters expose
-        what carried the off-diagonal teams.
+        The most direct over/under-performer view. X = published FIFA Overall in the game edition
+        that shipped immediately before each World Cup (FIFA 23 for WC22, FIFA 19 for WC18, FIFA 15 for
+        WC14, FIFA 11 for WC10, FIFA 07 for WC06). Y = stage reached. Toggle years on or off below
+        to compare cohorts. Single-year view also surfaces the top over- and under-achievers.
+        <strong>Germany, Belgium, Denmark (2022)</strong> sit high-FIFA, low-finish &mdash; classic
+        underperformers. <strong>Morocco, Croatia, Argentina</strong> sit on or above their FIFA line
+        &mdash; talent translated, with chemistry as the multiplier.
       </p>
+      <div id="fifa-vs-finish-year-toggle" class="wb-toggles" role="group"
+           aria-label="Toggle World Cup years on/off"
+           style="display:flex;flex-wrap:wrap;gap:0.5rem;margin:0.5rem 0 0.75rem"></div>
       <div id="fifa-vs-finish-scatter" class="fifa-scatter"></div>
+      <p class="small muted" style="margin-top:0.4rem">
+        FIFA Overall data prior to 2022 scraped from
+        <a href="https://www.fifaindex.com/" target="_blank" rel="noopener">fifaindex.com</a> per
+        WC-edition listing. Coverage isn't full 32-per-WC: fifaindex's national-team listing skips
+        some federations (mostly AFC/CAF/CONCACAF), so several participants per WC are absent
+        rather than imputed. See <a href="data/fifa_multi_year.json"><code>fifa_multi_year.json</code></a>
+        for per-year coverage and the explicit missing list.
+      </p>
 
       <h3 class="mt-2">FIFA-23 Overall vs Team Chemistry Density &nbsp;<span class="dim small" id="rho-fifa-tcd"></span></h3>
       <p class="dim small">

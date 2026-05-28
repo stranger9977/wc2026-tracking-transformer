@@ -1,0 +1,925 @@
+{
+  "_meta": {
+    "source": "fifaindex.com national teams (game-edition Overall closest to each WC kickoff)",
+    "scraped_at": "2026-05-28",
+    "years_covered": [
+      2006,
+      2010,
+      2014,
+      2018,
+      2022
+    ],
+    "notes": "Per-WC: used the FIFA-game edition that shipped immediately before the tournament (FIFA 23 for WC22, FIFA 19 for WC18, FIFA 15 for WC14, FIFA 11 for WC10, FIFA 07 for WC06). Stage encoding: 1=Group, 4=R16, 5=QF, 6=Semi, 7=Final, 8=Winner. fifaindex's national-teams listing only includes a subset of FIFA federations per edition, so some WC participants (often AFC/CAF/CONMEBOL minnows) have no rating and are omitted rather than imputed.",
+    "coverage_by_year": {
+      "2006": {
+        "edition": "FIFA 07",
+        "fifaindex_teams_scraped": 41,
+        "wc_participants": 32,
+        "matched": 19,
+        "missing": [
+          "Ghana",
+          "Netherlands",
+          "Costa Rica",
+          "Saudi Arabia",
+          "Czech Republic",
+          "Iran",
+          "Angola",
+          "Trinidad and Tobago",
+          "Serbia and Montenegro",
+          "Ivory Coast",
+          "Togo",
+          "Japan",
+          "South Korea"
+        ]
+      },
+      "2010": {
+        "edition": "FIFA 11",
+        "fifaindex_teams_scraped": 39,
+        "wc_participants": 32,
+        "matched": 20,
+        "missing": [
+          "Ghana",
+          "Paraguay",
+          "Chile",
+          "Japan",
+          "Slovakia",
+          "South Korea",
+          "Algeria",
+          "Honduras",
+          "Ivory Coast",
+          "Nigeria",
+          "North Korea",
+          "Serbia"
+        ]
+      },
+      "2014": {
+        "edition": "FIFA 15",
+        "fifaindex_teams_scraped": 47,
+        "wc_participants": 32,
+        "matched": 22,
+        "missing": [
+          "Costa Rica",
+          "Algeria",
+          "Nigeria",
+          "Bosnia and Herzegovina",
+          "Croatia",
+          "Ghana",
+          "Honduras",
+          "Iran",
+          "Japan",
+          "South Korea"
+        ]
+      },
+      "2018": {
+        "edition": "FIFA 19",
+        "fifaindex_teams_scraped": 48,
+        "wc_participants": 32,
+        "matched": 20,
+        "missing": [
+          "Croatia",
+          "Japan",
+          "Costa Rica",
+          "Iran",
+          "Morocco",
+          "Nigeria",
+          "Panama",
+          "Saudi Arabia",
+          "Senegal",
+          "Serbia",
+          "South Korea",
+          "Tunisia"
+        ]
+      },
+      "2022": {
+        "edition": "FIFA 23",
+        "fifaindex_teams_scraped": 35,
+        "wc_participants": 32,
+        "matched": 20,
+        "missing": [
+          "Japan",
+          "Senegal",
+          "Switzerland",
+          "South Korea",
+          "Cameroon",
+          "Costa Rica",
+          "Ecuador",
+          "Iran",
+          "Saudi Arabia",
+          "Serbia",
+          "Tunisia",
+          "Uruguay"
+        ]
+      }
+    }
+  },
+  "rows": [
+    {
+      "team": "Italy",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 85,
+      "stage_int": 8,
+      "stage_label": "Winner"
+    },
+    {
+      "team": "France",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 85,
+      "stage_int": 7,
+      "stage_label": "Final"
+    },
+    {
+      "team": "Germany",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 84,
+      "stage_int": 6,
+      "stage_label": "Semi"
+    },
+    {
+      "team": "Portugal",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 81,
+      "stage_int": 6,
+      "stage_label": "Semi"
+    },
+    {
+      "team": "Brazil",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 85,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Argentina",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 83,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "England",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 85,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Ukraine",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 75,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Australia",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 76,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Switzerland",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 76,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Sweden",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 76,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Ecuador",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 70,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Mexico",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 78,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Spain",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 85,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Poland",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 74,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Croatia",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 77,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Tunisia",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 69,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "USA",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 75,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Paraguay",
+      "year": 2006,
+      "fifa_edition": "FIFA 07",
+      "overall": 75,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Spain",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 85,
+      "stage_int": 8,
+      "stage_label": "Winner"
+    },
+    {
+      "team": "Netherlands",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 81,
+      "stage_int": 7,
+      "stage_label": "Final"
+    },
+    {
+      "team": "Germany",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 82,
+      "stage_int": 6,
+      "stage_label": "Semi"
+    },
+    {
+      "team": "Uruguay",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 78,
+      "stage_int": 6,
+      "stage_label": "Semi"
+    },
+    {
+      "team": "Argentina",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 83,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Brazil",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 83,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "England",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 83,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Mexico",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 77,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Portugal",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 81,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "USA",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 75,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Australia",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 73,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Cameroon",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 76,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Denmark",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 75,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "France",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 82,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Greece",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 75,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Italy",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 82,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "New Zealand",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 64,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Slovenia",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 71,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "South Africa",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 72,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Switzerland",
+      "year": 2010,
+      "fifa_edition": "FIFA 11",
+      "overall": 76,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Germany",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 84,
+      "stage_int": 8,
+      "stage_label": "Winner"
+    },
+    {
+      "team": "Argentina",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 82,
+      "stage_int": 7,
+      "stage_label": "Final"
+    },
+    {
+      "team": "Netherlands",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 79,
+      "stage_int": 6,
+      "stage_label": "Semi"
+    },
+    {
+      "team": "Brazil",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 82,
+      "stage_int": 6,
+      "stage_label": "Semi"
+    },
+    {
+      "team": "Colombia",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 78,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Belgium",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 81,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "France",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 81,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Chile",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 76,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Greece",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 74,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Mexico",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 76,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Switzerland",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 77,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "USA",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 73,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Uruguay",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 76,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Australia",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 69,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Cameroon",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 72,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Ecuador",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 69,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "England",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 80,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Italy",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 79,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Ivory Coast",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 74,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Portugal",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 80,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Russia",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 77,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Spain",
+      "year": 2014,
+      "fifa_edition": "FIFA 15",
+      "overall": 83,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "France",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 85,
+      "stage_int": 8,
+      "stage_label": "Winner"
+    },
+    {
+      "team": "Belgium",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 84,
+      "stage_int": 6,
+      "stage_label": "Semi"
+    },
+    {
+      "team": "England",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 82,
+      "stage_int": 6,
+      "stage_label": "Semi"
+    },
+    {
+      "team": "Uruguay",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 81,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Brazil",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 81,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Sweden",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 76,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Russia",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 77,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Argentina",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 81,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Portugal",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 83,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Mexico",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 77,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Denmark",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 78,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Spain",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 85,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Switzerland",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 78,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Colombia",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 79,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Australia",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 73,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Egypt",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 73,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Germany",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 84,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Iceland",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 72,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Peru",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 72,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Poland",
+      "year": 2018,
+      "fifa_edition": "FIFA 19",
+      "overall": 78,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Argentina",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 83,
+      "stage_int": 8,
+      "stage_label": "Winner"
+    },
+    {
+      "team": "France",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 83,
+      "stage_int": 7,
+      "stage_label": "Final"
+    },
+    {
+      "team": "Croatia",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 79,
+      "stage_int": 6,
+      "stage_label": "Semi"
+    },
+    {
+      "team": "Morocco",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 77,
+      "stage_int": 6,
+      "stage_label": "Semi"
+    },
+    {
+      "team": "Netherlands",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 82,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Brazil",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 80,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "England",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 84,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Portugal",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 83,
+      "stage_int": 5,
+      "stage_label": "QF"
+    },
+    {
+      "team": "Australia",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 71,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Poland",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 77,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Spain",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 83,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "USA",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 75,
+      "stage_int": 4,
+      "stage_label": "R16"
+    },
+    {
+      "team": "Belgium",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 80,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Canada",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 73,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Denmark",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 78,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Germany",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 83,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Ghana",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 75,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Mexico",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 77,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Qatar",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 68,
+      "stage_int": 1,
+      "stage_label": "Group"
+    },
+    {
+      "team": "Wales",
+      "year": 2022,
+      "fifa_edition": "FIFA 23",
+      "overall": 73,
+      "stage_int": 1,
+      "stage_label": "Group"
+    }
+  ]
+}
