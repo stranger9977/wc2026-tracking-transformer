@@ -398,19 +398,31 @@
       <a href="methodology.html">Methodology</a>.
     </p>
 
-    <!-- 9. Our model beats the paper baseline -->
-    <h2>Our model beats the paper baseline</h2>
+    <!-- 9. Our model beats the event-based VAEP baseline -->
+    <h2>Our model beats the event-based VAEP baseline</h2>
     <p>
       Both pipelines predict the same two probabilities — P(score) and
-      P(concede) — but on different inputs. The paper's VAEP classifier
+      P(concede) — but on different inputs. The event-based VAEP classifier
       sees only the on-ball action stream; ours sees every frame of
       tracking. Numbers below are <strong>held-out</strong>: our transformer
       was trained on 36 PFF WC22 matches and the AUC is measured on the
       <strong>8 matches it never saw during training</strong>. Same task framing:
     </p>
+    <details class="small dim" style="margin: 0 0 0.6rem;">
+      <summary>What's AUC?</summary>
+      <p style="margin: 0.4rem 0 0;">
+        Take a random frame that <em>did</em> lead to a goal in the next ten
+        seconds and a random frame that <em>didn't</em>. <strong>AUC</strong>
+        is the fraction of the time the model assigns a higher P(score) to
+        the goal-bound one. <strong>0.5</strong> = a coin flip (useless);
+        <strong>1.0</strong> = perfect; <strong>0.80</strong> = right 80% of
+        the time. Threshold-free, so you don't have to pick a cutoff to
+        evaluate it.
+      </p>
+    </details>
     <table class="compare-table">
       <thead>
-        <tr><th>Metric</th><th>Paper baseline (event VAEP, out-of-fold)</th><th>Ours (frame transformer, held-out)</th></tr>
+        <tr><th>Metric</th><th>Event-based VAEP (out-of-fold)</th><th>Ours (frame transformer, held-out)</th></tr>
       </thead>
       <tbody>
         <tr><td>P(score) AUC</td><td class="num">0.681</td><td class="num win">0.801</td></tr>
@@ -418,7 +430,7 @@
       </tbody>
     </table>
     <p class="small dim">
-      Scope of comparison: the paper's classifier is action-level and
+      Scope of comparison: the event-based classifier is action-level and
       predicts "scores within next 10 actions"; ours is frame-level and
       predicts "scores within next 10 seconds". Same labels, different
       input modality — that's the point. The lift comes from seeing the 21
@@ -428,10 +440,11 @@
     </p>
 
     <!-- 10. Headline metrics going forward -->
-    <h2>The two metrics we use from here on out</h2>
+    <h2>Two pair-level metrics + a team aggregate</h2>
     <p>
       Every subsequent page is built from two pair-level scores derived
-      from the attention matrix, plus a team-level aggregate:
+      from the attention matrix, plus a team-level aggregate rolled up from
+      them:
     </p>
     <ul>
       <li><strong>AW-JOI</strong> (attention-weighted Joint Offensive
