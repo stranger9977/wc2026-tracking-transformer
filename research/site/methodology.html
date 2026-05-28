@@ -33,635 +33,593 @@
   <main>
     <h1>Methodology</h1>
     <p class="dim">
-      Full math, modelling choices, and limitations. This recreates Bransen &amp;
-      Van Haaren (MIT Sloan, 2020) using PFF event data from the 2022 FIFA World
-      Cup, then extends it with a tracking-data transformer that sees all 22
-      players at every frame. References to "the paper" point to Bransen &amp;
-      Van Haaren.
+      Full math, modelling choices, and limitations. This is the long page —
+      the rest of the site is non-technical; this is where the equations,
+      formal definitions, and citations live. The five public tabs all sit on
+      top of the pipeline described here.
     </p>
 
-    <!-- ===================== PLAIN ENGLISH OVERVIEW ===================== -->
-    <h2>What we measure, in plain English</h2>
-    <p class="small dim">
-      The math below is real, but you don't need it to follow the site. Here's the
-      whole pipeline in four short paragraphs.
-    </p>
+    <!-- ===== TOC ===== -->
+    <nav class="toc small dim" aria-label="On this page">
+      <strong>On this page:</strong>
+      <a href="#sec-notation">1. Notation &amp; state</a> &middot;
+      <a href="#sec-vaep">2. VAEP framework</a> &middot;
+      <a href="#sec-joi-jdi">3. JOI / JDI (paper baseline)</a> &middot;
+      <a href="#sec-transformer">4. Tracking transformer</a> &middot;
+      <a href="#sec-awjoi">5. AW-JOI / AW-JDI</a> &middot;
+      <a href="#sec-tcd">6. Team Chemistry Density</a> &middot;
+      <a href="#sec-reconciliation">7. Reconciliation</a> &middot;
+      <a href="#sec-limitations">8. Limitations</a> &middot;
+      <a href="#sec-references">9. References</a>
+    </nav>
 
-    <div class="card">
-      <h3 class="mt-0">VAEP — how much each on-ball action was worth</h3>
-      <p class="small" style="margin-bottom: 0;">
-        Every pass, dribble, cross, take-on, and shot in the World Cup is fed
-        into a model that asks two questions: "after this action, how likely is
-        the team in possession to score in the next few seconds?" and "how
-        likely are they to concede?" The action's <strong>VAEP value</strong>
-        is the change in expected goal difference it produced — positive if it
-        improved the team's situation, negative if it made things worse. Goals
-        get big positive numbers; backpasses under pressure get small negative
-        ones. It's the unit of currency for everything that follows.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3 class="mt-0">JOI / JDI — credit-sharing between teammates</h3>
-      <p class="small" style="margin-bottom: 0;">
-        <strong>Joint Offensive Impact (JOI)</strong> credits a same-team pair
-        whenever they touch the ball in back-to-back actions: both VAEP values
-        flow into the pair's JOI total. <strong>Joint Defensive Impact
-        (JDI)</strong> is the harder half — event data can't see who marked whom,
-        so we instead reward pairs whose opponents under-performed their
-        expected offensive impact, weighted by how close each defender stood to
-        each opponent (a 5×5 grid heuristic). Both totals are normalized by
-        minutes the pair shared on the pitch — JOI90 and JDI90 are the units
-        you see on every leaderboard.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3 class="mt-0">Attention chemistry — what the model "watches" off the ball</h3>
-      <p class="small" style="margin-bottom: 0;">
-        Event data only sees the player who touched the ball. To get at the
-        off-ball half of chemistry — the runs that pull defenders, the
-        teammate-aware positioning — we trained a transformer on
-        <em>tracking</em> data (all 22 players, 5 frames per second). The model
-        learns to predict the team in possession's frame-VAEP score and concede
-        probabilities. As a free byproduct it produces an
-        <strong>attention map</strong> that says, for every frame, which
-        players the model needed to look at to make its prediction. We sum
-        per-pair attention across the match, <em>subtract a ball-distance
-        baseline</em> (the average attention a random pair gets at the same
-        mean-distance-to-ball, so that defenders near the ball during set
-        pieces aren't double-counted as "chemistry"), then normalize by each
-        team's 75th-percentile pair to get the
-        <strong>attention-chemistry lift</strong>. A pair with a lift of 2.0
-        is twice as "co-watched" by the model as a typical above-mean pair
-        on its own team.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3 class="mt-0">The Digital Whiteboard — counterfactual swaps</h3>
-      <p class="small" style="margin-bottom: 0;">
-        The leaderboards tell you who clicked. The Whiteboard asks "what if?" —
-        swap one player for another on the same team, run the transformer
-        again, and see whether the predicted scoring probability over a real
-        possession sequence goes up or down. It's a tactical sandbox built on
-        the same frame-VAEP heads described below.
-      </p>
-    </div>
-
-    <!-- ===================== SECTION 1: EVENT-BASED PIPELINE ===================== -->
-    <h2>1. Event-based pipeline (VAEP / JOI / JDI)</h2>
+    <!-- ===================== SECTION 1: NOTATION & STATE ===================== -->
+    <h2 id="sec-notation">1. Notation &amp; state</h2>
     <p>
-      Every on-ball event in PFF is converted to SPADL (Soccer Player Action
-      Description Language) form. We then train two gradient-boosted classifiers
-      over a 3-action context window:
+      The tracking transformer's input is a single <strong>frame</strong>: a
+      snapshot of all 22 players plus the ball at a single 5 Hz sample. We
+      represent each frame as a sequence of <strong>23 tokens</strong> (22
+      players + 1 ball). Each token is a 7-dimensional feature vector.
     </p>
+
+    <h3>1.1 Per-token features</h3>
+    <table class="small">
+      <thead>
+        <tr><th>Feature</th><th>Range</th><th>Definition</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>x_norm</code></td><td>\([-1, 1]\)</td><td>Pitch x-coordinate, centred on midfield, scaled so each touchline sits at \(\pm 1\).</td></tr>
+        <tr><td><code>y_norm</code></td><td>\([-1, 1]\)</td><td>Pitch y-coordinate, centred and scaled identically.</td></tr>
+        <tr><td><code>vx</code></td><td>m/s</td><td>x-velocity from finite differences, clamped to \([-25, 25]\).</td></tr>
+        <tr><td><code>vy</code></td><td>m/s</td><td>y-velocity from finite differences, clamped to \([-25, 25]\).</td></tr>
+        <tr><td><code>is_attacking_side</code></td><td>\(\{0,1\}\)</td><td>1 iff the token belongs to the team currently in possession (ball token: 0).</td></tr>
+        <tr><td><code>is_goalkeeper</code></td><td>\(\{0,1\}\)</td><td>1 iff the player was identified as GK via the extreme-x heuristic over a calibration window.</td></tr>
+        <tr><td><code>has_possession</code></td><td>\(\{0,1\}\)</td><td>1 iff this token is the ball, or the player currently nearest the ball as a possession proxy.</td></tr>
+      </tbody>
+    </table>
+    <p class="small dim">
+      Player ordering within the player block is arbitrary; the transformer
+      is permutation-equivariant over tokens (no role one-hots, no positional
+      encoding on the player axis). This is a deliberate inductive bias —
+      identity is what the model has to infer from geometry + velocity, not
+      what it is told.
+    </p>
+
+    <h3>1.2 Sampling &amp; coordinates</h3>
     <ul>
-      <li><strong>P-score</strong>: probability the possessing team scores within the next 10 actions.</li>
-      <li><strong>P-concede</strong>: probability the possessing team concedes within the next 10 actions.</li>
+      <li>PFF tracking is delivered at 30 Hz; we sample <strong>every 6th
+        frame</strong> (stride 6) to land on a common 5 Hz grid.
+        \(\Delta t = 6/30 = 0.2\) s for the finite-difference velocity.</li>
+      <li>Velocities are clamped at \(\pm 25\) m/s, which absorbs substitution
+        teleports and tracker glitches without distorting realistic player
+        speeds (human sprint &lt;= 12 m/s; pass velocities up to ~30 m/s).</li>
+      <li>Coordinates are centred so the pitch midpoint is the origin and
+        each side stretches to \(\pm 1\). The attacking direction is
+        normalised so the team in possession always advances toward
+        \(+x\); this lets the model learn a single notion of "forward".</li>
     </ul>
-    <p>VAEP action value for action \(a\) is the change in expected goal difference it produces:</p>
+
+    <!-- ===================== SECTION 2: VAEP FRAMEWORK ===================== -->
+    <h2 id="sec-vaep">2. VAEP framework</h2>
+    <p>
+      VAEP (Valuing Actions by Estimating Probabilities) is Decroos et al.'s
+      framework for assigning a continuous expected-goal value to every
+      on-ball action. The headline idea: an action's value is the change in
+      expected goal difference it produces, where "expected goal
+      difference" is the probability the possessing team scores in the next
+      \(K\) actions minus the probability they concede in the same window.
+    </p>
+
     <div class="formula">
-      \[ V(a) = \big( P_{\mathrm{score}}(s_a) - P_{\mathrm{score}}(s_{a-1}) \big)
-            - \big( P_{\mathrm{concede}}(s_a) - P_{\mathrm{concede}}(s_{a-1}) \big) \]
+      \[ V(a) = \big[P_{\mathrm{score}}(s_a) - P_{\mathrm{score}}(s_{a-1})\big]
+              - \big[P_{\mathrm{concede}}(s_a) - P_{\mathrm{concede}}(s_{a-1})\big] \]
     </div>
+    <p class="small">
+      where \(s_a\) is the post-action game state, \(s_{a-1}\) the
+      pre-action state, and \(P_{\mathrm{score}}(s)\), \(P_{\mathrm{concede}}(s)\)
+      are estimated by gradient-boosted classifiers conditioned on the
+      previous three actions (SPADL encoding). The standard look-ahead is
+      \(K = 10\) actions.
+    </p>
+
     <details class="code-toggle">
-      <summary>Python implementation (excerpt)</summary>
+      <summary>Equation derivation &amp; implementation note</summary>
+      <div class="small">
+        <p>
+          If the previous action \(a-1\) was performed by the opposing team,
+          \(P_{\mathrm{score}}(s_{a-1})\) and \(P_{\mathrm{concede}}(s_{a-1})\)
+          must be swapped before taking the difference, so that the prior
+          state is expressed from the perspective of the team performing
+          \(a\):
+        </p>
 <pre><code class="lang-py"># research/src/chemistry/vaep/model.py
-# For each action, the "prior state" must be flipped if the previous
-# action belonged to the opposing team (so prior P_score / P_concede
-# swap from the current team's perspective).
 same = (teams == prev_team)
 prev_value_self_persp = np.where(same, prev_pS - prev_pC, prev_pC - prev_pS)
 df["vaep_value"] = (pS - pC) - prev_value_self_persp</code></pre>
+        <p>
+          \(P_{\mathrm{score}}\) and \(P_{\mathrm{concede}}\) are trained
+          independently via XGBoost on SPADL-encoded action sequences.
+          Out-of-fold AUCs typically land in the 0.85–0.92 range for
+          \(P_{\mathrm{score}}\) and 0.65–0.75 for \(P_{\mathrm{concede}}\).
+        </p>
+      </div>
     </details>
+
     <p id="vaep-metrics" class="small dim">VAEP out-of-fold metrics will load here.</p>
 
-    <h3 id="joi">Joint Offensive Impact (JOI)</h3>
+    <p class="small dim">
+      Reference: Decroos T., Bransen L., Van Haaren J., Davis J. (2019).
+      <em>Actions Speak Louder than Goals: Valuing Player Actions in Soccer.</em>
+      KDD 2019. See §9 for citation.
+    </p>
+
+    <!-- ===================== SECTION 3: JOI / JDI ===================== -->
+    <h2 id="sec-joi-jdi">3. JOI / JDI (paper baseline)</h2>
+    <p>
+      Bransen &amp; Van Haaren (MIT Sloan, 2020) layer pair chemistry on top
+      of VAEP. <strong>Joint Offensive Impact (JOI)</strong> sums VAEP across
+      consecutive-action pairs of teammates; <strong>Joint Defensive Impact
+      (JDI)</strong> assigns credit to defending pairs when opponents
+      under-perform their expected offensive impact.
+    </p>
+
+    <h3>3.1 Joint Offensive Impact (JOI)</h3>
     <p>
       For an ordered pair of consecutive actions \((a_i, a_{i+1})\) by teammates
-      \(p\) and \(q\), both VAEP values contribute to JOI(p, q). We sum across
-      all such interactions in the corpus.
+      \(p\) and \(q\), both VAEP values contribute to JOI(p, q):
     </p>
     <div class="formula">
-      \[ \mathrm{JOI}(p, q) = \sum_{(a_i, a_{i+1}) \in S_{p, q}} V(a_i) + V(a_{i+1}) \]
-    </div>
-    <details class="code-toggle">
-      <summary>Python implementation (excerpt)</summary>
-<pre><code class="lang-py"># research/src/chemistry/joint/joi.py
-INTERACTION_TYPES = {"pass", "cross", "dribble", "take_on", "shot"}
-for i in range(n - 1):
-    if types[i] not in INTERACTION_TYPES or types[i+1] not in INTERACTION_TYPES:
-        continue
-    if teams[i] != teams[i+1] or players[i] == players[i+1]:
-        continue
-    lo, hi = sorted((players[i], players[i+1]))
-    pair_sum[(lo, hi)] += vaeps[i] + vaeps[i+1]
-
-# Per-90 normalization
-joi90 = joi * 90.0 / minutes_together</code></pre>
-    </details>
-    <p>
-      JOI is normalized by minutes the pair shared on the pitch:
-      \( \mathrm{JOI90}(p,q) = 90 \cdot \mathrm{JOI}(p,q) / m_{p,q} \).
-    </p>
-
-    <h3 id="jdi">Joint Defensive Impact (JDI)</h3>
-    <p>
-      Match event data describes the actions that <em>happened</em>, not the
-      actions a defender <em>prevented</em>. JDI sidesteps this by giving credit
-      to a same-team pair when their opponents underperform their expected
-      offensive impact. For every opposing player \(o\) the pair faced, we
-      compute the gap between \(o\)'s expected and actual OI and divide it
-      across same-team pairs by a responsibility share derived from the 5×5
-      position grid.
-    </p>
-    <p><strong>Per-match offensive impact</strong> of player \(o\):</p>
-    <div class="formula">
-      \[ \mathrm{OI}_m(o) \;=\; \sum_{a \in \{\text{pass, cross, dribble, take-on, shot}\}} V(a) \]
+      \[ \mathrm{JOI}(p, q) = \sum_{(a_i,\, a_{i+1}) \in S_{p,q}} V(a_i) + V(a_{i+1}) \]
     </div>
     <p>
-      <strong>Expected OI</strong> uses player \(o\)'s per-90 mean across
-      <em>prior</em> matches in this dataset, Bayesian-shrunk toward a
-      positional prior (GK / DEF / MID / FWD) when fewer than \(M_0 = 700\)
-      minutes have been played.
+      Normalised per 90 shared minutes:
+      \( \mathrm{JOI90}(p, q) = 90 \cdot \mathrm{JOI}(p,q) / m_{p,q} \).
     </p>
+
+    <h3>3.2 Joint Defensive Impact (JDI) — and what event data cannot see</h3>
     <p>
-      <strong>Responsibility share.</strong> Each on-pitch teammate has
-      individual share
-      \( r_p(o) = (1/d(p, o)) \,/\, \sum_q (1/d(q, o)) \),
-      where \(d\) is Euclidean distance in the 5×5 grid <em>after mirroring</em>
-      the opponent's cell into our coordinate frame (so our defenders land near
-      their forwards). The pair share is the simple mean
-      \( R_m(p, q, o) = \tfrac{1}{2}\big(r_p(o) + r_q(o)\big) \).
+      JDI is the paper's hard half. Defenders' value lives mostly off-ball,
+      but event data only records on-ball touches. The authors are explicit:
     </p>
-    <p><strong>Per-match JDI</strong>:</p>
+    <blockquote class="small">
+      "The match event data only describes the actions that actually happened
+      in the match but not the actions that players prevented from happening,
+      for instance, by smart runs or clever positioning."
+      <footer class="dim" style="margin-top: 0.4rem;">
+        — Bransen &amp; Van Haaren (2020), §3.2 (Joint Defensive Impact).
+      </footer>
+    </blockquote>
+    <p>
+      Their workaround: for every opposing player \(o\) the defending pair
+      faced, compute the gap between \(o\)'s expected and actual OI and split
+      it across same-team pairs by a responsibility share \(R(p, q, o)\)
+      derived from a 5×5 grid distance heuristic.
+    </p>
     <div class="formula">
-      \[ \mathrm{JDI}_m(p, q) \;=\; \sum_o \big( \mathbb{E}[\mathrm{OI}_m(o)] - \mathrm{OI}_m(o) \big)
+      \[ \mathrm{JDI}_m(p, q) \;=\; \sum_o \big(\mathbb{E}[\mathrm{OI}_m(o)] - \mathrm{OI}_m(o)\big)
          \cdot R_m(p, q, o) \cdot \frac{\mathrm{mins}_m(p, q, o)}{90} \]
     </div>
     <details class="code-toggle">
-      <summary>Python implementation (excerpt)</summary>
-<pre><code class="lang-py"># research/src/chemistry/joint/jdi.py
-def _mirror_position(pos):
-    r, c = grid_cell(pos)               # 0..5 rows, 0..4 cols
-    return ((4 - r) if r &lt;= 4 else 5, 4 - c)
-
-def _responsibility_per_opponent(team_players, opponent_pos):
-    distances = {p.id: 1.0 / (grid_distance_vs_opponent(p.pos, opponent_pos) + 0.5)
-                 for p in team_players}
-    total = sum(distances.values())
-    indiv = {pid: w / total for pid, w in distances.items()}
-    # pair share = (s_p + s_q) / 2
-    return {(p, q): (indiv[p] + indiv[q]) / 2 for p, q in pairs(team_players)}
-
-def jdi_m(pair_p, pair_q, opponents):
-    return sum(
-        (E_OI[o] - OI[o]) * RESP[(pair_p, pair_q, o)] * mins_m[(pair_p, pair_q, o)] / 90
-        for o in opponents
-    )</code></pre>
+      <summary>OI, expected OI, responsibility share — full definitions</summary>
+      <div class="small">
+        <p>
+          <strong>Per-match OI:</strong>
+          \( \mathrm{OI}_m(o) = \sum_a V(a) \) over passes, crosses,
+          dribbles, take-ons, and shots by player \(o\) in match \(m\).
+        </p>
+        <p>
+          <strong>Expected OI:</strong> \(o\)'s per-90 mean across <em>prior</em>
+          matches in the dataset, Bayesian-shrunk toward a positional prior
+          (GK / DEF / MID / FWD) when fewer than \(M_0 = 700\) minutes have
+          been played.
+        </p>
+        <p>
+          <strong>Responsibility share:</strong>
+          \( r_p(o) = (1/d(p, o)) / \sum_q (1/d(q, o)) \), with \(d\) the
+          Euclidean distance in the 5×5 grid after mirroring \(o\)'s cell
+          into the defending coordinate frame. The pair share is the simple
+          mean \(R_m(p, q, o) = \tfrac{1}{2}(r_p(o) + r_q(o))\).
+        </p>
+      </div>
     </details>
     <p>
-      Aggregated across matches and normalized per 90 shared minutes gives JDI90.
+      Aggregated across matches and normalised per 90 shared minutes gives
+      JDI90.
     </p>
     <p id="predictor-metrics" class="small dim">Predictor metrics will load here.</p>
 
-    <!-- ===================== SECTION 2: TRACKING TRANSFORMER ===================== -->
-    <h2 id="section-2">2. Tracking transformer (frame-VAEP heads)</h2>
-    <p>
-      Event data is blind to the 21 players not currently touching the ball.
-      To recover the off-ball half of chemistry we trained a transformer on PFF
-      tracking data, downsampled to 5 Hz, that takes a single frame as input
-      and predicts a frame-level analogue of the VAEP score / concede
-      probabilities. The architecture is adapted from SumerSports's
-      <a href="https://github.com/SumerSports/SportsTrackingTransformer">SportsTrackingTransformer</a>
-      (NFL), with three changes: soccer geometry, two BCE heads instead of an
-      NFL-specific target, and an attention-extraction path that's a
-      <em>first-class output</em>, not a debug hook.
+    <p class="small dim">
+      The JDI quote above is the foil for §4–5: the tracking transformer
+      <em>does</em> see those off-ball actions, frame by frame, for all 22
+      players.
     </p>
 
-    <h3>2.1 Input representation</h3>
+    <!-- ===================== SECTION 4: TRACKING TRANSFORMER ===================== -->
+    <h2 id="sec-transformer">4. Our tracking transformer</h2>
     <p>
-      Every frame is a <strong>23-token sequence</strong>: 22 players + 1 ball.
-      Each token is a 7-dimensional feature vector:
-    </p>
-    <ul>
-      <li><code>x_norm</code>, <code>y_norm</code> — pitch position, centered and scaled to \([-1, 1]\)</li>
-      <li><code>vx</code>, <code>vy</code> — velocity from finite differences, clamped at ±25 m/s</li>
-      <li><code>is_attacking_side</code> — 1 if the token belongs to the team in possession</li>
-      <li><code>is_goalkeeper</code> — 1 if GK (identified via the extreme-x heuristic)</li>
-      <li><code>has_possession</code> — 1 if this token is currently the ball carrier (or is the ball)</li>
-    </ul>
-    <p>
-      Player ordering within the block carries no meaning; the transformer is
-      permutation-equivariant over tokens. Velocity uses stride-aware
-      \(\Delta t\) so sources at different native frame rates (Metrica 25 Hz,
-      SkillCorner 10 Hz, PFF 30 Hz) all land on a common 5 Hz grid.
+      Architecture adapted from Sumer Sports's open-source
+      <a href="https://github.com/SumerSports/SportsTrackingTransformer" target="_blank" rel="noopener">SportsTrackingTransformer</a>
+      (originally an NFL model). Three changes for soccer: 23-token state
+      instead of 22, two BCE heads (frame-VAEP) instead of an NFL-specific
+      target, and an <code>encode_with_attention</code> path that is a
+      first-class output rather than a debug hook.
     </p>
 
-    <h3>2.2 Architecture</h3>
-    <p>
-      A thin stack of standard transformer blocks:
-    </p>
+    <h3>4.1 Architecture</h3>
     <div class="formula">
       \[ \text{Input}\ (B, 23, 7) \;\to\; \mathrm{BatchNorm_{features}} \;\to\;
          \mathrm{Linear}\ (7 \to d) \;\to\;
          \big[\mathrm{TransformerEncoderLayer}(d, h)\big]^{L} \;\to\;
          \mathrm{Heads} \]
     </div>
-    <p>
-      Encoder layers use <strong>pre-norm</strong> ordering and GELU activations.
-      Two parallel sigmoid heads sit on the pooled output:
-    </p>
-    <ul>
-      <li><strong>\(P_{\mathrm{score}}^{\mathrm{frame}}\)</strong>: probability the team currently in possession scores within the next 10 seconds.</li>
-      <li><strong>\(P_{\mathrm{concede}}^{\mathrm{frame}}\)</strong>: probability the team currently in possession concedes within the next 10 seconds.</li>
-    </ul>
-    <p>
-      The frame-VAEP value is the same difference as the event-data version,
-      applied frame-by-frame:
-      \( V^{\mathrm{frame}}(t) = P_{\mathrm{score}}^{\mathrm{frame}}(t) - P_{\mathrm{concede}}^{\mathrm{frame}}(t) \).
-    </p>
-
-    <h3>2.3 Training</h3>
-    <p>
-      44 PFF World Cup '22 matches split <strong>36 train / 8 val</strong>.
-      Class-weighted BCE on both heads (positives are rare — &lt; 4% of frames
-      precede a goal within 10 s). Best-epoch validation metrics:
-    </p>
-    <ul>
-      <li>\(P_{\mathrm{score}}^{\mathrm{frame}}\) val AUC ≈ <strong>0.80</strong>, Brier ≈ 0.187</li>
-      <li>\(P_{\mathrm{concede}}^{\mathrm{frame}}\) val AUC ≈ <strong>0.79</strong>, Brier ≈ 0.069</li>
-    </ul>
-    <p class="small dim">
-      The site's attention chemistry uses the frame-VAEP checkpoint described
-      above — the model predicts \(P_{\mathrm{score}}\) / \(P_{\mathrm{concede}}\)
-      directly, not an xT proxy. The checkpoint is downloadable from the
-      <a href="downloads.html">Downloads</a> page.
-    </p>
-
-    <h3>2.3.1 Two-specialist experiment</h3>
-    <p>
-      The shared two-head backbone attends disproportionately to GKs and
-      defenders because P(concede) carries tighter spatial signal than
-      P(score) and dominates the gradient. To test whether a dedicated
-      offensive representation surfaces cleaner chemistry, we trained two
-      <strong>single-head specialists</strong> — score-only and concede-only —
-      on the same backbone (2 layers × 4 heads × 64 dim), same 36/8 split,
-      same class weighting, 6 epochs each.
-    </p>
-    <ul>
-      <li>Score specialist val AUC: <strong>0.816</strong> (shared model: 0.801, +0.015).</li>
-      <li>Concede specialist val AUC: <strong>0.799</strong> (shared model: 0.792, +0.007).</li>
-    </ul>
-    <p>
-      Both specialists modestly beat the shared model on their respective
-      head. We then re-extracted per-pair attention chemistry from each and
-      compared with the shared-model pipeline. Findings:
-    </p>
     <ul class="small">
-      <li>The score specialist's top-10 off-off pairs overlap the shared
-        model's by 7/10. New entries surfaced include
-        <strong>Dembélé + Mbappé at #1</strong> (was #7 on shared) and
-        <strong>Vinícius + Raphinha</strong> (Brazil's Real Madrid duo, not
-        in the shared top-10 at all).</li>
-      <li>The conditional view (frames that lead to a goal in the next 10 s)
-        already does most of the interpretive work. The shared-model
-        conditional leaderboard and the specialist conditional leaderboard
-        surface largely the same pairs — Morocco's Ziyech / Ounahi /
-        En-Nesyri family at the top either way.</li>
-      <li>The PSG triangle (Argentina's Messi + Di María + Paredes) had
-        JOI90 = 0.33 for Messi–Di María, by far the highest pair in the
-        squad. The score specialist's tracking attention shows the triangle
-        at ratio 0.92× the team baseline — below average. The "rehearsal
-        carries over" pattern is event-bound (JOI), not visible in off-ball
-        attention even after specialising on the offensive head.</li>
-      <li>Germany Bayern is the cleanest reversal: it was the
-        <em>worst</em> cluster on JOI (Δ JOI90 = −0.101) but the
-        <em>only</em> nation with a significant positive shared-history
-        signal on the score-specialist's attention
-        (Δ attention = +471, Mann-Whitney p &lt; 0.001).</li>
+      <li>BatchNorm is applied <em>over the feature axis</em>, so each of the
+        7 features is normalised across the (batch × tokens) population —
+        permutation-equivariant.</li>
+      <li>Linear embedding projects each token independently from 7-dim to
+        the model dimension \(d\) (64 in shipped checkpoints).</li>
+      <li>Encoder layers use <strong>pre-norm</strong> ordering with GELU
+        activations. Shipped: \(L = 2\) layers, \(h = 4\) heads, \(d = 64\),
+        dropout 0.1.</li>
+      <li>No positional encoding on the player axis. Player identity is
+        whatever the model can infer from \(x, y, v_x, v_y\) and the three
+        flag features.</li>
+    </ul>
+
+    <h3>4.2 Heads &amp; targets</h3>
+    <p>
+      Three heads have been trained on this backbone. The two relevant to
+      <em>chemistry</em> are the frame-VAEP specialists; the xT-regression
+      head is the original supervised target and is retained for evaluation.
+    </p>
+    <ul>
+      <li><strong>\(P_{\mathrm{score}}^{\mathrm{frame}}\) specialist:</strong>
+        single sigmoid head, BCE loss with class weighting. Target = 1 iff
+        the possessing team scores within the next 10 seconds. Val AUC
+        <strong>0.816</strong>, Brier 0.234 (from
+        <code>training_metrics_score_only.json</code>).</li>
+      <li><strong>\(P_{\mathrm{concede}}^{\mathrm{frame}}\) specialist:</strong>
+        same architecture, target = 1 iff the possessing team concedes
+        within 10 s. Val AUC <strong>0.799</strong>, Brier 0.054 (from
+        <code>training_metrics_concede_only.json</code>).</li>
+      <li><strong>Shared two-head backbone</strong> (legacy, retained for
+        comparison): score AUC <strong>0.801</strong>, concede AUC
+        <strong>0.792</strong> (<code>training_metrics_frame_vaep.json</code>).</li>
+      <li><strong>xT-regression head:</strong> Huber regression on
+        \(\max_{t' \in [t, t+K]} \mathrm{xT}(t')\), the Karun-Singh-grid xT
+        value at the ball's future-window peak. Val Spearman
+        <strong>0.714</strong> vs. an xT-lookup baseline at 0.616
+        (\(+0.098\) lift; <code>training_metrics_xt.json</code>).</li>
     </ul>
     <p class="small dim">
-      Specialist checkpoints (<code>transformer_score_only.ckpt</code>,
-      <code>transformer_concede_only.ckpt</code>) are downloadable from the
-      <a href="downloads.html">Downloads</a> page. Per-pair attention
-      parquets ship under <code>research/data/</code> with
-      <code>_score_specialist</code> / <code>_concede_specialist</code>
-      suffixes.
+      The chemistry pipeline (§5) uses the two single-head specialists,
+      because the shared backbone attends disproportionately to GKs and
+      defenders (P(concede) carries tighter spatial signal than P(score)
+      and dominates the gradient). The score specialist's top-10 off-off
+      pairs overlap the shared model's by 7/10; new entries include
+      Dembélé + Mbappé (was #7 on shared) and Brazil's Real Madrid duo
+      Vinícius + Raphinha (absent from the shared top-10 entirely).
     </p>
 
-    <h3>2.4 Attention extraction</h3>
+    <h3>4.3 Attention extraction</h3>
     <p>
-      The transformer exposes an <code>encode_with_attention</code> path that
-      returns the pooled encoding alongside <em>every</em> layer's per-head
-      attention tensor:
+      The transformer exposes <code>encode_with_attention</code> which returns
+      the pooled encoding alongside the full per-layer per-head attention
+      tensor:
     </p>
     <div class="formula">
       \[ \mathrm{Attn} \in \mathbb{R}^{B \times L \times H \times T \times T},
          \quad T = 23 \]
     </div>
     <p>
-      For chemistry we collapse <em>layers</em> and <em>heads</em> by sum, then
-      take the row corresponding to the <strong>ball token</strong> — i.e. for
-      every frame, "how much of the model's prediction depended on each of the
-      22 players?" That row, summed over a possession sequence, is the raw
-      ingredient for the pair-chemistry score.
+      For chemistry we use the <strong>ball token as the query</strong>: the
+      row \(\mathrm{Attn}[\,b,\,:,\,:,\,\text{ball},\,1{:}\text{P}+1\,]\),
+      averaged across the \(L\) layers and \(H\) heads, gives a length-22
+      probability vector over the player tokens — "given the ball token's
+      query, how much weight does the model place on each player when
+      forming its prediction at frame \(t\)?".
     </p>
     <details class="code-toggle">
       <summary>Python implementation (excerpt)</summary>
-<pre><code class="lang-py"># src/wc2026_tracking_transformer/model/transformer.py
-def encode_with_attention(self, x):
-    # x: (B, 23, 7)
-    h = self.feature_norm(x)
-    h = self.embed(h)                          # (B, 23, d)
-    attns = []
-    for layer in self.encoder_layers:
-        h, attn = layer(h, need_weights=True)  # attn: (B, H, T, T)
-        attns.append(attn)
-    attn_stack = torch.stack(attns, dim=1)     # (B, L, H, T, T)
-    return h, attn_stack</code></pre>
+<pre><code class="lang-py"># research/scripts/extract_aw_joi.py
+ball_attn = attn[:, :, :, BALL_TOKEN, :NUM_PLAYER_SLOTS]   # (B, L, H, 22)
+ball_attn = ball_attn.mean(dim=(1, 2))                      # (B, 22)</code></pre>
     </details>
 
-    <!-- ===================== SECTION 3: ATTENTION CHEMISTRY ===================== -->
-    <h2>3. Attention chemistry aggregation</h2>
+    <!-- ===================== SECTION 5: AW-JOI / AW-JDI ===================== -->
+    <h2 id="sec-awjoi">5. From attention to AW-JOI / AW-JDI</h2>
     <p>
-      Given the per-frame ball-token attention vector, we want a single
-      "co-watched-ness" score per ordered pair \((p, q)\) on the same team.
-      The recipe:
+      <strong>Attention-Weighted JOI / JDI</strong> are the pair-level
+      aggregates that feed the leaderboard, the Whiteboard, and the team
+      chemistry density. The construction is the
+      <em>tracking-data analogue</em> of Bransen's JOI / JDI: instead of
+      summing VAEP across consecutive on-ball actions of two teammates, we
+      sum frame-level prediction-deltas weighted by how much the model was
+      jointly attending to both players at that frame.
     </p>
 
-    <h3>3.1 Sum ball-token attention by pair</h3>
+    <h3>5.1 Frame-level building blocks</h3>
+    <p>Per frame \(t\), per same-team pair \((p, q)\):</p>
+    <ul class="small">
+      <li>
+        <strong>Pair coupling.</strong>
+        \( c(p, q, t) = \alpha_t(p) \cdot \alpha_t(q) \), where
+        \(\alpha_t(\cdot)\) is the ball-as-query attention over players,
+        mean-aggregated across layers and heads. The product (not sum) is
+        what makes this a <em>joint</em> signal — both players have to be
+        attended at the same instant for the pair to score.
+      </li>
+      <li>
+        <strong>Score delta.</strong>
+        \( \Delta P_{\mathrm{score}}(t) = P_{\mathrm{score}}^{\mathrm{frame}}(t+1) - P_{\mathrm{score}}^{\mathrm{frame}}(t) \)
+        — the forward finite difference of the score-specialist's prediction.
+      </li>
+      <li>
+        <strong>Concede delta.</strong>
+        \( \Delta P_{\mathrm{concede}}(t) = P_{\mathrm{concede}}^{\mathrm{frame}}(t+1) - P_{\mathrm{concede}}^{\mathrm{frame}}(t) \)
+        — same construction on the concede specialist.
+      </li>
+    </ul>
+
+    <h3>5.2 Pair sums</h3>
     <p>
-      Let \(\alpha_t(i)\) be the ball-token's attention weight to player token
-      \(i\) at frame \(t\), summed across layers and heads. For every frame in
-      which both \(p\) and \(q\) are on the pitch on the team in possession, we
-      add the <strong>product</strong> of their attention to the pair:
+      AW-JOI sums over offence-side moves (positive score-delta) using the
+      <em>score-specialist's</em> attention; AW-JDI sums over defence-side
+      moves (positive concede-delta — i.e. concede risk grew, and the
+      defending pair gets credit for what attention the model placed on them
+      while it grew) using the <em>concede-specialist's</em> attention:
     </p>
     <div class="formula">
-      \[ A(p, q) \;=\; \sum_{t \in \mathcal{T}_{p,q}} \alpha_t(p) \cdot \alpha_t(q) \]
+      \[ \mathrm{AW\text{-}JOI}(p, q) \;=\; \sum_{t} c_{\mathrm{score}}(p, q, t) \cdot \max\!\big(\Delta P_{\mathrm{score}}(t),\ 0\big) \]
+      \[ \mathrm{AW\text{-}JDI}(p, q) \;=\; \sum_{t} c_{\mathrm{concede}}(p, q, t) \cdot \max\!\big(\Delta P_{\mathrm{concede}}(t),\ 0\big) \]
     </div>
     <p>
-      The product (not sum) is what makes this a <em>chemistry</em> signal: a
-      pair only scores high when the model is looking at both of them in the
-      same instant.
+      Both are normalised per 90 shared on-pitch minutes for the pair:
+      \(\mathrm{AW\text{-}JOI90}(p, q) = 90 \cdot \mathrm{AW\text{-}JOI}(p, q) / m_{p, q}\),
+      analogously for AW-JDI90.
     </p>
 
-    <h3>3.2 Ball-distance baseline subtraction</h3>
-    <p>
-      Raw \(A(p, q)\) is dominated by pairs that happen to sit close to the
-      ball a lot — goalkeepers during defensive sequences, centre-backs in
-      build-up. To isolate the <em>chemistry</em> signal from the
-      <em>geography</em> signal, we condition on the pair's mean Euclidean
-      distance to the ball. Let \(d_t(p, q) = \tfrac{1}{2}(\|x_t(p) - x_t(b)\| +
-      \|x_t(q) - x_t(b)\|)\), bin into ten 5-meter buckets (last bucket open at
-      45m+), and let \(\hat{\mu}_b\) be the average pair-attention across the
-      entire corpus inside bin \(b\):
-    </p>
-    <div class="formula">
-      \[ \hat{\mu}_b \;=\;
-         \frac{\sum_{(t, p, q)\ :\ d_t(p,q) \in b} \alpha_t(p, q)}
-              {\#\{(t, p, q) : d_t(p, q) \in b\}} \]
-    </div>
-    <p>
-      The pair's <strong>expected</strong> attention is the dot-product of its
-      per-bin frame counts with the corpus baseline, and the baseline-corrected
-      pair-attention is the difference between observed and expected:
-    </p>
-    <div class="formula">
-      \[ \tilde{A}(p, q) \;=\; A(p, q) \;-\;
-         \sum_{b} n_b(p, q) \cdot \hat{\mu}_b \]
-    </div>
-    <p>
-      \(\tilde{A}(p, q) > 0\) means the model attended to this pair
-      <em>more</em> than a random pair would at the same ball-distance
-      profile; \(\tilde{A}(p, q) < 0\) means less. Every downstream
-      aggregate — per-90, lift, group score — uses \(\tilde{A}\) instead of
-      \(A\), which is what removes the GK-and-build-up dominance from the
-      leaderboards.
-    </p>
+    <details class="code-toggle">
+      <summary>Source — verified against <code>research/scripts/extract_aw_joi.py</code></summary>
+<pre><code class="lang-py"># research/scripts/extract_aw_joi.py (excerpt; aggregation kernel)
+# Forward differences -- last frame's dv = 0
+dv_score[:-1]   = p_score[1:]   - p_score[:-1]
+dv_concede[:-1] = p_concede[1:] - p_concede[:-1]
+w_joi = np.clip(dv_score,   0.0, None)
+w_jdi = np.clip(dv_concede, 0.0, None)
+
+# c[p,q,t] = a_p(t) * a_q(t); contributions = c * weight
+a_i = ball_attn_nz[:, iu]                  # (M, K) over upper-tri pairs
+a_j = ball_attn_nz[:, ju]
+c   = a_i * a_j
+contribs = c * weight_nz[:, None]          # (M, K)
+# masked to same-team pairs, accumulated into pair_sums[(p,q)]</code></pre>
+    </details>
+
     <p class="small dim">
-      Concretely: ten distance bins span 0–45m in 5m steps (the tenth bin
-      is open at 45m+). For each accepted frame we compute every pair's
-      mean Euclidean distance to the ball and add its attention into the
-      matching bin; the per-bin corpus baseline is the unweighted mean of
-      every (pair, frame) contribution that landed in that bin across all
-      44 PFF matches. A pair's expected attention is its per-bin frame
-      counts dotted with this corpus-wide baseline vector, and the
-      published number is the raw sum minus that expected value. The
-      per-bin baseline rises monotonically with distance (0.063 in bin 0,
-      0.164 in bin 9), so deep CBs and GKs — who tend to live far from
-      the ball — give back proportionally more.
+      Note on the JDI sign convention. Bransen's JDI rewards defenders when
+      opponents <em>under</em>-perform expected offence. Our AW-JDI is the
+      tracking-side analogue: positive \(\Delta P_{\mathrm{concede}}\) means
+      concede risk grew over the next 0.2 s, so the attention paid to a
+      defensive pair in that instant is credited to them as "they were in
+      the picture while the team was being broken down." High AW-JDI90 thus
+      flags <em>defensive engagement</em>, not defensive success per se —
+      the leaderboard treats it as the "defensive co-watched-ness" score.
     </p>
 
-    <h3>3.3 Per-90 normalization</h3>
+    <!-- ===================== SECTION 6: TCD ===================== -->
+    <h2 id="sec-tcd">6. Team Chemistry Density (TCD)</h2>
     <p>
-      Pairs with more shared minutes accumulate more attention by default, so
-      we normalize identically to JOI / JDI:
+      TCD is the team-level scalar that summarises "how many of this squad's
+      pairs are above the league baseline?". It is the metric most pages
+      sort by. Definition:
+    </p>
+
+    <h3>6.1 Pool medians</h3>
+    <p>
+      We compute two pool-level reference values across all 31 squads (one
+      team excluded for data completeness):
+    </p>
+    <ul>
+      <li>\(\tilde{m}_{\mathrm{off}}\) = median AW-JOI90 across <em>all
+        off–off pairs across all teams</em>.</li>
+      <li>\(\tilde{m}_{\mathrm{def}}\) = median AW-JDI90 across <em>all
+        def–def pairs across all teams</em>.</li>
+    </ul>
+    <p class="small">
+      Empirical pool medians on the WC22 corpus: \(\tilde{m}_{\mathrm{off}} \approx 0.467\),
+      \(\tilde{m}_{\mathrm{def}} \approx 0.322\).
+    </p>
+
+    <h3>6.2 Per-team counts</h3>
+    <p>For each team:</p>
+    <div class="formula">
+      \[ n_{\mathrm{off}} = \#\{(p,q) \in \mathrm{off}\text{-}\mathrm{off} : \mathrm{AW\text{-}JOI90}(p,q) > \tilde{m}_{\mathrm{off}}\} \]
+      \[ n_{\mathrm{def}} = \#\{(p,q) \in \mathrm{def}\text{-}\mathrm{def} : \mathrm{AW\text{-}JDI90}(p,q) > \tilde{m}_{\mathrm{def}}\} \]
+      \[ n_{\mathrm{cross}} = \#\{(p,q) \in \mathrm{cross} : \Delta_{p,q} > 0\}
+                            - \#\{(p,q) \in \mathrm{cross} : \Delta_{p,q} < 0\} \]
+    </div>
+    <p class="small">
+      where \(\Delta_{p,q} = \mathrm{AW\text{-}JOI90}(p,q) - \mathrm{AW\text{-}JDI90}(p,q)\)
+      — the "off-vs-def net" of a cross-line pair (an attacker–defender pair
+      contributes positively when its offensive co-watched-ness exceeds its
+      defensive co-watched-ness).
     </p>
     <div class="formula">
-      \[ A_{90}(p, q) \;=\; 90 \cdot \frac{\tilde{A}(p, q)}{m_{p, q}} \]
+      \[ \mathrm{TCD} \;=\; n_{\mathrm{off}} + n_{\mathrm{def}} + n_{\mathrm{cross}} \]
     </div>
 
-    <h3>3.4 Team-baseline lift (PMI-style)</h3>
+    <h3>6.3 Worked example — Argentina (winner, TCD rank 7)</h3>
     <p>
-      Different teams play different volumes of possession, so raw \(A_{90}\)
-      isn't comparable across squads. We compute a <strong>lift</strong>
-      against each team's 75th-percentile pair — analogous to pointwise
-      mutual information against the team's "above-mean background
-      distribution" of attention. (The 75th percentile rather than the
-      median because \(\tilde{A}_{90}\) is now centered near zero by
-      construction — a divide-by-median would explode for teams whose
-      median pair sits near baseline.)
+      Values taken directly from
+      <a href="data/team_chemistry_vs_paper.json"><code>team_chemistry_vs_paper.json</code></a>:
     </p>
-    <div class="formula">
-      \[ \mathrm{lift}(p, q) \;=\;
-         \frac{\tilde{A}_{90}(p, q)}{Q_{0.75,\ (p', q') \in \mathrm{team}}\ \tilde{A}_{90}(p', q')} \]
-    </div>
-    <p>
-      A lift of <strong>1.0</strong> is a typical above-mean pair on its team;
-      <strong>2.0</strong> is twice that; high values are the kind of
-      automatism that shows up in highlight reels.
-    </p>
-    <details class="code-toggle">
-      <summary>Python implementation (excerpt)</summary>
-<pre><code class="lang-py"># research/scripts/build_attention_chemistry.py
-def pair_attention(attn_stack, frames_meta):
-    # attn_stack: (T_frames, L, H, 23, 23)
-    # Sum layers + heads, take ball-token row.
-    a = attn_stack.sum(dim=(1, 2))[:, 0, 1:]    # (T_frames, 22)
-    out = defaultdict(float)
-    for t, row in enumerate(a):
-        team = frames_meta[t]["team_in_possession"]
-        for i, j in pairs_on_pitch(t, team):
-            out[(i, j)] += float(row[i] * row[j])
-    return out
-
-def lift(per90, team_to_pairs):
-    out = {}
-    for team, pair_list in team_to_pairs.items():
-        med = np.median([per90[p] for p in pair_list]) or 1e-9
-        for p in pair_list:
-            out[p] = per90[p] / med
-    return out</code></pre>
-    </details>
-
-    <h3>3.5 Triples and quads</h3>
-    <p>
-      The same machinery extends to groups of three or four — the leaderboard's
-      "groups" tab shows top-attention triangles and box-of-four
-      sub-formations. For a group \(G\) the score is the average pairwise
-      \(A_{90}\) inside it:
-    </p>
-    <div class="formula">
-      \[ A_{90}(G) \;=\; \frac{1}{\binom{|G|}{2}} \sum_{\{p, q\} \subset G} A_{90}(p, q) \]
-    </div>
-    <p>
-      and lift is normalized by the team's median pair as above. See
-      <a href="chemistry-leaderboard.html">chemistry leaderboards</a> for the
-      live tables.
+    <table class="small">
+      <thead><tr><th>Component</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>\(n_{\mathrm{off}}\) (off–off pairs above \(\tilde{m}_{\mathrm{off}}\))</td><td><strong>19</strong></td></tr>
+        <tr><td>\(n_{\mathrm{def}}\) (def–def pairs above \(\tilde{m}_{\mathrm{def}}\))</td><td><strong>12</strong></td></tr>
+        <tr><td>\(n_{\mathrm{cross}}\) (cross-line net, off-positive − def-positive)</td><td><strong>67</strong></td></tr>
+        <tr><td><strong>TCD</strong></td><td><strong>98</strong></td></tr>
+        <tr><td>TCD rank (of 31 teams)</td><td><strong>7</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="small dim">
+      Sanity check: Argentina has 168 within-team pairs (squad 26, three
+      role buckets), so 19 + 12 + 67 = 98 strong-or-net pairs is roughly
+      58% of the within-team pair pool. The Brazil row at TCD 121 (rank 2)
+      is denser still; Qatar at TCD 54 (rank 27) is the floor among full
+      data rows. Each tab's "strong pair" counts on the site derive from
+      these same three numbers.
     </p>
 
-    <!-- ===================== SECTION 4: TEAM BUILDER ===================== -->
-    <h2>4. Team builder (mixed-integer program)</h2>
-    <p>
-      Given pair-chemistry scores for every two-player combination in a squad,
-      Bransen's optimal-XI selection is a 0/1 MIP:
-    </p>
-    <div class="formula">
-      \[ \max_{x \in \{0,1\}^{|P|}} \sum_{p \lt q} \mathrm{Chem}(p, q) \cdot x_p x_q \]
-      \[ \text{s.t.} \quad \sum_p x_p = 11, \quad \sum_{p \in \mathrm{GK}} x_p = 1,
-         \quad \sum_{p \in \mathrm{DEF}} x_p = n_{\mathrm{DEF}}, \ldots \]
-    </div>
-    <p>
-      The product \(x_p x_q\) is linearized via a standard pair-indicator
-      auxiliary variable \(y_{pq} \in [0,1]\) with constraints
-      \(y_{pq} \le x_p,\ y_{pq} \le x_q,\ y_{pq} \ge x_p + x_q - 1\).
-    </p>
-    <details class="code-toggle">
-      <summary>Python implementation (excerpt)</summary>
-<pre><code class="lang-py"># research/src/chemistry/teambuilder/builder.py
-# Formation-enumeration variant of Bransen's MIP.
-FORMATIONS = {
-    "4-3-3":   {"GK": 1, "DEF": 4, "MID": 3, "FWD": 3},
-    "4-4-2":   {"GK": 1, "DEF": 4, "MID": 4, "FWD": 2},
-    "3-5-2":   {"GK": 1, "DEF": 3, "MID": 5, "FWD": 2},
-    "3-4-3":   {"GK": 1, "DEF": 3, "MID": 4, "FWD": 3},
-    "4-2-3-1": {"GK": 1, "DEF": 4, "MID": 5, "FWD": 1},
-}
-
-# Pair value combines offense + defense by user-chosen alpha
-pair_value[(p, q)] = alpha * joi90[(p, q)] + (1 - alpha) * jdi90[(p, q)]
-
-best = None
-for fname, slots in FORMATIONS.items():
-    for gk in combinations(by_role["GK"], slots["GK"]):
-      for d in combinations(by_role["DEF"], slots["DEF"]):
-        for m in combinations(by_role["MID"], slots["MID"]):
-          for f in combinations(by_role["FWD"], slots["FWD"]):
-              team = list(gk) + list(d) + list(m) + list(f)
-              score = sum(pair_value.get((min(a,b), max(a,b)), 0.0)
-                          for a, b in combinations(team, 2))
-              if best is None or score &gt; best["score"]:
-                  best = {"formation": fname, "score": score, "players": team}</code></pre>
-    </details>
-
-    <!-- ===================== SECTION 5: LIMITATIONS ===================== -->
-    <h2 id="section-5">5. Limitations &amp; provider calibration</h2>
+    <!-- ===================== SECTION 7: RECONCILIATION ===================== -->
+    <h2 id="sec-reconciliation">7. Reconciliation with earlier drafts</h2>
     <p class="small dim" style="margin: 0.4rem 0 0.8rem;">
       <strong>Reconciliation with earlier drafts.</strong> Earlier drafts
       reported a chemistry-vs-finish Spearman ρ ≈ 0.78 using a pre-TCD
       strong-pair count with a hard 0.4 threshold. The unified TCD metric
       (pool-median threshold per role + cross-net) measures ρ = 0.704 on
-      the same 31 teams (p &lt; 0.001).
+      the same 31 teams (p &lt; 0.001). The new definition is the one
+      shipped on every public page; the older 0.78 number is retained only
+      in the headline-archive for traceability.
     </p>
+
+    <!-- ===================== SECTION 8: LIMITATIONS ===================== -->
+    <h2 id="sec-limitations">8. Limitations</h2>
     <ul>
       <li><strong>Tournament-only baseline.</strong> All "expected" values
-        — the Bayesian-shrunk E[OI] used inside JDI, and the per-player Δ OI/90
-        shown on the Overview — are computed from this 64-match corpus alone.
-        Most players have 2–4 matches here, so the per-player prior collapses
-        to a positional average. That makes our "form" delta a tournament-relative
-        gauge, <em>not</em> a club-vs-national comparison.</li>
+        — the Bayesian-shrunk \(\mathbb{E}[\mathrm{OI}]\) used inside JDI,
+        and the per-player Δ OI/90 shown on the Overview — are computed
+        from this 64-match corpus alone. Most players have 2–4 matches
+        here, so the per-player prior collapses to a positional average.
+        Our "form" delta is therefore a tournament-relative gauge,
+        <em>not</em> a club-vs-national comparison.</li>
       <li><strong>Provider calibration.</strong> WC22 chemistry numbers come
-        from our PFF event + tracking pipeline; cross-context data is StatsBomb event
-        data passed through the same VAEP model. Action-coverage and tagging
-        conventions differ slightly between providers, so treat the
-        <em>delta</em> as directional, not absolute. The PFF WC22 vs StatsBomb
-        WC22 row pair is the calibration check — if those agree for a player,
-        we trust the other rows too.</li>
-      <li><strong>Small sample.</strong> 64 matches across 32 teams means many
-        pairs share well under 90 minutes. We apply a minimum-minutes filter on
-        the Top Pairs tables to mitigate, but JDI90 in particular is noisy at
-        low sample. Attention chemistry uses the same minimum-minutes gating.</li>
+        from our PFF event + tracking pipeline; cross-context data is
+        StatsBomb event data passed through the same VAEP model.
+        Action-coverage and tagging conventions differ between providers,
+        so treat the <em>delta</em> as directional, not absolute. The PFF
+        WC22 vs StatsBomb WC22 row pair is the calibration check — if
+        those agree for a player, we trust the other rows too.</li>
+      <li><strong>Small sample.</strong> 64 matches across 32 teams means
+        many pairs share well under 90 minutes. We apply a minimum-minutes
+        filter on Top Pairs tables to mitigate, but JDI90 in particular is
+        noisy at low sample. AW-JOI90 / AW-JDI90 inherit the same gating.</li>
       <li><strong>Defensive responsibility is a heuristic.</strong> Bransen
         approximates defensive involvement from on-ball recovery / tackle /
         interception actions in each zone. Off-ball positioning is invisible
-        to event data — the tracking transformer in §2–3 is the structured
+        to event data — the tracking transformer in §4–5 is the structured
         complement.</li>
-      <li><strong>Attention ≠ causation.</strong> A high attention-lift pair
-        means the frame-VAEP model needed to see both players to make its
-        prediction. That's strong evidence of a coordinated tactical pattern,
-        but it isn't a counterfactual claim that swapping one player would
-        change the outcome by a specific number of expected goals. The
-        Whiteboard tool is the place for counterfactuals.</li>
-      <li><strong>VAEP credit-assignment is action-level.</strong> A pass that
-        "creates space" but doesn't directly trigger threat is undervalued by
-        VAEP, and JOI/JDI inherit this. Attention chemistry partially escapes
-        this — the model can credit off-ball movement — but the underlying
-        BCE targets are still derived from event outcomes.</li>
+      <li><strong>Attention ≠ causation.</strong> A high AW-JOI90 means the
+        frame-VAEP model's prediction depended on both players being where
+        they were. That is strong evidence of a coordinated tactical
+        pattern, but it is not a counterfactual claim that swapping one
+        player would change the outcome by a specific number of expected
+        goals. The Whiteboard is the place for explicit counterfactuals.</li>
+      <li><strong>VAEP credit-assignment is action-level.</strong> A pass
+        that "creates space" but doesn't directly trigger threat is
+        undervalued by VAEP, and JOI/JDI inherit this. Attention chemistry
+        partially escapes this — the model can credit off-ball movement —
+        but the underlying BCE targets are still derived from event
+        outcomes.</li>
       <li><strong>National-team novelty effect.</strong> The very thing we
         want to study — teams whose players don't play together often — is
-        also the smallest-sample regime. Treat absolute numbers as suggestive,
-        comparisons within a team as more robust.</li>
+        also the smallest-sample regime. Treat absolute numbers as
+        suggestive, comparisons within a team as more robust.</li>
       <li><strong>External corroboration of the Morocco finding.</strong>
-        One mitigation against the "model is fooling itself" worry is convergence
-        with independent analyses. Benhida et al.
+        One mitigation against the "model is fooling itself" worry is
+        convergence with independent analyses. Benhida et al.
         (2025, <a href="https://doi.org/10.3390/app15189994" target="_blank" rel="noopener">Applied Sciences</a>;
         <a href="morocco-paper-summary.html">in-site summary</a>) run PCA + K-means
-        on FIFA post-match KPIs and identify the same fast-transition attacking
-        axis our score-specialist surfaces in the off-off pair leaderboard
-        (Ziyech / Ounahi / En-Nesyri / Hamdallah / Aboukhlal / Sabiri). Different data,
-        different model class, same conclusion — evidence that the score-frame
-        attention pattern is picking up a real tactical signature rather than
-        a tracking-data artifact.</li>
+        on FIFA post-match KPIs and identify the same fast-transition
+        attacking axis our score-specialist surfaces in the off-off pair
+        leaderboard (Ziyech / Ounahi / En-Nesyri / Hamdallah / Aboukhlal /
+        Sabiri). Different data, different model class, same conclusion —
+        evidence that the score-frame attention pattern is picking up a
+        real tactical signature rather than a tracking-data artifact.</li>
     </ul>
 
-    <!-- ===================== SECTION 6: REPRO ===================== -->
-    <h2 id="section-6">6. How to reproduce</h2>
+    <!-- ===================== SECTION 9: REFERENCES ===================== -->
+    <h2 id="sec-references">9. References</h2>
+    <ol class="small references">
+      <li id="ref-decroos">
+        Decroos, T., Bransen, L., Van Haaren, J., &amp; Davis, J. (2019).
+        <em>Actions Speak Louder than Goals: Valuing Player Actions in
+        Soccer.</em> In Proceedings of the 25th ACM SIGKDD International
+        Conference on Knowledge Discovery &amp; Data Mining (KDD '19), pp.
+        1851–1861. DOI:
+        <a href="https://doi.org/10.1145/3292500.3330758" target="_blank" rel="noopener">10.1145/3292500.3330758</a>.
+      </li>
+      <li id="ref-bransen">
+        Bransen, L., &amp; Van Haaren, J. (2020).
+        <em>Player Chemistry: Striving for a Perfectly Balanced Soccer
+        Team.</em> MIT Sloan Sports Analytics Conference 2020. arXiv:
+        <a href="https://arxiv.org/abs/2003.01712" target="_blank" rel="noopener">2003.01712</a>.
+      </li>
+      <li id="ref-sumer">
+        Sumer Sports. <em>SportsTrackingTransformer</em> (open-source
+        implementation of a permutation-equivariant transformer over
+        tracking data, originally NFL). GitHub:
+        <a href="https://github.com/SumerSports/SportsTrackingTransformer" target="_blank" rel="noopener">github.com/SumerSports/SportsTrackingTransformer</a>.
+      </li>
+      <li id="ref-xt">
+        Singh, K. (2019). <em>Introducing Expected Threat (xT).</em> Blog
+        post:
+        <a href="https://karun.in/blog/expected-threat.html" target="_blank" rel="noopener">karun.in/blog/expected-threat.html</a>.
+      </li>
+      <li id="ref-benhida">
+        Benhida, M., et al. (2025).
+        <em>Tactical analysis of Morocco's 2022 World Cup performance via
+        PCA and K-means clustering of FIFA match KPIs.</em>
+        Applied Sciences. DOI:
+        <a href="https://doi.org/10.3390/app15189994" target="_blank" rel="noopener">10.3390/app15189994</a>.
+      </li>
+    </ol>
+    <p class="small dim">
+      Citation note: a peer-reviewed Jordet/Aksum-style paper on visual
+      scanning in soccer was on the candidate list for this section but is
+      omitted because the specific DOI/URL could not be verified at write
+      time; we would rather drop than misattribute. The Sumer Sports
+      reference cites the open-source repository directly because no
+      associated peer-reviewed paper is known to exist.
+    </p>
+
+    <!-- ===================== SECTION 10: REPRO ===================== -->
+    <h2 id="sec-repro">10. How to reproduce</h2>
     <p>
       All intermediate parquet files are exported as CSV on the
       <a href="downloads.html">Downloads</a> page, along with the trained
       checkpoints. Python 3.12+; use <code>uv</code> (not pip) for everything.
     </p>
     <details class="code-toggle" open>
-      <summary>Bash recipe (event pipeline + transformer)</summary>
+      <summary>Bash recipe (event pipeline + transformer + AW-JOI/JDI)</summary>
 <pre><code class="lang-sh"># 1. Env setup
 uv sync --extra dev
 
 # 2. Tests (skips real-data tests if data dirs are empty)
 uv run pytest -q
 
-# 3. Wiring smoke test on synthetic data — no real data needed
+# 3. Wiring smoke test on synthetic data
 uv run python -m wc2026_tracking_transformer.train fit \
   --config configs/local_cpu.yaml
 
-# 4. Train the frame-VAEP heads used for attention chemistry
-uv run python scripts/train_frame_vaep.py \
-  --corpus pff --pff-n 44 --epochs 8
+# 4. Train the frame-VAEP specialists
+uv run python scripts/train_score_only.py   --pff-n 44 --epochs 6
+uv run python scripts/train_concede_only.py --pff-n 44 --epochs 6
 
-# 5. Extract per-pair attention with the ball-distance baseline
-uv run python research/scripts/extract_attention_with_baseline.py
-uv run python research/scripts/extract_attention_with_baseline.py --combine
+# 5. Extract per-pair AW-JOI / AW-JDI from both specialists
+uv run python research/scripts/extract_aw_joi.py --combine-after
 
-# 6. Render the buildup GIF for a specific match
+# 6. Render a clip
 uv run python scripts/render_pff_gif.py --match 10502</code></pre>
     </details>
 
     <p class="small muted" style="margin-top: 1.5rem;">
       <strong>Next →</strong> grab the raw artifacts from
       <a href="downloads.html">Downloads</a>, or jump back to
-      <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a> for the
-      tables themselves.
+      <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a> for
+      the live tables.
     </p>
   </main>
 
