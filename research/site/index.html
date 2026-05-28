@@ -18,17 +18,15 @@
       </div>
       <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
       <nav class="site-nav">
-        <a href="index.html">Overview</a>
-        <a href="interactive-plays.html">Interactive Plays</a>
-        <a href="what-is-chemistry.html">What is Chemistry?</a>
-        <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a>
-        <a href="teams.html">Team Maps</a>
-        <a href="team-builder.html">Team Builder</a>
-        <a href="whiteboard.html">Digital Whiteboard</a>
-        <a href="club-vs-national.html">Club vs National</a>
+        <a href="index.html">What is Chemistry</a>
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>
+        <a href="how-chemistry-develops.html">How Chemistry Develops</a>
+        <a href="chemistry-wins.html">Chemistry &rarr; Winning</a>
         <a href="fifa-mode.html">FIFA Mode</a>
-        <a href="methodology.html">Methodology</a>
-        <a href="downloads.html">Downloads</a>
+        <span class="nav-sep" aria-hidden="true">&middot;</span>
+        <a href="methodology.html" class="muted-nav">Methodology</a>
+        <a href="whiteboard.html" class="muted-nav">Whiteboard</a>
+        <a href="downloads.html" class="muted-nav">Downloads</a>
       </nav>
     </div>
   </header>
@@ -115,11 +113,11 @@
     <div class="grid-2">
       <div class="card">
         <h3 class="mt-0">The leaderboards (event-level JOI / JDI)</h3>
-        <p class="small">Bransen-style action-level VAEP attributed to consecutive same-team interactions. Strength: clean per-pair totals across 64 matches. Weakness: only on-ball moments. Powers <a href="pairs.html">Top Pairs</a> (the offensive and defensive leaderboards), <a href="teams.html">Team Maps</a>, <a href="team-builder.html">Team Builder</a>, and <a href="club-vs-national.html">Club vs National</a>.</p>
+        <p class="small">Bransen-style action-level VAEP attributed to consecutive same-team interactions. Strength: clean per-pair totals across 64 matches. Weakness: only on-ball moments. Powers the <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>.</p>
       </div>
       <div class="card">
         <h3 class="mt-0">The live-play view (frame-level transformer)</h3>
-        <p class="small">Same VAEP idea — P(score) − P(concede) — predicted 5× per second from all 22 players + ball via a tracking transformer. Strength: catches off-ball runs that move the probability before any event fires. Powers <a href="transformer-chemistry.html">Transformer Chemistry</a> (per-team attention networks) and <a href="interactive-plays.html">Interactive Plays</a> (clip-by-clip scrubber).</p>
+        <p class="small">Same VAEP idea — P(score) − P(concede) — predicted 5× per second from all 22 players + ball via a tracking transformer. Strength: catches off-ball runs that move the probability before any event fires. Powers <a href="interactive-plays.html">Interactive Plays</a> (clip-by-clip scrubber).</p>
       </div>
     </div>
     <p class="small muted">Event-level for the season-long leaderboard. Frame-level to <em>see</em> a chemistry edge happen. Both share one definition: <em>the part of expected goal difference that depends on which teammates are configured together at this moment</em>. The formal math is on <a href="methodology.html">Methodology</a>.</p>
@@ -274,24 +272,20 @@
       </div>
       <p id="overview-attn-story" class="small dim mb-0" style="margin-top: 0.6rem;"></p>
       <p class="small muted mb-0" style="margin-top: 0.4rem;">
-        Full per-team network browser lives on
-        <a href="transformer-chemistry.html">Transformer Chemistry</a>.
+        Full per-team network browser lives on the
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>.
       </p>
     </div>
 
     <h2>The story arc, tab by tab</h2>
     <ul>
-      <li><a href="pairs.html">Top Pairs</a> — the offensive (JOI90) and defensive (JDI90) chemistry leaderboards. Start here.</li>
-      <li><a href="teams.html">Team Maps</a> — per-team pitch maps showing where each squad's JOI and JDI lived.</li>
-      <li><a href="team-builder.html">Team Builder</a> — given the chemistry signal, Bransen's MIP-optimal XI per squad.</li>
-      <li><a href="club-vs-national.html">Club vs National</a> — does the chemistry travel? Each player's WC22 OI/90 against their club / Euro / Copa OI/90.</li>
-      <li><a href="transformer-chemistry.html">Transformer Chemistry</a> — the off-ball complement: pair attention networks from a tracking transformer.</li>
+      <li><a href="chemistry-leaderboard.html">Chemistry Leaderboard</a> — the offensive (JOI90) and defensive (JDI90) chemistry leaderboards, plus per-team networks. Start here.</li>
       <li><a href="interactive-plays.html">Interactive Plays</a> — scrub through individual plays and see a chemistry edge form frame by frame.</li>
       <li><a href="methodology.html">Methodology</a> — the formal math (VAEP → JOI / JDI → predictor), 5-fold CV metrics, and limitations.</li>
       <li><a href="downloads.html">Downloads</a> — every figure as PNG, every table as CSV, raw JSON.</li>
     </ul>
 
-    <a class="next-card" href="pairs.html" aria-label="Next: Top Pairs — the chemistry leaderboards">
+    <a class="next-card" href="chemistry-leaderboard.html" aria-label="Next: Chemistry Leaderboard">
       <div class="next-card-thumb" aria-hidden="true">
         <div class="next-card-thumb-rows">
           <span class="row r1"></span>

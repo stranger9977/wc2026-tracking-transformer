@@ -17,17 +17,15 @@
       </div>
       <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
       <nav class="site-nav">
-        <a href="index.html">Overview</a>
-        <a href="interactive-plays.html">Interactive Plays</a>
-        <a href="what-is-chemistry.html">What is Chemistry?</a>
-        <a href="chemistry-leaderboard.html">Chemistry Leaderboards</a>
-        <a href="teams.html">Team Maps</a>
-        <a href="team-builder.html">Team Builder</a>
-        <a href="whiteboard.html">Digital Whiteboard</a>
-        <a href="club-vs-national.html">Club vs National</a>
+        <a href="index.html">What is Chemistry</a>
+        <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>
+        <a href="how-chemistry-develops.html">How Chemistry Develops</a>
+        <a href="chemistry-wins.html">Chemistry &rarr; Winning</a>
         <a href="fifa-mode.html">FIFA Mode</a>
-        <a href="methodology.html">Methodology</a>
-        <a href="downloads.html">Downloads</a>
+        <span class="nav-sep" aria-hidden="true">&middot;</span>
+        <a href="methodology.html" class="muted-nav">Methodology</a>
+        <a href="whiteboard.html" class="muted-nav">Whiteboard</a>
+        <a href="downloads.html" class="muted-nav">Downloads</a>
       </nav>
     </div>
   </header>
@@ -342,9 +340,7 @@ def jdi_m(pair_p, pair_q, opponents):
         <em>worst</em> cluster on JOI (Δ JOI90 = −0.101) but the
         <em>only</em> nation with a significant positive shared-history
         signal on the score-specialist's attention
-        (Δ attention = +471, Mann-Whitney p &lt; 0.001).
-        See <a href="club-vs-national.html#rehearsal">Club v National</a>
-        for the full multi-act write-up.</li>
+        (Δ attention = +471, Mann-Whitney p &lt; 0.001).</li>
     </ul>
     <p class="small dim">
       Specialist checkpoints (<code>transformer_score_only.ckpt</code>,
@@ -578,12 +574,9 @@ for fname, slots in FORMATIONS.items():
         shown on the Overview — are computed from this 64-match corpus alone.
         Most players have 2–4 matches here, so the per-player prior collapses
         to a positional average. That makes our "form" delta a tournament-relative
-        gauge, <em>not</em> a club-vs-national comparison. The
-        <a href="club-vs-national.html">Club vs National</a> tab closes part of
-        that loop using StatsBomb open data.</li>
+        gauge, <em>not</em> a club-vs-national comparison.</li>
       <li><strong>Provider calibration.</strong> WC22 chemistry numbers come
-        from our PFF event + tracking pipeline; the cross-context data on
-        <a href="club-vs-national.html">Club vs National</a> is StatsBomb event
+        from our PFF event + tracking pipeline; cross-context data is StatsBomb event
         data passed through the same VAEP model. Action-coverage and tagging
         conventions differ slightly between providers, so treat the
         <em>delta</em> as directional, not absolute. The PFF WC22 vs StatsBomb
