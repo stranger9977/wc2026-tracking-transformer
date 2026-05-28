@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>WC22 Player Chemistry — How Chemistry Develops</title>
   <link rel="stylesheet" href="assets/css/site.css">
+  <style>
+    .anecdote-grid {
+      display: grid; gap: 1rem;
+      grid-template-columns: 1fr;
+      margin: 0.6rem 0 1.4rem;
+    }
+    @media (min-width: 760px) {
+      .anecdote-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .anecdote-card {
+      border: 1px solid var(--border, rgba(255,255,255,0.1));
+      border-radius: 6px;
+      padding: 0.9rem 1rem;
+      background: rgba(255,255,255,0.02);
+    }
+    .anecdote-card h4 {
+      margin: 0 0 0.4rem;
+      font-size: 0.98rem;
+      line-height: 1.3;
+    }
+    .anecdote-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--text-dim, #aab);
+      line-height: 1.45;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -30,14 +57,204 @@
   </header>
 
   <main>
-    <section>
-      <h1>How Chemistry Develops</h1>
-      <p class="muted">Coming soon — Phase N build.</p>
-    </section>
+    <h1>How Chemistry Develops</h1>
+
+    <!-- 1. Lede -->
+    <p class="lede">
+      Practice makes perfect. Teams that share more on-pitch time develop chemistry faster &mdash;
+      through rehearsal of patterns, shared mental models, and trust built in repetition.
+      With WC22 tracking data we can finally test that hypothesis, not just assert it.
+    </p>
+
+    <!-- 2. Subjective anecdotes -->
+    <h2>The soft case first</h2>
+    <p class="dim small">
+      Before we cut to the numbers, the qualitative case for time-builds-chemistry is everywhere
+      in football. Four examples worth holding in your head:
+    </p>
+    <div class="anecdote-grid">
+      <div class="anecdote-card">
+        <h4>Club teammates carry pre-built chemistry into national squads.</h4>
+        <p>
+          Germany's 2014 World Cup spine was Bayern Munich (Neuer, Boateng, Lahm, Schweinsteiger,
+          M&uuml;ller). Spain's 2010&ndash;2012 dynasty was Xavi&ndash;Iniesta&ndash;Busquets
+          plus the Bar&ccedil;a&ndash;Madrid axis. National-team chemistry doesn't have to be built
+          from scratch when half the squad already plays together every week.
+        </p>
+      </div>
+      <div class="anecdote-card">
+        <h4>Long-tenured tactical systems amplify chemistry.</h4>
+        <p>
+          Klopp's Liverpool gegenpress, Guardiola's positional play at City &mdash; the famous
+          &ldquo;5-second rule&rdquo; counter-press only works because the eleven players have
+          rehearsed it hundreds of hours. The system is a chemistry multiplier, not a substitute.
+        </p>
+      </div>
+      <div class="anecdote-card">
+        <h4>New squads underperform their talent.</h4>
+        <p>
+          The 2003 Real Madrid gal&aacute;cticos, last-minute international call-ups, freshly
+          assembled super-teams &mdash; they almost always look less than the sum of their parts
+          for the first few months. The roster is elite. The pattern bank is empty.
+        </p>
+      </div>
+      <div class="anecdote-card">
+        <h4>The literature backs the intuition.</h4>
+        <p>
+          Geir Jordet's scanning research (visual exploration frequency predicts pass success) and
+          coordination work at MIT Sloan have argued for years that chemistry is measurable, not
+          mystical. Frame-level tracking is the next layer of evidence on top of the same idea.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3. History Index -->
+    <h2>History Index &mdash; our shared-time proxy</h2>
+    <p class="dim small">
+      We need a measure of &ldquo;how much have these specific players shared a pitch before the
+      tournament started?&rdquo; The <strong>History Index</strong> is the simplest possible
+      version: the count of WC22 squad players who have at least one current or former
+      <em>club-mate</em> inside their own national squad. The denominator is squad size N
+      (typically 23&ndash;26). It's coarse, but it's interpretable and it doesn't depend on
+      league-by-league minutes coverage.
+    </p>
+    <div class="callout" role="note" style="margin-bottom: 1.2rem;">
+      <p class="mt-0"><strong>The four densest histories in Qatar.</strong>
+      France: <strong>20 of 24</strong>. Spain: <strong>19 of 20</strong>.
+      Argentina: <strong>18 of 24</strong>. Portugal: <strong>19 of 24</strong>.
+      These are squads with overlapping club careers &mdash; groups that arrived at the
+      tournament already understanding each other.</p>
+    </div>
+
+    <h3 class="mt-2">History Index vs Team Chemistry Density
+      &nbsp;<span class="dim small">(&rho; = +0.348, p &asymp; 0.055, n = 31)</span></h3>
+    <p class="dim small">
+      Each dot = one WC22 squad. X = History Index (squad players with a national-squad
+      club-mate). Y = TCD, the count of same-team pairs with attention-weighted JOI per 90
+      &ge; 0.4. Gold ring marks the four semifinalists.
+    </p>
+    <div id="history-vs-chem-scatter" class="fifa-scatter"></div>
+
+    <!-- 4. Time-correlation table -->
+    <h3 class="mt-2">What correlates with chemistry?</h3>
+    <p class="dim small">
+      Spearman rank correlations against the 31 WC22 sides. Time-based proxies all point the
+      same direction; FIFA Overall is also positive but operates through a different channel
+      (talent concentration, not rehearsal).
+    </p>
+    <div class="table-wrap" style="margin-bottom: 1.4rem;">
+      <table class="data-table fifa-data-table">
+        <thead><tr>
+          <th>Hypothesis</th>
+          <th class="num">Spearman &rho;</th>
+          <th class="num">p</th>
+          <th class="num">n</th>
+          <th>Reading</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>History Index</strong> &rarr; Team Chemistry Density</td>
+            <td class="num tabular"><strong>+0.348</strong></td>
+            <td class="num tabular">&asymp; 0.055</td>
+            <td class="num tabular">31</td>
+            <td class="small">Directional. The headline time&rarr;chemistry leg.</td>
+          </tr>
+          <tr>
+            <td><strong>History Index</strong> &rarr; Mean AW-JOI90</td>
+            <td class="num tabular">+0.38</td>
+            <td class="num tabular">0.034</td>
+            <td class="num tabular">31</td>
+            <td class="small">Same direction at per-pair intensity, slightly stronger.</td>
+          </tr>
+          <tr>
+            <td>Ever-shared % (continuous, coverage-normalized) &rarr; Mean AW-JOI90</td>
+            <td class="num tabular">+0.37</td>
+            <td class="num tabular">0.039</td>
+            <td class="num tabular">31</td>
+            <td class="small">Continuous version of the History Index. Same story.</td>
+          </tr>
+          <tr>
+            <td>FIFA 23 Overall &rarr; Team Chemistry Density</td>
+            <td class="num tabular">+0.51</td>
+            <td class="num tabular">0.004</td>
+            <td class="num tabular">30</td>
+            <td class="small">Top-rated nations also have dense chemistry &mdash; players concentrate at elite clubs.</td>
+          </tr>
+          <tr>
+            <td><em>Pair</em> prior shared minutes &rarr; <em>pair</em> AW-JOI90</td>
+            <td class="num tabular">+0.05</td>
+            <td class="num tabular">0.003</td>
+            <td class="num tabular">3,443</td>
+            <td class="small">Pair-scale: tiny effect. Time matters at squad scale, not pair scale.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 5. What the data says -->
+    <h2>What the data says</h2>
+    <p>
+      Time is directionally predictive, not a deterministic input. Squads with high History
+      Index tend to land higher TCD, but the relationship is loose: p &asymp; 0.055 on n = 31
+      is borderline &mdash; we describe this as <em>directional and suggestive</em>, not
+      &ldquo;significant.&rdquo; That's the honest read. There are also visible exceptions on
+      the scatter: Morocco's TCD is much higher than its History Index would predict, and a
+      few high-history squads (Germany among them) didn't translate shared club history into a
+      dense network in Qatar. Time helps. Time isn't destiny.
+    </p>
+    <p>
+      One more thing worth landing.
+      What the History Index predicts &mdash; TCD &mdash; captures pair value that the
+      moment-by-moment frame data picks up on the ball and off it. Time builds both.
+      That's why the same time&rarr;chemistry story shows up whether we measure chemistry from
+      attention on the ball (where the obvious pass goes) or attention off the ball (where the
+      runs that <em>create</em> the pass come from).
+    </p>
+    <p class="dim small">
+      For context: the next leg of the story &mdash; chemistry &rarr; winning &mdash; runs at
+      <strong>&rho; = +0.704</strong> (TCD &rarr; WC22 finish), compared to
+      <strong>&rho; = +0.548</strong> for FIFA 23 Overall &rarr; finish. Time&rarr;chemistry
+      is the weaker leg of the arc; chemistry&rarr;winning is the stronger one.
+    </p>
+
+    <!-- 6. Tee-up -->
+    <div class="callout" role="note" style="margin-top: 1.6rem;">
+      <p class="mt-0"><strong>Next up.</strong> We've shown how chemistry develops &mdash; shared
+      time builds it, with caveats. The question that follows is the one that pays: does
+      chemistry actually <em>win</em>? Four semifinalist case studies are waiting on the next
+      tab. &nbsp;<a href="chemistry-wins.html">Chemistry &rarr; Winning &rarr;</a></p>
+    </div>
+
+    <details class="method-drawer">
+      <summary>Method &amp; sources</summary>
+      <p>
+        <strong>History Index</strong> is computed pre-WC22 from PFF rosters and the
+        <code>player_club_history_wc22</code> table: for each WC22 squad player, we check
+        whether any other player on the same national squad has shared a club (current or
+        former) with them. The count of yes-answers is the squad's History Index; the
+        denominator is squad size N.
+      </p>
+      <p>
+        <strong>Team Chemistry Density (TCD)</strong> is the count of same-team WC22
+        pair-seasons with attention-weighted JOI per 90 &ge; 0.4 &mdash; the same metric and
+        threshold used on the <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>.
+        AW-JOI itself is the per-frame product of the two players' ball-attention multiplied
+        by max(&Delta;P<sub>score</sub>, 0), accumulated across the tournament. See
+        <a href="methodology.html#attention">methodology &sect;attention</a> for the full
+        pipeline.
+      </p>
+      <p>
+        <strong>Tournament result rank</strong>: winner=1, RU=2, 3rd=3, 4th=4, QF losers
+        5&ndash;8 by group-stage points, R16 losers 9&ndash;16, group-stage exits 17&ndash;32
+        by points then goal differential.
+      </p>
+    </details>
   </main>
 
   <footer class="site-footer">
-    Chemistry density from this site's AW‑JOI tracking pipeline; prior shared minutes from PFF club/national history.
+    Chemistry density from this site's AW-JOI tracking pipeline; History Index from PFF club/national history.
   </footer>
+
+  <script type="module" src="assets/js/how-chemistry-develops.js"></script>
 </body>
 </html>
