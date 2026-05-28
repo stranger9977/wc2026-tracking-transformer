@@ -11,7 +11,7 @@ if (!chem || !scatterEl) {
     scatterEl.innerHTML = `<div class="empty-state"><strong>Team chemistry data missing.</strong></div>`;
   }
 } else {
-  const rows = chem.filter((r) => r.n_strong_total != null && r.history_index_count != null);
+  const rows = chem.filter((r) => r.tcd != null && r.history_index_count != null);
   renderHistoryVsChemScatter(rows);
 }
 
@@ -22,7 +22,7 @@ function renderHistoryVsChemScatter(rows) {
   const innerH = H - padT - padB;
 
   const xs = rows.map((r) => r.history_index_count ?? 0);
-  const ys = rows.map((r) => r.n_strong_total);
+  const ys = rows.map((r) => r.tcd);
   const xmin = 0;
   const xmax = Math.max(...xs) * 1.1 + 1;
   const ymin = Math.min(...ys) - 4;
@@ -50,7 +50,7 @@ function renderHistoryVsChemScatter(rows) {
 
   const dots = rows.map((r) => {
     const cx = sx(r.history_index_count ?? 0);
-    const cy = sy(r.n_strong_total);
+    const cy = sy(r.tcd);
     return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5"
        fill="${dotColor(r)}" stroke="var(--bg, #0b1220)" stroke-width="1.0"/>`;
   }).join("");
@@ -60,15 +60,15 @@ function renderHistoryVsChemScatter(rows) {
   const lineSpacing = labelH + 2;
   const intersects = (a, b) => !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
   const order = [...rows].sort(
-    (a, b) => b.n_strong_total - a.n_strong_total
+    (a, b) => b.tcd - a.tcd
       || (b.history_index_count ?? 0) - (a.history_index_count ?? 0),
   );
   const placed = [];
   const picks = new Map();
   for (const r of order) {
     const cx = sx(r.history_index_count ?? 0);
-    const cy = sy(r.n_strong_total);
-    const stackDown = r.n_strong_total < 50;
+    const cy = sy(r.tcd);
+    const stackDown = r.tcd < 50;
     const anchor = cx > padL + innerW * 0.65 ? "end" : "start";
     const dx = anchor === "start" ? 8 : -8;
     let dy = stackDown ? 10 : -8;
@@ -88,7 +88,7 @@ function renderHistoryVsChemScatter(rows) {
 
   const labels = rows.map((r) => {
     const cx = sx(r.history_index_count ?? 0);
-    const cy = sy(r.n_strong_total);
+    const cy = sy(r.tcd);
     const pick = picks.get(r.team_name);
     const fw = semis.has(r.team_name) ? 700 : 500;
     return `<text x="${(cx + pick.dx).toFixed(1)}" y="${(cy + pick.dy).toFixed(1)}"
