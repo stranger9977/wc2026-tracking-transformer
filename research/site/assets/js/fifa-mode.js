@@ -11,6 +11,18 @@ import { loadJSON, escapeHTML, flagHTML } from "./site.js";
 
 const SEMIS = new Set(["France", "Croatia", "Argentina", "Morocco"]);
 
+// Multi-year scatter config — must be declared before the top-level calls
+// below or renderFifaVsFinish hits a temporal-dead-zone error.
+const ALL_YEARS = [2006, 2010, 2014, 2018, 2022];
+const DEFAULT_YEARS = new Set([2022]);
+const YEAR_COLOR = {
+  2006: "#7aa6c2",
+  2010: "#9b87c8",
+  2014: "#d49a6a",
+  2018: "#6dbf9e",
+  2022: "#d4a23a",
+};
+
 const [history, teamRows, wc26, multiYear] = await Promise.all([
   loadJSON("data/historical_fifa.json"),
   loadJSON("data/team_chemistry_vs_paper.json"),
@@ -57,16 +69,6 @@ function stageLabelFromInt(s) {
 }
 
 /* ---------------- FIFA Overall vs WC finish (multi-year) ---------------- */
-
-const ALL_YEARS = [2006, 2010, 2014, 2018, 2022];
-const DEFAULT_YEARS = new Set([2022]);
-const YEAR_COLOR = {
-  2006: "#7aa6c2",
-  2010: "#9b87c8",
-  2014: "#d49a6a",
-  2018: "#6dbf9e",
-  2022: "#d4a23a",
-};
 
 function renderFifaVsFinish(allRows) {
   const mount = document.getElementById("fifa-vs-finish-scatter");
