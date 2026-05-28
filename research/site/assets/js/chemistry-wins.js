@@ -419,6 +419,14 @@ const PLAY_INDEX = {
     title: "En-Nesyri header (Morocco v Portugal, QF)",
     summary: "The defining Morocco moment. Open-play header that out-leaps the Portugal back line and Diogo Costa. Cross-team attention concentrates on the wide buildup; the off-ball runner pins the line a beat before the cross arrives.",
   },
+  "near-miss-netherlands-janssen": {
+    title: "Janssen 4' blocked — near-miss (Senegal v Netherlands, group stage)",
+    summary: "A near-miss: Netherlands work the ball into Senegal's box and P(score) climbs above 0.9 before Janssen's shot is blocked and the probability collapses. The model picks up chemistry on a sequence that didn't end in a goal.",
+  },
+  "bad-chemistry-australia-argentina": {
+    title: "Turnover thrash 78' — bad chemistry (Argentina v Australia, R16)",
+    summary: "What a breakdown looks like in the model. Net (P_score − P_concede) flips between +0.9 and −0.9 four times across 27 s as possession ping-pongs — high net is fragile when teams keep giving the ball back.",
+  },
 };
 
 async function mountPlay(divId, label) {
@@ -439,3 +447,5 @@ await mountPlay("play-croatia", "croatia-japan-perisic");
 await mountPlay("play-appendix-1", "netherlands-usa-memphis");
 await mountPlay("play-appendix-2", "japan-spain-doan");
 await mountPlay("play-appendix-3", "argentina-france-di-maria");
+await mountPlay("play-appendix-4", "near-miss-netherlands-janssen");
+await mountPlay("play-appendix-5", "bad-chemistry-australia-argentina");
