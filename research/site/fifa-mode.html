@@ -96,11 +96,24 @@
     <section>
       <h2>Over- and under-achievers</h2>
       <p class="dim small">
-        Two scatters, same 30 teams (Qatar excluded for missing FIFA-23 Overall). Gold ring marks
+        Three scatters, same 30 teams (Qatar excluded for missing FIFA-23 Overall). Gold ring marks
         the four semifinalists. Dot fill encodes WC22 finish (light = group exit, dark = winner).
-        Teams in the upper-right are talent-and-history aligned; the interesting ones are
-        off-diagonal.
+        The first scatter is the direct view: FIFA Overall going in versus how far each team
+        actually got. Teams above the diagonal trend overachieved; below it, underachieved. The
+        two scatters below then show <em>why</em> &mdash; whether chemistry density (TCD) or shared
+        club history was the multiplier (or the missing ingredient).
       </p>
+
+      <h3 class="mt-2">FIFA-23 Overall vs WC22 finish &nbsp;<span class="dim small" id="rho-fifa-finish"></span></h3>
+      <p class="dim small">
+        The most direct over/under-performer view. X = FIFA-23 published Overall going into the
+        tournament. Y = WC22 stage reached. <strong>Germany, Belgium, Denmark</strong> sit
+        high-FIFA, low-finish &mdash; classic underperformers (group-stage exits despite top-10
+        Overalls). <strong>Morocco, Croatia, Argentina</strong> sit on or above their FIFA line
+        &mdash; talent translated, with chemistry as the multiplier. The next two scatters expose
+        what carried the off-diagonal teams.
+      </p>
+      <div id="fifa-vs-finish-scatter" class="fifa-scatter"></div>
 
       <h3 class="mt-2">FIFA-23 Overall vs Team Chemistry Density &nbsp;<span class="dim small" id="rho-fifa-tcd"></span></h3>
       <p class="dim small">
@@ -138,7 +151,7 @@
         gradient that wins the WC22 sample is fully fit. WC26 is the first out-of-sample test.
       </p>
       <p class="dim small">
-        The 2026 paper-rating bundle is in <code>data/wc26_rosters.json</code> — 26 nations with
+        The 2026 FIFA-Overall bundle is in <code>data/wc26_rosters.json</code> — 26 nations with
         EA FC 26 Overall, top-stars list, and a note flagging the 12 nations EA dropped from its
         license (Brazil, Belgium, Senegal, etc.) for which the &quot;team Overall&quot; is an
         analyst proxy from individual player Overalls rather than EA's official aggregate. We

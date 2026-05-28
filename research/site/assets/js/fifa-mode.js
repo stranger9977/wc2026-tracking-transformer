@@ -24,8 +24,89 @@ if (Array.isArray(teamRows)) {
   const data = teamRows.filter(
     (r) => r.overall != null && r.tcd != null && r.stage_int != null && r.history_index_count != null,
   );
+  renderFifaVsFinish(data);
   renderFifaVsTcd(data);
   renderFifaVsHi(data);
+}
+
+/* ---------------- FIFA-23 Overall vs WC22 finish ---------------- */
+function renderFifaVsFinish(rows) {
+  const mount = document.getElementById("fifa-vs-finish-scatter");
+  if (!mount) return;
+
+  const W = 1100, H = 480;
+  const padL = 86, padR = 48, padT = 22, padB = 64;
+  const innerW = W - padL - padR;
+  const innerH = H - padT - padB;
+
+  const xs = rows.map((r) => r.overall);
+  const ys = rows.map((r) => r.stage_int);
+  const xmin = Math.min(...xs) - 2, xmax = Math.max(...xs) + 2;
+  const ymin = 1.5, ymax = 8.5;
+  const sxV = (x) => padL + ((x - xmin) / (xmax - xmin)) * innerW;
+  const syV = (y) => padT + innerH - ((y - ymin) / (ymax - ymin)) * innerH;
+  const sx = (r) => sxV(r.overall);
+  const sy = (r) => syV(r.stage_int);
+
+  const rho = spearman(xs, ys);
+  const rhoEl = document.getElementById("rho-fifa-finish");
+  if (rhoEl) rhoEl.innerHTML =
+    `(Spearman &rho; = ${rho >= 0 ? "+" : ""}${rho.toFixed(3)}, n = ${rows.length})`;
+
+  const stageLabels = {2: "Group", 4: "R16", 5: "QF", 6: "Semi", 7: "Final", 8: "Winner"};
+  const xTicks = [70, 74, 78, 82, 86];
+  const xTickSvg = xTicks.filter((v) => v >= xmin && v <= xmax).map((x) => `
+    <text x="${sxV(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
+          opacity="0.55" text-anchor="middle">${x}</text>`).join("");
+  const yRules = [2, 4, 5, 6, 7, 8].map((y) => `
+    <line x1="${padL}" y1="${syV(y)}" x2="${W - padR}" y2="${syV(y)}"
+          stroke="currentColor" stroke-width="0.5" opacity="0.10"/>
+    <text x="${padL - 8}" y="${syV(y) + 4}" font-size="11" fill="currentColor"
+          opacity="0.6" text-anchor="end">${stageLabels[y]}</text>`).join("");
+
+  const dots = rows.map((r) => {
+    const cx = sx(r), cy = sy(r);
+    const ring = SEMIS.has(r.team_name)
+      ? `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="9" fill="none" stroke="#d4a23a" stroke-width="2"/>`
+      : "";
+    return `${ring}<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5.5"
+             fill="${stageFill(r.stage_int)}" stroke="var(--bg, #0b1220)" stroke-width="1.2"/>`;
+  }).join("");
+
+  const picks = placeLabels(rows, sx, sy,
+    (r) => r.stage_int * 1000 + r.overall,
+    { left: padL, top: padT, innerW, innerH });
+  const labels = rows.map((r) => {
+    const cx = sx(r), cy = sy(r);
+    const p = picks.get(r.team_name);
+    const fw = SEMIS.has(r.team_name) ? 700 : 500;
+    return `<text x="${(cx + p.dx).toFixed(1)}" y="${(cy + p.dy).toFixed(1)}"
+           font-size="11.5" font-weight="${fw}" fill="currentColor"
+           opacity="0.92" text-anchor="${p.anchor}">${escapeHTML(r.team_name)}</text>`;
+  }).join("");
+
+  const axisX = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - padB + 38}"
+    font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle">
+    FIFA-23 Overall</text>`;
+  const axisY = `<text x="20" y="${padT + innerH / 2}"
+    font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle"
+    transform="rotate(-90, 20, ${padT + innerH / 2})">WC22 stage reached</text>`;
+
+  mount.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
+         class="fifa-scatter-svg" role="img"
+         aria-label="FIFA-23 Overall vs WC22 finish scatter">
+      ${yRules}
+      ${xTickSvg}
+      ${dots}
+      ${labels}
+      ${axisX}
+      ${axisY}
+    </svg>
+    <div class="scatter-legend small muted">
+      <span><span class="dot" style="background:#d4a23a; border-radius:50%;"></span> WC22 semifinalist (gold ring)</span>
+      <span class="muted">Above the diagonal = overachieved; below = underachieved.</span>
+    </div>`;
 }
 
 /* ---------------- historical table ---------------- */
