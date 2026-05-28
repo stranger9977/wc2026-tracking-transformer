@@ -26,11 +26,54 @@ import { loadJSON, escapeHTML, fmtNum, renderEmpty } from "./site.js";
  *  in sync. Caller is responsible for then calling initClip(c, detail). */
 export function clipScaffold(c) {
   const label = escapeHTML(c.label);
+  // Per-clip controls bar. Each clip carries independent state via local
+  // data-iplay-* selects/checkboxes inside .clip-viewer; interactive-plays.js
+  // reads from these LOCAL controls (no global #iplay-* IDs required).
+  const ctrlBar = `
+    <div class="iplay-controls-bar" data-iplay-controls="${label}" style="display:flex; gap:0.55rem; flex-wrap:wrap; align-items:center; margin: 0.4rem 0 0.6rem;">
+      <span class="wb-toggle" style="cursor:default" title="Two specialist models run per frame: a P(score next 10s) specialist and a P(concede next 10s) specialist. Each is conditioned on whichever team is in possession, so the raw curves flip on every turnover. 'Net' collapses both into one signed P_score − P_concede line from that team's POV.">
+        <span style="color:var(--text)">Chart:</span>
+        <select data-iplay="perspective" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
+          <option value="raw" selected>Raw &mdash; two lines (P(score), P(concede))</option>
+          <option value="home">Net &mdash; from home (P(score) &minus; P(concede))</option>
+          <option value="away">Net &mdash; from away (P(score) &minus; P(concede))</option>
+        </select>
+      </span>
+      <label class="wb-toggle" title="Restrict the scrubber to the 10 seconds before the goal frame.">
+        <input type="checkbox" data-iplay="focus">
+        <span>10s pre-goal focus</span>
+      </label>
+      <span class="wb-toggle" style="cursor:default" title="How many top-attended players to ring with a halo + draw a ball→player attention line to.">
+        <span>Top attended:</span>
+        <select data-iplay="top-n" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
+          <option value="3" selected>3</option>
+          <option value="5">5</option>
+          <option value="7">7</option>
+          <option value="all">all 22</option>
+        </select>
+      </span>
+      <label class="wb-toggle" title="Include goalkeepers when picking the top-attended players.">
+        <input type="checkbox" data-iplay="include-gk">
+        <span>Include GKs</span>
+      </label>
+      <span class="wb-toggle" style="cursor:default" title="Filter the attention edges to a specific category.">
+        <span>Edges:</span>
+        <select data-iplay="edge-filter" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
+          <option value="all" selected>All</option>
+          <option value="off">Offense only</option>
+          <option value="def">Defense only</option>
+        </select>
+      </span>
+      <span class="wb-toggle small dim" style="cursor:default" title="Halos are driven by the score-specialist model (the production attention source we use throughout the study).">
+        Attention: <strong style="color:var(--text)">score specialist</strong>
+      </span>
+    </div>`;
   return `
     <section class="card iplay" id="clip-${label}">
       <h2 class="mt-0">${escapeHTML(c.title)}</h2>
       <p class="dim small">${escapeHTML(c.summary || "")}</p>
       <div class="clip-viewer" data-clip="${label}">
+        ${ctrlBar}
         <div class="iplay-stage" id="stage-${label}"></div>
         <div class="clip-controls">
           <button class="btn small" data-clip="${label}" data-action="prev">◀ prev</button>
@@ -80,36 +123,46 @@ const chartRedraws = [];
 const frameRedraws = [];   // re-renders the pitch overlay (attention edges, halos, etc.)
 const focusUpdates = [];   // updates focus-mode min/max on each clip's scrubber
 
-function currentPerspective() {
-  const el = document.getElementById("iplay-perspective");
+// Each `current*` resolver prefers a per-clip control (passed via `scope`)
+// and falls back to a legacy global control (used by interactive-plays.html
+// gallery) when no scope is provided. Per-clip embedding on chemistry-wins
+// passes the clip-viewer element so each clip carries independent state.
+function pickLocal(scope, key) {
+  if (!scope) return null;
+  return scope.querySelector(`[data-iplay="${key}"]`);
+}
+function currentPerspective(scope) {
+  const el = pickLocal(scope, "perspective") || document.getElementById("iplay-perspective");
   return el ? el.value : "raw";
 }
-function focusEnabled() {
-  const el = document.getElementById("iplay-focus-toggle");
+function focusEnabled(scope) {
+  const el = pickLocal(scope, "focus") || document.getElementById("iplay-focus-toggle");
   return !!(el && el.checked);
 }
-function currentTopN() {
-  const el = document.getElementById("iplay-top-n");
+function currentTopN(scope) {
+  const el = pickLocal(scope, "top-n") || document.getElementById("iplay-top-n");
   const v = el ? el.value : "3";
   return v === "all" ? 22 : parseInt(v, 10) || 3;
 }
-function currentIncludeGk() {
-  const el = document.getElementById("iplay-include-gk");
+function currentIncludeGk(scope) {
+  const el = pickLocal(scope, "include-gk") || document.getElementById("iplay-include-gk");
   return !!(el && el.checked);
 }
-function currentEdgeFilter() {
-  const el = document.getElementById("iplay-edge-filter");
+function currentEdgeFilter(scope) {
+  const el = pickLocal(scope, "edge-filter") || document.getElementById("iplay-edge-filter");
   return el ? el.value : "all";
 }
-function currentAttnSource() {
-  const el = document.getElementById("iplay-attn-source");
-  return el ? el.value : "shared";
+function currentAttnSource(scope) {
+  // "Shared model" was retired; production attention now always comes from
+  // the score specialist. We keep the function so render code stays untouched.
+  const el = pickLocal(scope, "attn-source") || document.getElementById("iplay-attn-source");
+  return el ? el.value : "score_specialist";
 }
 // Resolve the per-frame attention vector based on the global Attention Source
 // dropdown. Falls back to the shared-model field if the requested specialist
 // field is missing (e.g. a clip that predates the score-specialist re-run).
-function attnVecForFrame(f) {
-  const src = currentAttnSource();
+function attnVecForFrame(f, scope) {
+  const src = currentAttnSource(scope);
   if (src === "score_specialist" && Array.isArray(f.attention_score_specialist)) {
     return f.attention_score_specialist;
   }
@@ -178,6 +231,9 @@ function initClip(c, detail) {
   const evtStrip = document.getElementById(`event-${c.label}`);
   const markersEl = document.getElementById(`markers-${c.label}`);
   const chartEl = document.getElementById(`chart-${c.label}`);
+  // Per-clip controls scope: every current*() resolver below prefers the
+  // local controls on THIS clip viewer over the legacy global IDs.
+  const ctrlScope = document.querySelector(`[data-iplay-controls="${c.label}"]`);
   if (!stage || !scrub) return;
 
   const frames = detail.frames || [];
@@ -239,7 +295,7 @@ function initClip(c, detail) {
   let chartCursor = null;
   function renderChart() {
     if (!chartEl) return;
-    const perspective = currentPerspective();
+    const perspective = currentPerspective(ctrlScope);
     let povTeamId = null, povName = "team";
     if (perspective === "home") {
       povTeamId = c.home_team?.team_id || c.home_team?.id || c.home_team?.short;
@@ -263,11 +319,11 @@ function initClip(c, detail) {
   // Seeded from whichever attention source is currently active so the very
   // first frame doesn't briefly show the shared-model halos when the user has
   // already toggled to the specialist.
-  let smoothAttn = (attnVecForFrame(frames[0]) || new Array(22).fill(0)).slice();
+  let smoothAttn = (attnVecForFrame(frames[0], ctrlScope) || new Array(22).fill(0)).slice();
   // Track which attention source produced the current smoothAttn — when the
   // user toggles the dropdown we hard-reset the smoothing so halos snap to the
   // new model instead of crossfading through whatever the old source said.
-  let smoothAttnSrc = currentAttnSource();
+  let smoothAttnSrc = currentAttnSource(ctrlScope);
   // Track wall-clock start of the current dwell on a particular frame
   // so the pulsing halo phase is continuous across frames.
   const pulseStart = performance.now();
@@ -300,8 +356,8 @@ function initClip(c, detail) {
 
     // Smooth the attention vector toward the current frame's attention.
     // On a source toggle, hard-reset to the new model's vector so halos snap.
-    const curSrc = currentAttnSource();
-    const tgt = attnVecForFrame(f) || smoothAttn;
+    const curSrc = currentAttnSource(ctrlScope);
+    const tgt = attnVecForFrame(f, ctrlScope) || smoothAttn;
     if (curSrc !== smoothAttnSrc) {
       for (let s = 0; s < 22; s++) smoothAttn[s] = tgt[s] || 0;
       smoothAttnSrc = curSrc;
@@ -345,9 +401,9 @@ function initClip(c, detail) {
 
     // --- attention edges to top-N attended players, with user-controlled
     // GK inclusion + offense/defense category filter.
-    const topK = currentTopN();
-    const includeGk = currentIncludeGk();
-    const edgeFilter = currentEdgeFilter();
+    const topK = currentTopN(ctrlScope);
+    const includeGk = currentIncludeGk(ctrlScope);
+    const edgeFilter = currentEdgeFilter(ctrlScope);
     const isOff = (p) => p && (p.position === "FWD" || p.position === "MID"
                                || /^(CF|ST|LW|RW|AM|CM|DM|LM|RM)$/i.test(String(p.position || "")));
     const isDef = (p) => p && (p.position === "DEF" || p.position === "GK"
@@ -510,7 +566,7 @@ function initClip(c, detail) {
       P(score, next&nbsp;10&nbsp;s) <span class="chip green tabular">${fmtNum(f.p_score, 3)}</span> &nbsp;
       P(concede, next&nbsp;10&nbsp;s) <span class="chip red tabular">${fmtNum(f.p_concede, 3)}</span> &nbsp;
       Frame-VAEP (Δ&nbsp;P) <span class="chip tabular">${fmtNum(f.vaep, 3)}</span><br>
-      <span class="small muted">Top attended (ball→player attention, ${currentAttnSource() === "score_specialist" ? "score specialist" : "shared model"}):</span>
+      <span class="small muted">Top attended (ball→player attention, score specialist):</span>
       <div class="top-attn-row">${topChips || "<span class='muted'>—</span>"}</div>`;
 
     // --- chart cursor
@@ -522,7 +578,7 @@ function initClip(c, detail) {
   }
 
   function clampToFocus(j) {
-    if (!focusEnabled() || goalFrame < 0) return Math.max(0, Math.min(n - 1, j));
+    if (!focusEnabled(ctrlScope) || goalFrame < 0) return Math.max(0, Math.min(n - 1, j));
     const lo = Math.max(0, goalFrame - 50);    // 10s @ 5 Hz
     const hi = Math.min(n - 1, goalFrame);
     return Math.max(lo, Math.min(hi, j));
@@ -533,7 +589,7 @@ function initClip(c, detail) {
     renderFrame(true);
   }
   function applyFocus() {
-    if (focusEnabled() && goalFrame >= 0) {
+    if (focusEnabled(ctrlScope) && goalFrame >= 0) {
       scrub.min = String(Math.max(0, goalFrame - 50));
       scrub.max = String(Math.min(n - 1, goalFrame));
       setFrame(Number(scrub.value));
@@ -544,6 +600,16 @@ function initClip(c, detail) {
   }
   registerFocusUpdate(applyFocus);
   registerFrameRedraw(() => renderFrame(true));
+
+  // Per-clip control listeners — each clip refreshes only itself in
+  // response to its own local controls.
+  if (ctrlScope) {
+    ctrlScope.querySelector('[data-iplay="perspective"]')?.addEventListener("change", renderChart);
+    ctrlScope.querySelector('[data-iplay="focus"]')?.addEventListener("change", applyFocus);
+    ctrlScope.querySelector('[data-iplay="top-n"]')?.addEventListener("change", () => renderFrame(true));
+    ctrlScope.querySelector('[data-iplay="include-gk"]')?.addEventListener("change", () => renderFrame(true));
+    ctrlScope.querySelector('[data-iplay="edge-filter"]')?.addEventListener("change", () => renderFrame(true));
+  }
 
   // RAF loop for smooth halo pulse + attention easing even when not stepping.
   function tick() {

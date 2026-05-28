@@ -65,7 +65,7 @@
       <nav class="site-nav">
         <a href="index.html">What is Chemistry</a>
         <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>
-        <a href="how-chemistry-develops.html">How Chemistry Develops</a>
+        <a href="how-chemistry-develops.html">Time &rarr; Chemistry</a>
         <a href="chemistry-wins.html">Chemistry &rarr; Winning</a>
         <a href="fifa-mode.html">FIFA Mode</a>
         <span class="nav-sep" aria-hidden="true">&middot;</span>
@@ -114,6 +114,13 @@
         edge type (off-off, def-def, cross). Edge thickness &prop; AW-JOI90.
         Hover an edge for the pair-level value.
       </p>
+      <div class="controls" style="margin: 0.4rem 0 0.8rem; display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;">
+        <label class="wb-toggle" style="cursor:default">
+          <span style="color:var(--text)">Team:</span>
+          <select id="team-picker" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.15rem 0.4rem;font:inherit;min-width:14rem"></select>
+        </label>
+        <span class="small dim">or click any row above.</span>
+      </div>
       <div id="team-atom" class="team-atom-pane">
         <div class="empty-state small">Click a row above to render that team's network.</div>
       </div>
@@ -187,7 +194,7 @@
         France, Brazil, Croatia, Morocco at the top &mdash; what do they
         share? Shared playing time. Long-running club partnerships. Coaches
         with multi-year systems. The next tab puts a number on it.
-        <a href="how-chemistry-develops.html"><strong>&rarr; How Chemistry Develops</strong></a>
+        <a href="how-chemistry-develops.html"><strong>&rarr; Time &rarr; Chemistry</strong></a>
       </p>
     </div>
   </main>

@@ -18,7 +18,7 @@
       <nav class="site-nav">
         <a href="index.html">What is Chemistry</a>
         <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>
-        <a href="how-chemistry-develops.html">How Chemistry Develops</a>
+        <a href="how-chemistry-develops.html">Time &rarr; Chemistry</a>
         <a href="chemistry-wins.html">Chemistry &rarr; Winning</a>
         <a href="fifa-mode.html">FIFA Mode</a>
         <span class="nav-sep" aria-hidden="true">&middot;</span>
@@ -109,62 +109,21 @@
     </section>
 
     <!-- =========================================================== -->
-    <!-- Global iplay controls (shared by every embedded scrubber).    -->
-    <!-- These IDs are what interactive-plays.js queries.              -->
+    <!-- Per-clip controls: each embedded scrubber below renders its    -->
+    <!-- own controls bar (chart, focus, top-N, GKs, edges, attention).  -->
     <!-- =========================================================== -->
     <section>
       <h2>Watch chemistry happen, frame by frame</h2>
       <p class="dim small">
-        Each case study below ends with one embedded play. The transformer
-        emits two per-frame probabilities &mdash;
-        <strong>P(score next 10s)</strong> and <strong>P(concede next 10s)</strong> &mdash;
-        and an attention vector over the 22 players. Scrub through and watch
-        chemistry happen: defenders pulled out of shape, off-ball runs that
-        move the probability before any touch, attention transferring along
-        a chain. These controls apply to every clip on the page.
+        Each case study below ends with one embedded play. Two specialist
+        models run per frame &mdash; a P(score next 10s) specialist and a
+        P(concede next 10s) specialist &mdash; together with an attention
+        vector over the 22 players. Scrub through and watch chemistry
+        happen: defenders pulled out of shape, off-ball runs that move the
+        probability before any touch, attention transferring along a chain.
+        Each clip below has its own controls bar so you can compare
+        settings side-by-side without scrolling.
       </p>
-      <div class="controls iplay-globals" style="margin: 0.4rem 0 1rem; display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center;">
-        <span class="wb-toggle" style="cursor:default" title="The two heads (P_score, P_concede) are conditioned on whichever team is in possession, so they flip on every turnover. 'From <team>' collapses to a single net = P_score − P_concede line.">
-          <span style="color:var(--text)">Chart:</span>
-          <select id="iplay-perspective" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-            <option value="raw" selected>Raw (both curves)</option>
-            <option value="home">From home (net)</option>
-            <option value="away">From away (net)</option>
-          </select>
-        </span>
-        <label class="wb-toggle" title="Restrict the scrubber to the 10 seconds before the goal frame.">
-          <input type="checkbox" id="iplay-focus-toggle">
-          <span>10s pre-goal focus</span>
-        </label>
-        <span class="wb-toggle" style="cursor:default" title="How many top-attended players to ring with a halo + draw a ball→player attention line to.">
-          <span>Top attended:</span>
-          <select id="iplay-top-n" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-            <option value="3" selected>3</option>
-            <option value="5">5</option>
-            <option value="7">7</option>
-            <option value="all">all 22</option>
-          </select>
-        </span>
-        <label class="wb-toggle" title="Include goalkeepers when picking the top-attended players.">
-          <input type="checkbox" id="iplay-include-gk">
-          <span>Include GKs</span>
-        </label>
-        <span class="wb-toggle" style="cursor:default" title="Filter the attention edges to a specific category.">
-          <span>Edges:</span>
-          <select id="iplay-edge-filter" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-            <option value="all" selected>All</option>
-            <option value="off">Offense only</option>
-            <option value="def">Defense only</option>
-          </select>
-        </span>
-        <span class="wb-toggle" style="cursor:default" title="Which model's attention drives the halos. 'Score specialist' rings receivers; 'Shared model' is the two-head Frame-VAEP transformer.">
-          <span>Attention source:</span>
-          <select id="iplay-attn-source" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-            <option value="score_specialist" selected>Score specialist (default)</option>
-            <option value="shared">Shared model</option>
-          </select>
-        </span>
-      </div>
     </section>
 
     <!-- =========================================================== -->
@@ -188,6 +147,10 @@
           structure is visible. Top spokes: Acuña (0.77), Álvarez (0.74), Tagliafico (0.69),
           Molina (0.68), Mac Allister (0.65), Di María (0.63), Romero (0.61).
         </p>
+        <div class="net-view-toggle" data-team="argentina" data-default="nucleus" role="group" aria-label="Argentina network view toggle" style="display:inline-flex; gap:0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin:0 0 0.6rem;">
+          <button type="button" class="net-view-btn" data-view="nucleus">Nucleus</button>
+          <button type="button" class="net-view-btn" data-view="network">Network</button>
+        </div>
         <div id="net-argentina" class="team-network"></div>
       </div>
       <div id="play-argentina" class="mt-2"></div>
@@ -220,6 +183,10 @@
           purple = cross. Notice how the strong edges don't all meet at one node &mdash;
           the network is broad.
         </p>
+        <div class="net-view-toggle" data-team="france" data-default="network" role="group" aria-label="France network view toggle" style="display:inline-flex; gap:0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin:0 0 0.6rem;">
+          <button type="button" class="net-view-btn" data-view="nucleus">Nucleus</button>
+          <button type="button" class="net-view-btn" data-view="network">Network</button>
+        </div>
         <div id="net-france" class="team-network"></div>
       </div>
       <div id="play-france" class="mt-2"></div>
@@ -268,6 +235,10 @@
           other edges muted. The cluster on the left side of the pitch is the wall.
           Hover any edge for AW-JOI90 / AW-JDI90.
         </p>
+        <div class="net-view-toggle" data-team="morocco" data-default="network" role="group" aria-label="Morocco network view toggle" style="display:inline-flex; gap:0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin:0 0 0.6rem;">
+          <button type="button" class="net-view-btn" data-view="nucleus">Nucleus</button>
+          <button type="button" class="net-view-btn" data-view="network">Network</button>
+        </div>
         <div id="net-morocco" class="team-network"></div>
       </div>
       <p class="dim small">
@@ -300,6 +271,10 @@
           highlighted in gold; non-engine edges muted. Note how every other strong
           edge in the squad funnels through this trio.
         </p>
+        <div class="net-view-toggle" data-team="croatia" data-default="network" role="group" aria-label="Croatia network view toggle" style="display:inline-flex; gap:0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin:0 0 0.6rem;">
+          <button type="button" class="net-view-btn" data-view="nucleus">Nucleus</button>
+          <button type="button" class="net-view-btn" data-view="network">Network</button>
+        </div>
         <div id="net-croatia" class="team-network"></div>
       </div>
       <p class="dim small">
@@ -368,9 +343,10 @@
         tournament ranking.
       </p>
       <p>
-        <strong>Interactive plays</strong>: frame-by-frame inference from the
-        Frame-VAEP transformer; P(score) / P(concede) are the two heads. The
-        attention source toggle picks between the score specialist (single-head,
+        <strong>Interactive plays</strong>: frame-by-frame inference from
+        the Frame-VAEP transformer. We run two separate specialist models per
+        frame &mdash; one for P(score next 10s), one for P(concede next 10s).
+        The attention source toggle picks between the score specialist (single-head,
         attention biased toward attackers/receivers) and the shared two-head
         model.
       </p>

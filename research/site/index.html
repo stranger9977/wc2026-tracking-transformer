@@ -82,7 +82,7 @@
       <nav class="site-nav">
         <a href="index.html">What is Chemistry</a>
         <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>
-        <a href="how-chemistry-develops.html">How Chemistry Develops</a>
+        <a href="how-chemistry-develops.html">Time &rarr; Chemistry</a>
         <a href="chemistry-wins.html">Chemistry &rarr; Winning</a>
         <a href="fifa-mode.html">FIFA Mode</a>
         <span class="nav-sep" aria-hidden="true">&middot;</span>
@@ -505,6 +505,61 @@
         AW-JOI/90) + strong def-def pairs (above pool-median AW-JDI/90)
         + net cross-team strong pairs. One number per squad.</li>
     </ul>
+
+    <h3 style="margin-top:1.2rem">How TCD adds up</h3>
+    <p class="small dim" style="margin-top:-0.2rem">
+      Three counts, one squad-level number. Each piece captures a different
+      slice of how the model wires the team together.
+    </p>
+    <div class="tcd-explainer" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.6rem 0 0.4rem;">
+      <div class="card" style="padding:0.8rem 0.9rem">
+        <div style="display:flex; align-items:center; gap:0.45rem; margin-bottom:0.25rem">
+          <span class="dot" style="background:#d4793a; width:0.7rem; height:0.7rem; border-radius:50%; display:inline-block"></span>
+          <strong>Off-off strong pairs</strong>
+        </div>
+        <p class="small mt-0 mb-0">
+          Count of same-team <em>attacker&ndash;attacker</em> pairs whose
+          AW-JOI/90 is above the tournament pool median. The on-ball
+          creation network.
+        </p>
+      </div>
+      <div class="card" style="padding:0.8rem 0.9rem">
+        <div style="display:flex; align-items:center; gap:0.45rem; margin-bottom:0.25rem">
+          <span class="dot" style="background:#3b6ea0; width:0.7rem; height:0.7rem; border-radius:50%; display:inline-block"></span>
+          <strong>Def-def strong pairs</strong>
+        </div>
+        <p class="small mt-0 mb-0">
+          Count of same-team <em>defender&ndash;defender</em> pairs whose
+          AW-JDI/90 is above the pool median. Off-ball pinning, cover,
+          and rest-defence anchors event data can't see.
+        </p>
+      </div>
+      <div class="card" style="padding:0.8rem 0.9rem">
+        <div style="display:flex; align-items:center; gap:0.45rem; margin-bottom:0.25rem">
+          <span class="dot" style="background:#7a4f9a; width:0.7rem; height:0.7rem; border-radius:50%; display:inline-block"></span>
+          <strong>Cross-team net</strong>
+        </div>
+        <p class="small mt-0 mb-0">
+          (# cross-role pairs where AW-JOI &minus; AW-JDI &gt; 0) &minus;
+          (# where AW-JOI &minus; AW-JDI &lt; 0). The midfield-to-attack
+          and defence-to-midfield connections that tilt offensive when
+          they work, defensive when they don't.
+        </p>
+      </div>
+    </div>
+    <p class="mono small" style="background:var(--bg-elev-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.5rem 0.7rem; display:inline-block; margin: 0.4rem 0;">
+      TCD = n<sub>off-strong</sub> + n<sub>def-strong</sub> + n<sub>cross-net</sub>
+    </p>
+    <p class="small">
+      Worked example &mdash; France (TCD rank 1):
+      <strong>43</strong> off-off strong pairs +
+      <strong>15</strong> def-def strong pairs +
+      <strong>+81</strong> cross-team net =
+      <strong>139</strong>. One number summarizing how &quot;wired
+      together&quot; the squad is, capturing both on-ball and off-ball
+      pair influence at once.
+    </p>
+
     <p>
       TCD's predictive payoff against the World Cup itself:
       <strong>Spearman ρ = +0.704</strong> with WC22 final finish across

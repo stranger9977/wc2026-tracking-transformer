@@ -147,6 +147,26 @@ function renderLeaderboard() {
     if (teamSelected) drawTeamAtom(teamSelected);
   }
   syncActiveButtons();
+  populateTeamPicker(rows);
+}
+
+function populateTeamPicker(rows) {
+  const picker = document.getElementById("team-picker");
+  if (!picker) return;
+  const alpha = rows.slice().sort((a, b) =>
+    (a.team_name || "").localeCompare(b.team_name || ""));
+  picker.innerHTML = alpha.map((r) =>
+    `<option value="${escapeHTML(r.team_id)}"${r.team_id === teamSelected ? " selected" : ""}>${escapeHTML(r.team_name)}</option>`).join("");
+  picker.value = teamSelected;
+  // Avoid double-binding on re-render.
+  if (!picker.dataset.bound) {
+    picker.addEventListener("change", (e) => {
+      teamSelected = e.target.value;
+      syncActiveButtons();
+      drawTeamAtom(teamSelected);
+    });
+    picker.dataset.bound = "1";
+  }
 }
 
 // Delegated handler — survives re-renders triggered by header-clicks.
@@ -248,8 +268,16 @@ function drawTeamAtom(teamId) {
 }
 
 function drawJdiPanel(net, meta) {
+  // GK exclusion — mirrors the off-pair (AW-JOI) filter so the def-pair
+  // leaderboard isn't flooded by goalkeepers (they touch the ball on every
+  // defensive sequence and the AW-JDI weight floods them).
+  const gkIds = new Set(
+    (net.nodes || []).filter((n) => (n.position || "").toUpperCase() === "GK").map((n) => n.player_id)
+  );
   const jdiEdges = (net.edges || [])
     .filter((e) => Number.isFinite(e.aw_jdi90))
+    .filter((e) => !gkIds.has(e.p) && !gkIds.has(e.q))
+    .filter((e) => (e.role_p || "").toUpperCase() !== "GK" && (e.role_q || "").toUpperCase() !== "GK")
     .slice()
     .sort((a, b) => b.aw_jdi90 - a.aw_jdi90)
     .slice(0, 8);
@@ -265,7 +293,7 @@ function drawJdiPanel(net, meta) {
     </tr>`).join("");
   jdiPanel.innerHTML = `
     <h3 style="font-size:1rem; margin-bottom:0.3rem">Top defensive pairs — ${escapeHTML(meta.team_name)}</h3>
-    <p class="small dim" style="margin-top:0">Ranked by AW-JDI90 (attention-weighted joint defensive impact per 90).</p>
+    <p class="small dim" style="margin-top:0">Ranked by AW-JDI90 (attention-weighted joint defensive impact per 90). <span class="dim">(GKs excluded — they dominate every defensive sequence.)</span></p>
     <div class="table-wrap"><table class="data-table">
       <thead><tr><th>Pair</th><th class="num">AW-JDI90</th><th class="num">Min together</th></tr></thead>
       <tbody>${rows}</tbody>

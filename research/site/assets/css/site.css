@@ -1513,3 +1513,25 @@ div.player-dot .role {
   margin-right: 0.25rem;
   vertical-align: middle;
 }
+
+/* Network-view toggle (Tab 4 case studies) */
+.net-view-toggle .net-view-btn {
+  background: var(--bg-elev-2);
+  color: var(--text);
+  border: 0;
+  border-right: 1px solid var(--border);
+  padding: 0.25rem 0.7rem;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.12s ease, background 0.12s ease;
+}
+.net-view-toggle .net-view-btn:last-child { border-right: 0; }
+.net-view-toggle .net-view-btn:hover { opacity: 0.95; }
+.net-view-toggle .net-view-btn.active {
+  background: var(--bg-elev-3, #1a2333);
+  color: var(--text);
+  opacity: 1;
+  font-weight: 600;
+}

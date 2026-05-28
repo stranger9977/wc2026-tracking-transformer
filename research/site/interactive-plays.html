@@ -18,7 +18,7 @@
       <nav class="site-nav">
         <a href="index.html">What is Chemistry</a>
         <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>
-        <a href="how-chemistry-develops.html">How Chemistry Develops</a>
+        <a href="how-chemistry-develops.html">Time &rarr; Chemistry</a>
         <a href="chemistry-wins.html">Chemistry &rarr; Winning</a>
         <a href="fifa-mode.html">FIFA Mode</a>
         <span class="nav-sep" aria-hidden="true">&middot;</span>
@@ -60,12 +60,12 @@
     </p>
 
     <div class="controls iplay-globals" style="margin: 0.4rem 0 1rem; display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center;">
-      <span class="wb-toggle" style="cursor:default" title="The two heads (P_score, P_concede) are conditioned on whichever team is in possession, so they flip on every turnover — that's why raw curves alternate. 'From <team>' collapses to a single net = P_score − P_concede line.">
+      <span class="wb-toggle" style="cursor:default" title="Two specialist models run per frame: a P(score next 10s) specialist and a P(concede next 10s) specialist. Each is conditioned on whichever team is in possession, so the raw curves flip on every turnover. 'From <team>' collapses both into one signed net line = P_score − P_concede always from that team's POV.">
         <span style="color:var(--text)">Chart:</span>
         <select id="iplay-perspective" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-          <option value="raw" selected>Raw (both curves)</option>
-          <option value="home">From home (net)</option>
-          <option value="away">From away (net)</option>
+          <option value="raw" selected>Raw &mdash; two lines (P(score), P(concede))</option>
+          <option value="home">Net &mdash; from home (P(score) &minus; P(concede))</option>
+          <option value="away">Net &mdash; from away (P(score) &minus; P(concede))</option>
         </select>
       </span>
       <label class="wb-toggle" title="Restrict the scrubber to the 10 seconds before the goal frame — the window where a different decision would have mattered most.">
@@ -93,12 +93,8 @@
           <option value="def">Defense only</option>
         </select>
       </span>
-      <span class="wb-toggle" style="cursor:default" title="Which model's ball→player attention drives the halos and edges. 'Shared model' is the two-head Frame-VAEP transformer (P_score + P_concede). 'Score specialist' is a single-head model trained only on P(score) — its attention tends to ring attackers/receivers instead of defenders.">
-        <span>Attention source:</span>
-        <select id="iplay-attn-source" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-          <option value="score_specialist" selected>Score specialist (default)</option>
-          <option value="shared">Shared model</option>
-        </select>
+      <span class="wb-toggle small dim" style="cursor:default" title="Halos and edges are driven by the score-specialist model — the production attention source used throughout the study. The legacy 'shared model' (two-head Frame-VAEP) is retained internally for comparison only.">
+        Attention: <strong style="color:var(--text)">score specialist</strong>
       </span>
     </div>
 

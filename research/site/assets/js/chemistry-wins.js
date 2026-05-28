@@ -139,7 +139,7 @@ function pitchXY(position, idx, sameCount) {
  *    - "def"      → emphasise def↔def edges (Morocco)
  *    - "midfield" → emphasise the CM/DM cluster (Croatia)
  *    - null       → uniform palette (France) */
-function renderPitchNetwork(mountEl, teamName, highlight = null) {
+function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold = 0.3) {
   const teamId = TEAM_IDS[teamName];
   const net = fullNets?.[teamId];
   if (!mountEl || !net) {
@@ -166,7 +166,7 @@ function renderPitchNetwork(mountEl, teamName, highlight = null) {
   }
 
   const edges = net.edges
-    .filter((e) => placed.has(e.p) && placed.has(e.q) && Number.isFinite(e.aw_joi90) && e.aw_joi90 >= 0.3);
+    .filter((e) => placed.has(e.p) && placed.has(e.q) && Number.isFinite(e.aw_joi90) && e.aw_joi90 >= edgeThreshold);
   const maxAW = Math.max(0.4, ...edges.map((e) => e.aw_joi90));
 
   const W = 100, H = 64, padX = 4, padY = 4;
@@ -316,12 +316,70 @@ function renderNucleusNetwork(mountEl, teamName, centerName = "Messi") {
   mountEl.innerHTML = svg;
 }
 
-/* ---------------- network mounts ---------------- */
+/* ---------------- network mounts (with Nucleus / Network toggles) ---------------- */
 
-renderNucleusNetwork(document.getElementById("net-argentina"), "Argentina", "Messi");
-renderPitchNetwork(document.getElementById("net-france"), "France", null);
-renderPitchNetwork(document.getElementById("net-morocco"), "Morocco", "def");
-renderPitchNetwork(document.getElementById("net-croatia"), "Croatia", "midfield");
+// Per-team config: which highlight mode + edge threshold to use for the
+// "Network" view, and which player anchors the "Nucleus" view.
+const TEAM_VIEW_CFG = {
+  argentina: { name: "Argentina", highlight: null,       threshold: 0.30, nucleusCenter: "Messi" },
+  france:    { name: "France",    highlight: null,       threshold: 0.50, nucleusCenter: "Mbappé" },
+  morocco:   { name: "Morocco",   highlight: "def",      threshold: 0.30, nucleusCenter: null },
+  croatia:   { name: "Croatia",   highlight: "midfield", threshold: 0.30, nucleusCenter: null },
+};
+
+// Pick a sensible default nucleus center: team's top-AW-JOI non-GK player.
+function pickTopAwjoiPlayer(teamName) {
+  const teamId = TEAM_IDS[teamName];
+  const net = fullNets?.[teamId];
+  if (!net) return null;
+  const gkIds = new Set(net.nodes.filter((n) => n.position === "GK").map((n) => n.player_id));
+  let bestName = null, bestVal = -Infinity;
+  for (const e of (net.edges || [])) {
+    if (!Number.isFinite(e.aw_joi90)) continue;
+    if (gkIds.has(e.p) || gkIds.has(e.q)) continue;
+    if (e.aw_joi90 > bestVal) {
+      bestVal = e.aw_joi90;
+      // Prefer the higher-minutes endpoint as anchor.
+      const np = net.nodes.find((n) => n.player_id === e.p);
+      const nq = net.nodes.find((n) => n.player_id === e.q);
+      bestName = (np && nq && (np.minutes || 0) >= (nq.minutes || 0)) ? np.name : (nq?.name || np?.name);
+    }
+  }
+  return bestName;
+}
+
+function renderTeamView(teamKey, view) {
+  const cfg = TEAM_VIEW_CFG[teamKey];
+  if (!cfg) return;
+  const mountEl = document.getElementById(`net-${teamKey}`);
+  if (!mountEl) return;
+  if (view === "nucleus") {
+    const center = cfg.nucleusCenter || pickTopAwjoiPlayer(cfg.name);
+    if (!center) {
+      mountEl.innerHTML = `<div class="empty-state small">No nucleus anchor found for ${escapeHTML(cfg.name)}.</div>`;
+      return;
+    }
+    renderNucleusNetwork(mountEl, cfg.name, center);
+  } else {
+    renderPitchNetwork(mountEl, cfg.name, cfg.highlight, cfg.threshold);
+  }
+}
+
+function wireNetworkToggles() {
+  document.querySelectorAll(".net-view-toggle").forEach((group) => {
+    const teamKey = group.dataset.team;
+    const defaultView = group.dataset.default || "network";
+    const buttons = group.querySelectorAll(".net-view-btn");
+    const apply = (view) => {
+      buttons.forEach((b) => b.classList.toggle("active", b.dataset.view === view));
+      renderTeamView(teamKey, view);
+    };
+    buttons.forEach((b) => b.addEventListener("click", () => apply(b.dataset.view)));
+    apply(defaultView);
+  });
+}
+
+wireNetworkToggles();
 
 /* ---------------- embedded play scrubbers ---------------- */
 // One per case study, plus an appendix.
