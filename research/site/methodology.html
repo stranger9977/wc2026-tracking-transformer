@@ -34,7 +34,7 @@
     <h1>Methodology</h1>
     <p class="dim">
       Full math, modelling choices, and limitations. This is the long page —
-      the rest of the site is non-technical; this is where the equations,
+      the rest of the study is non-technical; this is where the equations,
       formal definitions, and citations live. The five public tabs all sit on
       top of the pipeline described here.
     </p>
@@ -44,7 +44,7 @@
       <strong>On this page:</strong>
       <a href="#sec-notation">1. Notation &amp; state</a> &middot;
       <a href="#sec-vaep">2. VAEP framework</a> &middot;
-      <a href="#sec-joi-jdi">3. JOI / JDI (paper baseline)</a> &middot;
+      <a href="#sec-joi-jdi">3. JOI / JDI (event-based baseline)</a> &middot;
       <a href="#sec-transformer">4. Tracking transformer</a> &middot;
       <a href="#sec-awjoi">5. AW-JOI / AW-JDI</a> &middot;
       <a href="#sec-tcd">6. Team Chemistry Density</a> &middot;
@@ -154,7 +154,7 @@ df["vaep_value"] = (pS - pC) - prev_value_self_persp</code></pre>
     </p>
 
     <!-- ===================== SECTION 3: JOI / JDI ===================== -->
-    <h2 id="sec-joi-jdi">3. JOI / JDI (paper baseline)</h2>
+    <h2 id="sec-joi-jdi">3. JOI / JDI (event-based baseline)</h2>
     <p>
       Bransen &amp; Van Haaren (MIT Sloan, 2020) layer pair chemistry on top
       of VAEP. <strong>Joint Offensive Impact (JOI)</strong> sums VAEP across
@@ -178,7 +178,7 @@ df["vaep_value"] = (pS - pC) - prev_value_self_persp</code></pre>
 
     <h3>3.2 Joint Defensive Impact (JDI) — and what event data cannot see</h3>
     <p>
-      JDI is the paper's hard half. Defenders' value lives mostly off-ball,
+      JDI is the event-based baseline's hard half. Defenders' value lives mostly off-ball,
       but event data only records on-ball touches. The authors are explicit:
     </p>
     <blockquote class="small">
@@ -478,7 +478,7 @@ contribs = c * weight_nz[:, None]          # (M, K)
       role buckets), so 19 + 12 + 67 = 98 strong-or-net pairs is roughly
       58% of the within-team pair pool. The Brazil row at TCD 121 (rank 2)
       is denser still; Qatar at TCD 54 (rank 27) is the floor among full
-      data rows. Each tab's "strong pair" counts on the site derive from
+      data rows. Each tab's "strong pair" counts on the study derive from
       these same three numbers.
     </p>
 
@@ -540,7 +540,7 @@ contribs = c * weight_nz[:, None]          # (M, K)
         One mitigation against the "model is fooling itself" worry is
         convergence with independent analyses. Benhida et al.
         (2025, <a href="https://doi.org/10.3390/app15189994" target="_blank" rel="noopener">Applied Sciences</a>;
-        <a href="morocco-paper-summary.html">in-site summary</a>) run PCA + K-means
+        <a href="morocco-paper-summary.html">study summary</a>) run PCA + K-means
         on FIFA post-match KPIs and identify the same fast-transition
         attacking axis our score-specialist surfaces in the off-off pair
         leaderboard (Ziyech / Ounahi / En-Nesyri / Hamdallah / Aboukhlal /

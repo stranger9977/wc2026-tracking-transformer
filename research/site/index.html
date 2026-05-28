@@ -104,7 +104,7 @@
       ground three knockout games to extra time and walked off with bronze.
       Four deep runs, four very different rosters, one shared trait: every
       one of them played like a unit that already knew the answer. Our
-      hypothesis for this site: <strong>chemistry is real, measurable, and
+      hypothesis for this study: <strong>chemistry is real, measurable, and
       predicts who survives a tournament</strong> — sometimes more than raw
       talent does.
     </p>
@@ -123,7 +123,7 @@
     <p>
       Pundits borrow the word from chemistry for a reason: it implies bonds
       between specific elements, not a property any one of them carries
-      alone. Our job on this site is to turn that metaphor into a number.
+      alone. Our job on this study is to turn that metaphor into a number.
     </p>
 
     <!-- 3. What chemistry looks like on a pitch — subjective -->
@@ -135,12 +135,12 @@
       bait pulls a striker forward by a single yard. The decoy that pins a
       centre-back so the lane behind him opens for someone else. The
       gegenpressing swarm collapsing on a ball-carrier in five seconds flat.
-      Every fan recognises these. The question this site asks is the harder
+      Every fan recognises these. The question this study asks is the harder
       one: <em>how would you measure them?</em>
     </p>
 
-    <!-- 4. Enter the paper — JOI / JDI -->
-    <h2>The paper: JOI and JDI in plain English</h2>
+    <!-- 4. The event-based baseline — JOI / JDI -->
+    <h2>The event-based baseline: JOI and JDI in plain English</h2>
     <p class="dim">
       Bransen &amp; Van Haaren (MIT Sloan, 2020) propose two pair-level
       metrics on top of VAEP. VAEP turns every on-ball action — pass, cross,
@@ -172,8 +172,8 @@
       </div>
     </div>
 
-    <!-- 5. Where the paper goes blind — hero contrast -->
-    <h2>Where the paper goes blind</h2>
+    <!-- 5. Where event-based chemistry goes blind — hero contrast -->
+    <h2>Where event-based chemistry goes blind</h2>
     <blockquote class="quote-foil">
       "The match event data only describes the actions that actually
       happened in the match but not the actions that players prevented
@@ -181,10 +181,10 @@
       <cite>— Bransen &amp; Van Haaren, JDI section</cite>
     </blockquote>
     <p>
-      The paper is explicit about its own blind spot. JDI is forced to
+      Event-based JDI is explicit about its own blind spot. JDI is forced to
       back-compute defensive credit from opponents under-performing,
       because event data can't see prevention. <strong>JOI has the exact
-      same blind spot on offence</strong>, and the paper doesn't say it out
+      same blind spot on offence</strong>, and event-based JOI doesn't say it out
       loud: JOI only fires on consecutive on-ball touches. The decoy run
       that opened the lane never touches the ball. The pin that froze the
       centre-back never touches the ball. The 40-metre off-ball width-hold
@@ -212,7 +212,7 @@
     </p>
 
     <!-- 6b. Partner-grade explainer: features → attention → AW-JOI → chemistry -->
-    <h2>What goes into the model — and what the paper can't see</h2>
+    <h2>What goes into the model — and what event-based chemistry can't see</h2>
     <table class="compare-table">
       <thead>
         <tr><th></th><th>Original paper (event-based)</th><th>Our model (frame + attention)</th></tr>
@@ -271,7 +271,7 @@
     <p>
       <strong>How attention becomes chemistry.</strong> <strong>AW-JOI</strong>
       stands for <strong>Attention-Weighted Joint Offensive Impact</strong>.
-      The "AW" is the part the paper can't compute. Across every frame, how
+      The "AW" is the part event-based JOI can't compute. Across every frame, how
       often is the model attending to <em>both</em> of these two teammates
       at the same time, weighted by how much that frame moves the goal
       probability? If the model keeps co-attending to Messi
@@ -281,12 +281,12 @@
       measure</strong>.
     </p>
     <p class="quote-foil" style="font-style:normal">
-      The paper's model can't even put off-ball runners in its input. Ours
+      Event-based JOI/JDI can't even put off-ball runners in its input. Ours
       can — and the attention layer tells us which off-ball players the
       model thinks matter right now. That's the difference.
     </p>
 
-    <!-- 7. What chemistry looks like (and where the paper goes blind) -->
+    <!-- 7. What chemistry looks like (and where event-based chemistry goes blind) -->
     <h2>The contrast, made concrete</h2>
     <p class="dim">
       Two buckets, four mechanisms. Left: things JOI can see (with caveats).
@@ -296,7 +296,7 @@
 
     <div class="bucket-grid">
       <div class="bucket-card sees">
-        <div class="bucket-eyebrow">The paper sees these · on-ball flow</div>
+        <div class="bucket-eyebrow">Event-based JOI sees these · on-ball flow</div>
         <h3>The Third-Man Triangle</h3>
         <p class="small">
           A → B, B's first-time pass releases C. Defenders track A and B's
@@ -315,7 +315,7 @@
       </div>
 
       <div class="bucket-card sees">
-        <div class="bucket-eyebrow">The paper sees these · on-ball flow</div>
+        <div class="bucket-eyebrow">Event-based JOI sees these · on-ball flow</div>
         <h3>The Press Trap</h3>
         <p class="small">
           Foot on the ball, dare the striker forward by a yard, slip past
