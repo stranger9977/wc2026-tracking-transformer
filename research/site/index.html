@@ -3,10 +3,72 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>WC22 Player Chemistry — Overview</title>
-  <meta name="description" content="Recreating Bransen &amp; Van Haaren's player-chemistry framework on 2022 World Cup data.">
+  <title>WC22 Player Chemistry — What is Chemistry?</title>
+  <meta name="description" content="Chemistry is what happens between players when the ball isn't there. We measure it — on-ball AND off-ball — frame by frame.">
   <link rel="stylesheet" href="assets/css/site.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <style>
+    /* Inline styles for Tab 1 contrast section — small enough to live here
+       rather than carry assets/css/what-is-chemistry.css */
+    .atom {
+      display: block; margin: 0.4rem auto 0.8rem; width: 96px; height: 96px;
+      opacity: 0.8;
+    }
+    .quote-foil {
+      border-left: 3px solid #d4793a;
+      background: rgba(212, 121, 58, 0.08);
+      padding: 0.8rem 1rem;
+      margin: 0.6rem 0 0.8rem;
+      font-style: italic;
+    }
+    .quote-foil cite {
+      display: block; font-style: normal; margin-top: 0.4rem;
+      color: var(--text-dim); font-size: 0.85em;
+    }
+    .bucket-grid {
+      display: grid; gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 720px) {
+      .bucket-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .bucket-card {
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--border, #2a2a2a);
+      border-radius: 8px;
+      border-left-width: 4px;
+    }
+    .bucket-card.sees { border-left-color: #6dd58c; }
+    .bucket-card.blind { border-left-color: #d4793a; }
+    .bucket-eyebrow {
+      text-transform: uppercase; font-size: 0.72em; letter-spacing: 0.06em;
+      color: var(--text-dim); margin-bottom: 0.3rem; font-weight: 600;
+    }
+    .bucket-card h3 { margin: 0 0 0.3rem; }
+    .bucket-card .miss {
+      font-size: 0.85em; color: var(--text-dim); margin: 0.4rem 0 0;
+    }
+    .bucket-card .miss strong { color: #f1ad7a; }
+    .compare-table {
+      width: 100%; border-collapse: collapse; margin: 0.4rem 0 0.6rem;
+    }
+    .compare-table th, .compare-table td {
+      padding: 0.45rem 0.6rem; text-align: left;
+      border-bottom: 1px solid var(--border, #2a2a2a);
+    }
+    .compare-table th { font-weight: 600; color: var(--text-dim); font-size: 0.85em; }
+    .compare-table td.num { font-family: var(--mono); text-align: right; }
+    .compare-table td.win { color: #6dd58c; font-weight: 600; }
+    .next-tabs { display: grid; gap: 0.8rem; grid-template-columns: 1fr; margin-top: 0.6rem; }
+    @media (min-width: 720px) { .next-tabs { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1080px) { .next-tabs { grid-template-columns: repeat(4, 1fr); } }
+    .next-tabs a {
+      display: block; padding: 0.8rem 0.9rem; border: 1px solid var(--border, #2a2a2a);
+      border-radius: 8px; text-decoration: none; color: inherit;
+    }
+    .next-tabs a:hover { border-color: #6dd58c; }
+    .next-tabs h4 { margin: 0 0 0.3rem; font-size: 1em; }
+    .next-tabs p { margin: 0; font-size: 0.85em; color: var(--text-dim); }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -32,520 +94,351 @@
   </header>
 
   <main>
-    <h1>What is chemistry, and can we see it?</h1>
+    <h1>What is chemistry, and can we measure it?</h1>
+
+    <!-- 1. WC22 storylines lead-in -->
+    <p class="lede">
+      Messi finally broke through. Mbappé scored a hat-trick in the final and
+      still lost. Morocco — eleventh on FIFA's talent index going in —
+      knocked out Spain and Portugal on the way to a semifinal. Croatia
+      ground three knockout games to extra time and walked off with bronze.
+      Four deep runs, four very different rosters, one shared trait: every
+      one of them played like a unit that already knew the answer. Our
+      hypothesis for this site: <strong>chemistry is real, measurable, and
+      predicts who survives a tournament</strong> — sometimes more than raw
+      talent does.
+    </p>
+
+    <!-- 2. Chemistry as metaphor -->
+    <h2>Chemistry as a metaphor</h2>
+    <svg class="atom" viewBox="-50 -50 100 100" aria-hidden="true">
+      <ellipse cx="0" cy="0" rx="42" ry="14" fill="none" stroke="#6dd58c" stroke-width="1.2" opacity="0.7"/>
+      <ellipse cx="0" cy="0" rx="42" ry="14" fill="none" stroke="#d4793a" stroke-width="1.2" opacity="0.7" transform="rotate(60)"/>
+      <ellipse cx="0" cy="0" rx="42" ry="14" fill="none" stroke="#7aa7d4" stroke-width="1.2" opacity="0.7" transform="rotate(120)"/>
+      <circle cx="0" cy="0" r="4" fill="#f1ad7a"/>
+      <circle cx="42" cy="0" r="3" fill="#6dd58c"/>
+      <circle cx="-21" cy="36" r="3" fill="#d4793a"/>
+      <circle cx="-21" cy="-36" r="3" fill="#7aa7d4"/>
+    </svg>
     <p>
-      Chemistry is the unspoken understanding between teammates — the run a
-      passer trusts without looking, the cover a defender starts before his
-      partner steps. Geir Jordet's scanning research shows it isn't telepathy;
-      it's <strong>faster prediction</strong>. The 2022 FIFA Men's World Cup
-      gives us 64 matches across 32 squads to ask: can we <em>measure</em>
-      that prediction, <em>see</em> it happen on the pitch, and figure out
-      <em>how it develops</em>?
-    </p>
-    <p class="small muted mb-0">
-      The definitional tour — 12 named mechanisms (Third-Man Triangle,
-      Decoy Run, the Meat Wall) — lives on
-      <a href="what-is-chemistry.html">What is Chemistry?</a>. Below: how
-      we measure it, show it, and where the data says it comes from.
+      Pundits borrow the word from chemistry for a reason: it implies bonds
+      between specific elements, not a property any one of them carries
+      alone. Our job on this site is to turn that metaphor into a number.
     </p>
 
-    <aside class="callout" aria-label="Headline finding" style="margin-top:1.2rem; border-left-color:#d4793a;">
-      <h4 style="margin-top:0">The cleanest chemistry signal of WC22</h4>
-      <p style="margin:0">
-        When we filter attention to the frames that <em>actually</em> lead to a
-        goal in the next 10s and compare against the team's neutral baseline,
-        the same names keep showing up. <strong>Morocco's attacking core
-        dominates the top of the leaderboard</strong>:
-        <strong>Ziyech + Hamdallah</strong> at 2.02× lift,
-        <strong>Ziyech + Aboukhlal</strong> at 2.01×,
-        <strong>Ziyech + Ounahi</strong> at 1.74×,
-        <strong>En-Nesyri + Ounahi</strong> at 1.72×.
-        Five Moroccan off-off pairs in the top 20 — and none of them were
-        on the event-based JOI leaderboard. The off-ball view saw the
-        semifinal run; the on-ball metric didn't.
-      </p>
-      <p class="small mt-0" style="margin-bottom:0">
-        Full leaderboard on
-        <a href="chemistry-leaderboard.html#mode-conditional"><strong>Chemistry
-        Leaderboard → When scoring vs neutral</strong></a>. The conditional
-        view replaces the raw attention top-20 wholesale — 0 / 20 overlap,
-        because the raw view is dominated by GKs and defenders who happen to
-        be near the ball during defensive sequences.
-      </p>
-      <p class="small mt-0" style="margin-top:0.6rem; margin-bottom:0; color:var(--text-dim)">
-        <strong>Independent corroboration.</strong> Benhida et al. (2025,
-        <a href="https://doi.org/10.3390/app15189994" target="_blank" rel="noopener">Applied Sciences</a>)
-        reach the same conclusion via PCA + clustering on FIFA post-match
-        reports: Morocco's semifinal run was a "hybrid performance model"
-        built on <em>fast transition football, technical skill, strong
-        defensive resilience, and collective intelligence</em>. Their
-        "verticality vs build-up" PCA axis is essentially what our
-        score-frame attention picks up — the attacking core working in
-        transition.
-      </p>
-    </aside>
-
-    <aside class="callout" aria-label="Network breadth finding" style="margin-top:1.2rem; border-left-color:#6dd58c;">
-      <h4 style="margin-top:0">The chemistry shape that predicted deep runs</h4>
-      <p style="margin:0">
-        For every player we count how many teammates they connected with at
-        an above-threshold attention-weighted chemistry value (AW-JOI90 ≥ 0.4)
-        — their <em>network breadth</em>. The top 10 by this metric:
-      </p>
-      <p class="small mt-0" style="margin:0.4rem 0 0; font-family:var(--mono);">
-        Tchouaméni · Perišić · <strong>Messi</strong> · Varane · Gvardiol ·
-        Ziyech · Hakimi · Modrić · Theo Hernandez · Mbappé
-      </p>
-      <p class="small mt-0" style="margin-top:0.4rem; margin-bottom:0">
-        <strong>All 10 are from the four deepest sides</strong>: France
-        (final, 4 players), Croatia (3rd, 3), Morocco (4th, 2),
-        Argentina (winner, 1). Brazil exits QF with no top-10 entries
-        despite having the strongest <em>concentrated</em> trio
-        (Vinícius+Neymar). The pattern: <strong>winners build broad
-        chemistry, not concentrated chemistry.</strong> Full leaderboard +
-        per-player star graphs on
-        <a href="chemistry-leaderboard.html#mode-nucleus"><strong>Chemistry
-        Leaderboard → Nucleus networks</strong></a>.
-      </p>
-    </aside>
-
-    <h2>How to read this site</h2>
-    <div class="grid-2">
-      <div class="card">
-        <h3 class="mt-0">The leaderboards (event-level JOI / JDI)</h3>
-        <p class="small">Bransen-style action-level VAEP attributed to consecutive same-team interactions. Strength: clean per-pair totals across 64 matches. Weakness: only on-ball moments. Powers the <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>.</p>
-      </div>
-      <div class="card">
-        <h3 class="mt-0">The live-play view (frame-level transformer)</h3>
-        <p class="small">Same VAEP idea — P(score) − P(concede) — predicted 5× per second from all 22 players + ball via a tracking transformer. Strength: catches off-ball runs that move the probability before any event fires. Powers <a href="interactive-plays.html">Interactive Plays</a> (clip-by-clip scrubber).</p>
-      </div>
-    </div>
-    <p class="small muted">Event-level for the season-long leaderboard. Frame-level to <em>see</em> a chemistry edge happen. Both share one definition: <em>the part of expected goal difference that depends on which teammates are configured together at this moment</em>. The formal math is on <a href="methodology.html">Methodology</a>.</p>
-
-    <h2>The two metrics, in plain English</h2>
-
-    <p class="dim" style="max-width: 70ch;">
-      Before the formulas: every on-ball action — a pass, a dribble, a tackle,
-      a shot — gets a <strong>VAEP</strong> score from a model that asks
-      <em>"by how much did this action change my team's expected goal
-      difference over the next 10 actions?"</em> A clever through-ball that
-      sets up a chance gets a big positive number; a sloppy giveaway in
-      midfield gets a small negative one. VAEP turns the whole match into a
-      stream of action-values. JOI and JDI are just two ways of pooling those
-      action-values by <em>pair</em> instead of by player.
+    <!-- 3. What chemistry looks like on a pitch — subjective -->
+    <h2>What chemistry looks like on a pitch</h2>
+    <p>
+      You already know what it looks like. The through-ball that meets a
+      runner's stride without breaking it. The wall pass into space the
+      defender thought he'd covered. The press trap where the foot-on-the-ball
+      bait pulls a striker forward by a single yard. The decoy that pins a
+      centre-back so the lane behind him opens for someone else. The
+      gegenpressing swarm collapsing on a ball-carrier in five seconds flat.
+      Every fan recognises these. The question this site asks is the harder
+      one: <em>how would you measure them?</em>
     </p>
 
+    <!-- 4. Enter the paper — JOI / JDI -->
+    <h2>The paper: JOI and JDI in plain English</h2>
+    <p class="dim">
+      Bransen &amp; Van Haaren (MIT Sloan, 2020) propose two pair-level
+      metrics on top of VAEP. VAEP turns every on-ball action — pass, cross,
+      dribble, take-on, shot — into an expected-goal-difference delta. JOI
+      and JDI pool that VAEP currency by <em>pair</em> instead of by player.
+    </p>
     <div class="grid-2">
       <div class="card">
         <h3 class="mt-0"><span class="chip green">JOI</span> Joint Offensive Impact</h3>
-        <p>
-          <strong>Plain English.</strong> An <em>action</em> here is a
-          discrete <strong>on-ball event</strong> — a pass, a cross, a
-          dribble, a take-on, a shot. <strong>VAEP</strong> scores each
-          action by how much it shifts the team's expected goal difference
-          over the next ~10 actions. JOI sums VAEP across <em>pairs of
-          teammates whose actions touch each other</em>: P does something,
-          Q does the next thing for the same team. It asks
-          <em>"when these two play together, does the ball flow through
-          them productively?"</em>
-        </p>
         <p class="small">
-          <strong>Concrete examples</strong> of consecutive-action pairs
-          that produce high JOI:
+          When two teammates act in consecutive on-ball events — P passes, Q
+          shoots; or P carries, Q lays it off — both VAEP values land in the
+          pair's JOI bucket. JOI asks: <em>when these two play together,
+          does the ball flow productively through them?</em> Through-balls
+          into a shooter, wall passes, carry-and-finish combinations all
+          show up here. Normalised per 90 shared minutes (JOI90).
         </p>
-        <ul class="small" style="margin: 0.3rem 0 0.6rem 1rem;">
-          <li><strong>Through-ball into a shot.</strong> Mac Allister threads
-            a pass between the CBs (pass VAEP ↑) → Di María shoots and
-            scores (shot VAEP ↑↑). Both actions get a positive value and
-            both go into the JOI bucket for Mac Allister + Di María.</li>
-          <li><strong>1-2 wall pass.</strong> A plays to B, B returns it
-            into A's run, A shoots. Three or four consecutive actions
-            alternating between A and B — every adjacency pair counts.</li>
-          <li><strong>Carry + lay-off + finish.</strong> Messi carries past
-            two defenders (carry VAEP ↑), squares it to Álvarez (pass VAEP
-            ↑) — JOI(Messi, Álvarez) picks up both contributions.</li>
-          <li><strong>Recovery to release.</strong> A defender intercepts
-            and finds a midfielder breaking forward — the recovery is
-            valued, and the next pass that opens the counter is valued
-            too. The JOI for that defender + midfielder pair climbs.</li>
-        </ul>
-        <p class="small dim mb-0">
-          Normalized per 90 minutes shared on the pitch (JOI90) so pairs
-          with different playing time are comparable. <strong>Negative
-          JOI</strong> happens when consecutive actions between the pair
-          mostly lose value (give-aways, blocked shots, dispossessions).
-        </p>
-        <details class="code-toggle">
-          <summary>The math</summary>
-          <div class="formula" id="joi-formula" style="margin: 0.4rem 0 0;">
-            \( \mathrm{JOI}(p, q) = \sum_{(a_i, a_{i+1}) \in S_{p,q}} V(a_i) + V(a_{i+1}) \)
-          </div>
-          <p class="small dim" style="margin-top: 0.6rem; margin-bottom: 0;">
-            \( S_{p,q} \) is the set of consecutive same-team action pairs where
-            one belongs to \( p \) and the next to \( q \) (or vice versa).
-            \( V \) is the VAEP value of that action.
-          </p>
-        </details>
       </div>
-
       <div class="card">
         <h3 class="mt-0"><span class="chip red">JDI</span> Joint Defensive Impact</h3>
-        <p>
-          <strong>Plain English.</strong> JDI credits a pair when the
-          opponents they share defensive responsibility for
-          <em>under-perform their expected VAEP</em>. It asks:
-          <em>"when these two are on the pitch together, do the attackers
-          they're tasked with stopping get fewer dangerous touches than
-          usual?"</em> The credit for an opponent's missing output is split
-          across the pairs nearest him on the pitch.
+        <p class="small">
+          Events can't see who marked whom, so JDI back-computes. When the
+          opponents a pair shares responsibility for under-perform their
+          expected offensive impact, the pair gets credit, weighted by a 5×5
+          pitch-grid heuristic for proximity. Per 90 shared minutes
+          (JDI90). It's a clever workaround for the fact that
+          <em>event data never sees prevention directly</em>.
         </p>
-        <p class="small dim mb-0">
-          Same per-90 normalization as JOI (JDI90).
-        </p>
-        <details class="code-toggle">
-          <summary>The math</summary>
-          <div class="formula" id="jdi-formula" style="margin: 0.4rem 0 0;">
-            \( \mathrm{JDI}_m(p, q) = \sum_o \big( \mathbb{E}[\mathrm{OI}_o] - \mathrm{OI}_o \big) \cdot R_m(p, q, o) \cdot \tfrac{\mathrm{mins}_m(p,q,o)}{90} \)
-          </div>
-          <p class="small dim" style="margin-top: 0.6rem; margin-bottom: 0;">
-            \( R_m(p,q,o) = \tfrac{1}{2}\big(r_p(o) + r_q(o)\big) \) and
-            \( r_p(o) \propto 1/d(p,o) \) in the (mirrored) 5×5 grid.
-            \( \mathbb{E}[\mathrm{OI}_o] \) is the opponent's expected
-            offensive impact per minute, modeled across the corpus.
-          </p>
-        </details>
       </div>
     </div>
 
-    <h2>The 5×5 responsibility grid</h2>
+    <!-- 5. Where the paper goes blind — hero contrast -->
+    <h2>Where the paper goes blind</h2>
+    <blockquote class="quote-foil">
+      "The match event data only describes the actions that actually
+      happened in the match but not the actions that players prevented
+      from happening, for instance, by smart runs or clever positioning."
+      <cite>— Bransen &amp; Van Haaren, JDI section</cite>
+    </blockquote>
     <p>
-      Defensive responsibility is split into 25 zones (5 horizontal × 5 vertical
-      bands of the pitch). For each zone, we compute each player's share of
-      defensive actions while they were on the pitch. JDI rewards pairs that
-      <em>jointly</em> suppress more opponent threat than expected in zones where
-      both players are responsible.
+      The paper is explicit about its own blind spot. JDI is forced to
+      back-compute defensive credit from opponents under-performing,
+      because event data can't see prevention. <strong>JOI has the exact
+      same blind spot on offence</strong>, and the paper doesn't say it out
+      loud: JOI only fires on consecutive on-ball touches. The decoy run
+      that opened the lane never touches the ball. The pin that froze the
+      centre-back never touches the ball. The 40-metre off-ball width-hold
+      that bent the defensive shape never touches the ball. None of it
+      enters JOI. <strong>The single most important thing two teammates do
+      together — coordinate their off-ball geometry — is invisible to the
+      framework that's supposed to measure their chemistry.</strong>
     </p>
 
-    <div class="grid-5x5" aria-label="5 by 5 responsibility grid">
-      <div class="cell def">DEF</div><div class="cell def">DEF</div><div class="cell def">DEF</div><div class="cell def">DEF</div><div class="cell def">DEF</div>
-      <div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div>
-      <div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div><div class="cell mid">MID</div>
-      <div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div>
-      <div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div><div class="cell fwd">FWD</div>
-    </div>
-    <p class="small muted">Schematic only — bands here are role labels, not strict pitch coordinates.</p>
+    <!-- 6. Our addition -->
+    <h2>What we add: frame data + transformer attention</h2>
+    <p>
+      We train a transformer on PFF World Cup 2022 tracking data — all 22
+      players plus the ball, sampled at 5 Hz (every 200 ms) — to predict
+      P(score) and P(concede) over the next ten seconds. The architecture
+      is adapted from
+      <a href="https://github.com/SumerSports/SportsTrackingTransformer" target="_blank" rel="noopener">SumerSports's
+      SportsTrackingTransformer</a> (originally NFL). As a byproduct of
+      that prediction, each layer's attention heads light up <em>which
+      pairs of players the model needed to look at together</em> to make
+      its call. On-ball moments AND off-ball ones. Decoy runs, pins,
+      rest-defence anchors, gegenpressing swarms — when they matter for the
+      next ten seconds of threat, attention rises on the pair. <strong>We
+      don't infer prevention. We see it.</strong>
+    </p>
 
-    <h2>Tournament snapshot</h2>
-    <div id="overview-stats" class="grid-stat">
-      <div class="empty-state" style="grid-column: 1 / -1;">Loading…</div>
-    </div>
-
-    <div class="grid-2" id="overview-top-pairs"></div>
-    <p class="small muted" id="overview-rule-note" style="margin-top: 0.4rem;"></p>
-
-    <h2>Tournament stories: chemistry on the pitch</h2>
+    <!-- 7. What chemistry looks like (and where the paper goes blind) -->
+    <h2>The contrast, made concrete</h2>
     <p class="dim">
-      Ten compact reads, one per knockout side: top JOI pair (offensive
-      partnership) and top JDI pair (defensive partnership), plus one sentence on
-      what the metric is actually picking up. These are the stories the JOI / JDI
-      tables turn into when you cross-reference them with the games.
+      Two buckets, four mechanisms. Left: things JOI can see (with caveats).
+      Right: things only the tracking attention can see — the heart of the
+      thesis.
     </p>
-    <div class="grid-2" id="overview-stories"></div>
 
-    <h2>Preview: the off-ball view (Transformer Chemistry)</h2>
-    <p class="dim">
-      The leaderboards above are <em>on-ball</em> — they only fire when a
-      player touches the ball. The tracking transformer fills in what
-      happens between touches: which teammates the model <em>looks at</em>
-      to predict the next 10 seconds of threat. Pick a side below to see
-      its attention chemistry network.
-    </p>
-    <div class="card" id="overview-attn-card">
-      <div class="controls" style="grid-template-columns: 1fr; margin-bottom: 0.8rem;">
-        <div>
-          <label for="overview-attn-team">Team</label>
-          <select id="overview-attn-team" aria-label="Pick a team to preview its attention chemistry network"></select>
-        </div>
+    <div class="bucket-grid">
+      <div class="bucket-card sees">
+        <div class="bucket-eyebrow">The paper sees these · on-ball flow</div>
+        <h3>The Third-Man Triangle</h3>
+        <p class="small">
+          A → B, B's first-time pass releases C. Defenders track A and B's
+          body; C moves into space behind the eye-line.
+          <span class="dim">Xavi → Iniesta → Messi · Pep's half-spaces.</span>
+        </p>
+        <p class="small dim" style="margin:0.3rem 0 0;">
+          Event data: <strong style="color:#6dd58c">⚠ partial</strong> — JOI
+          catches A-B and B-C, but it can't tell whether B knew C was
+          arriving <em>before</em> the pass. Attention shows the
+          anticipation.
+        </p>
+        <p style="margin:0.6rem 0 0;">
+          <a class="chip" href="whiteboard.html?play=di_maria_36th_minute_final" style="background:rgba(109,213,140,0.18);color:#6dd58c;border:1px solid rgba(109,213,140,0.45);text-decoration:none">Test this on the Whiteboard →</a>
+        </p>
       </div>
-      <div id="overview-attn-figure">
-        <div class="empty-state">Loading attention figures…</div>
+
+      <div class="bucket-card sees">
+        <div class="bucket-eyebrow">The paper sees these · on-ball flow</div>
+        <h3>The Press Trap</h3>
+        <p class="small">
+          Foot on the ball, dare the striker forward by a yard, slip past
+          him.
+          <span class="dim">De Zerbi's Brighton — the "bait."</span>
+        </p>
+        <p class="small dim" style="margin:0.3rem 0 0;">
+          Event data: <strong style="color:#6dd58c">⚠ partial</strong> — the
+          pass after the bait is captured; the bait itself (the deliberate
+          delay) is an off-ball intention. Attention picks up the
+          coordinated wait.
+        </p>
       </div>
-      <p id="overview-attn-story" class="small dim mb-0" style="margin-top: 0.6rem;"></p>
-      <p class="small muted mb-0" style="margin-top: 0.4rem;">
-        Full per-team network browser lives on the
-        <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>.
-      </p>
+
+      <div class="bucket-card blind">
+        <div class="bucket-eyebrow">Only we see these · off-ball gravity</div>
+        <h3>The Pin (Fixing the Defender)</h3>
+        <p class="small">
+          An off-ball attacker stands somewhere so threatening that a
+          defender refuses to leave them. The pinned defender becomes a
+          hole-puncher — their gravity opens a lane somewhere else.
+          <span class="dim">Saka holding the width · Pep's wide forwards.</span>
+        </p>
+        <p class="miss">
+          Event data: <strong>✗ no</strong>. The pinning attacker doesn't
+          touch the ball; neither does the pinned defender. Our pair
+          AW-JDI sees the attacker–defender attention bond hold for tens
+          of seconds, ball nowhere near them.
+        </p>
+      </div>
+
+      <div class="bucket-card blind">
+        <div class="bucket-eyebrow">Only we see these · off-ball gravity</div>
+        <h3>The Decoy Run</h3>
+        <p class="small">
+          A committed run toward space with no intent to receive — the
+          point is to drag a defender. The line between "I'm receiving"
+          and "I'm bait" is the defender's job to read.
+          <span class="dim">Müller's Raumdeuter career · France's
+          near-post run for Mbappé crosses.</span>
+        </p>
+        <p class="miss">
+          Event data: <strong>✗ no</strong>. The decoy never appears in
+          the action stream. Our pair AW-JOI catches the moment attention
+          spikes from the would-be receiver to the decoy as the defender
+          takes the bait.
+        </p>
+      </div>
+
+      <div class="bucket-card blind">
+        <div class="bucket-eyebrow">Only we see these · off-ball gravity</div>
+        <h3>Gegenpressing Swarm</h3>
+        <p class="small">
+          Possession lost — the nearest 3–4 collapse on the ball-carrier
+          within five seconds, before the opponent's transition organises.
+          <span class="dim">Klopp's 5-second rule.</span>
+        </p>
+        <p class="miss">
+          Event data: <strong>✗ no</strong> until someone wins it back. The
+          off-ball <em>convergence</em> — three defenders sprinting toward
+          one point — fires as a cluster in our cross-team attention well
+          before the recovery touch.
+        </p>
+      </div>
     </div>
 
-    <h2>The story arc, tab by tab</h2>
+    <!-- 8. The transformer in one paragraph -->
+    <h2>One paragraph on the transformer</h2>
+    <p>
+      Every frame is a 23-token sequence: 22 players + the ball. Each token
+      carries seven features (position, velocity, attacking side, GK flag,
+      possession flag). Player ordering inside the block carries no
+      meaning — the transformer is <strong>permutation-equivariant</strong>,
+      which matters because we never have to hand-engineer "who is the
+      left-back" or "who is the holding mid". The model figures out roles
+      from the geometry. Stacked transformer encoder layers with pre-norm
+      and GELU activations feed two sigmoid heads (P-score, P-concede),
+      with the attention matrix exposed as a first-class output instead of
+      a debug hook. The full architecture and training recipe live on
+      <a href="methodology.html">Methodology</a>.
+    </p>
+
+    <!-- 9. Our model beats the paper baseline -->
+    <h2>Our model beats the paper baseline</h2>
+    <p>
+      Both pipelines predict the same two probabilities — P(score) and
+      P(concede) — but on different inputs. The paper's VAEP classifier
+      sees only the on-ball action stream; ours sees every frame of
+      tracking. Held-out AUC, same task framing:
+    </p>
+    <table class="compare-table">
+      <thead>
+        <tr><th>Metric</th><th>Paper baseline (event VAEP, out-of-fold)</th><th>Ours (frame transformer, held-out)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>P(score) AUC</td><td class="num">0.681</td><td class="num win">0.801</td></tr>
+        <tr><td>P(concede) AUC</td><td class="num">0.671</td><td class="num win">0.792</td></tr>
+      </tbody>
+    </table>
+    <p class="small dim">
+      Scope of comparison: the paper's classifier is action-level and
+      predicts "scores within next 10 actions"; ours is frame-level and
+      predicts "scores within next 10 seconds". Same labels, different
+      input modality — that's the point. The lift comes from seeing the 21
+      players the event stream is blind to. Single-head specialists push
+      score AUC to <strong>0.816</strong> and concede AUC to
+      <strong>0.799</strong> when trained separately on the same backbone.
+    </p>
+
+    <!-- 10. Headline metrics going forward -->
+    <h2>The two metrics we use from here on out</h2>
+    <p>
+      Every subsequent page is built from two pair-level scores derived
+      from the attention matrix, plus a team-level aggregate:
+    </p>
     <ul>
-      <li><a href="chemistry-leaderboard.html">Chemistry Leaderboard</a> — the offensive (JOI90) and defensive (JDI90) chemistry leaderboards, plus per-team networks. Start here.</li>
-      <li><a href="interactive-plays.html">Interactive Plays</a> — scrub through individual plays and see a chemistry edge form frame by frame.</li>
-      <li><a href="methodology.html">Methodology</a> — the formal math (VAEP → JOI / JDI → predictor), 5-fold CV metrics, and limitations.</li>
-      <li><a href="downloads.html">Downloads</a> — every figure as PNG, every table as CSV, raw JSON.</li>
+      <li><strong>AW-JOI</strong> (attention-weighted Joint Offensive
+        Impact, per pair) — JOI's continuous-time analogue. Sums
+        ball-distance-corrected attention on a same-team pair during
+        attacking frames; per 90 shared minutes.</li>
+      <li><strong>AW-JDI</strong> (attention-weighted Joint Defensive
+        Impact, per pair) — the prevention-aware analogue. Same recipe
+        during defensive frames; captures the pins, rest-defence anchors,
+        and swarms that JDI's responsibility-grid heuristic can only
+        approximate.</li>
+      <li><strong>Team Chemistry Density (TCD)</strong> — the team
+        aggregate. Count of strong off-off pairs (above pool-median
+        AW-JOI/90) + strong def-def pairs (above pool-median AW-JDI/90)
+        + net cross-team strong pairs. One number per squad.</li>
+    </ul>
+    <p>
+      TCD's predictive payoff against the World Cup itself:
+      <strong>Spearman ρ = +0.704</strong> with WC22 final finish across
+      31 teams (p &lt; 0.001). Against a club-overlap History Index the
+      same metric runs <strong>ρ = +0.348</strong> — directional and
+      suggestive (p ≈ 0.055) but not significant on a 31-row sample. For
+      context: <strong>FIFA-23 Overall vs WC22 finish runs ρ = +0.548</strong>
+      — so on this tournament, chemistry edges raw talent at the team
+      level. Semifinalist TCD ranks: <strong>France 1, Croatia 3, Morocco
+      4, Argentina 7</strong>. All four deepest sides in the top seven.
+    </p>
+
+    <!-- 11. Assumptions and limitations -->
+    <h2>Assumptions and limitations</h2>
+    <ul>
+      <li><strong>Small tournament sample.</strong> 64 matches, 31–32
+        teams. Spearman ρ on a sample of 31 is volatile; treat ρ = 0.70
+        as suggestive of a real signal, not as a deployment-ready effect
+        size.</li>
+      <li><strong>National-team novelty.</strong> The teams whose players
+        rehearse together least are also the ones we most want to
+        compare. The signal that survives despite that — France, Croatia,
+        Morocco — is the interesting part.</li>
+      <li><strong>Attention ≠ causation.</strong> High AW-JOI/AW-JDI says
+        the model needed to look at both players to make its
+        prediction. That's strong evidence of a coordinated tactical
+        pattern; it isn't a counterfactual claim about goal difference.
+        For counterfactuals, use the <a href="whiteboard.html">Digital
+        Whiteboard</a>.</li>
+      <li><strong>Ball-token dominance is real.</strong> Naive
+        per-pair attention is dominated by GKs and CBs near the ball
+        during build-up. We subtract a ball-distance baseline before
+        aggregating; see <a href="methodology.html#section-2">Methodology
+        §2–3</a>.</li>
+      <li><strong>Frame-VAEP labels still come from outcomes.</strong>
+        P(score) / P(concede) labels are derived from what actually
+        happened in the next ten seconds. The attention map gets to see
+        off-ball setup, but the training signal is still event-anchored.</li>
+      <li><strong>One tournament, one provider.</strong> All numbers here
+        are PFF WC22. Cross-provider calibration is an open task.</li>
     </ul>
 
-    <a class="next-card" href="chemistry-leaderboard.html" aria-label="Next: Chemistry Leaderboard">
-      <div class="next-card-thumb" aria-hidden="true">
-        <div class="next-card-thumb-rows">
-          <span class="row r1"></span>
-          <span class="row r2"></span>
-          <span class="row r3"></span>
-          <span class="row r4"></span>
-          <span class="row r5"></span>
-        </div>
-      </div>
-      <div class="next-card-body">
-        <div class="next-card-eyebrow">Next ›</div>
-        <h3 class="next-card-title">Top Pairs — the chemistry leaderboards</h3>
-        <p class="next-card-blurb">
-          The full JOI90 and JDI90 rankings across all 4,366 qualifying pairs.
-          Filterable by team and position. Start here.
-        </p>
-      </div>
-    </a>
+    <!-- 12. Where to go next -->
+    <h2>Where to go next</h2>
+    <div class="next-tabs">
+      <a href="chemistry-leaderboard.html">
+        <h4>Leaderboard →</h4>
+        <p>Every pair ranked by AW-JOI, AW-JDI, and team chemistry density. The full picture in one table.</p>
+      </a>
+      <a href="how-chemistry-develops.html">
+        <h4>How chemistry develops →</h4>
+        <p>Does playing together at club level transfer to the national team? Where rehearsal helps and where it doesn't.</p>
+      </a>
+      <a href="chemistry-wins.html">
+        <h4>Chemistry → winning →</h4>
+        <p>Four semifinalist case studies. Argentina's nucleus, France's network, Morocco's wall, Croatia's engine.</p>
+      </a>
+      <a href="fifa-mode.html">
+        <h4>FIFA Mode →</h4>
+        <p>Pick a 2026 squad. The model projects its chemistry density from current club pairings.</p>
+      </a>
+    </div>
   </main>
 
   <footer class="site-footer">
-    PFF event data, 64 matches, FIFA World Cup 2022. Method recreated from
-    Bransen &amp; Van Haaren (MIT Sloan, 2020).
+    PFF event &amp; tracking data, 64 matches, FIFA World Cup 2022.
+    Event-data method recreated from Bransen &amp; Van Haaren (MIT Sloan,
+    2020); transformer adapted from SumerSports SportsTrackingTransformer.
   </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous" defer
-          onload="renderMathInElement(document.body, {delimiters: [{left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}]});"></script>
-  <script type="module">
-    import { loadJSON, escapeHTML, fmtNum, fmtInt, renderEmpty, flagHTML, posChip } from "./assets/js/site.js";
-
-    const statsEl = document.getElementById("overview-stats");
-    const topPairsEl = document.getElementById("overview-top-pairs");
-
-    const data = await loadJSON("data/overview.json");
-
-    if (!data) {
-      renderEmpty(statsEl, "Overview data not yet computed.",
-        "Run the export pipeline to produce data/overview.json.");
-      topPairsEl.innerHTML = "";
-    } else {
-      const stats = [
-        { label: "Matches", value: fmtInt(data.n_matches) },
-        { label: "Teams", value: fmtInt(data.n_teams) },
-        { label: "VAEP actions", value: fmtInt(data.n_actions) },
-        { label: "Qualifying pairs", value: fmtInt(data.n_pairs) },
-      ];
-      const vm = data.vaep_metrics || {};
-      const pm = data.predictor_metrics || {};
-      if (vm.score_auc !== undefined) {
-        stats.push({ label: "VAEP score AUC", value: fmtNum(vm.score_auc, 3), sub: "out-of-fold" });
-      }
-      if (vm.concede_auc !== undefined) {
-        stats.push({ label: "VAEP concede AUC", value: fmtNum(vm.concede_auc, 3), sub: "out-of-fold" });
-      }
-      if (pm.joi_r2 !== undefined) {
-        stats.push({ label: "JOI predictor R²", value: fmtNum(pm.joi_r2, 3), sub: "5-fold CV" });
-      }
-      if (pm.jdi_r2 !== undefined) {
-        stats.push({ label: "JDI predictor R²", value: fmtNum(pm.jdi_r2, 3), sub: "5-fold CV" });
-      }
-      // Frame-VAEP transformer val metrics — sit next to the event-VAEP AUCs
-      // so the reader sees the on-ball vs frame-level signals side by side.
-      const tm = await loadJSON("data/training_metrics_frame_vaep.json").catch(() => null);
-      if (tm && tm.metrics) {
-        if (tm.metrics.val_auc_score !== undefined) {
-          stats.push({ label: "Frame-VAEP score AUC", value: fmtNum(tm.metrics.val_auc_score, 3), sub: `shared backbone, held-out` });
-        }
-        if (tm.metrics.val_auc_concede !== undefined) {
-          stats.push({ label: "Frame-VAEP concede AUC", value: fmtNum(tm.metrics.val_auc_concede, 3), sub: `shared backbone, held-out` });
-        }
-      }
-      // Specialist single-head models (one BCE head each, same backbone).
-      const ts = await loadJSON("data/training_metrics_score_only.json").catch(() => null);
-      const tc = await loadJSON("data/training_metrics_concede_only.json").catch(() => null);
-      if (ts && ts.metrics && ts.metrics.val_auc_score !== undefined && Number.isFinite(ts.metrics.val_auc_score)) {
-        stats.push({ label: "Score-specialist AUC", value: fmtNum(ts.metrics.val_auc_score, 3), sub: "single-head, held-out" });
-      }
-      if (tc && tc.metrics && tc.metrics.val_auc_concede !== undefined && Number.isFinite(tc.metrics.val_auc_concede)) {
-        stats.push({ label: "Concede-specialist AUC", value: fmtNum(tc.metrics.val_auc_concede, 3), sub: "single-head, held-out" });
-      }
-      if (data.n_goals !== undefined) {
-        stats.push({ label: "Goals scored", value: fmtInt(data.n_goals) });
-      }
-
-      statsEl.innerHTML = stats
-        .map((s) => `<div class="stat">
-            <div class="label">${escapeHTML(s.label)}</div>
-            <div class="value">${escapeHTML(s.value)}</div>
-            ${s.sub ? `<div class="sub">${escapeHTML(s.sub)}</div>` : ""}
-          </div>`)
-        .join("");
-
-      const cards = [];
-      const pName = (x) => x.name_p || x.p || "?";
-      const qName = (x) => x.name_q || x.q || "?";
-      const tName = (x) => x.team_name || x.team || "";
-      const mins  = (x) => x.minutes_together ?? x.minutes ?? null;
-
-      const nInter = (x) => x.n_interactions ?? null;
-      const subline = (p) => {
-        const parts = [];
-        const tn = tName(p);
-        if (tn) parts.push(escapeHTML(tn));
-        const m = mins(p);
-        if (m !== null) parts.push(`${fmtNum(m, 0)} min shared`);
-        const ni = nInter(p);
-        if (ni !== null) parts.push(`${fmtInt(ni)} interactions`);
-        return parts.join(" · ");
-      };
-
-      if (data.top_joi_pair) {
-        const p = data.top_joi_pair;
-        cards.push(`<div class="card"><h3 class="mt-0">Top JOI pair (offensive chemistry)</h3>
-          <p><strong>${escapeHTML(pName(p))}</strong> &nbsp;+&nbsp; <strong>${escapeHTML(qName(p))}</strong></p>
-          <p class="dim small">${subline(p)}</p>
-          <p>JOI90 <span class="chip green tabular">${fmtNum(p.joi90, 3)}</span> <span class="muted small">VAEP·90/min</span></p>
-        </div>`);
-      }
-      if (data.top_jdi_pair) {
-        const p = data.top_jdi_pair;
-        cards.push(`<div class="card"><h3 class="mt-0">Top JDI pair (defensive chemistry)</h3>
-          <p><strong>${escapeHTML(pName(p))}</strong> &nbsp;+&nbsp; <strong>${escapeHTML(qName(p))}</strong></p>
-          <p class="dim small">${subline(p)}</p>
-          <p>JDI90 <span class="chip red tabular">${fmtNum(p.jdi90, 3)}</span> <span class="muted small">VAEP·90/min, opponent-OI shortfall</span></p>
-        </div>`);
-      }
-      topPairsEl.innerHTML = cards.join("");
-
-      const ruleEl = document.getElementById("overview-rule-note");
-      if (ruleEl && data.qualification_rule) {
-        const r = data.qualification_rule;
-        ruleEl.innerHTML = `Qualifying rule: pair must clear <strong>${fmtInt(r.min_minutes_together)} minutes shared</strong> on the pitch <em>and</em> <strong>${fmtInt(r.min_interactions)} consecutive same-team interactions</strong>. This filters out small-sample pairs that briefly produced a big JOI on one or two touches.`;
-      }
-    }
-
-    const storiesEl = document.getElementById("overview-stories");
-    const stories = await loadJSON("data/chemistry_stories.json").catch(() => null);
-    // Attention-based top off-off pair per team (score-frame lift). Lets each
-    // story card show event-based AND attention-based chemistry side-by-side.
-    const attnByOutcome = await loadJSON("data/attention_by_outcome.json").catch(() => null);
-    const topAttnByTeam = new Map();
-    if (Array.isArray(attnByOutcome)) {
-      for (const r of attnByOutcome) {
-        if (r.category !== "off") continue;
-        if (r.role_p === "GK" || r.role_q === "GK") continue;
-        const k = r.team_name;
-        const cur = topAttnByTeam.get(k);
-        if (!cur || (r.lift_score || 0) > (cur.lift_score || 0)) topAttnByTeam.set(k, r);
-      }
-    }
-    // Distribution of all score-frame lifts (off-off pairs, GK excluded) for the sparkline.
-    const liftScoreSorted = Array.isArray(attnByOutcome)
-      ? attnByOutcome
-          .filter(r => r.category === "off" && r.role_p !== "GK" && r.role_q !== "GK")
-          .map(r => Number(r.lift_score))
-          .filter(v => Number.isFinite(v))
-          .sort((a, b) => a - b)
-      : [];
-    // Build a global JOI90 distribution from `data/pairs.json` so each story
-    // card can show where its top pair sits among all qualifying WC22 pairs.
-    const pairsAll = await loadJSON("data/pairs.json").catch(() => null);
-    const joi90Sorted = Array.isArray(pairsAll)
-      ? pairsAll.map((p) => Number(p.joi90)).filter((v) => Number.isFinite(v)).sort((a, b) => a - b)
-      : [];
-    const jdi90Sorted = Array.isArray(pairsAll)
-      ? pairsAll.map((p) => Number(p.jdi90)).filter((v) => Number.isFinite(v)).sort((a, b) => a - b)
-      : [];
-
-    function percentile(sorted, v) {
-      if (!sorted.length || !Number.isFinite(v)) return null;
-      let lo = 0, hi = sorted.length;
-      while (lo < hi) {
-        const m = (lo + hi) >> 1;
-        if (sorted[m] < v) lo = m + 1; else hi = m;
-      }
-      return lo / sorted.length;
-    }
-    // Sparkline: a single tick marking this team's top pair against the global cdf.
-    function distroSpark(sorted, v, color) {
-      if (!sorted.length || !Number.isFinite(v)) return "";
-      const W = 120, H = 14;
-      const pct = percentile(sorted, v);
-      const x = (pct ?? 0) * W;
-      const pctTxt = pct === null ? "" : `${(pct * 100).toFixed(0)}th pctile`;
-      return `<svg class="spark-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="${pctTxt}" style="width:120px;height:14px;display:inline-block;vertical-align:middle;margin-left:0.4em" role="img">
-        <line x1="0" x2="${W}" y1="${H/2}" y2="${H/2}" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
-        <line x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="2" y2="${H-2}" stroke="${color}" stroke-width="2"/>
-      </svg><span class="muted small">${pctTxt}</span>`;
-    }
-    if (storiesEl && Array.isArray(stories)) {
-      storiesEl.innerHTML = stories.map((s) => {
-        const attn = topAttnByTeam.get(s.team);
-        const attnRow = attn
-          ? `<p class="small mb-0"><span class="chip" style="background:rgba(212,121,58,0.18);color:#f1ad7a;border:1px solid rgba(212,121,58,0.45)">Top ATTN</span> <strong>${escapeHTML(attn.name_p)}</strong> + <strong>${escapeHTML(attn.name_q)}</strong> · <span class="muted tabular">${fmtNum(attn.lift_score, 2)}× score-frame lift, ${fmtNum(attn.minutes_together, 0)} min shared</span>${distroSpark(liftScoreSorted, Number(attn.lift_score), "#d4793a")}</p>`
-          : "";
-        return `
-        <div class="card flag-bg-wrap">
-          ${s.flag_code ? `<div class="flag-bg" style="background-image:url(https://flagcdn.com/640x480/${escapeHTML(s.flag_code)}.png)"></div>` : ""}
-          <h3 class="mt-0">${flagHTML(s.flag_code, { size: "lg", alt: s.team })}${escapeHTML(s.team)}</h3>
-          <p class="small">${escapeHTML(s.story)}</p>
-          <p class="small mb-0"><span class="chip green">Top JOI</span> <strong>${escapeHTML(s.top_joi.p)}</strong> + <strong>${escapeHTML(s.top_joi.q)}</strong> · <span class="muted tabular">${fmtNum(s.top_joi.val, 2)} VAEP·90/min, ${fmtNum(s.top_joi.min, 0)} min shared</span>${distroSpark(joi90Sorted, Number(s.top_joi.val), "#6dd58c")}</p>
-          <p class="small mb-0"><span class="chip red">Top JDI</span> <strong>${escapeHTML(s.top_jdi.p)}</strong> + <strong>${escapeHTML(s.top_jdi.q)}</strong> · <span class="muted tabular">${fmtNum(s.top_jdi.val, 3)} VAEP·90/min, ${fmtNum(s.top_jdi.min, 0)} min shared</span>${distroSpark(jdi90Sorted, Number(s.top_jdi.val), "#e98074")}</p>
-          ${attnRow}
-        </div>`;
-      }).join("");
-    }
-
-    // ----- Inline interactive: per-team attention chemistry preview -----
-    const attnTeamSelect = document.getElementById("overview-attn-team");
-    const attnFigEl = document.getElementById("overview-attn-figure");
-    const attnStoryEl = document.getElementById("overview-attn-story");
-
-    const attnIndex = await loadJSON("data/attention_figures_index.json").catch(() => null);
-    const attnPairs = await loadJSON("data/attention_pairs.json").catch(() => null);
-
-    if (attnTeamSelect && attnFigEl && Array.isArray(attnIndex) && attnIndex.length) {
-      const teamsSorted = attnIndex.slice().sort((a, b) => a.team_name.localeCompare(b.team_name));
-      const defaultId = teamsSorted.some((t) => t.team_id === "364") ? "364" : teamsSorted[0].team_id;
-
-      attnTeamSelect.innerHTML = teamsSorted
-        .map((t) => `<option value="${escapeHTML(t.team_id)}"${t.team_id === defaultId ? " selected" : ""}>${escapeHTML(t.team_name)}</option>`)
-        .join("");
-
-      // Build a story for a team using the top attention pair we can find for them.
-      // Prefer non-GK pairs (off-ball runs that aren't dominated by the keeper);
-      // fall back to the top overall pair if the team has none on file.
-      function teamStory(teamId, teamName) {
-        if (!Array.isArray(attnPairs)) return "";
-        const own = attnPairs.filter((p) => String(p.team_id) === String(teamId));
-        if (!own.length) return `No attention pair index available for ${escapeHTML(teamName)} yet.`;
-
-        const nonGK = own.filter((p) => p.role_p !== "GK" && p.role_q !== "GK");
-        const pool = nonGK.length ? nonGK : own;
-        const top = pool.slice().sort((a, b) => Number(b.attention_lift) - Number(a.attention_lift))[0];
-        if (!top) return "";
-
-        const lift = Number(top.attention_lift);
-        const liftMult = Number.isFinite(lift) ? `${lift.toFixed(1)}×` : "—";
-        const same = top.role_p === top.role_q;
-        const roleNote = same
-          ? `both ${escapeHTML(top.pos_p)}/${escapeHTML(top.pos_q)}`
-          : `different roles (${escapeHTML(top.pos_p)} and ${escapeHTML(top.pos_q)})`;
-        const gkNote = nonGK.length ? "" : " (keeper-anchored — the off-ball pairs are dominated by the goalkeeper)";
-
-        return `${escapeHTML(teamName)}'s strongest off-ball link is <strong>${escapeHTML(top.name_p)}</strong> ↔ <strong>${escapeHTML(top.name_q)}</strong> — the transformer attends to them together <strong>${liftMult}</strong> more than the team baseline, despite ${roleNote}.${gkNote}`;
-      }
-
-      function render(teamId) {
-        const team = teamsSorted.find((t) => t.team_id === teamId) || teamsSorted[0];
-        attnFigEl.innerHTML = `<img class="overview-attn-img" src="${escapeHTML(team.path)}" alt="Attention chemistry network for ${escapeHTML(team.team_name)}" loading="lazy">`;
-        attnStoryEl.innerHTML = teamStory(team.team_id, team.team_name);
-      }
-
-      attnTeamSelect.addEventListener("change", (e) => render(e.target.value));
-      render(defaultId);
-    } else if (attnFigEl) {
-      renderEmpty(attnFigEl, "Attention figures index not found.",
-        "Expected data/attention_figures_index.json with per-team PNG paths.");
-    }
-  </script>
 </body>
 </html>
