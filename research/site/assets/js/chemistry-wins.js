@@ -426,19 +426,36 @@ const PLAY_INDEX = {
     // Morocco attackers (Boufal, Ounahi, Attiat-Allah) to Dias and Pepe,
     // not from En-Nesyri to them. The defenders ARE being pulled in
     // attentional terms, just not by the player we first guessed.
+    // pair_defaults: when this chapter starts, sync the pair-edge toggles to
+    // what makes sense for this phase. User can still override mid-chapter.
     annotations: [
-      { from: 0,   to: 30,  text: "Build-up — Morocco recycle" },
-      { from: 31,  to: 70,  text: "Ziyech turns it down the right" },
-      { from: 71,  to: 99,  text: "Switch left → Boufal · Ounahi" },
-      { from: 100, to: 132, text: "Attiat-Allah cross from the left" },
-      { from: 110, to: 132, text: "Dias & Pepe pulled by ball-side", color: "#ec4899" },
-      { from: 133, to: 148, text: "Header — ball in flight" },
-      { from: 149, to: 200, text: "GOAL — En-Nesyri", color: "#ffd166" },
+      { from: 0, to: 30, text: "Build-up — Morocco recycle",
+        pair_defaults: { cats: ["off-off", "cross"], top: 6 } },
+      { from: 31, to: 70, text: "Ziyech turns it down the right",
+        pair_defaults: { cats: ["off-off", "cross"], top: 6 } },
+      { from: 71, to: 99, text: "Switch left → Boufal · Ounahi",
+        pair_defaults: { cats: ["off-off", "cross"], top: 6 } },
+      { from: 100, to: 132, text: "Attiat-Allah cross from the left",
+        pair_defaults: { cats: ["cross"], top: 6 } },
+      { from: 110, to: 132, text: "Dias & Pepe pulled by ball-side", color: "#ec4899",
+        pair_defaults: { cats: ["cross"], top: 6 } },
+      { from: 133, to: 156, text: "Header — ball in flight",
+        pair_defaults: { cats: ["off-off", "cross"], top: 6 } },
+      { from: 157, to: 200, text: "GOAL — En-Nesyri", color: "#ffd166",
+        pair_defaults: { cats: ["off-off", "def-def", "cross"], top: 6 } },
     ],
     // Pin highlight switched to the two CBs that the model actually
     // concentrates pair attention on during the cross.
-    pinning_slots: [11, 21],  // Dias (LCB), Pepe (RCB)
-    pinning: { slots: [11, 21], from: 100, to: 138, label: "ATTENDED" },
+    // Dias (slot 11) and Pepe (slot 21) get pink "PULLED" rings during the
+    // cross — the edges show the attention, the ring calls out the functional
+    // consequence (CBs pulled to the ball-side, can't step out).
+    pinning: { slots: [11, 21], from: 100, to: 138, label: "PULLED" },
+    // En-Nesyri (slot 6) gets a gold "HEADER" ring during the same window so
+    // you can see what the scorer is doing while the CBs are pulled.
+    scorer_slot: 6,
+    scorer_label: "HEADER",
+    scorer_from: 100,
+    scorer_to: 158,
   },
   "near-miss-netherlands-janssen": {
     title: "Janssen 4' blocked — near-miss (Senegal v Netherlands, group stage)",

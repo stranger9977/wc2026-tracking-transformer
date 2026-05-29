@@ -64,12 +64,29 @@ export function clipScaffold(c) {
           <option value="def">Defense only</option>
         </select>
       </span>
-      <span class="wb-toggle" style="cursor:default" title="Teammate↔teammate and cross-team attention edges from the score specialist's player↔player attention matrix (GKs excluded). 'Off' hides them; 'Top 6/12' shows the strongest pairs that frame.">
+      <span class="wb-toggle" style="cursor:default" title="Teammate↔teammate and cross-team attention edges from the score specialist's player↔player attention matrix (GKs excluded). Toggle each category and pick how many strongest pairs per frame to draw.">
         <span>Pair edges:</span>
+        <label style="display:inline-flex; align-items:center; gap:0.2rem; margin-left:0.4rem;">
+          <input type="checkbox" data-iplay="pair-cat-off" checked>
+          <span style="color:#facc15; font-weight:600;">●</span>
+          <span>off↔off</span>
+        </label>
+        <label style="display:inline-flex; align-items:center; gap:0.2rem; margin-left:0.3rem;">
+          <input type="checkbox" data-iplay="pair-cat-def" checked>
+          <span style="color:#60a5fa; font-weight:600;">●</span>
+          <span>def↔def</span>
+        </label>
+        <label style="display:inline-flex; align-items:center; gap:0.2rem; margin-left:0.3rem;">
+          <input type="checkbox" data-iplay="pair-cat-cross" checked>
+          <span style="color:#a78bfa; font-weight:600;">●</span>
+          <span>cross</span>
+        </label>
+        <span style="margin-left:0.5rem;">top:</span>
         <select data-iplay="pair-top" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-          <option value="6" selected>Top 6</option>
-          <option value="12">Top 12</option>
-          <option value="0">Off</option>
+          <option value="3">3</option>
+          <option value="6" selected>6</option>
+          <option value="12">12</option>
+          <option value="0">off</option>
         </select>
       </span>
       <span class="wb-toggle small dim" style="cursor:default" title="Halos are driven by the score-specialist model (the production attention source we use throughout the study).">
@@ -83,6 +100,7 @@ export function clipScaffold(c) {
       <div class="clip-viewer" data-clip="${label}">
         ${ctrlBar}
         <div class="iplay-stage" id="stage-${label}"></div>
+        <div id="narration-${label}" class="iplay-narration" style="margin:0.4rem 0 0.5rem; padding:0.4rem 0.7rem; border-radius:var(--radius-sm); background:var(--bg-elev-2); border:1px solid var(--border); display:none; font-weight:600; letter-spacing:0.4px; text-align:center;"></div>
         <div class="clip-controls">
           <button class="btn small" data-clip="${label}" data-action="prev">◀ prev</button>
           <button class="btn small" data-clip="${label}" data-action="play">▶ play</button>
@@ -164,6 +182,14 @@ function currentPairTopN(scope) {
   const el = pickLocal(scope, "pair-top");
   const v = el ? el.value : "6";
   return parseInt(v, 10) || 0;
+}
+function currentPairCats(scope) {
+  // Returns the set of enabled pair categories: 'off-off', 'def-def', 'cross'.
+  const set = new Set();
+  if ((pickLocal(scope, "pair-cat-off") || {}).checked) set.add("off-off");
+  if ((pickLocal(scope, "pair-cat-def") || {}).checked) set.add("def-def");
+  if ((pickLocal(scope, "pair-cat-cross") || {}).checked) set.add("cross");
+  return set;
 }
 function currentAttnSource(scope) {
   // "Shared model" was retired; production attention now always comes from
@@ -290,6 +316,7 @@ function initClip(c, detail) {
   const gGoalHighlight = svg.querySelector("#g-goal-highlight");
   const gNarration = svg.querySelector("#g-narration");
   const gPairEdges = svg.querySelector("#g-pair-edges");
+  const narrationEl = document.getElementById(`narration-${c.label}`);
 
   /* ---------- scrub markers + goal frame ---------- */
   const goalFrame = frames.findIndex((f) => f.is_goal_event);
@@ -440,14 +467,36 @@ function initClip(c, detail) {
     // so we collect inputs here, build pairEdgesHTML later in the function.
     const pairDrawn = new Set();
     const pairTopN = currentPairTopN(ctrlScope);
+    const pairCats = currentPairCats(ctrlScope);
     const pairTop = f.pair_attention_score_top || [];
-    if (pairTopN > 0 && pairTop.length) {
-      for (let pe = 0; pe < Math.min(pairTopN, pairTop.length); pe++) {
-        const [si, sj] = pairTop[pe];
-        if (playerDOM[si]) pairDrawn.add(si);
-        if (playerDOM[sj]) pairDrawn.add(sj);
+    // Need playerDOM (built above) AND the off/def predicates to filter
+    // by category — predicates live with the player-circles block below.
+    // Re-declare them tiny locals here so this can run first.
+    const _isOff = (p) => p && (p.position === "FWD" || p.position === "MID"
+                               || /^(CF|ST|LW|RW|AM|CM|DM|LM|RM)$/i.test(String(p.position || "")));
+    const filteredPair = [];
+    if (pairTopN > 0 && pairTop.length && pairCats.size > 0) {
+      for (const triplet of pairTop) {
+        const [si, sj] = triplet;
+        const a = playerDOM[si]; const b = playerDOM[sj];
+        if (!a || !b) continue;
+        const sameTeam = String(a.p.team_id) === String(b.p.team_id);
+        const aOff = _isOff(a.p), bOff = _isOff(b.p);
+        let cat = "cross";
+        if (sameTeam && aOff && bOff) cat = "off-off";
+        else if (sameTeam && !aOff && !bOff) cat = "def-def";
+        else if (sameTeam) cat = "off-off"; // mixed same-team: bucket with off-off
+        if (!pairCats.has(cat)) continue;
+        filteredPair.push({ si, sj, w: triplet[2] || 0, cat });
+        if (filteredPair.length >= pairTopN) break;
+      }
+      for (const { si, sj } of filteredPair) {
+        pairDrawn.add(si); pairDrawn.add(sj);
       }
     }
+    // Also keep the goal scorer (if configured) visible even when no pair edge
+    // touches them — so the user can see what the header-taker is doing.
+    if (c.scorer_slot != null && playerDOM[c.scorer_slot]) pairDrawn.add(c.scorer_slot);
 
     // --- player circles
     // Pre-compute top-attended set so we can dim non-involved players.
@@ -497,26 +546,17 @@ function initClip(c, detail) {
     gPlayers.innerHTML = dotsHTML;
 
     // --- player↔player pair attention edges (score specialist, GKs excluded).
-    // pairDrawn already populated above; this block actually emits the SVG.
-    // Colors match the team-network legend on chemistry-wins (off-off yellow,
-    // def-def blue, cross-team purple).
+    // filteredPair was built above respecting the per-category toggles.
     let pairEdgesHTML = "";
-    if (pairTopN > 0 && pairTop.length) {
-      const maxW = pairTop.reduce((m, x) => Math.max(m, x[2] || 0), 0) || 1;
-      for (let pe = 0; pe < Math.min(pairTopN, pairTop.length); pe++) {
-        const [si, sj, w] = pairTop[pe];
-        const a = playerDOM[si];
-        const b = playerDOM[sj];
+    if (filteredPair.length) {
+      const maxW = filteredPair.reduce((m, p) => Math.max(m, p.w), 0) || 1;
+      const STROKE = { "off-off": "#facc15", "def-def": "#60a5fa", "cross": "#a78bfa" };
+      for (const { si, sj, w, cat } of filteredPair) {
+        const a = playerDOM[si], b = playerDOM[sj];
         if (!a || !b) continue;
-        const sameTeam = String(a.p.team_id) === String(b.p.team_id);
-        const aOff = isOffPre(a.p), bOff = isOffPre(b.p);
-        let stroke = "#a78bfa"; // cross-team default (purple)
-        if (sameTeam && aOff && bOff) stroke = "#facc15";       // same-off (yellow)
-        else if (sameTeam && !aOff && !bOff) stroke = "#60a5fa"; // same-def (blue)
-        else if (sameTeam) stroke = "#fbbf24";                   // mixed same-team
         const widthSvg = 1.4 + (w / maxW) * 4.6;
-        const op = 0.45 + (w / maxW) * 0.45;
-        pairEdgesHTML += `<line x1="${a.sx}" y1="${a.sy}" x2="${b.sx}" y2="${b.sy}" stroke="${stroke}" stroke-width="${widthSvg.toFixed(2)}" stroke-opacity="${op.toFixed(2)}" stroke-linecap="round" />`;
+        const op = 0.5 + (w / maxW) * 0.4;
+        pairEdgesHTML += `<line x1="${a.sx}" y1="${a.sy}" x2="${b.sx}" y2="${b.sy}" stroke="${STROKE[cat]}" stroke-width="${widthSvg.toFixed(2)}" stroke-opacity="${op.toFixed(2)}" stroke-linecap="round" />`;
       }
     }
     gPairEdges.innerHTML = pairEdgesHTML;
@@ -585,6 +625,24 @@ function initClip(c, detail) {
     // configured slot during the configured frame window. This is the
     // on-pitch version of the narrative we tell in the body text — the
     // off-ball player holding two defenders before the cross arrives.
+    // --- scorer highlight: gold ring + label on the goal scorer during their
+    // off-ball window (so the reader can track what the eventual scorer is
+    // doing while the model attends to other players). Configured via
+    // c.scorer_slot / c.scorer_label / c.scorer_from / c.scorer_to.
+    if (c.scorer_slot != null
+        && i >= (c.scorer_from ?? 0)
+        && i <= (c.scorer_to ?? n - 1)) {
+      const dom = playerDOM[c.scorer_slot];
+      if (dom) {
+        const r = 22 * pulse;
+        const lab = c.scorer_label || "SCORER";
+        const labelW = Math.max(42, lab.length * 6.5 + 12);
+        halosHTML += `<circle cx="${dom.sx}" cy="${dom.sy}" r="${r.toFixed(1)}" fill="none" stroke="#fbbf24" stroke-width="3" stroke-opacity="0.98" />`;
+        halosHTML += `<rect x="${(dom.sx - labelW / 2).toFixed(1)}" y="${(dom.sy + 18).toFixed(1)}" width="${labelW}" height="15" rx="3" fill="#fbbf24" />`;
+        halosHTML += `<text x="${dom.sx.toFixed(1)}" y="${(dom.sy + 29).toFixed(1)}" fill="#0b1220" font-size="10" font-weight="800" font-family="-apple-system,Segoe UI,sans-serif" text-anchor="middle" letter-spacing="0.5">${escapeSvg(lab)}</text>`;
+      }
+    }
+
     const pinCfg = c.pinning;
     if (pinCfg && i >= (pinCfg.from || 0) && i <= (pinCfg.to ?? n - 1)) {
       // Support legacy single-slot config AND new multi-slot {slots: [..]} form.
@@ -609,16 +667,21 @@ function initClip(c, detail) {
     const ann = annList.findLast
       ? annList.findLast((a) => i >= (a.from || 0) && i <= (a.to ?? n - 1))
       : [...annList].reverse().find((a) => i >= (a.from || 0) && i <= (a.to ?? n - 1));
-    if (ann) {
-      const annColor = ann.color || "#fde047";
-      const bw = 460, bh = 30;
-      const bx = SVG_W / 2 - bw / 2;
-      const by = PITCH_PAD - 2;
-      gNarration.innerHTML = `
-        <rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="6" fill="#0b1220" fill-opacity="0.78" stroke="${annColor}" stroke-opacity="0.85" stroke-width="1.6" />
-        <text x="${SVG_W / 2}" y="${by + 20}" fill="${annColor}" font-size="15" font-weight="700" font-family="-apple-system,Segoe UI,sans-serif" text-anchor="middle" letter-spacing="0.8">${escapeSvg(String(ann.text || "").toUpperCase())}</text>`;
-    } else {
-      gNarration.innerHTML = "";
+    // Render the narration as an HTML chip BELOW the pitch (not over the
+    // players). The in-SVG g-narration group is kept empty so old code paths
+    // don't double-paint.
+    gNarration.innerHTML = "";
+    if (narrationEl) {
+      if (ann) {
+        const annColor = ann.color || "#fde047";
+        narrationEl.style.display = "block";
+        narrationEl.style.color = annColor;
+        narrationEl.style.borderColor = annColor;
+        narrationEl.textContent = String(ann.text || "").toUpperCase();
+      } else {
+        narrationEl.style.display = "none";
+        narrationEl.textContent = "";
+      }
     }
 
     // --- ball: a clear white-and-black soccer ball, well above player dots.
@@ -748,6 +811,7 @@ function initClip(c, detail) {
   function setFrame(j) {
     i = clampToFocus(j);
     scrub.value = String(i);
+    maybeSyncChapterDefaults();
     renderFrame(true);
   }
   function applyFocus() {
@@ -772,6 +836,39 @@ function initClip(c, detail) {
     ctrlScope.querySelector('[data-iplay="include-gk"]')?.addEventListener("change", () => renderFrame(true));
     ctrlScope.querySelector('[data-iplay="edge-filter"]')?.addEventListener("change", () => renderFrame(true));
     ctrlScope.querySelector('[data-iplay="pair-top"]')?.addEventListener("change", () => renderFrame(true));
+    ctrlScope.querySelector('[data-iplay="pair-cat-off"]')?.addEventListener("change", () => renderFrame(true));
+    ctrlScope.querySelector('[data-iplay="pair-cat-def"]')?.addEventListener("change", () => renderFrame(true));
+    ctrlScope.querySelector('[data-iplay="pair-cat-cross"]')?.addEventListener("change", () => renderFrame(true));
+  }
+
+  // Track the active annotation so we can apply its pair_defaults when the
+  // chapter changes (e.g., "Build-up" auto-enables off-off + cross, then
+  // "Cross from left" focuses on cross-team only). User toggles within a
+  // chapter persist until the NEXT chapter is entered.
+  let prevAnnText = null;
+  function maybeSyncChapterDefaults() {
+    const annList = c.annotations || [];
+    const ann = annList.findLast
+      ? annList.findLast((a) => i >= (a.from || 0) && i <= (a.to ?? n - 1))
+      : [...annList].reverse().find((a) => i >= (a.from || 0) && i <= (a.to ?? n - 1));
+    const key = ann ? ann.text : null;
+    if (key !== prevAnnText && ann && ann.pair_defaults && ctrlScope) {
+      const d = ann.pair_defaults;
+      const setBool = (k, v) => {
+        const el = ctrlScope.querySelector(`[data-iplay="pair-cat-${k}"]`);
+        if (el) el.checked = !!v;
+      };
+      if (d.cats) {
+        setBool("off", d.cats.includes("off-off"));
+        setBool("def", d.cats.includes("def-def"));
+        setBool("cross", d.cats.includes("cross"));
+      }
+      if (d.top != null) {
+        const el = ctrlScope.querySelector('[data-iplay="pair-top"]');
+        if (el) el.value = String(d.top);
+      }
+    }
+    prevAnnText = key;
   }
 
   // RAF loop for smooth halo pulse + attention easing even when not stepping.

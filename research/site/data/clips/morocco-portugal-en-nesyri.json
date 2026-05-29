@@ -67412,7 +67412,7 @@
         -16.110000610351562
       ],
       "event_label": "GOAL  \u2014  Youssef En-Nesyri",
-      "is_goal_event": true,
+      "is_goal_event": false,
       "frame_idx": 139,
       "frame_id": 77988,
       "period": 1,
@@ -67896,7 +67896,7 @@
         -13.029999375343323
       ],
       "event_label": "GOAL  \u2014  Youssef En-Nesyri",
-      "is_goal_event": true,
+      "is_goal_event": false,
       "frame_idx": 140,
       "frame_id": 77994,
       "period": 1,
@@ -76117,8 +76117,8 @@
         52.636000215113164,
         0.057599997706711314
       ],
-      "event_label": null,
-      "is_goal_event": false,
+      "event_label": "GOAL \u2014 En-Nesyri (ball crosses the line)",
+      "is_goal_event": true,
       "frame_idx": 157,
       "frame_id": null,
       "period": 1,
