@@ -190,9 +190,18 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
     .filter((e) => placed.has(e.p) && placed.has(e.q) && Number.isFinite(e.aw_joi90) && e.aw_joi90 >= edgeThreshold);
   const maxAW = Math.max(0.4, ...edges.map((e) => e.aw_joi90));
 
-  const W = 100, H = 64, padX = 4, padY = 4;
+  // Viewport: 100 × 70, with a 6-unit headroom at the top reserved for
+  // the WALL / THE ATTACK callouts so they never collide with the
+  // topmost player dots or labels. Pitch starts at y = 6.
+  const W = 100, H = 70;
+  const padX = 4;
+  const padTop = 6;   // headroom for top callouts
+  const padBottom = 4;
   const scaleX = (x) => padX + (x / 100) * (W - 2 * padX);
-  const scaleY = (y) => padY + (y / 64) * (H - 2 * padY);
+  const scaleY = (y) => padTop + (y / 64) * (H - padTop - padBottom);
+  // Legacy padY (used by the pitch rect + box outlines below) — equals
+  // padTop here so the pitch rect starts where the headroom ends.
+  const padY = padTop;
 
   // Midfield highlight cluster (Croatia): Modrić / Brozović / Kovačić
   const midfieldEngine = new Set();
@@ -241,21 +250,23 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
   };
 
   let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="atom-svg" role="img" aria-label="${escapeHTML(teamName)} chemistry network">`;
-  // Pitch surface — a touch of green so it reads as a pitch, not a chart.
-  svg += `<rect x="${padX}" y="${padY}" width="${W - 2*padX}" height="${H - 2*padY}" fill="#13332b" stroke="#2a4034" stroke-width="0.25" rx="1" />`;
+  // Pitch surface — height now defined by padTop and padBottom separately
+  // so we have headroom at the top for the WALL / ATTACK callouts.
+  const pitchH = H - padTop - padBottom;
+  const pitchCY = padTop + pitchH / 2;
+  svg += `<rect x="${padX}" y="${padTop}" width="${W - 2*padX}" height="${pitchH}" fill="#13332b" stroke="#2a4034" stroke-width="0.25" rx="1" />`;
   // Halfway line + center circle.
-  svg += `<line x1="${W/2}" y1="${padY}" x2="${W/2}" y2="${H - padY}" stroke="#2a4034" stroke-width="0.18" />`;
-  svg += `<circle cx="${W/2}" cy="${H/2}" r="5" stroke="#2a4034" stroke-width="0.18" fill="none" />`;
-  // Penalty boxes for spatial context (16.5 m wide, 40.32 m tall on a 105×68
-  // pitch → ~15.7% wide, ~59% tall in our scaled coords).
+  svg += `<line x1="${W/2}" y1="${padTop}" x2="${W/2}" y2="${padTop + pitchH}" stroke="#2a4034" stroke-width="0.18" />`;
+  svg += `<circle cx="${W/2}" cy="${pitchCY}" r="5" stroke="#2a4034" stroke-width="0.18" fill="none" />`;
+  // Penalty boxes for spatial context (16.5 m wide, 40.32 m tall on a 105×68 pitch).
   const pbW = (16.5 / 105) * (W - 2 * padX);
-  const pbH = (40.32 / 68) * (H - 2 * padY);
+  const pbH = (40.32 / 68) * pitchH;
   const sixW = (5.5 / 105) * (W - 2 * padX);
-  const sixH = (18.32 / 68) * (H - 2 * padY);
-  svg += `<rect x="${padX}" y="${(H - pbH) / 2}" width="${pbW.toFixed(1)}" height="${pbH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.15" />`;
-  svg += `<rect x="${(W - padX - pbW).toFixed(1)}" y="${(H - pbH) / 2}" width="${pbW.toFixed(1)}" height="${pbH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.15" />`;
-  svg += `<rect x="${padX}" y="${(H - sixH) / 2}" width="${sixW.toFixed(1)}" height="${sixH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.12" />`;
-  svg += `<rect x="${(W - padX - sixW).toFixed(1)}" y="${(H - sixH) / 2}" width="${sixW.toFixed(1)}" height="${sixH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.12" />`;
+  const sixH = (18.32 / 68) * pitchH;
+  svg += `<rect x="${padX}" y="${(pitchCY - pbH / 2).toFixed(1)}" width="${pbW.toFixed(1)}" height="${pbH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.15" />`;
+  svg += `<rect x="${(W - padX - pbW).toFixed(1)}" y="${(pitchCY - pbH / 2).toFixed(1)}" width="${pbW.toFixed(1)}" height="${pbH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.15" />`;
+  svg += `<rect x="${padX}" y="${(pitchCY - sixH / 2).toFixed(1)}" width="${sixW.toFixed(1)}" height="${sixH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.12" />`;
+  svg += `<rect x="${(W - padX - sixW).toFixed(1)}" y="${(pitchCY - sixH / 2).toFixed(1)}" width="${sixW.toFixed(1)}" height="${sixH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.12" />`;
 
   // Render edges in two passes so muted ones go BEHIND the highlighted ones.
   // For Morocco's wall+recycle view we also cap the focus list per category
@@ -336,14 +347,14 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
     const drawCallout = (cluster, text, color) => {
       if (!cluster.length) return;
       const cx = cluster.reduce((s, n) => s + scaleX(n.x), 0) / cluster.length;
-      const topY = Math.min(...cluster.map((n) => scaleY(n.y) - 2.8));
-      const boxY = 0.4;  // pinned to pitch top
-      const boxH = 3.4;
-      // Tether line down to the cluster's top
-      svg += `<line x1="${cx.toFixed(1)}" y1="${(boxY + boxH).toFixed(1)}" x2="${cx.toFixed(1)}" y2="${topY.toFixed(1)}" stroke="${color}" stroke-opacity="0.45" stroke-width="0.25" stroke-dasharray="0.8 0.8" />`;
-      const w = Math.max(10, text.length * 1.05);
-      svg += `<rect x="${(cx - w / 2).toFixed(1)}" y="${boxY}" width="${w.toFixed(1)}" height="${boxH}" rx="0.6" fill="#0b1220" stroke="${color}" stroke-width="0.2" />`;
-      svg += `<text x="${cx.toFixed(1)}" y="${(boxY + 2.4).toFixed(1)}" text-anchor="middle" style="fill:${color}; font-size:2.2px; font-weight:800; letter-spacing:0.4px;">${text}</text>`;
+      // Lives in the dedicated headroom band (y 0-6) — guaranteed clear
+      // of every player dot / label since the pitch surface itself
+      // starts at y = padTop (6).
+      const boxY = 0.6;
+      const boxH = 4.4;
+      const w = Math.max(14, text.length * 1.35 + 3);
+      svg += `<rect x="${(cx - w / 2).toFixed(1)}" y="${boxY}" width="${w.toFixed(1)}" height="${boxH}" rx="0.8" fill="${color}" fill-opacity="0.16" stroke="${color}" stroke-width="0.35" />`;
+      svg += `<text x="${cx.toFixed(1)}" y="${(boxY + 2.8).toFixed(1)}" text-anchor="middle" style="fill:${color}; font-size:2.6px; font-weight:800; letter-spacing:0.5px;">${text}</text>`;
     };
     const defs = [...placed.values()].filter((n) => isDef(n.position));
     drawCallout(defs, "THE WALL", "#5eb1f8");
