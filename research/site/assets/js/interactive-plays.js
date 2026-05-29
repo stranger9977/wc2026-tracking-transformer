@@ -554,7 +554,8 @@ function initClip(c, detail) {
           arrow = `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="${color}" stroke-opacity="0.75" stroke-width="1.6" stroke-linecap="round" />`;
         }
       }
-      dotsHTML += `${arrow}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}" />`;
+      const hoverTxt = p.name ? `${p.name}${p.position ? " · " + p.position : ""}` : `slot ${p.slot}`;
+      dotsHTML += `${arrow}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}"><title>${escapeSvg(hoverTxt)}</title></circle>`;
     }
     gPlayers.innerHTML = dotsHTML;
 
@@ -726,9 +727,15 @@ function initClip(c, detail) {
       const labelH = 11;
       const { lx, ly } = pickLabelPos(sx, sy, p.vx, p.vy, labelW, labelH, placed);
       placed.push({ x: lx, y: ly, w: labelW, h: labelH });
-      const labelInvolved = dimSet.has(p.slot) || pairDrawn.has(p.slot) || p.has_possession;
-      const labelOp = labelInvolved ? 1.0 : 0.35;
-      labelsHTML += `<g class="iplay-label" opacity="${labelOp}"><rect x="${lx}" y="${ly}" width="${labelW}" height="${labelH}" fill="#0b1220" fill-opacity="0.7" rx="2.5" /><text x="${lx + 4}" y="${ly + 8}" fill="#ffffff" font-size="8.5" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
+      const labelInvolved = dimSet.has(p.slot) || pairDrawn.has(p.slot) || p.has_possession
+        || p.slot === c.scorer_slot
+        || (c.pinning && (c.pinning.slots || [c.pinning.slot]).includes(p.slot));
+      // Only emit labels for involved players — drops the noisy mass of
+      // name tags on dimmed defenders/midfielders that were drowning the
+      // story (ping-pong → feed → finish). Dimmed players still show as
+      // ghost dots; their identity hover-state is in the SVG <title>.
+      if (!labelInvolved) continue;
+      labelsHTML += `<g class="iplay-label"><rect x="${lx}" y="${ly}" width="${labelW}" height="${labelH}" fill="#0b1220" fill-opacity="0.78" rx="2.5" /><text x="${lx + 4}" y="${ly + 8}" fill="#ffffff" font-size="8.5" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
     }
     gLabels.innerHTML = labelsHTML;
 
