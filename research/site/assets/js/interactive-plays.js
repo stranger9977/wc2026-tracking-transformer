@@ -275,6 +275,7 @@ function initClip(c, detail) {
   const gBall = svg.querySelector("#g-ball");
   const gLabels = svg.querySelector("#g-labels");
   const gGoalHighlight = svg.querySelector("#g-goal-highlight");
+  const gNarration = svg.querySelector("#g-narration");
 
   /* ---------- scrub markers + goal frame ---------- */
   const goalFrame = frames.findIndex((f) => f.is_goal_event);
@@ -526,7 +527,40 @@ function initClip(c, detail) {
       const op = 0.25 + (1 - rank / nTop) * 0.45;
       halosHTML += `<circle cx="${target.sx}" cy="${target.sy}" r="${rPulse.toFixed(1)}" fill="none" stroke="#fde047" stroke-width="2" stroke-opacity="${op.toFixed(2)}" />`;
     });
+    // --- pinning highlight: bright magenta dashed ring + "PIN" label on the
+    // configured slot during the configured frame window. This is the
+    // on-pitch version of the narrative we tell in the body text — the
+    // off-ball player holding two defenders before the cross arrives.
+    const pinCfg = c.pinning;
+    if (pinCfg && i >= (pinCfg.from || 0) && i <= (pinCfg.to ?? n - 1)) {
+      const dom = playerDOM[pinCfg.slot];
+      if (dom) {
+        const rPin = 22 * pulse;
+        halosHTML += `<circle cx="${dom.sx}" cy="${dom.sy}" r="${rPin.toFixed(1)}" fill="none" stroke="#ec4899" stroke-width="3" stroke-opacity="0.95" stroke-dasharray="5 3" />`;
+        halosHTML += `<rect x="${(dom.sx - 18).toFixed(1)}" y="${(dom.sy - 38).toFixed(1)}" width="36" height="15" rx="3" fill="#ec4899" />`;
+        halosHTML += `<text x="${dom.sx.toFixed(1)}" y="${(dom.sy - 27).toFixed(1)}" fill="#0b1220" font-size="10" font-weight="800" font-family="-apple-system,Segoe UI,sans-serif" text-anchor="middle" letter-spacing="0.5">PIN</text>`;
+      }
+    }
     gHalos.innerHTML = halosHTML;
+
+    // --- narration banner: top-of-pitch caption that names the current
+    // chapter ("BUILDUP", "SWITCH LEFT", "CROSS", "PIN", "HEADER"). Looks up
+    // c.annotations = [{from, to, text, color?}] and renders the first hit.
+    const annList = c.annotations || [];
+    const ann = annList.findLast
+      ? annList.findLast((a) => i >= (a.from || 0) && i <= (a.to ?? n - 1))
+      : [...annList].reverse().find((a) => i >= (a.from || 0) && i <= (a.to ?? n - 1));
+    if (ann) {
+      const annColor = ann.color || "#fde047";
+      const bw = 460, bh = 30;
+      const bx = SVG_W / 2 - bw / 2;
+      const by = PITCH_PAD - 2;
+      gNarration.innerHTML = `
+        <rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="6" fill="#0b1220" fill-opacity="0.78" stroke="${annColor}" stroke-opacity="0.85" stroke-width="1.6" />
+        <text x="${SVG_W / 2}" y="${by + 20}" fill="${annColor}" font-size="15" font-weight="700" font-family="-apple-system,Segoe UI,sans-serif" text-anchor="middle" letter-spacing="0.8">${escapeSvg(String(ann.text || "").toUpperCase())}</text>`;
+    } else {
+      gNarration.innerHTML = "";
+    }
 
     // --- ball: a clear white-and-black soccer ball, well above player dots.
     // Outer "glow" ring makes it pop against a halo-rich scene; the central
@@ -780,6 +814,7 @@ function pitchSvgScaffold(detail) {
       <g id="g-players"></g>
       <g id="g-ball"></g>
       <g id="g-labels"></g>
+      <g id="g-narration"></g>
     </svg>`;
 }
 
@@ -859,7 +894,14 @@ function pChartSvg(frames, opts = {}) {
   const n = frames.length;
   if (n === 0) return "";
   const w = 100, h = CHART_H;
-  const pad = 4;
+  // X-axis has zero left/right padding so chart frames align 1:1 with the
+  // slider above (which uses a no-padding 0..100% markers div). The earlier
+  // pad=4 on x made the goal tick visually appear ~3% to the LEFT of the
+  // slider's goal position. Keep a small vertical pad so the curve doesn't
+  // hug the top/bottom edges.
+  const padX = 0;
+  const padY = 4;
+  const pad = padY; // y-only legacy alias used by the raw two-line path below
   const perspective = opts.perspective || "raw";
   const povTeamId = opts.povTeamId;
   const povName = opts.povName || "team";
@@ -867,7 +909,7 @@ function pChartSvg(frames, opts = {}) {
   // Event markers along the time axis
   const evMarks = frames.map((f, i) => {
     if (!f.event_label) return "";
-    const px = (i / Math.max(1, n - 1)) * (w - 2 * pad) + pad;
+    const px = (i / Math.max(1, n - 1)) * (w - 2 * padX) + padX;
     const color = f.is_goal_event ? "#ffd166" : "#9aa5b1";
     const dy = f.is_goal_event ? 6 : 4;
     return `<line x1="${px}" y1="${h - dy}" x2="${px}" y2="${h}" stroke="${color}" stroke-width="${f.is_goal_event ? 0.9 : 0.4}" />`;
@@ -878,7 +920,7 @@ function pChartSvg(frames, opts = {}) {
       const ys = frames.map((f) => f[key] || 0);
       const ymax = Math.max(0.05, ...ys, ...frames.map((f) => f.p_concede || 0), ...frames.map((f) => f.p_score || 0));
       const pts = ys.map((y, i) => {
-        const px = (i / Math.max(1, n - 1)) * (w - 2 * pad) + pad;
+        const px = (i / Math.max(1, n - 1)) * (w - 2 * padX) + padX;
         const py = h - pad - (y / ymax) * (h - 2 * pad);
         return `${px.toFixed(2)},${py.toFixed(2)}`;
       });
@@ -935,7 +977,7 @@ function pChartSvg(frames, opts = {}) {
   }
   const yToPy = (v) => h - pad - ((v + 1) / 2) * (h - 2 * pad);  // map [-1, +1] → plot
   const pts = net.map((v, i) => {
-    const px = (i / Math.max(1, n - 1)) * (w - 2 * pad) + pad;
+    const px = (i / Math.max(1, n - 1)) * (w - 2 * padX) + padX;
     return `${px.toFixed(2)},${yToPy(v).toFixed(2)}`;
   });
   // Build a soft area fill (positive part green, negative part red) for legibility.
@@ -946,7 +988,7 @@ function pChartSvg(frames, opts = {}) {
       const yClamped = Math.min(parseFloat(zeroY), y);
       return `${x.toFixed(2)},${yClamped.toFixed(2)}`;
     });
-  const areaPath = `${pad},${zeroY} ${areaPos.join(" ")} ${(w - pad).toFixed(2)},${zeroY}`;
+  const areaPath = `${padX},${zeroY} ${areaPos.join(" ")} ${(w - padX).toFixed(2)},${zeroY}`;
   return `
     <div class="chart-title">
       <span><span class="dot" style="background:#54c875"></span>Net P · from ${escapeHTML(povName)} (EWMA, +10 s shift)</span>
@@ -954,7 +996,7 @@ function pChartSvg(frames, opts = {}) {
     </div>
     <svg class="chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="0" y="0" width="${w}" height="${h}" fill="#0b1220" />
-      <line x1="${pad}" y1="${zeroY}" x2="${w - pad}" y2="${zeroY}" stroke="#3a4554" stroke-width="0.2" />
+      <line x1="${padX}" y1="${zeroY}" x2="${w - padX}" y2="${zeroY}" stroke="#3a4554" stroke-width="0.2" />
       <polygon fill="#54c875" fill-opacity="0.18" points="${areaPath}" />
       <polyline fill="none" stroke="#54c875" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" points="${pts.join(" ")}" />
       ${evMarks}
