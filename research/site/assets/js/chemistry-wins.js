@@ -497,6 +497,30 @@ function renderTeamView(teamKey, view) {
   }
 }
 
+// Per-team, per-view heading + blurb text. When the user toggles between
+// Nucleus and Network, the headline above the graph updates so it doesn't
+// keep claiming "Messi's orbital network" while you're actually looking at
+// the pitch-positioned team network.
+const NET_VIEW_TEXT = {
+  argentina: {
+    nucleus: {
+      h: "Messi's orbital network",
+      p: "Spokes from Messi to every strong same-squad partner. Line thickness ∝ AW-JOI90; shorter orbit = stronger pair. Goalkeeper excluded.",
+    },
+    network: {
+      h: "Argentina — pitch-positioned chemistry network",
+      p: "Every Argentina player as a node on the pitch; edges colored by pair category (yellow off↔off, blue def↔def, purple cross-team). Capped per category so the strongest pairs read at a glance.",
+    },
+  },
+};
+function updateNetHeading(teamKey, view) {
+  const cfg = NET_VIEW_TEXT[teamKey]?.[view];
+  if (!cfg) return;
+  const hEl = document.getElementById(`${teamKey}-net-heading`);
+  const pEl = document.getElementById(`${teamKey}-net-blurb`);
+  if (hEl) hEl.textContent = cfg.h;
+  if (pEl) pEl.textContent = cfg.p;
+}
 function wireNetworkToggles() {
   document.querySelectorAll(".net-view-toggle").forEach((group) => {
     const teamKey = group.dataset.team;
@@ -504,6 +528,7 @@ function wireNetworkToggles() {
     const buttons = group.querySelectorAll(".net-view-btn");
     const apply = (view) => {
       buttons.forEach((b) => b.classList.toggle("active", b.dataset.view === view));
+      updateNetHeading(teamKey, view);
       renderTeamView(teamKey, view);
     };
     buttons.forEach((b) => b.addEventListener("click", () => apply(b.dataset.view)));
@@ -801,25 +826,26 @@ const PLAY_INDEX = {
   "argentina-australia-messi": {
     title: "Messi 35' (Argentina v Australia, R16)",
     summary: "Argentina build out of their own half, Otamendi flicks it across the box, and Messi finishes low past Ryan. The model reads it as Argentina's signature: the build-up is structural recycling, then attention collapses onto Messi at the strike.",
+    // Clip is 117 frames total: 109 real (Argentina buildup + shot up to
+    // the ball reaching the goal line at frame 108), then 8 synthetic
+    // tail frames carrying the ball into the net. Goal lands at frame 112.
     annotations: [
       { from: 0,   to: 30,  text: "Recycle in Argentina's half",
         pair_defaults: { cats: ["off-off"], top: 2 } },
       { from: 31,  to: 89,  text: "Side switch — Otamendi works it across",
         pair_defaults: { cats: ["off-off"], top: 3 } },
-      { from: 90,  to: 105, text: "Otamendi flicks it to Messi at the top of the box",
+      { from: 90,  to: 100, text: "Otamendi flicks it to Messi",
         pair_defaults: { cats: ["off-off", "cross"], top: 3 } },
-      { from: 106, to: 155, text: "Messi strikes — ball in flight",
+      { from: 101, to: 111, text: "Messi strikes — ball in flight",
         pair_defaults: { cats: ["off-off"], top: 3 } },
-      { from: 156, to: 200, text: "GOAL — Messi", color: "#ffd166",
+      { from: 112, to: 200, text: "GOAL — Messi", color: "#ffd166",
         pair_defaults: { cats: ["off-off", "def-def", "cross"], top: 4 } },
     ],
-    // Otamendi's flick lands at frame ~95; ring fires a beat earlier and
-    // lifts at the strike. Avoids the previous "FEEDER on Otamendi for the
-    // entire build-up" misread.
-    pinning: { slots: [1], from: 90, to: 105, label: "FEEDER" },
+    // Otamendi's flick happens around frame ~95; ring lifts at the strike.
+    pinning: { slots: [1], from: 90, to: 100, label: "FEEDER" },
     scorer_slot: 5, // Messi
     scorer_label: "FINISH",
-    scorer_from: 91,
+    scorer_from: 95,
     scorer_to: 200,
   },
   "argentina-france-mbappe-volley": {

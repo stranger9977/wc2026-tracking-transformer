@@ -534,20 +534,26 @@ function initClip(c, detail) {
     for (const entry of playerDOM) {
       if (!entry) continue;
       const { p, sx, sy, color } = entry;
-      const involved = dimSet.has(p.slot) || pairDrawn.has(p.slot);
+      const involved = dimSet.has(p.slot) || pairDrawn.has(p.slot) || p.has_possession;
       // Dim non-attended players (down to ~0.32 opacity); ball-carrier is
       // always full-bright so the carrier is never lost in the dim mass.
-      const dimOp = (involved || p.has_possession) ? 1.0 : 0.32;
+      const dimOp = involved ? 1.0 : 0.32;
       const radius = p.is_gk ? 9 : 8;
       const stroke = p.is_gk ? "#00d68f" : "#ffffffcc";
       const sw = p.is_gk ? 2.0 : 1.0;
-      // Velocity arrow tail — 0.5s lookahead, deterministic.
-      const lead = 0.5; // seconds
-      const [ex, ey] = mToSvg(p.x + p.vx * lead, p.y + p.vy * lead);
-      const v = Math.hypot(ex - sx, ey - sy);
-      const arrow = v > 4
-        ? `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="${color}" stroke-opacity="${(0.55 * dimOp).toFixed(2)}" stroke-width="1.4" />`
-        : "";
+      // Velocity arrow tail — 0.5s lookahead. ONLY draw it for involved
+      // players (top-attended, in a top pair, or ball-carrier); for the
+      // rest it was reading as noise — faint diagonal lines criss-crossing
+      // the pitch that didn't carry any signal.
+      let arrow = "";
+      if (involved) {
+        const lead = 0.5; // seconds
+        const [ex, ey] = mToSvg(p.x + p.vx * lead, p.y + p.vy * lead);
+        const v = Math.hypot(ex - sx, ey - sy);
+        if (v > 4) {
+          arrow = `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="${color}" stroke-opacity="0.75" stroke-width="1.6" stroke-linecap="round" />`;
+        }
+      }
       dotsHTML += `${arrow}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}" />`;
     }
     gPlayers.innerHTML = dotsHTML;
