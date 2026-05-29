@@ -563,6 +563,10 @@ function initClip(c, detail) {
     for (const entry of playerDOM) {
       if (!entry) continue;
       const { p, sx, sy, color } = entry;
+      // Focus mode: completely skip non-focus players (no dot, no arrow,
+      // no label, no halo). Ball-carrier is always rendered so we never
+      // lose the on-ball player even if the chapter forgot to list them.
+      if (focusSet && !focusSet.has(p.slot) && !p.has_possession) continue;
       const involved = dimSet.has(p.slot) || pairDrawn.has(p.slot) || p.has_possession;
       // Dim non-attended players (down to ~0.32 opacity); ball-carrier is
       // always full-bright so the carrier is never lost in the dim mass.
@@ -656,6 +660,8 @@ function initClip(c, detail) {
     topIdx.forEach((s, rank) => {
       const target = playerDOM[s];
       if (!target) return;
+      // Focus mode: skip halos on non-focus, non-ball-carrier players.
+      if (focusSet && !focusSet.has(s) && !target.p.has_possession) return;
       const a = smoothAttn[s] || 0;
       const r = 14 + Math.min(0.5, a) * 28;       // base radius
       const rPulse = rank === 0 ? r * pulse : r;
