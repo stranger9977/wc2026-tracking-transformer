@@ -153,6 +153,26 @@
         </div>
         <div id="net-argentina" class="team-network"></div>
       </div>
+      <figure class="card mt-2" style="margin:0 0 1rem;">
+        <img src="assets/img/messi-argentina-australia.gif"
+             alt="Messi 35' vs Australia — 12s broadcast clip"
+             style="width:100%; max-width:720px; display:block; margin:0 auto; border-radius:var(--radius-sm);"
+             loading="lazy">
+        <figcaption class="small dim" style="margin-top:0.4rem; text-align:center;">
+          <strong style="color:var(--text)">What you're seeing</strong> &mdash;
+          Argentina build out from the back, work it across, and
+          <strong style="color:var(--text)">Otamendi</strong> flicks it
+          to <strong style="color:var(--text)">Messi</strong> at the top
+          of the box. Low finish past Ryan.
+          <br><br>
+          <strong style="color:var(--text)">What the interactive play below shows</strong> &mdash;
+          the model reads it as Argentina's signature: the build-up
+          itself is structural recycling between Romero / Otamendi /
+          Mart&iacute;nez, then attention collapses onto Messi at the
+          strike. The nucleus isn't on every frame &mdash; it shows up
+          exactly when the ball arrives at him.
+        </figcaption>
+      </figure>
       <div id="play-argentina" class="mt-2"></div>
       <p class="dim small">
         Why this clip: Argentina build out from the back, Otamendi flicks it across
@@ -248,16 +268,22 @@
         <div id="morocco-elite-pairs" style="margin-top:0.5rem;"></div>
       </div>
       <div class="card" style="margin-bottom:1rem;">
-        <h3 class="mt-0">Where the #3 rank comes from</h3>
-        <p class="dim small mt-0">
-          Each bar is one team's count of <em>strong def&harr;def pairs</em>
-          (AW-JDI90 &ge; 0.30) across the whole tournament. Morocco's lattice
-          isn't a vibe &mdash; it's the third-densest defensive pair-block of
-          any squad at Qatar 2022. Brazil and France produced more, but both
-          had bigger overall squads of pair-history; Morocco's def-block is
-          a larger <em>share</em> of their TCD than either.
-        </p>
-        <div id="morocco-tcd-hero" style="margin:0.4rem 0 0.6rem;"></div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap;">
+          <div>
+            <h3 class="mt-0">How Morocco ranks among the 31</h3>
+            <p class="dim small mt-0" id="morocco-metric-blurb"></p>
+          </div>
+          <label style="display:inline-flex; flex-direction:column; gap:0.2rem;">
+            <span class="dim small" style="text-transform:uppercase; letter-spacing:0.5px;">Metric</span>
+            <select id="morocco-metric-select" style="background:var(--bg-elev-2); color:var(--text); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.25rem 0.5rem; font:inherit; min-width:14rem;">
+              <option value="sum_jdi" selected>Total defensive mass &mdash; sum of AW-JDI90</option>
+              <option value="n_strong">Count of strong pairs (AW-JDI90 &ge; 0.30)</option>
+              <option value="top5_mean">Mean of top-5 def&harr;def pairs</option>
+              <option value="mean_jdi">Mean across all def&harr;def pairs</option>
+            </select>
+          </label>
+        </div>
+        <div id="morocco-tcd-hero" style="margin:0.6rem 0 0.6rem;"></div>
         <div id="morocco-tcd-def-leaderboard" style="margin-top:0.4rem;"></div>
         <p class="dim small" style="margin-top:0.4rem;">
           <strong style="color:var(--text)">Morocco's own breakdown:</strong>
@@ -464,6 +490,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=pctile-chips-network-cap"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=metric-switcher-names"></script>
 </body>
 </html>

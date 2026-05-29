@@ -475,9 +475,16 @@ function initClip(c, detail) {
     const _isOff = (p) => p && (p.position === "FWD" || p.position === "MID"
                                || /^(CF|ST|LW|RW|AM|CM|DM|LM|RM)$/i.test(String(p.position || "")));
     const filteredPair = [];
+    // Minimum pair weight to render. Below this the line is noise
+    // (random low-attention pairs the model fills the top-K with when
+    // there's no real chemistry signal). Cuts the "weird lines at the
+    // beginning of the clip" before any real on-ball action.
+    const PAIR_W_MIN = 0.10;
     if (pairTopN > 0 && pairTop.length && pairCats.size > 0) {
       for (const triplet of pairTop) {
         const [si, sj] = triplet;
+        const w = triplet[2] || 0;
+        if (w < PAIR_W_MIN) continue;
         const a = playerDOM[si]; const b = playerDOM[sj];
         if (!a || !b) continue;
         const sameTeam = String(a.p.team_id) === String(b.p.team_id);
@@ -487,7 +494,7 @@ function initClip(c, detail) {
         else if (sameTeam && !aOff && !bOff) cat = "def-def";
         else if (sameTeam) cat = "off-off"; // mixed same-team: bucket with off-off
         if (!pairCats.has(cat)) continue;
-        filteredPair.push({ si, sj, w: triplet[2] || 0, cat });
+        filteredPair.push({ si, sj, w, cat });
         if (filteredPair.length >= pairTopN) break;
       }
       for (const { si, sj } of filteredPair) {

@@ -128,6 +128,27 @@ const POS_XY = {
 };
 function isOff(pos) { return /^(CF|ST|LW|RW|AM|CM|DM|LM|RM|CAM|CDM|LCM|RCM|SS)$/.test(pos || ""); }
 function isDef(pos) { return /^(CB|LB|RB|LCB|RCB|LWB|RWB|GK)$/.test(pos || ""); }
+// Surname helper that keeps compound surnames intact: "Mac Allister",
+// "Di María", "Van Dijk", "De Bruyne", "El Yamiq" etc. Without this, the
+// network shows "Allister" / "María" / "Dijk" — wrong and confusing.
+const SURNAME_PARTICLES = new Set([
+  "di","de","da","do","das","dos","del","della","la","le","los",
+  "van","von","der","den","ter",
+  "mac","mc",
+  "el","al","bin","ibn","abu",
+  "san","santa",
+]);
+function niceSurname(fullName) {
+  if (!fullName) return "";
+  const parts = fullName.trim().split(/\s+/);
+  if (parts.length < 2) return fullName;
+  let take = 1;
+  for (let i = parts.length - 2; i >= Math.max(0, parts.length - 3); i--) {
+    if (SURNAME_PARTICLES.has(parts[i].toLowerCase())) take = parts.length - i;
+    else break;
+  }
+  return parts.slice(-take).join(" ");
+}
 function pitchXY(position, idx, sameCount) {
   const base = POS_XY[position] || [55, 32];
   const offset = sameCount > 1 ? (idx - (sameCount - 1) / 2) * 8 : 0;
@@ -250,21 +271,29 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
     cat2style.set(meta.color, meta);
     (meta.muted ? mutedEdges : focusEdges).push({ e, a, b, ...meta });
   }
-  if (highlight === "wall+recycle") {
-    const CAP = { "def": 6, "off": 6, "cross": 8 };
+  // Universal per-category cap on focused edges so no team network turns
+  // into spaghetti. Per-highlight cap profiles tuned to keep the strongest
+  // story-bearing edges and drop the rest into the muted bucket (where
+  // they still render very faintly at the back).
+  const CAP_BY_HIGHLIGHT = {
+    "wall+recycle": { def: 6, off: 6, cross: 8 },
+    "def":          { def: 8, off: 4, cross: 5 },
+    "midfield":     { def: 4, off: 8, cross: 6 },
+    "_default":     { def: 5, off: 7, cross: 6 },
+  };
+  const CAP = CAP_BY_HIGHLIGHT[highlight] || CAP_BY_HIGHLIGHT._default;
+  {
     const seenCats = new Map();
     const capped = [];
+    const overflow = [];
     for (const ed of focusEdges) {
       const seen = seenCats.get(ed.cat) || 0;
       const cap = CAP[ed.cat] ?? 100;
-      if (seen >= cap) continue;
+      if (seen >= cap) { overflow.push(ed); continue; }
       seenCats.set(ed.cat, seen + 1);
       capped.push(ed);
     }
-    // Push the overflow into the muted bucket so they still render very faintly
-    for (const ed of focusEdges) {
-      if (!capped.includes(ed)) mutedEdges.push({ ...ed, muted: true });
-    }
+    for (const ed of overflow) mutedEdges.push({ ...ed, muted: true });
     focusEdges.length = 0;
     focusEdges.push(...capped);
   }
@@ -296,28 +325,31 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
       svg += `<circle cx="${scaleX(n.x).toFixed(1)}" cy="${scaleY(n.y).toFixed(1)}" r="${(r + 0.9).toFixed(2)}" fill="none" stroke="${ringColor}" stroke-opacity="0.25" stroke-width="0.5" />`;
     }
     svg += `<circle cx="${scaleX(n.x).toFixed(1)}" cy="${scaleY(n.y).toFixed(1)}" r="${r.toFixed(2)}" fill="#0b1220" stroke="${ringColor}" stroke-width="${ringWidth}"><title>${escapeHTML(n.name)} (${escapeHTML(n.position)}) · ${Math.round(n.minutes)} min</title></circle>`;
-    const surname = (n.name || "").split(" ").slice(-1)[0] || n.name;
-    svg += `<text x="${scaleX(n.x).toFixed(1)}" y="${(scaleY(n.y) + r + 1.7).toFixed(1)}" text-anchor="middle" class="atom-label" style="font-weight:${isWallNode ? 700 : 500}; fill:${isWallNode ? "#cfe3ff" : "#cdd6e3"};">${escapeHTML(surname)}</text>`;
+    const displayName = niceSurname(n.name);
+    svg += `<text x="${scaleX(n.x).toFixed(1)}" y="${(scaleY(n.y) + r + 2.6).toFixed(1)}" text-anchor="middle" class="atom-label" style="font-weight:${isWallNode ? 700 : 600}; fill:${isWallNode ? "#cfe3ff" : "#e8eef9"};">${escapeHTML(displayName)}</text>`;
   }
-  // Callouts: WALL above the defender column (def highlight) and the same
-  // plus a RECYCLE label above the off cluster for the Morocco wall+recycle
-  // story. Positioned at the cluster's top edge so they don't overlap dots.
+  // Callouts: WALL / THE ATTACK pinned to the TOP edge of the pitch
+  // (above the play, where they can't overlap anything) and connected to
+  // their cluster with a faint vertical line. Avoids the previous problem
+  // where the boxes sat on top of the player dots and labels.
   if (highlight === "def" || highlight === "wall+recycle") {
+    const drawCallout = (cluster, text, color) => {
+      if (!cluster.length) return;
+      const cx = cluster.reduce((s, n) => s + scaleX(n.x), 0) / cluster.length;
+      const topY = Math.min(...cluster.map((n) => scaleY(n.y) - 2.8));
+      const boxY = 0.4;  // pinned to pitch top
+      const boxH = 3.4;
+      // Tether line down to the cluster's top
+      svg += `<line x1="${cx.toFixed(1)}" y1="${(boxY + boxH).toFixed(1)}" x2="${cx.toFixed(1)}" y2="${topY.toFixed(1)}" stroke="${color}" stroke-opacity="0.45" stroke-width="0.25" stroke-dasharray="0.8 0.8" />`;
+      const w = Math.max(10, text.length * 1.05);
+      svg += `<rect x="${(cx - w / 2).toFixed(1)}" y="${boxY}" width="${w.toFixed(1)}" height="${boxH}" rx="0.6" fill="#0b1220" stroke="${color}" stroke-width="0.2" />`;
+      svg += `<text x="${cx.toFixed(1)}" y="${(boxY + 2.4).toFixed(1)}" text-anchor="middle" style="fill:${color}; font-size:2.2px; font-weight:800; letter-spacing:0.4px;">${text}</text>`;
+    };
     const defs = [...placed.values()].filter((n) => isDef(n.position));
-    if (defs.length) {
-      const cx = defs.reduce((s, n) => s + scaleX(n.x), 0) / defs.length;
-      const topY = Math.min(...defs.map((n) => scaleY(n.y))) - 1.5;
-      svg += `<rect x="${(cx - 5.6).toFixed(1)}" y="${(topY - 3.8).toFixed(1)}" width="11.2" height="3.6" rx="0.6" fill="#0b1220" stroke="#5eb1f8" stroke-width="0.18" />`;
-      svg += `<text x="${cx.toFixed(1)}" y="${(topY - 1.3).toFixed(1)}" text-anchor="middle" style="fill:#5eb1f8; font-size:2.2px; font-weight:800; letter-spacing:0.4px;">THE WALL</text>`;
-    }
+    drawCallout(defs, "THE WALL", "#5eb1f8");
     if (highlight === "wall+recycle") {
       const offs = [...placed.values()].filter((n) => isOff(n.position));
-      if (offs.length) {
-        const cx = offs.reduce((s, n) => s + scaleX(n.x), 0) / offs.length;
-        const topY = Math.min(...offs.map((n) => scaleY(n.y))) - 1.5;
-        svg += `<rect x="${(cx - 6.0).toFixed(1)}" y="${(topY - 3.8).toFixed(1)}" width="12.0" height="3.6" rx="0.6" fill="#0b1220" stroke="#f59e0b" stroke-width="0.18" />`;
-        svg += `<text x="${cx.toFixed(1)}" y="${(topY - 1.3).toFixed(1)}" text-anchor="middle" style="fill:#f59e0b; font-size:2.2px; font-weight:800; letter-spacing:0.4px;">THE ATTACK</text>`;
-      }
+      drawCallout(offs, "THE ATTACK", "#f59e0b");
     }
   }
   svg += `</svg>`;
@@ -406,12 +438,12 @@ function renderNucleusNetwork(mountEl, teamName, centerName = "Messi") {
   for (const s of placed) {
     const r = 0.9 + s.ratio * 0.7;
     svg += `<circle cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="${r.toFixed(2)}" fill="#1f2a3a" stroke="#e8eef9" stroke-width="0.22"><title>${escapeHTML(s.otherName)} · AW-JOI90 ${s.aw_joi90.toFixed(2)}</title></circle>`;
-    const surname = (s.otherName || "").split(" ").slice(-1)[0] || s.otherName;
-    svg += `<text x="${s.x.toFixed(1)}" y="${(s.y + r + 1.7).toFixed(1)}" text-anchor="middle" class="atom-label">${escapeHTML(surname)}</text>`;
+    const sn = niceSurname(s.otherName);
+    svg += `<text x="${s.x.toFixed(1)}" y="${(s.y + r + 2.6).toFixed(1)}" text-anchor="middle" class="atom-label">${escapeHTML(sn)}</text>`;
   }
   // Nucleus on top
   svg += `<circle cx="${cx}" cy="${cy}" r="3.6" fill="#fde047" stroke="#0b1220" stroke-width="0.4"><title>${escapeHTML(center.name)}</title></circle>`;
-  svg += `<text x="${cx}" y="${(cy + 5.4).toFixed(1)}" text-anchor="middle" class="atom-label" font-weight="700">${escapeHTML((center.name.split(" ").slice(-1)[0] || center.name))}</text>`;
+  svg += `<text x="${cx}" y="${(cy + 5.4).toFixed(1)}" text-anchor="middle" class="atom-label" font-weight="700">${escapeHTML(niceSurname(center.name))}</text>`;
   svg += `</svg>`;
   mountEl.innerHTML = svg;
 }
@@ -482,40 +514,107 @@ function wireNetworkToggles() {
 wireNetworkToggles();
 
 /* ---------------- Morocco def-def support panel ---------------- */
-// Renders a tournament-wide leaderboard of "strong def↔def pairs" with
-// Morocco highlighted, plus an inline tcd_off / tcd_def / tcd_cross breakdown.
-// Sources straight from team_chemistry_vs_paper.json (already loaded above
-// into teamRows) so the headline ranking is auditable.
-function renderMoroccoTcdSupport() {
+// Renders a tournament-wide leaderboard with a metric switcher so the
+// reader can pick which way to slice defensive chemistry. Morocco ranks
+// differently on each:
+//   sum_jdi  — Morocco #2 (Argentina just ahead)
+//   n_strong — Morocco #3 (using the paper's tcd_def threshold)
+//   top5_mean — Morocco #7
+//   mean_jdi — Morocco #8
+// Default is sum_jdi where they look strongest.
+function computeDefMetrics() {
+  if (!fullNets || typeof fullNets !== "object") return [];
+  const out = [];
+  // Outfield-defender predicate — EXCLUDES GK so GK↔CB pairs (which the
+  // model heavily attends to in the defensive third) don't dominate the
+  // metric. Matches the chemistry-leaderboard convention from CLAUDE.md.
+  const isOutfieldDef = (p) => /^(CB|LB|RB|LCB|RCB|LWB|RWB)$/.test(p || "");
+  for (const tid in fullNets) {
+    const net = fullNets[tid];
+    if (!net || !Array.isArray(net.nodes)) continue;
+    const byId = new Map(net.nodes.map((n) => [n.player_id, n]));
+    const jdis = [];
+    for (const e of (net.edges || [])) {
+      const a = byId.get(e.p), b = byId.get(e.q);
+      if (!a || !b) continue;
+      if (!isOutfieldDef(a.position) || !isOutfieldDef(b.position)) continue;
+      const v = e.aw_jdi90;
+      if (Number.isFinite(v) && v > 0) jdis.push(v);
+    }
+    if (!jdis.length) continue;
+    jdis.sort((a, b) => b - a);
+    const sum = jdis.reduce((s, x) => s + x, 0);
+    const mean = sum / jdis.length;
+    const top5 = jdis.slice(0, 5);
+    const top5_mean = top5.reduce((s, x) => s + x, 0) / top5.length;
+    const tinfo = (Array.isArray(teamRows)
+      ? teamRows.find((r) => String(r.team_id) === String(tid)) : null) || {};
+    out.push({
+      tid,
+      name: tinfo.team_name || `team ${tid}`,
+      flag_code: tinfo.flag_code,
+      stage: tinfo.stage,
+      sum_jdi: sum,
+      mean_jdi: mean,
+      top5_mean,
+      n_strong: tinfo.tcd_def ?? jdis.filter((v) => v >= 0.30).length,
+    });
+  }
+  return out;
+}
+const DEF_METRICS = computeDefMetrics();
+const METRIC_META = {
+  sum_jdi:    { label: "Total defensive mass (Σ AW-JDI90)",
+                blurb: "Sum of every team's def↔def AW-JDI90 pair contribution. Rewards both <em>quality</em> and <em>quantity</em> of defensive chemistry &mdash; how big the wall is overall.",
+                fmt: (v) => (v == null ? "—" : v.toFixed(2)) },
+  n_strong:   { label: "Strong pairs (AW-JDI90 ≥ 0.30)",
+                blurb: "Count of pair-edges with AW-JDI90 at or above 0.30 &mdash; the threshold the published Morocco paper used. Rewards breadth.",
+                fmt: (v) => String(Math.round(v)) },
+  top5_mean:  { label: "Mean of top-5 pairs",
+                blurb: "Average AW-JDI90 across the five strongest def↔def pairs. Rewards a team's <em>elite ceiling</em>, not breadth.",
+                fmt: (v) => (v == null ? "—" : v.toFixed(3)) },
+  mean_jdi:   { label: "Mean across all pairs",
+                blurb: "Average AW-JDI90 across every def↔def pair the team has minutes for. Closer to a per-pair quality floor than a ceiling.",
+                fmt: (v) => (v == null ? "—" : v.toFixed(3)) },
+};
+
+function renderMoroccoTcdSupport(metric = "sum_jdi") {
   const lbEl = document.getElementById("morocco-tcd-def-leaderboard");
   const brEl = document.getElementById("morocco-tcd-breakdown");
   if (!Array.isArray(teamRows)) return;
-  const rows = teamRows
-    .filter((r) => r.tcd_def != null && r.team_name)
-    .map((r) => ({ name: r.team_name, n: r.tcd_def, stage: r.stage, id: r.team_id }))
-    .sort((a, b) => b.n - a.n);
-  const top = rows.slice(0, 10);
-  const max = Math.max(1, ...top.map((r) => r.n));
+  if (!DEF_METRICS.length) return;
+  const fmt = (METRIC_META[metric] || METRIC_META.sum_jdi).fmt;
+  const sorted = [...DEF_METRICS].sort((a, b) => b[metric] - a[metric]);
+  const top = sorted.slice(0, 10);
+  const max = Math.max(1e-9, ...top.map((r) => r[metric]));
+  // Build the row format the existing renderer below expects.
+  const rows = top.map((r) => ({ name: r.name, n: r[metric], stage: r.stage }));
   if (lbEl) {
     const FLAG = {
       Brazil: "🇧🇷", France: "🇫🇷", Morocco: "🇲🇦", Croatia: "🇭🇷",
       Argentina: "🇦🇷", Spain: "🇪🇸", Portugal: "🇵🇹", "Saudi Arabia": "🇸🇦",
       Germany: "🇩🇪", Switzerland: "🇨🇭", "United States": "🇺🇸", "South Korea": "🇰🇷",
+      Netherlands: "🇳🇱", Japan: "🇯🇵", Senegal: "🇸🇳", Australia: "🇦🇺",
+      Mexico: "🇲🇽", Uruguay: "🇺🇾", Belgium: "🇧🇪", Canada: "🇨🇦",
+      Ghana: "🇬🇭", Cameroon: "🇨🇲", Denmark: "🇩🇰", England: "🇬🇧",
+      Iran: "🇮🇷", Poland: "🇵🇱", Qatar: "🇶🇦", Serbia: "🇷🇸",
+      Tunisia: "🇹🇳", Wales: "🏴", "Costa Rica": "🇨🇷", Ecuador: "🇪🇨",
     };
-    lbEl.innerHTML = top.map((r, i) => {
+    lbEl.innerHTML = top.map((src, i) => {
+      const r = { name: src.name, n: src[metric] };
       const isMar = r.name === "Morocco";
       const pct = (r.n / max) * 100;
       const bg = isMar ? "#3b6ea0" : "#2a313d";
       const ring = isMar ? "border:1px solid #5eb1f8;" : "";
       const labelStyle = isMar ? "color:#cfe3ff; font-weight:700;" : "color:var(--text);";
       return `
-        <div style="display:grid; grid-template-columns: 1.4rem 8rem 1fr 2rem; align-items:center; gap:0.5rem; margin:0.18rem 0;">
+        <div style="display:grid; grid-template-columns: 1.6rem 8rem 1fr 3.4rem; align-items:center; gap:0.5rem; margin:0.18rem 0;">
           <span class="dim small" style="text-align:right;">#${i + 1}</span>
-          <span style="${labelStyle}">${FLAG[r.name] || ""} ${escapeHTML(r.name)}</span>
+          <span style="${labelStyle}">${FLAG[r.name] || "🏳️"} ${escapeHTML(r.name)}</span>
           <span style="height:0.85rem; background:#0e141f; border-radius:3px; overflow:hidden; ${ring}">
             <span style="display:block; height:100%; width:${pct.toFixed(1)}%; background:${bg};"></span>
           </span>
-          <span class="tabular" style="${labelStyle} text-align:right;">${r.n}</span>
+          <span class="tabular" style="${labelStyle} text-align:right;">${fmt(r.n)}</span>
         </div>`;
     }).join("");
   }
@@ -590,7 +689,7 @@ function renderMoroccoElitePairs() {
     appearCount.set(p.b.player_id, (appearCount.get(p.b.player_id) || 0) + 1);
   }
   const maxJdi = Math.max(...pairs.map((p) => p.jdi));
-  const surname = (full) => (full || "").split(" ").slice(-1)[0];
+  const surname = (full) => niceSurname(full || "");
   // Pctile -> color bucket: ≥95 emerald, ≥85 green, ≥70 yellow, ≥50 amber, else gray.
   const pctileChip = (pct) => {
     if (pct == null) return "";
@@ -649,30 +748,45 @@ function renderMoroccoElitePairs() {
 renderMoroccoElitePairs();
 
 /* ---------------- Morocco TCD hero card ---------------- */
-function renderMoroccoTcdHero() {
+function renderMoroccoTcdHero(metric = "sum_jdi") {
   const el = document.getElementById("morocco-tcd-hero");
-  if (!el || !Array.isArray(teamRows)) return;
-  const mar = teamRows.find((r) => r.team_name === "Morocco");
+  if (!el || !DEF_METRICS.length) return;
+  const meta = METRIC_META[metric] || METRIC_META.sum_jdi;
+  const sorted = [...DEF_METRICS].sort((a, b) => b[metric] - a[metric]);
+  const mar = sorted.find((r) => r.name === "Morocco");
   if (!mar) return;
-  const sorted = teamRows
-    .filter((r) => r.tcd_def != null)
-    .sort((a, b) => b.tcd_def - a.tcd_def);
-  const rank = sorted.findIndex((r) => r.team_name === "Morocco") + 1;
-  const total = teamRows.length;
-  const ahead = sorted.slice(0, rank - 1).map((r) => r.team_name);
+  const rank = sorted.findIndex((r) => r.name === "Morocco") + 1;
+  const total = sorted.length;
+  const ahead = sorted.slice(0, rank - 1).map((r) => r.name);
   el.innerHTML = `
     <div style="display:flex; align-items:center; gap:0.9rem; padding:0.75rem 1rem; border-radius:var(--radius-sm); background:linear-gradient(90deg, #1e3a5f 0%, #1a2840 100%); border:1px solid #5eb1f8;">
       <span style="font-size:2.4rem; line-height:1;">🇲🇦</span>
       <div style="flex:1;">
         <div style="font-weight:800; font-size:1.1rem; color:#cfe3ff;">Morocco &mdash; <span style="color:#5eb1f8;">#${rank} of ${total}</span></div>
         <div class="small" style="color:#a6c1e0;">
-          <strong class="tabular" style="color:#cfe3ff;">${mar.tcd_def}</strong> strong def↔def pairs
-          ${ahead.length ? `&nbsp;&middot;&nbsp; only behind ${escapeHTML(ahead.join(" and "))}` : ""}
+          <strong class="tabular" style="color:#cfe3ff;">${meta.fmt(mar[metric])}</strong> &middot; ${meta.label}
+          ${ahead.length ? `<br>only behind ${escapeHTML(ahead.join(" and "))}` : ""}
+          ${ahead.length === 0 ? `<br><strong style="color:#86efac;">leading the field</strong>` : ""}
         </div>
       </div>
     </div>`;
+  const blurbEl = document.getElementById("morocco-metric-blurb");
+  if (blurbEl) blurbEl.innerHTML = meta.blurb;
 }
 renderMoroccoTcdHero();
+
+/* ---------------- Metric switcher dropdown ---------------- */
+function wireMoroccoMetricSwitcher() {
+  const sel = document.getElementById("morocco-metric-select");
+  if (!sel) return;
+  const apply = (m) => {
+    renderMoroccoTcdSupport(m);
+    renderMoroccoTcdHero(m);
+  };
+  sel.addEventListener("change", () => apply(sel.value));
+  apply(sel.value);
+}
+wireMoroccoMetricSwitcher();
 
 /* ---------------- embedded play scrubbers ---------------- */
 // One per case study, plus an appendix.
@@ -688,18 +802,21 @@ const PLAY_INDEX = {
     title: "Messi 35' (Argentina v Australia, R16)",
     summary: "Argentina build out of their own half, Otamendi flicks it across the box, and Messi finishes low past Ryan. The model reads it as Argentina's signature: the build-up is structural recycling, then attention collapses onto Messi at the strike.",
     annotations: [
-      { from: 0,   to: 40,  text: "Build-up — Argentina recycle from the back",
+      { from: 0,   to: 30,  text: "Recycle in Argentina's half",
+        pair_defaults: { cats: ["off-off"], top: 2 } },
+      { from: 31,  to: 89,  text: "Side switch — Otamendi works it across",
         pair_defaults: { cats: ["off-off"], top: 3 } },
-      { from: 41,  to: 90,  text: "Romero & Martínez switch sides",
+      { from: 90,  to: 105, text: "Otamendi flicks it to Messi at the top of the box",
         pair_defaults: { cats: ["off-off", "cross"], top: 3 } },
-      { from: 91,  to: 105, text: "Otamendi sets up Messi at the top of the box",
-        pair_defaults: { cats: ["cross"], top: 4 } },
       { from: 106, to: 155, text: "Messi strikes — ball in flight",
-        pair_defaults: { cats: ["off-off", "cross"], top: 3 } },
+        pair_defaults: { cats: ["off-off"], top: 3 } },
       { from: 156, to: 200, text: "GOAL — Messi", color: "#ffd166",
         pair_defaults: { cats: ["off-off", "def-def", "cross"], top: 4 } },
     ],
-    pinning: { slots: [1], from: 80, to: 105, label: "FEEDER" }, // Otamendi
+    // Otamendi's flick lands at frame ~95; ring fires a beat earlier and
+    // lifts at the strike. Avoids the previous "FEEDER on Otamendi for the
+    // entire build-up" misread.
+    pinning: { slots: [1], from: 90, to: 105, label: "FEEDER" },
     scorer_slot: 5, // Messi
     scorer_label: "FINISH",
     scorer_from: 91,
