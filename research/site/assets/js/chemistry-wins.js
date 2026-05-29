@@ -840,26 +840,30 @@ const PLAY_INDEX = {
   "argentina-australia-messi": {
     title: "Messi 35' (Argentina v Australia, R16)",
     summary: "Argentina build out of their own half, Otamendi flicks it across the box, and Messi finishes low past Ryan. The model reads it as Argentina's signature: the build-up is structural recycling, then attention collapses onto Messi at the strike.",
-    // Clip is 117 frames total: 109 real (Argentina buildup + shot up to
-    // the ball reaching the goal line at frame 108), then 8 synthetic
-    // tail frames carrying the ball into the net. Goal lands at frame 112.
+    // Clip total 69 frames: 59 real (Argentina's first attempt
+    // cleared, then they recover and Messi finishes) + 10 synthetic
+    // tail frames driving the ball into the net. Argentina attacks
+    // the RIGHT goal (positive x). Real ball-crosses-line at frame 59.
+    // Event timings (clip-relative): cross @0s, clearance @1s,
+    // Argentina recovery 3-8s, Mac Allister & Otamendi feed Messi @10s,
+    // Messi shot @11s, ball in net @11.8s.
     annotations: [
-      { from: 0,   to: 30,  text: "Recycle in Argentina's half",
+      { from: 0,  to: 13, text: "Messi early cross — Souttar clears",
         pair_defaults: { cats: ["off-off"], top: 2 } },
-      { from: 31,  to: 89,  text: "Side switch — Otamendi works it across",
+      { from: 14, to: 39, text: "Argentina recover through Gómez and Messi",
         pair_defaults: { cats: ["off-off"], top: 3 } },
-      { from: 90,  to: 100, text: "Otamendi flicks it to Messi",
+      { from: 40, to: 49, text: "Mac Allister → Otamendi work it to Messi",
+        pair_defaults: { cats: ["off-off"], top: 3 } },
+      { from: 50, to: 58, text: "Messi strikes — ball in flight",
         pair_defaults: { cats: ["off-off", "cross"], top: 3 } },
-      { from: 101, to: 111, text: "Messi strikes — ball in flight",
-        pair_defaults: { cats: ["off-off"], top: 3 } },
-      { from: 112, to: 200, text: "GOAL — Messi", color: "#ffd166",
+      { from: 59, to: 200, text: "GOAL — Messi", color: "#ffd166",
         pair_defaults: { cats: ["off-off", "def-def", "cross"], top: 4 } },
     ],
-    // Otamendi's flick happens around frame ~95; ring lifts at the strike.
-    pinning: { slots: [1], from: 90, to: 100, label: "FEEDER" },
+    // Otamendi's feed to Messi lands at frame ~50.
+    pinning: { slots: [1], from: 42, to: 52, label: "FEEDER" },
     scorer_slot: 5, // Messi
     scorer_label: "FINISH",
-    scorer_from: 95,
+    scorer_from: 42,
     scorer_to: 200,
   },
   "argentina-france-mbappe-volley": {
