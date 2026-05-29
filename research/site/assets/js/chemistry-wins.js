@@ -852,12 +852,18 @@ const PLAY_INDEX = {
         pair_defaults: { cats: ["off-off"], top: 2 } },
       { from: 14, to: 39, text: "Argentina recover through Gómez and Messi",
         pair_defaults: { cats: ["off-off"], top: 3 } },
-      { from: 40, to: 49, text: "Mac Allister → Otamendi work it to Messi",
-        pair_defaults: { cats: ["off-off"], top: 3 } },
+      // From the feed onwards the chapter is "focused" — only Otamendi
+      // (the feeder) and Messi (the scorer) stay bright; the camera
+      // tightens to their bounding box + ball. Everyone else fades.
+      { from: 40, to: 49, text: "Otamendi feeds Messi",
+        focus_slots: [1, 5],
+        pair_defaults: { cats: ["off-off"], top: 1 } },
       { from: 50, to: 58, text: "Messi strikes — ball in flight",
-        pair_defaults: { cats: ["off-off", "cross"], top: 3 } },
+        focus_slots: [5],
+        pair_defaults: { cats: ["off-off"], top: 1 } },
       { from: 59, to: 200, text: "GOAL — Messi", color: "#ffd166",
-        pair_defaults: { cats: ["off-off", "def-def", "cross"], top: 4 } },
+        focus_slots: [5],
+        pair_defaults: { cats: ["off-off"], top: 1 } },
     ],
     // Otamendi's feed to Messi lands at frame ~50.
     pinning: { slots: [1], from: 42, to: 52, label: "FEEDER" },

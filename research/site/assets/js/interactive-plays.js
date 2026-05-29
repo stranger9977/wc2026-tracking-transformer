@@ -466,6 +466,21 @@ function initClip(c, detail) {
       playerDOM[p.slot] = { p, sx, sy, color };
     }
 
+    // --- "focus" override for chapters that should collapse to a couple
+    // of players (feed + finish). When the active annotation has a
+    // focus_slots = [...] array, only those slots stay bright; every
+    // other dot is dropped to ghost opacity; pair edges are filtered to
+    // ones connecting focus slots; follow-cam tightens around the focus
+    // bounding box. Lets us turn the noisy team-network frame into a
+    // two-player close-up for the strike beat.
+    const annListNow = c.annotations || [];
+    const annNow = annListNow.findLast
+      ? annListNow.findLast((a) => i >= (a.from || 0) && i <= (a.to ?? n - 1))
+      : [...annListNow].reverse().find((a) => i >= (a.from || 0) && i <= (a.to ?? n - 1));
+    const focusSet = (annNow && Array.isArray(annNow.focus_slots) && annNow.focus_slots.length)
+      ? new Set(annNow.focus_slots)
+      : null;
+
     // --- pair edges: compute FIRST so the dim logic below knows which
     // players are in a top pair (and shouldn't be dimmed). Writing the HTML
     // into gPairEdges has to happen after isOffPre/isDefPre are defined,
@@ -492,6 +507,10 @@ function initClip(c, detail) {
         if (w < PAIR_W_MIN) continue;
         const a = playerDOM[si]; const b = playerDOM[sj];
         if (!a || !b) continue;
+        // In focus mode, only keep pair edges where BOTH endpoints are
+        // in the focus set — drops the cross-team noise during the
+        // close-up beats.
+        if (focusSet && !(focusSet.has(si) && focusSet.has(sj))) continue;
         const sameTeam = String(a.p.team_id) === String(b.p.team_id);
         const aOff = _isOff(a.p), bOff = _isOff(b.p);
         let cat = "cross";
@@ -520,21 +539,26 @@ function initClip(c, detail) {
                                || /^(CF|ST|LW|RW|AM|CM|DM|LM|RM)$/i.test(String(p.position || "")));
     const isDefPre = (p) => p && (p.position === "DEF" || p.position === "GK"
                                || /^(CB|LB|RB|LCB|RCB|GK)$/i.test(String(p.position || "")));
-    const dimSet = new Set(
-      smoothAttn
-        .map((v, idx) => [v, idx])
-        .filter(([, idx]) => {
-          const t = playerDOM[idx] && playerDOM[idx].p;
-          if (!t) return false;
-          if (!includeGkDim && t.is_gk) return false;
-          if (edgeFilterDim === "off" && !isOffPre(t)) return false;
-          if (edgeFilterDim === "def" && !isDefPre(t)) return false;
-          return true;
-        })
-        .sort((a, b) => b[0] - a[0])
-        .slice(0, topNForDim)
-        .map(([, idx]) => idx)
-    );
+    // When the chapter is in focus mode, the dim set is JUST the focus
+    // slots (Messi + Otamendi for the FEED / FINISH / GOAL chapters on
+    // Argentina). Otherwise it's the usual top-N attended set.
+    const dimSet = focusSet
+      ? new Set(focusSet)
+      : new Set(
+          smoothAttn
+            .map((v, idx) => [v, idx])
+            .filter(([, idx]) => {
+              const t = playerDOM[idx] && playerDOM[idx].p;
+              if (!t) return false;
+              if (!includeGkDim && t.is_gk) return false;
+              if (edgeFilterDim === "off" && !isOffPre(t)) return false;
+              if (edgeFilterDim === "def" && !isDefPre(t)) return false;
+              return true;
+            })
+            .sort((a, b) => b[0] - a[0])
+            .slice(0, topNForDim)
+            .map(([, idx]) => idx)
+        );
     let dotsHTML = "";
     for (const entry of playerDOM) {
       if (!entry) continue;
@@ -834,24 +858,55 @@ function initClip(c, detail) {
     // Vertical viewBox slides modestly with the ball too so the box
     // doesn't end up centred on whitespace.
     {
-      const BUFFER = 18; // svg units of padding around the ball
-      // How aggressively we crop, based on |ball x|: 0 (centre) → full
-      // pitch, 25m+ → ~60% width.
-      const absBx = Math.min(Math.abs(f.ball.x), 52.5);
-      const t = Math.max(0, (absBx - 6) / 32); // ramp 0 at x=6m, 1 at x=38m
-      const ease = Math.min(1, t * t); // ease-in
-      const minW = SVG_W * 0.62;
-      const minH = SVG_H * 0.62;
-      const targetW = SVG_W - (SVG_W - minW) * ease;
-      const targetH = SVG_H - (SVG_H - minH) * ease;
-      const [bsx, bsy] = mToSvg(f.ball.x, f.ball.y);
-      // Centre viewBox on the ball but clamp so we never see beyond the pitch.
-      let tx = bsx - targetW / 2;
-      let ty = bsy - targetH / 2;
+      let targetW, targetH, tx, ty;
+      // Focus mode: tightly fit the viewBox to the bounding box of the
+      // focus players + ball, with a small margin. The crop drops to as
+      // low as ~38% of the full pitch on the strike beat.
+      if (focusSet && focusSet.size) {
+        const pts = [];
+        for (const slot of focusSet) {
+          const dom = playerDOM[slot];
+          if (dom) pts.push([dom.sx, dom.sy]);
+        }
+        pts.push([mToSvg(f.ball.x, f.ball.y)[0], mToSvg(f.ball.x, f.ball.y)[1]]);
+        if (pts.length) {
+          const xs = pts.map((p) => p[0]);
+          const ys = pts.map((p) => p[1]);
+          const minX = Math.min(...xs), maxX = Math.max(...xs);
+          const minY = Math.min(...ys), maxY = Math.max(...ys);
+          // Generous margin around the cluster so faces aren't on the edges.
+          const PAD = 70;
+          const MIN_W = SVG_W * 0.38;
+          const MIN_H = SVG_H * 0.50;
+          targetW = Math.max(MIN_W, (maxX - minX) + 2 * PAD);
+          targetH = Math.max(MIN_H, (maxY - minY) + 2 * PAD);
+          // Preserve the SVG aspect so the pitch geometry doesn't squash.
+          const aspect = SVG_W / SVG_H;
+          if (targetW / targetH > aspect) targetH = targetW / aspect;
+          else targetW = targetH * aspect;
+          const cx = (minX + maxX) / 2;
+          const cy = (minY + maxY) / 2;
+          tx = cx - targetW / 2;
+          ty = cy - targetH / 2;
+        }
+      }
+      // Default (no focus): ball-following zoom from before.
+      if (targetW == null) {
+        const absBx = Math.min(Math.abs(f.ball.x), 52.5);
+        const t = Math.max(0, (absBx - 6) / 32);
+        const ease = Math.min(1, t * t);
+        const minW = SVG_W * 0.62;
+        const minH = SVG_H * 0.62;
+        targetW = SVG_W - (SVG_W - minW) * ease;
+        targetH = SVG_H - (SVG_H - minH) * ease;
+        const [bsx, bsy] = mToSvg(f.ball.x, f.ball.y);
+        tx = bsx - targetW / 2;
+        ty = bsy - targetH / 2;
+      }
+      // Clamp inside pitch.
       tx = Math.max(0, Math.min(SVG_W - targetW, tx));
       ty = Math.max(0, Math.min(SVG_H - targetH, ty));
-      // EMA smoothing (alpha~0.18 ≈ 5-frame half-life @ 5 Hz play).
-      const alpha = 0.18;
+      const alpha = focusSet ? 0.24 : 0.18;
       smoothVb.x = smoothVb.x + (tx - smoothVb.x) * alpha;
       smoothVb.y = smoothVb.y + (ty - smoothVb.y) * alpha;
       smoothVb.w = smoothVb.w + (targetW - smoothVb.w) * alpha;
