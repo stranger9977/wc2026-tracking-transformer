@@ -756,14 +756,14 @@ function initClip(c, detail) {
       const labelH = 11;
       const { lx, ly } = pickLabelPos(sx, sy, p.vx, p.vy, labelW, labelH, placed);
       placed.push({ x: lx, y: ly, w: labelW, h: labelH });
-      const labelInvolved = dimSet.has(p.slot) || pairDrawn.has(p.slot) || p.has_possession
-        || p.slot === c.scorer_slot
-        || (c.pinning && (c.pinning.slots || [c.pinning.slot]).includes(p.slot));
-      // Only emit labels for involved players — drops the noisy mass of
-      // name tags on dimmed defenders/midfielders that were drowning the
-      // story (ping-pong → feed → finish). Dimmed players still show as
-      // ghost dots; their identity hover-state is in the SVG <title>.
-      if (!labelInvolved) continue;
+      // Name tags now ONLY render on the ball-carrier. Off-ball players —
+      // even the top-attended ones, the pair-edge endpoints, the configured
+      // scorer / feeder — stay nameless on the pitch. Their identity is
+      // already carried by the rings (FEEDER / FINISH / PIN), the pair
+      // edges, and the halo, and their full name lives on the dot's SVG
+      // <title> for hover. This keeps the off-ball structure visible
+      // while keeping the screen quiet.
+      if (!p.has_possession) continue;
       labelsHTML += `<g class="iplay-label"><rect x="${lx}" y="${ly}" width="${labelW}" height="${labelH}" fill="#0b1220" fill-opacity="0.78" rx="2.5" /><text x="${lx + 4}" y="${ly + 8}" fill="#ffffff" font-size="8.5" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
     }
     gLabels.innerHTML = labelsHTML;
