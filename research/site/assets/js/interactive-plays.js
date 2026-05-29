@@ -64,6 +64,14 @@ export function clipScaffold(c) {
           <option value="def">Defense only</option>
         </select>
       </span>
+      <span class="wb-toggle" style="cursor:default" title="Teammate↔teammate and cross-team attention edges from the score specialist's player↔player attention matrix (GKs excluded). 'Off' hides them; 'Top 6/12' shows the strongest pairs that frame.">
+        <span>Pair edges:</span>
+        <select data-iplay="pair-top" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
+          <option value="6" selected>Top 6</option>
+          <option value="12">Top 12</option>
+          <option value="0">Off</option>
+        </select>
+      </span>
       <span class="wb-toggle small dim" style="cursor:default" title="Halos are driven by the score-specialist model (the production attention source we use throughout the study).">
         Attention: <strong style="color:var(--text)">score specialist</strong>
       </span>
@@ -151,6 +159,11 @@ function currentIncludeGk(scope) {
 function currentEdgeFilter(scope) {
   const el = pickLocal(scope, "edge-filter") || document.getElementById("iplay-edge-filter");
   return el ? el.value : "all";
+}
+function currentPairTopN(scope) {
+  const el = pickLocal(scope, "pair-top");
+  const v = el ? el.value : "6";
+  return parseInt(v, 10) || 0;
 }
 function currentAttnSource(scope) {
   // "Shared model" was retired; production attention now always comes from
@@ -276,6 +289,7 @@ function initClip(c, detail) {
   const gLabels = svg.querySelector("#g-labels");
   const gGoalHighlight = svg.querySelector("#g-goal-highlight");
   const gNarration = svg.querySelector("#g-narration");
+  const gPairEdges = svg.querySelector("#g-pair-edges");
 
   /* ---------- scrub markers + goal frame ---------- */
   const goalFrame = frames.findIndex((f) => f.is_goal_event);
@@ -420,6 +434,21 @@ function initClip(c, detail) {
       playerDOM[p.slot] = { p, sx, sy, color };
     }
 
+    // --- pair edges: compute FIRST so the dim logic below knows which
+    // players are in a top pair (and shouldn't be dimmed). Writing the HTML
+    // into gPairEdges has to happen after isOffPre/isDefPre are defined,
+    // so we collect inputs here, build pairEdgesHTML later in the function.
+    const pairDrawn = new Set();
+    const pairTopN = currentPairTopN(ctrlScope);
+    const pairTop = f.pair_attention_score_top || [];
+    if (pairTopN > 0 && pairTop.length) {
+      for (let pe = 0; pe < Math.min(pairTopN, pairTop.length); pe++) {
+        const [si, sj] = pairTop[pe];
+        if (playerDOM[si]) pairDrawn.add(si);
+        if (playerDOM[sj]) pairDrawn.add(sj);
+      }
+    }
+
     // --- player circles
     // Pre-compute top-attended set so we can dim non-involved players.
     // We do the same selection as topIdx below, but we need it BEFORE drawing.
@@ -449,7 +478,7 @@ function initClip(c, detail) {
     for (const entry of playerDOM) {
       if (!entry) continue;
       const { p, sx, sy, color } = entry;
-      const involved = dimSet.has(p.slot);
+      const involved = dimSet.has(p.slot) || pairDrawn.has(p.slot);
       // Dim non-attended players (down to ~0.32 opacity); ball-carrier is
       // always full-bright so the carrier is never lost in the dim mass.
       const dimOp = (involved || p.has_possession) ? 1.0 : 0.32;
@@ -466,6 +495,31 @@ function initClip(c, detail) {
       dotsHTML += `${arrow}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}" />`;
     }
     gPlayers.innerHTML = dotsHTML;
+
+    // --- player↔player pair attention edges (score specialist, GKs excluded).
+    // pairDrawn already populated above; this block actually emits the SVG.
+    // Colors match the team-network legend on chemistry-wins (off-off yellow,
+    // def-def blue, cross-team purple).
+    let pairEdgesHTML = "";
+    if (pairTopN > 0 && pairTop.length) {
+      const maxW = pairTop.reduce((m, x) => Math.max(m, x[2] || 0), 0) || 1;
+      for (let pe = 0; pe < Math.min(pairTopN, pairTop.length); pe++) {
+        const [si, sj, w] = pairTop[pe];
+        const a = playerDOM[si];
+        const b = playerDOM[sj];
+        if (!a || !b) continue;
+        const sameTeam = String(a.p.team_id) === String(b.p.team_id);
+        const aOff = isOffPre(a.p), bOff = isOffPre(b.p);
+        let stroke = "#a78bfa"; // cross-team default (purple)
+        if (sameTeam && aOff && bOff) stroke = "#facc15";       // same-off (yellow)
+        else if (sameTeam && !aOff && !bOff) stroke = "#60a5fa"; // same-def (blue)
+        else if (sameTeam) stroke = "#fbbf24";                   // mixed same-team
+        const widthSvg = 1.4 + (w / maxW) * 4.6;
+        const op = 0.45 + (w / maxW) * 0.45;
+        pairEdgesHTML += `<line x1="${a.sx}" y1="${a.sy}" x2="${b.sx}" y2="${b.sy}" stroke="${stroke}" stroke-width="${widthSvg.toFixed(2)}" stroke-opacity="${op.toFixed(2)}" stroke-linecap="round" />`;
+      }
+    }
+    gPairEdges.innerHTML = pairEdgesHTML;
 
     // --- attention edges to top-N attended players, with user-controlled
     // GK inclusion + offense/defense category filter.
@@ -533,12 +587,17 @@ function initClip(c, detail) {
     // off-ball player holding two defenders before the cross arrives.
     const pinCfg = c.pinning;
     if (pinCfg && i >= (pinCfg.from || 0) && i <= (pinCfg.to ?? n - 1)) {
-      const dom = playerDOM[pinCfg.slot];
-      if (dom) {
+      // Support legacy single-slot config AND new multi-slot {slots: [..]} form.
+      const pinSlots = pinCfg.slots || (pinCfg.slot != null ? [pinCfg.slot] : []);
+      const pinLabel = pinCfg.label || "PIN";
+      const labelW = Math.max(36, pinLabel.length * 6 + 12);
+      for (const ps of pinSlots) {
+        const dom = playerDOM[ps];
+        if (!dom) continue;
         const rPin = 22 * pulse;
         halosHTML += `<circle cx="${dom.sx}" cy="${dom.sy}" r="${rPin.toFixed(1)}" fill="none" stroke="#ec4899" stroke-width="3" stroke-opacity="0.95" stroke-dasharray="5 3" />`;
-        halosHTML += `<rect x="${(dom.sx - 18).toFixed(1)}" y="${(dom.sy - 38).toFixed(1)}" width="36" height="15" rx="3" fill="#ec4899" />`;
-        halosHTML += `<text x="${dom.sx.toFixed(1)}" y="${(dom.sy - 27).toFixed(1)}" fill="#0b1220" font-size="10" font-weight="800" font-family="-apple-system,Segoe UI,sans-serif" text-anchor="middle" letter-spacing="0.5">PIN</text>`;
+        halosHTML += `<rect x="${(dom.sx - labelW / 2).toFixed(1)}" y="${(dom.sy - 38).toFixed(1)}" width="${labelW}" height="15" rx="3" fill="#ec4899" />`;
+        halosHTML += `<text x="${dom.sx.toFixed(1)}" y="${(dom.sy - 27).toFixed(1)}" fill="#0b1220" font-size="10" font-weight="800" font-family="-apple-system,Segoe UI,sans-serif" text-anchor="middle" letter-spacing="0.5">${escapeSvg(pinLabel)}</text>`;
       }
     }
     gHalos.innerHTML = halosHTML;
@@ -591,7 +650,7 @@ function initClip(c, detail) {
       const labelH = 11;
       const { lx, ly } = pickLabelPos(sx, sy, p.vx, p.vy, labelW, labelH, placed);
       placed.push({ x: lx, y: ly, w: labelW, h: labelH });
-      const labelInvolved = dimSet.has(p.slot) || p.has_possession;
+      const labelInvolved = dimSet.has(p.slot) || pairDrawn.has(p.slot) || p.has_possession;
       const labelOp = labelInvolved ? 1.0 : 0.35;
       labelsHTML += `<g class="iplay-label" opacity="${labelOp}"><rect x="${lx}" y="${ly}" width="${labelW}" height="${labelH}" fill="#0b1220" fill-opacity="0.7" rx="2.5" /><text x="${lx + 4}" y="${ly + 8}" fill="#ffffff" font-size="8.5" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
     }
@@ -712,6 +771,7 @@ function initClip(c, detail) {
     ctrlScope.querySelector('[data-iplay="top-n"]')?.addEventListener("change", () => renderFrame(true));
     ctrlScope.querySelector('[data-iplay="include-gk"]')?.addEventListener("change", () => renderFrame(true));
     ctrlScope.querySelector('[data-iplay="edge-filter"]')?.addEventListener("change", () => renderFrame(true));
+    ctrlScope.querySelector('[data-iplay="pair-top"]')?.addEventListener("change", () => renderFrame(true));
   }
 
   // RAF loop for smooth halo pulse + attention easing even when not stepping.
@@ -809,6 +869,7 @@ function pitchSvgScaffold(detail) {
     <svg class="iplay-pitch" viewBox="0 0 ${SVG_W} ${SVG_H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
       ${lines}
       <g id="g-goal-highlight"></g>
+      <g id="g-pair-edges"></g>
       <g id="g-edges"></g>
       <g id="g-halos"></g>
       <g id="g-players"></g>

@@ -420,18 +420,25 @@ const PLAY_INDEX = {
     summary: "The defining Morocco moment. Build-up Ziyech → Boufal → Ounahi → Attiat-Allah, then a left-side cross. The off-ball move that makes it work: En-Nesyri pins between Dias and Pepe a beat before contact — watch his halo brighten while the cross-team attention edges concentrate on the centre-back pair, not the ball. Open-play header that out-leaps the Portugal back line and Diogo Costa.",
     // Frame indices reference the clip's own frames[] (5 Hz). Goal frame = 139.
     // Later entries take precedence when windows overlap (the renderer reads
-    // findLast). That's why PIN sits after the CROSS line — when both are
-    // active, the pin reading wins.
+    // findLast). The "CBs pulled" pink line replaces the original "En-Nesyri
+    // pins" claim — when we re-ran the score specialist and looked at the
+    // top pairs in the cross window, the heavy edges run from the ball-side
+    // Morocco attackers (Boufal, Ounahi, Attiat-Allah) to Dias and Pepe,
+    // not from En-Nesyri to them. The defenders ARE being pulled in
+    // attentional terms, just not by the player we first guessed.
     annotations: [
       { from: 0,   to: 30,  text: "Build-up — Morocco recycle" },
       { from: 31,  to: 70,  text: "Ziyech turns it down the right" },
       { from: 71,  to: 99,  text: "Switch left → Boufal · Ounahi" },
       { from: 100, to: 132, text: "Attiat-Allah cross from the left" },
-      { from: 110, to: 132, text: "En-Nesyri pins Dias & Pepe", color: "#ec4899" },
-      { from: 133, to: 138, text: "Header arrives" },
-      { from: 139, to: 200, text: "GOAL — En-Nesyri", color: "#ffd166" },
+      { from: 110, to: 132, text: "Dias & Pepe pulled by ball-side", color: "#ec4899" },
+      { from: 133, to: 148, text: "Header — ball in flight" },
+      { from: 149, to: 200, text: "GOAL — En-Nesyri", color: "#ffd166" },
     ],
-    pinning: { slot: 6, from: 100, to: 138 },  // En-Nesyri (slot 6) pinning between Dias/Pepe
+    // Pin highlight switched to the two CBs that the model actually
+    // concentrates pair attention on during the cross.
+    pinning_slots: [11, 21],  // Dias (LCB), Pepe (RCB)
+    pinning: { slots: [11, 21], from: 100, to: 138, label: "ATTENDED" },
   },
   "near-miss-netherlands-janssen": {
     title: "Janssen 4' blocked — near-miss (Senegal v Netherlands, group stage)",
