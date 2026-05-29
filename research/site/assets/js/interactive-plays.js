@@ -638,6 +638,9 @@ function initClip(c, detail) {
     for (const s of topIdx) {
       const target = playerDOM[s];
       if (!target) continue;
+      // Focus mode: skip ball→player attention edges where the target
+      // isn't a focus slot — they were dangling out to invisible players.
+      if (focusSet && !focusSet.has(s)) continue;
       const a = smoothAttn[s] || 0;
       // Map attention to edge thickness 1.2..5.5 with a minimum width and
       // opacity so every selected edge is visible even when its attention
@@ -896,7 +899,13 @@ function initClip(c, detail) {
     // pressed against one goal we crop the empty half of the pitch.
     // Vertical viewBox slides modestly with the ball too so the box
     // doesn't end up centred on whitespace.
-    {
+    if (c.disable_autozoom) {
+      // Per-clip opt-out — some plays read better with the full pitch
+      // always in view (e.g. En-Nesyri's cross-and-header where the
+      // off-ball wall+recycle structure spans the whole field).
+      smoothVb.x = 0; smoothVb.y = 0; smoothVb.w = SVG_W; smoothVb.h = SVG_H;
+      svg.setAttribute("viewBox", `0 0 ${SVG_W} ${SVG_H}`);
+    } else {
       let targetW, targetH, tx, ty;
       // Focus mode: tightly fit the viewBox to the bounding box of the
       // focus players + ball, with a small margin. The crop drops to as

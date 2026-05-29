@@ -917,6 +917,10 @@ const PLAY_INDEX = {
   "morocco-portugal-en-nesyri": {
     title: "En-Nesyri header (Morocco v Portugal, QF)",
     summary: "The defining Morocco moment. Build-up Ziyech → Boufal → Ounahi → Attiat-Allah, then a left-side cross. The off-ball move that makes it work: En-Nesyri pins between Dias and Pepe a beat before contact — watch his halo brighten while the cross-team attention edges concentrate on the centre-back pair, not the ball. Open-play header that out-leaps the Portugal back line and Diogo Costa.",
+    // Wall+recycle reading spans the full pitch (defenders feeding
+    // attackers across both halves). Auto-zoom obscured the off-ball
+    // shape that's the whole point of this clip — keep the full field.
+    disable_autozoom: true,
     // Frame indices reference the clip's own frames[] (5 Hz). Goal frame = 139.
     // Later entries take precedence when windows overlap (the renderer reads
     // findLast). The "CBs pulled" pink line replaces the original "En-Nesyri
