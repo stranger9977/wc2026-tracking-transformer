@@ -191,6 +191,18 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
     let color = { off: "#f59e0b", def: "#5eb1f8", cross: "#a78bfa" }[cat];
     let muted = false;
     if (highlight === "def" && cat !== "def") muted = true;
+    // "wall+recycle": Morocco's story is the wall feeding the attack.
+    // Light up BOTH def↔def (blue, the wall) AND cross-team edges where
+    // one endpoint is a defender (orange, the recycle). Mute pure off↔off.
+    if (highlight === "wall+recycle") {
+      if (cat === "def") {
+        // pure def-def stays blue
+      } else if (cat === "cross" && (isDef(a.position) || isDef(b.position))) {
+        color = "#f59e0b"; // recycle edge — defender feeding the attack
+      } else {
+        muted = true;
+      }
+    }
     if (highlight === "midfield") {
       const inEngine = midfieldEngine.has(a.player_id) && midfieldEngine.has(b.player_id);
       if (!inEngine) muted = true;
@@ -262,15 +274,25 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
     const surname = (n.name || "").split(" ").slice(-1)[0] || n.name;
     svg += `<text x="${scaleX(n.x).toFixed(1)}" y="${(scaleY(n.y) + r + 1.7).toFixed(1)}" text-anchor="middle" class="atom-label" style="font-weight:${isWallNode ? 700 : 500}; fill:${isWallNode ? "#cfe3ff" : "#cdd6e3"};">${escapeHTML(surname)}</text>`;
   }
-  // Optional "THE WALL" callout when highlight=def — a small label tag at
-  // the top of the defender cluster, anchored to its centroid.
-  if (highlight === "def") {
+  // Callouts: WALL above the defender column (def highlight) and the same
+  // plus a RECYCLE label above the off cluster for the Morocco wall+recycle
+  // story. Positioned at the cluster's top edge so they don't overlap dots.
+  if (highlight === "def" || highlight === "wall+recycle") {
     const defs = [...placed.values()].filter((n) => isDef(n.position));
     if (defs.length) {
       const cx = defs.reduce((s, n) => s + scaleX(n.x), 0) / defs.length;
-      const cy = defs.reduce((s, n) => s + scaleY(n.y), 0) / defs.length;
-      svg += `<rect x="${(cx - 5.6).toFixed(1)}" y="${(cy - 7.2).toFixed(1)}" width="11.2" height="3.6" rx="0.6" fill="#0b1220" stroke="#5eb1f8" stroke-width="0.18" />`;
-      svg += `<text x="${cx.toFixed(1)}" y="${(cy - 4.7).toFixed(1)}" text-anchor="middle" style="fill:#5eb1f8; font-size:2.2px; font-weight:800; letter-spacing:0.4px;">THE WALL</text>`;
+      const topY = Math.min(...defs.map((n) => scaleY(n.y))) - 1.5;
+      svg += `<rect x="${(cx - 5.6).toFixed(1)}" y="${(topY - 3.8).toFixed(1)}" width="11.2" height="3.6" rx="0.6" fill="#0b1220" stroke="#5eb1f8" stroke-width="0.18" />`;
+      svg += `<text x="${cx.toFixed(1)}" y="${(topY - 1.3).toFixed(1)}" text-anchor="middle" style="fill:#5eb1f8; font-size:2.2px; font-weight:800; letter-spacing:0.4px;">THE WALL</text>`;
+    }
+    if (highlight === "wall+recycle") {
+      const offs = [...placed.values()].filter((n) => isOff(n.position));
+      if (offs.length) {
+        const cx = offs.reduce((s, n) => s + scaleX(n.x), 0) / offs.length;
+        const topY = Math.min(...offs.map((n) => scaleY(n.y))) - 1.5;
+        svg += `<rect x="${(cx - 6.0).toFixed(1)}" y="${(topY - 3.8).toFixed(1)}" width="12.0" height="3.6" rx="0.6" fill="#0b1220" stroke="#f59e0b" stroke-width="0.18" />`;
+        svg += `<text x="${cx.toFixed(1)}" y="${(topY - 1.3).toFixed(1)}" text-anchor="middle" style="fill:#f59e0b; font-size:2.2px; font-weight:800; letter-spacing:0.4px;">THE ATTACK</text>`;
+      }
     }
   }
   svg += `</svg>`;
@@ -376,7 +398,7 @@ function renderNucleusNetwork(mountEl, teamName, centerName = "Messi") {
 const TEAM_VIEW_CFG = {
   argentina: { name: "Argentina", highlight: null,       threshold: 0.30, nucleusCenter: "Messi" },
   france:    { name: "France",    highlight: null,       threshold: 0.50, nucleusCenter: "Mbappé" },
-  morocco:   { name: "Morocco",   highlight: "def",      threshold: 0.30, nucleusCenter: null },
+  morocco:   { name: "Morocco",   highlight: "wall+recycle", threshold: 0.30, nucleusCenter: null },
   croatia:   { name: "Croatia",   highlight: "midfield", threshold: 0.30, nucleusCenter: null },
 };
 
@@ -485,6 +507,106 @@ function renderMoroccoTcdSupport() {
   }
 }
 renderMoroccoTcdSupport();
+
+/* ---------------- Morocco elite pairs spotlight ---------------- */
+// Names the 5 strongest def↔def pairs by AW-JDI90 (GKs excluded), each
+// with their AW-JOI90 + minutes-shared, drawn from team_full_networks.json
+// (already loaded into fullNets). El Yamiq is the hub in 3/5 — the card
+// visualises that by giving him a larger badge.
+function renderMoroccoElitePairs() {
+  const mountEl = document.getElementById("morocco-elite-pairs");
+  if (!mountEl) return;
+  const net = fullNets?.[TEAM_IDS.Morocco];
+  if (!net) return;
+  const byId = new Map(net.nodes.map((n) => [n.player_id, n]));
+  const isDefPos = (p) => /^(CB|LB|RB|LCB|RCB|LWB|RWB)$/.test(p || "");
+  const pairs = (net.edges || [])
+    .map((e) => {
+      const a = byId.get(e.p), b = byId.get(e.q);
+      if (!a || !b) return null;
+      if (!isDefPos(a.position) || !isDefPos(b.position)) return null;
+      const jdi = e.aw_jdi90 ?? 0;
+      const joi = e.aw_joi90 ?? 0;
+      const mins = e.minutes_together ?? e.minutes ?? 0;
+      return { a, b, jdi, joi, mins };
+    })
+    .filter(Boolean)
+    .sort((x, y) => y.jdi - x.jdi)
+    .slice(0, 5);
+  if (!pairs.length) { mountEl.innerHTML = "<div class='empty-state small'>No def-def pairs.</div>"; return; }
+  // Count how many of the top-5 each player appears in — to size the hub badge.
+  const appearCount = new Map();
+  for (const p of pairs) {
+    appearCount.set(p.a.player_id, (appearCount.get(p.a.player_id) || 0) + 1);
+    appearCount.set(p.b.player_id, (appearCount.get(p.b.player_id) || 0) + 1);
+  }
+  const maxJdi = Math.max(...pairs.map((p) => p.jdi));
+  const surname = (full) => (full || "").split(" ").slice(-1)[0];
+  mountEl.innerHTML = `
+    <div style="display:grid; grid-template-columns: 1.4rem 1fr 7rem 4rem; align-items:center; column-gap:0.65rem; row-gap:0.35rem;">
+      <span></span>
+      <span class="dim small" style="text-transform:uppercase; letter-spacing:0.5px;">Pair</span>
+      <span class="dim small" style="text-transform:uppercase; letter-spacing:0.5px;">AW-JDI90</span>
+      <span class="dim small" style="text-transform:uppercase; letter-spacing:0.5px; text-align:right;">Mins</span>
+      ${pairs.map((p, i) => {
+        const pct = (p.jdi / maxJdi) * 100;
+        const aHub = (appearCount.get(p.a.player_id) || 0) >= 2;
+        const bHub = (appearCount.get(p.b.player_id) || 0) >= 2;
+        const badge = (name, pos, isHub) => `
+          <span style="display:inline-flex; align-items:center; gap:0.3rem; padding:0.18rem 0.5rem; border-radius:999px; background:${isHub ? "#1e3a5f" : "#1f2a3a"}; border:1px solid ${isHub ? "#5eb1f8" : "#2a313d"}; color:${isHub ? "#cfe3ff" : "#cdd6e3"}; font-weight:${isHub ? 700 : 500};">
+            ${escapeHTML(surname(name))}
+            <span class="dim small" style="font-weight:500;">${escapeHTML(pos)}</span>
+          </span>`;
+        return `
+          <span class="dim small" style="text-align:right;">#${i + 1}</span>
+          <span style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+            ${badge(p.a.name, p.a.position, aHub)}
+            <span class="dim">↔</span>
+            ${badge(p.b.name, p.b.position, bHub)}
+          </span>
+          <span style="display:flex; align-items:center; gap:0.4rem;">
+            <span style="flex:1; height:0.55rem; background:#0e141f; border-radius:3px; overflow:hidden;">
+              <span style="display:block; height:100%; width:${pct.toFixed(1)}%; background:#5eb1f8;"></span>
+            </span>
+            <span class="tabular" style="color:#cfe3ff; font-weight:700; min-width:2.6rem; text-align:right;">${p.jdi.toFixed(3)}</span>
+          </span>
+          <span class="tabular dim small" style="text-align:right;">${Math.round(p.mins)}</span>
+        `;
+      }).join("")}
+    </div>
+    <p class="dim small" style="margin:0.6rem 0 0;">
+      <strong style="color:#cfe3ff;">El Yamiq</strong> appears in
+      ${[...appearCount.values()].filter((v) => v >= 2).length > 0 ? "3 of the top 5 pairs" : "multiple top pairs"}
+      &mdash; the wall has a hub.
+    </p>`;
+}
+renderMoroccoElitePairs();
+
+/* ---------------- Morocco TCD hero card ---------------- */
+function renderMoroccoTcdHero() {
+  const el = document.getElementById("morocco-tcd-hero");
+  if (!el || !Array.isArray(teamRows)) return;
+  const mar = teamRows.find((r) => r.team_name === "Morocco");
+  if (!mar) return;
+  const sorted = teamRows
+    .filter((r) => r.tcd_def != null)
+    .sort((a, b) => b.tcd_def - a.tcd_def);
+  const rank = sorted.findIndex((r) => r.team_name === "Morocco") + 1;
+  const total = teamRows.length;
+  const ahead = sorted.slice(0, rank - 1).map((r) => r.team_name);
+  el.innerHTML = `
+    <div style="display:flex; align-items:center; gap:0.9rem; padding:0.75rem 1rem; border-radius:var(--radius-sm); background:linear-gradient(90deg, #1e3a5f 0%, #1a2840 100%); border:1px solid #5eb1f8;">
+      <span style="font-size:2.4rem; line-height:1;">🇲🇦</span>
+      <div style="flex:1;">
+        <div style="font-weight:800; font-size:1.1rem; color:#cfe3ff;">Morocco &mdash; <span style="color:#5eb1f8;">#${rank} of ${total}</span></div>
+        <div class="small" style="color:#a6c1e0;">
+          <strong class="tabular" style="color:#cfe3ff;">${mar.tcd_def}</strong> strong def↔def pairs
+          ${ahead.length ? `&nbsp;&middot;&nbsp; only behind ${escapeHTML(ahead.join(" and "))}` : ""}
+        </div>
+      </div>
+    </div>`;
+}
+renderMoroccoTcdHero();
 
 /* ---------------- embedded play scrubbers ---------------- */
 // One per case study, plus an appendix.

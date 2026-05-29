@@ -201,13 +201,19 @@
     <!-- 4. MOROCCO — the WALL                                         -->
     <!-- =========================================================== -->
     <section>
-      <h2>Morocco &mdash; the wall &nbsp;<span class="dim small">(TCD rank 4 overall · tcd_def rank 3)</span></h2>
+      <h2>Morocco &mdash; the wall that fed the attack &nbsp;<span class="dim small">(TCD rank 4 overall · tcd_def rank 3)</span></h2>
       <p>
-        Morocco made the semi-final on defense, not offense. Their TCD doesn't come
-        from the off-off block &mdash; it comes from the def-def block, where they
-        rank <strong>#3 in the tournament</strong>. The Saiss / Aguerd / El Yamiq /
-        Hakimi / Mazraoui line repeatedly attended to each other for the kind of
-        synchronized pressure and cover that defines a wall.
+        Morocco made the semi-final on a wall &mdash; <strong>#3 in def&harr;def
+        chemistry</strong>, the Saiss / Aguerd / El Yamiq / Hakimi / Mazraoui
+        line attending to each other for synchronised pressure and cover.
+        But the wall by itself doesn't make a semi-final. The bigger half of
+        Morocco's TCD lives in <strong>cross-team chemistry</strong>
+        (def&harr;mid and def&harr;att, 72 strong pairs &mdash; their own
+        biggest block) &mdash; the recycle that turned a defensive structure
+        into an attacking one. Defenders found midfielders, midfielders found
+        wide players, the cross arrived, and the off-ball runner was already
+        in the box. <strong>You'll see the whole sequence in the
+        clip below.</strong>
       </p>
       <div class="callout" role="note" style="margin: 1rem 0;">
         <p class="mt-0">
@@ -229,13 +235,26 @@
         </p>
       </div>
       <div class="card" style="margin-bottom:1rem;">
-        <h3 class="mt-0">Where Morocco's #3 rank comes from</h3>
+        <h3 class="mt-0">Morocco's elite defensive pairs</h3>
+        <p class="dim small mt-0">
+          Top defensive pairs by <strong>AW-JDI90</strong> (attention-weighted
+          joint defensive impact per 90, GKs excluded). El Yamiq anchors three
+          of the top five &mdash; the wall isn't a metaphor, it's a graph
+          with a hub.
+        </p>
+        <div id="morocco-elite-pairs" style="margin-top:0.5rem;"></div>
+      </div>
+      <div class="card" style="margin-bottom:1rem;">
+        <h3 class="mt-0">Where the #3 rank comes from</h3>
         <p class="dim small mt-0">
           Each bar is one team's count of <em>strong def&harr;def pairs</em>
           (AW-JDI90 &ge; 0.30) across the whole tournament. Morocco's lattice
           isn't a vibe &mdash; it's the third-densest defensive pair-block of
-          any squad at Qatar 2022.
+          any squad at Qatar 2022. Brazil and France produced more, but both
+          had bigger overall squads of pair-history; Morocco's def-block is
+          a larger <em>share</em> of their TCD than either.
         </p>
+        <div id="morocco-tcd-hero" style="margin:0.4rem 0 0.6rem;"></div>
         <div id="morocco-tcd-def-leaderboard" style="margin-top:0.4rem;"></div>
         <p class="dim small" style="margin-top:0.4rem;">
           <strong style="color:var(--text)">Morocco's own breakdown:</strong>
@@ -243,11 +262,15 @@
         </p>
       </div>
       <div class="card">
-        <h3 class="mt-0">Morocco's defensive lattice</h3>
+        <h3 class="mt-0">The wall and the recycle</h3>
         <p class="dim small">
-          Pitch-positioned network with def&harr;def edges in full opacity, all
-          other edges muted. The cluster on the left side of the pitch is the wall.
-          Hover any edge for AW-JOI90 / AW-JDI90.
+          <strong style="color:#5eb1f8;">Blue lattice</strong> on the left
+          is the def&harr;def wall (Saiss / Aguerd / El Yamiq / Hakimi /
+          Mazraoui attending to each other).
+          <strong style="color:#f59e0b;">Orange edges</strong> running into
+          the attacking third are the def&harr;att cross-team feeds &mdash;
+          the recycle that became the En-Nesyri goal below. Hover any edge
+          for AW-JOI90 / AW-JDI90.
         </p>
         <div class="net-view-toggle" data-team="morocco" data-default="network" role="group" aria-label="Morocco network view toggle" style="display:inline-flex; gap:0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin:0 0 0.6rem;">
           <button type="button" class="net-view-btn" data-view="nucleus">Nucleus</button>
@@ -438,6 +461,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=croatia-modric"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=morocco-recycle"></script>
 </body>
 </html>
