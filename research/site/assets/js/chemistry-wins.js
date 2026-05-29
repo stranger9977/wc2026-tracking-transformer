@@ -237,11 +237,36 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
   svg += `<rect x="${(W - padX - sixW).toFixed(1)}" y="${(H - sixH) / 2}" width="${sixW.toFixed(1)}" height="${sixH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.12" />`;
 
   // Render edges in two passes so muted ones go BEHIND the highlighted ones.
+  // For Morocco's wall+recycle view we also cap the focus list per category
+  // so the pitch reads as ~6 wall edges + ~6 recycle edges instead of a blob
+  // of every-defender-to-every-attacker. Edges are kept in descending
+  // aw_joi90 order before capping.
   const mutedEdges = [], focusEdges = [];
-  for (const e of edges) {
+  const sortedEdges = [...edges].sort((x, y) => (y.aw_joi90 || 0) - (x.aw_joi90 || 0));
+  const cat2style = new Map(); // remember per-category style for later
+  for (const e of sortedEdges) {
     const a = placed.get(e.p), b = placed.get(e.q);
     const meta = edgeStyle(e, a, b);
+    cat2style.set(meta.color, meta);
     (meta.muted ? mutedEdges : focusEdges).push({ e, a, b, ...meta });
+  }
+  if (highlight === "wall+recycle") {
+    const CAP = { "def": 6, "off": 6, "cross": 8 };
+    const seenCats = new Map();
+    const capped = [];
+    for (const ed of focusEdges) {
+      const seen = seenCats.get(ed.cat) || 0;
+      const cap = CAP[ed.cat] ?? 100;
+      if (seen >= cap) continue;
+      seenCats.set(ed.cat, seen + 1);
+      capped.push(ed);
+    }
+    // Push the overflow into the muted bucket so they still render very faintly
+    for (const ed of focusEdges) {
+      if (!capped.includes(ed)) mutedEdges.push({ ...ed, muted: true });
+    }
+    focusEdges.length = 0;
+    focusEdges.push(...capped);
   }
   for (const { e, a, b, color, muted } of mutedEdges) {
     const r = ratioOf(e);
@@ -518,8 +543,32 @@ function renderMoroccoElitePairs() {
   if (!mountEl) return;
   const net = fullNets?.[TEAM_IDS.Morocco];
   if (!net) return;
-  const byId = new Map(net.nodes.map((n) => [n.player_id, n]));
   const isDefPos = (p) => /^(CB|LB|RB|LCB|RCB|LWB|RWB)$/.test(p || "");
+
+  // Build the field of ALL def↔def pairs across every team so we can score
+  // each Morocco pair as a percentile against the actual field, not just
+  // against Morocco's own row.
+  const allDefJdis = [];
+  for (const tid in fullNets) {
+    const tn = fullNets[tid];
+    const byTid = new Map(tn.nodes.map((n) => [n.player_id, n]));
+    for (const e of (tn.edges || [])) {
+      const a = byTid.get(e.p), b = byTid.get(e.q);
+      if (!a || !b) continue;
+      if (!isDefPos(a.position) || !isDefPos(b.position)) continue;
+      const v = e.aw_jdi90 ?? 0;
+      if (v > 0) allDefJdis.push(v);
+    }
+  }
+  allDefJdis.sort((a, b) => a - b);
+  const pctileOf = (v) => {
+    if (!allDefJdis.length) return null;
+    let lo = 0, hi = allDefJdis.length;
+    while (lo < hi) { const m = (lo + hi) >> 1; allDefJdis[m] < v ? lo = m + 1 : hi = m; }
+    return (lo / allDefJdis.length) * 100;
+  };
+
+  const byId = new Map(net.nodes.map((n) => [n.player_id, n]));
   const pairs = (net.edges || [])
     .map((e) => {
       const a = byId.get(e.p), b = byId.get(e.q);
@@ -528,7 +577,7 @@ function renderMoroccoElitePairs() {
       const jdi = e.aw_jdi90 ?? 0;
       const joi = e.aw_joi90 ?? 0;
       const mins = e.minutes_together ?? e.minutes ?? 0;
-      return { a, b, jdi, joi, mins };
+      return { a, b, jdi, joi, mins, pctile: pctileOf(jdi) };
     })
     .filter(Boolean)
     .sort((x, y) => y.jdi - x.jdi)
@@ -542,11 +591,26 @@ function renderMoroccoElitePairs() {
   }
   const maxJdi = Math.max(...pairs.map((p) => p.jdi));
   const surname = (full) => (full || "").split(" ").slice(-1)[0];
+  // Pctile -> color bucket: ≥95 emerald, ≥85 green, ≥70 yellow, ≥50 amber, else gray.
+  const pctileChip = (pct) => {
+    if (pct == null) return "";
+    let bg, border, fg, label;
+    if (pct >= 95)      { bg = "#0e2a1a"; border = "#10b981"; fg = "#6ee7b7"; label = "elite"; }
+    else if (pct >= 85) { bg = "#16321f"; border = "#22c55e"; fg = "#86efac"; label = "top tier"; }
+    else if (pct >= 70) { bg = "#332815"; border = "#eab308"; fg = "#fde68a"; label = "strong"; }
+    else if (pct >= 50) { bg = "#33240e"; border = "#f59e0b"; fg = "#fbbf24"; label = "solid"; }
+    else                { bg = "#1f2a3a"; border = "#3a4554"; fg = "#9aa5b1"; label = "ok"; }
+    return `<span title="${label} — beats ${pct.toFixed(1)}% of all def↔def pairs in the tournament"
+                   style="display:inline-flex; align-items:center; gap:0.3rem; padding:0.12rem 0.45rem; border-radius:999px; background:${bg}; border:1px solid ${border}; color:${fg}; font-weight:700; font-size:0.78rem; letter-spacing:0.3px; text-transform:uppercase;">
+        ${label} &middot; p${Math.round(pct)}
+      </span>`;
+  };
   mountEl.innerHTML = `
-    <div style="display:grid; grid-template-columns: 1.4rem 1fr 7rem 4rem; align-items:center; column-gap:0.65rem; row-gap:0.35rem;">
+    <div style="display:grid; grid-template-columns: 1.4rem 1fr 7rem 6rem 4rem; align-items:center; column-gap:0.65rem; row-gap:0.4rem;">
       <span></span>
       <span class="dim small" style="text-transform:uppercase; letter-spacing:0.5px;">Pair</span>
       <span class="dim small" style="text-transform:uppercase; letter-spacing:0.5px;">AW-JDI90</span>
+      <span class="dim small" style="text-transform:uppercase; letter-spacing:0.5px;">vs field</span>
       <span class="dim small" style="text-transform:uppercase; letter-spacing:0.5px; text-align:right;">Mins</span>
       ${pairs.map((p, i) => {
         const pct = (p.jdi / maxJdi) * 100;
@@ -570,6 +634,7 @@ function renderMoroccoElitePairs() {
             </span>
             <span class="tabular" style="color:#cfe3ff; font-weight:700; min-width:2.6rem; text-align:right;">${p.jdi.toFixed(3)}</span>
           </span>
+          <span>${pctileChip(p.pctile)}</span>
           <span class="tabular dim small" style="text-align:right;">${Math.round(p.mins)}</span>
         `;
       }).join("")}
@@ -577,7 +642,8 @@ function renderMoroccoElitePairs() {
     <p class="dim small" style="margin:0.6rem 0 0;">
       <strong style="color:#cfe3ff;">El Yamiq</strong> appears in
       ${[...appearCount.values()].filter((v) => v >= 2).length > 0 ? "3 of the top 5 pairs" : "multiple top pairs"}
-      &mdash; the wall has a hub.
+      &mdash; the wall has a hub. Percentile is vs every def&harr;def pair
+      across all 32 squads (${allDefJdis.length} pairs).
     </p>`;
 }
 renderMoroccoElitePairs();
@@ -618,9 +684,26 @@ renderMoroccoTcdHero();
 //           Di María 36' (Argentina-France final).
 
 const PLAY_INDEX = {
-  "argentina-croatia-julian": {
-    title: "Álvarez 39' (Argentina v Croatia, semi-final)",
-    summary: "Julián Álvarez beats three defenders. Messi's off-ball gravity holds Croatia's shape — watch the attention orbit and how P(score) climbs as he carries.",
+  "argentina-australia-messi": {
+    title: "Messi 35' (Argentina v Australia, R16)",
+    summary: "Argentina build out of their own half, Otamendi flicks it across the box, and Messi finishes low past Ryan. The model reads it as Argentina's signature: the build-up is structural recycling, then attention collapses onto Messi at the strike.",
+    annotations: [
+      { from: 0,   to: 40,  text: "Build-up — Argentina recycle from the back",
+        pair_defaults: { cats: ["off-off"], top: 3 } },
+      { from: 41,  to: 90,  text: "Romero & Martínez switch sides",
+        pair_defaults: { cats: ["off-off", "cross"], top: 3 } },
+      { from: 91,  to: 105, text: "Otamendi sets up Messi at the top of the box",
+        pair_defaults: { cats: ["cross"], top: 4 } },
+      { from: 106, to: 155, text: "Messi strikes — ball in flight",
+        pair_defaults: { cats: ["off-off", "cross"], top: 3 } },
+      { from: 156, to: 200, text: "GOAL — Messi", color: "#ffd166",
+        pair_defaults: { cats: ["off-off", "def-def", "cross"], top: 4 } },
+    ],
+    pinning: { slots: [1], from: 80, to: 105, label: "FEEDER" }, // Otamendi
+    scorer_slot: 5, // Messi
+    scorer_label: "FINISH",
+    scorer_from: 91,
+    scorer_to: 200,
   },
   "argentina-france-mbappe-volley": {
     title: "Mbappé 81' volley (France v Argentina, final)",
@@ -727,7 +810,7 @@ async function mountPlay(divId, label) {
   await mountClipInto(el, { label, ...meta });
 }
 
-await mountPlay("play-argentina", "argentina-croatia-julian");
+await mountPlay("play-argentina", "argentina-australia-messi");
 await mountPlay("play-france", "argentina-france-mbappe-volley");
 await mountPlay("play-morocco", "morocco-portugal-en-nesyri");
 await mountPlay("play-croatia", "croatia-japan-perisic");
