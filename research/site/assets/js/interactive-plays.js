@@ -396,6 +396,11 @@ function initClip(c, detail) {
   let playTimer = null;
   let pauseUntil = 0;
   let lastEventIdxShown = -1;
+  // Follow-cam viewBox state — EMA-smoothed each frame toward a target
+  // viewBox computed from the ball position. When the ball is in the
+  // attacking third the camera tightens to that half of the pitch so
+  // the action reads without the wasted-half clutter.
+  let smoothVb = { x: 0, y: 0, w: SVG_W, h: SVG_H };
   // Smoothed attention vector (length 22) for edge widths + halo radii.
   // Seeded from whichever attention source is currently active so the very
   // first frame doesn't briefly show the shared-model halos when the user has
@@ -821,6 +826,38 @@ function initClip(c, detail) {
       const xPct = (i / Math.max(1, n - 1)) * 100;
       chartCursor.setAttribute("x1", String(xPct) + "%");
       chartCursor.setAttribute("x2", String(xPct) + "%");
+    }
+
+    // --- follow-cam viewBox: EMA-smoothed zoom toward the ball when it
+    // strays from centre. Zoom is keyed off ball-x so when the action is
+    // pressed against one goal we crop the empty half of the pitch.
+    // Vertical viewBox slides modestly with the ball too so the box
+    // doesn't end up centred on whitespace.
+    {
+      const BUFFER = 18; // svg units of padding around the ball
+      // How aggressively we crop, based on |ball x|: 0 (centre) → full
+      // pitch, 25m+ → ~60% width.
+      const absBx = Math.min(Math.abs(f.ball.x), 52.5);
+      const t = Math.max(0, (absBx - 6) / 32); // ramp 0 at x=6m, 1 at x=38m
+      const ease = Math.min(1, t * t); // ease-in
+      const minW = SVG_W * 0.62;
+      const minH = SVG_H * 0.62;
+      const targetW = SVG_W - (SVG_W - minW) * ease;
+      const targetH = SVG_H - (SVG_H - minH) * ease;
+      const [bsx, bsy] = mToSvg(f.ball.x, f.ball.y);
+      // Centre viewBox on the ball but clamp so we never see beyond the pitch.
+      let tx = bsx - targetW / 2;
+      let ty = bsy - targetH / 2;
+      tx = Math.max(0, Math.min(SVG_W - targetW, tx));
+      ty = Math.max(0, Math.min(SVG_H - targetH, ty));
+      // EMA smoothing (alpha~0.18 ≈ 5-frame half-life @ 5 Hz play).
+      const alpha = 0.18;
+      smoothVb.x = smoothVb.x + (tx - smoothVb.x) * alpha;
+      smoothVb.y = smoothVb.y + (ty - smoothVb.y) * alpha;
+      smoothVb.w = smoothVb.w + (targetW - smoothVb.w) * alpha;
+      smoothVb.h = smoothVb.h + (targetH - smoothVb.h) * alpha;
+      svg.setAttribute("viewBox",
+        `${smoothVb.x.toFixed(1)} ${smoothVb.y.toFixed(1)} ${smoothVb.w.toFixed(1)} ${smoothVb.h.toFixed(1)}`);
     }
   }
 
