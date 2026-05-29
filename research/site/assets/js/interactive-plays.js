@@ -564,22 +564,25 @@ function initClip(c, detail) {
       if (!entry) continue;
       const { p, sx, sy, color } = entry;
       // Focus mode: completely skip non-focus players (no dot, no arrow,
-      // no label, no halo). Ball-carrier is always rendered so we never
-      // lose the on-ball player even if the chapter forgot to list them.
-      if (focusSet && !focusSet.has(p.slot) && !p.has_possession) continue;
+      // no label, no halo). NO ball-carrier safety net — if the carrier
+      // isn't in focus_slots we drop them too. The ball icon still moves
+      // across the pitch so the action is legible.
+      if (focusSet && !focusSet.has(p.slot)) continue;
       const involved = dimSet.has(p.slot) || pairDrawn.has(p.slot) || p.has_possession;
       // Dim non-attended players (down to ~0.32 opacity); ball-carrier is
       // always full-bright so the carrier is never lost in the dim mass.
       const dimOp = involved ? 1.0 : 0.32;
-      const radius = p.is_gk ? 9 : 8;
+      // Dots: a touch smaller overall, and even smaller in focus mode so
+      // the FEEDER + FINISH rings around them aren't fighting the dots
+      // when both players are close together.
+      const radius = focusSet ? (p.is_gk ? 6 : 5.5) : (p.is_gk ? 7.5 : 6.5);
       const stroke = p.is_gk ? "#00d68f" : "#ffffffcc";
-      const sw = p.is_gk ? 2.0 : 1.0;
-      // Velocity arrow tail — 0.5s lookahead. ONLY draw it for involved
-      // players (top-attended, in a top pair, or ball-carrier); for the
-      // rest it was reading as noise — faint diagonal lines criss-crossing
-      // the pitch that didn't carry any signal.
+      const sw = p.is_gk ? 1.8 : 1.0;
+      // Velocity arrow tail — 0.5s lookahead. Skipped in focus mode (it
+      // was extending off-screen with a tight camera) and for non-
+      // involved players (the criss-crossing noise we cleaned up earlier).
       let arrow = "";
-      if (involved) {
+      if (involved && !focusSet) {
         const lead = 0.5; // seconds
         const [ex, ey] = mToSvg(p.x + p.vx * lead, p.y + p.vy * lead);
         const v = Math.hypot(ex - sx, ey - sy);
@@ -660,8 +663,8 @@ function initClip(c, detail) {
     topIdx.forEach((s, rank) => {
       const target = playerDOM[s];
       if (!target) return;
-      // Focus mode: skip halos on non-focus, non-ball-carrier players.
-      if (focusSet && !focusSet.has(s) && !target.p.has_possession) return;
+      // Focus mode: skip halos on non-focus players (no carrier safety net).
+      if (focusSet && !focusSet.has(s)) return;
       const a = smoothAttn[s] || 0;
       const r = 14 + Math.min(0.5, a) * 28;       // base radius
       const rPulse = rank === 0 ? r * pulse : r;
@@ -674,37 +677,67 @@ function initClip(c, detail) {
     // configured slot during the configured frame window. This is the
     // on-pitch version of the narrative we tell in the body text — the
     // off-ball player holding two defenders before the cross arrives.
-    // --- scorer highlight: gold ring + label on the goal scorer during their
-    // off-ball window (so the reader can track what the eventual scorer is
-    // doing while the model attends to other players). Configured via
-    // c.scorer_slot / c.scorer_label / c.scorer_from / c.scorer_to.
-    if (c.scorer_slot != null
-        && i >= (c.scorer_from ?? 0)
-        && i <= (c.scorer_to ?? n - 1)) {
-      const dom = playerDOM[c.scorer_slot];
-      if (dom) {
-        const r = 22 * pulse;
-        const lab = c.scorer_label || "SCORER";
-        const labelW = Math.max(42, lab.length * 6.5 + 12);
-        halosHTML += `<circle cx="${dom.sx}" cy="${dom.sy}" r="${r.toFixed(1)}" fill="none" stroke="#fbbf24" stroke-width="3" stroke-opacity="0.98" />`;
-        halosHTML += `<rect x="${(dom.sx - labelW / 2).toFixed(1)}" y="${(dom.sy + 18).toFixed(1)}" width="${labelW}" height="15" rx="3" fill="#fbbf24" />`;
-        halosHTML += `<text x="${dom.sx.toFixed(1)}" y="${(dom.sy + 29).toFixed(1)}" fill="#0b1220" font-size="10" font-weight="800" font-family="-apple-system,Segoe UI,sans-serif" text-anchor="middle" letter-spacing="0.5">${escapeSvg(lab)}</text>`;
+    // Compute scorer + pinning data first, then place their callout labels
+    // with awareness of each other so they don't overlap when feeder + scorer
+    // are within a few metres of each other (the Otamendi/Messi case).
+    const scorerActive = c.scorer_slot != null
+      && i >= (c.scorer_from ?? 0)
+      && i <= (c.scorer_to ?? n - 1)
+      && playerDOM[c.scorer_slot];
+    const pinCfg = c.pinning;
+    const pinActive = pinCfg
+      && i >= (pinCfg.from || 0)
+      && i <= (pinCfg.to ?? n - 1);
+    const pinSlots = pinActive
+      ? (pinCfg.slots || (pinCfg.slot != null ? [pinCfg.slot] : [])).filter((s) => playerDOM[s])
+      : [];
+
+    // Pick label side (above/below) for scorer so it doesn't crash into the
+    // pin label above any of the pin players that happen to be close.
+    let scorerPlaceAbove = false;
+    if (scorerActive && pinSlots.length) {
+      const sd = playerDOM[c.scorer_slot];
+      const nearAny = pinSlots.some((ps) => {
+        const pd = playerDOM[ps];
+        return pd && Math.hypot(pd.sx - sd.sx, pd.sy - sd.sy) < 65;
+      });
+      if (nearAny) {
+        // Default scorer goes BELOW (y+18); flip to above ONLY if it's
+        // physically below the pinned player(s) (so pin label above the
+        // pinned wouldn't conflict with the scorer label below the scorer).
+        const meanPinY = pinSlots.reduce((s, ps) => s + playerDOM[ps].sy, 0) / pinSlots.length;
+        if (sd.sy > meanPinY) scorerPlaceAbove = false; // stay below
+        else scorerPlaceAbove = true; // scorer is above pin → put its label even higher
       }
     }
 
-    const pinCfg = c.pinning;
-    if (pinCfg && i >= (pinCfg.from || 0) && i <= (pinCfg.to ?? n - 1)) {
-      // Support legacy single-slot config AND new multi-slot {slots: [..]} form.
-      const pinSlots = pinCfg.slots || (pinCfg.slot != null ? [pinCfg.slot] : []);
+    if (scorerActive) {
+      const dom = playerDOM[c.scorer_slot];
+      const r = 22 * pulse;
+      const lab = c.scorer_label || "SCORER";
+      const labelW = Math.max(42, lab.length * 6.5 + 12);
+      const labelY = scorerPlaceAbove ? dom.sy - 38 : dom.sy + 18;
+      const textY = scorerPlaceAbove ? dom.sy - 27 : dom.sy + 29;
+      halosHTML += `<circle cx="${dom.sx}" cy="${dom.sy}" r="${r.toFixed(1)}" fill="none" stroke="#fbbf24" stroke-width="3" stroke-opacity="0.98" />`;
+      halosHTML += `<rect x="${(dom.sx - labelW / 2).toFixed(1)}" y="${labelY.toFixed(1)}" width="${labelW}" height="15" rx="3" fill="#fbbf24" />`;
+      halosHTML += `<text x="${dom.sx.toFixed(1)}" y="${textY.toFixed(1)}" fill="#0b1220" font-size="10" font-weight="800" font-family="-apple-system,Segoe UI,sans-serif" text-anchor="middle" letter-spacing="0.5">${escapeSvg(lab)}</text>`;
+    }
+
+    if (pinSlots.length) {
       const pinLabel = pinCfg.label || "PIN";
       const labelW = Math.max(36, pinLabel.length * 6 + 12);
       for (const ps of pinSlots) {
         const dom = playerDOM[ps];
-        if (!dom) continue;
         const rPin = 22 * pulse;
+        // If scorer is above this pin player, flip THIS pin label below
+        // so they don't share the same y band.
+        const sd = scorerActive ? playerDOM[c.scorer_slot] : null;
+        const flipBelow = sd && Math.hypot(sd.sx - dom.sx, sd.sy - dom.sy) < 65 && sd.sy < dom.sy;
+        const labelY = flipBelow ? dom.sy + 18 : dom.sy - 38;
+        const textY = flipBelow ? dom.sy + 29 : dom.sy - 27;
         halosHTML += `<circle cx="${dom.sx}" cy="${dom.sy}" r="${rPin.toFixed(1)}" fill="none" stroke="#ec4899" stroke-width="3" stroke-opacity="0.95" stroke-dasharray="5 3" />`;
-        halosHTML += `<rect x="${(dom.sx - labelW / 2).toFixed(1)}" y="${(dom.sy - 38).toFixed(1)}" width="${labelW}" height="15" rx="3" fill="#ec4899" />`;
-        halosHTML += `<text x="${dom.sx.toFixed(1)}" y="${(dom.sy - 27).toFixed(1)}" fill="#0b1220" font-size="10" font-weight="800" font-family="-apple-system,Segoe UI,sans-serif" text-anchor="middle" letter-spacing="0.5">${escapeSvg(pinLabel)}</text>`;
+        halosHTML += `<rect x="${(dom.sx - labelW / 2).toFixed(1)}" y="${labelY.toFixed(1)}" width="${labelW}" height="15" rx="3" fill="#ec4899" />`;
+        halosHTML += `<text x="${dom.sx.toFixed(1)}" y="${textY.toFixed(1)}" fill="#0b1220" font-size="10" font-weight="800" font-family="-apple-system,Segoe UI,sans-serif" text-anchor="middle" letter-spacing="0.5">${escapeSvg(pinLabel)}</text>`;
       }
     }
     gHalos.innerHTML = halosHTML;
@@ -880,10 +913,10 @@ function initClip(c, detail) {
           const ys = pts.map((p) => p[1]);
           const minX = Math.min(...xs), maxX = Math.max(...xs);
           const minY = Math.min(...ys), maxY = Math.max(...ys);
-          // Generous margin around the cluster so faces aren't on the edges.
-          const PAD = 70;
-          const MIN_W = SVG_W * 0.38;
-          const MIN_H = SVG_H * 0.50;
+          // Generous margin so the close-up still shows the box context.
+          const PAD = 120;
+          const MIN_W = SVG_W * 0.55;
+          const MIN_H = SVG_H * 0.70;
           targetW = Math.max(MIN_W, (maxX - minX) + 2 * PAD);
           targetH = Math.max(MIN_H, (maxY - minY) + 2 * PAD);
           // Preserve the SVG aspect so the pitch geometry doesn't squash.
