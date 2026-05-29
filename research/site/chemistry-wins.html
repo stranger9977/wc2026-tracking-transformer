@@ -241,14 +241,34 @@
         </div>
         <div id="net-morocco" class="team-network"></div>
       </div>
+      <figure class="card mt-2" style="margin:0 0 1rem;">
+        <img src="assets/img/morocco-en-nesyri-goal.gif"
+             alt="En-Nesyri header vs Portugal — 5s broadcast clip"
+             style="width:100%; max-width:720px; display:block; margin:0 auto; border-radius:var(--radius-sm);"
+             loading="lazy">
+        <figcaption class="small dim" style="margin-top:0.4rem; text-align:center;">
+          The play in broadcast view (5 s, looped). Watch
+          <strong style="color:var(--text)">En-Nesyri</strong> drift across
+          Dias and Pepe before the cross arrives &mdash; he holds the line
+          a beat, <em>pinning</em> the centre-backs so neither can step out
+          to challenge the cross. That's what the tracking model picks up
+          below.
+        </figcaption>
+      </figure>
       <div id="play-morocco" class="mt-2"></div>
       <p class="dim small">
         Open-play header that out-leaped Portugal's back line and Diogo Costa.
-        The defensive lattice above explains the tournament; the clip above
-        shows Morocco when the attention engine was theirs &mdash; a wide buildup
-        with the off-ball runner pinning the centre-back line a beat before
-        the cross arrives. This is the half of Morocco's tournament the
-        published event-based analysis couldn't measure.
+        Build-up reads like this in the model: Morocco swing it
+        <strong style="color:var(--text)">Ziyech &rarr; Boufal &rarr; Ounahi
+        &rarr; Attiat-Allah</strong>, and at the moment of the
+        <strong style="color:var(--text)">cross from the left</strong>
+        En-Nesyri's halo lights up &mdash; he's pinned between Dias and Pepe,
+        so the cross-team attention rings the centre-back line, not the ball.
+        Then the cross arrives and the header goes in.
+        <br><br>
+        The defensive lattice above explains the tournament; the clip below
+        shows Morocco when the attention engine was theirs &mdash; the half of
+        Morocco's tournament the published event-based analysis couldn't measure.
       </p>
     </section>
 
@@ -398,6 +418,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=en-nesyri-gif"></script>
 </body>
 </html>

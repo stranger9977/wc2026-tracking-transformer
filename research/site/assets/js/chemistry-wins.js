@@ -417,7 +417,7 @@ const PLAY_INDEX = {
   },
   "morocco-portugal-en-nesyri": {
     title: "En-Nesyri header (Morocco v Portugal, QF)",
-    summary: "The defining Morocco moment. Open-play header that out-leaps the Portugal back line and Diogo Costa. Cross-team attention concentrates on the wide buildup; the off-ball runner pins the line a beat before the cross arrives.",
+    summary: "The defining Morocco moment. Build-up Ziyech → Boufal → Ounahi → Attiat-Allah, then a left-side cross. The off-ball move that makes it work: En-Nesyri pins between Dias and Pepe a beat before contact — watch his halo brighten while the cross-team attention edges concentrate on the centre-back pair, not the ball. Open-play header that out-leaps the Portugal back line and Diogo Costa.",
   },
   "near-miss-netherlands-janssen": {
     title: "Janssen 4' blocked — near-miss (Senegal v Netherlands, group stage)",

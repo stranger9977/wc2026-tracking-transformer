@@ -291,18 +291,57 @@ function initClip(c, detail) {
     markersEl.innerHTML = marks.join("");
   }
 
+  /* ---------- pick a sensible default chart perspective ---------- */
+  // Default to "Net from the scoring team" so the curve climbs toward the goal
+  // instead of flipping with every possession change. The upstream clip JSON's
+  // `scoring_team_id` field is unreliable (some clips store the conceding
+  // team), so prefer the goal-event actor's team where we can find them.
+  const goalIdxForDefault = frames.findIndex((f) => f.is_goal_event);
+  if (ctrlScope) {
+    const perspSelect = ctrlScope.querySelector('[data-iplay="perspective"]');
+    if (perspSelect) {
+      let scoringTid = null;
+      // 1) try matching the goal-event actor to a player on the goal frame.
+      const goalEvt = (detail.events_in_window || []).find((e) => e.is_goal && e.actor_name);
+      if (goalEvt && goalIdxForDefault >= 0) {
+        const lastName = String(goalEvt.actor_name).trim().split(/\s+/).slice(-1)[0].toLowerCase();
+        for (const p of (frames[goalIdxForDefault].players || [])) {
+          if (p.name && p.name.toLowerCase().includes(lastName)) {
+            scoringTid = p.team_id;
+            break;
+          }
+        }
+      }
+      // 2) fall back to the (possibly-wrong) frame-level field.
+      if (!scoringTid && goalIdxForDefault >= 0) {
+        scoringTid = frames[goalIdxForDefault].scoring_team_id
+          || frames[goalIdxForDefault].in_possession_team_id;
+      }
+      const homeTid = detail.home_team?.team_id || detail.home_team?.id
+        || c.home_team?.team_id || c.home_team?.id;
+      const awayTid = detail.away_team?.team_id || detail.away_team?.id
+        || c.away_team?.team_id || c.away_team?.id;
+      let nextVal = "home";
+      if (scoringTid && String(scoringTid) === String(awayTid)) nextVal = "away";
+      else if (scoringTid && String(scoringTid) === String(homeTid)) nextVal = "home";
+      perspSelect.value = nextVal;
+    }
+  }
+
   /* ---------- P-chart under the slider ---------- */
   let chartCursor = null;
   function renderChart() {
     if (!chartEl) return;
     const perspective = currentPerspective(ctrlScope);
     let povTeamId = null, povName = "team";
+    const homeT = detail.home_team || c.home_team || {};
+    const awayT = detail.away_team || c.away_team || {};
     if (perspective === "home") {
-      povTeamId = c.home_team?.team_id || c.home_team?.id || c.home_team?.short;
-      povName = c.home_team?.short || c.home_team?.name || "home";
+      povTeamId = homeT.team_id || homeT.id || homeT.short;
+      povName = homeT.short || homeT.name || "home";
     } else if (perspective === "away") {
-      povTeamId = c.away_team?.team_id || c.away_team?.id || c.away_team?.short;
-      povName = c.away_team?.short || c.away_team?.name || "away";
+      povTeamId = awayT.team_id || awayT.id || awayT.short;
+      povName = awayT.short || awayT.name || "away";
     }
     chartEl.innerHTML = pChartSvg(frames, { perspective, povTeamId, povName });
     chartCursor = chartEl.querySelector(".chart-cursor");
@@ -381,10 +420,38 @@ function initClip(c, detail) {
     }
 
     // --- player circles
+    // Pre-compute top-attended set so we can dim non-involved players.
+    // We do the same selection as topIdx below, but we need it BEFORE drawing.
+    const topNForDim = currentTopN(ctrlScope);
+    const includeGkDim = currentIncludeGk(ctrlScope);
+    const edgeFilterDim = currentEdgeFilter(ctrlScope);
+    const isOffPre = (p) => p && (p.position === "FWD" || p.position === "MID"
+                               || /^(CF|ST|LW|RW|AM|CM|DM|LM|RM)$/i.test(String(p.position || "")));
+    const isDefPre = (p) => p && (p.position === "DEF" || p.position === "GK"
+                               || /^(CB|LB|RB|LCB|RCB|GK)$/i.test(String(p.position || "")));
+    const dimSet = new Set(
+      smoothAttn
+        .map((v, idx) => [v, idx])
+        .filter(([, idx]) => {
+          const t = playerDOM[idx] && playerDOM[idx].p;
+          if (!t) return false;
+          if (!includeGkDim && t.is_gk) return false;
+          if (edgeFilterDim === "off" && !isOffPre(t)) return false;
+          if (edgeFilterDim === "def" && !isDefPre(t)) return false;
+          return true;
+        })
+        .sort((a, b) => b[0] - a[0])
+        .slice(0, topNForDim)
+        .map(([, idx]) => idx)
+    );
     let dotsHTML = "";
     for (const entry of playerDOM) {
       if (!entry) continue;
       const { p, sx, sy, color } = entry;
+      const involved = dimSet.has(p.slot);
+      // Dim non-attended players (down to ~0.32 opacity); ball-carrier is
+      // always full-bright so the carrier is never lost in the dim mass.
+      const dimOp = (involved || p.has_possession) ? 1.0 : 0.32;
       const radius = p.is_gk ? 9 : 8;
       const stroke = p.is_gk ? "#00d68f" : "#ffffffcc";
       const sw = p.is_gk ? 2.0 : 1.0;
@@ -393,9 +460,9 @@ function initClip(c, detail) {
       const [ex, ey] = mToSvg(p.x + p.vx * lead, p.y + p.vy * lead);
       const v = Math.hypot(ex - sx, ey - sy);
       const arrow = v > 4
-        ? `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="${color}" stroke-opacity="0.55" stroke-width="1.4" />`
+        ? `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="${color}" stroke-opacity="${(0.55 * dimOp).toFixed(2)}" stroke-width="1.4" />`
         : "";
-      dotsHTML += `${arrow}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" stroke="${stroke}" stroke-width="${sw}" />`;
+      dotsHTML += `${arrow}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}" />`;
     }
     gPlayers.innerHTML = dotsHTML;
 
@@ -490,7 +557,9 @@ function initClip(c, detail) {
       const labelH = 11;
       const { lx, ly } = pickLabelPos(sx, sy, p.vx, p.vy, labelW, labelH, placed);
       placed.push({ x: lx, y: ly, w: labelW, h: labelH });
-      labelsHTML += `<g class="iplay-label"><rect x="${lx}" y="${ly}" width="${labelW}" height="${labelH}" fill="#0b1220" fill-opacity="0.7" rx="2.5" /><text x="${lx + 4}" y="${ly + 8}" fill="#ffffff" font-size="8.5" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
+      const labelInvolved = dimSet.has(p.slot) || p.has_possession;
+      const labelOp = labelInvolved ? 1.0 : 0.35;
+      labelsHTML += `<g class="iplay-label" opacity="${labelOp}"><rect x="${lx}" y="${ly}" width="${labelW}" height="${labelH}" fill="#0b1220" fill-opacity="0.7" rx="2.5" /><text x="${lx + 4}" y="${ly + 8}" fill="#ffffff" font-size="8.5" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
     }
     gLabels.innerHTML = labelsHTML;
 
@@ -831,6 +900,15 @@ function pChartSvg(frames, opts = {}) {
   }
 
   // Net mode: single smoothed curve from chosen team's POV, fixed [-1, +1] range.
+  // The raw model output at frame X = P(score in [X, X+10s]). If we plot that
+  // value at X, the peak appears 10s before the goal, which is confusing.
+  // Shift each prediction forward by the lookahead window (10s = 50 frames at
+  // 5 Hz) so the value plotted at time T is "the prediction made 10s ago
+  // about what's happening near T." The peak then visually aligns with the
+  // event the model was predicting.
+  const FRAME_HZ = 5;
+  const LOOKAHEAD_S = 10;
+  const SHIFT = LOOKAHEAD_S * FRAME_HZ; // 50 frames forward
   const netRaw = frames.map((f) => {
     const possIsPov = String(f.in_possession_team_id) === String(povTeamId);
     const ps = f.p_score || 0, pc = f.p_concede || 0;
@@ -838,30 +916,47 @@ function pChartSvg(frames, opts = {}) {
     const myConcede = possIsPov ? pc : ps;
     return myScore - myConcede;
   });
-  // Centered 7-frame smoothing (~1.4s at 5 Hz).
-  const win = 7, half = Math.floor(win / 2);
-  const net = netRaw.map((_, i) => {
-    let s = 0, c = 0;
-    for (let j = Math.max(0, i - half); j <= Math.min(netRaw.length - 1, i + half); j++) {
-      if (Number.isFinite(netRaw[j])) { s += netRaw[j]; c++; }
-    }
-    return c > 0 ? s / c : 0;
-  });
+  // Forward-shift: plottedAt[t] = netRaw[t - SHIFT]; first SHIFT samples have
+  // no past prediction yet (we hold them at the first available value to keep
+  // the curve continuous rather than start at a fake 0).
+  const shifted = new Array(netRaw.length).fill(0);
+  for (let t = 0; t < netRaw.length; t++) {
+    const src = t - SHIFT;
+    shifted[t] = src >= 0 ? netRaw[src] : netRaw[0];
+  }
+  // Exponential-weighted moving avg (causal). α=0.18 ≈ ~5-frame half-life;
+  // smooths out the per-frame jitter while keeping the build-up shape.
+  const alpha = 0.18;
+  const net = new Array(shifted.length);
+  let ewma = shifted[0] || 0;
+  for (let t = 0; t < shifted.length; t++) {
+    ewma = alpha * shifted[t] + (1 - alpha) * ewma;
+    net[t] = ewma;
+  }
   const yToPy = (v) => h - pad - ((v + 1) / 2) * (h - 2 * pad);  // map [-1, +1] → plot
   const pts = net.map((v, i) => {
     const px = (i / Math.max(1, n - 1)) * (w - 2 * pad) + pad;
     return `${px.toFixed(2)},${yToPy(v).toFixed(2)}`;
   });
+  // Build a soft area fill (positive part green, negative part red) for legibility.
   const zeroY = yToPy(0).toFixed(2);
+  const areaPos = pts
+    .map((s) => {
+      const [x, y] = s.split(",").map(Number);
+      const yClamped = Math.min(parseFloat(zeroY), y);
+      return `${x.toFixed(2)},${yClamped.toFixed(2)}`;
+    });
+  const areaPath = `${pad},${zeroY} ${areaPos.join(" ")} ${(w - pad).toFixed(2)},${zeroY}`;
   return `
     <div class="chart-title">
-      <span><span class="dot" style="background:#54c875"></span>Net P · from ${escapeHTML(povName)} (smoothed)</span>
-      <span class="dim small">+1 = about to score &nbsp;·&nbsp; −1 = about to concede</span>
+      <span><span class="dot" style="background:#54c875"></span>Net P · from ${escapeHTML(povName)} (EWMA, +10 s shift)</span>
+      <span class="dim small">value at time T = prediction made 10 s earlier; peaks line up with events</span>
     </div>
     <svg class="chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="0" y="0" width="${w}" height="${h}" fill="#0b1220" />
       <line x1="${pad}" y1="${zeroY}" x2="${w - pad}" y2="${zeroY}" stroke="#3a4554" stroke-width="0.2" />
-      <polyline fill="none" stroke="#54c875" stroke-width="0.7" stroke-linecap="round" points="${pts.join(" ")}" />
+      <polygon fill="#54c875" fill-opacity="0.18" points="${areaPath}" />
+      <polyline fill="none" stroke="#54c875" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" points="${pts.join(" ")}" />
       ${evMarks}
       <line class="chart-cursor" x1="0%" y1="0" x2="0%" y2="${h}" stroke="#fde047" stroke-width="0.4" stroke-opacity="0.85" />
     </svg>`;
