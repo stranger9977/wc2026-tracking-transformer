@@ -1491,10 +1491,10 @@ div.player-dot .role {
 .atom-label {
   font-family: var(--mono);
   font-size: 2.2px;     /* SVG user units; viewBox 100 wide. Larger so the names actually read at typical rendered sizes. */
-  fill: #e8eef9;
+  fill: #f1f5f9;
   paint-order: stroke;
   stroke: #0b1220;
-  stroke-width: 0.6px;
+  stroke-width: 0.32px;  /* Tighter stroke so labels read sharp, not chunky. */
   stroke-linejoin: round;
 }
 .atom-header {

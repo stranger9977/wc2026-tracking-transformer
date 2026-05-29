@@ -310,17 +310,17 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
   }
   for (const { e, a, b, color, muted } of mutedEdges) {
     const r = ratioOf(e);
-    const w = 0.15 + r * 0.5;
+    const w = 0.10 + r * 0.35;
     const op = (0.05 + r * 0.10).toFixed(2);
     svg += `<line x1="${scaleX(a.x).toFixed(1)}" y1="${scaleY(a.y).toFixed(1)}" x2="${scaleX(b.x).toFixed(1)}" y2="${scaleY(b.y).toFixed(1)}" stroke="${color}" stroke-opacity="${op}" stroke-width="${w.toFixed(2)}" stroke-linecap="round"><title>${escapeHTML(e.name_p)} ↔ ${escapeHTML(e.name_q)}: AW-JOI90 ${e.aw_joi90.toFixed(2)}, AW-JDI90 ${(e.aw_jdi90 ?? 0).toFixed(2)}</title></line>`;
   }
-  // Focused edges: thicker + a subtle glow underneath, so def-def reads as
-  // a single lattice and not a tangle of skinny lines.
+  // Focused edges: slightly thinner than before, still with a soft halo
+  // underneath so the wall reads as a single lattice and not a tangle.
   for (const { e, a, b, color } of focusEdges) {
     const r = ratioOf(e);
-    const w = 0.5 + r * 1.8;
+    const w = 0.35 + r * 1.25;
     const op = (0.55 + r * 0.40).toFixed(2);
-    svg += `<line x1="${scaleX(a.x).toFixed(1)}" y1="${scaleY(a.y).toFixed(1)}" x2="${scaleX(b.x).toFixed(1)}" y2="${scaleY(b.y).toFixed(1)}" stroke="${color}" stroke-opacity="0.18" stroke-width="${(w * 1.9).toFixed(2)}" stroke-linecap="round" />`;
+    svg += `<line x1="${scaleX(a.x).toFixed(1)}" y1="${scaleY(a.y).toFixed(1)}" x2="${scaleX(b.x).toFixed(1)}" y2="${scaleY(b.y).toFixed(1)}" stroke="${color}" stroke-opacity="0.16" stroke-width="${(w * 1.9).toFixed(2)}" stroke-linecap="round" />`;
     svg += `<line x1="${scaleX(a.x).toFixed(1)}" y1="${scaleY(a.y).toFixed(1)}" x2="${scaleX(b.x).toFixed(1)}" y2="${scaleY(b.y).toFixed(1)}" stroke="${color}" stroke-opacity="${op}" stroke-width="${w.toFixed(2)}" stroke-linecap="round"><title>${escapeHTML(e.name_p)} ↔ ${escapeHTML(e.name_q)}: AW-JOI90 ${e.aw_joi90.toFixed(2)}, AW-JDI90 ${(e.aw_jdi90 ?? 0).toFixed(2)}</title></line>`;
   }
   for (const n of placed.values()) {
@@ -352,9 +352,12 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
       // starts at y = padTop (6).
       const boxY = 0.6;
       const boxH = 4.4;
-      const w = Math.max(14, text.length * 1.35 + 3);
+      // Box width: pad generously so the bold mono text + letter-spacing
+      // can never clip. Was clipping "THE WALL" / "THE ATTACK" at the
+      // box edges before (text wider than container).
+      const w = Math.max(18, text.length * 2.05 + 4);
       svg += `<rect x="${(cx - w / 2).toFixed(1)}" y="${boxY}" width="${w.toFixed(1)}" height="${boxH}" rx="0.8" fill="${color}" fill-opacity="0.16" stroke="${color}" stroke-width="0.35" />`;
-      svg += `<text x="${cx.toFixed(1)}" y="${(boxY + 2.8).toFixed(1)}" text-anchor="middle" style="fill:${color}; font-size:2.6px; font-weight:800; letter-spacing:0.5px;">${text}</text>`;
+      svg += `<text x="${cx.toFixed(1)}" y="${(boxY + 2.85).toFixed(1)}" text-anchor="middle" style="fill:${color}; font-size:2.5px; font-weight:800; letter-spacing:0.45px;">${text}</text>`;
     };
     const defs = [...placed.values()].filter((n) => isDef(n.position));
     drawCallout(defs, "THE WALL", "#5eb1f8");
