@@ -413,7 +413,29 @@ const PLAY_INDEX = {
   },
   "croatia-japan-perisic": {
     title: "Perišić equalizer (Croatia v Japan, R16)",
-    summary: "Croatia's midfield engine pivots wide to set up Perišić's header. The Modrić / Brozović / Kovačić triangle owns the buildup — watch attention orbit the middle third before snapping to the cross.",
+    summary: "Croatia's midfield engine sets up Perišić's header. Modrić plays the QB-ball that leads the runner; Barišić bombs forward on the left to drag the line; Lovren whips the cross to the back post for Perišić.",
+    annotations: [
+      { from: 0,   to: 39,  text: "Build-up — Croatia recycle through the middle",
+        pair_defaults: { cats: ["off-off"], top: 3 } },
+      { from: 40,  to: 99,  text: "Modrić threads it — QB-style read",
+        pair_defaults: { cats: ["off-off", "cross"], top: 3 } },
+      { from: 100, to: 134, text: "Barišić bombs forward on the left",
+        pair_defaults: { cats: ["off-off"], top: 3 } },
+      { from: 135, to: 149, text: "Lovren cross — Perišić attacks the back post",
+        pair_defaults: { cats: ["cross"], top: 4 } },
+      { from: 150, to: 200, text: "GOAL — Perišić", color: "#ffd166",
+        pair_defaults: { cats: ["off-off", "cross"], top: 4 } },
+    ],
+    // Modrić (slot 16) gets the pink ring during his ignite-window. Pin
+    // label "QB" because that's the user's own framing — the touch that
+    // throws someone open.
+    pinning: { slots: [16], from: 40, to: 99, label: "QB" },
+    // Perišić (slot 21) is the eventual scorer; the gold ring tracks him
+    // through the off-ball run + the header.
+    scorer_slot: 21,
+    scorer_label: "RUNNER",
+    scorer_from: 100,
+    scorer_to: 200,
   },
   "morocco-portugal-en-nesyri": {
     title: "En-Nesyri header (Morocco v Portugal, QF)",

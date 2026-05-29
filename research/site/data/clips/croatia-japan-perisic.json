@@ -5,7 +5,7 @@
   "period": 2,
   "start_s": 565.0,
   "end_s": 600.0,
-  "n_frames": 150,
+  "n_frames": 160,
   "pitch": {
     "length_m": 105.0,
     "width_m": 68.0
@@ -69807,8 +69807,8 @@
         36.42999976873398,
         -1.0599999241530895
       ],
-      "event_label": "GOAL  \u2014  Ivan Perisic",
-      "is_goal_event": true,
+      "event_label": "Header struck \u2014 Peri\u0161i\u0107",
+      "is_goal_event": false,
       "frame_idx": 144,
       "frame_id": 106772,
       "period": 2,
@@ -70291,8 +70291,8 @@
         39.51999977231026,
         -4.1500000059604645
       ],
-      "event_label": "GOAL  \u2014  Ivan Perisic",
-      "is_goal_event": true,
+      "event_label": "Header struck \u2014 Peri\u0161i\u0107",
+      "is_goal_event": false,
       "frame_idx": 145,
       "frame_id": 106778,
       "period": 2,
@@ -72682,6 +72682,4836 @@
           0.06945914775133133
         ]
       ]
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "attention": 0.0699169710278511
+        }
+      ],
+      "ball_xy": [
+        52.8762995326519,
+        2.4380998957157134
+      ],
+      "event_label": "GOAL \u2014 Peri\u0161i\u0107 (ball crosses the line)",
+      "is_goal_event": true,
+      "frame_idx": 150,
+      "frame_id": null,
+      "period": 2,
+      "timestamp_ms": 595195,
+      "in_possession_team_id": "57",
+      "p_score": 0.0013893434079363942,
+      "p_concede": 0.8527368903160095,
+      "vaep": -0.8513475469080731,
+      "players": [
+        {
+          "slot": 0,
+          "player_id": 11841,
+          "name": "Hidemasa Morita",
+          "position": "CM",
+          "jersey": "13",
+          "team_id": "57",
+          "x": 31.052920132875443,
+          "y": 11.999623835086823,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.029160328209400177
+        },
+        {
+          "slot": 1,
+          "player_id": 13797,
+          "name": "Shogo Taniguchi",
+          "position": "LCB",
+          "jersey": "3",
+          "team_id": "57",
+          "x": 40.408390027284625,
+          "y": 5.937616175413131,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03436203673481941
+        },
+        {
+          "slot": 2,
+          "player_id": 13798,
+          "name": "Yuto Nagatomo",
+          "position": "LWB",
+          "jersey": "5",
+          "team_id": "57",
+          "x": 36.62388173937798,
+          "y": 16.650322210788726,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0684390515089035
+        },
+        {
+          "slot": 3,
+          "player_id": 13799,
+          "name": "Shuichi Gonda",
+          "position": "GK",
+          "jersey": "12",
+          "team_id": "57",
+          "x": 50.98197632431984,
+          "y": 1.6527990356087685,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": true,
+          "attention": 0.012007308192551136
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "jersey": "25",
+          "team_id": "57",
+          "x": 26.29846121966839,
+          "y": 5.847548168897629,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.0699169710278511
+        },
+        {
+          "slot": 5,
+          "player_id": 2087,
+          "name": "Takehiro Tomiyasu",
+          "position": "RCB",
+          "jersey": "16",
+          "team_id": "57",
+          "x": 41.25641734004021,
+          "y": -3.6045114658772945,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.035978835076093674
+        },
+        {
+          "slot": 6,
+          "player_id": 2088,
+          "name": "Maya Yoshida",
+          "position": "MCB",
+          "jersey": "22",
+          "team_id": "57",
+          "x": 42.600342231988904,
+          "y": -0.34850752241909505,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.030625907704234123
+        },
+        {
+          "slot": 7,
+          "player_id": 2094,
+          "name": "Junya Ito",
+          "position": "RWB",
+          "jersey": "14",
+          "team_id": "57",
+          "x": 41.675872159004214,
+          "y": -5.494069284200668,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0308192390948534
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "jersey": "15",
+          "team_id": "57",
+          "x": 20.68865476846695,
+          "y": 23.32543808221817,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 9,
+          "player_id": 4928,
+          "name": "Wataru Endo",
+          "position": "CM",
+          "jersey": "6",
+          "team_id": "57",
+          "x": 35.66045055985451,
+          "y": -0.08989999572513625,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.05257205292582512
+        },
+        {
+          "slot": 10,
+          "player_id": 9981,
+          "name": "Ritsu Doan",
+          "position": "RW",
+          "jersey": "8",
+          "team_id": "57",
+          "x": 32.69640052318573,
+          "y": -5.852021849155426,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03305814042687416
+        },
+        {
+          "slot": 11,
+          "player_id": 100,
+          "name": "Mateo Kovacic",
+          "position": "CM",
+          "jersey": "8",
+          "team_id": "371",
+          "x": 32.71041405200958,
+          "y": -3.086507757008076,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.006172421853989363
+        },
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "jersey": "1",
+          "team_id": "371",
+          "x": -24.99448082447052,
+          "y": 1.3280270621180534,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 13,
+          "player_id": 13857,
+          "name": "Borna Barisic",
+          "position": "LB",
+          "jersey": "3",
+          "team_id": "371",
+          "x": 22.714465820789336,
+          "y": -13.550605523586274,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004019645974040031
+        },
+        {
+          "slot": 14,
+          "player_id": 13858,
+          "name": "Josip Juranovic",
+          "position": "RB",
+          "jersey": "22",
+          "team_id": "371",
+          "x": 30.936058002710343,
+          "y": 29.770104932785035,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03453308716416359
+        },
+        {
+          "slot": 15,
+          "player_id": 13861,
+          "name": "Bruno Petkovic",
+          "position": "CF",
+          "jersey": "16",
+          "team_id": "371",
+          "x": 40.70892058610916,
+          "y": -2.084099107980728,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004968959838151932
+        },
+        {
+          "slot": 16,
+          "player_id": 1687,
+          "name": "Luka Modric",
+          "position": "CM",
+          "jersey": "10",
+          "team_id": "371",
+          "x": 28.138944107294083,
+          "y": 4.912513030320406,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.008831387385725975
+        },
+        {
+          "slot": 17,
+          "player_id": 40,
+          "name": "Dejan Lovren",
+          "position": "RCB",
+          "jersey": "6",
+          "team_id": "371",
+          "x": 16.305617651343347,
+          "y": 20.412105536460878,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03170676529407501
+        },
+        {
+          "slot": 18,
+          "player_id": 4883,
+          "name": "Andrej Kramaric",
+          "position": "RW",
+          "jersey": "9",
+          "team_id": "371",
+          "x": 34.21037364602089,
+          "y": 6.4890394568443295,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011563748121261597
+        },
+        {
+          "slot": 19,
+          "player_id": 4892,
+          "name": "Josko Gvardiol",
+          "position": "LCB",
+          "jersey": "20",
+          "team_id": "371",
+          "x": 7.017526394128799,
+          "y": 3.28154057264328,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011312616989016533
+        },
+        {
+          "slot": 20,
+          "player_id": 8129,
+          "name": "Marcelo Brozovic",
+          "position": "CM",
+          "jersey": "11",
+          "team_id": "371",
+          "x": 33.915326189994815,
+          "y": 15.690139174461365,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.019719768315553665
+        },
+        {
+          "slot": 21,
+          "player_id": 8136,
+          "name": "Ivan Perisic",
+          "position": "LW",
+          "jersey": "4",
+          "team_id": "371",
+          "x": 39.1939863294363,
+          "y": -1.578348009288311,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.005604189820587635
+        }
+      ],
+      "ball": {
+        "x": 52.8762995326519,
+        "y": 2.4380998957157134
+      },
+      "attention": [
+        0.029160328209400177,
+        0.03436203673481941,
+        0.0684390515089035,
+        0.012007308192551136,
+        0.0699169710278511,
+        0.035978835076093674,
+        0.030625907704234123,
+        0.0308192390948534,
+        0.19281600415706635,
+        0.05257205292582512,
+        0.03305814042687416,
+        0.006172421853989363,
+        0.2718115448951721,
+        0.004019645974040031,
+        0.03453308716416359,
+        0.004968959838151932,
+        0.008831387385725975,
+        0.03170676529407501,
+        0.011563748121261597,
+        0.011312616989016533,
+        0.019719768315553665,
+        0.005604189820587635
+      ],
+      "top_slots": [
+        12,
+        8,
+        4
+      ],
+      "scoring_team_id": null,
+      "pair_attention_score_top": [
+        [
+          13,
+          14,
+          0.13816308975219727
+        ],
+        [
+          8,
+          13,
+          0.12079331278800964
+        ],
+        [
+          3,
+          13,
+          0.10846594721078873
+        ],
+        [
+          13,
+          17,
+          0.10536080598831177
+        ],
+        [
+          3,
+          19,
+          0.10061238706111908
+        ],
+        [
+          3,
+          11,
+          0.09132244437932968
+        ],
+        [
+          3,
+          21,
+          0.0912785679101944
+        ],
+        [
+          3,
+          16,
+          0.0847255289554596
+        ],
+        [
+          3,
+          15,
+          0.08207938075065613
+        ],
+        [
+          3,
+          10,
+          0.07843825221061707
+        ],
+        [
+          3,
+          6,
+          0.0764341801404953
+        ],
+        [
+          3,
+          18,
+          0.07478600740432739
+        ],
+        [
+          3,
+          7,
+          0.07253432273864746
+        ],
+        [
+          3,
+          5,
+          0.07116132974624634
+        ],
+        [
+          3,
+          9,
+          0.06945914775133133
+        ]
+      ],
+      "is_synthetic": true
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "attention": 0.0699169710278511
+        }
+      ],
+      "ball_xy": [
+        53.007199630737304,
+        1.9263999176025395
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 151,
+      "frame_id": null,
+      "period": 2,
+      "timestamp_ms": 595395,
+      "in_possession_team_id": "57",
+      "p_score": 0.0013893434079363942,
+      "p_concede": 0.8527368903160095,
+      "vaep": -0.8513475469080731,
+      "players": [
+        {
+          "slot": 0,
+          "player_id": 11841,
+          "name": "Hidemasa Morita",
+          "position": "CM",
+          "jersey": "13",
+          "team_id": "57",
+          "x": 31.133839458227158,
+          "y": 11.876247465610504,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.029160328209400177
+        },
+        {
+          "slot": 1,
+          "player_id": 13797,
+          "name": "Shogo Taniguchi",
+          "position": "LCB",
+          "jersey": "3",
+          "team_id": "57",
+          "x": 40.514782243967055,
+          "y": 5.82123253941536,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03436203673481941
+        },
+        {
+          "slot": 2,
+          "player_id": 13798,
+          "name": "Yuto Nagatomo",
+          "position": "LWB",
+          "jersey": "5",
+          "team_id": "57",
+          "x": 36.741763764619826,
+          "y": 16.32764526605606,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0684390515089035
+        },
+        {
+          "slot": 3,
+          "player_id": 13799,
+          "name": "Shuichi Gonda",
+          "position": "GK",
+          "jersey": "12",
+          "team_id": "57",
+          "x": 51.00395368337631,
+          "y": 1.8535980716347695,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": true,
+          "attention": 0.012007308192551136
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "jersey": "25",
+          "team_id": "57",
+          "x": 26.335923147201537,
+          "y": 5.799096608161927,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.0699169710278511
+        },
+        {
+          "slot": 5,
+          "player_id": 2087,
+          "name": "Takehiro Tomiyasu",
+          "position": "RCB",
+          "jersey": "16",
+          "team_id": "57",
+          "x": 41.33983374834061,
+          "y": -3.5930229648947716,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.035978835076093674
+        },
+        {
+          "slot": 6,
+          "player_id": 2088,
+          "name": "Maya Yoshida",
+          "position": "MCB",
+          "jersey": "22",
+          "team_id": "57",
+          "x": 42.75868440270424,
+          "y": -0.3410150293260813,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.030625907704234123
+        },
+        {
+          "slot": 7,
+          "player_id": 2094,
+          "name": "Junya Ito",
+          "position": "RWB",
+          "jersey": "14",
+          "team_id": "57",
+          "x": 41.80274596214294,
+          "y": -5.425138276815415,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0308192390948534
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "jersey": "15",
+          "team_id": "57",
+          "x": 20.533309853076936,
+          "y": 23.38587772846222,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 9,
+          "player_id": 4928,
+          "name": "Wataru Endo",
+          "position": "CM",
+          "jersey": "6",
+          "team_id": "57",
+          "x": 35.710900926589964,
+          "y": -0.1897999910521321,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.05257205292582512
+        },
+        {
+          "slot": 10,
+          "player_id": 9981,
+          "name": "Ritsu Doan",
+          "position": "RW",
+          "jersey": "8",
+          "team_id": "57",
+          "x": 32.79480132460594,
+          "y": -5.830043774843216,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03305814042687416
+        },
+        {
+          "slot": 11,
+          "player_id": 100,
+          "name": "Mateo Kovacic",
+          "position": "CM",
+          "jersey": "8",
+          "team_id": "371",
+          "x": 32.79582926630974,
+          "y": -3.0790153235197066,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.006172421853989363
+        },
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "jersey": "1",
+          "team_id": "371",
+          "x": -25.01396110355854,
+          "y": 1.3010540530085564,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 13,
+          "player_id": 13857,
+          "name": "Borna Barisic",
+          "position": "LB",
+          "jersey": "3",
+          "team_id": "371",
+          "x": 22.749930846691132,
+          "y": -13.444211876392364,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004019645974040031
+        },
+        {
+          "slot": 14,
+          "player_id": 13858,
+          "name": "Josip Juranovic",
+          "position": "RB",
+          "jersey": "22",
+          "team_id": "371",
+          "x": 30.879114842414857,
+          "y": 29.666208839416505,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03453308716416359
+        },
+        {
+          "slot": 15,
+          "player_id": 13861,
+          "name": "Bruno Petkovic",
+          "position": "CF",
+          "jersey": "16",
+          "team_id": "371",
+          "x": 40.788840508461,
+          "y": -1.9851981282234192,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004968959838151932
+        },
+        {
+          "slot": 16,
+          "player_id": 1687,
+          "name": "Luka Modric",
+          "position": "CM",
+          "jersey": "10",
+          "team_id": "371",
+          "x": 28.193888461589815,
+          "y": 4.9000257208943365,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.008831387385725975
+        },
+        {
+          "slot": 17,
+          "player_id": 40,
+          "name": "Dejan Lovren",
+          "position": "RCB",
+          "jersey": "6",
+          "team_id": "371",
+          "x": 16.189234253764152,
+          "y": 20.307210993766784,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03170676529407501
+        },
+        {
+          "slot": 18,
+          "player_id": 4883,
+          "name": "Andrej Kramaric",
+          "position": "RW",
+          "jersey": "9",
+          "team_id": "371",
+          "x": 34.34074394106865,
+          "y": 6.449079257249832,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011563748121261597
+        },
+        {
+          "slot": 19,
+          "player_id": 4892,
+          "name": "Josko Gvardiol",
+          "position": "LCB",
+          "jersey": "20",
+          "team_id": "371",
+          "x": 6.991052907705307,
+          "y": 3.241081029176712,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011312616989016533
+        },
+        {
+          "slot": 20,
+          "player_id": 8129,
+          "name": "Marcelo Brozovic",
+          "position": "CM",
+          "jersey": "11",
+          "team_id": "371",
+          "x": 34.084655129909514,
+          "y": 15.551278233528137,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.019719768315553665
+        },
+        {
+          "slot": 21,
+          "player_id": 8136,
+          "name": "Ivan Perisic",
+          "position": "LW",
+          "jersey": "4",
+          "team_id": "371",
+          "x": 39.20997107625008,
+          "y": -1.2306960269808769,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.005604189820587635
+        }
+      ],
+      "ball": {
+        "x": 53.007199630737304,
+        "y": 1.9263999176025395
+      },
+      "attention": [
+        0.029160328209400177,
+        0.03436203673481941,
+        0.0684390515089035,
+        0.012007308192551136,
+        0.0699169710278511,
+        0.035978835076093674,
+        0.030625907704234123,
+        0.0308192390948534,
+        0.19281600415706635,
+        0.05257205292582512,
+        0.03305814042687416,
+        0.006172421853989363,
+        0.2718115448951721,
+        0.004019645974040031,
+        0.03453308716416359,
+        0.004968959838151932,
+        0.008831387385725975,
+        0.03170676529407501,
+        0.011563748121261597,
+        0.011312616989016533,
+        0.019719768315553665,
+        0.005604189820587635
+      ],
+      "top_slots": [
+        12,
+        8,
+        4
+      ],
+      "scoring_team_id": null,
+      "pair_attention_score_top": [
+        [
+          13,
+          14,
+          0.13816308975219727
+        ],
+        [
+          8,
+          13,
+          0.12079331278800964
+        ],
+        [
+          3,
+          13,
+          0.10846594721078873
+        ],
+        [
+          13,
+          17,
+          0.10536080598831177
+        ],
+        [
+          3,
+          19,
+          0.10061238706111908
+        ],
+        [
+          3,
+          11,
+          0.09132244437932968
+        ],
+        [
+          3,
+          21,
+          0.0912785679101944
+        ],
+        [
+          3,
+          16,
+          0.0847255289554596
+        ],
+        [
+          3,
+          15,
+          0.08207938075065613
+        ],
+        [
+          3,
+          10,
+          0.07843825221061707
+        ],
+        [
+          3,
+          6,
+          0.0764341801404953
+        ],
+        [
+          3,
+          18,
+          0.07478600740432739
+        ],
+        [
+          3,
+          7,
+          0.07253432273864746
+        ],
+        [
+          3,
+          5,
+          0.07116132974624634
+        ],
+        [
+          3,
+          9,
+          0.06945914775133133
+        ]
+      ],
+      "is_synthetic": true
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "attention": 0.0699169710278511
+        }
+      ],
+      "ball_xy": [
+        53.12269971728325,
+        1.474899936914444
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 152,
+      "frame_id": null,
+      "period": 2,
+      "timestamp_ms": 595595,
+      "in_possession_team_id": "57",
+      "p_score": 0.0013893434079363942,
+      "p_concede": 0.8527368903160095,
+      "vaep": -0.8513475469080731,
+      "players": [
+        {
+          "slot": 0,
+          "player_id": 11841,
+          "name": "Hidemasa Morita",
+          "position": "CM",
+          "jersey": "13",
+          "team_id": "57",
+          "x": 31.214758783578873,
+          "y": 11.752871096134186,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.029160328209400177
+        },
+        {
+          "slot": 1,
+          "player_id": 13797,
+          "name": "Shogo Taniguchi",
+          "position": "LCB",
+          "jersey": "3",
+          "team_id": "57",
+          "x": 40.62117446064949,
+          "y": 5.704848903417587,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03436203673481941
+        },
+        {
+          "slot": 2,
+          "player_id": 13798,
+          "name": "Yuto Nagatomo",
+          "position": "LWB",
+          "jersey": "5",
+          "team_id": "57",
+          "x": 36.85964578986168,
+          "y": 16.004968321323396,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0684390515089035
+        },
+        {
+          "slot": 3,
+          "player_id": 13799,
+          "name": "Shuichi Gonda",
+          "position": "GK",
+          "jersey": "12",
+          "team_id": "57",
+          "x": 51.02593104243279,
+          "y": 2.0543971076607703,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": true,
+          "attention": 0.012007308192551136
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "jersey": "25",
+          "team_id": "57",
+          "x": 26.37338507473469,
+          "y": 5.750645047426223,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.0699169710278511
+        },
+        {
+          "slot": 5,
+          "player_id": 2087,
+          "name": "Takehiro Tomiyasu",
+          "position": "RCB",
+          "jersey": "16",
+          "team_id": "57",
+          "x": 41.423250156641004,
+          "y": -3.5815344639122486,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.035978835076093674
+        },
+        {
+          "slot": 6,
+          "player_id": 2088,
+          "name": "Maya Yoshida",
+          "position": "MCB",
+          "jersey": "22",
+          "team_id": "57",
+          "x": 42.91702657341957,
+          "y": -0.3335225362330675,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.030625907704234123
+        },
+        {
+          "slot": 7,
+          "player_id": 2094,
+          "name": "Junya Ito",
+          "position": "RWB",
+          "jersey": "14",
+          "team_id": "57",
+          "x": 41.92961976528168,
+          "y": -5.35620726943016,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0308192390948534
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "jersey": "15",
+          "team_id": "57",
+          "x": 20.37796493768692,
+          "y": 23.44631737470627,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 9,
+          "player_id": 4928,
+          "name": "Wataru Endo",
+          "position": "CM",
+          "jersey": "6",
+          "team_id": "57",
+          "x": 35.761351293325426,
+          "y": -0.2896999863791279,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.05257205292582512
+        },
+        {
+          "slot": 10,
+          "player_id": 9981,
+          "name": "Ritsu Doan",
+          "position": "RW",
+          "jersey": "8",
+          "team_id": "57",
+          "x": 32.893202126026154,
+          "y": -5.808065700531006,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03305814042687416
+        },
+        {
+          "slot": 11,
+          "player_id": 100,
+          "name": "Mateo Kovacic",
+          "position": "CM",
+          "jersey": "8",
+          "team_id": "371",
+          "x": 32.881244480609894,
+          "y": -3.071522890031338,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.006172421853989363
+        },
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "jersey": "1",
+          "team_id": "371",
+          "x": -25.03344138264656,
+          "y": 1.2740810438990593,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 13,
+          "player_id": 13857,
+          "name": "Borna Barisic",
+          "position": "LB",
+          "jersey": "3",
+          "team_id": "371",
+          "x": 22.785395872592925,
+          "y": -13.337818229198456,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004019645974040031
+        },
+        {
+          "slot": 14,
+          "player_id": 13858,
+          "name": "Josip Juranovic",
+          "position": "RB",
+          "jersey": "22",
+          "team_id": "371",
+          "x": 30.822171682119368,
+          "y": 29.562312746047972,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03453308716416359
+        },
+        {
+          "slot": 15,
+          "player_id": 13861,
+          "name": "Bruno Petkovic",
+          "position": "CF",
+          "jersey": "16",
+          "team_id": "371",
+          "x": 40.868760430812834,
+          "y": -1.8862971484661102,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004968959838151932
+        },
+        {
+          "slot": 16,
+          "player_id": 1687,
+          "name": "Luka Modric",
+          "position": "CM",
+          "jersey": "10",
+          "team_id": "371",
+          "x": 28.248832815885542,
+          "y": 4.887538411468268,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.008831387385725975
+        },
+        {
+          "slot": 17,
+          "player_id": 40,
+          "name": "Dejan Lovren",
+          "position": "RCB",
+          "jersey": "6",
+          "team_id": "371",
+          "x": 16.07285085618496,
+          "y": 20.202316451072694,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03170676529407501
+        },
+        {
+          "slot": 18,
+          "player_id": 4883,
+          "name": "Andrej Kramaric",
+          "position": "RW",
+          "jersey": "9",
+          "team_id": "371",
+          "x": 34.47111423611641,
+          "y": 6.409119057655334,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011563748121261597
+        },
+        {
+          "slot": 19,
+          "player_id": 4892,
+          "name": "Josko Gvardiol",
+          "position": "LCB",
+          "jersey": "20",
+          "team_id": "371",
+          "x": 6.964579421281814,
+          "y": 3.200621485710144,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011312616989016533
+        },
+        {
+          "slot": 20,
+          "player_id": 8129,
+          "name": "Marcelo Brozovic",
+          "position": "CM",
+          "jersey": "11",
+          "team_id": "371",
+          "x": 34.25398406982422,
+          "y": 15.41241729259491,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.019719768315553665
+        },
+        {
+          "slot": 21,
+          "player_id": 8136,
+          "name": "Ivan Perisic",
+          "position": "LW",
+          "jersey": "4",
+          "team_id": "371",
+          "x": 39.22595582306385,
+          "y": -0.8830440446734429,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.005604189820587635
+        }
+      ],
+      "ball": {
+        "x": 53.12269971728325,
+        "y": 1.474899936914444
+      },
+      "attention": [
+        0.029160328209400177,
+        0.03436203673481941,
+        0.0684390515089035,
+        0.012007308192551136,
+        0.0699169710278511,
+        0.035978835076093674,
+        0.030625907704234123,
+        0.0308192390948534,
+        0.19281600415706635,
+        0.05257205292582512,
+        0.03305814042687416,
+        0.006172421853989363,
+        0.2718115448951721,
+        0.004019645974040031,
+        0.03453308716416359,
+        0.004968959838151932,
+        0.008831387385725975,
+        0.03170676529407501,
+        0.011563748121261597,
+        0.011312616989016533,
+        0.019719768315553665,
+        0.005604189820587635
+      ],
+      "top_slots": [
+        12,
+        8,
+        4
+      ],
+      "scoring_team_id": null,
+      "pair_attention_score_top": [
+        [
+          13,
+          14,
+          0.13816308975219727
+        ],
+        [
+          8,
+          13,
+          0.12079331278800964
+        ],
+        [
+          3,
+          13,
+          0.10846594721078873
+        ],
+        [
+          13,
+          17,
+          0.10536080598831177
+        ],
+        [
+          3,
+          19,
+          0.10061238706111908
+        ],
+        [
+          3,
+          11,
+          0.09132244437932968
+        ],
+        [
+          3,
+          21,
+          0.0912785679101944
+        ],
+        [
+          3,
+          16,
+          0.0847255289554596
+        ],
+        [
+          3,
+          15,
+          0.08207938075065613
+        ],
+        [
+          3,
+          10,
+          0.07843825221061707
+        ],
+        [
+          3,
+          6,
+          0.0764341801404953
+        ],
+        [
+          3,
+          18,
+          0.07478600740432739
+        ],
+        [
+          3,
+          7,
+          0.07253432273864746
+        ],
+        [
+          3,
+          5,
+          0.07116132974624634
+        ],
+        [
+          3,
+          9,
+          0.06945914775133133
+        ]
+      ],
+      "is_synthetic": true
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "attention": 0.0699169710278511
+        }
+      ],
+      "ball_xy": [
+        53.222799792289734,
+        1.0835999536514282
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 153,
+      "frame_id": null,
+      "period": 2,
+      "timestamp_ms": 595795,
+      "in_possession_team_id": "57",
+      "p_score": 0.0013893434079363942,
+      "p_concede": 0.8527368903160095,
+      "vaep": -0.8513475469080731,
+      "players": [
+        {
+          "slot": 0,
+          "player_id": 11841,
+          "name": "Hidemasa Morita",
+          "position": "CM",
+          "jersey": "13",
+          "team_id": "57",
+          "x": 31.295678108930588,
+          "y": 11.629494726657867,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.029160328209400177
+        },
+        {
+          "slot": 1,
+          "player_id": 13797,
+          "name": "Shogo Taniguchi",
+          "position": "LCB",
+          "jersey": "3",
+          "team_id": "57",
+          "x": 40.72756667733192,
+          "y": 5.588465267419815,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03436203673481941
+        },
+        {
+          "slot": 2,
+          "player_id": 13798,
+          "name": "Yuto Nagatomo",
+          "position": "LWB",
+          "jersey": "5",
+          "team_id": "57",
+          "x": 36.97752781510353,
+          "y": 15.68229137659073,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0684390515089035
+        },
+        {
+          "slot": 3,
+          "player_id": 13799,
+          "name": "Shuichi Gonda",
+          "position": "GK",
+          "jersey": "12",
+          "team_id": "57",
+          "x": 51.04790840148926,
+          "y": 2.2551961436867716,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": true,
+          "attention": 0.012007308192551136
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "jersey": "25",
+          "team_id": "57",
+          "x": 26.410847002267836,
+          "y": 5.702193486690521,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.0699169710278511
+        },
+        {
+          "slot": 5,
+          "player_id": 2087,
+          "name": "Takehiro Tomiyasu",
+          "position": "RCB",
+          "jersey": "16",
+          "team_id": "57",
+          "x": 41.506666564941405,
+          "y": -3.5700459629297256,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.035978835076093674
+        },
+        {
+          "slot": 6,
+          "player_id": 2088,
+          "name": "Maya Yoshida",
+          "position": "MCB",
+          "jersey": "22",
+          "team_id": "57",
+          "x": 43.075368744134906,
+          "y": -0.32603004314005374,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.030625907704234123
+        },
+        {
+          "slot": 7,
+          "player_id": 2094,
+          "name": "Junya Ito",
+          "position": "RWB",
+          "jersey": "14",
+          "team_id": "57",
+          "x": 42.05649356842041,
+          "y": -5.287276262044907,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0308192390948534
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "jersey": "15",
+          "team_id": "57",
+          "x": 20.222620022296905,
+          "y": 23.506757020950317,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 9,
+          "player_id": 4928,
+          "name": "Wataru Endo",
+          "position": "CM",
+          "jersey": "6",
+          "team_id": "57",
+          "x": 35.81180166006088,
+          "y": -0.3895999817061238,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.05257205292582512
+        },
+        {
+          "slot": 10,
+          "player_id": 9981,
+          "name": "Ritsu Doan",
+          "position": "RW",
+          "jersey": "8",
+          "team_id": "57",
+          "x": 32.991602927446365,
+          "y": -5.786087626218796,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03305814042687416
+        },
+        {
+          "slot": 11,
+          "player_id": 100,
+          "name": "Mateo Kovacic",
+          "position": "CM",
+          "jersey": "8",
+          "team_id": "371",
+          "x": 32.96665969491005,
+          "y": -3.0640304565429686,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.006172421853989363
+        },
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "jersey": "1",
+          "team_id": "371",
+          "x": -25.05292166173458,
+          "y": 1.2471080347895622,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 13,
+          "player_id": 13857,
+          "name": "Borna Barisic",
+          "position": "LB",
+          "jersey": "3",
+          "team_id": "371",
+          "x": 22.820860898494722,
+          "y": -13.231424582004546,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004019645974040031
+        },
+        {
+          "slot": 14,
+          "player_id": 13858,
+          "name": "Josip Juranovic",
+          "position": "RB",
+          "jersey": "22",
+          "team_id": "371",
+          "x": 30.765228521823882,
+          "y": 29.458416652679443,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03453308716416359
+        },
+        {
+          "slot": 15,
+          "player_id": 13861,
+          "name": "Bruno Petkovic",
+          "position": "CF",
+          "jersey": "16",
+          "team_id": "371",
+          "x": 40.948680353164676,
+          "y": -1.7873961687088014,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004968959838151932
+        },
+        {
+          "slot": 16,
+          "player_id": 1687,
+          "name": "Luka Modric",
+          "position": "CM",
+          "jersey": "10",
+          "team_id": "371",
+          "x": 28.303777170181274,
+          "y": 4.875051102042198,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.008831387385725975
+        },
+        {
+          "slot": 17,
+          "player_id": 40,
+          "name": "Dejan Lovren",
+          "position": "RCB",
+          "jersey": "6",
+          "team_id": "371",
+          "x": 15.956467458605767,
+          "y": 20.0974219083786,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03170676529407501
+        },
+        {
+          "slot": 18,
+          "player_id": 4883,
+          "name": "Andrej Kramaric",
+          "position": "RW",
+          "jersey": "9",
+          "team_id": "371",
+          "x": 34.60148453116417,
+          "y": 6.369158858060837,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011563748121261597
+        },
+        {
+          "slot": 19,
+          "player_id": 4892,
+          "name": "Josko Gvardiol",
+          "position": "LCB",
+          "jersey": "20",
+          "team_id": "371",
+          "x": 6.9381059348583225,
+          "y": 3.160161942243576,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011312616989016533
+        },
+        {
+          "slot": 20,
+          "player_id": 8129,
+          "name": "Marcelo Brozovic",
+          "position": "CM",
+          "jersey": "11",
+          "team_id": "371",
+          "x": 34.42331300973892,
+          "y": 15.273556351661682,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.019719768315553665
+        },
+        {
+          "slot": 21,
+          "player_id": 8136,
+          "name": "Ivan Perisic",
+          "position": "LW",
+          "jersey": "4",
+          "team_id": "371",
+          "x": 39.24194056987763,
+          "y": -0.5353920623660087,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.005604189820587635
+        }
+      ],
+      "ball": {
+        "x": 53.222799792289734,
+        "y": 1.0835999536514282
+      },
+      "attention": [
+        0.029160328209400177,
+        0.03436203673481941,
+        0.0684390515089035,
+        0.012007308192551136,
+        0.0699169710278511,
+        0.035978835076093674,
+        0.030625907704234123,
+        0.0308192390948534,
+        0.19281600415706635,
+        0.05257205292582512,
+        0.03305814042687416,
+        0.006172421853989363,
+        0.2718115448951721,
+        0.004019645974040031,
+        0.03453308716416359,
+        0.004968959838151932,
+        0.008831387385725975,
+        0.03170676529407501,
+        0.011563748121261597,
+        0.011312616989016533,
+        0.019719768315553665,
+        0.005604189820587635
+      ],
+      "top_slots": [
+        12,
+        8,
+        4
+      ],
+      "scoring_team_id": null,
+      "pair_attention_score_top": [
+        [
+          13,
+          14,
+          0.13816308975219727
+        ],
+        [
+          8,
+          13,
+          0.12079331278800964
+        ],
+        [
+          3,
+          13,
+          0.10846594721078873
+        ],
+        [
+          13,
+          17,
+          0.10536080598831177
+        ],
+        [
+          3,
+          19,
+          0.10061238706111908
+        ],
+        [
+          3,
+          11,
+          0.09132244437932968
+        ],
+        [
+          3,
+          21,
+          0.0912785679101944
+        ],
+        [
+          3,
+          16,
+          0.0847255289554596
+        ],
+        [
+          3,
+          15,
+          0.08207938075065613
+        ],
+        [
+          3,
+          10,
+          0.07843825221061707
+        ],
+        [
+          3,
+          6,
+          0.0764341801404953
+        ],
+        [
+          3,
+          18,
+          0.07478600740432739
+        ],
+        [
+          3,
+          7,
+          0.07253432273864746
+        ],
+        [
+          3,
+          5,
+          0.07116132974624634
+        ],
+        [
+          3,
+          9,
+          0.06945914775133133
+        ]
+      ],
+      "is_synthetic": true
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "attention": 0.0699169710278511
+        }
+      ],
+      "ball_xy": [
+        53.30749985575676,
+        0.7524999678134918
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 154,
+      "frame_id": null,
+      "period": 2,
+      "timestamp_ms": 595995,
+      "in_possession_team_id": "57",
+      "p_score": 0.0013893434079363942,
+      "p_concede": 0.8527368903160095,
+      "vaep": -0.8513475469080731,
+      "players": [
+        {
+          "slot": 0,
+          "player_id": 11841,
+          "name": "Hidemasa Morita",
+          "position": "CM",
+          "jersey": "13",
+          "team_id": "57",
+          "x": 31.376597434282303,
+          "y": 11.506118357181549,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.029160328209400177
+        },
+        {
+          "slot": 1,
+          "player_id": 13797,
+          "name": "Shogo Taniguchi",
+          "position": "LCB",
+          "jersey": "3",
+          "team_id": "57",
+          "x": 40.83395889401436,
+          "y": 5.472081631422043,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03436203673481941
+        },
+        {
+          "slot": 2,
+          "player_id": 13798,
+          "name": "Yuto Nagatomo",
+          "position": "LWB",
+          "jersey": "5",
+          "team_id": "57",
+          "x": 37.09540984034538,
+          "y": 15.359614431858063,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0684390515089035
+        },
+        {
+          "slot": 3,
+          "player_id": 13799,
+          "name": "Shuichi Gonda",
+          "position": "GK",
+          "jersey": "12",
+          "team_id": "57",
+          "x": 51.06988576054573,
+          "y": 2.4559951797127724,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": true,
+          "attention": 0.012007308192551136
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "jersey": "25",
+          "team_id": "57",
+          "x": 26.448308929800987,
+          "y": 5.653741925954819,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.0699169710278511
+        },
+        {
+          "slot": 5,
+          "player_id": 2087,
+          "name": "Takehiro Tomiyasu",
+          "position": "RCB",
+          "jersey": "16",
+          "team_id": "57",
+          "x": 41.590082973241806,
+          "y": -3.5585574619472027,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.035978835076093674
+        },
+        {
+          "slot": 6,
+          "player_id": 2088,
+          "name": "Maya Yoshida",
+          "position": "MCB",
+          "jersey": "22",
+          "team_id": "57",
+          "x": 43.233710914850235,
+          "y": -0.31853755004704,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.030625907704234123
+        },
+        {
+          "slot": 7,
+          "player_id": 2094,
+          "name": "Junya Ito",
+          "position": "RWB",
+          "jersey": "14",
+          "team_id": "57",
+          "x": 42.18336737155914,
+          "y": -5.218345254659653,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0308192390948534
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "jersey": "15",
+          "team_id": "57",
+          "x": 20.06727510690689,
+          "y": 23.567196667194366,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 9,
+          "player_id": 4928,
+          "name": "Wataru Endo",
+          "position": "CM",
+          "jersey": "6",
+          "team_id": "57",
+          "x": 35.86225202679634,
+          "y": -0.48949997703311965,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.05257205292582512
+        },
+        {
+          "slot": 10,
+          "player_id": 9981,
+          "name": "Ritsu Doan",
+          "position": "RW",
+          "jersey": "8",
+          "team_id": "57",
+          "x": 33.09000372886658,
+          "y": -5.764109551906586,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03305814042687416
+        },
+        {
+          "slot": 11,
+          "player_id": 100,
+          "name": "Mateo Kovacic",
+          "position": "CM",
+          "jersey": "8",
+          "team_id": "371",
+          "x": 33.052074909210205,
+          "y": -3.0565380230545998,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.006172421853989363
+        },
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "jersey": "1",
+          "team_id": "371",
+          "x": -25.0724019408226,
+          "y": 1.2201350256800652,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 13,
+          "player_id": 13857,
+          "name": "Borna Barisic",
+          "position": "LB",
+          "jersey": "3",
+          "team_id": "371",
+          "x": 22.856325924396515,
+          "y": -13.125030934810638,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004019645974040031
+        },
+        {
+          "slot": 14,
+          "player_id": 13858,
+          "name": "Josip Juranovic",
+          "position": "RB",
+          "jersey": "22",
+          "team_id": "371",
+          "x": 30.708285361528397,
+          "y": 29.354520559310913,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03453308716416359
+        },
+        {
+          "slot": 15,
+          "player_id": 13861,
+          "name": "Bruno Petkovic",
+          "position": "CF",
+          "jersey": "16",
+          "team_id": "371",
+          "x": 41.02860027551651,
+          "y": -1.6884951889514923,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004968959838151932
+        },
+        {
+          "slot": 16,
+          "player_id": 1687,
+          "name": "Luka Modric",
+          "position": "CM",
+          "jersey": "10",
+          "team_id": "371",
+          "x": 28.358721524477005,
+          "y": 4.862563792616129,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.008831387385725975
+        },
+        {
+          "slot": 17,
+          "player_id": 40,
+          "name": "Dejan Lovren",
+          "position": "RCB",
+          "jersey": "6",
+          "team_id": "371",
+          "x": 15.840084061026573,
+          "y": 19.99252736568451,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03170676529407501
+        },
+        {
+          "slot": 18,
+          "player_id": 4883,
+          "name": "Andrej Kramaric",
+          "position": "RW",
+          "jersey": "9",
+          "team_id": "371",
+          "x": 34.73185482621193,
+          "y": 6.329198658466339,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011563748121261597
+        },
+        {
+          "slot": 19,
+          "player_id": 4892,
+          "name": "Josko Gvardiol",
+          "position": "LCB",
+          "jersey": "20",
+          "team_id": "371",
+          "x": 6.91163244843483,
+          "y": 3.119702398777008,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011312616989016533
+        },
+        {
+          "slot": 20,
+          "player_id": 8129,
+          "name": "Marcelo Brozovic",
+          "position": "CM",
+          "jersey": "11",
+          "team_id": "371",
+          "x": 34.592641949653625,
+          "y": 15.134695410728455,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.019719768315553665
+        },
+        {
+          "slot": 21,
+          "player_id": 8136,
+          "name": "Ivan Perisic",
+          "position": "LW",
+          "jersey": "4",
+          "team_id": "371",
+          "x": 39.2579253166914,
+          "y": -0.18774008005857468,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.005604189820587635
+        }
+      ],
+      "ball": {
+        "x": 53.30749985575676,
+        "y": 0.7524999678134918
+      },
+      "attention": [
+        0.029160328209400177,
+        0.03436203673481941,
+        0.0684390515089035,
+        0.012007308192551136,
+        0.0699169710278511,
+        0.035978835076093674,
+        0.030625907704234123,
+        0.0308192390948534,
+        0.19281600415706635,
+        0.05257205292582512,
+        0.03305814042687416,
+        0.006172421853989363,
+        0.2718115448951721,
+        0.004019645974040031,
+        0.03453308716416359,
+        0.004968959838151932,
+        0.008831387385725975,
+        0.03170676529407501,
+        0.011563748121261597,
+        0.011312616989016533,
+        0.019719768315553665,
+        0.005604189820587635
+      ],
+      "top_slots": [
+        12,
+        8,
+        4
+      ],
+      "scoring_team_id": null,
+      "pair_attention_score_top": [
+        [
+          13,
+          14,
+          0.13816308975219727
+        ],
+        [
+          8,
+          13,
+          0.12079331278800964
+        ],
+        [
+          3,
+          13,
+          0.10846594721078873
+        ],
+        [
+          13,
+          17,
+          0.10536080598831177
+        ],
+        [
+          3,
+          19,
+          0.10061238706111908
+        ],
+        [
+          3,
+          11,
+          0.09132244437932968
+        ],
+        [
+          3,
+          21,
+          0.0912785679101944
+        ],
+        [
+          3,
+          16,
+          0.0847255289554596
+        ],
+        [
+          3,
+          15,
+          0.08207938075065613
+        ],
+        [
+          3,
+          10,
+          0.07843825221061707
+        ],
+        [
+          3,
+          6,
+          0.0764341801404953
+        ],
+        [
+          3,
+          18,
+          0.07478600740432739
+        ],
+        [
+          3,
+          7,
+          0.07253432273864746
+        ],
+        [
+          3,
+          5,
+          0.07116132974624634
+        ],
+        [
+          3,
+          9,
+          0.06945914775133133
+        ]
+      ],
+      "is_synthetic": true
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "attention": 0.0699169710278511
+        }
+      ],
+      "ball_xy": [
+        53.37679990768433,
+        0.4815999794006349
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 155,
+      "frame_id": null,
+      "period": 2,
+      "timestamp_ms": 596195,
+      "in_possession_team_id": "57",
+      "p_score": 0.0013893434079363942,
+      "p_concede": 0.8527368903160095,
+      "vaep": -0.8513475469080731,
+      "players": [
+        {
+          "slot": 0,
+          "player_id": 11841,
+          "name": "Hidemasa Morita",
+          "position": "CM",
+          "jersey": "13",
+          "team_id": "57",
+          "x": 31.457516759634018,
+          "y": 11.38274198770523,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.029160328209400177
+        },
+        {
+          "slot": 1,
+          "player_id": 13797,
+          "name": "Shogo Taniguchi",
+          "position": "LCB",
+          "jersey": "3",
+          "team_id": "57",
+          "x": 40.940351110696795,
+          "y": 5.35569799542427,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03436203673481941
+        },
+        {
+          "slot": 2,
+          "player_id": 13798,
+          "name": "Yuto Nagatomo",
+          "position": "LWB",
+          "jersey": "5",
+          "team_id": "57",
+          "x": 37.21329186558724,
+          "y": 15.036937487125396,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0684390515089035
+        },
+        {
+          "slot": 3,
+          "player_id": 13799,
+          "name": "Shuichi Gonda",
+          "position": "GK",
+          "jersey": "12",
+          "team_id": "57",
+          "x": 51.0918631196022,
+          "y": 2.656794215738773,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": true,
+          "attention": 0.012007308192551136
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "jersey": "25",
+          "team_id": "57",
+          "x": 26.48577085733414,
+          "y": 5.605290365219116,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.0699169710278511
+        },
+        {
+          "slot": 5,
+          "player_id": 2087,
+          "name": "Takehiro Tomiyasu",
+          "position": "RCB",
+          "jersey": "16",
+          "team_id": "57",
+          "x": 41.67349938154221,
+          "y": -3.5470689609646797,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.035978835076093674
+        },
+        {
+          "slot": 6,
+          "player_id": 2088,
+          "name": "Maya Yoshida",
+          "position": "MCB",
+          "jersey": "22",
+          "team_id": "57",
+          "x": 43.392053085565564,
+          "y": -0.31104505695402623,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.030625907704234123
+        },
+        {
+          "slot": 7,
+          "player_id": 2094,
+          "name": "Junya Ito",
+          "position": "RWB",
+          "jersey": "14",
+          "team_id": "57",
+          "x": 42.31024117469788,
+          "y": -5.1494142472743984,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0308192390948534
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "jersey": "15",
+          "team_id": "57",
+          "x": 19.911930191516877,
+          "y": 23.627636313438416,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 9,
+          "player_id": 4928,
+          "name": "Wataru Endo",
+          "position": "CM",
+          "jersey": "6",
+          "team_id": "57",
+          "x": 35.9127023935318,
+          "y": -0.5893999723601154,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.05257205292582512
+        },
+        {
+          "slot": 10,
+          "player_id": 9981,
+          "name": "Ritsu Doan",
+          "position": "RW",
+          "jersey": "8",
+          "team_id": "57",
+          "x": 33.18840453028679,
+          "y": -5.742131477594375,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03305814042687416
+        },
+        {
+          "slot": 11,
+          "player_id": 100,
+          "name": "Mateo Kovacic",
+          "position": "CM",
+          "jersey": "8",
+          "team_id": "371",
+          "x": 33.13749012351036,
+          "y": -3.049045589566231,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.006172421853989363
+        },
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "jersey": "1",
+          "team_id": "371",
+          "x": -25.091882219910623,
+          "y": 1.193162016570568,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 13,
+          "player_id": 13857,
+          "name": "Borna Barisic",
+          "position": "LB",
+          "jersey": "3",
+          "team_id": "371",
+          "x": 22.891790950298308,
+          "y": -13.01863728761673,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004019645974040031
+        },
+        {
+          "slot": 14,
+          "player_id": 13858,
+          "name": "Josip Juranovic",
+          "position": "RB",
+          "jersey": "22",
+          "team_id": "371",
+          "x": 30.65134220123291,
+          "y": 29.250624465942384,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03453308716416359
+        },
+        {
+          "slot": 15,
+          "player_id": 13861,
+          "name": "Bruno Petkovic",
+          "position": "CF",
+          "jersey": "16",
+          "team_id": "371",
+          "x": 41.108520197868344,
+          "y": -1.5895942091941833,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004968959838151932
+        },
+        {
+          "slot": 16,
+          "player_id": 1687,
+          "name": "Luka Modric",
+          "position": "CM",
+          "jersey": "10",
+          "team_id": "371",
+          "x": 28.413665878772736,
+          "y": 4.85007648319006,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.008831387385725975
+        },
+        {
+          "slot": 17,
+          "player_id": 40,
+          "name": "Dejan Lovren",
+          "position": "RCB",
+          "jersey": "6",
+          "team_id": "371",
+          "x": 15.72370066344738,
+          "y": 19.88763282299042,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03170676529407501
+        },
+        {
+          "slot": 18,
+          "player_id": 4883,
+          "name": "Andrej Kramaric",
+          "position": "RW",
+          "jersey": "9",
+          "team_id": "371",
+          "x": 34.86222512125969,
+          "y": 6.289238458871841,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011563748121261597
+        },
+        {
+          "slot": 19,
+          "player_id": 4892,
+          "name": "Josko Gvardiol",
+          "position": "LCB",
+          "jersey": "20",
+          "team_id": "371",
+          "x": 6.885158962011337,
+          "y": 3.07924285531044,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011312616989016533
+        },
+        {
+          "slot": 20,
+          "player_id": 8129,
+          "name": "Marcelo Brozovic",
+          "position": "CM",
+          "jersey": "11",
+          "team_id": "371",
+          "x": 34.76197088956833,
+          "y": 14.995834469795227,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.019719768315553665
+        },
+        {
+          "slot": 21,
+          "player_id": 8136,
+          "name": "Ivan Perisic",
+          "position": "LW",
+          "jersey": "4",
+          "team_id": "371",
+          "x": 39.27391006350517,
+          "y": 0.15991190224885932,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.005604189820587635
+        }
+      ],
+      "ball": {
+        "x": 53.37679990768433,
+        "y": 0.4815999794006349
+      },
+      "attention": [
+        0.029160328209400177,
+        0.03436203673481941,
+        0.0684390515089035,
+        0.012007308192551136,
+        0.0699169710278511,
+        0.035978835076093674,
+        0.030625907704234123,
+        0.0308192390948534,
+        0.19281600415706635,
+        0.05257205292582512,
+        0.03305814042687416,
+        0.006172421853989363,
+        0.2718115448951721,
+        0.004019645974040031,
+        0.03453308716416359,
+        0.004968959838151932,
+        0.008831387385725975,
+        0.03170676529407501,
+        0.011563748121261597,
+        0.011312616989016533,
+        0.019719768315553665,
+        0.005604189820587635
+      ],
+      "top_slots": [
+        12,
+        8,
+        4
+      ],
+      "scoring_team_id": null,
+      "pair_attention_score_top": [
+        [
+          13,
+          14,
+          0.13816308975219727
+        ],
+        [
+          8,
+          13,
+          0.12079331278800964
+        ],
+        [
+          3,
+          13,
+          0.10846594721078873
+        ],
+        [
+          13,
+          17,
+          0.10536080598831177
+        ],
+        [
+          3,
+          19,
+          0.10061238706111908
+        ],
+        [
+          3,
+          11,
+          0.09132244437932968
+        ],
+        [
+          3,
+          21,
+          0.0912785679101944
+        ],
+        [
+          3,
+          16,
+          0.0847255289554596
+        ],
+        [
+          3,
+          15,
+          0.08207938075065613
+        ],
+        [
+          3,
+          10,
+          0.07843825221061707
+        ],
+        [
+          3,
+          6,
+          0.0764341801404953
+        ],
+        [
+          3,
+          18,
+          0.07478600740432739
+        ],
+        [
+          3,
+          7,
+          0.07253432273864746
+        ],
+        [
+          3,
+          5,
+          0.07116132974624634
+        ],
+        [
+          3,
+          9,
+          0.06945914775133133
+        ]
+      ],
+      "is_synthetic": true
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "attention": 0.0699169710278511
+        }
+      ],
+      "ball_xy": [
+        53.43069994807243,
+        0.27089998841285734
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 156,
+      "frame_id": null,
+      "period": 2,
+      "timestamp_ms": 596395,
+      "in_possession_team_id": "57",
+      "p_score": 0.0013893434079363942,
+      "p_concede": 0.8527368903160095,
+      "vaep": -0.8513475469080731,
+      "players": [
+        {
+          "slot": 0,
+          "player_id": 11841,
+          "name": "Hidemasa Morita",
+          "position": "CM",
+          "jersey": "13",
+          "team_id": "57",
+          "x": 31.538436084985733,
+          "y": 11.259365618228912,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.029160328209400177
+        },
+        {
+          "slot": 1,
+          "player_id": 13797,
+          "name": "Shogo Taniguchi",
+          "position": "LCB",
+          "jersey": "3",
+          "team_id": "57",
+          "x": 41.046743327379225,
+          "y": 5.239314359426499,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03436203673481941
+        },
+        {
+          "slot": 2,
+          "player_id": 13798,
+          "name": "Yuto Nagatomo",
+          "position": "LWB",
+          "jersey": "5",
+          "team_id": "57",
+          "x": 37.331173890829085,
+          "y": 14.714260542392731,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0684390515089035
+        },
+        {
+          "slot": 3,
+          "player_id": 13799,
+          "name": "Shuichi Gonda",
+          "position": "GK",
+          "jersey": "12",
+          "team_id": "57",
+          "x": 51.11384047865867,
+          "y": 2.857593251764774,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": true,
+          "attention": 0.012007308192551136
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "jersey": "25",
+          "team_id": "57",
+          "x": 26.523232784867286,
+          "y": 5.556838804483414,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.0699169710278511
+        },
+        {
+          "slot": 5,
+          "player_id": 2087,
+          "name": "Takehiro Tomiyasu",
+          "position": "RCB",
+          "jersey": "16",
+          "team_id": "57",
+          "x": 41.75691578984261,
+          "y": -3.5355804599821568,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.035978835076093674
+        },
+        {
+          "slot": 6,
+          "player_id": 2088,
+          "name": "Maya Yoshida",
+          "position": "MCB",
+          "jersey": "22",
+          "team_id": "57",
+          "x": 43.5503952562809,
+          "y": -0.3035525638610125,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.030625907704234123
+        },
+        {
+          "slot": 7,
+          "player_id": 2094,
+          "name": "Junya Ito",
+          "position": "RWB",
+          "jersey": "14",
+          "team_id": "57",
+          "x": 42.43711497783661,
+          "y": -5.080483239889145,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0308192390948534
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "jersey": "15",
+          "team_id": "57",
+          "x": 19.756585276126863,
+          "y": 23.688075959682465,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 9,
+          "player_id": 4928,
+          "name": "Wataru Endo",
+          "position": "CM",
+          "jersey": "6",
+          "team_id": "57",
+          "x": 35.963152760267256,
+          "y": -0.6892999676871113,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.05257205292582512
+        },
+        {
+          "slot": 10,
+          "player_id": 9981,
+          "name": "Ritsu Doan",
+          "position": "RW",
+          "jersey": "8",
+          "team_id": "57",
+          "x": 33.286805331707,
+          "y": -5.720153403282166,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03305814042687416
+        },
+        {
+          "slot": 11,
+          "player_id": 100,
+          "name": "Mateo Kovacic",
+          "position": "CM",
+          "jersey": "8",
+          "team_id": "371",
+          "x": 33.222905337810516,
+          "y": -3.0415531560778617,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.006172421853989363
+        },
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "jersey": "1",
+          "team_id": "371",
+          "x": -25.11136249899864,
+          "y": 1.166189007461071,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 13,
+          "player_id": 13857,
+          "name": "Borna Barisic",
+          "position": "LB",
+          "jersey": "3",
+          "team_id": "371",
+          "x": 22.927255976200104,
+          "y": -12.91224364042282,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004019645974040031
+        },
+        {
+          "slot": 14,
+          "player_id": 13858,
+          "name": "Josip Juranovic",
+          "position": "RB",
+          "jersey": "22",
+          "team_id": "371",
+          "x": 30.594399040937425,
+          "y": 29.146728372573854,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03453308716416359
+        },
+        {
+          "slot": 15,
+          "player_id": 13861,
+          "name": "Bruno Petkovic",
+          "position": "CF",
+          "jersey": "16",
+          "team_id": "371",
+          "x": 41.188440120220186,
+          "y": -1.4906932294368744,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004968959838151932
+        },
+        {
+          "slot": 16,
+          "player_id": 1687,
+          "name": "Luka Modric",
+          "position": "CM",
+          "jersey": "10",
+          "team_id": "371",
+          "x": 28.468610233068468,
+          "y": 4.83758917376399,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.008831387385725975
+        },
+        {
+          "slot": 17,
+          "player_id": 40,
+          "name": "Dejan Lovren",
+          "position": "RCB",
+          "jersey": "6",
+          "team_id": "371",
+          "x": 15.607317265868186,
+          "y": 19.782738280296325,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03170676529407501
+        },
+        {
+          "slot": 18,
+          "player_id": 4883,
+          "name": "Andrej Kramaric",
+          "position": "RW",
+          "jersey": "9",
+          "team_id": "371",
+          "x": 34.99259541630745,
+          "y": 6.249278259277344,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011563748121261597
+        },
+        {
+          "slot": 19,
+          "player_id": 4892,
+          "name": "Josko Gvardiol",
+          "position": "LCB",
+          "jersey": "20",
+          "team_id": "371",
+          "x": 6.858685475587845,
+          "y": 3.038783311843872,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011312616989016533
+        },
+        {
+          "slot": 20,
+          "player_id": 8129,
+          "name": "Marcelo Brozovic",
+          "position": "CM",
+          "jersey": "11",
+          "team_id": "371",
+          "x": 34.93129982948303,
+          "y": 14.856973528862,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.019719768315553665
+        },
+        {
+          "slot": 21,
+          "player_id": 8136,
+          "name": "Ivan Perisic",
+          "position": "LW",
+          "jersey": "4",
+          "team_id": "371",
+          "x": 39.28989481031895,
+          "y": 0.5075638845562933,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.005604189820587635
+        }
+      ],
+      "ball": {
+        "x": 53.43069994807243,
+        "y": 0.27089998841285734
+      },
+      "attention": [
+        0.029160328209400177,
+        0.03436203673481941,
+        0.0684390515089035,
+        0.012007308192551136,
+        0.0699169710278511,
+        0.035978835076093674,
+        0.030625907704234123,
+        0.0308192390948534,
+        0.19281600415706635,
+        0.05257205292582512,
+        0.03305814042687416,
+        0.006172421853989363,
+        0.2718115448951721,
+        0.004019645974040031,
+        0.03453308716416359,
+        0.004968959838151932,
+        0.008831387385725975,
+        0.03170676529407501,
+        0.011563748121261597,
+        0.011312616989016533,
+        0.019719768315553665,
+        0.005604189820587635
+      ],
+      "top_slots": [
+        12,
+        8,
+        4
+      ],
+      "scoring_team_id": null,
+      "pair_attention_score_top": [
+        [
+          13,
+          14,
+          0.13816308975219727
+        ],
+        [
+          8,
+          13,
+          0.12079331278800964
+        ],
+        [
+          3,
+          13,
+          0.10846594721078873
+        ],
+        [
+          13,
+          17,
+          0.10536080598831177
+        ],
+        [
+          3,
+          19,
+          0.10061238706111908
+        ],
+        [
+          3,
+          11,
+          0.09132244437932968
+        ],
+        [
+          3,
+          21,
+          0.0912785679101944
+        ],
+        [
+          3,
+          16,
+          0.0847255289554596
+        ],
+        [
+          3,
+          15,
+          0.08207938075065613
+        ],
+        [
+          3,
+          10,
+          0.07843825221061707
+        ],
+        [
+          3,
+          6,
+          0.0764341801404953
+        ],
+        [
+          3,
+          18,
+          0.07478600740432739
+        ],
+        [
+          3,
+          7,
+          0.07253432273864746
+        ],
+        [
+          3,
+          5,
+          0.07116132974624634
+        ],
+        [
+          3,
+          9,
+          0.06945914775133133
+        ]
+      ],
+      "is_synthetic": true
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "attention": 0.0699169710278511
+        }
+      ],
+      "ball_xy": [
+        53.46919997692108,
+        0.12039999485015862
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 157,
+      "frame_id": null,
+      "period": 2,
+      "timestamp_ms": 596595,
+      "in_possession_team_id": "57",
+      "p_score": 0.0013893434079363942,
+      "p_concede": 0.8527368903160095,
+      "vaep": -0.8513475469080731,
+      "players": [
+        {
+          "slot": 0,
+          "player_id": 11841,
+          "name": "Hidemasa Morita",
+          "position": "CM",
+          "jersey": "13",
+          "team_id": "57",
+          "x": 31.619355410337448,
+          "y": 11.135989248752594,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.029160328209400177
+        },
+        {
+          "slot": 1,
+          "player_id": 13797,
+          "name": "Shogo Taniguchi",
+          "position": "LCB",
+          "jersey": "3",
+          "team_id": "57",
+          "x": 41.15313554406166,
+          "y": 5.122930723428726,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03436203673481941
+        },
+        {
+          "slot": 2,
+          "player_id": 13798,
+          "name": "Yuto Nagatomo",
+          "position": "LWB",
+          "jersey": "5",
+          "team_id": "57",
+          "x": 37.44905591607094,
+          "y": 14.391583597660064,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0684390515089035
+        },
+        {
+          "slot": 3,
+          "player_id": 13799,
+          "name": "Shuichi Gonda",
+          "position": "GK",
+          "jersey": "12",
+          "team_id": "57",
+          "x": 51.13581783771515,
+          "y": 3.0583922877907757,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": true,
+          "attention": 0.012007308192551136
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "jersey": "25",
+          "team_id": "57",
+          "x": 26.560694712400437,
+          "y": 5.508387243747711,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.0699169710278511
+        },
+        {
+          "slot": 5,
+          "player_id": 2087,
+          "name": "Takehiro Tomiyasu",
+          "position": "RCB",
+          "jersey": "16",
+          "team_id": "57",
+          "x": 41.840332198143,
+          "y": -3.524091958999634,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.035978835076093674
+        },
+        {
+          "slot": 6,
+          "player_id": 2088,
+          "name": "Maya Yoshida",
+          "position": "MCB",
+          "jersey": "22",
+          "team_id": "57",
+          "x": 43.70873742699623,
+          "y": -0.2960600707679987,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.030625907704234123
+        },
+        {
+          "slot": 7,
+          "player_id": 2094,
+          "name": "Junya Ito",
+          "position": "RWB",
+          "jersey": "14",
+          "team_id": "57",
+          "x": 42.56398878097534,
+          "y": -5.011552232503891,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0308192390948534
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "jersey": "15",
+          "team_id": "57",
+          "x": 19.601240360736846,
+          "y": 23.748515605926514,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 9,
+          "player_id": 4928,
+          "name": "Wataru Endo",
+          "position": "CM",
+          "jersey": "6",
+          "team_id": "57",
+          "x": 36.01360312700272,
+          "y": -0.7891999630141072,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.05257205292582512
+        },
+        {
+          "slot": 10,
+          "player_id": 9981,
+          "name": "Ritsu Doan",
+          "position": "RW",
+          "jersey": "8",
+          "team_id": "57",
+          "x": 33.38520613312721,
+          "y": -5.698175328969955,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03305814042687416
+        },
+        {
+          "slot": 11,
+          "player_id": 100,
+          "name": "Mateo Kovacic",
+          "position": "CM",
+          "jersey": "8",
+          "team_id": "371",
+          "x": 33.30832055211067,
+          "y": -3.034060722589493,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.006172421853989363
+        },
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "jersey": "1",
+          "team_id": "371",
+          "x": -25.130842778086663,
+          "y": 1.139215998351574,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 13,
+          "player_id": 13857,
+          "name": "Borna Barisic",
+          "position": "LB",
+          "jersey": "3",
+          "team_id": "371",
+          "x": 22.962721002101897,
+          "y": -12.805849993228913,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004019645974040031
+        },
+        {
+          "slot": 14,
+          "player_id": 13858,
+          "name": "Josip Juranovic",
+          "position": "RB",
+          "jersey": "22",
+          "team_id": "371",
+          "x": 30.537455880641936,
+          "y": 29.04283227920532,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03453308716416359
+        },
+        {
+          "slot": 15,
+          "player_id": 13861,
+          "name": "Bruno Petkovic",
+          "position": "CF",
+          "jersey": "16",
+          "team_id": "371",
+          "x": 41.26836004257202,
+          "y": -1.3917922496795654,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004968959838151932
+        },
+        {
+          "slot": 16,
+          "player_id": 1687,
+          "name": "Luka Modric",
+          "position": "CM",
+          "jersey": "10",
+          "team_id": "371",
+          "x": 28.523554587364195,
+          "y": 4.825101864337921,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.008831387385725975
+        },
+        {
+          "slot": 17,
+          "player_id": 40,
+          "name": "Dejan Lovren",
+          "position": "RCB",
+          "jersey": "6",
+          "team_id": "371",
+          "x": 15.490933868288995,
+          "y": 19.677843737602235,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03170676529407501
+        },
+        {
+          "slot": 18,
+          "player_id": 4883,
+          "name": "Andrej Kramaric",
+          "position": "RW",
+          "jersey": "9",
+          "team_id": "371",
+          "x": 35.12296571135521,
+          "y": 6.209318059682846,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011563748121261597
+        },
+        {
+          "slot": 19,
+          "player_id": 4892,
+          "name": "Josko Gvardiol",
+          "position": "LCB",
+          "jersey": "20",
+          "team_id": "371",
+          "x": 6.832211989164352,
+          "y": 2.998323768377304,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011312616989016533
+        },
+        {
+          "slot": 20,
+          "player_id": 8129,
+          "name": "Marcelo Brozovic",
+          "position": "CM",
+          "jersey": "11",
+          "team_id": "371",
+          "x": 35.10062876939774,
+          "y": 14.718112587928772,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.019719768315553665
+        },
+        {
+          "slot": 21,
+          "player_id": 8136,
+          "name": "Ivan Perisic",
+          "position": "LW",
+          "jersey": "4",
+          "team_id": "371",
+          "x": 39.30587955713272,
+          "y": 0.8552158668637277,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.005604189820587635
+        }
+      ],
+      "ball": {
+        "x": 53.46919997692108,
+        "y": 0.12039999485015862
+      },
+      "attention": [
+        0.029160328209400177,
+        0.03436203673481941,
+        0.0684390515089035,
+        0.012007308192551136,
+        0.0699169710278511,
+        0.035978835076093674,
+        0.030625907704234123,
+        0.0308192390948534,
+        0.19281600415706635,
+        0.05257205292582512,
+        0.03305814042687416,
+        0.006172421853989363,
+        0.2718115448951721,
+        0.004019645974040031,
+        0.03453308716416359,
+        0.004968959838151932,
+        0.008831387385725975,
+        0.03170676529407501,
+        0.011563748121261597,
+        0.011312616989016533,
+        0.019719768315553665,
+        0.005604189820587635
+      ],
+      "top_slots": [
+        12,
+        8,
+        4
+      ],
+      "scoring_team_id": null,
+      "pair_attention_score_top": [
+        [
+          13,
+          14,
+          0.13816308975219727
+        ],
+        [
+          8,
+          13,
+          0.12079331278800964
+        ],
+        [
+          3,
+          13,
+          0.10846594721078873
+        ],
+        [
+          13,
+          17,
+          0.10536080598831177
+        ],
+        [
+          3,
+          19,
+          0.10061238706111908
+        ],
+        [
+          3,
+          11,
+          0.09132244437932968
+        ],
+        [
+          3,
+          21,
+          0.0912785679101944
+        ],
+        [
+          3,
+          16,
+          0.0847255289554596
+        ],
+        [
+          3,
+          15,
+          0.08207938075065613
+        ],
+        [
+          3,
+          10,
+          0.07843825221061707
+        ],
+        [
+          3,
+          6,
+          0.0764341801404953
+        ],
+        [
+          3,
+          18,
+          0.07478600740432739
+        ],
+        [
+          3,
+          7,
+          0.07253432273864746
+        ],
+        [
+          3,
+          5,
+          0.07116132974624634
+        ],
+        [
+          3,
+          9,
+          0.06945914775133133
+        ]
+      ],
+      "is_synthetic": true
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "attention": 0.0699169710278511
+        }
+      ],
+      "ball_xy": [
+        53.49229999423027,
+        0.030099998712539655
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 158,
+      "frame_id": null,
+      "period": 2,
+      "timestamp_ms": 596795,
+      "in_possession_team_id": "57",
+      "p_score": 0.0013893434079363942,
+      "p_concede": 0.8527368903160095,
+      "vaep": -0.8513475469080731,
+      "players": [
+        {
+          "slot": 0,
+          "player_id": 11841,
+          "name": "Hidemasa Morita",
+          "position": "CM",
+          "jersey": "13",
+          "team_id": "57",
+          "x": 31.700274735689163,
+          "y": 11.012612879276276,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.029160328209400177
+        },
+        {
+          "slot": 1,
+          "player_id": 13797,
+          "name": "Shogo Taniguchi",
+          "position": "LCB",
+          "jersey": "3",
+          "team_id": "57",
+          "x": 41.25952776074409,
+          "y": 5.006547087430954,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03436203673481941
+        },
+        {
+          "slot": 2,
+          "player_id": 13798,
+          "name": "Yuto Nagatomo",
+          "position": "LWB",
+          "jersey": "5",
+          "team_id": "57",
+          "x": 37.56693794131279,
+          "y": 14.0689066529274,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0684390515089035
+        },
+        {
+          "slot": 3,
+          "player_id": 13799,
+          "name": "Shuichi Gonda",
+          "position": "GK",
+          "jersey": "12",
+          "team_id": "57",
+          "x": 51.15779519677162,
+          "y": 3.2591913238167765,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": true,
+          "attention": 0.012007308192551136
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "jersey": "25",
+          "team_id": "57",
+          "x": 26.598156639933585,
+          "y": 5.4599356830120085,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.0699169710278511
+        },
+        {
+          "slot": 5,
+          "player_id": 2087,
+          "name": "Takehiro Tomiyasu",
+          "position": "RCB",
+          "jersey": "16",
+          "team_id": "57",
+          "x": 41.923748606443404,
+          "y": -3.512603458017111,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.035978835076093674
+        },
+        {
+          "slot": 6,
+          "player_id": 2088,
+          "name": "Maya Yoshida",
+          "position": "MCB",
+          "jersey": "22",
+          "team_id": "57",
+          "x": 43.867079597711566,
+          "y": -0.2885675776749849,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.030625907704234123
+        },
+        {
+          "slot": 7,
+          "player_id": 2094,
+          "name": "Junya Ito",
+          "position": "RWB",
+          "jersey": "14",
+          "team_id": "57",
+          "x": 42.69086258411407,
+          "y": -4.942621225118637,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0308192390948534
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "jersey": "15",
+          "team_id": "57",
+          "x": 19.44589544534683,
+          "y": 23.808955252170563,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 9,
+          "player_id": 4928,
+          "name": "Wataru Endo",
+          "position": "CM",
+          "jersey": "6",
+          "team_id": "57",
+          "x": 36.06405349373817,
+          "y": -0.8890999583411031,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.05257205292582512
+        },
+        {
+          "slot": 10,
+          "player_id": 9981,
+          "name": "Ritsu Doan",
+          "position": "RW",
+          "jersey": "8",
+          "team_id": "57",
+          "x": 33.483606934547424,
+          "y": -5.676197254657746,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03305814042687416
+        },
+        {
+          "slot": 11,
+          "player_id": 100,
+          "name": "Mateo Kovacic",
+          "position": "CM",
+          "jersey": "8",
+          "team_id": "371",
+          "x": 33.39373576641083,
+          "y": -3.0265682891011236,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.006172421853989363
+        },
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "jersey": "1",
+          "team_id": "371",
+          "x": -25.15032305717468,
+          "y": 1.1122429892420769,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 13,
+          "player_id": 13857,
+          "name": "Borna Barisic",
+          "position": "LB",
+          "jersey": "3",
+          "team_id": "371",
+          "x": 22.998186028003694,
+          "y": -12.699456346035003,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004019645974040031
+        },
+        {
+          "slot": 14,
+          "player_id": 13858,
+          "name": "Josip Juranovic",
+          "position": "RB",
+          "jersey": "22",
+          "team_id": "371",
+          "x": 30.48051272034645,
+          "y": 28.93893618583679,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03453308716416359
+        },
+        {
+          "slot": 15,
+          "player_id": 13861,
+          "name": "Bruno Petkovic",
+          "position": "CF",
+          "jersey": "16",
+          "team_id": "371",
+          "x": 41.34827996492386,
+          "y": -1.2928912699222566,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004968959838151932
+        },
+        {
+          "slot": 16,
+          "player_id": 1687,
+          "name": "Luka Modric",
+          "position": "CM",
+          "jersey": "10",
+          "team_id": "371",
+          "x": 28.578498941659927,
+          "y": 4.8126145549118515,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.008831387385725975
+        },
+        {
+          "slot": 17,
+          "player_id": 40,
+          "name": "Dejan Lovren",
+          "position": "RCB",
+          "jersey": "6",
+          "team_id": "371",
+          "x": 15.374550470709801,
+          "y": 19.57294919490814,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03170676529407501
+        },
+        {
+          "slot": 18,
+          "player_id": 4883,
+          "name": "Andrej Kramaric",
+          "position": "RW",
+          "jersey": "9",
+          "team_id": "371",
+          "x": 35.25333600640297,
+          "y": 6.169357860088349,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011563748121261597
+        },
+        {
+          "slot": 19,
+          "player_id": 4892,
+          "name": "Josko Gvardiol",
+          "position": "LCB",
+          "jersey": "20",
+          "team_id": "371",
+          "x": 6.80573850274086,
+          "y": 2.957864224910736,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011312616989016533
+        },
+        {
+          "slot": 20,
+          "player_id": 8129,
+          "name": "Marcelo Brozovic",
+          "position": "CM",
+          "jersey": "11",
+          "team_id": "371",
+          "x": 35.269957709312436,
+          "y": 14.579251646995544,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.019719768315553665
+        },
+        {
+          "slot": 21,
+          "player_id": 8136,
+          "name": "Ivan Perisic",
+          "position": "LW",
+          "jersey": "4",
+          "team_id": "371",
+          "x": 39.3218643039465,
+          "y": 1.2028678491711617,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.005604189820587635
+        }
+      ],
+      "ball": {
+        "x": 53.49229999423027,
+        "y": 0.030099998712539655
+      },
+      "attention": [
+        0.029160328209400177,
+        0.03436203673481941,
+        0.0684390515089035,
+        0.012007308192551136,
+        0.0699169710278511,
+        0.035978835076093674,
+        0.030625907704234123,
+        0.0308192390948534,
+        0.19281600415706635,
+        0.05257205292582512,
+        0.03305814042687416,
+        0.006172421853989363,
+        0.2718115448951721,
+        0.004019645974040031,
+        0.03453308716416359,
+        0.004968959838151932,
+        0.008831387385725975,
+        0.03170676529407501,
+        0.011563748121261597,
+        0.011312616989016533,
+        0.019719768315553665,
+        0.005604189820587635
+      ],
+      "top_slots": [
+        12,
+        8,
+        4
+      ],
+      "scoring_team_id": null,
+      "pair_attention_score_top": [
+        [
+          13,
+          14,
+          0.13816308975219727
+        ],
+        [
+          8,
+          13,
+          0.12079331278800964
+        ],
+        [
+          3,
+          13,
+          0.10846594721078873
+        ],
+        [
+          13,
+          17,
+          0.10536080598831177
+        ],
+        [
+          3,
+          19,
+          0.10061238706111908
+        ],
+        [
+          3,
+          11,
+          0.09132244437932968
+        ],
+        [
+          3,
+          21,
+          0.0912785679101944
+        ],
+        [
+          3,
+          16,
+          0.0847255289554596
+        ],
+        [
+          3,
+          15,
+          0.08207938075065613
+        ],
+        [
+          3,
+          10,
+          0.07843825221061707
+        ],
+        [
+          3,
+          6,
+          0.0764341801404953
+        ],
+        [
+          3,
+          18,
+          0.07478600740432739
+        ],
+        [
+          3,
+          7,
+          0.07253432273864746
+        ],
+        [
+          3,
+          5,
+          0.07116132974624634
+        ],
+        [
+          3,
+          9,
+          0.06945914775133133
+        ]
+      ],
+      "is_synthetic": true
+    },
+    {
+      "top_attended": [
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "attention": 0.0699169710278511
+        }
+      ],
+      "ball_xy": [
+        53.5,
+        0.0
+      ],
+      "event_label": null,
+      "is_goal_event": false,
+      "frame_idx": 159,
+      "frame_id": null,
+      "period": 2,
+      "timestamp_ms": 596995,
+      "in_possession_team_id": "57",
+      "p_score": 0.0013893434079363942,
+      "p_concede": 0.8527368903160095,
+      "vaep": -0.8513475469080731,
+      "players": [
+        {
+          "slot": 0,
+          "player_id": 11841,
+          "name": "Hidemasa Morita",
+          "position": "CM",
+          "jersey": "13",
+          "team_id": "57",
+          "x": 31.78119406104088,
+          "y": 10.889236509799957,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.029160328209400177
+        },
+        {
+          "slot": 1,
+          "player_id": 13797,
+          "name": "Shogo Taniguchi",
+          "position": "LCB",
+          "jersey": "3",
+          "team_id": "57",
+          "x": 41.36591997742653,
+          "y": 4.890163451433182,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03436203673481941
+        },
+        {
+          "slot": 2,
+          "player_id": 13798,
+          "name": "Yuto Nagatomo",
+          "position": "LWB",
+          "jersey": "5",
+          "team_id": "57",
+          "x": 37.68481996655464,
+          "y": 13.746229708194733,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0684390515089035
+        },
+        {
+          "slot": 3,
+          "player_id": 13799,
+          "name": "Shuichi Gonda",
+          "position": "GK",
+          "jersey": "12",
+          "team_id": "57",
+          "x": 51.179772555828094,
+          "y": 3.4599903598427773,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": true,
+          "attention": 0.012007308192551136
+        },
+        {
+          "slot": 4,
+          "player_id": 13802,
+          "name": "Daizen Maeda",
+          "position": "CF",
+          "jersey": "25",
+          "team_id": "57",
+          "x": 26.635618567466736,
+          "y": 5.411484122276306,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.0699169710278511
+        },
+        {
+          "slot": 5,
+          "player_id": 2087,
+          "name": "Takehiro Tomiyasu",
+          "position": "RCB",
+          "jersey": "16",
+          "team_id": "57",
+          "x": 42.007165014743805,
+          "y": -3.501114957034588,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.035978835076093674
+        },
+        {
+          "slot": 6,
+          "player_id": 2088,
+          "name": "Maya Yoshida",
+          "position": "MCB",
+          "jersey": "22",
+          "team_id": "57",
+          "x": 44.025421768426895,
+          "y": -0.28107508458197117,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.030625907704234123
+        },
+        {
+          "slot": 7,
+          "player_id": 2094,
+          "name": "Junya Ito",
+          "position": "RWB",
+          "jersey": "14",
+          "team_id": "57",
+          "x": 42.81773638725281,
+          "y": -4.873690217733383,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.0308192390948534
+        },
+        {
+          "slot": 8,
+          "player_id": 2095,
+          "name": "Daichi Kamada",
+          "position": "LW",
+          "jersey": "15",
+          "team_id": "57",
+          "x": 19.290550529956818,
+          "y": 23.869394898414612,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.19281600415706635
+        },
+        {
+          "slot": 9,
+          "player_id": 4928,
+          "name": "Wataru Endo",
+          "position": "CM",
+          "jersey": "6",
+          "team_id": "57",
+          "x": 36.11450386047363,
+          "y": -0.9889999536680989,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.05257205292582512
+        },
+        {
+          "slot": 10,
+          "player_id": 9981,
+          "name": "Ritsu Doan",
+          "position": "RW",
+          "jersey": "8",
+          "team_id": "57",
+          "x": 33.582007735967636,
+          "y": -5.654219180345535,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03305814042687416
+        },
+        {
+          "slot": 11,
+          "player_id": 100,
+          "name": "Mateo Kovacic",
+          "position": "CM",
+          "jersey": "8",
+          "team_id": "371",
+          "x": 33.47915098071098,
+          "y": -3.019075855612755,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.006172421853989363
+        },
+        {
+          "slot": 12,
+          "player_id": 13854,
+          "name": "Dominik Livakovic",
+          "position": "GK",
+          "jersey": "1",
+          "team_id": "371",
+          "x": -25.169803336262703,
+          "y": 1.0852699801325798,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": true,
+          "has_possession": false,
+          "attention": 0.2718115448951721
+        },
+        {
+          "slot": 13,
+          "player_id": 13857,
+          "name": "Borna Barisic",
+          "position": "LB",
+          "jersey": "3",
+          "team_id": "371",
+          "x": 23.033651053905487,
+          "y": -12.593062698841095,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004019645974040031
+        },
+        {
+          "slot": 14,
+          "player_id": 13858,
+          "name": "Josip Juranovic",
+          "position": "RB",
+          "jersey": "22",
+          "team_id": "371",
+          "x": 30.423569560050964,
+          "y": 28.83504009246826,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03453308716416359
+        },
+        {
+          "slot": 15,
+          "player_id": 13861,
+          "name": "Bruno Petkovic",
+          "position": "CF",
+          "jersey": "16",
+          "team_id": "371",
+          "x": 41.428199887275696,
+          "y": -1.1939902901649475,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.004968959838151932
+        },
+        {
+          "slot": 16,
+          "player_id": 1687,
+          "name": "Luka Modric",
+          "position": "CM",
+          "jersey": "10",
+          "team_id": "371",
+          "x": 28.633443295955658,
+          "y": 4.800127245485783,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.008831387385725975
+        },
+        {
+          "slot": 17,
+          "player_id": 40,
+          "name": "Dejan Lovren",
+          "position": "RCB",
+          "jersey": "6",
+          "team_id": "371",
+          "x": 15.258167073130608,
+          "y": 19.46805465221405,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.03170676529407501
+        },
+        {
+          "slot": 18,
+          "player_id": 4883,
+          "name": "Andrej Kramaric",
+          "position": "RW",
+          "jersey": "9",
+          "team_id": "371",
+          "x": 35.38370630145073,
+          "y": 6.129397660493851,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011563748121261597
+        },
+        {
+          "slot": 19,
+          "player_id": 4892,
+          "name": "Josko Gvardiol",
+          "position": "LCB",
+          "jersey": "20",
+          "team_id": "371",
+          "x": 6.7792650163173676,
+          "y": 2.917404681444168,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.011312616989016533
+        },
+        {
+          "slot": 20,
+          "player_id": 8129,
+          "name": "Marcelo Brozovic",
+          "position": "CM",
+          "jersey": "11",
+          "team_id": "371",
+          "x": 35.43928664922714,
+          "y": 14.440390706062317,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.019719768315553665
+        },
+        {
+          "slot": 21,
+          "player_id": 8136,
+          "name": "Ivan Perisic",
+          "position": "LW",
+          "jersey": "4",
+          "team_id": "371",
+          "x": 39.33784905076027,
+          "y": 1.5505198314785957,
+          "vx": 0.0,
+          "vy": 0.0,
+          "is_gk": false,
+          "has_possession": false,
+          "attention": 0.005604189820587635
+        }
+      ],
+      "ball": {
+        "x": 53.5,
+        "y": 0.0
+      },
+      "attention": [
+        0.029160328209400177,
+        0.03436203673481941,
+        0.0684390515089035,
+        0.012007308192551136,
+        0.0699169710278511,
+        0.035978835076093674,
+        0.030625907704234123,
+        0.0308192390948534,
+        0.19281600415706635,
+        0.05257205292582512,
+        0.03305814042687416,
+        0.006172421853989363,
+        0.2718115448951721,
+        0.004019645974040031,
+        0.03453308716416359,
+        0.004968959838151932,
+        0.008831387385725975,
+        0.03170676529407501,
+        0.011563748121261597,
+        0.011312616989016533,
+        0.019719768315553665,
+        0.005604189820587635
+      ],
+      "top_slots": [
+        12,
+        8,
+        4
+      ],
+      "scoring_team_id": null,
+      "pair_attention_score_top": [
+        [
+          13,
+          14,
+          0.13816308975219727
+        ],
+        [
+          8,
+          13,
+          0.12079331278800964
+        ],
+        [
+          3,
+          13,
+          0.10846594721078873
+        ],
+        [
+          13,
+          17,
+          0.10536080598831177
+        ],
+        [
+          3,
+          19,
+          0.10061238706111908
+        ],
+        [
+          3,
+          11,
+          0.09132244437932968
+        ],
+        [
+          3,
+          21,
+          0.0912785679101944
+        ],
+        [
+          3,
+          16,
+          0.0847255289554596
+        ],
+        [
+          3,
+          15,
+          0.08207938075065613
+        ],
+        [
+          3,
+          10,
+          0.07843825221061707
+        ],
+        [
+          3,
+          6,
+          0.0764341801404953
+        ],
+        [
+          3,
+          18,
+          0.07478600740432739
+        ],
+        [
+          3,
+          7,
+          0.07253432273864746
+        ],
+        [
+          3,
+          5,
+          0.07116132974624634
+        ],
+        [
+          3,
+          9,
+          0.06945914775133133
+        ]
+      ],
+      "is_synthetic": true
     }
   ],
   "image_pattern": "assets/clips/croatia-japan-perisic/frame_{idx:03d}.png"
