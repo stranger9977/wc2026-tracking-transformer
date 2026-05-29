@@ -187,7 +187,8 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
     const oo = isOff(a.position) && isOff(b.position);
     const dd = isDef(a.position) && isDef(b.position);
     const cat = oo ? "off" : dd ? "def" : "cross";
-    let color = { off: "#d4793a", def: "#3b6ea0", cross: "#7a4f9a" }[cat];
+    // Brighter palette so the def-def block actually reads as a "lattice."
+    let color = { off: "#f59e0b", def: "#5eb1f8", cross: "#a78bfa" }[cat];
     let muted = false;
     if (highlight === "def" && cat !== "def") muted = true;
     if (highlight === "midfield") {
@@ -195,30 +196,82 @@ function renderPitchNetwork(mountEl, teamName, highlight = null, edgeThreshold =
       if (!inEngine) muted = true;
       else color = "#ffd166";
     }
-    return { color, muted };
+    return { color, muted, cat };
   }
 
   const ratioOf = (e) => e.aw_joi90 / maxAW;
+  // Pre-classify defender ids so the node-render below can give the wall
+  // extra ring weight when we're in "def" highlight mode.
+  const isDefenderId = (pid) => {
+    const node = placed.get(pid);
+    return node && isDef(node.position);
+  };
 
   let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="atom-svg" role="img" aria-label="${escapeHTML(teamName)} chemistry network">`;
-  svg += `<rect x="${padX}" y="${padY}" width="${W - 2*padX}" height="${H - 2*padY}" fill="none" stroke="#2a313d" stroke-width="0.2" />`;
-  svg += `<line x1="${W/2}" y1="${padY}" x2="${W/2}" y2="${H - padY}" stroke="#2a313d" stroke-width="0.15" />`;
-  svg += `<circle cx="${W/2}" cy="${H/2}" r="5" stroke="#2a313d" stroke-width="0.15" fill="none" />`;
+  // Pitch surface — a touch of green so it reads as a pitch, not a chart.
+  svg += `<rect x="${padX}" y="${padY}" width="${W - 2*padX}" height="${H - 2*padY}" fill="#13332b" stroke="#2a4034" stroke-width="0.25" rx="1" />`;
+  // Halfway line + center circle.
+  svg += `<line x1="${W/2}" y1="${padY}" x2="${W/2}" y2="${H - padY}" stroke="#2a4034" stroke-width="0.18" />`;
+  svg += `<circle cx="${W/2}" cy="${H/2}" r="5" stroke="#2a4034" stroke-width="0.18" fill="none" />`;
+  // Penalty boxes for spatial context (16.5 m wide, 40.32 m tall on a 105×68
+  // pitch → ~15.7% wide, ~59% tall in our scaled coords).
+  const pbW = (16.5 / 105) * (W - 2 * padX);
+  const pbH = (40.32 / 68) * (H - 2 * padY);
+  const sixW = (5.5 / 105) * (W - 2 * padX);
+  const sixH = (18.32 / 68) * (H - 2 * padY);
+  svg += `<rect x="${padX}" y="${(H - pbH) / 2}" width="${pbW.toFixed(1)}" height="${pbH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.15" />`;
+  svg += `<rect x="${(W - padX - pbW).toFixed(1)}" y="${(H - pbH) / 2}" width="${pbW.toFixed(1)}" height="${pbH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.15" />`;
+  svg += `<rect x="${padX}" y="${(H - sixH) / 2}" width="${sixW.toFixed(1)}" height="${sixH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.12" />`;
+  svg += `<rect x="${(W - padX - sixW).toFixed(1)}" y="${(H - sixH) / 2}" width="${sixW.toFixed(1)}" height="${sixH.toFixed(1)}" fill="none" stroke="#2a4034" stroke-width="0.12" />`;
 
+  // Render edges in two passes so muted ones go BEHIND the highlighted ones.
+  const mutedEdges = [], focusEdges = [];
   for (const e of edges) {
     const a = placed.get(e.p), b = placed.get(e.q);
-    const { color, muted } = edgeStyle(e, a, b);
+    const meta = edgeStyle(e, a, b);
+    (meta.muted ? mutedEdges : focusEdges).push({ e, a, b, ...meta });
+  }
+  for (const { e, a, b, color, muted } of mutedEdges) {
     const r = ratioOf(e);
-    const w = 0.15 + r * (muted ? 0.5 : 1.1);
-    const op = muted ? (0.06 + r * 0.10).toFixed(2) : (0.30 + r * 0.55).toFixed(2);
+    const w = 0.15 + r * 0.5;
+    const op = (0.05 + r * 0.10).toFixed(2);
+    svg += `<line x1="${scaleX(a.x).toFixed(1)}" y1="${scaleY(a.y).toFixed(1)}" x2="${scaleX(b.x).toFixed(1)}" y2="${scaleY(b.y).toFixed(1)}" stroke="${color}" stroke-opacity="${op}" stroke-width="${w.toFixed(2)}" stroke-linecap="round"><title>${escapeHTML(e.name_p)} ↔ ${escapeHTML(e.name_q)}: AW-JOI90 ${e.aw_joi90.toFixed(2)}, AW-JDI90 ${(e.aw_jdi90 ?? 0).toFixed(2)}</title></line>`;
+  }
+  // Focused edges: thicker + a subtle glow underneath, so def-def reads as
+  // a single lattice and not a tangle of skinny lines.
+  for (const { e, a, b, color } of focusEdges) {
+    const r = ratioOf(e);
+    const w = 0.5 + r * 1.8;
+    const op = (0.55 + r * 0.40).toFixed(2);
+    svg += `<line x1="${scaleX(a.x).toFixed(1)}" y1="${scaleY(a.y).toFixed(1)}" x2="${scaleX(b.x).toFixed(1)}" y2="${scaleY(b.y).toFixed(1)}" stroke="${color}" stroke-opacity="0.18" stroke-width="${(w * 1.9).toFixed(2)}" stroke-linecap="round" />`;
     svg += `<line x1="${scaleX(a.x).toFixed(1)}" y1="${scaleY(a.y).toFixed(1)}" x2="${scaleX(b.x).toFixed(1)}" y2="${scaleY(b.y).toFixed(1)}" stroke="${color}" stroke-opacity="${op}" stroke-width="${w.toFixed(2)}" stroke-linecap="round"><title>${escapeHTML(e.name_p)} ↔ ${escapeHTML(e.name_q)}: AW-JOI90 ${e.aw_joi90.toFixed(2)}, AW-JDI90 ${(e.aw_jdi90 ?? 0).toFixed(2)}</title></line>`;
   }
   for (const n of placed.values()) {
-    const r = 0.9 + Math.min(1.0, n.minutes / 600) * 0.7;
-    const ringColor = highlight === "midfield" && midfieldEngine.has(n.player_id) ? "#ffd166" : "#e8eef9";
-    svg += `<circle cx="${scaleX(n.x).toFixed(1)}" cy="${scaleY(n.y).toFixed(1)}" r="${r.toFixed(2)}" fill="#1f2a3a" stroke="${ringColor}" stroke-width="0.22"><title>${escapeHTML(n.name)} (${escapeHTML(n.position)}) · ${Math.round(n.minutes)} min</title></circle>`;
+    // Bigger nodes: ~1.6–2.6 in viewBox units (was 0.9–1.6). Defenders in
+    // "def" highlight mode get a thicker ring so the wall pops as a unit.
+    const r = 1.6 + Math.min(1.0, n.minutes / 600) * 1.0;
+    const isWallNode = highlight === "def" && isDef(n.position);
+    const ringColor = highlight === "midfield" && midfieldEngine.has(n.player_id)
+      ? "#ffd166"
+      : (isWallNode ? "#5eb1f8" : "#e8eef9");
+    const ringWidth = isWallNode ? 0.45 : 0.28;
+    if (isWallNode) {
+      svg += `<circle cx="${scaleX(n.x).toFixed(1)}" cy="${scaleY(n.y).toFixed(1)}" r="${(r + 0.9).toFixed(2)}" fill="none" stroke="${ringColor}" stroke-opacity="0.25" stroke-width="0.5" />`;
+    }
+    svg += `<circle cx="${scaleX(n.x).toFixed(1)}" cy="${scaleY(n.y).toFixed(1)}" r="${r.toFixed(2)}" fill="#0b1220" stroke="${ringColor}" stroke-width="${ringWidth}"><title>${escapeHTML(n.name)} (${escapeHTML(n.position)}) · ${Math.round(n.minutes)} min</title></circle>`;
     const surname = (n.name || "").split(" ").slice(-1)[0] || n.name;
-    svg += `<text x="${scaleX(n.x).toFixed(1)}" y="${(scaleY(n.y) + r + 1.6).toFixed(1)}" text-anchor="middle" class="atom-label">${escapeHTML(surname)}</text>`;
+    svg += `<text x="${scaleX(n.x).toFixed(1)}" y="${(scaleY(n.y) + r + 1.7).toFixed(1)}" text-anchor="middle" class="atom-label" style="font-weight:${isWallNode ? 700 : 500}; fill:${isWallNode ? "#cfe3ff" : "#cdd6e3"};">${escapeHTML(surname)}</text>`;
+  }
+  // Optional "THE WALL" callout when highlight=def — a small label tag at
+  // the top of the defender cluster, anchored to its centroid.
+  if (highlight === "def") {
+    const defs = [...placed.values()].filter((n) => isDef(n.position));
+    if (defs.length) {
+      const cx = defs.reduce((s, n) => s + scaleX(n.x), 0) / defs.length;
+      const cy = defs.reduce((s, n) => s + scaleY(n.y), 0) / defs.length;
+      svg += `<rect x="${(cx - 5.6).toFixed(1)}" y="${(cy - 7.2).toFixed(1)}" width="11.2" height="3.6" rx="0.6" fill="#0b1220" stroke="#5eb1f8" stroke-width="0.18" />`;
+      svg += `<text x="${cx.toFixed(1)}" y="${(cy - 4.7).toFixed(1)}" text-anchor="middle" style="fill:#5eb1f8; font-size:2.2px; font-weight:800; letter-spacing:0.4px;">THE WALL</text>`;
+    }
   }
   svg += `</svg>`;
   mountEl.innerHTML = svg;
@@ -380,6 +433,58 @@ function wireNetworkToggles() {
 }
 
 wireNetworkToggles();
+
+/* ---------------- Morocco def-def support panel ---------------- */
+// Renders a tournament-wide leaderboard of "strong def↔def pairs" with
+// Morocco highlighted, plus an inline tcd_off / tcd_def / tcd_cross breakdown.
+// Sources straight from team_chemistry_vs_paper.json (already loaded above
+// into teamRows) so the headline ranking is auditable.
+function renderMoroccoTcdSupport() {
+  const lbEl = document.getElementById("morocco-tcd-def-leaderboard");
+  const brEl = document.getElementById("morocco-tcd-breakdown");
+  if (!Array.isArray(teamRows)) return;
+  const rows = teamRows
+    .filter((r) => r.tcd_def != null && r.team_name)
+    .map((r) => ({ name: r.team_name, n: r.tcd_def, stage: r.stage, id: r.team_id }))
+    .sort((a, b) => b.n - a.n);
+  const top = rows.slice(0, 10);
+  const max = Math.max(1, ...top.map((r) => r.n));
+  if (lbEl) {
+    const FLAG = {
+      Brazil: "🇧🇷", France: "🇫🇷", Morocco: "🇲🇦", Croatia: "🇭🇷",
+      Argentina: "🇦🇷", Spain: "🇪🇸", Portugal: "🇵🇹", "Saudi Arabia": "🇸🇦",
+      Germany: "🇩🇪", Switzerland: "🇨🇭", "United States": "🇺🇸", "South Korea": "🇰🇷",
+    };
+    lbEl.innerHTML = top.map((r, i) => {
+      const isMar = r.name === "Morocco";
+      const pct = (r.n / max) * 100;
+      const bg = isMar ? "#3b6ea0" : "#2a313d";
+      const ring = isMar ? "border:1px solid #5eb1f8;" : "";
+      const labelStyle = isMar ? "color:#cfe3ff; font-weight:700;" : "color:var(--text);";
+      return `
+        <div style="display:grid; grid-template-columns: 1.4rem 8rem 1fr 2rem; align-items:center; gap:0.5rem; margin:0.18rem 0;">
+          <span class="dim small" style="text-align:right;">#${i + 1}</span>
+          <span style="${labelStyle}">${FLAG[r.name] || ""} ${escapeHTML(r.name)}</span>
+          <span style="height:0.85rem; background:#0e141f; border-radius:3px; overflow:hidden; ${ring}">
+            <span style="display:block; height:100%; width:${pct.toFixed(1)}%; background:${bg};"></span>
+          </span>
+          <span class="tabular" style="${labelStyle} text-align:right;">${r.n}</span>
+        </div>`;
+    }).join("");
+  }
+  if (brEl) {
+    const mar = teamRows.find((r) => r.team_name === "Morocco");
+    if (mar) {
+      const o = mar.tcd_off || 0, dd = mar.tcd_def || 0, x = mar.tcd_cross_net || 0;
+      brEl.innerHTML = `
+        off↔off <strong class="tabular" style="color:#d4793a;">${o}</strong> &middot;
+        <strong style="color:var(--text)">def↔def <strong class="tabular" style="color:#5eb1f8;">${dd}</strong></strong> &middot;
+        cross-team <strong class="tabular" style="color:#9b7fc6;">${x}</strong>
+        &nbsp; (total TCD ${mar.tcd ?? "?"})`;
+    }
+  }
+}
+renderMoroccoTcdSupport();
 
 /* ---------------- embedded play scrubbers ---------------- */
 // One per case study, plus an appendix.
