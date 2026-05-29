@@ -101,17 +101,17 @@ export function clipScaffold(c) {
         ${ctrlBar}
         <div class="iplay-stage" id="stage-${label}"></div>
         <div id="narration-${label}" class="iplay-narration" style="margin:0.4rem 0 0.5rem; padding:0.4rem 0.7rem; border-radius:var(--radius-sm); background:var(--bg-elev-2); border:1px solid var(--border); display:none; font-weight:600; letter-spacing:0.4px; text-align:center;"></div>
-        <div class="clip-controls">
+        <div class="clip-controls" style="margin-bottom:0.25rem;">
           <button class="btn small" data-clip="${label}" data-action="prev">◀ prev</button>
           <button class="btn small" data-clip="${label}" data-action="play">▶ play</button>
           <button class="btn small" data-clip="${label}" data-action="next">next ▶</button>
           <button class="btn small" data-clip="${label}" data-action="goal" title="Jump to the goal frame">⚽ goal</button>
-          <div class="scrub-wrap" style="flex:1; position:relative;">
-            <input type="range" id="scrub-${label}" min="0" max="0" value="0" style="width:100%;">
-            <div class="scrub-markers" id="markers-${label}"></div>
-          </div>
         </div>
-        <div class="iplay-chart" id="chart-${label}"></div>
+        <div class="scrub-wrap" style="position:relative; width:100%;">
+          <input type="range" id="scrub-${label}" min="0" max="0" value="0" style="width:100%; display:block;">
+          <div class="scrub-markers" id="markers-${label}"></div>
+        </div>
+        <div class="iplay-chart" id="chart-${label}" style="width:100%;"></div>
         <div id="event-${label}" class="event-strip"></div>
         <div id="meta-${label}" class="clip-meta small dim"></div>
       </div>
@@ -744,12 +744,14 @@ function initClip(c, detail) {
     }
     gGoalHighlight.innerHTML = highlightHTML;
 
-    // --- event strip + auto-pause when an event lands
+    // --- event strip. Auto-pause is now reserved for the GOAL only — the
+    // pre-goal event cluster (cross → tackle → GOAL within ~1 s) used to
+    // stack three back-to-back pauses, which read as "jumpy". Other events
+    // still flash the strip; only the goal halts playback.
     const evLabel = cleanEventLabel(f.event_label);
     if (evLabel && lastEventIdxShown !== i) {
       lastEventIdxShown = i;
-      if (playTimer) {
-        // Auto-pause for EVENT_PAUSE_MS
+      if (playTimer && f.is_goal_event) {
         pauseUntil = performance.now() + EVENT_PAUSE_MS;
       }
       evtStrip.classList.add("flash");
@@ -896,16 +898,26 @@ function initClip(c, detail) {
           btn.textContent = "▶ play";
         } else {
           btn.textContent = "⏸ pause";
-          playTimer = setInterval(() => {
-            if (performance.now() < pauseUntil) return; // auto-paused on event
+          // Self-rescheduling tick: real frames run at TICK_MS; synthetic
+          // tail frames run at TICK_MS * 1.8 so the ball-in-net beat lands
+          // with some weight instead of blowing past in 2 s. Using
+          // setTimeout (not setInterval) so we can vary the delay per step.
+          const stepOnce = () => {
+            if (!playTimer) return;
+            if (performance.now() < pauseUntil) {
+              playTimer = setTimeout(stepOnce, 50);
+              return;
+            }
             if (i + 1 >= n) {
-              clearInterval(playTimer);
               playTimer = null;
               btn.textContent = "▶ play";
               return;
             }
             setFrame(i + 1);
-          }, TICK_MS);
+            const nextDelay = (frames[i] && frames[i].is_synthetic) ? TICK_MS * 1.8 : TICK_MS;
+            playTimer = setTimeout(stepOnce, nextDelay);
+          };
+          playTimer = setTimeout(stepOnce, TICK_MS);
         }
       }
     });
