@@ -297,95 +297,122 @@
             tournament.
           </p>
 
-          <h3 class="mt-2">The on-ball story &mdash; pass-by-pass JOI</h3>
+          <h3 class="mt-2">The on-ball story &mdash; pass-by-pass</h3>
           <p>
-            What the model's scoring probability looks like at each
-            on-ball event in this clip. The "Net P from ARG" curve in
-            the chart above is the continuous version of this column;
-            the table is just the discrete snapshots at the events.
+            Reading the actual pass chain that produced this goal:
+            <strong>Messi &rarr; Mac Allister &rarr; Otamendi &rarr;
+            Messi (finish)</strong>. For each on-ball event we show
+            the model's read on Argentina's 10-second scoring
+            probability AT the event, the AVERAGE P over the next
+            ~1.6&nbsp;s of Argentine possession, the &Delta;P (the
+            "event-JOI score" for that pass), and the pair attention
+            on the pass partners at that exact frame (how much the
+            model thinks <em>that specific relationship</em>
+            matters right now).
           </p>
           <div style="overflow-x:auto;">
-            <table class="data-table" style="width:100%; min-width:38rem; border-collapse:collapse; font-size:0.9rem;">
+            <table class="data-table" style="width:100%; min-width:46rem; border-collapse:collapse; font-size:0.9rem;">
               <thead>
-                <tr style="border-bottom:1px solid var(--border); color:var(--text-dim); text-transform:uppercase; letter-spacing:0.4px; font-size:0.8rem;">
+                <tr style="border-bottom:1px solid var(--border); color:var(--text-dim); text-transform:uppercase; letter-spacing:0.4px; font-size:0.78rem;">
+                  <th style="text-align:left; padding:0.4rem 0.6rem;">#</th>
                   <th style="text-align:left; padding:0.4rem 0.6rem;">t&nbsp;(s)</th>
-                  <th style="text-align:left; padding:0.4rem 0.6rem;">Event</th>
-                  <th style="text-align:left; padding:0.4rem 0.6rem;">Actor</th>
-                  <th style="text-align:right; padding:0.4rem 0.6rem;">P<sub>score</sub>(ARG)</th>
-                  <th style="text-align:left; padding:0.4rem 0.6rem;">What it tells us</th>
+                  <th style="text-align:left; padding:0.4rem 0.6rem;">Pass</th>
+                  <th style="text-align:right; padding:0.4rem 0.6rem;" title="Model's P(score in next 10s) at the moment the event fires.">P<sub>score</sub>&nbsp;@&nbsp;event</th>
+                  <th style="text-align:right; padding:0.4rem 0.6rem;" title="Average P_score over the next ~1.6s of Argentine possession only — bridges short ball-in-flight flickers.">P<sub>score</sub>&nbsp;+1.6&nbsp;s</th>
+                  <th style="text-align:right; padding:0.4rem 0.6rem;" title="Per-event JOI score: the difference. How much this pass moved the scoring probability.">&Delta;P&nbsp;(event-JOI)</th>
+                  <th style="text-align:right; padding:0.4rem 0.6rem;" title="Score-specialist's pair attention on (passer, receiver) at the event frame. 0.087 is well above the average noise floor (~0.01). Higher = the model thinks this pair-relationship is doing structural work right now.">pair&nbsp;attn</th>
+                  <th style="text-align:left; padding:0.4rem 0.6rem;">Read</th>
                 </tr>
               </thead>
               <tbody class="tabular">
                 <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:0.4rem 0.6rem;">1</td>
                   <td style="padding:0.4rem 0.6rem;">8.0</td>
-                  <td style="padding:0.4rem 0.6rem;">cross</td>
-                  <td style="padding:0.4rem 0.6rem;">Messi</td>
+                  <td style="padding:0.4rem 0.6rem;">Messi &rarr; (Souttar)</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#e07474;">0.014</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi's first attempt &mdash; speculative cross with no chemistry behind it yet. Model is bored.</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.780</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">+0.765</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi's speculative early cross. Intercepted by Souttar, but the model jumps from 0.014 to 0.78 because the lookahead now sees the recovery + finish 8&nbsp;s away.</td>
                 </tr>
                 <tr style="border-bottom:1px solid var(--border);">
-                  <td style="padding:0.4rem 0.6rem;">9.0</td>
-                  <td style="padding:0.4rem 0.6rem;">clearance</td>
-                  <td style="padding:0.4rem 0.6rem;">Souttar</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.937</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Souttar clears, BUT the lookahead is already seeing the recovery + the strike 10 s out &mdash; P jumps to 0.94 the moment Argentina win the ball back.</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:0.4rem 0.6rem;">2</td>
                   <td style="padding:0.4rem 0.6rem;">11.0</td>
-                  <td style="padding:0.4rem 0.6rem;">pass</td>
-                  <td style="padding:0.4rem 0.6rem;">Gómez</td>
+                  <td style="padding:0.4rem 0.6rem;">Gómez &rarr; Messi</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.918</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Argentina recover. P stays at ~0.92 &mdash; the model is locked in on the impending finish.</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.917</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&minus;0.000</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Argentina recover. The model's P is already at 0.92 from the previous frame &mdash; the value has been baked in.</td>
                 </tr>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <td style="padding:0.4rem 0.6rem;">16.0</td>
-                  <td style="padding:0.4rem 0.6rem;">pass</td>
-                  <td style="padding:0.4rem 0.6rem;">Messi</td>
+                <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
+                  <td style="padding:0.4rem 0.6rem;"><strong>3</strong></td>
+                  <td style="padding:0.4rem 0.6rem;"><strong>16.0</strong></td>
+                  <td style="padding:0.4rem 0.6rem;"><strong>Messi &rarr; Mac&nbsp;Allister</strong></td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.914</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi recycles. P holds high &mdash; the relationships are already in place.</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.916</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">+0.003</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi swings it to Mac Allister. The pass barely moves P, and the model isn't attending to the (Messi, Mac Allister) pair specifically &mdash; this is a recycle pass through a flat 0.92 plateau.</td>
                 </tr>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <td style="padding:0.4rem 0.6rem;">18.0</td>
-                  <td style="padding:0.4rem 0.6rem;">pass</td>
-                  <td style="padding:0.4rem 0.6rem;">Mac Allister</td>
+                <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
+                  <td style="padding:0.4rem 0.6rem;"><strong>4</strong></td>
+                  <td style="padding:0.4rem 0.6rem;"><strong>18.0</strong></td>
+                  <td style="padding:0.4rem 0.6rem;"><strong>Mac&nbsp;Allister &rarr; Otamendi</strong></td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.930</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Side switch into Otamendi. P ticks up a touch.</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.929</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&minus;0.001</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.087</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Plateau pass on the chart, but the <strong>pair attention spikes</strong>: the model concentrates on Mac Allister + Otamendi together at this exact frame. It "sees" this connection as load-bearing for the next move.</td>
                 </tr>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <td style="padding:0.4rem 0.6rem;">18.0</td>
-                  <td style="padding:0.4rem 0.6rem;">pass</td>
-                  <td style="padding:0.4rem 0.6rem;">Otamendi</td>
+                <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
+                  <td style="padding:0.4rem 0.6rem;"><strong>5</strong></td>
+                  <td style="padding:0.4rem 0.6rem;"><strong>18.0</strong></td>
+                  <td style="padding:0.4rem 0.6rem;"><strong>Otamendi &rarr; Messi</strong> (feed)</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.930</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Otamendi feeds Messi at the top of the box. The "right" pair connection.</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.929</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&minus;0.001</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">The feed itself is one of the quietest events on this play &mdash; the value was already there. What matters is that the prior pass set this up.</td>
                 </tr>
                 <tr style="border-bottom:1px solid var(--border); background:rgba(255,209,102,0.08);">
+                  <td style="padding:0.4rem 0.6rem;"><strong>6</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>19.0</strong></td>
-                  <td style="padding:0.4rem 0.6rem;"><strong>GOAL</strong></td>
-                  <td style="padding:0.4rem 0.6rem;"><strong>Messi</strong></td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#ffd166; font-weight:700;">0.927</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">The strike. P drops <em>after</em> the goal because there's no more "next 10 s" threat to predict.</td>
+                  <td style="padding:0.4rem 0.6rem;"><strong>Messi shot &rarr; GOAL</strong></td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.927</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.931</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">+0.004</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">The shot. The probability had been near 0.93 for 10&nbsp;s straight &mdash; this is the model confirming what it already saw coming.</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p class="dim small" style="margin-top:0.4rem;">
-            Note the &Delta;P column would mostly read 0 here &mdash; the
-            model commits to a high P early (frame ~9 s, right after
-            Souttar's clearance kicks Argentina into the buildup) and
-            then sits at &asymp;&nbsp;0.92 the rest of the way. <strong>The
-            on-ball events themselves don't move the needle much</strong>:
-            the value has already been baked in by the geometry. That's
-            the gap between event JOI and AW-JOI &mdash; AW-JOI captures
-            <em>where</em> the value is concentrated; event JOI only
-            captures the on-ball touch that triggered it.
+            <strong>The headline.</strong> On a 10&nbsp;s-lookahead model, the
+            value of this goal got baked in at <strong>t=9&nbsp;s</strong>
+            (right after Souttar's clearance) and held flat at
+            &asymp;&nbsp;0.93 through every subsequent on-ball event. Per-event
+            &Delta;P is essentially zero on the final pass chain because
+            the model already knew the goal was coming. What event JOI
+            does <em>not</em> measure: the pair-attention spike on
+            <strong>Mac&nbsp;Allister &harr; Otamendi at 18&nbsp;s</strong>
+            (0.087, multiples of the background ~0.01) &mdash; the model
+            is "looking at" the specific pair-relationship that's about
+            to free Messi. That's the bridge into the off-ball half of
+            the story.
           </p>
 
-          <h3 class="mt-2">The off-ball story &mdash; AW-JOI by pair</h3>
+          <h3 class="mt-2">The off-ball story &mdash; what matters when nobody's on the ball</h3>
           <p>
-            The top pair-level AW-JOI for this clip (after fixing the
-            possession-flip artifact &mdash; see follow-up note below).
-            Same number as the chips floating on the network edges
-            above, but read end-of-clip totals.
+            Event JOI says <strong>0.000</strong> for Otamendi-to-Messi.
+            AW-JOI says he's in the top six pairs of the play. The
+            difference is everything happening <em>between</em> the
+            on-ball events: who's drifting where, who the model thinks
+            is load-bearing for the next 10 s, which pair-relationships
+            are sustaining the threat. Top pair-level AW-JOI for this
+            play, end-of-clip totals (same numbers as the chips floating
+            on the network edges above the chart):
           </p>
           <div style="overflow-x:auto;">
             <table class="data-table" style="width:100%; min-width:32rem; border-collapse:collapse; font-size:0.9rem;">
@@ -408,35 +435,24 @@
             </table>
           </div>
           <p class="dim small" style="margin-top:0.4rem;">
-            <strong>The story this tells.</strong> Argentina's "Messi
-            goal" play in AW-JOI terms isn't actually a one-pair story
-            &mdash; it's an Otamendi-led recycle that involves five
-            different partners. The famous Otamendi &harr; Messi feed
-            pair is #6 in total credit; the four pairs ahead of it all
-            contributed via the build-up phase. That's the off-ball
-            chemistry the event data can't see &mdash; without those
-            five recycling pairs, the ball never gets to Otamendi to
-            feed Messi.
+            <strong>What this says about the offensive structure.</strong>
+            Argentina's "Messi goal" play in AW-JOI terms isn't a
+            one-pair story &mdash; it's an Otamendi-led recycle that
+            spreads credit across five different partners. The famous
+            Otamendi &harr; Messi feed pair is <strong>#6 in total
+            credit</strong>; the five pairs ahead of it all earned
+            theirs through the build-up phase, where the model was
+            attending to one structural relationship after another as
+            Argentina worked the ball out. The "ball-side puller"
+            (Otamendi) sits at the hub of all six. <strong>Without
+            those five recycling pairs sustaining the chain, the ball
+            never gets to Otamendi to feed Messi.</strong> Event data
+            can't see any of it &mdash; the recycling passes have
+            event-JOI of zero because the model already knew the goal
+            was coming. AW-JOI is what lets you see <em>where the
+            structural work was happening</em> off the ball, frame by
+            frame.
           </p>
-
-          <details class="callout" style="margin-top:0.6rem;">
-            <summary class="dim small"><strong>Methodology note &mdash; possession-flip fix</strong></summary>
-            <p class="small">
-              The numbers above use a recent fix to the
-              <code>extract_aw_joi.py</code> pipeline (commit
-              <code>795d221</code>). Before the fix, frames where
-              possession flipped between <em>t</em> and <em>t+1</em>
-              were incorrectly attributed to whichever team had the
-              ball at <em>t</em> &mdash; even though
-              P<sub>score</sub> measures the <em>in-possession team's</em>
-              chances, so the delta across a flip is comparing two
-              different teams' values. On this 69-frame clip the bug
-              was inflating the wrong team's AW-JOI by &asymp;&nbsp;2&times;.
-              The tournament-wide aw_joi90 numbers in
-              <code>aw_chemistry.json</code> still have the legacy
-              behaviour; a rerun is queued.
-            </p>
-          </details>
         </div>
       </details>
     </section>
@@ -755,6 +771,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=joi-explainer-tables"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=joi-pass-by-pass-pair-attn"></script>
 </body>
 </html>
