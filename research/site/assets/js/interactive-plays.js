@@ -37,6 +37,8 @@ export function clipScaffold(c) {
           <option value="raw" selected>Raw &mdash; two lines (P(score), P(concede))</option>
           <option value="home">Net &mdash; from home (P(score) &minus; P(concede))</option>
           <option value="away">Net &mdash; from away (P(score) &minus; P(concede))</option>
+          <option value="aw_joi">AW-JOI &mdash; cumulative, per team</option>
+          <option value="event_joi">Event-JOI &mdash; cumulative, per team</option>
         </select>
       </span>
       <label class="wb-toggle" title="Restrict the scrubber to the 10 seconds before the goal frame.">
@@ -372,21 +374,73 @@ function initClip(c, detail) {
 
   /* ---------- P-chart under the slider ---------- */
   let chartCursor = null;
+  // Pre-compute JOI time series once per clip — used by the AW-JOI /
+  // event-JOI chart options, the team-totals strip, and the per-pair
+  // overlay labels on the network edges.
+  const homeT = detail.home_team || c.home_team || {};
+  const awayT = detail.away_team || c.away_team || {};
+  const homeTid = String(homeT.team_id || homeT.id || "");
+  const awayTid = String(awayT.team_id || awayT.id || "");
+  const joiSeries = (homeTid && awayTid)
+    ? computeJoiTimeSeries(frames, [homeTid, awayTid])
+    : null;
+
   function renderChart() {
     if (!chartEl) return;
     const perspective = currentPerspective(ctrlScope);
     let povTeamId = null, povName = "team";
-    const homeT = detail.home_team || c.home_team || {};
-    const awayT = detail.away_team || c.away_team || {};
     if (perspective === "home") {
-      povTeamId = homeT.team_id || homeT.id || homeT.short;
+      povTeamId = homeTid;
       povName = homeT.short || homeT.name || "home";
     } else if (perspective === "away") {
-      povTeamId = awayT.team_id || awayT.id || awayT.short;
+      povTeamId = awayTid;
       povName = awayT.short || awayT.name || "away";
     }
-    chartEl.innerHTML = pChartSvg(frames, { perspective, povTeamId, povName });
+    chartEl.innerHTML = pChartSvg(frames, {
+      perspective, povTeamId, povName,
+      joi: joiSeries,
+      homeTid, awayTid,
+      homeShort: homeT.short || homeT.name || "HOM",
+      awayShort: awayT.short || awayT.name || "AWY",
+      homeColor: homeT.color || "#5eb1f8",
+      awayColor: awayT.color || "#f59e0b",
+    });
     chartCursor = chartEl.querySelector(".chart-cursor");
+    renderTotalsStrip();
+  }
+  // Permanent team-totals strip above the chart so the AW-JOI vs Event-JOI
+  // totals are always visible regardless of which perspective is selected.
+  function renderTotalsStrip() {
+    if (!chartEl || !joiSeries) return;
+    const lastN = frames.length - 1;
+    const hAw = joiSeries.teams[homeTid]?.aw_joi[lastN] || 0;
+    const aAw = joiSeries.teams[awayTid]?.aw_joi[lastN] || 0;
+    const hEv = joiSeries.teams[homeTid]?.event_joi[lastN] || 0;
+    const aEv = joiSeries.teams[awayTid]?.event_joi[lastN] || 0;
+    const hShort = homeT.short || homeT.name || "HOM";
+    const aShort = awayT.short || awayT.name || "AWY";
+    const hCol = homeT.color || "#5eb1f8";
+    const aCol = awayT.color || "#f59e0b";
+    // Inject totals strip above the chart svg.
+    let strip = chartEl.querySelector(".iplay-joi-totals");
+    if (!strip) {
+      strip = document.createElement("div");
+      strip.className = "iplay-joi-totals";
+      strip.style.cssText = "display:flex; flex-wrap:wrap; gap:0.4rem 1.0rem; padding:0.35rem 0.6rem; margin:0 0 0.3rem; background:var(--bg-elev-2); border:1px solid var(--border); border-radius:var(--radius-sm); font:inherit;";
+      chartEl.prepend(strip);
+    }
+    const cell = (label, val, col) => `
+      <span style="display:inline-flex; align-items:center; gap:0.35rem;">
+        <span style="width:0.55rem; height:0.55rem; background:${col}; border-radius:50%;"></span>
+        <span class="dim small" style="text-transform:uppercase; letter-spacing:0.4px;">${escapeHTML(label)}</span>
+        <span class="tabular" style="color:var(--text); font-weight:700;">${val.toFixed(3)}</span>
+      </span>`;
+    strip.innerHTML = `
+      ${cell(`${hShort} AW-JOI`, hAw, hCol)}
+      ${cell(`${aShort} AW-JOI`, aAw, aCol)}
+      <span class="dim" style="opacity:0.5;">|</span>
+      ${cell(`${hShort} Event-JOI`, hEv, hCol)}
+      ${cell(`${aShort} Event-JOI`, aEv, aCol)}`;
   }
   renderChart();
   registerChartRedraw(renderChart);
@@ -607,6 +661,32 @@ function initClip(c, detail) {
         const widthSvg = 1.4 + (w / maxW) * 4.6;
         const op = 0.5 + (w / maxW) * 0.4;
         pairEdgesHTML += `<line x1="${a.sx}" y1="${a.sy}" x2="${b.sx}" y2="${b.sy}" stroke="${STROKE[cat]}" stroke-width="${widthSvg.toFixed(2)}" stroke-opacity="${op.toFixed(2)}" stroke-linecap="round" />`;
+        // Cumulative AW-JOI for this pair UP TO the current frame: sum
+        // (pair_w * dPos) at every previous frame for this slot pair.
+        // Cheap to compute on demand (≤15 pairs × ≤200 frames).
+        if (joiSeries) {
+          let cumPair = 0;
+          for (let t = 0; t <= i; t++) {
+            const fr = frames[t];
+            const dP = Math.max(0,
+              (frames[t + 1]?.p_score || 0) - (fr.p_score || 0));
+            if (dP <= 0) continue;
+            const top = fr.pair_attention_score_top || [];
+            for (const tr of top) {
+              if ((tr[0] === si && tr[1] === sj) || (tr[0] === sj && tr[1] === si)) {
+                cumPair += (tr[2] || 0) * dP;
+                break;
+              }
+            }
+          }
+          if (cumPair > 0.01) {
+            const mx = (a.sx + b.sx) / 2;
+            const my = (a.sy + b.sy) / 2;
+            const txt = cumPair.toFixed(2);
+            pairEdgesHTML += `<rect x="${(mx - 11).toFixed(1)}" y="${(my - 6).toFixed(1)}" width="22" height="11" rx="2" fill="#0b1220" fill-opacity="0.78" stroke="${STROKE[cat]}" stroke-opacity="0.5" stroke-width="0.5" />`;
+            pairEdgesHTML += `<text x="${mx.toFixed(1)}" y="${(my + 2).toFixed(1)}" text-anchor="middle" font-size="7" font-family="-apple-system,Segoe UI,sans-serif" font-weight="700" fill="${STROKE[cat]}">${txt}</text>`;
+          }
+        }
       }
     }
     gPairEdges.innerHTML = pairEdgesHTML;
@@ -1220,6 +1300,80 @@ function overlapArea(x, y, w, h, placed) {
    P-chart helpers
    ============================================================ */
 
+/**
+ * Compute cumulative per-team AW-JOI and event-JOI for a clip, plus per-pair
+ * AW-JOI contributions across the whole clip.
+ *
+ * AW-JOI(t) per pair = pair_attention_score[t] × max(ΔP_score[t], 0)
+ *   summed only over frames where the carrier is the pair's team. We use
+ *   the score-specialist ΔP as the value signal (same model the attention
+ *   already comes from), clamped to non-negative for the offensive flavour.
+ *
+ * Event-JOI ascribes the same ΔP_score around an event to the actor's
+ * team. We sum max(ΔP, 0) at every event-frame; on-ball-only signal.
+ */
+function computeJoiTimeSeries(frames, teamIds) {
+  const n = frames.length;
+  if (!n) return null;
+  // dP_score per frame, clamped positive.
+  const dPos = new Array(n).fill(0);
+  for (let t = 0; t < n - 1; t++) {
+    const d = (frames[t + 1].p_score || 0) - (frames[t].p_score || 0);
+    dPos[t] = Math.max(0, d);
+  }
+  // Per-team cumulative AW-JOI and event-JOI.
+  const out = {};
+  for (const tid of teamIds) {
+    out[tid] = {
+      aw_joi: new Array(n).fill(0),
+      event_joi: new Array(n).fill(0),
+    };
+  }
+  // Per-pair AW-JOI cumulative — keyed by "i,j" with i<j.
+  const pairAw = new Map();
+  let lastValue = {};
+  for (const tid of teamIds) lastValue[tid] = { aw: 0, ev: 0 };
+  for (let t = 0; t < n; t++) {
+    const f = frames[t];
+    const carrier = String(f.in_possession_team_id || "");
+    // AW-JOI accumulation: sum pair contributions on the carrier's team.
+    const top = f.pair_attention_score_top || [];
+    const players = f.players || [];
+    const slotTeam = new Map();
+    for (const p of players) slotTeam.set(p.slot, String(p.team_id));
+    let frameAw = 0;
+    for (const trip of top) {
+      const [si, sj, w] = trip;
+      const ti = slotTeam.get(si), tj = slotTeam.get(sj);
+      if (!ti || !tj || ti !== tj) continue;             // pair must be same-team for AW-JOI
+      if (carrier && ti !== carrier) continue;            // and the team has to have the ball
+      const contrib = (w || 0) * dPos[t];
+      if (!Number.isFinite(contrib) || contrib === 0) continue;
+      // Cumulate per pair
+      const key = si < sj ? `${si},${sj}` : `${sj},${si}`;
+      pairAw.set(key, (pairAw.get(key) || 0) + contrib);
+      if (out[ti]) {
+        // Add to this team's running total at this frame
+        // (we'll roll it into the cumulative below).
+        frameAw += contrib;
+        out[ti].aw_joi[t] = (out[ti].aw_joi[t] || 0) + contrib;
+      }
+    }
+    // Event-JOI: at any event frame, attribute dPos[t] to the carrier team.
+    if (f.event_label && carrier && out[carrier]) {
+      out[carrier].event_joi[t] = (out[carrier].event_joi[t] || 0) + dPos[t];
+    }
+  }
+  // Make cumulative.
+  for (const tid of teamIds) {
+    for (let t = 1; t < n; t++) {
+      out[tid].aw_joi[t]    += out[tid].aw_joi[t - 1];
+      out[tid].event_joi[t] += out[tid].event_joi[t - 1];
+    }
+  }
+  return { teams: out, pairs: pairAw };
+}
+
 function pChartSvg(frames, opts = {}) {
   const n = frames.length;
   if (n === 0) return "";
@@ -1244,6 +1398,50 @@ function pChartSvg(frames, opts = {}) {
     const dy = f.is_goal_event ? 6 : 4;
     return `<line x1="${px}" y1="${h - dy}" x2="${px}" y2="${h}" stroke="${color}" stroke-width="${f.is_goal_event ? 0.9 : 0.4}" />`;
   }).join("");
+
+  // ---- AW-JOI / event-JOI cumulative two-team chart ----
+  if (perspective === "aw_joi" || perspective === "event_joi") {
+    const homeTid = opts.homeTid ? String(opts.homeTid) : null;
+    const awayTid = opts.awayTid ? String(opts.awayTid) : null;
+    const homeColor = opts.homeColor || "#5eb1f8";
+    const awayColor = opts.awayColor || "#f59e0b";
+    const homeShort = opts.homeShort || "home";
+    const awayShort = opts.awayShort || "away";
+    const series = opts.joi;
+    if (!series || !homeTid || !awayTid || !series.teams[homeTid] || !series.teams[awayTid]) {
+      return `<div class="empty-state small">No JOI series available for this clip.</div>`;
+    }
+    const key = perspective === "aw_joi" ? "aw_joi" : "event_joi";
+    const hVals = series.teams[homeTid][key] || new Array(n).fill(0);
+    const aVals = series.teams[awayTid][key] || new Array(n).fill(0);
+    const ymax = Math.max(0.05, ...hVals, ...aVals);
+    const pathFor = (vals, color) => {
+      const pts = vals.map((y, i) => {
+        const px = (i / Math.max(1, n - 1)) * (w - 2 * padX) + padX;
+        const py = h - pad - ((y || 0) / ymax) * (h - 2 * pad);
+        return `${px.toFixed(2)},${py.toFixed(2)}`;
+      });
+      return `<polyline fill="none" stroke="${color}" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" points="${pts.join(" ")}" />`;
+    };
+    const totalH = hVals[hVals.length - 1] || 0;
+    const totalA = aVals[aVals.length - 1] || 0;
+    const label = perspective === "aw_joi"
+      ? "AW-JOI (cumulative)"
+      : "Event-JOI (cumulative)";
+    return `
+      <div class="chart-title">
+        <span><span class="dot" style="background:${homeColor}"></span>${escapeHTML(homeShort)} ${totalH.toFixed(3)}</span>
+        <span><span class="dot" style="background:${awayColor}"></span>${escapeHTML(awayShort)} ${totalA.toFixed(3)}</span>
+        <span class="dim small">${label}; events tick the bottom; goal in gold</span>
+      </div>
+      <svg class="chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="${w}" height="${h}" fill="#0b1220" />
+        ${pathFor(aVals, awayColor)}
+        ${pathFor(hVals, homeColor)}
+        ${evMarks}
+        <line class="chart-cursor" x1="0%" y1="0" x2="0%" y2="${h}" stroke="#fde047" stroke-width="0.4" stroke-opacity="0.85" />
+      </svg>`;
+  }
 
   if (perspective === "raw") {
     const pathFor = (key, color) => {
