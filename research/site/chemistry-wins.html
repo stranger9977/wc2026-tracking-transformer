@@ -182,6 +182,122 @@
         at the strike. That collapse is the nucleus &mdash; the gravity TCD's
         breadth-based score doesn't see.
       </p>
+
+      <!-- =========================================================== -->
+      <!--   AW-JOI / attention explainer (anchored to the Messi play)  -->
+      <!-- =========================================================== -->
+      <details class="card mt-2" style="margin:1.2rem 0 0;">
+        <summary style="cursor:pointer;">
+          <strong>How the AW-JOI numbers above this section are built</strong>
+          &nbsp;<span class="dim small">(relationships, not outcomes)</span>
+        </summary>
+        <div style="padding-top:0.6rem;">
+          <p class="mt-0">
+            The toggle in the chart above lets you flip between
+            <strong>Net P</strong>, <strong>AW-JOI</strong>, and
+            <strong>AW-JDI</strong>. Here's what's actually being summed
+            for the AW-JOI / Event-JOI totals you see in the strip above
+            the chart.
+          </p>
+
+          <h3 class="mt-2">In plain English</h3>
+          <p>
+            For every pair of teammates <strong>(p, q)</strong>, walk
+            frame-by-frame through the clip. At each frame ask three
+            questions:
+          </p>
+          <ol>
+            <li>Is the model paying attention to <em>both</em> players at
+              once? (i.e. are <em>p</em> and <em>q</em> co-loaded for the
+              prediction at this moment?)</li>
+            <li>Is the team's <em>"will score in the next 10 s"</em>
+              probability rising right now?</li>
+            <li>If yes to both &mdash; this pair earns a little credit
+              for that frame, scaled by <em>how strongly</em> they're
+              co-attended and <em>how much</em> the prediction rose.</li>
+          </ol>
+          <p>
+            Sum those tiny credits across every frame &mdash; that's the
+            pair's <strong>AW-JOI</strong> for the play. Sum every pair
+            on a team &mdash; that's the <strong>team's AW-JOI</strong>.
+          </p>
+          <p>
+            <strong>Why this isn't an outcome stat.</strong> The shot
+            itself is one frame's jump. The <em>rest</em> of the AW-JOI
+            comes from every other moment where two teammates were
+            simultaneously load-bearing for the model's read while the
+            scoring probability was climbing. So a pair that never
+            touches the ball can still post huge AW-JOI &mdash; if the
+            model keeps "looking at them" during dangerous build-ups.
+            That's the relationships-not-outcomes part. Event data
+            can't see it because event data only credits the player who
+            actually touched the ball.
+          </p>
+
+          <h3 class="mt-2">The formula</h3>
+          <div class="callout" style="background:var(--bg-elev-2); padding:0.8rem 1rem; border-left:3px solid var(--accent); margin:0.5rem 0;">
+            <p class="mt-0" style="font-family:var(--mono); font-size:0.95rem; line-height:1.5;">
+              AW&#8209;JOI(p, q) &nbsp;=&nbsp; &Sigma;<sub>t</sub>
+              &nbsp;<strong style="color:#5eb1f8;">attn(t, p)</strong>
+              &nbsp;&times;&nbsp;
+              <strong style="color:#5eb1f8;">attn(t, q)</strong>
+              &nbsp;&times;&nbsp;
+              <strong style="color:#54c875;">max( &Delta;P<sub>score</sub>(t), &nbsp;0 )</strong>
+            </p>
+            <p class="mt-0 mb-0" style="margin-top:0.6rem; font-size:0.9rem;">
+              where
+              <strong style="color:#5eb1f8;">attn(t, p)</strong>
+              is the model's attention to player <em>p</em> at frame
+              <em>t</em> (0&ndash;1, normalised across the 22 players), and
+              <strong style="color:#54c875;">&Delta;P<sub>score</sub>(t) = P<sub>score</sub>(t+1) &minus; P<sub>score</sub>(t)</strong>
+              is the per-frame change in the in-possession team's
+              "scores within 10 s" probability, clamped to be at
+              least 0 (we only count rising moments for JOI).
+            </p>
+          </div>
+          <p class="dim small">
+            The two pair-attention terms in the product are what makes
+            this a <em>joint</em> impact rather than a per-player one.
+            One player attended on his own isn't a pair signal &mdash;
+            it's the simultaneous co-attendance that counts. Pairs that
+            the model keeps co-loading during rising-threat moments are
+            the ones whose <em>relationship</em> the data calls real.
+          </p>
+
+          <h3 class="mt-2">Reading the Messi play above</h3>
+          <p>
+            The build-up phase (Argentina recycling: Romero &harr;
+            Otamendi, Otamendi &harr; Mart&iacute;nez, Otamendi &harr;
+            Mac Allister) keeps adding small contributions every frame
+            as the model warms up to the developing attack and the
+            scoring probability climbs gradually. Then in the strike
+            window, <strong>Otamendi &harr; Messi</strong> spikes hard
+            for ~10 frames as the model collapses attention onto the
+            two of them while &Delta;P<sub>score</sub> jumps from the
+            shot. That short spike is most of their pair's total, but
+            it sits on top of all the slow accumulation from earlier.
+            <br><br>
+            The <strong>per-edge chips</strong> on the network
+            graph (the small coloured numbers floating at the
+            midpoint of each pair edge) show each pair's cumulative
+            AW-JOI <em>up to the current frame</em> &mdash; you can
+            watch them climb in real time as you scrub through.
+          </p>
+
+          <h3 class="mt-2">AW-JDI is the symmetric defensive twin</h3>
+          <p class="mb-0">
+            Same formula, but flip the value signal:
+            <strong>max(&minus;&Delta;P<sub>score</sub>(t), 0)</strong>
+            attributed to the team <em>without</em> the ball. Pairs of
+            defenders who keep the opposition's scoring probability
+            from rising &mdash; or actively drop it &mdash; earn
+            AW-JDI. That's how Morocco's def&harr;def wall (Hakimi
+            &harr; El Yamiq, El Yamiq &harr; Attiat-Allah) lands in
+            the 87th percentile of every def&harr;def pair in the
+            tournament.
+          </p>
+        </div>
+      </details>
     </section>
 
     <!-- =========================================================== -->
@@ -498,6 +614,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=ennesyri-noautozoom"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=joi-explainer"></script>
 </body>
 </html>
