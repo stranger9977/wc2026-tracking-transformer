@@ -37,8 +37,10 @@ export function clipScaffold(c) {
           <option value="raw" selected>Raw &mdash; two lines (P(score), P(concede))</option>
           <option value="home">Net &mdash; from home (P(score) &minus; P(concede))</option>
           <option value="away">Net &mdash; from away (P(score) &minus; P(concede))</option>
-          <option value="aw_joi">AW-JOI &mdash; cumulative, per team</option>
-          <option value="event_joi">Event-JOI &mdash; cumulative, per team</option>
+          <option value="aw_joi">AW-JOI &mdash; cumulative offensive, per team</option>
+          <option value="aw_jdi">AW-JDI &mdash; cumulative defensive, per team</option>
+          <option value="event_joi">Event-JOI &mdash; cumulative offensive, per team</option>
+          <option value="event_jdi">Event-JDI &mdash; cumulative defensive, per team</option>
         </select>
       </span>
       <label class="wb-toggle" title="Restrict the scrubber to the 10 seconds before the goal frame.">
@@ -617,19 +619,28 @@ function initClip(c, detail) {
     for (const entry of playerDOM) {
       if (!entry) continue;
       const { p, sx, sy, color } = entry;
-      // Focus mode: completely skip non-focus players (no dot, no arrow,
-      // no label, no halo). NO ball-carrier safety net — if the carrier
-      // isn't in focus_slots we drop them too. The ball icon still moves
-      // across the pitch so the action is legible.
-      if (focusSet && !focusSet.has(p.slot)) continue;
+      // Focus mode: every player is STILL rendered, but non-focus players
+      // are dropped to ghost opacity (~0.14) and a smaller radius, so the
+      // focus pair pops while the rest of the team is faintly visible for
+      // structural context (off-ball runs, defensive line). No focus →
+      // standard dim/involved logic.
       const involved = dimSet.has(p.slot) || pairDrawn.has(p.slot) || p.has_possession;
-      // Dim non-attended players (down to ~0.32 opacity); ball-carrier is
-      // always full-bright so the carrier is never lost in the dim mass.
-      const dimOp = involved ? 1.0 : 0.32;
-      // Dots: a touch smaller overall, and even smaller in focus mode so
-      // the FEEDER + FINISH rings around them aren't fighting the dots
-      // when both players are close together.
-      const radius = focusSet ? (p.is_gk ? 6 : 5.5) : (p.is_gk ? 7.5 : 6.5);
+      let dimOp;
+      if (focusSet) {
+        dimOp = focusSet.has(p.slot) ? 1.0 : 0.14;
+      } else {
+        dimOp = involved ? 1.0 : 0.32;
+      }
+      // Dots: a touch smaller overall, even smaller in focus mode so the
+      // FEEDER + FINISH rings aren't fighting the dots when feeder and
+      // scorer are close together. Non-focus players get a smaller dot
+      // still so the ghost layer stays subtle.
+      let radius;
+      if (focusSet) {
+        radius = focusSet.has(p.slot) ? (p.is_gk ? 6 : 5.5) : (p.is_gk ? 4 : 3.5);
+      } else {
+        radius = p.is_gk ? 7.5 : 6.5;
+      }
       const stroke = p.is_gk ? "#00d68f" : "#ffffffcc";
       const sw = p.is_gk ? 1.8 : 1.0;
       // Velocity arrow tail — 0.5s lookahead. Skipped in focus mode (it
@@ -1315,18 +1326,25 @@ function overlapArea(x, y, w, h, placed) {
 function computeJoiTimeSeries(frames, teamIds) {
   const n = frames.length;
   if (!n) return null;
-  // dP_score per frame, clamped positive.
+  // dP_score per frame, clamped positive (offensive impact for the
+  // in-possession team) AND the drop in p_score (defensive impact for
+  // the OUT-of-possession team — when the opp's score prob drops while
+  // you defend, you contributed defensively).
   const dPos = new Array(n).fill(0);
+  const dNeg = new Array(n).fill(0);
   for (let t = 0; t < n - 1; t++) {
     const d = (frames[t + 1].p_score || 0) - (frames[t].p_score || 0);
     dPos[t] = Math.max(0, d);
+    dNeg[t] = Math.max(0, -d);
   }
-  // Per-team cumulative AW-JOI and event-JOI.
+  // Per-team cumulative AW-JOI / AW-JDI and Event-JOI / Event-JDI.
   const out = {};
   for (const tid of teamIds) {
     out[tid] = {
       aw_joi: new Array(n).fill(0),
+      aw_jdi: new Array(n).fill(0),
       event_joi: new Array(n).fill(0),
+      event_jdi: new Array(n).fill(0),
     };
   }
   // Per-pair AW-JOI cumulative — keyed by "i,j" with i<j.
@@ -1336,39 +1354,61 @@ function computeJoiTimeSeries(frames, teamIds) {
   for (let t = 0; t < n; t++) {
     const f = frames[t];
     const carrier = String(f.in_possession_team_id || "");
+    const carrierNext = String((frames[t + 1] || {}).in_possession_team_id || "");
+    // Skip frames where possession flips between t and t+1: p_score has a
+    // different meaning before vs after the flip ("the in-possession team's
+    // score prob"), so the delta can't be cleanly attributed to either
+    // team. These transition frames otherwise show up as spurious AW-JOI
+    // / event-JOI for the team that just LOST the ball, which is the
+    // opposite of what intuition expects.
+    const possessionStable = carrier && carrierNext && carrier === carrierNext;
     // AW-JOI accumulation: sum pair contributions on the carrier's team.
     const top = f.pair_attention_score_top || [];
     const players = f.players || [];
     const slotTeam = new Map();
     for (const p of players) slotTeam.set(p.slot, String(p.team_id));
-    let frameAw = 0;
     for (const trip of top) {
       const [si, sj, w] = trip;
       const ti = slotTeam.get(si), tj = slotTeam.get(sj);
-      if (!ti || !tj || ti !== tj) continue;             // pair must be same-team for AW-JOI
-      if (carrier && ti !== carrier) continue;            // and the team has to have the ball
-      const contrib = (w || 0) * dPos[t];
-      if (!Number.isFinite(contrib) || contrib === 0) continue;
-      // Cumulate per pair
+      if (!ti || !tj || ti !== tj) continue;             // pair must be same-team
+      const wt = w || 0;
+      if (wt === 0) continue;
       const key = si < sj ? `${si},${sj}` : `${sj},${si}`;
-      pairAw.set(key, (pairAw.get(key) || 0) + contrib);
-      if (out[ti]) {
-        // Add to this team's running total at this frame
-        // (we'll roll it into the cumulative below).
-        frameAw += contrib;
-        out[ti].aw_joi[t] = (out[ti].aw_joi[t] || 0) + contrib;
+      // OFFENSIVE contribution: pair's team has the ball + p_score rose,
+      // AND possession is stable across this frame (no flip).
+      if (possessionStable && ti === carrier && dPos[t] > 0) {
+        const contrib = wt * dPos[t];
+        pairAw.set(key, (pairAw.get(key) || 0) + contrib);
+        if (out[ti]) out[ti].aw_joi[t] = (out[ti].aw_joi[t] || 0) + contrib;
+      }
+      // DEFENSIVE contribution: pair's team does NOT have the ball + the
+      // opposition's p_score is dropping, AND possession is stable.
+      if (possessionStable && ti !== carrier && dNeg[t] > 0) {
+        const contrib = wt * dNeg[t];
+        if (out[ti]) out[ti].aw_jdi[t] = (out[ti].aw_jdi[t] || 0) + contrib;
       }
     }
-    // Event-JOI: at any event frame, attribute dPos[t] to the carrier team.
-    if (f.event_label && carrier && out[carrier]) {
-      out[carrier].event_joi[t] = (out[carrier].event_joi[t] || 0) + dPos[t];
+    // Event-JOI / Event-JDI — only count event frames where possession
+    // is stable across t→t+1 (same possession-change artifact would
+    // otherwise inflate one team).
+    if (f.event_label && possessionStable) {
+      if (out[carrier] && dPos[t] > 0) {
+        out[carrier].event_joi[t] = (out[carrier].event_joi[t] || 0) + dPos[t];
+      }
+      for (const otid of teamIds) {
+        if (otid !== carrier && out[otid] && dNeg[t] > 0) {
+          out[otid].event_jdi[t] = (out[otid].event_jdi[t] || 0) + dNeg[t];
+        }
+      }
     }
   }
   // Make cumulative.
   for (const tid of teamIds) {
     for (let t = 1; t < n; t++) {
       out[tid].aw_joi[t]    += out[tid].aw_joi[t - 1];
+      out[tid].aw_jdi[t]    += out[tid].aw_jdi[t - 1];
       out[tid].event_joi[t] += out[tid].event_joi[t - 1];
+      out[tid].event_jdi[t] += out[tid].event_jdi[t - 1];
     }
   }
   return { teams: out, pairs: pairAw };
@@ -1399,8 +1439,9 @@ function pChartSvg(frames, opts = {}) {
     return `<line x1="${px}" y1="${h - dy}" x2="${px}" y2="${h}" stroke="${color}" stroke-width="${f.is_goal_event ? 0.9 : 0.4}" />`;
   }).join("");
 
-  // ---- AW-JOI / event-JOI cumulative two-team chart ----
-  if (perspective === "aw_joi" || perspective === "event_joi") {
+  // ---- AW-JOI / AW-JDI / event-JOI / event-JDI cumulative two-team chart ----
+  if (perspective === "aw_joi" || perspective === "event_joi"
+      || perspective === "aw_jdi" || perspective === "event_jdi") {
     const homeTid = opts.homeTid ? String(opts.homeTid) : null;
     const awayTid = opts.awayTid ? String(opts.awayTid) : null;
     const homeColor = opts.homeColor || "#5eb1f8";
@@ -1411,7 +1452,7 @@ function pChartSvg(frames, opts = {}) {
     if (!series || !homeTid || !awayTid || !series.teams[homeTid] || !series.teams[awayTid]) {
       return `<div class="empty-state small">No JOI series available for this clip.</div>`;
     }
-    const key = perspective === "aw_joi" ? "aw_joi" : "event_joi";
+    const key = perspective; // aw_joi | aw_jdi | event_joi | event_jdi
     const hVals = series.teams[homeTid][key] || new Array(n).fill(0);
     const aVals = series.teams[awayTid][key] || new Array(n).fill(0);
     const ymax = Math.max(0.05, ...hVals, ...aVals);
@@ -1425,9 +1466,13 @@ function pChartSvg(frames, opts = {}) {
     };
     const totalH = hVals[hVals.length - 1] || 0;
     const totalA = aVals[aVals.length - 1] || 0;
-    const label = perspective === "aw_joi"
-      ? "AW-JOI (cumulative)"
-      : "Event-JOI (cumulative)";
+    const labelMap = {
+      aw_joi:    "AW-JOI (cumulative offensive)",
+      aw_jdi:    "AW-JDI (cumulative defensive)",
+      event_joi: "Event-JOI (cumulative offensive)",
+      event_jdi: "Event-JDI (cumulative defensive)",
+    };
+    const label = labelMap[perspective];
     return `
       <div class="chart-title">
         <span><span class="dot" style="background:${homeColor}"></span>${escapeHTML(homeShort)} ${totalH.toFixed(3)}</span>
