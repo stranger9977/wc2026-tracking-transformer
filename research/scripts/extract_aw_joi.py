@@ -145,6 +145,8 @@ def process_match(
     lit_score: FrameVaepSpecialistLitModule,
     lit_concede: FrameVaepSpecialistLitModule,
     device: torch.device,
+    lineup_team: dict | None = None,
+    skip_possession_flips: bool = True,
 ):
     out_tensors, out_ids, player_info, _ = _stream_match_combined(match_id)
     if not out_tensors:
@@ -152,6 +154,37 @@ def process_match(
 
     n_frames = len(out_tensors)
     ids_arr_full = np.stack(out_ids, axis=0)  # (N, P)
+
+    # Per-frame possession-team — derived from the per-token is_attacking
+    # feature (column 4 in the tensor): +1 for in-possession team players,
+    # -1 otherwise. We look up the team_id of the first attacking-side slot
+    # via the lineup map. Used below to mask out frames where possession
+    # flips between t and t+1, since p_score is defined as "in-possession
+    # team's next-10s scoring prob" — the delta across a flip is measuring
+    # two different teams' values and would otherwise mis-attribute to
+    # whoever just LOST the ball.
+    poss_team: list[str] = [""] * n_frames
+    if skip_possession_flips and lineup_team is not None:
+        mid_int = int(match_id)
+        for t in range(n_frames):
+            tensor = out_tensors[t]                          # (23, 7)
+            is_att = tensor[:NUM_PLAYER_SLOTS, 4]            # (P,)
+            ids_t = ids_arr_full[t]                          # (P,)
+            valid = (is_att > 0.5) & (ids_t >= 0)
+            if not valid.any():
+                continue
+            slot_idx = int(np.argmax(valid))
+            pid = int(ids_t[slot_idx])
+            poss_team[t] = lineup_team.get((mid_int, pid), "")
+    poss_arr = np.array(poss_team, dtype=object)
+    stable_mask = np.ones(n_frames, dtype=bool)
+    if skip_possession_flips and lineup_team is not None:
+        # Frame t is "stable" if possession at t equals possession at t+1
+        # AND both are known.
+        stable_mask[:-1] = (
+            (poss_arr[:-1] == poss_arr[1:]) & (poss_arr[:-1] != "")
+        )
+        stable_mask[-1] = False  # last frame has no t+1
 
     # Pass 1: score specialist -- get ball_attn and p_score per frame
     p_score = np.zeros(n_frames, dtype=np.float64)
@@ -181,6 +214,13 @@ def process_match(
 
     w_joi = np.clip(dv_score, 0.0, None)
     w_jdi = np.clip(dv_concede, 0.0, None)
+    # Mask out possession-flip frames so the dv attribution is clean.
+    w_joi[~stable_mask] = 0.0
+    w_jdi[~stable_mask] = 0.0
+    n_unstable = int((~stable_mask).sum())
+    if skip_possession_flips and n_unstable:
+        print(f"    masked {n_unstable}/{n_frames} possession-flip frames "
+              f"({100*n_unstable/n_frames:.1f}%)", flush=True)
 
     pair_joi_sum: dict[tuple[int, int], float] = defaultdict(float)
     pair_joi_n: dict[tuple[int, int], int] = defaultdict(int)
@@ -213,11 +253,26 @@ def main() -> int:
     ap.add_argument("--combine", action="store_true")
     ap.add_argument("--combine-after", action="store_true")
     ap.add_argument("--device", choices=["auto", "cpu", "mps", "cuda"], default="auto")
+    ap.add_argument("--legacy-output", action="store_true",
+                    help="Write to aw_chemistry.parquet (the original path) "
+                         "instead of aw_chemistry_stable.parquet. Use after "
+                         "verifying the stable rerun matches expectations.")
+    ap.add_argument("--no-flip-fix", action="store_true",
+                    help="Disable possession-flip filtering (legacy behaviour).")
     args = ap.parse_args()
 
-    out_path = REPO_ROOT / "research" / "data" / "aw_chemistry.parquet"
-    shard_dir = REPO_ROOT / "research" / "data" / "aw_chemistry_shards"
+    # Output paths default to the legacy "_stable" suffix so we keep the
+    # original artifacts untouched until the rerun is verified. Pass
+    # --legacy-output to write to the original aw_chemistry.parquet path.
+    if getattr(args, "legacy_output", False):
+        out_path = REPO_ROOT / "research" / "data" / "aw_chemistry.parquet"
+        shard_dir = REPO_ROOT / "research" / "data" / "aw_chemistry_shards"
+    else:
+        out_path = REPO_ROOT / "research" / "data" / "aw_chemistry_stable.parquet"
+        shard_dir = REPO_ROOT / "research" / "data" / "aw_chemistry_shards_stable"
     shard_dir.mkdir(parents=True, exist_ok=True)
+    print(f"[init] shard_dir = {shard_dir}", flush=True)
+    print(f"[init] out_path  = {out_path}", flush=True)
 
     def _combine() -> int:
         shards = sorted(shard_dir.glob("*.parquet"))
@@ -269,7 +324,11 @@ def main() -> int:
         tm0 = time.time()
         match_id_s = str(match_id)
         try:
-            result = process_match(match_id_s, lit_s, lit_c, device)
+            result = process_match(
+                match_id_s, lit_s, lit_c, device,
+                lineup_team=lineup_team,
+                skip_possession_flips=not args.no_flip_fix,
+            )
         except Exception as e:
             print(f"  [{mi}/{len(matches)}] match {match_id} FAILED: {e}", flush=True)
             traceback.print_exc()
