@@ -437,25 +437,118 @@
             on the network edges above the chart):
           </p>
           <div style="overflow-x:auto;">
-            <table class="data-table" style="width:100%; min-width:32rem; border-collapse:collapse; font-size:0.9rem;">
+            <table class="data-table" style="width:100%; min-width:42rem; border-collapse:collapse; font-size:0.9rem;">
               <thead>
                 <tr style="border-bottom:1px solid var(--border); color:var(--text-dim); text-transform:uppercase; letter-spacing:0.4px; font-size:0.8rem;">
                   <th style="text-align:right; padding:0.4rem 0.6rem;">#</th>
                   <th style="text-align:left; padding:0.4rem 0.6rem;">Pair</th>
                   <th style="text-align:right; padding:0.4rem 0.6rem;">AW-JOI</th>
+                  <th style="text-align:left; padding:0.4rem 0.6rem;" title="Clip-relative time range where the pair was co-attended above the background floor (~0.02). Match this against the clip's scrubber above.">Co-attended window</th>
                   <th style="text-align:left; padding:0.4rem 0.6rem;">What it represents</th>
                 </tr>
               </thead>
               <tbody class="tabular">
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">1</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Fernández</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.099</td><td style="padding:0.4rem 0.6rem;" class="dim small">CB &harr; CM &mdash; the recycling spine while Argentina build out.</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">2</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Romero</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.096</td><td style="padding:0.4rem 0.6rem;" class="dim small">CB pair &mdash; the back-line co-occupancy that anchors the recycle.</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">3</td><td style="padding:0.4rem 0.6rem;">Álvarez &harr; Otamendi</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.095</td><td style="padding:0.4rem 0.6rem;" class="dim small">Striker stretching the line + the centre-back feeding from behind.</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">4</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Mac Allister</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.091</td><td style="padding:0.4rem 0.6rem;" class="dim small">The pass before the feed &mdash; midfielder dropping in to the centre-back.</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">5</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Acuña</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.089</td><td style="padding:0.4rem 0.6rem;" class="dim small">Left-back overlapping while the ball is on Otamendi's side.</td></tr>
-                <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.08);"><td style="padding:0.4rem 0.6rem;"><strong>6</strong></td><td style="padding:0.4rem 0.6rem;"><strong>Otamendi &harr; Messi</strong></td><td style="padding:0.4rem 0.6rem; text-align:right; color:#ffd166; font-weight:700;">0.087</td><td style="padding:0.4rem 0.6rem;" class="dim small">The on-ball feed pair &mdash; the model attends to BOTH players during the assist + finish window. Smaller in total than the buildup pairs above precisely <em>because</em> it only fires for ~10 frames vs the 60+ frames of recycling.</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">1</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Fernández</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.099</td><td style="padding:0.4rem 0.6rem;" class="dim small">t=8.8&ndash;18.6&nbsp;s (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">CB &harr; CM &mdash; the recycling spine while Argentina build out.</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">2</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Romero</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.096</td><td style="padding:0.4rem 0.6rem;" class="dim small">t=8.8&ndash;18.6&nbsp;s (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">CB pair &mdash; the back-line co-occupancy that anchors the recycle.</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">3</td><td style="padding:0.4rem 0.6rem;">Álvarez &harr; Otamendi</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.095</td><td style="padding:0.4rem 0.6rem;" class="dim small">t=8.8&ndash;18.6&nbsp;s (9 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">Striker stretching the line + the centre-back feeding from behind.</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">4</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Mac Allister</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.091</td><td style="padding:0.4rem 0.6rem;" class="dim small">t=8.8&ndash;18.6&nbsp;s (14 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">The pass before the feed &mdash; midfielder dropping in to the centre-back. Longest sustained pair.</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">5</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Acuña</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.089</td><td style="padding:0.4rem 0.6rem;" class="dim small">t=8.8&ndash;18.6&nbsp;s (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">Left-back overlapping while the ball is on Otamendi's side.</td></tr>
+                <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.08);"><td style="padding:0.4rem 0.6rem;"><strong>6</strong></td><td style="padding:0.4rem 0.6rem;"><strong>Otamendi &harr; Messi</strong></td><td style="padding:0.4rem 0.6rem; text-align:right; color:#ffd166; font-weight:700;">0.087</td><td style="padding:0.4rem 0.6rem;" class="dim small">t=8.8&nbsp;s (1 frame, peak)</td><td style="padding:0.4rem 0.6rem;" class="dim small">The on-ball feed pair &mdash; the model attends to them at the recognition instant only. Smaller in total than the buildup pairs above precisely <em>because</em> the pair-attention spike is brief.</td></tr>
               </tbody>
             </table>
           </div>
+          <p class="dim small" style="margin-top:0.4rem;">
+            <strong>How to read the time column:</strong> these are
+            clip-relative seconds &mdash; <em>t=0</em> is the moment the
+            clip starts. To sync with the broadcast clip at the top of
+            this page, the relevant action band is roughly the second
+            half of the clip (Souttar clears at ~9&nbsp;s, the strike
+            chain unfolds 16&ndash;18&nbsp;s, GOAL at 19&nbsp;s).
+            Almost all the pair attention fires in that
+            8&ndash;19&nbsp;s window because the model "wakes up" once
+            Souttar's clearance triggers the build-up recognition.
+          </p>
+          <h3 class="mt-2">Common questions about the numbers above</h3>
+
+          <details class="callout" style="margin-bottom:0.5rem;" open>
+            <summary><strong>Q1.</strong> Mac Allister &rarr; Otamendi is a completed pass toward goal &mdash; how is that <em>negative</em> JOI?</summary>
+            <p class="mt-0">
+              It isn't really &mdash; the &Delta;P column reads
+              <code>&minus;0.001</code>, which is inside the model's
+              prediction tolerance. P<sub>score</sub> is plateaued at
+              &asymp;&nbsp;0.93 for the entire chain; the model isn't
+              saying "this pass made it worse," it's saying "I already
+              factored this pass in; my read on the next 10&nbsp;s is
+              unchanged." A <em>truly</em> negative pass would be a
+              backwards recycle that relieves the threat &mdash;
+              nothing on this chain does that. The strict-Bransen JOI
+              version clips negatives to zero, so a pure JOI reader
+              would see <code>0</code> here, not <code>&minus;0.001</code>.
+            </p>
+          </details>
+
+          <details class="callout" style="margin-bottom:0.5rem;" open>
+            <summary><strong>Q2.</strong> P<sub>score</sub> = 0.918 on the pass to Messi seems impossibly high &mdash; how can it be that high?</summary>
+            <p class="mt-0">
+              Because the model is predicting "team-in-possession scores in the
+              next <strong>10 seconds</strong>," not the xG of a single
+              shot. At <strong>t=11&nbsp;s</strong> (Gómez &rarr; Messi),
+              the goal is going to happen at <strong>t=19&nbsp;s</strong>
+              &mdash; well inside the 10-second lookahead window. So
+              P&nbsp;=&nbsp;0.918 isn't a wild prediction; it's a
+              well-calibrated one. Argentina <em>do</em> score 8&nbsp;s
+              later; the model is correctly recognising the buildup
+              pattern that ends in a goal. Compare to event 1 (Messi's
+              speculative cross at t=8&nbsp;s): P&nbsp;=&nbsp;0.014,
+              because at that moment the model sees no developing
+              threat. The jump from 0.014 to 0.78 in one frame is the
+              model's "I see the chain forming" moment.
+            </p>
+          </details>
+
+          <details class="callout" style="margin-bottom:0.5rem;" open>
+            <summary><strong>Q3.</strong> If event JOI isn't tracking-based, how does event data capture location?</summary>
+            <p class="mt-0">
+              Event data <em>does</em> record (x, y) location for every
+              recorded event &mdash; passes have a start and an end
+              location, shots have an origin, etc. So event JOI in the
+              strict Bransen sense includes location features (pass
+              start/end coordinates, ball-zone). What event data
+              <strong>doesn't</strong> have is the continuous (x, y) of
+              all <em>22 players + ball</em> at every frame in between.
+              Tracking does. So:
+              <ul style="margin:0.4rem 0; padding-left:1.2rem;">
+                <li><strong>Event JOI</strong> sees: pass A&rarr;B at (x1,y1) &rarr; (x2,y2). Done.</li>
+                <li><strong>AW-JOI</strong> sees: 30 frames of where every Argentina player was, where every Australia player was, where the ball was, and what relationships the model thinks are load-bearing in that whole geometry &mdash; before, during, and after the pass.</li>
+              </ul>
+              That's where the off-ball signal lives. Not because event
+              data lacks location &mdash; it has the ball's location.
+              Because event data lacks <em>everyone else's</em>
+              location.
+            </p>
+          </details>
+
+          <details class="callout" style="margin-bottom:0.5rem;" open>
+            <summary><strong>Q4.</strong> Are there timestamps on the off-ball pairs so I can sync with the video?</summary>
+            <p class="mt-0">
+              Added a "Co-attended window" column to the table above.
+              For each pair it shows the clip-relative seconds where
+              the pair was co-attended above the noise floor. On this
+              clip almost everything fires in the 8&ndash;19&nbsp;s
+              window because the model "wakes up" once at t=8.8&nbsp;s
+              (right after Souttar's clearance) when it first sees the
+              buildup forming. From there the pair-attention level
+              stays elevated through the strike at t=19&nbsp;s.
+              <br><br>
+              In the broadcast clip at the top of this page (12&nbsp;s,
+              looped), that's roughly the second half &mdash; from
+              when Argentina recover the ball to when Messi finishes.
+              The first 8&nbsp;s of the PFF clip (Messi's early cross
+              attempt + Souttar's clearance) happen <em>before</em> the
+              broadcast clip starts.
+            </p>
+          </details>
+
           <p class="dim small" style="margin-top:0.4rem;">
             <strong>What this says about the offensive structure.</strong>
             Argentina's "Messi goal" play in AW-JOI terms isn't a
@@ -793,6 +886,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=joi-aw-side-by-side"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=joi-qa-windows"></script>
 </body>
 </html>
