@@ -1528,7 +1528,10 @@ function pChartSvg(frames, opts = {}) {
       </svg>`;
   }
 
-  // Net mode: single smoothed curve from chosen team's POV, fixed [-1, +1] range.
+  // Net mode: single smoothed curve from chosen team's POV. Auto-scales the
+  // y-axis to fit the actual range observed (since calibrated p_score now
+  // lives in 0–0.15, a fixed [-1, +1] axis would draw a flat line). A floor
+  // of ±0.02 keeps tiny no-action clips from getting visually over-amplified.
   // The raw model output at frame X = P(score in [X, X+10s]). If we plot that
   // value at X, the peak appears 10s before the goal, which is confusing.
   // Shift each prediction forward by the lookahead window (10s = 50 frames at
@@ -1562,7 +1565,10 @@ function pChartSvg(frames, opts = {}) {
     ewma = alpha * shifted[t] + (1 - alpha) * ewma;
     net[t] = ewma;
   }
-  const yToPy = (v) => h - pad - ((v + 1) / 2) * (h - 2 * pad);  // map [-1, +1] → plot
+  // Auto-scale y-axis to the observed range, symmetric around zero, floored at
+  // ±0.02 (≈ ±2 pp) so the chart isn't visually screaming on quiet clips.
+  const yMag = Math.max(0.02, ...net.map((v) => Math.abs(v))) * 1.1;
+  const yToPy = (v) => h - pad - ((v + yMag) / (2 * yMag)) * (h - 2 * pad);
   const pts = net.map((v, i) => {
     const px = (i / Math.max(1, n - 1)) * (w - 2 * padX) + padX;
     return `${px.toFixed(2)},${yToPy(v).toFixed(2)}`;
@@ -1579,7 +1585,7 @@ function pChartSvg(frames, opts = {}) {
   return `
     <div class="chart-title">
       <span><span class="dot" style="background:#54c875"></span>Net P · from ${escapeHTML(povName)} (EWMA, +10 s shift)</span>
-      <span class="dim small">value at time T = prediction made 10 s earlier; peaks line up with events</span>
+      <span class="dim small">y-axis: ±${(yMag * 100).toFixed(1)} pp · value at T = prediction made 10 s earlier; peaks line up with events</span>
     </div>
     <svg class="chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="0" y="0" width="${w}" height="${h}" fill="#0b1220" />
