@@ -311,7 +311,7 @@
             <strong>isotonic-calibrated</strong> against the 8
             held-out val matches &mdash; base rate is 0.56&#37;
             ("any team-in-possession scoring within 10 s"), so a
-            value around 0.03 means the model is reading this state
+            value around 3&#37; means the model is reading this state
             as <strong>~5&times; the typical-frame threat
             level</strong>.
           </p>
@@ -334,27 +334,27 @@
                   <td style="padding:0.4rem 0.6rem;">1</td>
                   <td style="padding:0.4rem 0.6rem;">8.0</td>
                   <td style="padding:0.4rem 0.6rem;">Messi &rarr; (Souttar)</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#e07474;">0.002</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">+0.028</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#e07474;">0.2%</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">+2.8&nbsp;pp</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi's speculative early cross. Intercepted by Souttar &mdash; the model jumps from 0.002 to 0.030 (~5&times; baseline) because the lookahead now sees the recovery + finish 8&nbsp;s away.</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi's speculative early cross. Intercepted by Souttar &mdash; the model jumps from 0.2% to 3.0% (~5&times; baseline) because the lookahead now sees the recovery + finish 8&nbsp;s away.</td>
                 </tr>
                 <tr style="border-bottom:1px solid var(--border);">
                   <td style="padding:0.4rem 0.6rem;">2</td>
                   <td style="padding:0.4rem 0.6rem;">11.0</td>
                   <td style="padding:0.4rem 0.6rem;">Gómez &rarr; Messi</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.030</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">3.0%</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">~0</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Argentina recover. Event JOI flat &mdash; the model's P was already plateaued at ~0.030.</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Argentina recover. Event JOI flat &mdash; the model's P was already plateaued at ~3.0%.</td>
                 </tr>
                 <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
                   <td style="padding:0.4rem 0.6rem;"><strong>3</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>16.0</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Messi &rarr; Mac&nbsp;Allister</strong></td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.030</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">3.0%</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">~0</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
@@ -364,7 +364,7 @@
                   <td style="padding:0.4rem 0.6rem;"><strong>4</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>18.0</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Mac&nbsp;Allister &rarr; Otamendi</strong></td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.030</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">3.0%</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">~0</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.087</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.090</td>
@@ -374,7 +374,7 @@
                   <td style="padding:0.4rem 0.6rem;"><strong>5</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>18.0</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Otamendi &rarr; Messi</strong> (feed)</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.030</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">3.0%</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">~0</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.087</td>
@@ -384,11 +384,11 @@
                   <td style="padding:0.4rem 0.6rem;"><strong>6</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>19.0</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Messi shot &rarr; GOAL</strong></td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.030</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">3.0%</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">~0</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">The shot. P had been near 0.030 (~5&times; baseline) for 10&nbsp;s &mdash; the model just confirms what it already saw.</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">The shot. P had been near 3.0% (~5&times; baseline) for 10&nbsp;s &mdash; the model just confirms what it already saw.</td>
                 </tr>
               </tbody>
             </table>
@@ -397,7 +397,7 @@
             <strong>The headline.</strong> On a 10&nbsp;s-lookahead model, the
             value of this goal got baked in at <strong>t=9&nbsp;s</strong>
             (right after Souttar's clearance) and held flat at
-            &asymp;&nbsp;0.030 through every subsequent on-ball event.
+            &asymp;&nbsp;3&#37; through every subsequent on-ball event.
             Per-event &Delta;P is essentially zero on the final pass
             chain because the model already knew the goal was coming.
             What event JOI does <em>not</em> measure: the pair-attention
@@ -415,9 +415,9 @@
               zero. The &Delta;P column here would show signed values,
               but on this chain every post-recovery pass sits inside
               the model's prediction tolerance on a P plateaued at
-              <code>&asymp;&nbsp;0.030</code>. The non-zero &Delta;P is
-              all on event&nbsp;1, where the model jumps from 0.002 to
-              0.030 in one frame (~5&times; baseline). They're not
+              <code>&asymp;&nbsp;3&#37;</code>. The non-zero &Delta;P is
+              all on event&nbsp;1, where the model jumps from 0.2&#37; to
+              3&#37; in one frame (~5&times; baseline). They're not
               telling you those later passes hurt; they're telling you
               nothing on-ball moved the needle either way after
               t&nbsp;=&nbsp;9&nbsp;s.
@@ -474,7 +474,7 @@
             <p class="mt-0">
               It isn't really &mdash; the &Delta;P column reads
               <code>~0</code>, inside the model's prediction tolerance.
-              P<sub>score</sub> is plateaued at &asymp;&nbsp;0.030 for
+              P<sub>score</sub> is plateaued at &asymp;&nbsp;3&#37; for
               the entire chain; the model isn't saying "this pass made
               it worse," it's saying "I already factored this pass in;
               my read on the next 10&nbsp;s is unchanged." A
@@ -486,28 +486,42 @@
           </details>
 
           <details class="callout" id="q2-pscore-calibration" style="margin-bottom:0.5rem;" open>
-            <summary><strong>Q2.</strong> What does P<sub>score</sub>&nbsp;=&nbsp;0.030 actually mean? Is it calibrated?</summary>
+            <summary><strong>Q2.</strong> What does P<sub>score</sub>&nbsp;=&nbsp;3&#37; actually mean? Is it calibrated?</summary>
             <p class="mt-0">
-              Yes &mdash; this number is
-              <strong>isotonic-calibrated</strong> against the 8 held-out
+              Yes &mdash; this is an <strong>isotonic-calibrated
+              probability</strong>, fit against the 8 held-out
               validation matches. The base rate is
               <strong>0.56&#37; of frames</strong> ("team in possession
-              scores within next 10 s"), so a value around 0.030 means
+              scores within next 10 s"), so a value around 3&#37; means
               the model is reading this state as roughly
               <strong>5&times; the typical-frame threat level</strong>.
-              The earlier-draft numbers around <code>0.92</code> were
-              raw sigmoid outputs from a class-imbalance-trained
+              Earlier-draft numbers around <strong>92&#37;</strong>
+              were raw sigmoid outputs from a class-imbalance-trained
               classifier (<code>pos_weight&nbsp;=&nbsp;80</code> over a
               ~0.5&#37; base rate) &mdash; well-ranked but mis-scaled.
               After post-hoc isotonic calibration, val Brier dropped
               <strong>0.187 &rarr; 0.006</strong>, and the model's mean
               prediction now matches the empirical base rate. The
               <em>ordering</em> of frames is preserved end-to-end; only
-              the absolute scale changes. So a calibrated 0.030 on the
+              the absolute scale changes. So a calibrated 3&#37; on the
               Messi build-up reads as "ranked among the model's most
               dangerous states, with a real 3&#37; chance of a goal in
               the next 10 s." Higher-danger plays (e.g.&nbsp;Janssen's
               point-blank near-miss) calibrate to <strong>~14&#37;</strong>.
+            </p>
+            <p class="mt-0">
+              <strong>Why P stays flat at 3&#37; through the whole chain.</strong>
+              The model's read on Argentina barely changes during the
+              build-up because (a) every frame looks structurally
+              similar &mdash; same attacking-third configuration, same
+              defensive shape, same stable possession &mdash; and (b)
+              the calibration map has a near-flat region at the
+              high-output end: in the val data, raw sigmoid outputs from
+              ~0.85 to ~0.95 <em>all</em> empirically converted at
+              roughly the same rate, so isotonic regression merges them
+              into a single 3&#37; plateau. That plateau is itself an
+              honest signal &mdash; the model's most-confident bin only
+              converts at ~3&#37; in reality.
             </p>
           </details>
 

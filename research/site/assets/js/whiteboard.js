@@ -563,7 +563,7 @@ function fmtPct(v) {
 }
 function fmtDelta(v) {
   const sign = v >= 0 ? "+" : "−";
-  return sign + Math.abs(v).toFixed(3);
+  return sign + (Math.abs(v) * 100).toFixed(2) + " pp";
 }
 
 function updateProbStrip(frame) {

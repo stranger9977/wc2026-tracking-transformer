@@ -971,11 +971,17 @@ function initClip(c, detail) {
       const n = p.name ? p.name.split(" ").slice(-1)[0] + (p.position ? " · " + p.position : "") : `slot ${s}`;
       return `<span class="chip">${escapeHTML(n)} <span class="muted">${fmtNum(smoothAttn[s], 2)}</span></span>`;
     }).join(" ");
+    const pct = (v) => (v == null ? "—" : (v * 100).toFixed(2) + "%");
+    const pctSigned = (v) => {
+      if (v == null) return "—";
+      const x = v * 100;
+      return (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(2) + " pp";
+    };
     meta.innerHTML = `
       <strong>Frame ${i + 1}/${n}</strong> &nbsp;•&nbsp;
-      P(score, next&nbsp;10&nbsp;s) <span class="chip green tabular">${fmtNum(f.p_score, 3)}</span> &nbsp;
-      P(concede, next&nbsp;10&nbsp;s) <span class="chip red tabular">${fmtNum(f.p_concede, 3)}</span> &nbsp;
-      Frame-VAEP (Δ&nbsp;P) <span class="chip tabular">${fmtNum(f.vaep, 3)}</span><br>
+      P(score, next&nbsp;10&nbsp;s) <span class="chip green tabular">${pct(f.p_score)}</span> &nbsp;
+      P(concede, next&nbsp;10&nbsp;s) <span class="chip red tabular">${pct(f.p_concede)}</span> &nbsp;
+      Net (Δ&nbsp;P) <span class="chip tabular">${pctSigned(f.vaep)}</span><br>
       <span class="small muted">Top attended (ball→player attention, score specialist):</span>
       <div class="top-attn-row">${topChips || "<span class='muted'>—</span>"}</div>`;
 
