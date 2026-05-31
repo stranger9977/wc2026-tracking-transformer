@@ -303,12 +303,17 @@
             <strong>Messi &rarr; Mac Allister &rarr; Otamendi &rarr;
             Messi (finish)</strong>. For each on-ball event we show
             the model's read on Argentina's 10-second scoring
-            probability AT the event, the AVERAGE P over the next
-            ~1.6&nbsp;s of Argentine possession, the &Delta;P (the
-            "event-JOI score" for that pass), and the pair attention
-            on the pass partners at that exact frame (how much the
-            model thinks <em>that specific relationship</em>
-            matters right now).
+            probability AT the event, the &Delta;P (the "event-JOI
+            score" for that pass), and the pair attention on the
+            pass partners at that exact frame (how much the model
+            thinks <em>that specific relationship</em> matters
+            right now). Probabilities below are
+            <strong>isotonic-calibrated</strong> against the 8
+            held-out val matches &mdash; base rate is 0.56&#37;
+            ("any team-in-possession scoring within 10 s"), so a
+            value around 0.03 means the model is reading this state
+            as <strong>~5&times; the typical-frame threat
+            level</strong>.
           </p>
           <div style="overflow-x:auto;">
             <table class="data-table" style="width:100%; min-width:52rem; border-collapse:collapse; font-size:0.9rem;">
@@ -329,28 +334,28 @@
                   <td style="padding:0.4rem 0.6rem;">1</td>
                   <td style="padding:0.4rem 0.6rem;">8.0</td>
                   <td style="padding:0.4rem 0.6rem;">Messi &rarr; (Souttar)</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#e07474;">0.014</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">+0.765</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#e07474;">0.002</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">+0.028</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi's speculative early cross. Intercepted by Souttar &mdash; the model jumps from 0.014 to 0.78 because the lookahead now sees the recovery + finish 8&nbsp;s away.</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi's speculative early cross. Intercepted by Souttar &mdash; the model jumps from 0.002 to 0.030 (~5&times; baseline) because the lookahead now sees the recovery + finish 8&nbsp;s away.</td>
                 </tr>
                 <tr style="border-bottom:1px solid var(--border);">
                   <td style="padding:0.4rem 0.6rem;">2</td>
                   <td style="padding:0.4rem 0.6rem;">11.0</td>
                   <td style="padding:0.4rem 0.6rem;">Gómez &rarr; Messi</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.918</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&minus;0.000</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.030</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">~0</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Argentina recover. Event JOI flat &mdash; the model's P was already at 0.92.</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Argentina recover. Event JOI flat &mdash; the model's P was already plateaued at ~0.030.</td>
                 </tr>
                 <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
                   <td style="padding:0.4rem 0.6rem;"><strong>3</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>16.0</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Messi &rarr; Mac&nbsp;Allister</strong></td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.914</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">+0.003</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.030</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">~0</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
                   <td style="padding:0.4rem 0.6rem;" class="dim small">Recycle pass. Event JOI ~0, model isn't attending to (Messi, Mac Allister) specifically, and the pair hasn't accumulated off-ball credit either.</td>
@@ -359,18 +364,18 @@
                   <td style="padding:0.4rem 0.6rem;"><strong>4</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>18.0</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Mac&nbsp;Allister &rarr; Otamendi</strong></td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.930</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&minus;0.001</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.030</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">~0</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.087</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.090</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>Event JOI ~0, AW-JOI says 0.090.</strong> The model has been crediting this pair off-ball through the entire buildup; the pass simply confirms the pair-relationship it was tracking.</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>Event JOI ~0, AW-JOI says 0.090.</strong> The model has been crediting this pair off-ball through the entire buildup; the pass simply confirms the pair-relationship it was tracking. (AW-JOI is in raw-output units, matching the tournament leaderboards.)</td>
                 </tr>
                 <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
                   <td style="padding:0.4rem 0.6rem;"><strong>5</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>18.0</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Otamendi &rarr; Messi</strong> (feed)</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.930</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&minus;0.001</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.030</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">~0</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.000</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.087</td>
                   <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>Event JOI = 0, AW-JOI = 0.087.</strong> The famous "Otamendi to Messi feed" carries almost no event-level value &mdash; but as a pair, the model has been co-loading them for the whole sequence.</td>
@@ -379,11 +384,11 @@
                   <td style="padding:0.4rem 0.6rem;"><strong>6</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>19.0</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Messi shot &rarr; GOAL</strong></td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.927</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">+0.004</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">0.030</td>
+                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">~0</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">The shot. P had been near 0.93 for 10&nbsp;s &mdash; the model just confirms what it already saw.</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">The shot. P had been near 0.030 (~5&times; baseline) for 10&nbsp;s &mdash; the model just confirms what it already saw.</td>
                 </tr>
               </tbody>
             </table>
@@ -392,36 +397,30 @@
             <strong>The headline.</strong> On a 10&nbsp;s-lookahead model, the
             value of this goal got baked in at <strong>t=9&nbsp;s</strong>
             (right after Souttar's clearance) and held flat at
-            &asymp;&nbsp;0.93 through every subsequent on-ball event. Per-event
-            &Delta;P is essentially zero on the final pass chain because
-            the model already knew the goal was coming. What event JOI
-            does <em>not</em> measure: the pair-attention spike on
-            <strong>Mac&nbsp;Allister &harr; Otamendi at 18&nbsp;s</strong>
-            (0.087, multiples of the background ~0.01) &mdash; the model
-            is "looking at" the specific pair-relationship that's about
-            to free Messi. That's the bridge into the off-ball half of
-            the story.
+            &asymp;&nbsp;0.030 through every subsequent on-ball event.
+            Per-event &Delta;P is essentially zero on the final pass
+            chain because the model already knew the goal was coming.
+            What event JOI does <em>not</em> measure: the pair-attention
+            spike on <strong>Mac&nbsp;Allister &harr; Otamendi at
+            18&nbsp;s</strong> (0.087, multiples of the background
+            ~0.01) &mdash; the model is "looking at" the specific
+            pair-relationship that's about to free Messi. That's the
+            bridge into the off-ball half of the story.
           </p>
           <details class="dim small" style="margin-top:0.4rem;">
             <summary><strong>How to read &Delta;P, and why some passes go negative</strong></summary>
             <p class="mt-0" style="font-size:0.88rem;">
               Classical Bransen event-JOI is
               <code>max(&Delta;P, 0)</code> &mdash; it clips negatives to
-              zero. We show the <em>signed</em> &Delta;P here because the
-              negatives are still informative: a properly negative
-              &Delta;P would mean the pass moved the ball away from a
-              dangerous spot or briefly relieved the threat (a backwards
-              recycling pass, a pass to a less-dangerous position).
-              <br><br>
-              On this play, the negatives in the column are all
-              <code>&minus;0.001</code> / <code>&minus;0.000</code>
-              &mdash; that's inside the model's prediction tolerance,
-              i.e. noise on a P plateaued at <code>&asymp;&nbsp;0.93</code>.
-              They're not telling you those passes hurt; they're telling
-              you nothing on-ball moved the needle either way after
-              t&nbsp;=&nbsp;9&nbsp;s. Clipped strict-JOI values for the
-              pass chain are
-              <code>+0.765,&nbsp;0,&nbsp;+0.003,&nbsp;0,&nbsp;0,&nbsp;+0.004</code>.
+              zero. The &Delta;P column here would show signed values,
+              but on this chain every post-recovery pass sits inside
+              the model's prediction tolerance on a P plateaued at
+              <code>&asymp;&nbsp;0.030</code>. The non-zero &Delta;P is
+              all on event&nbsp;1, where the model jumps from 0.002 to
+              0.030 in one frame (~5&times; baseline). They're not
+              telling you those later passes hurt; they're telling you
+              nothing on-ball moved the needle either way after
+              t&nbsp;=&nbsp;9&nbsp;s.
             </p>
           </details>
 
@@ -474,35 +473,41 @@
             <summary><strong>Q1.</strong> Mac Allister &rarr; Otamendi is a completed pass toward goal &mdash; how is that <em>negative</em> JOI?</summary>
             <p class="mt-0">
               It isn't really &mdash; the &Delta;P column reads
-              <code>&minus;0.001</code>, which is inside the model's
-              prediction tolerance. P<sub>score</sub> is plateaued at
-              &asymp;&nbsp;0.93 for the entire chain; the model isn't
-              saying "this pass made it worse," it's saying "I already
-              factored this pass in; my read on the next 10&nbsp;s is
-              unchanged." A <em>truly</em> negative pass would be a
-              backwards recycle that relieves the threat &mdash;
-              nothing on this chain does that. The strict-Bransen JOI
-              version clips negatives to zero, so a pure JOI reader
-              would see <code>0</code> here, not <code>&minus;0.001</code>.
+              <code>~0</code>, inside the model's prediction tolerance.
+              P<sub>score</sub> is plateaued at &asymp;&nbsp;0.030 for
+              the entire chain; the model isn't saying "this pass made
+              it worse," it's saying "I already factored this pass in;
+              my read on the next 10&nbsp;s is unchanged." A
+              <em>truly</em> negative pass would be a backwards recycle
+              that relieves the threat &mdash; nothing on this chain
+              does that. The strict-Bransen JOI version clips negatives
+              to zero, so a pure JOI reader would just see <code>0</code>.
             </p>
           </details>
 
-          <details class="callout" style="margin-bottom:0.5rem;" open>
-            <summary><strong>Q2.</strong> P<sub>score</sub> = 0.918 on the pass to Messi seems impossibly high &mdash; how can it be that high?</summary>
+          <details class="callout" id="q2-pscore-calibration" style="margin-bottom:0.5rem;" open>
+            <summary><strong>Q2.</strong> What does P<sub>score</sub>&nbsp;=&nbsp;0.030 actually mean? Is it calibrated?</summary>
             <p class="mt-0">
-              Because the model is predicting "team-in-possession scores in the
-              next <strong>10 seconds</strong>," not the xG of a single
-              shot. At <strong>t=11&nbsp;s</strong> (Gómez &rarr; Messi),
-              the goal is going to happen at <strong>t=19&nbsp;s</strong>
-              &mdash; well inside the 10-second lookahead window. So
-              P&nbsp;=&nbsp;0.918 isn't a wild prediction; it's a
-              well-calibrated one. Argentina <em>do</em> score 8&nbsp;s
-              later; the model is correctly recognising the buildup
-              pattern that ends in a goal. Compare to event 1 (Messi's
-              speculative cross at t=8&nbsp;s): P&nbsp;=&nbsp;0.014,
-              because at that moment the model sees no developing
-              threat. The jump from 0.014 to 0.78 in one frame is the
-              model's "I see the chain forming" moment.
+              Yes &mdash; this number is
+              <strong>isotonic-calibrated</strong> against the 8 held-out
+              validation matches. The base rate is
+              <strong>0.56&#37; of frames</strong> ("team in possession
+              scores within next 10 s"), so a value around 0.030 means
+              the model is reading this state as roughly
+              <strong>5&times; the typical-frame threat level</strong>.
+              The earlier-draft numbers around <code>0.92</code> were
+              raw sigmoid outputs from a class-imbalance-trained
+              classifier (<code>pos_weight&nbsp;=&nbsp;80</code> over a
+              ~0.5&#37; base rate) &mdash; well-ranked but mis-scaled.
+              After post-hoc isotonic calibration, val Brier dropped
+              <strong>0.187 &rarr; 0.006</strong>, and the model's mean
+              prediction now matches the empirical base rate. The
+              <em>ordering</em> of frames is preserved end-to-end; only
+              the absolute scale changes. So a calibrated 0.030 on the
+              Messi build-up reads as "ranked among the model's most
+              dangerous states, with a real 3&#37; chance of a goal in
+              the next 10 s." Higher-danger plays (e.g.&nbsp;Janssen's
+              point-blank near-miss) calibrate to <strong>~14&#37;</strong>.
             </p>
           </details>
 
@@ -549,6 +554,19 @@
               VAEP/JOI only weights the snapshots <em>at events</em>,
               never crediting players for what they were doing during
               the silent frames between touches.
+            </p>
+            <p class="mt-2 dim small">
+              <strong>Footnote on the original paper.</strong> Bransen
+              &amp; Van Haaren (2020) did <em>not</em> use tracking
+              data. Their JOI / JDI runs on SPADL events, which carry
+              the (x, y) of the ball / actor <em>at the moment of an
+              event</em> &mdash; not the 22-player snapshot. Modern
+              providers (PFF here) ship snapshots alongside events for
+              free, which is why our "event JOI" baseline can still
+              show the receiver's location, but the metric itself is
+              defined the original way: it only updates at event
+              moments. Our AW-JOI is the extension that uses the full
+              continuous 22-player tracking signal.
             </p>
           </details>
 

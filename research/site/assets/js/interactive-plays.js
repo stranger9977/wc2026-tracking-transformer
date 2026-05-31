@@ -677,10 +677,11 @@ function initClip(c, detail) {
         // Cheap to compute on demand (≤15 pairs × ≤200 frames).
         if (joiSeries) {
           let cumPair = 0;
+          const psK = (frames[0] && frames[0].p_score_raw != null) ? "p_score_raw" : "p_score";
           for (let t = 0; t <= i; t++) {
             const fr = frames[t];
             const dP = Math.max(0,
-              (frames[t + 1]?.p_score || 0) - (fr.p_score || 0));
+              (frames[t + 1]?.[psK] || 0) - (fr[psK] || 0));
             if (dP <= 0) continue;
             const top = fr.pair_attention_score_top || [];
             for (const tr of top) {
@@ -1330,10 +1331,17 @@ function computeJoiTimeSeries(frames, teamIds) {
   // in-possession team) AND the drop in p_score (defensive impact for
   // the OUT-of-possession team — when the opp's score prob drops while
   // you defend, you contributed defensively).
+  // Use RAW (pre-calibration) p_score for AW-JOI / event-JOI deltas so the
+  // per-clip values stay in the same units as the tournament-wide AW-JOI
+  // leaderboards (which were computed from raw model outputs). Calibrated
+  // p_score is used everywhere it's *displayed* (chart, overlay), but the
+  // pair-attribution math uses raw deltas. Falls back to p_score if a clip
+  // was rendered before calibration was applied.
+  const psKey = (frames[0] && frames[0].p_score_raw != null) ? "p_score_raw" : "p_score";
   const dPos = new Array(n).fill(0);
   const dNeg = new Array(n).fill(0);
   for (let t = 0; t < n - 1; t++) {
-    const d = (frames[t + 1].p_score || 0) - (frames[t].p_score || 0);
+    const d = (frames[t + 1][psKey] || 0) - (frames[t][psKey] || 0);
     dPos[t] = Math.max(0, d);
     dNeg[t] = Math.max(0, -d);
   }

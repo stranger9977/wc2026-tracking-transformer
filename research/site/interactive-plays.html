@@ -47,8 +47,8 @@
       transformer (trained on PFF tracking) emits two per-frame probabilities:
     </p>
     <ul>
-      <li><strong>P(score next 10s)</strong> — chance the team currently in possession scores in the next 10 seconds, conditional on the full 22-player state.</li>
-      <li><strong>P(concede next 10s)</strong> — chance they concede.</li>
+      <li><strong>P(score next 10s)</strong> — calibrated probability the team currently in possession scores in the next 10 seconds, conditional on the full 22-player state. Base rate across all frames ~0.5&#37;; build-ups that lead to goals typically peak around 3&ndash;15&#37;.</li>
+      <li><strong>P(concede next 10s)</strong> — calibrated probability they concede.</li>
     </ul>
     <p>
       The model also tells us which players the ball token is "watching"

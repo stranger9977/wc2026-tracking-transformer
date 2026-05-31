@@ -105,6 +105,39 @@ let playTimer = null;
 // merged into the same {p_score, p_concede} trajectory the UI used to consume
 // from the single shared model. Wall-clock roughly doubles vs the shared model
 // but it still lands inside a single animation frame on CPU.
+// Isotonic calibration map: monotone piecewise-linear interpolator for
+// raw_sigmoid → calibrated_probability. Loaded once on first freestyle use
+// and applied to every ONNX output before storing into liveTrajectory, so
+// freestyle values are on the same scale as the pre-rendered baseline.
+let calibration = { score: null, concede: null, loading: null };
+function _interp(xs, ys, v) {
+  if (!xs || !xs.length) return v;
+  if (v <= xs[0]) return ys[0];
+  if (v >= xs[xs.length - 1]) return ys[ys.length - 1];
+  let lo = 0, hi = xs.length - 1;
+  while (hi - lo > 1) {
+    const m = (lo + hi) >> 1;
+    if (xs[m] <= v) lo = m; else hi = m;
+  }
+  const t = (v - xs[lo]) / (xs[hi] - xs[lo] || 1e-9);
+  return ys[lo] + t * (ys[hi] - ys[lo]);
+}
+async function ensureCalibration() {
+  if (calibration.score) return;
+  if (!calibration.loading) {
+    calibration.loading = fetch("data/pscore_calibration.json")
+      .then((r) => r.json())
+      .then((m) => {
+        calibration.score = { x: m.score.x, y: m.score.y };
+        calibration.concede = { x: m.concede.x, y: m.concede.y };
+      })
+      .catch((e) => { console.warn("calibration load failed", e); });
+  }
+  await calibration.loading;
+}
+function calibrateScore(arr)   { return arr.map((v) => _interp(calibration.score?.x,   calibration.score?.y,   v)); }
+function calibrateConcede(arr) { return arr.map((v) => _interp(calibration.concede?.x, calibration.concede?.y, v)); }
+
 let freestyle = {
   enabled: false,
   ort: null,           // onnxruntime-web namespace once loaded
@@ -131,7 +164,11 @@ let focus = {
   byPlay: new Map(),
 };
 const FOCUS_WINDOW_FRAMES = 50;   // 10 s at 5 Hz
-const FOCUS_GOAL_THRESHOLD = 0.5; // last frame with p_score above this = goal
+// Last frame with calibrated p_score above this = "goal-likely" anchor for the
+// 10s focus window. Calibrated peaks land in the 0.02–0.15 range (base rate
+// ~0.5%), so 0.015 (~3× base rate) is the right cutoff. Pre-calibration this
+// was 0.5 on raw sigmoid outputs.
+const FOCUS_GOAL_THRESHOLD = 0.015;
 
 // Linked-movement parameters. Inverse-distance falloff, capped at α_max with a
 // hard cutoff at LINKED_MAX_DIST so faraway teammates don't even twitch.
@@ -1327,9 +1364,13 @@ async function runFreestyleTrajectory() {
       return;
     }
     const dt = performance.now() - t0;
-    const ps = Array.from(scoreOut.p_score.data);
-    const pc = Array.from(concedeOut.p_concede.data);
-    freestyle.liveTrajectory = { startFrame: min, p_score: ps, p_concede: pc };
+    const rawPs = Array.from(scoreOut.p_score.data);
+    const rawPc = Array.from(concedeOut.p_concede.data);
+    await ensureCalibration();
+    const ps = calibrateScore(rawPs);
+    const pc = calibrateConcede(rawPc);
+    freestyle.liveTrajectory = { startFrame: min, p_score: ps, p_concede: pc,
+                                 p_score_raw: rawPs, p_concede_raw: rawPc };
     // Single-frame cf for the prob-strip at the current frame.
     const here = currentFrame - min;
     if (here >= 0 && here < n) {

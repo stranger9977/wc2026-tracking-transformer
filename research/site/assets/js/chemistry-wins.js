@@ -604,16 +604,16 @@ function computeDefMetrics() {
 const DEF_METRICS = computeDefMetrics();
 const METRIC_META = {
   sum_jdi:    { label: "Total defensive mass (Σ AW-JDI90)",
-                blurb: "Sum of every team's def↔def AW-JDI90 pair contribution. Rewards both <em>quality</em> and <em>quantity</em> of defensive chemistry &mdash; how big the wall is overall.",
+                blurb: "Add up the AW-JDI90 contribution of every def↔def pair on the team. Bigger number = either more elite pairs, more total defender minutes together, or both. Reads as <em>how much joint-defending work the back line did per 90</em>, in the model's units (so the absolute value isn't a probability &mdash; it's a relative threat-suppression score). The Morocco vs Argentina gap (3.33 vs 3.40) is &lt;3&#37;: effectively tied at the top.",
                 fmt: (v) => (v == null ? "—" : v.toFixed(2)) },
   n_strong:   { label: "Strong pairs (AW-JDI90 ≥ 0.30)",
-                blurb: "Count of pair-edges with AW-JDI90 at or above 0.30 &mdash; the threshold the published Morocco paper used. Rewards breadth.",
+                blurb: "Count of pair-edges whose AW-JDI90 clears 0.30 &mdash; the cutoff Bransen &amp; Van Haaren used as their \"elite pair\" threshold. Rewards breadth: a team with five solid pairs scores higher than a team carried by one star duo.",
                 fmt: (v) => String(Math.round(v)) },
   top5_mean:  { label: "Mean of top-5 pairs",
-                blurb: "Average AW-JDI90 across the five strongest def↔def pairs. Rewards a team's <em>elite ceiling</em>, not breadth.",
+                blurb: "Average AW-JDI90 across a team's five strongest def↔def pairs. Strips out depth: a team with one elite back four can still rank high here even if their bench partnerships have no chemistry signal.",
                 fmt: (v) => (v == null ? "—" : v.toFixed(3)) },
   mean_jdi:   { label: "Mean across all pairs",
-                blurb: "Average AW-JDI90 across every def↔def pair the team has minutes for. Closer to a per-pair quality floor than a ceiling.",
+                blurb: "Average AW-JDI90 across every def↔def pair the team has minutes for. Closer to a per-pair quality floor than a ceiling &mdash; a team is penalised here if rotations dilute the back-line chemistry.",
                 fmt: (v) => (v == null ? "—" : v.toFixed(3)) },
 };
 
