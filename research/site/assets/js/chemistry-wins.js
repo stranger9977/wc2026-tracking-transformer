@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=filter-panel";
+import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=lines-labels";
 
 /* ---------------- data ---------------- */
 

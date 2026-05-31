@@ -694,20 +694,11 @@ function initClip(c, detail) {
         : "";
       const stroke = p.is_gk ? "#00d68f" : "#ffffffcc";
       const sw = p.is_gk ? 1.8 : 1.0;
-      // Velocity arrow tail — 0.5s lookahead. Skipped in focus mode (it
-      // was extending off-screen with a tight camera) and for non-
-      // involved players (the criss-crossing noise we cleaned up earlier).
-      let arrow = "";
-      if (involved && !focusSet) {
-        const lead = 0.5; // seconds
-        const [ex, ey] = mToSvg(p.x + p.vx * lead, p.y + p.vy * lead);
-        const v = Math.hypot(ex - sx, ey - sy);
-        if (v > 4) {
-          arrow = `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="${color}" stroke-opacity="0.75" stroke-width="1.6" stroke-linecap="round" />`;
-        }
-      }
+      // (Velocity "lookahead" tails removed — at the clip's first frames the
+      // finite-difference velocity is huge, which drew long blue lines shooting
+      // across the pitch. The play is about attention, not motion vectors.)
       const hoverTxt = p.name ? `${p.name}${p.position ? " · " + p.position : ""}` : `slot ${p.slot}`;
-      dotsHTML += `${arrow}${namedRing}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}"><title>${escapeSvg(hoverTxt)}</title></circle>`;
+      dotsHTML += `${namedRing}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}"><title>${escapeSvg(hoverTxt)}</title></circle>`;
     }
     // Connection lines: one per toggled-on group that is a pair — a gold line
     // whose width tracks the score-specialist's pair attention this frame, with
@@ -720,14 +711,22 @@ function initClip(c, detail) {
       if (!arr || arr.length !== 2) continue;
       const a = playerDOM[arr[0]], b = playerDOM[arr[1]];
       if (!a || !b) continue;
+      // Pair attention with a short backward LINGER window (≈0.8 s): take the
+      // peak over the last few frames so the line stays a beat after the model
+      // stops co-attending, instead of flickering off after a single frame.
       let w = 0;
-      for (const tr of (f.pair_attention_score_top || [])) {
-        if ((tr[0] === arr[0] && tr[1] === arr[1]) || (tr[0] === arr[1] && tr[1] === arr[0])) { w = tr[2] || 0; break; }
+      for (let t = Math.max(0, i - 4); t <= i; t++) {
+        for (const tr of (frames[t]?.pair_attention_score_top || [])) {
+          if ((tr[0] === arr[0] && tr[1] === arr[1]) || (tr[0] === arr[1] && tr[1] === arr[0])) {
+            if ((tr[2] || 0) > w) w = tr[2] || 0;
+            break;
+          }
+        }
       }
+      if (w < 0.02) continue;   // ONLY draw when the pair is genuinely getting a co-attention score
       const lineW = 1.2 + Math.min(0.15, w) * 22;
-      const dash = w > 0.02 ? "" : ` stroke-dasharray="4 3"`;
       const mx = (a.sx + b.sx) / 2, my = (a.sy + b.sy) / 2;
-      links += `<line x1="${a.sx.toFixed(1)}" y1="${a.sy.toFixed(1)}" x2="${b.sx.toFixed(1)}" y2="${b.sy.toFixed(1)}" stroke="#ffd166" stroke-opacity="0.92" stroke-width="${lineW.toFixed(1)}" stroke-linecap="round"${dash} />`;
+      links += `<line x1="${a.sx.toFixed(1)}" y1="${a.sy.toFixed(1)}" x2="${b.sx.toFixed(1)}" y2="${b.sy.toFixed(1)}" stroke="#ffd166" stroke-opacity="0.92" stroke-width="${lineW.toFixed(1)}" stroke-linecap="round" />`;
       links += `<rect x="${(mx - 14).toFixed(1)}" y="${(my - 6.5).toFixed(1)}" width="28" height="13" rx="2.5" fill="#0b1220" fill-opacity="0.88" stroke="#ffd166" stroke-opacity="0.7" stroke-width="0.6" /><text x="${mx.toFixed(1)}" y="${(my + 2.7).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="700" fill="#ffd166" font-family="-apple-system,Segoe UI,sans-serif">${w.toFixed(2)}</text>`;
     }
     if (links) dotsHTML = links + dotsHTML;
@@ -950,31 +949,49 @@ function initClip(c, detail) {
     // Label every highlighted player (all name_slots not focus-ghosted, plus
     // the clicked spotlight pair). The clicked pair's tags go gold; the rest
     // stay white. Drawn before the ball-carrier tag so it dodges them.
-    const labelSlots = new Set();
-    for (let s = 0; s < 22; s++) if (isHL(s)) labelSlots.add(s);
+    const labelSlots = [];
+    for (let s = 0; s < 22; s++) if (isHL(s)) labelSlots.push(s);
     const overlaps = (a) => placed.some((b) =>
       a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y);
-    for (const slot of labelSlots) {
+    // Fan the tags OUT from the cluster centroid (each pushed radially away,
+    // with a faint leader line back to its dot) so the names spread apart
+    // instead of stacking into one tall column on the busy side.
+    let cx = 0, cy = 0, nC = 0;
+    for (const slot of labelSlots) { const d = playerDOM[slot]; if (d) { cx += d.sx; cy += d.sy; nC++; } }
+    if (nC) { cx /= nC; cy /= nC; }
+    // Process the players nearest the centroid LAST so outer tags claim space first.
+    const ordered = [...labelSlots].sort((s1, s2) => {
+      const a = playerDOM[s1], b = playerDOM[s2];
+      const da = a ? Math.hypot(a.sx - cx, a.sy - cy) : 0;
+      const db = b ? Math.hypot(b.sx - cx, b.sy - cy) : 0;
+      return db - da;
+    });
+    let leadersHTML = "";
+    for (const slot of ordered) {
       const dom = playerDOM[slot];
       if (!dom) continue;
       const { p, sx, sy } = dom;
-      const slotGold = true; // every labelled player is toggled-on → gold tag
       const txt = labelText(p);
       const labelW = txt.length * 5.2 + 10;
       const labelH = 12;
-      const lx = sx - labelW / 2;     // centered above the dot — x stays fixed (no jitter)
-      let ly = sy - 13 - labelH;      // fixed offset above
-      // Vertical-only stacking so clustered labels (the back line) don't
-      // overlap, without ever flipping sides frame-to-frame.
-      let guard = 0;
-      while (overlaps({ x: lx, y: ly, w: labelW, h: labelH }) && guard++ < 8) ly -= labelH + 2;
+      let dx = sx - cx, dy = sy - cy;
+      let len = Math.hypot(dx, dy);
+      if (len < 1) { dx = 0; dy = -1; len = 1; }
+      dx /= len; dy /= len;
+      let dist = 20, lx = sx - labelW / 2, ly = sy - labelH / 2, guard = 0;
+      do {
+        lx = sx + dx * dist - labelW / 2;
+        ly = sy + dy * dist - labelH / 2;
+        dist += labelH + 4;
+      } while (overlaps({ x: lx, y: ly, w: labelW, h: labelH }) && guard++ < 14);
+      // Keep the tag inside the current (zoomed) viewBox.
+      lx = Math.max(smoothVb.x + 2, Math.min(smoothVb.x + smoothVb.w - labelW - 2, lx));
+      ly = Math.max(smoothVb.y + 2, Math.min(smoothVb.y + smoothVb.h - labelH - 2, ly));
       placed.push({ x: lx, y: ly, w: labelW, h: labelH });
-      const boxStroke = slotGold
-        ? `stroke="#ffd166" stroke-opacity="0.95" stroke-width="1"`
-        : `stroke="#ffffff" stroke-opacity="0.30" stroke-width="0.6"`;
-      const txtFill = slotGold ? "#ffd166" : "#ffffff";
-      labelsHTML += `<g class="iplay-label"><rect x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" width="${labelW.toFixed(1)}" height="${labelH}" fill="#0b1220" fill-opacity="0.9" rx="2.5" ${boxStroke} /><text x="${(lx + labelW / 2).toFixed(1)}" y="${(ly + 8.5).toFixed(1)}" fill="${txtFill}" font-size="9" font-weight="${slotGold ? 700 : 600}" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
+      leadersHTML += `<line x1="${sx.toFixed(1)}" y1="${sy.toFixed(1)}" x2="${(lx + labelW / 2).toFixed(1)}" y2="${(ly + labelH / 2).toFixed(1)}" stroke="#ffffff" stroke-opacity="0.22" stroke-width="0.7" />`;
+      labelsHTML += `<g class="iplay-label"><rect x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" width="${labelW.toFixed(1)}" height="${labelH}" fill="#0b1220" fill-opacity="0.92" rx="2.5" stroke="#ffd166" stroke-opacity="0.95" stroke-width="1" /><text x="${(lx + labelW / 2).toFixed(1)}" y="${(ly + 8.5).toFixed(1)}" fill="#ffd166" font-size="9" font-weight="700" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
     }
+    labelsHTML = leadersHTML + labelsHTML; // leaders under the boxes
     // Pass 2 — the ball-carrier (collision-avoided). Off-ball players that
     // aren't in name_slots stay nameless; their identity is carried by the
     // rings (FEEDER / FINISH / PIN), the pair edges, and the dot's <title>.
