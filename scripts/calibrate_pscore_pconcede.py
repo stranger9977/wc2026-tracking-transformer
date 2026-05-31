@@ -1,10 +1,25 @@
-"""Fit isotonic calibration maps for the shared P_score / P_concede heads.
+"""Fit Beta calibration maps for the shared P_score / P_concede heads.
 
 The model was trained with pos_weight=80 on a ~0.5% positive base rate, so
 sigmoid outputs are well-ranked (val AUC ~0.80) but not calibrated as
-probabilities (val Brier ~0.19 for score). This script fits an isotonic
-regression on the 8 held-out val matches and saves the calibration maps,
-then applies them to every clip JSON under research/site/data/clips/.
+probabilities (val Brier ~0.19 for score). This script fits a **Beta
+calibration** (Kull et al. — logistic regression on [ln p, -ln(1-p)]) on the
+8 held-out val matches and saves the calibration maps, then applies them to
+every clip JSON under research/site/data/clips/.
+
+Why Beta and not isotonic? Both hit the same val Brier (~0.0055 score /
+~0.0023 concede), but isotonic is a step function whose pooled-adjacent
+plateaus pin a wide raw band (0.874-0.937) to a single value (3.015%) — so a
+confident build-up reads as a dead-flat line even as the model's raw conviction
+climbs. Beta is a smooth monotone curve: every raw value maps to a distinct
+calibrated probability, so the displayed curve actually moves with the play.
+See research/scripts/compare_calibration_methods.py for the head-to-head.
+
+The map is exported as a dense (x, y) lookup table so the front-end's existing
+piecewise-linear `_interp` (whiteboard.js / interactive-plays.js /
+cross-context.js) reads it unchanged.
+
+Idempotent — reads p_score_raw on re-runs so it cannot double-apply.
 
 Usage:
     PYTHONPATH=src uv run python scripts/calibrate_pscore_pconcede.py
@@ -16,7 +31,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
-from sklearn.isotonic import IsotonicRegression
+from sklearn.linear_model import LogisticRegression
 
 from wc2026_tracking_transformer.model.frame_vaep import FrameVaepLitModule
 
@@ -24,9 +39,54 @@ REPO = Path(__file__).resolve().parents[1]
 CKPT = REPO / "output" / "transformer_frame_vaep.ckpt"
 CACHE = REPO / "research" / "data" / "frame_vaep_cache"
 OUT = REPO / "output" / "pscore_calibration.json"
+SITE_OUT = REPO / "research" / "site" / "data" / "pscore_calibration.json"
 CLIPS_DIR = REPO / "research" / "site" / "data" / "clips"
 VAL_N = 8
 BATCH = 4096
+EPS = 1e-6
+CAL_TAG = "beta-v1"
+
+
+class BetaCalibrator:
+    """Monotone smooth calibrator: sigmoid(a·ln p + b·(-ln(1-p)) + c).
+
+    Fit as a 2-feature logistic regression. Exposes ``predict`` (same call
+    shape as sklearn's IsotonicRegression.predict) plus ``dense_table`` for
+    exporting a piecewise-linear LUT the front-end can interpolate.
+    """
+
+    def __init__(self, lr: LogisticRegression):
+        self.lr = lr
+
+    @classmethod
+    def fit(cls, p: np.ndarray, y: np.ndarray) -> "BetaCalibrator":
+        feats = cls._feats(p)
+        lr = LogisticRegression(C=1e6, max_iter=2000).fit(feats, y)
+        return cls(lr)
+
+    @staticmethod
+    def _feats(p: np.ndarray) -> np.ndarray:
+        pc = np.clip(np.asarray(p, dtype=np.float64), EPS, 1 - EPS)
+        return np.column_stack([np.log(pc), -np.log(1 - pc)])
+
+    def predict(self, q: np.ndarray) -> np.ndarray:
+        q = np.atleast_1d(np.asarray(q, dtype=np.float64))
+        return self.lr.predict_proba(self._feats(q))[:, 1]
+
+    def dense_table(self) -> tuple[list[float], list[float]]:
+        # Dense in [0, 0.95]; extra-dense in the steep [0.95, 1.0] tail so the
+        # front-end's linear interpolation tracks the curve to <0.1pp error.
+        xs = np.unique(np.concatenate([
+            np.linspace(0.0, 0.95, 300),
+            np.linspace(0.95, 1.0, 200),
+        ]))
+        ys = self.predict(xs)
+        return xs.tolist(), ys.tolist()
+
+    @property
+    def params(self) -> dict:
+        coef = self.lr.coef_.ravel().tolist()
+        return {"a": coef[0], "b": coef[1], "c": float(self.lr.intercept_[0])}
 
 
 def _device() -> torch.device:
@@ -80,20 +140,24 @@ def main() -> None:
     ps = np.concatenate(ps_list); pc = np.concatenate(pc_list)
     ys = np.concatenate(ys_list); yc = np.concatenate(yc_list)
 
-    print(f"[3/4] Fitting isotonic calibration (n={len(ps):,})")
-    iso_s = IsotonicRegression(out_of_bounds="clip", y_min=0.0, y_max=1.0).fit(ps, ys)
-    iso_c = IsotonicRegression(out_of_bounds="clip", y_min=0.0, y_max=1.0).fit(pc, yc)
+    print(f"[3/4] Fitting Beta calibration (n={len(ps):,})")
+    cal_s = BetaCalibrator.fit(ps, ys)
+    cal_c = BetaCalibrator.fit(pc, yc)
 
     def brier(p, y): return float(np.mean((p - y) ** 2))
-    ps_cal = iso_s.predict(ps); pc_cal = iso_c.predict(pc)
+    ps_cal = cal_s.predict(ps); pc_cal = cal_c.predict(pc)
     print(f"      score   Brier raw={brier(ps, ys):.4f} cal={brier(ps_cal, ys):.4f} "
           f"| mean raw={ps.mean():.3f} cal={ps_cal.mean():.3f} | base rate={ys.mean():.4f}")
     print(f"      concede Brier raw={brier(pc, yc):.4f} cal={brier(pc_cal, yc):.4f} "
           f"| mean raw={pc.mean():.3f} cal={pc_cal.mean():.3f} | base rate={yc.mean():.4f}")
 
-    # Store calibration map as (sorted xs, ys) pairs we can interpolate later.
+    # Export the smooth Beta curve as a dense (x, y) lookup table so the
+    # front-end's existing piecewise-linear `_interp` reads it unchanged.
+    sx, sy = cal_s.dense_table()
+    cx, cy = cal_c.dense_table()
     cal = {
-        "schema": "piecewise-linear-isotonic-v1",
+        "schema": "beta-dense-lut-v1",
+        "method": "beta",
         "val_matches": val_ids,
         "base_rate_score": float(ys.mean()),
         "base_rate_concede": float(yc.mean()),
@@ -101,25 +165,24 @@ def main() -> None:
         "brier_score_cal": brier(ps_cal, ys),
         "brier_concede_raw": brier(pc, yc),
         "brier_concede_cal": brier(pc_cal, yc),
-        "score": {
-            "x": iso_s.X_thresholds_.tolist(),
-            "y": iso_s.y_thresholds_.tolist(),
-        },
-        "concede": {
-            "x": iso_c.X_thresholds_.tolist(),
-            "y": iso_c.y_thresholds_.tolist(),
-        },
+        "score_beta": cal_s.params,
+        "concede_beta": cal_c.params,
+        "score": {"x": sx, "y": sy},
+        "concede": {"x": cx, "y": cy},
     }
-    OUT.write_text(json.dumps(cal, indent=2))
+    blob = json.dumps(cal, indent=2)
+    OUT.write_text(blob)
+    SITE_OUT.write_text(blob)
     print(f"      wrote {OUT}")
+    print(f"      wrote {SITE_OUT}")
 
     print(f"[4/4] Applying calibration to clips in {CLIPS_DIR}")
-    apply_to_clips(iso_s, iso_c)
+    apply_to_clips(cal_s, cal_c)
     print(f"[5/5] Applying calibration to whiteboard_moves.json")
-    apply_to_whiteboard(iso_s, iso_c)
+    apply_to_whiteboard(cal_s, cal_c)
 
 
-def apply_to_clips(iso_s: IsotonicRegression, iso_c: IsotonicRegression) -> None:
+def apply_to_clips(iso_s: "BetaCalibrator", iso_c: "BetaCalibrator") -> None:
     n_clips = 0; n_frames = 0
     for p in sorted(CLIPS_DIR.glob("*.json")):
         if p.name == "index.json":
@@ -144,7 +207,7 @@ def apply_to_clips(iso_s: IsotonicRegression, iso_c: IsotonicRegression) -> None
             f["p_score"] = float(cal_ps[i])
             f["p_concede"] = float(cal_pc[i])
             f["vaep"] = float(cal_ps[i]) - float(cal_pc[i])
-        data.setdefault("meta", {})["pscore_calibration"] = "isotonic-v1"
+        data.setdefault("meta", {})["pscore_calibration"] = CAL_TAG
         p.write_text(json.dumps(data, indent=2))
         n_clips += 1; n_frames += len(frames)
         print(f"      {p.name}: {len(frames)} frames | "
@@ -152,7 +215,7 @@ def apply_to_clips(iso_s: IsotonicRegression, iso_c: IsotonicRegression) -> None
     print(f"      calibrated {n_clips} clips, {n_frames} frames total")
 
 
-def apply_to_whiteboard(iso_s: IsotonicRegression, iso_c: IsotonicRegression) -> None:
+def apply_to_whiteboard(iso_s: "BetaCalibrator", iso_c: "BetaCalibrator") -> None:
     """Calibrate whiteboard_moves.json: baseline frames AND per-move counterfactual
     trajectories. Also recompute the per-move deltas (d_score / d_concede / d_net)
     from the calibrated values so the diff against the calibrated baseline stays

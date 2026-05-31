@@ -877,6 +877,11 @@ function initClip(c, detail) {
 
     // --- labels with collision avoidance
     let labelsHTML = "";
+    // Per-clip "always name these players" set — used to keep a specific
+    // off-ball player legible even when they're not on the ball (e.g. the
+    // chemistry pair the surrounding write-up is about, so the reader can
+    // tell which dot is Fernández). Skipped while a player is focus-ghosted.
+    const nameSlots = new Set(c.name_slots || []);
     // Order labels by attention (high-attention players draw first → others
     // get nudged around them, not the reverse).
     const orderedSlots = [...players].map((p) => p.slot).sort((a, b) => (smoothAttn[b] || 0) - (smoothAttn[a] || 0));
@@ -890,15 +895,19 @@ function initClip(c, detail) {
       const labelH = 11;
       const { lx, ly } = pickLabelPos(sx, sy, p.vx, p.vy, labelW, labelH, placed);
       placed.push({ x: lx, y: ly, w: labelW, h: labelH });
-      // Name tags now ONLY render on the ball-carrier. Off-ball players —
-      // even the top-attended ones, the pair-edge endpoints, the configured
-      // scorer / feeder — stay nameless on the pitch. Their identity is
-      // already carried by the rings (FEEDER / FINISH / PIN), the pair
-      // edges, and the halo, and their full name lives on the dot's SVG
-      // <title> for hover. This keeps the off-ball structure visible
-      // while keeping the screen quiet.
-      if (!p.has_possession) continue;
-      labelsHTML += `<g class="iplay-label"><rect x="${lx}" y="${ly}" width="${labelW}" height="${labelH}" fill="#0b1220" fill-opacity="0.78" rx="2.5" /><text x="${lx + 4}" y="${ly + 8}" fill="#ffffff" font-size="8.5" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
+      // Name tags render on the ball-carrier, plus any clip-configured
+      // name_slots (as long as they're not focus-ghosted). Everyone else
+      // stays nameless on the pitch — their identity is carried by the rings
+      // (FEEDER / FINISH / PIN), the pair edges, the halo, and the dot's SVG
+      // <title> for hover — which keeps the off-ball structure quiet.
+      const forceName = nameSlots.has(p.slot) && (!focusSet || focusSet.has(p.slot));
+      if (!p.has_possession && !forceName) continue;
+      // Forced (off-ball) names get an accent border so they read as
+      // "this is the player the text is talking about", not the ball-carrier.
+      const isForced = forceName && !p.has_possession;
+      const boxStroke = isForced ? ` stroke="#ffd166" stroke-opacity="0.9" stroke-width="0.8"` : "";
+      const txtFill = isForced ? "#ffd166" : "#ffffff";
+      labelsHTML += `<g class="iplay-label"><rect x="${lx}" y="${ly}" width="${labelW}" height="${labelH}" fill="#0b1220" fill-opacity="0.78" rx="2.5"${boxStroke} /><text x="${lx + 4}" y="${ly + 8}" fill="${txtFill}" font-size="8.5" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
     }
     gLabels.innerHTML = labelsHTML;
 
@@ -977,8 +986,18 @@ function initClip(c, detail) {
       const x = v * 100;
       return (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(2) + " pp";
     };
+    // Time-to-goal readout — the zero point is the ball crossing the line,
+    // matching the "before goal" columns in the chemistry-wins write-up.
+    let ttgChip = "";
+    if (goalFrame >= 0) {
+      const d = goalFrame - i;
+      const ttgTxt = d > 0 ? `${(d * 0.2).toFixed(1)}s to goal`
+                   : d === 0 ? `goal frame`
+                   : `${(Math.abs(d) * 0.2).toFixed(1)}s after goal`;
+      ttgChip = `&nbsp;•&nbsp; <span class="chip tabular" title="Seconds until the ball crosses the line — matches the time-to-goal columns in the write-up below.">${ttgTxt}</span>`;
+    }
     meta.innerHTML = `
-      <strong>Frame ${i + 1}/${n}</strong> &nbsp;•&nbsp;
+      <strong>Frame ${i + 1}/${n}</strong>${ttgChip} &nbsp;•&nbsp;
       P(score, next&nbsp;10&nbsp;s) <span class="chip green tabular">${pct(f.p_score)}</span> &nbsp;
       P(concede, next&nbsp;10&nbsp;s) <span class="chip red tabular">${pct(f.p_concede)}</span> &nbsp;
       Net (Δ&nbsp;P) <span class="chip tabular">${pctSigned(f.vaep)}</span><br>

@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto } from "./interactive-plays.js";
+import { mountClipInto } from "./interactive-plays.js?v=beta-cal-ttg";
 
 /* ---------------- data ---------------- */
 
@@ -867,6 +867,10 @@ const PLAY_INDEX = {
     ],
     // Otamendi's feed to Messi lands at frame ~50.
     pinning: { slots: [1], from: 42, to: 52, label: "FEEDER" },
+    // Always-name the headline chemistry pair through the build-up so the
+    // reader can tell which dot is Fernández (slot 2) vs Otamendi (slot 1) —
+    // these are the "Otamendi ↔ Fernández" pair the write-up is about.
+    name_slots: [1, 2],
     scorer_slot: 5, // Messi
     scorer_label: "FINISH",
     scorer_from: 42,

@@ -105,8 +105,9 @@ let playTimer = null;
 // merged into the same {p_score, p_concede} trajectory the UI used to consume
 // from the single shared model. Wall-clock roughly doubles vs the shared model
 // but it still lands inside a single animation frame on CPU.
-// Isotonic calibration map: monotone piecewise-linear interpolator for
-// raw_sigmoid → calibrated_probability. Loaded once on first freestyle use
+// Beta calibration map (exported as a dense monotone (x,y) lookup table):
+// piecewise-linear interpolator for raw_sigmoid → calibrated_probability.
+// Loaded once on first freestyle use
 // and applied to every ONNX output before storing into liveTrajectory, so
 // freestyle values are on the same scale as the pre-rendered baseline.
 let calibration = { score: null, concede: null, loading: null };
