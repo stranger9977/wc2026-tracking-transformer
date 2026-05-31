@@ -301,13 +301,17 @@
           <style>
             tr.clip-jump { cursor: pointer; transition: background 0.12s ease; }
             tr.clip-jump:hover { background: rgba(255,209,102,0.12) !important; }
-            tr.clip-jump:hover td:first-child { box-shadow: inset 3px 0 0 #ffd166; }
+            tr.clip-jump.active { background: rgba(255,209,102,0.16) !important; }
+            tr.clip-jump.active td:first-child { box-shadow: inset 3px 0 0 #ffd166; }
+            tr.clip-jump.active td:first-child::before { content: "\25C9\00a0"; color: #ffd166; }
           </style>
           <h3 class="mt-2">The on-ball story &mdash; pass-by-pass</h3>
           <p class="dim small" style="margin:0.2rem 0 0;">
-            <strong style="color:var(--accent)">&#9678; Tip:</strong> click any row
-            below to jump the play above to that moment and ring the players it's
-            about (with a live attention line between them).
+            <strong style="color:var(--accent)">&#9678; Tip:</strong> these tables
+            are a <strong>filter on the play above</strong> &mdash; click any row to
+            toggle that pair's labels + connection on the pitch (and jump to its
+            moment). Use <em>"Show in play"</em> on a table to label that whole set
+            at once &mdash; e.g. the on-ball table to see only the on-ball players.
           </p>
           <p>
             Reading the actual pass chain that produced this goal:
@@ -551,6 +555,23 @@
               real space-creating decoy run &mdash; not an on-ball event anywhere
               in the data. <strong>Click the row, or scrub the window, to watch
               Fernández peel away and Behich chase him.</strong>
+            </p>
+          </div>
+          <div class="callout" style="background:var(--bg-elev-2); border-left:3px solid #5eb1f8; padding:0.8rem 1rem; margin:0.6rem 0 0;">
+            <p class="mt-0"><strong style="color:#5eb1f8;">The supporting cast (#2&ndash;#4) &mdash; how each one feeds what's about to happen on the ball.</strong> Same check, traced across each pair's window:</p>
+            <ul style="margin:0.3rem 0 0.4rem;">
+              <li><strong>#2 Otamendi &harr; Romero (CB pair).</strong> Romero pushes up on Messi's early cross, then <strong>drops ~10&nbsp;m back</strong> (x&nbsp;&approx;&nbsp;50&nbsp;&rarr;&nbsp;38) to sit alongside Otamendi as the deep recycle base. He's the safe outlet the whole build-up pivots off &mdash; the model co-loads the centre-back pair because together they're the rest-defence the attack is launched from. <span class="dim">(Structural anchor, not a space-creator.)</span></li>
+              <li><strong>#3 Álvarez &harr; Otamendi (striker + feeder).</strong> Álvarez doesn't run in behind &mdash; he plants at the top of the box and <strong>pins Australia's centre-back Rowles, who marks him 0.8&ndash;2.5&nbsp;m the entire sequence</strong>. One centre-back occupied is one fewer defender free to step to Messi; Otamendi is the deep reference Álvarez plays off.</li>
+              <li><strong>#4 Otamendi &harr; Acuña (left-back).</strong> Acuña <strong>holds width deep on the left</strong> (drifts to y&nbsp;&approx;&nbsp;&minus;10), stretching the line on Otamendi's side and giving the recycle an outlet that stops Australia compressing the middle.</li>
+            </ul>
+            <p class="mb-0 small dim">
+              Put together with Fernández dragging Behich: that's a centre-back, a
+              striker and a full-back each <em>occupying or moving</em> an
+              Australian, while Otamendi recycles and repositions to feed &mdash;
+              four off-ball jobs thinning the central channel Messi finishes
+              through, <strong>none of which is an on-ball event anywhere in the
+              data.</strong> Click each row to watch its pair light up at the
+              moment the model is co-loading them.
             </p>
           </div>
           <h3 class="mt-2">Common questions about the numbers above</h3>
@@ -1024,6 +1045,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=label-all-network"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=table-filter"></script>
 </body>
 </html>

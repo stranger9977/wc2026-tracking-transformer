@@ -267,14 +267,26 @@ export { initClip };
    External drive — let a write-up table "jump + circle" a moment.
    ============================================================ */
 
-// label → { focus(frame, slots) }. Registered by initClip, called by page
-// modules (e.g. chemistry-wins.js) so a table row can scrub the matching clip
-// to a frame and ring the players whose relationship that row is about.
+// label → controller. Registered by initClip; called by page modules (e.g.
+// chemistry-wins.js) so the write-up tables can act as a LABEL FILTER on the
+// play: each row toggles a "group" (a pair/player) on or off — only the active
+// groups get labelled + connected, so you inspect one relationship at a time
+// instead of drowning the pitch in 10 tags. Each group is keyed by a string.
 const clipControllers = new Map();
 
-export function focusClipMoment(label, frame, slots) {
-  const ctl = clipControllers.get(label);
-  if (ctl) ctl.focus(frame, Array.isArray(slots) ? slots : []);
+// Toggle a group on/off. On activation, optionally scrub to `frame`.
+export function toggleClipGroup(label, key, slots, frame) {
+  clipControllers.get(label)?.toggle(key, Array.isArray(slots) ? slots : [], frame);
+}
+// Replace the whole active set (used by "show all on-ball / off-ball").
+export function setClipGroups(label, groups) {
+  clipControllers.get(label)?.setGroups(Array.isArray(groups) ? groups : []);
+}
+export function clearClipLabels(label) {
+  clipControllers.get(label)?.clear();
+}
+export function isClipGroupActive(label, key) {
+  return !!clipControllers.get(label)?.isActive(key);
 }
 
 /* ============================================================
@@ -336,9 +348,9 @@ function initClip(c, detail) {
   const gPairEdges = svg.querySelector("#g-pair-edges");
   const narrationEl = document.getElementById(`narration-${c.label}`);
 
-  // Transient "circle these players" set, driven by focusClipMoment (a table
-  // row click). Overrides name_slots while active; cleared on any manual nav.
-  let spotlightSlots = null;
+  // Active label-filter groups, driven by the write-up table toggles.
+  // key (string) -> slots (number[]). Empty = clean play (no extra labels).
+  const activeGroups = new Map();
 
   /* ---------- scrub markers + goal frame ---------- */
   const goalFrame = frames.findIndex((f) => f.is_goal_event);
@@ -554,18 +566,12 @@ function initClip(c, detail) {
     const focusSet = (annNow && Array.isArray(annNow.focus_slots) && annNow.focus_slots.length)
       ? new Set(annNow.focus_slots)
       : null;
-    // Per-clip "always label + connect these players" set (everyone named in
-    // the write-up tables). They stay bright + labelled through their windows.
-    const nameSlots = new Set(c.name_slots || []);
-    // A slot is "highlighted" (bright + labelled + part of the co-attention
-    // network) if it's a name_slots story player not currently focus-ghosted,
-    // OR it's in the active click-spotlight (which overrides focus). The
-    // spotlight ADDS emphasis (gold ring + value chip) on top — it does NOT dim
-    // everyone else, so every labelled player keeps their shine at each event.
-    const spot = (spotlightSlots && spotlightSlots.size) ? spotlightSlots : null;
-    const isHL = (slot) =>
-      (spot && spot.has(slot)) || (nameSlots.has(slot) && (!focusSet || focusSet.has(slot)));
-    const isSpot = (slot) => !!(spot && spot.has(slot));
+    // Label filter: only players toggled on via the write-up tables get
+    // labelled / brightened / connected. Empty = clean play. A toggle overrides
+    // focus ghosting so you can inspect a pair even during the strike close-up.
+    const activeSlots = new Set();
+    for (const arr of activeGroups.values()) for (const s of arr) activeSlots.add(s);
+    const isHL = (slot) => activeSlots.has(slot);
 
     // --- pair edges: compute FIRST so the dim logic below knows which
     // players are in a top pair (and shouldn't be dimmed). Writing the HTML
@@ -682,7 +688,7 @@ function initClip(c, detail) {
       // Gold ring marks the actively spotlit players (a clicked table row).
       // name_slots stay bright + labelled but un-ringed, so 8-10 labelled
       // story players don't turn into a wall of rings.
-      const ringed = isSpot(p.slot);
+      const ringed = isHL(p.slot);
       const namedRing = ringed
         ? `<circle cx="${sx}" cy="${sy}" r="${(radius + 4).toFixed(1)}" fill="none" stroke="#ffd166" stroke-opacity="0.95" stroke-width="2.5" />`
         : "";
@@ -703,42 +709,28 @@ function initClip(c, detail) {
       const hoverTxt = p.name ? `${p.name}${p.position ? " · " + p.position : ""}` : `slot ${p.slot}`;
       dotsHTML += `${arrow}${namedRing}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}"><title>${escapeSvg(hoverTxt)}</title></circle>`;
     }
-    // Co-attention NETWORK among the highlighted players: if two of the
-    // labelled story players (or, when a row is clicked, the spotlight set)
-    // have pair attention this frame, connect them with a gold line whose
-    // width scales with that attention. The clicked pair also gets the live
-    // value on a chip. This is the "if they have AW-JOI between them, connect
-    // them" view — you watch the recycle network light up and decay as you scrub.
-    const linkSet = new Set();
-    for (let s = 0; s < 22; s++) if (isHL(s)) linkSet.add(s);
-    if (linkSet.size >= 2) {
-      const arr = [...linkSet];
-      let links = "";
-      for (let ii = 0; ii < arr.length; ii++) {
-        for (let jj = ii + 1; jj < arr.length; jj++) {
-          const s1 = arr[ii], s2 = arr[jj];
-          const a = playerDOM[s1], b = playerDOM[s2];
-          if (!a || !b) continue;
-          const bothSpot = !!(spot && spot.has(s1) && spot.has(s2));
-          // AW-JOI is a same-team notion, so the ambient network only connects
-          // teammates; a clicked row can still link a cross-team pair on purpose.
-          if (String(a.p.team_id) !== String(b.p.team_id) && !bothSpot) continue;
-          let w = 0;
-          for (const tr of (f.pair_attention_score_top || [])) {
-            if ((tr[0] === s1 && tr[1] === s2) || (tr[0] === s2 && tr[1] === s1)) { w = tr[2] || 0; break; }
-          }
-          if (w < 0.02 && !bothSpot) continue;   // genuine co-attention only (clicked pair always shown)
-          const lineW = 1.2 + Math.min(0.15, w) * 22;
-          const dash = w > 0.02 ? "" : ` stroke-dasharray="4 3"`;
-          links += `<line x1="${a.sx.toFixed(1)}" y1="${a.sy.toFixed(1)}" x2="${b.sx.toFixed(1)}" y2="${b.sy.toFixed(1)}" stroke="#ffd166" stroke-opacity="${bothSpot ? 0.95 : 0.55}" stroke-width="${(bothSpot ? lineW + 0.8 : lineW).toFixed(1)}" stroke-linecap="round"${dash} />`;
-          if (bothSpot) {
-            const mx = (a.sx + b.sx) / 2, my = (a.sy + b.sy) / 2;
-            links += `<rect x="${(mx - 14).toFixed(1)}" y="${(my - 6.5).toFixed(1)}" width="28" height="13" rx="2.5" fill="#0b1220" fill-opacity="0.88" stroke="#ffd166" stroke-opacity="0.7" stroke-width="0.6" /><text x="${mx.toFixed(1)}" y="${(my + 2.7).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="700" fill="#ffd166" font-family="-apple-system,Segoe UI,sans-serif">${w.toFixed(2)}</text>`;
-          }
-        }
+    // Connection lines: one per toggled-on group that is a pair — a gold line
+    // whose width tracks the score-specialist's pair attention this frame, with
+    // the live value on a chip. Solid when genuinely co-attended, dashed-thin
+    // when faded, so you watch each toggled relationship light up and decay as
+    // you scrub. (Drawn straight from the active groups, so a cross-team pair
+    // like Messi↔Souttar still connects when that row is on.)
+    let links = "";
+    for (const arr of activeGroups.values()) {
+      if (!arr || arr.length !== 2) continue;
+      const a = playerDOM[arr[0]], b = playerDOM[arr[1]];
+      if (!a || !b) continue;
+      let w = 0;
+      for (const tr of (f.pair_attention_score_top || [])) {
+        if ((tr[0] === arr[0] && tr[1] === arr[1]) || (tr[0] === arr[1] && tr[1] === arr[0])) { w = tr[2] || 0; break; }
       }
-      dotsHTML = links + dotsHTML;
+      const lineW = 1.2 + Math.min(0.15, w) * 22;
+      const dash = w > 0.02 ? "" : ` stroke-dasharray="4 3"`;
+      const mx = (a.sx + b.sx) / 2, my = (a.sy + b.sy) / 2;
+      links += `<line x1="${a.sx.toFixed(1)}" y1="${a.sy.toFixed(1)}" x2="${b.sx.toFixed(1)}" y2="${b.sy.toFixed(1)}" stroke="#ffd166" stroke-opacity="0.92" stroke-width="${lineW.toFixed(1)}" stroke-linecap="round"${dash} />`;
+      links += `<rect x="${(mx - 14).toFixed(1)}" y="${(my - 6.5).toFixed(1)}" width="28" height="13" rx="2.5" fill="#0b1220" fill-opacity="0.88" stroke="#ffd166" stroke-opacity="0.7" stroke-width="0.6" /><text x="${mx.toFixed(1)}" y="${(my + 2.7).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="700" fill="#ffd166" font-family="-apple-system,Segoe UI,sans-serif">${w.toFixed(2)}</text>`;
     }
+    if (links) dotsHTML = links + dotsHTML;
     gPlayers.innerHTML = dotsHTML;
 
     // --- player↔player pair attention edges (score specialist, GKs excluded).
@@ -966,7 +958,7 @@ function initClip(c, detail) {
       const dom = playerDOM[slot];
       if (!dom) continue;
       const { p, sx, sy } = dom;
-      const slotGold = isSpot(slot);
+      const slotGold = true; // every labelled player is toggled-on → gold tag
       const txt = labelText(p);
       const labelW = txt.length * 5.2 + 10;
       const labelH = 12;
@@ -1197,13 +1189,25 @@ function initClip(c, detail) {
   registerFocusUpdate(applyFocus);
   registerFrameRedraw(() => renderFrame(true));
 
-  // Register this clip so a write-up table row can jump the scrubber to a
-  // frame and circle the players whose relationship that row is about.
+  // Register this clip so the write-up tables can toggle which players/pairs
+  // are labelled + connected (a label filter), and optionally scrub to a frame.
   clipControllers.set(c.label, {
-    focus(frame, slots) {
-      spotlightSlots = (slots && slots.length) ? new Set(slots) : null;
-      setFrame(frame);
+    toggle(key, slots, frame) {
+      if (activeGroups.has(key)) {
+        activeGroups.delete(key);
+      } else {
+        activeGroups.set(key, slots);
+        if (frame != null && !Number.isNaN(frame)) setFrame(frame);
+      }
+      renderFrame(true);
     },
+    setGroups(groups) {
+      activeGroups.clear();
+      for (const g of groups) if (g && g.key) activeGroups.set(g.key, g.slots || []);
+      renderFrame(true);
+    },
+    clear() { activeGroups.clear(); renderFrame(true); },
+    isActive(key) { return activeGroups.has(key); },
   });
 
   // Per-clip control listeners — each clip refreshes only itself in
@@ -1260,12 +1264,10 @@ function initClip(c, detail) {
   setFrame(0);
   applyFocus();
 
-  // Any manual navigation releases the table-driven spotlight.
-  scrub.addEventListener("input", (e) => { spotlightSlots = null; setFrame(Number(e.target.value)); });
+  scrub.addEventListener("input", (e) => setFrame(Number(e.target.value)));
 
   document.querySelectorAll(`[data-clip="${c.label}"]`).forEach((btn) => {
     btn.addEventListener("click", () => {
-      spotlightSlots = null;
       const a = btn.dataset.action;
       if (a === "prev") setFrame(i - 1);
       else if (a === "next") setFrame(i + 1);

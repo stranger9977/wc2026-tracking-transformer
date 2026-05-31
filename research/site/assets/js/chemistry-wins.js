@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto, focusClipMoment } from "./interactive-plays.js?v=label-all-network";
+import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=table-filter";
 
 /* ---------------- data ---------------- */
 
@@ -988,24 +988,63 @@ async function mountPlay(divId, label) {
 
 await mountPlay("play-argentina", "argentina-australia-messi");
 
-// Wire the Messi write-up tables to the play above them: clicking a row scrubs
-// the clip to the moment that relationship is credited (data-frame) and circles
-// the players (data-slots), then scrolls the play into view. Rows opt in with
+// The Messi write-up tables act as a LABEL FILTER on the play above them: each
+// row toggles its pair/player's label + connection on the pitch, so you inspect
+// one relationship at a time instead of drowning the play in 10 tags. Each
+// table also gets a "show these N / clear all" bar; "show these" on the on-ball
+// table is how you look at only the on-ball players. Rows opt in with
 // class="clip-jump" + data-clip / data-frame / data-slots.
-function wireClipJumps() {
-  document.querySelectorAll(".clip-jump").forEach((row) => {
+function wireClipFilters() {
+  const rows = [...document.querySelectorAll("tr.clip-jump")];
+  if (!rows.length) return;
+  const scrollToPlay = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  const syncRows = () => {
+    for (const row of rows) row.classList.toggle("active", isClipGroupActive(row._clip, row._key));
+  };
+  for (const row of rows) {
+    row._clip = row.dataset.clip;
+    row._play = row.dataset.play || "play-argentina";
+    row._frame = Number(row.dataset.frame || 0);
+    row._slots = (row.dataset.slots || "").split(",").map((s) => Number(s.trim())).filter((s) => !Number.isNaN(s));
+    row._key = `${row.dataset.slots}:${row._frame}`;
     row.addEventListener("click", () => {
-      const label = row.dataset.clip;
-      const frame = Number(row.dataset.frame || 0);
-      const slots = (row.dataset.slots || "")
-        .split(",").map((s) => Number(s.trim())).filter((s) => !Number.isNaN(s));
-      focusClipMoment(label, frame, slots);
-      const playEl = document.getElementById(row.dataset.play || "play-argentina");
-      if (playEl) playEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      toggleClipGroup(row._clip, row._key, row._slots, row._frame);
+      if (isClipGroupActive(row._clip, row._key)) scrollToPlay(row._play);
+      syncRows();
     });
-  });
+  }
+  // Inject a "show these N / clear" control bar above each table of clip rows.
+  const byTable = new Map();
+  for (const row of rows) {
+    const tbl = row.closest("table");
+    if (!byTable.has(tbl)) byTable.set(tbl, []);
+    byTable.get(tbl).push(row);
+  }
+  for (const [tbl, trows] of byTable) {
+    const clip = trows[0]._clip, play = trows[0]._play;
+    const bar = document.createElement("div");
+    bar.className = "clip-filter-bar small dim";
+    bar.style.cssText = "margin:0.3rem 0 0.4rem; display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;";
+    bar.innerHTML = `<span style="color:var(--text)">Show in play:</span>` +
+      `<button type="button" class="btn small" data-act="all">these ${trows.length}</button>` +
+      `<button type="button" class="btn small" data-act="clear">clear all</button>` +
+      `<span class="muted">— or click any row to toggle it</span>`;
+    const host = tbl.closest("div") || tbl;
+    host.parentNode.insertBefore(bar, host);
+    bar.querySelector('[data-act="all"]').addEventListener("click", () => {
+      setClipGroups(clip, trows.map((r) => ({ key: r._key, slots: r._slots })));
+      scrollToPlay(play);
+      syncRows();
+    });
+    bar.querySelector('[data-act="clear"]').addEventListener("click", () => { clearClipLabels(clip); syncRows(); });
+  }
+  // Default: label just the #1 off-ball pair (Otamendi ↔ Fernández) so the play
+  // opens showing one relationship rather than a bare pitch or a wall of tags.
+  const first = rows.find((r) => r.dataset.slots === "1,2");
+  if (first) toggleClipGroup(first._clip, first._key, first._slots, first._frame);
+  syncRows();
 }
-wireClipJumps();
+wireClipFilters();
 await mountPlay("play-france", "argentina-france-mbappe-volley");
 await mountPlay("play-morocco", "morocco-portugal-en-nesyri");
 await mountPlay("play-croatia", "croatia-japan-perisic");
