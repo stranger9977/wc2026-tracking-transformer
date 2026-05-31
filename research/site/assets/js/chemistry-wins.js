@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto } from "./interactive-plays.js?v=beta-cal-ttg";
+import { mountClipInto } from "./interactive-plays.js?v=fernandez-label";
 
 /* ---------------- data ---------------- */
 

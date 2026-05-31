@@ -536,6 +536,12 @@ function initClip(c, detail) {
     const focusSet = (annNow && Array.isArray(annNow.focus_slots) && annNow.focus_slots.length)
       ? new Set(annNow.focus_slots)
       : null;
+    // Per-clip "always keep these players bright + named" set (e.g. the
+    // chemistry pair the write-up is about). A named player is highlighted
+    // unless a focus chapter is explicitly collapsing to a different set.
+    const nameSlots = new Set(c.name_slots || []);
+    const isNameHighlighted = (slot) =>
+      nameSlots.has(slot) && (!focusSet || focusSet.has(slot));
 
     // --- pair edges: compute FIRST so the dim logic below knows which
     // players are in a top pair (and shouldn't be dimmed). Writing the HTML
@@ -619,14 +625,19 @@ function initClip(c, detail) {
     for (const entry of playerDOM) {
       if (!entry) continue;
       const { p, sx, sy, color } = entry;
+      // Named players (name_slots) are always kept bright + full-size so the
+      // reader never loses them — they don't get dimmed or focus-ghosted.
+      const named = isNameHighlighted(p.slot);
       // Focus mode: every player is STILL rendered, but non-focus players
       // are dropped to ghost opacity (~0.14) and a smaller radius, so the
       // focus pair pops while the rest of the team is faintly visible for
       // structural context (off-ball runs, defensive line). No focus →
       // standard dim/involved logic.
-      const involved = dimSet.has(p.slot) || pairDrawn.has(p.slot) || p.has_possession;
+      const involved = named || dimSet.has(p.slot) || pairDrawn.has(p.slot) || p.has_possession;
       let dimOp;
-      if (focusSet) {
+      if (named) {
+        dimOp = 1.0;
+      } else if (focusSet) {
         dimOp = focusSet.has(p.slot) ? 1.0 : 0.14;
       } else {
         dimOp = involved ? 1.0 : 0.32;
@@ -634,13 +645,22 @@ function initClip(c, detail) {
       // Dots: a touch smaller overall, even smaller in focus mode so the
       // FEEDER + FINISH rings aren't fighting the dots when feeder and
       // scorer are close together. Non-focus players get a smaller dot
-      // still so the ghost layer stays subtle.
+      // still so the ghost layer stays subtle. Named players get the full
+      // size regardless.
       let radius;
-      if (focusSet) {
+      if (named) {
+        radius = p.is_gk ? 7.5 : 6.5;
+      } else if (focusSet) {
         radius = focusSet.has(p.slot) ? (p.is_gk ? 6 : 5.5) : (p.is_gk ? 4 : 3.5);
       } else {
         radius = p.is_gk ? 7.5 : 6.5;
       }
+      // Named players get a persistent gold halo ring so the dot itself
+      // reads as "this is the one the text is about", separate from the
+      // attention halos.
+      const namedRing = named
+        ? `<circle cx="${sx}" cy="${sy}" r="${(radius + 4).toFixed(1)}" fill="none" stroke="#ffd166" stroke-opacity="0.95" stroke-width="2" />`
+        : "";
       const stroke = p.is_gk ? "#00d68f" : "#ffffffcc";
       const sw = p.is_gk ? 1.8 : 1.0;
       // Velocity arrow tail — 0.5s lookahead. Skipped in focus mode (it
@@ -656,7 +676,7 @@ function initClip(c, detail) {
         }
       }
       const hoverTxt = p.name ? `${p.name}${p.position ? " · " + p.position : ""}` : `slot ${p.slot}`;
-      dotsHTML += `${arrow}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}"><title>${escapeSvg(hoverTxt)}</title></circle>`;
+      dotsHTML += `${arrow}${namedRing}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}"><title>${escapeSvg(hoverTxt)}</title></circle>`;
     }
     gPlayers.innerHTML = dotsHTML;
 
@@ -875,39 +895,48 @@ function initClip(c, detail) {
       <circle cx="${bx + R * 0.62}" cy="${by + R * 0.55}" r="${R * 0.18}" fill="#111" />
       <circle cx="${bx}" cy="${by - R * 0.78}" r="${R * 0.16}" fill="#111" />`;
 
-    // --- labels with collision avoidance
+    // --- labels
     let labelsHTML = "";
-    // Per-clip "always name these players" set — used to keep a specific
-    // off-ball player legible even when they're not on the ball (e.g. the
-    // chemistry pair the surrounding write-up is about, so the reader can
-    // tell which dot is Fernández). Skipped while a player is focus-ghosted.
-    const nameSlots = new Set(c.name_slots || []);
-    // Order labels by attention (high-attention players draw first → others
-    // get nudged around them, not the reverse).
-    const orderedSlots = [...players].map((p) => p.slot).sort((a, b) => (smoothAttn[b] || 0) - (smoothAttn[a] || 0));
-    for (const slot of orderedSlots) {
+    // Surname + jersey number + position, e.g. "Fernández · #24 · CM".
+    const labelText = (p) => {
+      const surname = (p.name || `slot ${p.slot}`).split(" ").slice(-1)[0];
+      const num = (p.jersey != null && p.jersey !== "") ? ` · #${p.jersey}` : "";
+      return p.position ? `${surname}${num} · ${p.position}` : `${surname}${num}`;
+    };
+    // Pass 1 — pinned name_slots labels. These sit at a FIXED offset directly
+    // above the dot (no collision-avoidance reshuffle) so the tag tracks the
+    // player smoothly instead of jumping around frame-to-frame. Gold accent +
+    // jersey number so the reader can immediately pick out, e.g., Fernández.
+    // Placed first so the ball-carrier label below dodges them.
+    for (const slot of nameSlots) {
+      if (focusSet && !focusSet.has(slot)) continue; // ghosted this chapter
       const dom = playerDOM[slot];
       if (!dom) continue;
-      const { p, sx, sy, color } = dom;
-      const surname = (p.name || `slot ${p.slot}`).split(" ").slice(-1)[0];
-      const txt = p.position ? `${surname} · ${p.position}` : surname;
+      const { p, sx, sy } = dom;
+      const txt = labelText(p);
+      const labelW = txt.length * 5.4 + 10;
+      const labelH = 12;
+      const lx = sx - labelW / 2;     // centered above the dot
+      const ly = sy - 14 - labelH;    // fixed offset above (clears the gold ring)
+      placed.push({ x: lx, y: ly, w: labelW, h: labelH });
+      labelsHTML += `<g class="iplay-label"><rect x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" width="${labelW.toFixed(1)}" height="${labelH}" fill="#0b1220" fill-opacity="0.92" rx="2.5" stroke="#ffd166" stroke-opacity="0.95" stroke-width="1" /><text x="${(lx + labelW / 2).toFixed(1)}" y="${(ly + 8.5).toFixed(1)}" fill="#ffd166" font-size="9" font-weight="700" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
+    }
+    // Pass 2 — the ball-carrier (collision-avoided). Off-ball players that
+    // aren't in name_slots stay nameless; their identity is carried by the
+    // rings (FEEDER / FINISH / PIN), the pair edges, and the dot's <title>.
+    const orderedSlots = [...players].map((p) => p.slot).sort((a, b) => (smoothAttn[b] || 0) - (smoothAttn[a] || 0));
+    for (const slot of orderedSlots) {
+      if (nameSlots.has(slot)) continue; // already pinned in pass 1
+      const dom = playerDOM[slot];
+      if (!dom) continue;
+      const { p, sx, sy } = dom;
+      if (!p.has_possession) continue;
+      const txt = labelText(p);
       const labelW = txt.length * 5.1 + 8;
       const labelH = 11;
       const { lx, ly } = pickLabelPos(sx, sy, p.vx, p.vy, labelW, labelH, placed);
       placed.push({ x: lx, y: ly, w: labelW, h: labelH });
-      // Name tags render on the ball-carrier, plus any clip-configured
-      // name_slots (as long as they're not focus-ghosted). Everyone else
-      // stays nameless on the pitch — their identity is carried by the rings
-      // (FEEDER / FINISH / PIN), the pair edges, the halo, and the dot's SVG
-      // <title> for hover — which keeps the off-ball structure quiet.
-      const forceName = nameSlots.has(p.slot) && (!focusSet || focusSet.has(p.slot));
-      if (!p.has_possession && !forceName) continue;
-      // Forced (off-ball) names get an accent border so they read as
-      // "this is the player the text is talking about", not the ball-carrier.
-      const isForced = forceName && !p.has_possession;
-      const boxStroke = isForced ? ` stroke="#ffd166" stroke-opacity="0.9" stroke-width="0.8"` : "";
-      const txtFill = isForced ? "#ffd166" : "#ffffff";
-      labelsHTML += `<g class="iplay-label"><rect x="${lx}" y="${ly}" width="${labelW}" height="${labelH}" fill="#0b1220" fill-opacity="0.78" rx="2.5"${boxStroke} /><text x="${lx + 4}" y="${ly + 8}" fill="${txtFill}" font-size="8.5" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
+      labelsHTML += `<g class="iplay-label"><rect x="${lx}" y="${ly}" width="${labelW}" height="${labelH}" fill="#0b1220" fill-opacity="0.78" rx="2.5" /><text x="${lx + 4}" y="${ly + 8}" fill="#ffffff" font-size="8.5" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
     }
     gLabels.innerHTML = labelsHTML;
 
