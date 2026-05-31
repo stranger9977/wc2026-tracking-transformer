@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=table-filter";
+import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=filter-panel";
 
 /* ---------------- data ---------------- */
 
@@ -988,61 +988,111 @@ async function mountPlay(divId, label) {
 
 await mountPlay("play-argentina", "argentina-australia-messi");
 
-// The Messi write-up tables act as a LABEL FILTER on the play above them: each
-// row toggles its pair/player's label + connection on the pitch, so you inspect
-// one relationship at a time instead of drowning the play in 10 tags. Each
-// table also gets a "show these N / clear all" bar; "show these" on the on-ball
-// table is how you look at only the on-ball players. Rows opt in with
-// class="clip-jump" + data-clip / data-frame / data-slots.
+// Build a FILTER PANEL right above the Messi play. Each chip toggles one
+// relationship's label + connection on the pitch; the chip labels match the
+// numbered rows in the tables further down, so it's clear what each references.
+// The tables below stay clickable too (kept in sync), but the controls live up
+// here next to the play rather than buried below it.
 function wireClipFilters() {
   const rows = [...document.querySelectorAll("tr.clip-jump")];
   if (!rows.length) return;
   const scrollToPlay = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
-  const syncRows = () => {
-    for (const row of rows) row.classList.toggle("active", isClipGroupActive(row._clip, row._key));
-  };
-  for (const row of rows) {
+
+  // Collect each row's group + a readable label (number/time + pair/pass name).
+  const items = rows.map((row) => {
+    const frame = Number(row.dataset.frame || 0);
+    const slots = (row.dataset.slots || "").split(",").map((s) => Number(s.trim())).filter((s) => !Number.isNaN(s));
     row._clip = row.dataset.clip;
     row._play = row.dataset.play || "play-argentina";
-    row._frame = Number(row.dataset.frame || 0);
-    row._slots = (row.dataset.slots || "").split(",").map((s) => Number(s.trim())).filter((s) => !Number.isNaN(s));
-    row._key = `${row.dataset.slots}:${row._frame}`;
-    row.addEventListener("click", () => {
-      toggleClipGroup(row._clip, row._key, row._slots, row._frame);
-      if (isClipGroupActive(row._clip, row._key)) scrollToPlay(row._play);
-      syncRows();
+    row._frame = frame;
+    row._slots = slots;
+    row._key = `${row.dataset.slots}:${frame}`;
+    const num = (row.cells[0]?.textContent || "").replace(/\s+/g, " ").trim();
+    const name = (row.cells[1]?.textContent || "").replace(/\s+/g, " ").trim();
+    return { row, key: row._key, slots, frame, clip: row._clip, play: row._play, num, name, table: row.closest("table") };
+  });
+  // off-ball table = the one whose rows are all at frame 0 (shared peak); the
+  // other table is the on-ball pass chain.
+  const tables = [...new Set(items.map((it) => it.table))];
+  const isOffball = (tbl) => items.filter((it) => it.table === tbl).every((it) => it.frame === 0);
+  const offball = items.filter((it) => isOffball(it.table));
+  const onball = items.filter((it) => !isOffball(it.table));
+  const clip = items[0].clip, play = items[0].play;
+
+  const syncAll = () => {
+    for (const it of items) {
+      const on = isClipGroupActive(it.clip, it.key);
+      it.row.classList.toggle("active", on);
+      it.chip?.classList.toggle("active", on);
+    }
+  };
+  const chip = (it) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "clip-chip";
+    b.textContent = `${it.num} · ${it.name}`;
+    b.title = "Toggle this relationship's labels + connection on the play";
+    b.addEventListener("click", () => {
+      toggleClipGroup(it.clip, it.key, it.slots, it.frame);
+      if (isClipGroupActive(it.clip, it.key)) scrollToPlay(it.play);
+      syncAll();
+    });
+    it.chip = b;
+    return b;
+  };
+  const groupBtn = (text, fn) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "btn small"; b.textContent = text;
+    b.addEventListener("click", () => { fn(); scrollToPlay(play); syncAll(); });
+    return b;
+  };
+
+  const panel = document.createElement("div");
+  panel.className = "card clip-filter-panel";
+  panel.style.cssText = "margin:0 0 0.6rem; padding:0.6rem 0.85rem;";
+  const intro = document.createElement("p");
+  intro.className = "small mt-0 mb-0";
+  intro.style.marginBottom = "0.45rem";
+  intro.innerHTML = `<strong style="color:var(--accent)">&#9678; Filter the play</strong> &mdash; click a chip to label + connect that relationship on the pitch. The labels match the numbered rows in the two tables further down. Toggle as many as you want; the play stays on whatever you pick as you scrub.`;
+  panel.appendChild(intro);
+
+  const mkRow = (label, list) => {
+    const r = document.createElement("div");
+    r.style.cssText = "display:flex; gap:0.35rem; flex-wrap:wrap; align-items:center; margin-bottom:0.4rem;";
+    const lab = document.createElement("span");
+    lab.className = "small muted"; lab.style.cssText = "min-width:6.2rem; color:var(--text)"; lab.textContent = label;
+    r.appendChild(lab);
+    for (const it of list) r.appendChild(chip(it));
+    return r;
+  };
+  if (offball.length) panel.appendChild(mkRow("Off-ball pairs:", offball));
+  if (onball.length) panel.appendChild(mkRow("On-ball passes:", onball));
+
+  const btnRow = document.createElement("div");
+  btnRow.style.cssText = "display:flex; gap:0.4rem; flex-wrap:wrap; align-items:center;";
+  if (offball.length) btnRow.appendChild(groupBtn("All off-ball", () => setClipGroups(clip, offball.map((it) => ({ key: it.key, slots: it.slots })))));
+  if (onball.length) btnRow.appendChild(groupBtn("All on-ball", () => setClipGroups(clip, onball.map((it) => ({ key: it.key, slots: it.slots })))));
+  btnRow.appendChild(groupBtn("Clear", () => clearClipLabels(clip)));
+  panel.appendChild(btnRow);
+
+  // Insert the panel right above the play box.
+  const playEl = document.getElementById(play);
+  if (playEl && playEl.parentNode) playEl.parentNode.insertBefore(panel, playEl);
+
+  // Keep table rows clickable too, in sync with the chips.
+  for (const it of items) {
+    it.row.addEventListener("click", () => {
+      toggleClipGroup(it.clip, it.key, it.slots, it.frame);
+      if (isClipGroupActive(it.clip, it.key)) scrollToPlay(it.play);
+      syncAll();
     });
   }
-  // Inject a "show these N / clear" control bar above each table of clip rows.
-  const byTable = new Map();
-  for (const row of rows) {
-    const tbl = row.closest("table");
-    if (!byTable.has(tbl)) byTable.set(tbl, []);
-    byTable.get(tbl).push(row);
-  }
-  for (const [tbl, trows] of byTable) {
-    const clip = trows[0]._clip, play = trows[0]._play;
-    const bar = document.createElement("div");
-    bar.className = "clip-filter-bar small dim";
-    bar.style.cssText = "margin:0.3rem 0 0.4rem; display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;";
-    bar.innerHTML = `<span style="color:var(--text)">Show in play:</span>` +
-      `<button type="button" class="btn small" data-act="all">these ${trows.length}</button>` +
-      `<button type="button" class="btn small" data-act="clear">clear all</button>` +
-      `<span class="muted">— or click any row to toggle it</span>`;
-    const host = tbl.closest("div") || tbl;
-    host.parentNode.insertBefore(bar, host);
-    bar.querySelector('[data-act="all"]').addEventListener("click", () => {
-      setClipGroups(clip, trows.map((r) => ({ key: r._key, slots: r._slots })));
-      scrollToPlay(play);
-      syncRows();
-    });
-    bar.querySelector('[data-act="clear"]').addEventListener("click", () => { clearClipLabels(clip); syncRows(); });
-  }
-  // Default: label just the #1 off-ball pair (Otamendi ↔ Fernández) so the play
-  // opens showing one relationship rather than a bare pitch or a wall of tags.
-  const first = rows.find((r) => r.dataset.slots === "1,2");
-  if (first) toggleClipGroup(first._clip, first._key, first._slots, first._frame);
-  syncRows();
+
+  // Default: label just the #1 off-ball pair so the play opens with one
+  // relationship shown rather than a bare pitch or a wall of tags.
+  const first = items.find((it) => it.row.dataset.slots === "1,2") || offball[0];
+  if (first) toggleClipGroup(first.clip, first.key, first.slots, first.frame);
+  syncAll();
 }
 wireClipFilters();
 await mountPlay("play-france", "argentina-france-mbappe-volley");

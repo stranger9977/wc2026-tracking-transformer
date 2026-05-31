@@ -980,7 +980,7 @@ function initClip(c, detail) {
     // rings (FEEDER / FINISH / PIN), the pair edges, and the dot's <title>.
     const orderedSlots = [...players].map((p) => p.slot).sort((a, b) => (smoothAttn[b] || 0) - (smoothAttn[a] || 0));
     for (const slot of orderedSlots) {
-      if (nameSlots.has(slot)) continue; // already pinned in pass 1
+      if (isHL(slot)) continue; // already labelled in pass 1 (active filter)
       const dom = playerDOM[slot];
       if (!dom) continue;
       const { p, sx, sy } = dom;

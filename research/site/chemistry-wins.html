@@ -304,14 +304,17 @@
             tr.clip-jump.active { background: rgba(255,209,102,0.16) !important; }
             tr.clip-jump.active td:first-child { box-shadow: inset 3px 0 0 #ffd166; }
             tr.clip-jump.active td:first-child::before { content: "\25C9\00a0"; color: #ffd166; }
+            .clip-chip { cursor:pointer; font-size:0.8rem; padding:0.15rem 0.55rem; border-radius:999px;
+              border:1px solid var(--border); background:var(--bg-elev-2); color:var(--text-dim); transition:all 0.12s; }
+            .clip-chip:hover { border-color:#ffd166; color:var(--text); }
+            .clip-chip.active { background:rgba(255,209,102,0.18); border-color:#ffd166; color:#ffd166; font-weight:700; }
           </style>
           <h3 class="mt-2">The on-ball story &mdash; pass-by-pass</h3>
           <p class="dim small" style="margin:0.2rem 0 0;">
-            <strong style="color:var(--accent)">&#9678; Tip:</strong> these tables
-            are a <strong>filter on the play above</strong> &mdash; click any row to
-            toggle that pair's labels + connection on the pitch (and jump to its
-            moment). Use <em>"Show in play"</em> on a table to label that whole set
-            at once &mdash; e.g. the on-ball table to see only the on-ball players.
+            <strong style="color:var(--accent)">&#9678; Tip:</strong> these table
+            rows double as the <strong>filter chips beside the play above</strong> &mdash;
+            the numbers/labels match. Click a row (or a chip up top) to toggle that
+            relationship's labels + connection on the pitch.
           </p>
           <p>
             Reading the actual pass chain that produced this goal:
@@ -1045,6 +1048,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=table-filter"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=filter-panel"></script>
 </body>
 </html>
