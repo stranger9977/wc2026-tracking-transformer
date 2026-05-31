@@ -47,7 +47,7 @@ export function clipScaffold(c) {
         <input type="checkbox" data-iplay="focus">
         <span>10s pre-goal focus</span>
       </label>
-      <span class="wb-toggle" style="cursor:default" title="How many top-attended players to ring with a halo + draw a ball→player attention line to.">
+      <span class="wb-toggle" style="cursor:default" title="How many top ball→player-attended players to ring with a halo. (Player↔player co-attention is shown as a line between the pair instead.)">
         <span>Top attended:</span>
         <select data-iplay="top-n" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
           <option value="3" selected>3</option>
@@ -791,26 +791,11 @@ function initClip(c, detail) {
       .slice(0, topK)
       .map(([, i]) => i);
     const bxy = mToSvg(f.ball.x, f.ball.y);
-    let edgesHTML = "";
-    for (const s of topIdx) {
-      const target = playerDOM[s];
-      if (!target) continue;
-      // Focus mode: skip ball→player attention edges where the target
-      // isn't a focus slot — they were dangling out to invisible players.
-      if (focusSet && !focusSet.has(s)) continue;
-      const a = smoothAttn[s] || 0;
-      // Map attention to edge thickness 1.2..5.5 with a minimum width and
-      // opacity so every selected edge is visible even when its attention
-      // value is tiny (which is the common case past rank 3).
-      const w = 1.2 + Math.min(0.6, a) * 7.0;
-      const opacity = 0.55 + Math.min(0.6, a) * 0.6;
-      // Same-team vs cross-team (relative to the ball-carrying team if known).
-      const carrierTeam = ballCarrierTeamId(f, players);
-      const same = carrierTeam && String(target.p.team_id) === String(carrierTeam);
-      const stroke = same ? "#facc15" : "#fb923c";
-      edgesHTML += `<line x1="${bxy[0]}" y1="${bxy[1]}" x2="${target.sx}" y2="${target.sy}" stroke="${stroke}" stroke-width="${w.toFixed(2)}" stroke-opacity="${opacity.toFixed(2)}" stroke-linecap="round" />`;
-    }
-    gEdges.innerHTML = edgesHTML;
+    // Visual grammar: a LINE means player↔player PAIR co-attention; a HALO
+    // means individual ball→player attention. So ball→player attention is
+    // shown ONLY as the halo below (topIdx above still selects who gets one) —
+    // we no longer draw a ball→player line, which used to read like a pair edge.
+    gEdges.innerHTML = "";
 
     // --- halos on top-K (smoothed radius + pulse on rank-0). Opacity falls
     // off smoothly with rank but is floored so every selected player gets a

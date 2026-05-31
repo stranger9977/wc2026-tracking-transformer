@@ -266,16 +266,17 @@
 
           <h3 class="mt-2">Reading the Messi play above</h3>
           <p>
-            The build-up phase (Argentina recycling: Romero &harr;
-            Otamendi, Otamendi &harr; Mart&iacute;nez, Otamendi &harr;
+            The build-up phase (Argentina recycling: Otamendi &harr;
+            Fernández, Otamendi &harr; Romero, Otamendi &harr;
             Mac Allister) keeps adding small contributions every frame
             as the model warms up to the developing attack and the
-            scoring probability climbs gradually. Then in the strike
-            window, <strong>Otamendi &harr; Messi</strong> spikes hard
-            for ~10 frames as the model collapses attention onto the
-            two of them while &Delta;P<sub>score</sub> jumps from the
-            shot. That short spike is most of their pair's total, but
-            it sits on top of all the slow accumulation from earlier.
+            scoring probability climbs gradually &mdash; while
+            <strong>Fernández peels away to drag a defender</strong> and
+            Otamendi recycles out to Messi. The
+            <strong>Otamendi &harr; Messi</strong> pair itself spikes in a
+            single frame right at the recovery (its 0.087 is mostly that
+            one instant), so its total is smaller than the sustained
+            recycle pairs even though it's the on-ball "feed."
             <br><br>
             The <strong>per-edge chips</strong> on the network
             graph (the small coloured numbers floating at the
@@ -463,14 +464,17 @@
 
           <h3 class="mt-2">The off-ball story &mdash; what matters when nobody's on the ball</h3>
           <p>
-            Event JOI says <strong>0.000</strong> for Otamendi-to-Messi.
-            AW-JOI says he's in the top six pairs of the play. The
-            difference is everything happening <em>between</em> the
-            on-ball events: who's drifting where, who the model thinks
-            is load-bearing for the next 10 s, which pair-relationships
-            are sustaining the threat. Top pair-level AW-JOI for this
-            play, end-of-clip totals (same numbers as the chips floating
-            on the network edges above the chart):
+            The on-ball table above already showed the trick: passes like
+            <strong>Otamendi&nbsp;&rarr;&nbsp;Messi</strong> (the feed, AW-JOI
+            0.087) and <strong>Mac&nbsp;Allister&nbsp;&rarr;&nbsp;Otamendi</strong>
+            (0.091) score essentially <strong>0 on event-JOI</strong> yet carry
+            real AW-JOI &mdash; the model was co-loading those pairs long before
+            the ball arrived. But the clearest off-ball signal is the pairs that
+            <em>never touch the ball together at all</em> &mdash; pure recycle
+            co-occupancy the event feed simply can't see. Those are the four
+            below (end-of-clip AW-JOI; same numbers as the network chips). The
+            two on-ball pairs are <em>not</em> repeated here &mdash; they live in
+            the pass table above.
           </p>
           <div style="overflow-x:auto;">
             <table class="data-table" style="width:100%; min-width:42rem; border-collapse:collapse; font-size:0.9rem;">
@@ -487,9 +491,7 @@
                 <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,2" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">1</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Fernández</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.099</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">CB &harr; CM &mdash; the recycling spine while Argentina build out.</td></tr>
                 <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,7" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">2</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Romero</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.096</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">CB pair &mdash; the back-line co-occupancy that anchors the recycle.</td></tr>
                 <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="0,1" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">3</td><td style="padding:0.4rem 0.6rem;">Álvarez &harr; Otamendi</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.095</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (9 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">Striker stretching the line + the centre-back feeding from behind.</td></tr>
-                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,6" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">4</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Mac Allister</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.091</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (14 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">The pass before the feed &mdash; midfielder dropping in to the centre-back. Longest sustained pair.</td></tr>
-                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,10" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">5</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Acuña</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.089</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">Left-back overlapping while the ball is on Otamendi's side.</td></tr>
-                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,5" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.08);"><td style="padding:0.4rem 0.6rem;"><strong>6</strong></td><td style="padding:0.4rem 0.6rem;"><strong>Otamendi &harr; Messi</strong></td><td style="padding:0.4rem 0.6rem; text-align:right; color:#ffd166; font-weight:700;">0.087</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&nbsp;s before goal (1 frame, peak)</td><td style="padding:0.4rem 0.6rem;" class="dim small">The on-ball feed pair &mdash; a single-frame spike at the <em>start</em> of the build-up, not the strike. Smaller in total than the buildup pairs above precisely <em>because</em> the spike is brief.</td></tr>
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,10" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">4</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Acuña</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.089</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">Left-back overlapping while the ball is on Otamendi's side.</td></tr>
               </tbody>
             </table>
           </div>
@@ -504,55 +506,53 @@
             <strong>&#9917;&nbsp;goal</strong> button jumps you there).
           </p>
           <p class="dim small" style="margin-top:0.4rem;">
-            <strong>Honest footnote on "top":</strong> these six are the
-            Otamendi-centred <em>recycle</em> pairs &mdash; the ones that
-            actually fed the strike. By raw mass the two biggest pairs on the
-            play are on the far side of the recycle (<strong>Gómez &harr;
-            Acu&ntilde;a 0.231</strong>, <strong>de&nbsp;Paul &harr; Gómez
-            0.199</strong>) &mdash; the left-side circulation that held the
-            ball longest. We feature the central spine because it's the part
-            that ends in Messi's goal; all numbers here are recomputed from
-            the live clip you're scrubbing, so they match its edge chips.
+            <strong>Honest footnote on "top":</strong> these four are the
+            off-ball Otamendi pairs &mdash; co-occupancy that never shows up as
+            a pass. By raw mass the two biggest pairs on the play are on the far
+            side of the recycle (<strong>Gómez &harr; Acu&ntilde;a 0.231</strong>,
+            <strong>de&nbsp;Paul &harr; Gómez 0.199</strong>) &mdash; the
+            left-side circulation that held the ball longest. We feature the
+            central spine because it's the part that ends in Messi's goal; all
+            numbers here are recomputed from the live clip you're scrubbing, so
+            they match its edge chips.
           </p>
-          <details class="card" style="margin:0.8rem 0 0; padding:0.2rem 0.9rem;">
-            <summary style="cursor:pointer;"><strong>Why does the model "like" these particular players?</strong></summary>
-            <div style="padding-top:0.5rem;">
-              <p class="mt-0">
-                Pair attention isn't a "who's best" score &mdash; it's
-                <em>whose position the model has to read to predict the next
-                10&nbsp;s right now</em>. In a settled build-up the prediction
-                hinges on <strong>shape</strong>, and the shape runs through
-                <strong>Otamendi</strong>: he's the recycling hub who's
-                structurally tied to everyone around the ball, so he co-loads
-                with each teammate that defines the build-up &mdash; the other
-                centre-back (<strong>Romero</strong>) holding the line, the
-                pivots dropping in (<strong>Fernández</strong>,
-                <strong>Mac&nbsp;Allister</strong>), the full-back overlapping
-                (<strong>Acuña</strong>), and the striker stretching the
-                defence (<strong>Álvarez</strong>). Those are the relationships
-                whose <em>relative spacing</em> tells the model whether this
-                possession is turning into a chance.
-              </p>
-              <p>
-                <strong>Two things are mixed in here, and we're honest about
-                it.</strong> Some of this attention is <em>genuine combination
-                play</em> &mdash; these players really do work the ball between
-                them. Some of it is the model reading <em>global structure</em>:
-                using where the back line and the strikers sit to gauge how
-                advanced and dangerous Argentina's shape is, which isn't
-                "chemistry" between any specific two so much as the model
-                orienting itself on the pitch. Attention blends both. So treat
-                AW-JOI as a <strong>relationship surface</strong> &mdash; it
-                tells you which pairings the model keeps co-loading during
-                rising threat, not yet <em>why</em>. Click a row above to drop
-                the play onto that moment: if the two are genuinely combining
-                you'll see them exchanging space with a fat attention line; if
-                the model is really just reading the line height, you'll see
-                them sitting statically in formation. Separating those two is
-                exactly the geometry we're working to surface next.
-              </p>
-            </div>
-          </details>
+          <div class="callout" style="background:var(--bg-elev-2); border-left:3px solid #54c875; padding:0.8rem 1rem; margin:0.8rem 0 0;">
+            <p class="mt-0"><strong style="color:#54c875;">Why the model co-loads #1 (Otamendi&nbsp;&harr;&nbsp;Fernández) &mdash; we traced it in the tracking.</strong></p>
+            <p>
+              Pair attention isn't a "who's best" score &mdash; it's the model
+              flagging a <em>relationship whose geometry is changing the threat</em>.
+              Watch this pair across its window (11.8&rarr;2.0&nbsp;s before goal)
+              and a real off-ball move falls out:
+            </p>
+            <ul style="margin:0.3rem 0 0.5rem;">
+              <li><strong>Otamendi</strong> is the hub &mdash; he recycles the
+                ball out to Messi, then repositions as the eventual feeder.</li>
+              <li><strong>Fernández peels the other way</strong> &mdash; he drifts
+                <strong>~16&nbsp;m deeper and wide</strong> (from x&nbsp;&approx;&nbsp;45
+                back to x&nbsp;&approx;&nbsp;29) <em>away</em> from where the goal
+                will happen.</li>
+              <li>That run <strong>drags a defender with him</strong>: Australia's
+                left-back <strong>Behich stays glued ~2&nbsp;m off Fernández</strong>
+                the whole sequence and follows him clean out of the central
+                channel.</li>
+              <li>The <strong>shooting lane thins from 10 &rarr; 7 Australians</strong>
+                between the recovery and the strike &mdash; Behich, Souttar and
+                Leckie all vacate it. Messi drifts in off the right and finishes.</li>
+            </ul>
+            <p class="mb-0 small dim">
+              <strong>Honest caveats:</strong> Messi is still
+              <em>tightly</em> marked at the strike (1.4&nbsp;m), so this isn't a
+              wide-open lane &mdash; it's a thinned one, and he finishes anyway.
+              We can attribute Behich to Fernández cleanly; Souttar and Leckie
+              also leave the channel but for mixed reasons (general retreat). And
+              attention always blends genuine off-ball movement like this with
+              the model simply reading team shape. But the headline holds: the
+              model's <em>top</em> off-ball pair on this goal corresponds to a
+              real space-creating decoy run &mdash; not an on-ball event anywhere
+              in the data. <strong>Click the row, or scrub the window, to watch
+              Fernández peel away and Behich chase him.</strong>
+            </p>
+          </div>
           <h3 class="mt-2">Common questions about the numbers above</h3>
 
           <details class="callout" style="margin-bottom:0.5rem;" open>
@@ -690,20 +690,21 @@
             <strong>What this says about the offensive structure.</strong>
             Argentina's "Messi goal" play in AW-JOI terms isn't a
             one-pair story &mdash; it's an Otamendi-led recycle that
-            spreads credit across five different partners. The famous
-            Otamendi &harr; Messi feed pair is <strong>#6 in total
-            credit</strong>; the five pairs ahead of it all earned
-            theirs through the build-up phase, where the model was
-            attending to one structural relationship after another as
+            spreads credit across his partners. The two pairs that
+            <em>also</em> show up as on-ball passes (Otamendi&nbsp;&harr;
+            Mac&nbsp;Allister, Otamendi&nbsp;&harr; Messi) sit in the pass
+            table above; the four <em>off-ball-only</em> pairs here earned
+            their credit entirely between the touches, while the model
+            attended to one structural relationship after another as
             Argentina worked the ball out. The "ball-side puller"
-            (Otamendi) sits at the hub of all six. <strong>Without
-            those five recycling pairs sustaining the chain, the ball
-            never gets to Otamendi to feed Messi.</strong> Event data
-            can't see any of it &mdash; the recycling passes have
-            event-JOI of zero because the model was already confident
-            the goal was coming. AW-JOI is what lets you see <em>where the
-            structural work was happening</em> off the ball, frame by
-            frame.
+            (Otamendi) sits at the hub of all of them, while Fernández peels
+            the opposite way to drag a defender. <strong>Without those
+            off-ball relationships sustaining and stretching the shape, the
+            ball never gets to Otamendi to feed Messi.</strong> Event data
+            can't see any of it &mdash; the recycling passes have event-JOI
+            of zero because the model was already confident the goal was
+            coming. AW-JOI is what lets you see <em>where the structural
+            work was happening</em> off the ball, frame by frame.
           </p>
         </div>
       </details>
@@ -1023,6 +1024,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=table-jump-circle"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=fern-decoy"></script>
 </body>
 </html>

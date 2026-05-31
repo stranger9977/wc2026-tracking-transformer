@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto, focusClipMoment } from "./interactive-plays.js?v=table-jump-circle";
+import { mountClipInto, focusClipMoment } from "./interactive-plays.js?v=fern-decoy";
 
 /* ---------------- data ---------------- */
 
