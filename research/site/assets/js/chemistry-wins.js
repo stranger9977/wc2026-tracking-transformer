@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto } from "./interactive-plays.js?v=fernandez-label";
+import { mountClipInto, focusClipMoment } from "./interactive-plays.js?v=table-jump-circle";
 
 /* ---------------- data ---------------- */
 
@@ -986,6 +986,25 @@ async function mountPlay(divId, label) {
 }
 
 await mountPlay("play-argentina", "argentina-australia-messi");
+
+// Wire the Messi write-up tables to the play above them: clicking a row scrubs
+// the clip to the moment that relationship is credited (data-frame) and circles
+// the players (data-slots), then scrolls the play into view. Rows opt in with
+// class="clip-jump" + data-clip / data-frame / data-slots.
+function wireClipJumps() {
+  document.querySelectorAll(".clip-jump").forEach((row) => {
+    row.addEventListener("click", () => {
+      const label = row.dataset.clip;
+      const frame = Number(row.dataset.frame || 0);
+      const slots = (row.dataset.slots || "")
+        .split(",").map((s) => Number(s.trim())).filter((s) => !Number.isNaN(s));
+      focusClipMoment(label, frame, slots);
+      const playEl = document.getElementById(row.dataset.play || "play-argentina");
+      if (playEl) playEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  });
+}
+wireClipJumps();
 await mountPlay("play-france", "argentina-france-mbappe-volley");
 await mountPlay("play-morocco", "morocco-portugal-en-nesyri");
 await mountPlay("play-croatia", "croatia-japan-perisic");

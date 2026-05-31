@@ -264,6 +264,20 @@ if (listEl) {
 export { initClip };
 
 /* ============================================================
+   External drive — let a write-up table "jump + circle" a moment.
+   ============================================================ */
+
+// label → { focus(frame, slots) }. Registered by initClip, called by page
+// modules (e.g. chemistry-wins.js) so a table row can scrub the matching clip
+// to a frame and ring the players whose relationship that row is about.
+const clipControllers = new Map();
+
+export function focusClipMoment(label, frame, slots) {
+  const ctl = clipControllers.get(label);
+  if (ctl) ctl.focus(frame, Array.isArray(slots) ? slots : []);
+}
+
+/* ============================================================
    Per-clip controller.
    ============================================================ */
 
@@ -321,6 +335,10 @@ function initClip(c, detail) {
   const gNarration = svg.querySelector("#g-narration");
   const gPairEdges = svg.querySelector("#g-pair-edges");
   const narrationEl = document.getElementById(`narration-${c.label}`);
+
+  // Transient "circle these players" set, driven by focusClipMoment (a table
+  // row click). Overrides name_slots while active; cleared on any manual nav.
+  let spotlightSlots = null;
 
   /* ---------- scrub markers + goal frame ---------- */
   const goalFrame = frames.findIndex((f) => f.is_goal_event);
@@ -542,6 +560,10 @@ function initClip(c, detail) {
     const nameSlots = new Set(c.name_slots || []);
     const isNameHighlighted = (slot) =>
       nameSlots.has(slot) && (!focusSet || focusSet.has(slot));
+    // Transient spotlight (table-row click) takes precedence over name_slots
+    // and overrides focus ghosting — it circles exactly the clicked players.
+    const spot = (spotlightSlots && spotlightSlots.size) ? spotlightSlots : null;
+    const isHL = (slot) => spot ? spot.has(slot) : isNameHighlighted(slot);
 
     // --- pair edges: compute FIRST so the dim logic below knows which
     // players are in a top pair (and shouldn't be dimmed). Writing the HTML
@@ -625,9 +647,9 @@ function initClip(c, detail) {
     for (const entry of playerDOM) {
       if (!entry) continue;
       const { p, sx, sy, color } = entry;
-      // Named players (name_slots) are always kept bright + full-size so the
+      // Named / spotlit players are always kept bright + full-size so the
       // reader never loses them — they don't get dimmed or focus-ghosted.
-      const named = isNameHighlighted(p.slot);
+      const named = isHL(p.slot);
       // Focus mode: every player is STILL rendered, but non-focus players
       // are dropped to ghost opacity (~0.14) and a smaller radius, so the
       // focus pair pops while the rest of the team is faintly visible for
@@ -637,6 +659,8 @@ function initClip(c, detail) {
       let dimOp;
       if (named) {
         dimOp = 1.0;
+      } else if (spot) {
+        dimOp = 0.30;       // a spotlight is active and this isn't it → recede
       } else if (focusSet) {
         dimOp = focusSet.has(p.slot) ? 1.0 : 0.14;
       } else {
@@ -677,6 +701,27 @@ function initClip(c, detail) {
       }
       const hoverTxt = p.name ? `${p.name}${p.position ? " · " + p.position : ""}` : `slot ${p.slot}`;
       dotsHTML += `${arrow}${namedRing}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}"><title>${escapeSvg(hoverTxt)}</title></circle>`;
+    }
+    // Spotlight connector: a real pair-ATTENTION line tying the circled pair
+    // together — width scales with the score-specialist's pair attention at
+    // this frame, with the live value on a chip at the midpoint. Solid when
+    // they're genuinely co-attended, dashed-thin when the link has faded, so
+    // you can watch the relationship light up and decay as you scrub.
+    if (spot && spot.size === 2) {
+      const [s1, s2] = [...spot];
+      const a = playerDOM[s1], b = playerDOM[s2];
+      if (a && b) {
+        let w = 0;
+        for (const tr of (f.pair_attention_score_top || [])) {
+          if ((tr[0] === s1 && tr[1] === s2) || (tr[0] === s2 && tr[1] === s1)) { w = tr[2] || 0; break; }
+        }
+        const mx = (a.sx + b.sx) / 2, my = (a.sy + b.sy) / 2;
+        const lineW = 1.6 + Math.min(0.15, w) * 24;
+        const dash = w > 0.02 ? "" : ` stroke-dasharray="4 3"`;
+        let conn = `<line x1="${a.sx.toFixed(1)}" y1="${a.sy.toFixed(1)}" x2="${b.sx.toFixed(1)}" y2="${b.sy.toFixed(1)}" stroke="#ffd166" stroke-opacity="0.9" stroke-width="${lineW.toFixed(1)}" stroke-linecap="round"${dash} />`;
+        conn += `<rect x="${(mx - 14).toFixed(1)}" y="${(my - 6.5).toFixed(1)}" width="28" height="13" rx="2.5" fill="#0b1220" fill-opacity="0.88" stroke="#ffd166" stroke-opacity="0.7" stroke-width="0.6" /><text x="${mx.toFixed(1)}" y="${(my + 2.7).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="700" fill="#ffd166" font-family="-apple-system,Segoe UI,sans-serif">${w.toFixed(2)}</text>`;
+        dotsHTML = conn + dotsHTML;
+      }
     }
     gPlayers.innerHTML = dotsHTML;
 
@@ -903,13 +948,15 @@ function initClip(c, detail) {
       const num = (p.jersey != null && p.jersey !== "") ? ` · #${p.jersey}` : "";
       return p.position ? `${surname}${num} · ${p.position}` : `${surname}${num}`;
     };
-    // Pass 1 — pinned name_slots labels. These sit at a FIXED offset directly
-    // above the dot (no collision-avoidance reshuffle) so the tag tracks the
-    // player smoothly instead of jumping around frame-to-frame. Gold accent +
-    // jersey number so the reader can immediately pick out, e.g., Fernández.
-    // Placed first so the ball-carrier label below dodges them.
-    for (const slot of nameSlots) {
-      if (focusSet && !focusSet.has(slot)) continue; // ghosted this chapter
+    // Pass 1 — pinned labels for the highlighted players: the transient
+    // spotlight pair (table-row click) if active, otherwise name_slots. Fixed
+    // offset directly above the dot (no collision-avoidance reshuffle) so the
+    // tag tracks the player smoothly instead of jumping; gold accent + jersey
+    // number so the reader can immediately pick out, e.g., Fernández. Placed
+    // first so the ball-carrier label below dodges them.
+    const pinnedSlots = spot ? spot : nameSlots;
+    for (const slot of pinnedSlots) {
+      if (!spot && focusSet && !focusSet.has(slot)) continue; // name_slots respect focus; spotlight overrides
       const dom = playerDOM[slot];
       if (!dom) continue;
       const { p, sx, sy } = dom;
@@ -1135,6 +1182,15 @@ function initClip(c, detail) {
   registerFocusUpdate(applyFocus);
   registerFrameRedraw(() => renderFrame(true));
 
+  // Register this clip so a write-up table row can jump the scrubber to a
+  // frame and circle the players whose relationship that row is about.
+  clipControllers.set(c.label, {
+    focus(frame, slots) {
+      spotlightSlots = (slots && slots.length) ? new Set(slots) : null;
+      setFrame(frame);
+    },
+  });
+
   // Per-clip control listeners — each clip refreshes only itself in
   // response to its own local controls.
   if (ctrlScope) {
@@ -1189,10 +1245,12 @@ function initClip(c, detail) {
   setFrame(0);
   applyFocus();
 
-  scrub.addEventListener("input", (e) => setFrame(Number(e.target.value)));
+  // Any manual navigation releases the table-driven spotlight.
+  scrub.addEventListener("input", (e) => { spotlightSlots = null; setFrame(Number(e.target.value)); });
 
   document.querySelectorAll(`[data-clip="${c.label}"]`).forEach((btn) => {
     btn.addEventListener("click", () => {
+      spotlightSlots = null;
       const a = btn.dataset.action;
       if (a === "prev") setFrame(i - 1);
       else if (a === "next") setFrame(i + 1);

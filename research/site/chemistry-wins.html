@@ -297,7 +297,17 @@
             tournament.
           </p>
 
+          <style>
+            tr.clip-jump { cursor: pointer; transition: background 0.12s ease; }
+            tr.clip-jump:hover { background: rgba(255,209,102,0.12) !important; }
+            tr.clip-jump:hover td:first-child { box-shadow: inset 3px 0 0 #ffd166; }
+          </style>
           <h3 class="mt-2">The on-ball story &mdash; pass-by-pass</h3>
+          <p class="dim small" style="margin:0.2rem 0 0;">
+            <strong style="color:var(--accent)">&#9678; Tip:</strong> click any row
+            below to jump the play above to that moment and ring the players it's
+            about (with a live attention line between them).
+          </p>
           <p>
             Reading the actual pass chain that produced this goal:
             <strong>Messi &rarr; Mac Allister &rarr; Otamendi &rarr;
@@ -333,7 +343,7 @@
                 </tr>
               </thead>
               <tbody class="tabular">
-                <tr style="border-bottom:1px solid var(--border);">
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="6" data-slots="5,20" title="Click → jump the play here and circle the players" style="border-bottom:1px solid var(--border);">
                   <td style="padding:0.4rem 0.6rem;">10.6&nbsp;s</td>
                   <td style="padding:0.4rem 0.6rem;">Messi &rarr; (Souttar)</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#e07474;">0.1%</td>
@@ -342,7 +352,7 @@
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
                   <td style="padding:0.4rem 0.6rem;" class="dim small">Messi's speculative early cross; Souttar clears. The model's deepest attention sits on Australia's centre-back <strong>Rowles</strong> (x&nbsp;&approx;&nbsp;42&nbsp;m) &mdash; it's reading the back line, not the ball, and hasn't recognised a threat yet.</td>
                 </tr>
-                <tr style="border-bottom:1px solid var(--border);">
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="12" data-slots="9,5" title="Click → jump the play here and circle the players" style="border-bottom:1px solid var(--border);">
                   <td style="padding:0.4rem 0.6rem;">9.4&nbsp;s</td>
                   <td style="padding:0.4rem 0.6rem;">Gómez recovers &rarr; Messi</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">3.7%</td>
@@ -351,7 +361,7 @@
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
                   <td style="padding:0.4rem 0.6rem;" class="dim small">Argentina win it back and P(score) jumps <strong>0.1&nbsp;&rarr;&nbsp;3.7&#37;</strong> as the 10&nbsp;s lookahead sees the build-up forming. Souttar holds deepest at x&nbsp;&approx;&nbsp;46&nbsp;m.</td>
                 </tr>
-                <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="36" data-slots="5,6" title="Click → jump the play here and circle the players" style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
                   <td style="padding:0.4rem 0.6rem;"><strong>4.6&nbsp;s</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Messi &rarr; Mac&nbsp;Allister</strong></td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">3.5%</td>
@@ -360,7 +370,7 @@
                   <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
                   <td style="padding:0.4rem 0.6rem;" class="dim small">Recycle. The ball-token now leans on <strong>Mac Allister</strong> (0.06, above the 0.045 background) as the next link; CB Rowles steps up to x&nbsp;&approx;&nbsp;40&nbsp;m.</td>
                 </tr>
-                <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="45" data-slots="6,1" title="Click → jump the play here and circle the players" style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
                   <td style="padding:0.4rem 0.6rem;"><strong>2.8&nbsp;s</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Mac&nbsp;Allister &rarr; Otamendi</strong></td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">4.2%</td>
@@ -369,7 +379,7 @@
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.090</td>
                   <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>The pass before the feed.</strong> This pair already carries AW-JOI <strong>0.090</strong> &mdash; the model has been co-loading Mac&nbsp;Allister&nbsp;&harr;&nbsp;Otamendi off-ball through the whole recycle, even though the pass itself barely moves P. Rowles still deep at x&nbsp;&approx;&nbsp;40&nbsp;m.</td>
                 </tr>
-                <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="51" data-slots="1,5" title="Click → jump the play here and circle the players" style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
                   <td style="padding:0.4rem 0.6rem;"><strong>1.6&nbsp;s</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Otamendi &rarr; Messi</strong> (feed)</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">4.2%</td>
@@ -378,7 +388,7 @@
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.087</td>
                   <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>The famous feed.</strong> The pair-attention spike is already spent (cumulative 0.087). Australia's centre-backs <strong>Rowles &amp; Souttar sit flat at x&nbsp;&approx;&nbsp;41&nbsp;m</strong> &mdash; nobody steps to Messi at the top of the box. P peaks &asymp;&nbsp;4.6&#37; the frame before he strikes.</td>
                 </tr>
-                <tr style="border-bottom:1px solid var(--border); background:rgba(255,209,102,0.08);">
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="59" data-slots="5" title="Click → jump the play here and circle Messi" style="border-bottom:1px solid var(--border); background:rgba(255,209,102,0.08);">
                   <td style="padding:0.4rem 0.6rem;"><strong>0.0&nbsp;s</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Messi shot &rarr; GOAL</strong></td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">&asymp;4.6%</td>
@@ -474,12 +484,12 @@
                 </tr>
               </thead>
               <tbody class="tabular">
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">1</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Fernández</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.099</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">CB &harr; CM &mdash; the recycling spine while Argentina build out.</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">2</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Romero</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.096</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">CB pair &mdash; the back-line co-occupancy that anchors the recycle.</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">3</td><td style="padding:0.4rem 0.6rem;">Álvarez &harr; Otamendi</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.095</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (9 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">Striker stretching the line + the centre-back feeding from behind.</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">4</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Mac Allister</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.091</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (14 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">The pass before the feed &mdash; midfielder dropping in to the centre-back. Longest sustained pair.</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">5</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Acuña</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.089</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">Left-back overlapping while the ball is on Otamendi's side.</td></tr>
-                <tr style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.08);"><td style="padding:0.4rem 0.6rem;"><strong>6</strong></td><td style="padding:0.4rem 0.6rem;"><strong>Otamendi &harr; Messi</strong></td><td style="padding:0.4rem 0.6rem; text-align:right; color:#ffd166; font-weight:700;">0.087</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&nbsp;s before goal (1 frame, peak)</td><td style="padding:0.4rem 0.6rem;" class="dim small">The on-ball feed pair &mdash; a single-frame spike at the <em>start</em> of the build-up, not the strike. Smaller in total than the buildup pairs above precisely <em>because</em> the spike is brief.</td></tr>
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,2" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">1</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Fernández</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.099</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">CB &harr; CM &mdash; the recycling spine while Argentina build out.</td></tr>
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,7" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">2</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Romero</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.096</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">CB pair &mdash; the back-line co-occupancy that anchors the recycle.</td></tr>
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="0,1" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">3</td><td style="padding:0.4rem 0.6rem;">Álvarez &harr; Otamendi</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.095</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (9 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">Striker stretching the line + the centre-back feeding from behind.</td></tr>
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,6" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">4</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Mac Allister</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.091</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (14 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">The pass before the feed &mdash; midfielder dropping in to the centre-back. Longest sustained pair.</td></tr>
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,10" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">5</td><td style="padding:0.4rem 0.6rem;">Otamendi &harr; Acuña</td><td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">0.089</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&ndash;2.0&nbsp;s before goal (8 frames)</td><td style="padding:0.4rem 0.6rem;" class="dim small">Left-back overlapping while the ball is on Otamendi's side.</td></tr>
+                <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="0" data-slots="1,5" title="Click → circle this pair in the play above" style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.08);"><td style="padding:0.4rem 0.6rem;"><strong>6</strong></td><td style="padding:0.4rem 0.6rem;"><strong>Otamendi &harr; Messi</strong></td><td style="padding:0.4rem 0.6rem; text-align:right; color:#ffd166; font-weight:700;">0.087</td><td style="padding:0.4rem 0.6rem;" class="dim small">11.8&nbsp;s before goal (1 frame, peak)</td><td style="padding:0.4rem 0.6rem;" class="dim small">The on-ball feed pair &mdash; a single-frame spike at the <em>start</em> of the build-up, not the strike. Smaller in total than the buildup pairs above precisely <em>because</em> the spike is brief.</td></tr>
               </tbody>
             </table>
           </div>
@@ -504,6 +514,45 @@
             that ends in Messi's goal; all numbers here are recomputed from
             the live clip you're scrubbing, so they match its edge chips.
           </p>
+          <details class="card" style="margin:0.8rem 0 0; padding:0.2rem 0.9rem;">
+            <summary style="cursor:pointer;"><strong>Why does the model "like" these particular players?</strong></summary>
+            <div style="padding-top:0.5rem;">
+              <p class="mt-0">
+                Pair attention isn't a "who's best" score &mdash; it's
+                <em>whose position the model has to read to predict the next
+                10&nbsp;s right now</em>. In a settled build-up the prediction
+                hinges on <strong>shape</strong>, and the shape runs through
+                <strong>Otamendi</strong>: he's the recycling hub who's
+                structurally tied to everyone around the ball, so he co-loads
+                with each teammate that defines the build-up &mdash; the other
+                centre-back (<strong>Romero</strong>) holding the line, the
+                pivots dropping in (<strong>Fernández</strong>,
+                <strong>Mac&nbsp;Allister</strong>), the full-back overlapping
+                (<strong>Acuña</strong>), and the striker stretching the
+                defence (<strong>Álvarez</strong>). Those are the relationships
+                whose <em>relative spacing</em> tells the model whether this
+                possession is turning into a chance.
+              </p>
+              <p>
+                <strong>Two things are mixed in here, and we're honest about
+                it.</strong> Some of this attention is <em>genuine combination
+                play</em> &mdash; these players really do work the ball between
+                them. Some of it is the model reading <em>global structure</em>:
+                using where the back line and the strikers sit to gauge how
+                advanced and dangerous Argentina's shape is, which isn't
+                "chemistry" between any specific two so much as the model
+                orienting itself on the pitch. Attention blends both. So treat
+                AW-JOI as a <strong>relationship surface</strong> &mdash; it
+                tells you which pairings the model keeps co-loading during
+                rising threat, not yet <em>why</em>. Click a row above to drop
+                the play onto that moment: if the two are genuinely combining
+                you'll see them exchanging space with a fat attention line; if
+                the model is really just reading the line height, you'll see
+                them sitting statically in formation. Separating those two is
+                exactly the geometry we're working to surface next.
+              </p>
+            </div>
+          </details>
           <h3 class="mt-2">Common questions about the numbers above</h3>
 
           <details class="callout" style="margin-bottom:0.5rem;" open>
@@ -974,6 +1023,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=fernandez-label"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=table-jump-circle"></script>
 </body>
 </html>
