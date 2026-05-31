@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto, focusClipMoment } from "./interactive-plays.js?v=fern-decoy";
+import { mountClipInto, focusClipMoment } from "./interactive-plays.js?v=label-all-network";
 
 /* ---------------- data ---------------- */
 
@@ -867,10 +867,11 @@ const PLAY_INDEX = {
     ],
     // Otamendi's feed to Messi lands at frame ~50.
     pinning: { slots: [1], from: 42, to: 52, label: "FEEDER" },
-    // Always-name the headline chemistry pair through the build-up so the
-    // reader can tell which dot is Fernández (slot 2) vs Otamendi (slot 1) —
-    // these are the "Otamendi ↔ Fernández" pair the write-up is about.
-    name_slots: [1, 2],
+    // Label every player named in the two write-up tables so the reader can
+    // identify them on the pitch: Argentina's recycle (Álvarez 0, Otamendi 1,
+    // Fernández 2, Messi 5, Mac Allister 6, Romero 7, Gómez 9, Acuña 10) plus
+    // the two Australian centre-backs the read calls out (Rowles 15, Souttar 20).
+    name_slots: [0, 1, 2, 5, 6, 7, 9, 10, 15, 20],
     scorer_slot: 5, // Messi
     scorer_label: "FINISH",
     scorer_from: 42,

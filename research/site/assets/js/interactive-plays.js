@@ -554,16 +554,18 @@ function initClip(c, detail) {
     const focusSet = (annNow && Array.isArray(annNow.focus_slots) && annNow.focus_slots.length)
       ? new Set(annNow.focus_slots)
       : null;
-    // Per-clip "always keep these players bright + named" set (e.g. the
-    // chemistry pair the write-up is about). A named player is highlighted
-    // unless a focus chapter is explicitly collapsing to a different set.
+    // Per-clip "always label + connect these players" set (everyone named in
+    // the write-up tables). They stay bright + labelled through their windows.
     const nameSlots = new Set(c.name_slots || []);
-    const isNameHighlighted = (slot) =>
-      nameSlots.has(slot) && (!focusSet || focusSet.has(slot));
-    // Transient spotlight (table-row click) takes precedence over name_slots
-    // and overrides focus ghosting — it circles exactly the clicked players.
+    // A slot is "highlighted" (bright + labelled + part of the co-attention
+    // network) if it's a name_slots story player not currently focus-ghosted,
+    // OR it's in the active click-spotlight (which overrides focus). The
+    // spotlight ADDS emphasis (gold ring + value chip) on top — it does NOT dim
+    // everyone else, so every labelled player keeps their shine at each event.
     const spot = (spotlightSlots && spotlightSlots.size) ? spotlightSlots : null;
-    const isHL = (slot) => spot ? spot.has(slot) : isNameHighlighted(slot);
+    const isHL = (slot) =>
+      (spot && spot.has(slot)) || (nameSlots.has(slot) && (!focusSet || focusSet.has(slot)));
+    const isSpot = (slot) => !!(spot && spot.has(slot));
 
     // --- pair edges: compute FIRST so the dim logic below knows which
     // players are in a top pair (and shouldn't be dimmed). Writing the HTML
@@ -659,8 +661,6 @@ function initClip(c, detail) {
       let dimOp;
       if (named) {
         dimOp = 1.0;
-      } else if (spot) {
-        dimOp = 0.30;       // a spotlight is active and this isn't it → recede
       } else if (focusSet) {
         dimOp = focusSet.has(p.slot) ? 1.0 : 0.14;
       } else {
@@ -679,11 +679,12 @@ function initClip(c, detail) {
       } else {
         radius = p.is_gk ? 7.5 : 6.5;
       }
-      // Named players get a persistent gold halo ring so the dot itself
-      // reads as "this is the one the text is about", separate from the
-      // attention halos.
-      const namedRing = named
-        ? `<circle cx="${sx}" cy="${sy}" r="${(radius + 4).toFixed(1)}" fill="none" stroke="#ffd166" stroke-opacity="0.95" stroke-width="2" />`
+      // Gold ring marks the actively spotlit players (a clicked table row).
+      // name_slots stay bright + labelled but un-ringed, so 8-10 labelled
+      // story players don't turn into a wall of rings.
+      const ringed = isSpot(p.slot);
+      const namedRing = ringed
+        ? `<circle cx="${sx}" cy="${sy}" r="${(radius + 4).toFixed(1)}" fill="none" stroke="#ffd166" stroke-opacity="0.95" stroke-width="2.5" />`
         : "";
       const stroke = p.is_gk ? "#00d68f" : "#ffffffcc";
       const sw = p.is_gk ? 1.8 : 1.0;
@@ -702,26 +703,41 @@ function initClip(c, detail) {
       const hoverTxt = p.name ? `${p.name}${p.position ? " · " + p.position : ""}` : `slot ${p.slot}`;
       dotsHTML += `${arrow}${namedRing}<circle cx="${sx}" cy="${sy}" r="${radius}" fill="${color}" fill-opacity="${dimOp.toFixed(2)}" stroke="${stroke}" stroke-opacity="${dimOp.toFixed(2)}" stroke-width="${sw}"><title>${escapeSvg(hoverTxt)}</title></circle>`;
     }
-    // Spotlight connector: a real pair-ATTENTION line tying the circled pair
-    // together — width scales with the score-specialist's pair attention at
-    // this frame, with the live value on a chip at the midpoint. Solid when
-    // they're genuinely co-attended, dashed-thin when the link has faded, so
-    // you can watch the relationship light up and decay as you scrub.
-    if (spot && spot.size === 2) {
-      const [s1, s2] = [...spot];
-      const a = playerDOM[s1], b = playerDOM[s2];
-      if (a && b) {
-        let w = 0;
-        for (const tr of (f.pair_attention_score_top || [])) {
-          if ((tr[0] === s1 && tr[1] === s2) || (tr[0] === s2 && tr[1] === s1)) { w = tr[2] || 0; break; }
+    // Co-attention NETWORK among the highlighted players: if two of the
+    // labelled story players (or, when a row is clicked, the spotlight set)
+    // have pair attention this frame, connect them with a gold line whose
+    // width scales with that attention. The clicked pair also gets the live
+    // value on a chip. This is the "if they have AW-JOI between them, connect
+    // them" view — you watch the recycle network light up and decay as you scrub.
+    const linkSet = new Set();
+    for (let s = 0; s < 22; s++) if (isHL(s)) linkSet.add(s);
+    if (linkSet.size >= 2) {
+      const arr = [...linkSet];
+      let links = "";
+      for (let ii = 0; ii < arr.length; ii++) {
+        for (let jj = ii + 1; jj < arr.length; jj++) {
+          const s1 = arr[ii], s2 = arr[jj];
+          const a = playerDOM[s1], b = playerDOM[s2];
+          if (!a || !b) continue;
+          const bothSpot = !!(spot && spot.has(s1) && spot.has(s2));
+          // AW-JOI is a same-team notion, so the ambient network only connects
+          // teammates; a clicked row can still link a cross-team pair on purpose.
+          if (String(a.p.team_id) !== String(b.p.team_id) && !bothSpot) continue;
+          let w = 0;
+          for (const tr of (f.pair_attention_score_top || [])) {
+            if ((tr[0] === s1 && tr[1] === s2) || (tr[0] === s2 && tr[1] === s1)) { w = tr[2] || 0; break; }
+          }
+          if (w < 0.02 && !bothSpot) continue;   // genuine co-attention only (clicked pair always shown)
+          const lineW = 1.2 + Math.min(0.15, w) * 22;
+          const dash = w > 0.02 ? "" : ` stroke-dasharray="4 3"`;
+          links += `<line x1="${a.sx.toFixed(1)}" y1="${a.sy.toFixed(1)}" x2="${b.sx.toFixed(1)}" y2="${b.sy.toFixed(1)}" stroke="#ffd166" stroke-opacity="${bothSpot ? 0.95 : 0.55}" stroke-width="${(bothSpot ? lineW + 0.8 : lineW).toFixed(1)}" stroke-linecap="round"${dash} />`;
+          if (bothSpot) {
+            const mx = (a.sx + b.sx) / 2, my = (a.sy + b.sy) / 2;
+            links += `<rect x="${(mx - 14).toFixed(1)}" y="${(my - 6.5).toFixed(1)}" width="28" height="13" rx="2.5" fill="#0b1220" fill-opacity="0.88" stroke="#ffd166" stroke-opacity="0.7" stroke-width="0.6" /><text x="${mx.toFixed(1)}" y="${(my + 2.7).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="700" fill="#ffd166" font-family="-apple-system,Segoe UI,sans-serif">${w.toFixed(2)}</text>`;
+          }
         }
-        const mx = (a.sx + b.sx) / 2, my = (a.sy + b.sy) / 2;
-        const lineW = 1.6 + Math.min(0.15, w) * 24;
-        const dash = w > 0.02 ? "" : ` stroke-dasharray="4 3"`;
-        let conn = `<line x1="${a.sx.toFixed(1)}" y1="${a.sy.toFixed(1)}" x2="${b.sx.toFixed(1)}" y2="${b.sy.toFixed(1)}" stroke="#ffd166" stroke-opacity="0.9" stroke-width="${lineW.toFixed(1)}" stroke-linecap="round"${dash} />`;
-        conn += `<rect x="${(mx - 14).toFixed(1)}" y="${(my - 6.5).toFixed(1)}" width="28" height="13" rx="2.5" fill="#0b1220" fill-opacity="0.88" stroke="#ffd166" stroke-opacity="0.7" stroke-width="0.6" /><text x="${mx.toFixed(1)}" y="${(my + 2.7).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="700" fill="#ffd166" font-family="-apple-system,Segoe UI,sans-serif">${w.toFixed(2)}</text>`;
-        dotsHTML = conn + dotsHTML;
       }
+      dotsHTML = links + dotsHTML;
     }
     gPlayers.innerHTML = dotsHTML;
 
@@ -939,19 +955,33 @@ function initClip(c, detail) {
     // tag tracks the player smoothly instead of jumping; gold accent + jersey
     // number so the reader can immediately pick out, e.g., Fernández. Placed
     // first so the ball-carrier label below dodges them.
-    const pinnedSlots = spot ? spot : nameSlots;
-    for (const slot of pinnedSlots) {
-      if (!spot && focusSet && !focusSet.has(slot)) continue; // name_slots respect focus; spotlight overrides
+    // Label every highlighted player (all name_slots not focus-ghosted, plus
+    // the clicked spotlight pair). The clicked pair's tags go gold; the rest
+    // stay white. Drawn before the ball-carrier tag so it dodges them.
+    const labelSlots = new Set();
+    for (let s = 0; s < 22; s++) if (isHL(s)) labelSlots.add(s);
+    const overlaps = (a) => placed.some((b) =>
+      a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y);
+    for (const slot of labelSlots) {
       const dom = playerDOM[slot];
       if (!dom) continue;
       const { p, sx, sy } = dom;
+      const slotGold = isSpot(slot);
       const txt = labelText(p);
-      const labelW = txt.length * 5.4 + 10;
+      const labelW = txt.length * 5.2 + 10;
       const labelH = 12;
-      const lx = sx - labelW / 2;     // centered above the dot
-      const ly = sy - 14 - labelH;    // fixed offset above (clears the gold ring)
+      const lx = sx - labelW / 2;     // centered above the dot — x stays fixed (no jitter)
+      let ly = sy - 13 - labelH;      // fixed offset above
+      // Vertical-only stacking so clustered labels (the back line) don't
+      // overlap, without ever flipping sides frame-to-frame.
+      let guard = 0;
+      while (overlaps({ x: lx, y: ly, w: labelW, h: labelH }) && guard++ < 8) ly -= labelH + 2;
       placed.push({ x: lx, y: ly, w: labelW, h: labelH });
-      labelsHTML += `<g class="iplay-label"><rect x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" width="${labelW.toFixed(1)}" height="${labelH}" fill="#0b1220" fill-opacity="0.92" rx="2.5" stroke="#ffd166" stroke-opacity="0.95" stroke-width="1" /><text x="${(lx + labelW / 2).toFixed(1)}" y="${(ly + 8.5).toFixed(1)}" fill="#ffd166" font-size="9" font-weight="700" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
+      const boxStroke = slotGold
+        ? `stroke="#ffd166" stroke-opacity="0.95" stroke-width="1"`
+        : `stroke="#ffffff" stroke-opacity="0.30" stroke-width="0.6"`;
+      const txtFill = slotGold ? "#ffd166" : "#ffffff";
+      labelsHTML += `<g class="iplay-label"><rect x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" width="${labelW.toFixed(1)}" height="${labelH}" fill="#0b1220" fill-opacity="0.9" rx="2.5" ${boxStroke} /><text x="${(lx + labelW / 2).toFixed(1)}" y="${(ly + 8.5).toFixed(1)}" fill="${txtFill}" font-size="9" font-weight="${slotGold ? 700 : 600}" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif">${escapeSvg(txt)}</text></g>`;
     }
     // Pass 2 — the ball-carrier (collision-avoided). Off-ball players that
     // aren't in name_slots stay nameless; their identity is carried by the
