@@ -37,6 +37,7 @@ renderWc26(wc26);
 if (Array.isArray(historyMulti?.rows)) {
   renderHistoryVsFinish(historyMulti.rows);
   renderHistory2026(historyMulti.rows);
+  renderWc26HistoryVsFifa(historyMulti.rows, wc26);
 }
 
 if (Array.isArray(teamRows)) {
@@ -481,6 +482,120 @@ function renderHistory2026(allRows) {
       are named. Same %-share metric and source (Wikipedia squad clubs) as the historical
       scatter above; no finish to plot against until the tournament is played.
     </p>`;
+}
+
+/* --------- WC26: shared club history vs EA FC 26 Overall (scatter) ------- */
+/* The WC26 analog of the WC22 "FIFA Overall vs History Index" scatter, using the
+   same %-share metric. Joins the announced-squad history index to EA FC 26 team
+   Overall (wc26_rosters.json). Unlicensed nations (proxy Overall) get a dashed
+   ring + asterisk. */
+
+function renderWc26HistoryVsFifa(historyRows, wc26Doc) {
+  const mount = document.getElementById("wc26-hist-vs-fifa-scatter");
+  if (!mount || !wc26Doc?.teams) return;
+  const hist = new Map(historyRows.filter((r) => r.year === 2026).map((r) => [r.team, r]));
+  const rows = wc26Doc.teams
+    .filter((t) => t.overall != null && hist.has(t.team))
+    .map((t) => ({ ...hist.get(t.team), team: t.team, overall: t.overall, ea_licensed: t.ea_licensed !== false }));
+  if (rows.length < 3) {
+    mount.innerHTML = `<p class="dim small">Not enough WC26 squads with both an EA Overall and an announced squad yet.</p>`;
+    return;
+  }
+
+  const W = 1100, H = 480;
+  const padL = 86, padR = 48, padT = 22, padB = 64;
+  const innerW = W - padL - padR;
+  const innerH = H - padT - padB;
+
+  const xs = rows.map((r) => r.overall);
+  const ys = rows.map((r) => r.history_share);
+  const xmin = Math.min(...xs) - 2, xmax = Math.max(...xs) + 2;
+  const ymin = Math.max(0, Math.min(...ys) - 6), ymax = Math.min(100, Math.max(...ys) + 8);
+  const sxV = (x) => padL + ((x - xmin) / (xmax - xmin)) * innerW;
+  const syV = (y) => padT + innerH - ((y - ymin) / (ymax - ymin)) * innerH;
+  const sx = (r) => sxV(r.overall);
+  const sy = (r) => syV(r.history_share);
+
+  const rho = spearman(xs, ys);
+  const rhoEl = document.getElementById("rho-wc26-hist-fifa");
+  if (rhoEl) rhoEl.innerHTML = `(Spearman &rho; = ${rho >= 0 ? "+" : ""}${rho.toFixed(3)}, n = ${rows.length})`;
+
+  const xTicks = [70, 74, 78, 82, 86, 90];
+  const yTicks = [0, 20, 40, 60, 80];
+  const xTickSvg = xTicks.filter((v) => v >= xmin && v <= xmax).map((x) => `
+    <text x="${sxV(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
+          opacity="0.55" text-anchor="middle">${x}</text>`).join("");
+  const yRules = yTicks.filter((v) => v >= ymin && v <= ymax).map((y) => `
+    <line x1="${padL}" y1="${syV(y)}" x2="${W - padR}" y2="${syV(y)}"
+          stroke="currentColor" stroke-width="0.5" opacity="0.10"/>
+    <text x="${padL - 8}" y="${syV(y) + 4}" font-size="11" fill="currentColor"
+          opacity="0.6" text-anchor="end">${y}%</text>`).join("");
+
+  const dots = rows.map((r) => {
+    const cx = sx(r), cy = sy(r);
+    const ring = !r.ea_licensed
+      ? `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="9" fill="none" stroke="#d4a23a" stroke-width="1.4" stroke-dasharray="3,3" opacity="0.8"/>`
+      : "";
+    const bloc = r.largest_bloc >= 2 && r.largest_bloc_club
+      ? `, ${r.largest_bloc}× ${escapeHTML(r.largest_bloc_club)}` : "";
+    const tip = `${escapeHTML(r.team)} — FIFA ${r.overall}${r.ea_licensed ? "" : " (proxy)"}, `
+      + `${r.history_share}% shared (${r.history_count}/${r.squad_size})${bloc}`;
+    return `${ring}<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5.5"
+             fill="#d4a23a" stroke="var(--bg, #0b1220)" stroke-width="1.2"><title>${tip}</title></circle>`;
+  }).join("");
+
+  const picks = placeLabels(rows, sx, sy,
+    (r) => r.overall * 100 + r.history_share,
+    { left: padL, top: padT, innerW, innerH },
+    (r) => r.team);
+  const labels = rows.map((r) => {
+    const cx = sx(r), cy = sy(r);
+    const p = picks.get(r.team);
+    const star = r.ea_licensed ? "" : "*";
+    return `<text x="${(cx + p.dx).toFixed(1)}" y="${(cy + p.dy).toFixed(1)}"
+           font-size="11.5" font-weight="600" fill="currentColor"
+           opacity="0.92" text-anchor="${p.anchor}">${escapeHTML(r.team)}${star}</text>`;
+  }).join("");
+
+  const axisX = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - padB + 38}"
+    font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle">
+    EA Sports FC 26 team Overall</text>`;
+  const axisY = `<text x="20" y="${padT + innerH / 2}"
+    font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle"
+    transform="rotate(-90, 20, ${padT + innerH / 2})">Shared-club history (% of squad with a club-mate)</text>`;
+
+  const n = xs.length;
+  const meanX = xs.reduce((a, b) => a + b, 0) / n;
+  const meanY = ys.reduce((a, b) => a + b, 0) / n;
+  let num = 0, den = 0;
+  for (let i = 0; i < n; i++) { num += (xs[i] - meanX) * (ys[i] - meanY); den += (xs[i] - meanX) ** 2; }
+  const slope = den > 0 ? num / den : 0;
+  const intercept = meanY - slope * meanX;
+  const lineYat = (x) => slope * x + intercept;
+  const lineX1 = xmin + 1, lineX2 = xmax - 1;
+  const lineY1 = Math.max(ymin, Math.min(ymax, lineYat(lineX1)));
+  const lineY2 = Math.max(ymin, Math.min(ymax, lineYat(lineX2)));
+  const trend = `
+    <line x1="${sxV(lineX1)}" y1="${syV(lineY1)}" x2="${sxV(lineX2)}" y2="${syV(lineY2)}"
+          stroke="#d4a23a" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>`;
+
+  mount.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
+         class="fifa-scatter-svg" role="img"
+         aria-label="WC26 shared-club history vs EA FC 26 Overall scatter">
+      ${yRules}
+      ${xTickSvg}
+      ${trend}
+      ${dots}
+      ${labels}
+      ${axisX}
+      ${axisY}
+    </svg>
+    <div class="scatter-legend small muted">
+      <span><span class="dot" style="background:#d4a23a;border-radius:50%;"></span> WC26 team (announced squad)</span>
+      <span><span class="dot" style="background:transparent;border:1.4px dashed #d4a23a;border-radius:50%;display:inline-block;width:9px;height:9px;"></span> * EA-unlicensed nation — Overall is an analyst proxy</span>
+      <span class="muted">Dashed gold line = least-squares fit.</span>
+    </div>`;
 }
 
 /* ---------------- historical table ---------------- */

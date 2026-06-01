@@ -237,6 +237,21 @@
       <h3 class="mt-2">Pre-tournament FIFA Overall — WC26 candidate field</h3>
       <p class="dim small">Top 12 by EA FC 26 published Overall. Asterisk = EA-unlicensed nation, Overall is an analyst proxy.</p>
       <div id="wc26-table" class="table-wrap"></div>
+
+      <h3 class="mt-2">Shared club history vs EA FC 26 Overall — WC26 &nbsp;<span class="dim small" id="rho-wc26-hist-fifa"></span></h3>
+      <p class="dim small">
+        Does shared history track talent going into 2026? Among the EA-rated squads
+        already announced, strongly: <strong>Spearman &rho; &asymp; +0.69</strong>
+        &mdash; higher-rated nations carry more shared club history, because their
+        players concentrate at the same elite clubs (<strong>Spain</strong> 8&times;
+        Barcelona, <strong>Germany</strong> 7&times; Bayern). It's the WC26 version of
+        the WC22 &quot;FIFA Overall vs History Index&quot; scatter above. Note the
+        domestic-league blocs that top the leaderboard (Czech Republic, Egypt,
+        South Africa) <em>aren't</em> EA-rated, so they don't appear here &mdash; which
+        is exactly why the relationship looks cleaner among the rated set than across
+        the whole field.
+      </p>
+      <div id="wc26-hist-vs-fifa-scatter" class="fifa-scatter"></div>
     </section>
 
     <!-- =============================================================== -->
@@ -318,6 +333,6 @@
     Pre-tournament rankings from FIFA's official ranking history; FIFA team Overalls from EA Sports' published team ratings; chemistry density from this study's AW-JOI tracking pipeline.
   </footer>
 
-  <script type="module" src="assets/js/fifa-mode.js?v=wc26-history"></script>
+  <script type="module" src="assets/js/fifa-mode.js?v=wc26-hist-fifa"></script>
 </body>
 </html>
