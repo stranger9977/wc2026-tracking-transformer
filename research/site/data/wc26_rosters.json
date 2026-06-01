@@ -1,10 +1,11 @@
 {
   "_meta": {
     "source_primary": "EA Sports FC 26 (released 26 Sep 2025). Country pages on fifaratings.com served as the primary scrape target — sofifa.com returned HTTP 403 in this session, matching prior behavior.",
-    "source_secondary": "For nations EA FC 26 dropped from its license (Brazil, Belgium, Senegal, Uruguay, Colombia, Switzerland, Japan, Korea, Canada, Saudi Arabia, Iran, Australia), individual player Overall ratings were pulled from fifaratings.com country pages and aggregated. Team Overall is then a weighted average of the top 11 individual Overalls (4-3-3 default weighting) — exactly EA's published formula.",
+    "source_secondary": "For nations not licensed at EA FC 26 launch (Belgium, Senegal, Uruguay, Colombia, Switzerland, Japan, Korea, Canada, Saudi Arabia, Iran, Australia), individual player Overall ratings were pulled from fifaratings.com country pages and aggregated. Team Overall is then a weighted average of the top 11 individual Overalls (4-3-3 default weighting) — exactly EA's published formula. (Brazil was on this list at launch but EA signed a multi-year CBF deal in May 2026; its rating here is still our estimate pending the title update.)",
     "caveat": "WC26 has not happened. These are paper-talent ratings, not predictions. The point of FIFA Mode is to surface the gap between paper and result; the WC22 tab is the prior that argues that gap is large.",
-    "note_licensing": "EA FC 26 licenses only 28 men's national teams (down from 30 in FC 25). Notable omissions for WC26: Brazil, Belgium, Senegal, Colombia, Switzerland, Australia, Japan, Korea, Canada, Saudi Arabia, Iran. For those nations we treat the rating as 'analyst proxy from individual player Overalls' rather than EA's official aggregate, and flag the row.",
-    "scrape_date": "2026-05-24"
+    "note_licensing": "EA FC 26 launched licensing 28 men's national teams (down from 30 in FC 25); a multi-year CBF deal announced May 2026 (Gamescom LATAM) adds Brazil via a 2026 title update. Remaining WC26 omissions: Belgium, Senegal, Colombia, Switzerland, Australia, Japan, Korea, Canada, Saudi Arabia, Iran. For those nations we treat the rating as 'analyst proxy from individual player Overalls' rather than EA's official aggregate, and flag the row.",
+    "scrape_date": "2026-05-24",
+    "updated": "2026-05-31: Brazil reclassified ea_licensed:true after the May 2026 EA/CBF licensing announcement; its Overall remains an estimate until EA's official team rating ships."
   },
   "teams": [
     {
@@ -185,17 +186,17 @@
       "notes": "Modrić's last dance if they qualify. Same midfield-heavy profile that overperformed in 2018 and 2022."
     },
     {
-      "team": "Brazil",   "flag": "br", "overall": 83, "att": 86, "mid": 82, "def": 81, "depth_gap": 5.2, "ea_licensed": false,
+      "team": "Brazil",   "flag": "br", "overall": 83, "att": 86, "mid": 82, "def": 81, "depth_gap": 5.2, "ea_licensed": true,
       "qualification": "auto (CONMEBOL)",
       "stars": [
-        {"name": "Vinicius Jr (analyst proxy)", "overall": 89, "position": "LW"},
+        {"name": "Vinicius Jr", "overall": 89, "position": "LW"},
         {"name": "Rodrygo", "overall": 86, "position": "RW"},
         {"name": "Casemiro", "overall": 84, "position": "CDM"},
         {"name": "Alisson", "overall": 88, "position": "GK"},
         {"name": "Marquinhos", "overall": 86, "position": "CB"},
         {"name": "Bruno Guimarães", "overall": 85, "position": "CM"}
       ],
-      "notes": "EA FC 26 is unlicensed for Brazil — rating aggregated from individual Overalls. Real Madrid front pair (Vini + Rodrygo) is the strongest attack on paper."
+      "notes": "EA signed a multi-year CBF licensing deal (announced May 2026, Gamescom LATAM); Brazil's official kit/badge/team rating roll out via a 2026 title update, so the Overall here remains our analyst aggregate until EA's official number ships. Real Madrid front pair (Vini + Rodrygo) is the strongest attack on paper."
     },
     {
       "team": "Belgium",  "flag": "be", "overall": 79, "att": 80, "mid": 80, "def": 79, "depth_gap": 3.8, "ea_licensed": false,
