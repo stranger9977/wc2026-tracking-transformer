@@ -153,6 +153,55 @@
 
     <!-- =============================================================== -->
     <section>
+      <h2>Does shared history correlate with winning?</h2>
+      <p>
+        The History Index needs no tracking data &mdash; just a squad list and each
+        player's club. So we can run it on <strong>every World Cup back to 2006</strong>
+        and ask the most basic version of the chemistry question:
+        <em>do teams built from a shared club spine go further?</em> For each squad we
+        take the share of players whose tournament club has at least one team-mate in
+        the same squad. The textbook spine teams score high &mdash;
+        <strong>Spain 2010</strong> (a Bar&ccedil;a + Real Madrid core, 87&#37;),
+        <strong>Germany 2014</strong> (seven Bayern players, 70&#37;),
+        <strong>Italy 2006</strong> (a Juventus/Milan/Roma block, 78&#37;) &mdash; and
+        all three won. Toggle years below; hover any dot for its number.
+      </p>
+      <p class="dim small">
+        X = shared-club history (&#37; of squad with a club-mate). Y = stage reached.
+        All 32 participants per tournament. The relationship is real but modest:
+        pooled <strong>Spearman &rho; = +0.185</strong> (p = 0.019, n = 160), and it is
+        <em>positive in every individual World Cup</em> (+0.30, +0.12, +0.04, +0.40,
+        +0.05 for '06&ndash;'22). Shared history is a tailwind, not a guarantee &mdash;
+        <strong>Croatia</strong> reached two finals (2018, 2022) with one of the most
+        <em>scattered</em> squads in the field, the counter-example worth keeping
+        honest. And the very top of the axis is its own confound: the highest scores
+        are domestic-league monocultures &mdash; <strong>Qatar '22</strong> (13 Al-Sadd
+        players) and <strong>Saudi Arabia</strong> (an Al-Hilal/Al-Nassr block) sit
+        near 90&#37; yet exit at the group stage. That's shared history without elite
+        talent &mdash; exactly why the slope is gentle rather than steep. Note this is
+        the <em>same-tournament-club</em> definition (consistent
+        across years and sourceable from public squad lists); the WC22 History Index
+        in the scatters above is a richer multi-year club-overlap variant, so the two
+        numbers differ.
+      </p>
+
+      <h3 class="mt-2">Shared-club history vs WC finish &nbsp;<span class="dim small" id="rho-history-finish"></span></h3>
+      <div id="history-vs-finish-year-toggle" class="wb-toggles" role="group"
+           aria-label="Toggle World Cup years on/off"
+           style="display:flex;flex-wrap:wrap;gap:0.5rem;margin:0.5rem 0 0.75rem"></div>
+      <div id="history-vs-finish-scatter" class="fifa-scatter"></div>
+      <p class="small muted" style="margin-top:0.4rem">
+        Squad club lists scraped from Wikipedia &quot;&lt;year&gt; FIFA World Cup
+        squads&quot; (each player's club at the tournament; clubs compared only within
+        a squad). Finishes are the complete 32-team knockout results, cross-checked
+        against <a href="data/fifa_multi_year.json"><code>fifa_multi_year.json</code></a>.
+        Built by <code>research/scripts/build_history_index_multi_year.py</code>; data in
+        <a href="data/history_index_multi_year.json"><code>history_index_multi_year.json</code></a>.
+      </p>
+    </section>
+
+    <!-- =============================================================== -->
+    <section>
       <h2>Tee-up: scoring WC26 squads as they're announced</h2>
       <p>
         The History Index is computable from a squad list and a club-history table — it doesn't
@@ -219,6 +268,18 @@
         <a href="how-chemistry-develops.html">Time &rarr; Chemistry</a> tab.
       </p>
       <p>
+        <strong>Shared-club history (multi-year)</strong> &mdash; the &quot;Does shared
+        history correlate with winning?&quot; scatter &mdash; is a simpler, fully-sourceable
+        cousin computed identically for every WC 2006&ndash;2022: the share of a squad
+        whose <em>tournament-time</em> club has at least one team-mate in the same squad.
+        Squad club lists are scraped from Wikipedia's &quot;&lt;year&gt; FIFA World Cup
+        squads&quot; pages; finishes are the complete 32-team knockout results,
+        cross-checked against <code>fifa_multi_year.json</code>. Built by
+        <code>research/scripts/build_history_index_multi_year.py</code> &rarr;
+        <code>data/history_index_multi_year.json</code>. Because it uses current-club only
+        (not the WC22 index's multi-year overlay), the two History Index numbers differ.
+      </p>
+      <p>
         <strong>Historical World Cup rankings</strong> are from the FIFA Men's World Ranking
         (active since Dec 1992), cross-referenced against FIFA's own &quot;World Cup champions
         1982-2022&quot; summary and the beIN Sports &quot;Curse of the FIFA World Ranking No. 1&quot;
@@ -243,6 +304,6 @@
     Pre-tournament rankings from FIFA's official ranking history; FIFA team Overalls from EA Sports' published team ratings; chemistry density from this study's AW-JOI tracking pipeline.
   </footer>
 
-  <script type="module" src="assets/js/fifa-mode.js?v=multi-year-tdz"></script>
+  <script type="module" src="assets/js/fifa-mode.js?v=history-finish"></script>
 </body>
 </html>

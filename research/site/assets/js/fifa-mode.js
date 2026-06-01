@@ -23,15 +23,18 @@ const YEAR_COLOR = {
   2022: "#d4a23a",
 };
 
-const [history, teamRows, wc26, multiYear] = await Promise.all([
+const [history, teamRows, wc26, multiYear, historyMulti] = await Promise.all([
   loadJSON("data/historical_fifa.json"),
   loadJSON("data/team_chemistry_vs_paper.json"),
   loadJSON("data/wc26_rosters.json"),
   loadJSON("data/fifa_multi_year.json").catch(() => null),
+  loadJSON("data/history_index_multi_year.json").catch(() => null),
 ]);
 
 renderHistorical(history);
 renderWc26(wc26);
+
+if (Array.isArray(historyMulti?.rows)) renderHistoryVsFinish(historyMulti.rows);
 
 if (Array.isArray(teamRows)) {
   const data = teamRows.filter(
@@ -245,6 +248,173 @@ function renderFifaVsFinish(allRows) {
         ${yearLegend}
         <span><span class="dot" style="background:transparent;border:1.5px solid #d4a23a;border-radius:50%;display:inline-block;width:9px;height:9px;"></span> semifinalist+ (gold ring)</span>
         <span class="muted">Dashed gold line = least-squares fit over visible years. Above = overachieved; below = underachieved. ${singleYear ? "" : "Y-jitter applied so same (overall, stage) dots don't overlap across years."}</span>
+      </div>`;
+  }
+
+  draw();
+}
+
+/* ----------- History Index vs WC finish (multi-year, toggles) ----------- */
+/* Mirrors renderFifaVsFinish but X = shared-club history (% of squad with a
+   club-mate). All 32 participants per WC; finishes are complete. Defaults to
+   ALL years on (the cross-tournament headline); single-year view labels every
+   team, multi-year view labels semifinalists+ only and relies on hover. */
+
+function renderHistoryVsFinish(allRows) {
+  const mount = document.getElementById("history-vs-finish-scatter");
+  const ctrl = document.getElementById("history-vs-finish-year-toggle");
+  if (!mount) return;
+
+  const activeYears = new Set(ALL_YEARS);
+
+  if (ctrl) {
+    const yearsPresent = ALL_YEARS.filter((y) => allRows.some((r) => r.year === y));
+    ctrl.innerHTML = yearsPresent.map((y) => {
+      const checked = activeYears.has(y) ? "checked" : "";
+      const n = allRows.filter((r) => r.year === y).length;
+      return `<label class="wb-toggle">
+        <input type="checkbox" data-year="${y}" ${checked}>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${YEAR_COLOR[y]};vertical-align:1px;margin-right:5px"></span>WC ${String(y).slice(2)} <span class="dim small">(n=${n})</span></span>
+      </label>`;
+    }).join("");
+    ctrl.querySelectorAll("input[type=checkbox]").forEach((cb) => {
+      cb.addEventListener("change", () => {
+        const y = Number(cb.dataset.year);
+        if (cb.checked) activeYears.add(y); else activeYears.delete(y);
+        if (activeYears.size === 0) { activeYears.add(2014); ctrl.querySelector('input[data-year="2014"]').checked = true; }
+        draw();
+      });
+    });
+  }
+
+  function draw() {
+    const rows = allRows.filter((r) => activeYears.has(r.year) && r.stage_int != null);
+    const singleYear = activeYears.size === 1 ? [...activeYears][0] : null;
+
+    const W = 1100, H = 500;
+    const padL = 86, padR = 48, padT = 22, padB = 64;
+    const innerW = W - padL - padR;
+    const innerH = H - padT - padB;
+
+    const xs = rows.map((r) => r.history_share);
+    const ys = rows.map((r) => r.stage_int);
+    const xmin = Math.max(0, Math.min(...xs) - 5), xmax = Math.min(100, Math.max(...xs) + 5);
+    const ymin = 1.5, ymax = 8.5;
+    const sxV = (x) => padL + ((x - xmin) / (xmax - xmin)) * innerW;
+    const syV = (y) => padT + innerH - ((y - ymin) / (ymax - ymin)) * innerH;
+    // Jitter Y by a tiny per-year offset when multiple years are on, so dots
+    // at the same (share, stage) don't fully overlap.
+    const yJitter = (r) => {
+      if (singleYear) return 0;
+      const yrs = [...activeYears].sort();
+      const idx = yrs.indexOf(r.year);
+      const span = (yrs.length - 1) || 1;
+      return (idx / span - 0.5) * 0.5;
+    };
+    const sx = (r) => sxV(r.history_share);
+    const sy = (r) => syV(r.stage_int + yJitter(r));
+
+    const rho = spearman(xs, ys);
+    const rhoEl = document.getElementById("rho-history-finish");
+    if (rhoEl) {
+      const yrTxt = singleYear
+        ? `WC ${String(singleYear).slice(2)}`
+        : [...activeYears].sort().map((y) => `'${String(y).slice(2)}`).join("+");
+      rhoEl.innerHTML =
+        `(${yrTxt} — Spearman &rho; = ${rho >= 0 ? "+" : ""}${rho.toFixed(3)}, n = ${rows.length})`;
+    }
+
+    const stageLabels = {2: "Group", 4: "R16", 5: "QF", 6: "Semi", 7: "Final", 8: "Winner"};
+    const xTicks = [0, 20, 40, 60, 80, 100];
+    const xTickSvg = xTicks.filter((v) => v >= xmin && v <= xmax).map((x) => `
+      <text x="${sxV(x)}" y="${H - padB + 18}" font-size="11" fill="currentColor"
+            opacity="0.55" text-anchor="middle">${x}%</text>`).join("");
+    const yRules = [2, 4, 5, 6, 7, 8].map((y) => `
+      <line x1="${padL}" y1="${syV(y)}" x2="${W - padR}" y2="${syV(y)}"
+            stroke="currentColor" stroke-width="0.5" opacity="0.10"/>
+      <text x="${padL - 8}" y="${syV(y) + 4}" font-size="11" fill="currentColor"
+            opacity="0.6" text-anchor="end">${stageLabels[y]}</text>`).join("");
+
+    // Dots: fill = year color; ring = semifinalist+ of that year. Hover = numbers.
+    const dots = rows.map((r) => {
+      const cx = sx(r), cy = sy(r);
+      const ring = (r.stage_int >= 6)
+        ? `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="9" fill="none" stroke="#d4a23a" stroke-width="1.6" opacity="0.85"/>`
+        : "";
+      const bloc = r.largest_bloc >= 2 && r.largest_bloc_club
+        ? `, biggest bloc ${r.largest_bloc}× ${escapeHTML(r.largest_bloc_club)}` : "";
+      const tip = `${escapeHTML(r.team)} ${r.year} — ${r.history_share}% shared `
+        + `(${r.history_count}/${r.squad_size})${bloc} — ${r.stage_label}`;
+      return `${ring}<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5.5"
+               fill="${YEAR_COLOR[r.year]}" stroke="var(--bg, #0b1220)" stroke-width="1.2"><title>${tip}</title></circle>`;
+    }).join("");
+
+    // Label all teams in single-year; only semifinalists+ when multiple years on.
+    const labelRows = singleYear ? rows : rows.filter((r) => r.stage_int >= 6);
+    const labelFor = (r) => singleYear ? r.team : `${r.team} '${String(r.year).slice(2)}`;
+    const labelKey = (r) => `${r.team}__${r.year}`;
+    const picks = placeLabels(labelRows, sx, sy,
+      (r) => r.stage_int * 10000 + r.history_share * 10 + r.year - 2000,
+      { left: padL, top: padT, innerW, innerH },
+      labelKey);
+    const labels = labelRows.map((r) => {
+      const cx = sx(r), cy = sy(r);
+      const p = picks.get(labelKey(r));
+      const semiBold = r.stage_int >= 6 ? 700 : 500;
+      return `<text x="${(cx + p.dx).toFixed(1)}" y="${(cy + p.dy).toFixed(1)}"
+             font-size="11" font-weight="${semiBold}" fill="currentColor"
+             opacity="0.92" text-anchor="${p.anchor}">${escapeHTML(labelFor(r))}</text>`;
+    }).join("");
+
+    const axisX = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - padB + 38}"
+      font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle">
+      Shared-club history (% of squad with a club-mate in the squad)</text>`;
+    const axisY = `<text x="20" y="${padT + innerH / 2}"
+      font-size="12" fill="currentColor" opacity="0.6" text-anchor="middle"
+      transform="rotate(-90, 20, ${padT + innerH / 2})">WC stage reached</text>`;
+
+    // Least-squares regression over visible points.
+    const n = xs.length;
+    const meanX = xs.reduce((a, b) => a + b, 0) / n;
+    const meanY = ys.reduce((a, b) => a + b, 0) / n;
+    let num = 0, den = 0;
+    for (let i = 0; i < n; i++) {
+      num += (xs[i] - meanX) * (ys[i] - meanY);
+      den += (xs[i] - meanX) ** 2;
+    }
+    const slope = den > 0 ? num / den : 0;
+    const intercept = meanY - slope * meanX;
+    const lineYat = (x) => slope * x + intercept;
+    const lineX1 = xmin + 2, lineX2 = xmax - 2;
+    const lineY1 = Math.max(ymin, Math.min(ymax, lineYat(lineX1)));
+    const lineY2 = Math.max(ymin, Math.min(ymax, lineYat(lineX2)));
+    const trend = `
+      <line x1="${sxV(lineX1)}" y1="${syV(lineY1)}" x2="${sxV(lineX2)}" y2="${syV(lineY2)}"
+            stroke="#d4a23a" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>
+      <text x="${sxV(lineX2) - 6}" y="${syV(lineY2) - 6}" font-size="10.5"
+            fill="#d4a23a" opacity="0.85" text-anchor="end" font-style="italic">
+        expected finish given shared history</text>`;
+
+    const yearLegend = [...activeYears].sort().map((y) =>
+      `<span><span class="dot" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${YEAR_COLOR[y]};vertical-align:0px;margin-right:4px"></span>WC ${String(y).slice(2)}</span>`,
+    ).join("");
+
+    mount.innerHTML = `
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
+           class="fifa-scatter-svg" role="img"
+           aria-label="Shared-club history vs WC finish scatter">
+        ${yRules}
+        ${xTickSvg}
+        ${trend}
+        ${dots}
+        ${labels}
+        ${axisX}
+        ${axisY}
+      </svg>
+      <div class="scatter-legend small muted">
+        ${yearLegend}
+        <span><span class="dot" style="background:transparent;border:1.5px solid #d4a23a;border-radius:50%;display:inline-block;width:9px;height:9px;"></span> semifinalist+ (gold ring)</span>
+        <span class="muted">Dashed gold line = least-squares fit over visible years. ${singleYear ? "" : "Multi-year view labels semifinalists+ only — hover any dot for its number."}</span>
       </div>`;
   }
 
