@@ -34,7 +34,10 @@ const [history, teamRows, wc26, multiYear, historyMulti] = await Promise.all([
 renderHistorical(history);
 renderWc26(wc26);
 
-if (Array.isArray(historyMulti?.rows)) renderHistoryVsFinish(historyMulti.rows);
+if (Array.isArray(historyMulti?.rows)) {
+  renderHistoryVsFinish(historyMulti.rows);
+  renderHistory2026(historyMulti.rows);
+}
 
 if (Array.isArray(teamRows)) {
   const data = teamRows.filter(
@@ -419,6 +422,65 @@ function renderHistoryVsFinish(allRows) {
   }
 
   draw();
+}
+
+/* --------- WC26: who has the most shared club history (ranking) --------- */
+/* No finish exists yet (tournament unplayed), so this is a leaderboard, not a
+   scatter: every announced WC26 squad ranked by the same %-share metric. */
+
+function renderHistory2026(allRows) {
+  const mount = document.getElementById("wc26-history-table");
+  if (!mount) return;
+  const rows = allRows
+    .filter((r) => r.year === 2026)
+    .sort((a, b) => b.history_share - a.history_share || b.largest_bloc - a.largest_bloc);
+
+  const countEl = document.getElementById("wc26-history-count");
+  if (countEl) countEl.textContent = rows.length ? `(${rows.length} of 48 squads announced)` : "";
+
+  if (!rows.length) {
+    mount.innerHTML = `<p class="dim small">No WC26 squads announced yet — re-run the builder once final 26-man lists are published.</p>`;
+    return;
+  }
+
+  const maxShare = Math.max(...rows.map((r) => r.history_share)) || 1;
+  const body = rows.map((r, i) => {
+    const bloc = r.largest_bloc >= 2 && r.largest_bloc_club
+      ? `${r.largest_bloc}&times; ${escapeHTML(r.largest_bloc_club)}`
+      : `<span class="muted">—</span>`;
+    const w = (r.history_share / maxShare) * 100;
+    return `<tr>
+      <td class="num tabular dim">${i + 1}</td>
+      <td><strong>${escapeHTML(r.team)}</strong></td>
+      <td>
+        <div style="display:flex;align-items:center;gap:0.55rem">
+          <span style="flex:0 0 130px;height:9px;background:var(--bg-elev-2);border-radius:5px;overflow:hidden;display:inline-block">
+            <span style="display:block;height:100%;width:${w.toFixed(0)}%;background:#d4a23a"></span>
+          </span>
+          <strong class="tabular">${r.history_share.toFixed(1)}&#37;</strong>
+          <span class="dim small">(${r.history_count}/${r.squad_size})</span>
+        </div>
+      </td>
+      <td class="small">${bloc}</td>
+    </tr>`;
+  }).join("");
+
+  mount.innerHTML = `
+    <table class="data-table fifa-data-table">
+      <thead><tr>
+        <th class="num">#</th>
+        <th>Team</th>
+        <th>Shared-club history (% of squad with a club-mate)</th>
+        <th>Biggest single-club bloc</th>
+      </tr></thead>
+      <tbody>${body}</tbody>
+    </table>
+    <p class="small muted" style="margin-top:0.5rem;">
+      ${rows.length} of 48 squads announced so far &mdash; re-run
+      <code>research/scripts/build_history_index_multi_year.py</code> to refresh as more
+      are named. Same %-share metric and source (Wikipedia squad clubs) as the historical
+      scatter above; no finish to plot against until the tournament is played.
+    </p>`;
 }
 
 /* ---------------- historical table ---------------- */

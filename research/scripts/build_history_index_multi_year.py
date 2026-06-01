@@ -42,7 +42,10 @@ ROOT = Path(__file__).resolve().parents[2]
 FIFA_MULTI = ROOT / "research" / "site" / "data" / "fifa_multi_year.json"
 OUT = ROOT / "research" / "site" / "data" / "history_index_multi_year.json"
 
-YEARS = [2006, 2010, 2014, 2018, 2022]
+YEARS = [2006, 2010, 2014, 2018, 2022, 2026]
+# Years whose tournament hasn't been played: history index is computed, but there
+# is no finish to attach (stage stays null) and squads are partial as they're named.
+NO_FINISH = {2026}
 UA = "wc2026-tracking-transformer research scraper (contact: nickgurol@gmail.com)"
 
 # Wikipedia squad-page heading -> fifa_multi_year.json team vocabulary.
@@ -210,18 +213,25 @@ def main():
         print(f"[fetch] {year} …", flush=True)
         squads = squads_for_year(year)
         print(f"  parsed {len(squads)} squads")
-        ko = KNOCKOUT[year]
+        no_finish = year in NO_FINISH
+        ko = {} if no_finish else KNOCKOUT[year]
         for team, clubs in sorted(squads.items()):
             hi = history_index(clubs)
-            stage_int = ko.get(team, 2)  # not in knockout table -> group stage
+            if no_finish:
+                stage_int, stage_label = None, "TBD"
+            else:
+                stage_int = ko.get(team, 2)  # not in knockout table -> group stage
+                stage_label = STAGE_LABEL[stage_int]
             row = {
                 "team": team,
                 "year": year,
                 **hi,
                 "stage_int": stage_int,
-                "stage_label": STAGE_LABEL[stage_int],
+                "stage_label": stage_label,
             }
             rows.append(row)
+            if no_finish:
+                continue
             # Cross-check against fifa_multi_year where it has an opinion.
             # (fifa_multi_year encodes Group as 1; we use 2 to match the chart axis
             #  and the WC22 team_chemistry_vs_paper convention — treat them as equal.)
@@ -242,8 +252,22 @@ def main():
     print("\n=== per-year coverage (stage distribution) ===")
     for year in YEARS:
         yr = [r for r in rows if r["year"] == year]
+        if year in NO_FINISH:
+            print(f"{year}: {len(yr)} squads announced so far (no finish — TBD)")
+            continue
         dist = Counter(r["stage_label"] for r in yr)
         print(f"{year}: {len(yr)} squads — " + ", ".join(f"{k}={dist[k]}" for k in ["Winner","Final","Semi","QF","R16","Group"]))
+
+    # 2026 leaderboard: who has the most shared club history?
+    for year in NO_FINISH:
+        yr = sorted([r for r in rows if r["year"] == year], key=lambda x: -x["history_share"])
+        if not yr:
+            continue
+        print(f"\n=== WC{year} — most shared club history (squads announced so far) ===")
+        for i, r in enumerate(yr, 1):
+            bloc = f"{r['largest_bloc']}× {r['largest_bloc_club']}" if r["largest_bloc"] >= 2 else "—"
+            print(f"  {i:2d}. {r['team']:<16} {r['history_share']:5.1f}%  "
+                  f"({r['history_count']}/{r['squad_size']})  biggest bloc: {bloc}")
 
     print("\n=== canonical-example spot check (history_share, largest bloc) ===")
     for key in [("Spain", 2010), ("Germany", 2014), ("Italy", 2006),

@@ -191,9 +191,10 @@
            style="display:flex;flex-wrap:wrap;gap:0.5rem;margin:0.5rem 0 0.75rem"></div>
       <div id="history-vs-finish-scatter" class="fifa-scatter"></div>
       <p class="small muted" style="margin-top:0.4rem">
-        Squad club lists scraped from Wikipedia &quot;&lt;year&gt; FIFA World Cup
-        squads&quot; (each player's club at the tournament; clubs compared only within
-        a squad). Finishes are the complete 32-team knockout results, cross-checked
+        Squad club lists scraped from Wikipedia's per-edition &quot;FIFA World Cup
+        squads&quot; pages (2006, 2010, 2014, 2018, 2022) &mdash; each player's club at
+        the tournament; clubs compared only within a squad. Finishes are the complete
+        32-team knockout results, cross-checked
         against <a href="data/fifa_multi_year.json"><code>fifa_multi_year.json</code></a>.
         Built by <code>research/scripts/build_history_index_multi_year.py</code>; data in
         <a href="data/history_index_multi_year.json"><code>history_index_multi_year.json</code></a>.
@@ -215,11 +216,23 @@
         The 2026 FIFA-Overall bundle is in <code>data/wc26_rosters.json</code> — 26 nations with
         EA FC 26 Overall, top-stars list, and a note flagging the 12 nations EA dropped from its
         license (Brazil, Belgium, Senegal, etc.) for which the &quot;team Overall&quot; is an
-        analyst proxy from individual player Overalls rather than EA's official aggregate. We
-        intentionally leave the WC26 chemistry side empty: chemistry needs tracking, tracking
-        needs the tournament. The point of this tab is simply that the FIFA-vs-chemistry frame
-        we built on WC22 transfers to WC26 the moment the ball is kicked.
+        analyst proxy from individual player Overalls rather than EA's official aggregate. The
+        <em>tracking</em>-based chemistry side stays empty until the ball is kicked &mdash; but the
+        shared-club History Index needs nothing but a squad list, so we can already run it on the
+        WC26 squads as they're announced (below).
       </p>
+
+      <h3 class="mt-2">Who has the most shared club history? &mdash; WC26 &nbsp;<span class="dim small" id="wc26-history-count"></span></h3>
+      <p class="dim small">
+        The same <em>% of squad whose club has a team-mate in the squad</em> metric from the
+        historical scatter, run on each WC26 squad as it's named. There's no finish to plot
+        against yet &mdash; this is purely <em>who walks in with the most shared club history</em>.
+        Two flavours sit at the top: genuine elite-club spines (<strong>Germany</strong> 7&times;
+        Bayern, <strong>Spain</strong> 8&times; Barcelona) and domestic-league blocs
+        (<strong>Czech Republic</strong> 10&times; Slavia Prague, <strong>Egypt</strong> 8&times;
+        Al Ahly) &mdash; the WC22 chart shows the former tends to convert and the latter doesn't.
+      </p>
+      <div id="wc26-history-table" class="table-wrap"></div>
 
       <h3 class="mt-2">Pre-tournament FIFA Overall — WC26 candidate field</h3>
       <p class="dim small">Top 12 by EA FC 26 published Overall. Asterisk = EA-unlicensed nation, Overall is an analyst proxy.</p>
@@ -272,8 +285,9 @@
         history correlate with winning?&quot; scatter &mdash; is a simpler, fully-sourceable
         cousin computed identically for every WC 2006&ndash;2022: the share of a squad
         whose <em>tournament-time</em> club has at least one team-mate in the same squad.
-        Squad club lists are scraped from Wikipedia's &quot;&lt;year&gt; FIFA World Cup
-        squads&quot; pages; finishes are the complete 32-team knockout results,
+        Squad club lists are scraped from Wikipedia's per-edition &quot;FIFA World Cup
+        squads&quot; pages (2006&ndash;2022, plus 2026 as squads are announced); finishes
+        are the complete 32-team knockout results,
         cross-checked against <code>fifa_multi_year.json</code>. Built by
         <code>research/scripts/build_history_index_multi_year.py</code> &rarr;
         <code>data/history_index_multi_year.json</code>. Because it uses current-club only
@@ -304,6 +318,6 @@
     Pre-tournament rankings from FIFA's official ranking history; FIFA team Overalls from EA Sports' published team ratings; chemistry density from this study's AW-JOI tracking pipeline.
   </footer>
 
-  <script type="module" src="assets/js/fifa-mode.js?v=history-finish"></script>
+  <script type="module" src="assets/js/fifa-mode.js?v=wc26-history"></script>
 </body>
 </html>
