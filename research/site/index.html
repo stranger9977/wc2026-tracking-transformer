@@ -68,6 +68,52 @@
     .next-tabs a:hover { border-color: #6dd58c; }
     .next-tabs h4 { margin: 0 0 0.3rem; font-size: 1em; }
     .next-tabs p { margin: 0; font-size: 0.85em; color: var(--text-dim); }
+
+    /* --- transformer pipeline animation (tab 1) --- */
+    .tf-anim { display:block; margin:1.2rem auto 0.4rem; max-width:330px; }
+    .tf-anim svg { width:100%; height:auto; overflow:visible; }
+    .tf-anim text { fill:#9aa0a6; font-family:var(--mono, ui-monospace, monospace); font-size:8px; }
+    .tf-tokrow rect { fill:#7aa7d4; }
+    .tf-sweep { fill:#6dd58c; opacity:0; }
+    .tf-edge { stroke:#6dd58c; fill:none; stroke-width:1.6; stroke-dasharray:200; stroke-dashoffset:0; }
+    .tf-dot { fill:#cdd6e0; }
+    .tf-ball { fill:#f1ad7a; }
+    .tf-bar-track { fill:rgba(255,255,255,0.07); }
+    .tf-bar-fill { transform-box:fill-box; transform-origin:left center; }
+    .tf-bar-score { fill:#6dd58c; }
+    .tf-bar-conc { fill:#d4793a; }
+    .tf-pct { fill:#e8eaed; font-size:9px; font-weight:600; }
+    .tf-flow { fill:#6dd58c; opacity:0; }
+    @keyframes tfTok { 0%,100%{opacity:.25} 8%,80%{opacity:1} }
+    @keyframes tfSweep {
+      0%,3%{transform:translateX(0); opacity:0}
+      6%{opacity:.85}
+      20%{transform:translateX(186px); opacity:0}
+      100%{opacity:0}
+    }
+    @keyframes tfEdge {
+      0%,24%{stroke-dashoffset:200; opacity:0}
+      32%{opacity:1}
+      42%{stroke-dashoffset:0; opacity:1}
+      82%{stroke-dashoffset:0; opacity:1}
+      92%,100%{stroke-dashoffset:0; opacity:0}
+    }
+    @keyframes tfDot { 0%,24%{opacity:.4} 36%,82%{opacity:1} 94%,100%{opacity:.4} }
+    @keyframes tfBar { 0%,55%{transform:scaleX(0)} 75%,88%{transform:scaleX(1)} 100%{transform:scaleX(0)} }
+    @keyframes tfPct { 0%,62%{opacity:0} 76%,90%{opacity:1} 100%{opacity:0} }
+    @keyframes tfFlowA { 0%,8%{opacity:0; transform:translateY(0)} 12%{opacity:1} 24%{opacity:0; transform:translateY(13px)} 100%{opacity:0} }
+    @keyframes tfFlowB { 0%,50%{opacity:0; transform:translateY(0)} 54%{opacity:1} 66%{opacity:0; transform:translateY(13px)} 100%{opacity:0} }
+    .tf-tokrow rect { animation: tfTok 6s linear infinite; }
+    .tf-sweep { animation: tfSweep 6s linear infinite; }
+    .tf-edge { animation: tfEdge 6s linear infinite; }
+    .tf-dot, .tf-ball { animation: tfDot 6s linear infinite; }
+    .tf-bar-fill { animation: tfBar 6s ease-in-out infinite; }
+    .tf-pct { animation: tfPct 6s linear infinite; }
+    .tf-flowA { animation: tfFlowA 6s linear infinite; }
+    .tf-flowB { animation: tfFlowB 6s linear infinite; }
+    @media (prefers-reduced-motion: reduce) {
+      .tf-anim * { animation: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -411,6 +457,81 @@
       richer and richer read of the whole configuration before it commits to
       a number.
     </p>
+
+    <figure class="tf-anim" role="img" aria-label="Animated diagram of the model working: 23 input tokens are embedded, attention weights light up between key players on a mini pitch, then two probability bars for P(score) and P(concede) fill in. The loop repeats roughly every six seconds.">
+      <svg viewBox="0 0 220 240">
+        <text x="110" y="9" text-anchor="middle">23 tokens · 22 players + the ball</text>
+        <g class="tf-tokrow">
+      <rect x="10.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="18.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="27.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="35.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="44.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="52.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="61.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="69.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="78.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="86.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="95.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="103.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="112.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="120.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="129.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="137.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="146.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="154.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="163.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="171.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="180.0" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="188.5" y="16" width="5" height="12" rx="1.5"/>
+      <rect x="197.0" y="16" width="5" height="12" rx="1.5"/>
+        </g>
+        <rect class="tf-sweep" x="6" y="14" width="16" height="16" rx="3"/>
+
+        <path d="M110 33 L110 48" stroke="#5a6168" stroke-width="1.3" fill="none"/>
+        <path d="M106 45 L110 50 L114 45 Z" fill="#5a6168"/>
+        <circle class="tf-flow tf-flowA" cx="110" cy="35" r="2"/>
+        <text x="118" y="45" text-anchor="start">embed</text>
+
+        <rect x="30" y="56" width="160" height="104" rx="6" fill="none" stroke="#3a3f45" stroke-width="1.2"/>
+        <line x1="110" y1="56" x2="110" y2="160" stroke="#3a3f45" stroke-width="1" opacity="0.6"/>
+        <circle cx="110" cy="108" r="12" fill="none" stroke="#3a3f45" stroke-width="1" opacity="0.6"/>
+        <text x="185" y="67" text-anchor="end">attention</text>
+        <path class="tf-edge" d="M92 72 L158 78"/>
+        <path class="tf-edge" d="M126 90 L110 108"/>
+        <path class="tf-edge" d="M158 78 L146 120"/>
+        <path class="tf-edge" d="M110 134 L146 120"/>
+        <circle class="tf-dot" cx="58" cy="84" r="3.2"/>
+        <circle class="tf-dot" cx="92" cy="72" r="3.2"/>
+        <circle class="tf-dot" cx="126" cy="90" r="3.2"/>
+        <circle class="tf-dot" cx="158" cy="78" r="3.2"/>
+        <circle class="tf-dot" cx="74" cy="118" r="3.2"/>
+        <circle class="tf-dot" cx="110" cy="134" r="3.2"/>
+        <circle class="tf-dot" cx="146" cy="120" r="3.2"/>
+        <circle class="tf-dot" cx="50" cy="140" r="3.2"/>
+        <circle class="tf-dot" cx="176" cy="108" r="3.2"/>
+        <circle class="tf-dot" cx="120" cy="150" r="3.2"/>
+        <circle class="tf-ball" cx="110" cy="108" r="2.8"/>
+
+        <path d="M110 164 L110 179" stroke="#5a6168" stroke-width="1.3" fill="none"/>
+        <path d="M106 176 L110 181 L114 176 Z" fill="#5a6168"/>
+        <circle class="tf-flow tf-flowB" cx="110" cy="166" r="2"/>
+
+        <text x="8" y="200" text-anchor="start">P(score)</text>
+        <rect class="tf-bar-track" x="62" y="193" width="112" height="9" rx="4.5"/>
+        <rect class="tf-bar-fill tf-bar-score" x="62" y="193" width="62" height="9" rx="4.5"/>
+        <text class="tf-pct" x="182" y="201" text-anchor="end">4.6%</text>
+
+        <text x="8" y="222" text-anchor="start">P(concede)</text>
+        <rect class="tf-bar-track" x="62" y="215" width="112" height="9" rx="4.5"/>
+        <rect class="tf-bar-fill tf-bar-conc" x="62" y="215" width="34" height="9" rx="4.5"/>
+        <text class="tf-pct" x="182" y="223" text-anchor="end">1.9%</text>
+      </svg>
+      <figcaption class="small dim" style="text-align:center; margin-top:0.3rem;">
+        One frame through the model: tokens in, attention between players, two probabilities out.
+      </figcaption>
+    </figure>
+
     <p>
       In our instance, every frame is a 23-token sequence: 22 players + the ball. Each token
       carries seven features (position, velocity, attacking side, GK flag,
