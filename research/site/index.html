@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>WC22 Player Chemistry — What is Chemistry?</title>
-  <meta name="description" content="Chemistry is what happens between players when the ball isn't there. We measure it — on-ball AND off-ball — frame by frame.">
+  <title>WC22 Player Chemistry: What is Chemistry?</title>
+  <meta name="description" content="Chemistry is what happens between players when the ball isn't there. We measure it frame by frame, on the ball and off it.">
   <link rel="stylesheet" href="assets/css/site.css">
   <style>
-    /* Inline styles for Tab 1 contrast section — small enough to live here
+    /* Inline styles for Tab 1 contrast section, small enough to live here
        rather than carry assets/css/what-is-chemistry.css */
     .atom {
       display: block; margin: 0.4rem auto 0.8rem; width: 96px; height: 96px;
@@ -99,14 +99,12 @@
     <!-- 1. WC22 storylines lead-in -->
     <p class="lede">
       Messi finally broke through. Mbappé scored a hat-trick in the final and
-      still lost. Morocco — eleventh on FIFA's talent index going in —
-      knocked out Spain and Portugal on the way to a semifinal. Croatia
+      still lost. Morocco went in ranked eleventh on FIFA's talent index and still knocked out Spain and Portugal on the way to a semifinal. Croatia
       ground three knockout games to extra time and walked off with bronze.
       Four deep runs, four very different rosters, one shared trait: every
       one of them played like a unit that already knew the answer. Our
       hypothesis for this study: <strong>chemistry is real, measurable, and
-      predicts who survives a tournament</strong> — sometimes more than raw
-      talent does.
+      predicts who survives a tournament</strong>. Sometimes it matters more than raw talent does.
     </p>
 
     <!-- 2. Chemistry as metaphor -->
@@ -126,7 +124,7 @@
       alone. Our job on this study is to turn that metaphor into a number.
     </p>
 
-    <!-- 3. What chemistry looks like on a pitch — subjective -->
+    <!-- 3. What chemistry looks like on a pitch (subjective) -->
     <h2>What chemistry looks like on a pitch</h2>
     <p>
       You already know what it looks like. The through-ball that meets a
@@ -137,21 +135,18 @@
       this study asks is the harder one: <em>how would you measure them?</em>
     </p>
 
-    <!-- 4. The event-based baseline — JOI / JDI -->
+    <!-- 4. The event-based baseline: JOI / JDI -->
     <h2>The event-based baseline: JOI and JDI in plain English</h2>
     <p class="dim">
       <a href="https://arxiv.org/abs/2003.01712" target="_blank" rel="noopener">Bransen &amp; Van Haaren (MIT Sloan, 2020)</a> propose two pair-level
-      metrics on top of VAEP. VAEP turns every on-ball action — pass, cross,
-      dribble, take-on, shot — into an expected-goal-difference delta. JOI
+      metrics on top of VAEP. VAEP turns every on-ball action (a pass, cross, dribble, take-on, or shot) into an expected-goal-difference delta. JOI
       and JDI pool that VAEP currency by <em>pair</em> instead of by player.
     </p>
     <div class="grid-2">
       <div class="card">
         <h3 class="mt-0"><span class="chip green">JOI</span> Joint Offensive Impact</h3>
         <p class="small">
-          When two teammates act in consecutive on-ball events — P passes, Q
-          shoots; or P carries, Q lays it off — both VAEP values land in the
-          pair's JOI bucket. JOI asks: <em>when these two play together,
+          When two teammates act in consecutive on-ball events (P passes and Q shoots, or P carries and Q lays it off), both VAEP values land in the pair's JOI bucket. JOI asks: <em>when these two play together,
           does the ball flow productively through them?</em> Through-balls
           into a shooter, wall passes, carry-and-finish combinations all
           show up here. Normalised per 90 shared minutes (JOI90).
@@ -170,13 +165,13 @@
       </div>
     </div>
 
-    <!-- 5. Where event-based chemistry goes blind — hero contrast -->
+    <!-- 5. Where event-based chemistry goes blind (hero contrast) -->
     <h2>Where event-based chemistry goes blind</h2>
     <blockquote class="quote-foil">
       "The match event data only describes the actions that actually
       happened in the match but not the actions that players prevented
       from happening, for instance, by smart runs or clever positioning."
-      <cite>— Bransen &amp; Van Haaren, JDI section</cite>
+      <cite>Bransen &amp; Van Haaren, JDI section</cite>
     </blockquote>
     <p>
       Event-based JDI is explicit about its own blind spot. JDI is forced to
@@ -187,30 +182,27 @@
       that opened the lane never touches the ball. The pin that froze the
       centre-back never touches the ball. The 40-metre off-ball width-hold
       that bent the defensive shape never touches the ball. None of it
-      enters JOI. <strong>The single most important thing two teammates do
-      together — coordinate their off-ball geometry — is invisible to the
-      framework that's supposed to measure their chemistry.</strong>
+      enters JOI. <strong>The single most important thing two teammates do together is coordinate their off-ball geometry, and that is exactly what stays invisible to the framework meant to measure their chemistry.</strong>
     </p>
 
     <!-- 6. Our addition -->
     <h2>What we add: frame data + transformer attention</h2>
     <p>
-      We train a transformer on PFF World Cup 2022 tracking data — all 22
-      players plus the ball, sampled at 5 Hz (every 200 ms) — to predict
-      P(score) and P(concede) over the next ten seconds. The architecture
+      We train a transformer to predict P(score) and P(concede) over the next ten seconds, feeding it PFF World Cup 2022 tracking data for all 22 players plus the ball, sampled at 5 Hz (every 200 ms). The architecture
       is adapted from
       <a href="https://github.com/SumerSports/SportsTrackingTransformer" target="_blank" rel="noopener">SumerSports's
       SportsTrackingTransformer</a> (originally NFL). As a byproduct of
       that prediction, each layer's attention heads light up <em>which
       pairs of players the model needed to look at together</em> to make
-      its call. On-ball moments AND off-ball ones. Decoy runs, pins,
-      rest-defence anchors — when they matter for the
-      next ten seconds of threat, attention rises on the pair. <strong>We
-      don't infer prevention. We see it.</strong>
+      its call. On-ball moments and off-ball ones alike. A decoy run, a pin,
+      a defender stepping up to hold the line: when one of them matters for
+      the next ten seconds of threat, attention rises on that pair.
+      <strong>Event data has to infer prevention after the fact. We watch it
+      happen.</strong>
     </p>
 
     <!-- 6b. Partner-grade explainer: features → attention → AW-JOI → chemistry -->
-    <h2>What goes into the model — and what event-based chemistry can't see</h2>
+    <h2>What the model sees that event-based chemistry can't</h2>
     <table class="compare-table">
       <thead>
         <tr><th></th><th>Original paper (event-based)</th><th>Our model (frame + attention)</th></tr>
@@ -223,8 +215,8 @@
         </tr>
         <tr>
           <td><strong>Sees off-ball runs?</strong></td>
-          <td>No — only the player who touched the ball generates a row.</td>
-          <td>Yes — every player, every frame.</td>
+          <td>No. Only the player who touched the ball generates a row.</td>
+          <td>Yes, on every player in every frame.</td>
         </tr>
         <tr>
           <td><strong>Who matters in this moment?</strong></td>
@@ -237,35 +229,81 @@
       <strong>What P(score) is based on.</strong> Every 200 ms the model sees
       the geometry of all 22 players plus the ball and predicts: how often
       does a configuration this dangerous lead to a goal in the next ten
-      seconds? That's it. Pure geometry plus motion plus learned outcomes —
+      seconds? That's it. Pure geometry plus motion plus learned outcomes:
       no event labels, no human-coded notion of "the play."
     </p>
     <p>
       <strong>What attention is.</strong> A learned weight per player per
       frame. Nobody tells it who matters; it figures that out from the data.
-      Sometimes it stares at the ball-carrier. More often it stares at
-      off-ball runners and defenders who are <em>shaping</em> what's
-      possible — the late-arriving eight, the centre-back stepping up, the
-      wide forward pinning a full-back.
+      Sometimes it stares at the ball-carrier. More often it stares at the off-ball runners and defenders who are <em>shaping</em> what's possible, whether that is the late-arriving eight, the centre-back stepping up, or the wide forward pinning a full-back.
     </p>
     <p>
-      <strong>How it figures out who matters — without being told.</strong>
+      <strong>How it works out who matters on its own.</strong>
       Gradient descent. Picture training a kid to predict when a fight is
       about to break out in a crowded bar. At first they look at everyone
       equally. They guess. They're usually wrong. They watch what actually
       happens. Each time they're wrong, they adjust which faces they pay
       attention to next time. After a few hundred bars, clenched fists and
-      raised voices light up; people on their phones fade out. Nobody handed
-      them a rulebook — outcomes did. Our transformer learns the same way
+      raised voices light up; people on their phones fade out. Nobody handed them a rulebook. The outcomes did. Our transformer learns the same way
       across millions of soccer frames: predict P(score), look at the next
       ten seconds, adjust which players to attend to, repeat. After enough
       training, on a dangerous configuration it has learned to focus on the
-      striker making the diagonal run and the centre-back stepping up — not
-      the fullback standing still on the far side. We never told it the
+      striker making the diagonal run and the centre-back stepping up, rather than on the fullback standing still on the far side. We never told it the
       words <em>striker</em>, <em>fullback</em>, or <em>diagonal run</em>.
       The right weighting emerged because it was the only way to get the
       probability right.
     </p>
+
+    <figure style="margin:1.3rem auto; max-width:480px;">
+      <svg viewBox="0 0 240 150" width="100%" role="img" aria-label="A crowded bar: the two figures squaring up in the centre light up with attention halos and a connecting edge, while the bystanders scrolling their phones fade into the background.">
+        <line x1="14" y1="132" x2="226" y2="132" stroke="#2a2a2a" stroke-width="1.5"/>
+        <g opacity="0.3" stroke="#7aa7d4" stroke-width="1" fill="none">
+          <path d="M24 132 l3 -13 h6 l3 13"/>
+          <path d="M209 132 l3 -13 h6 l3 13"/>
+        </g>
+        <rect x="113" y="116" width="6" height="16" rx="1" fill="#7aa7d4" opacity="0.25"/>
+        <g opacity="0.2" fill="#7aa7d4">
+          <circle cx="34" cy="78" r="7"/>
+          <path d="M22 106 a12 12 0 0 1 24 0 z"/>
+          <rect x="44" y="82" width="5" height="8" rx="1" transform="rotate(20 46 86)"/>
+          <circle cx="206" cy="74" r="7"/>
+          <path d="M194 102 a12 12 0 0 1 24 0 z"/>
+          <rect x="191" y="78" width="5" height="8" rx="1" transform="rotate(-20 193 82)"/>
+        </g>
+        <g opacity="0.14" fill="#7aa7d4">
+          <circle cx="60" cy="44" r="6"/>
+          <path d="M50 68 a10 10 0 0 1 20 0 z"/>
+          <circle cx="184" cy="42" r="6"/>
+          <path d="M174 66 a10 10 0 0 1 20 0 z"/>
+        </g>
+        <line x1="100" y1="54" x2="140" y2="54" stroke="#6dd58c" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.75"/>
+        <circle cx="92" cy="74" r="27" fill="#6dd58c" opacity="0.07"/>
+        <circle cx="148" cy="74" r="27" fill="#6dd58c" opacity="0.07"/>
+        <circle cx="92" cy="74" r="27" fill="none" stroke="#6dd58c" stroke-width="1.3" opacity="0.5"/>
+        <circle cx="148" cy="74" r="27" fill="none" stroke="#6dd58c" stroke-width="1.3" opacity="0.5"/>
+        <g fill="#6dd58c">
+          <circle cx="92" cy="54" r="8"/>
+          <path d="M79 88 a13 13 0 0 1 26 0 z"/>
+          <circle cx="148" cy="54" r="8"/>
+          <path d="M135 88 a13 13 0 0 1 26 0 z"/>
+        </g>
+        <g stroke="#6dd58c" stroke-width="3" stroke-linecap="round" fill="none">
+          <path d="M101 74 L118 62"/>
+          <path d="M139 74 L122 62"/>
+        </g>
+        <circle cx="118" cy="61" r="4.5" fill="#6dd58c"/>
+        <circle cx="122" cy="61" r="4.5" fill="#6dd58c"/>
+        <g stroke="#f1ad7a" stroke-width="1.5" stroke-linecap="round">
+          <path d="M120 49 v-7"/>
+          <path d="M109 53 l-5 -4"/>
+          <path d="M131 53 l5 -4"/>
+        </g>
+      </svg>
+      <figcaption class="small dim" style="margin-top:0.4rem; text-align:center;">
+        What the model learns to do: the clash lights up, the phone-scrollers fade.
+      </figcaption>
+    </figure>
+
     <p>
       <strong>How attention becomes chemistry.</strong> <strong>AW-JOI</strong>
       stands for <strong>Attention-Weighted Joint Offensive Impact</strong>.
@@ -273,23 +311,19 @@
       often is the model attending to <em>both</em> of these two teammates
       at the same time, weighted by how much that frame moves the goal
       probability? If the model keeps co-attending to Messi
-      and Mac Allister during dangerous configurations — even when only one
-      is touching the ball — those two are coupled in the model's eyes. Sum
+      and Mac Allister during dangerous configurations, even when only one of them is on the ball, those two are coupled in its eyes. Sum
       that across the tournament and you have <strong>chemistry by our
       measure</strong>.
     </p>
     <p class="quote-foil" style="font-style:normal">
-      Event-based JOI/JDI can't even put off-ball runners in its input. Ours
-      can — and the attention layer tells us which off-ball players the
-      model thinks matter right now. That's the difference.
+      Event-based JOI/JDI can't even put off-ball runners in its input. Ours can, and its attention layer tells us which off-ball players the model thinks matter right now. That's the difference.
     </p>
 
     <!-- 7. What chemistry looks like (and where event-based chemistry goes blind) -->
     <h2>The contrast, made concrete</h2>
     <p class="dim">
       Two buckets, four mechanisms. Left: things JOI can see (with caveats).
-      Right: things only the tracking attention can see — the heart of the
-      thesis.
+      Right: the things only the tracking attention can see, and the heart of this thesis.
     </p>
 
     <div class="bucket-grid">
@@ -302,7 +336,7 @@
           <span class="dim">Xavi → Iniesta → Messi · Pep's half-spaces.</span>
         </p>
         <p class="small dim" style="margin:0.3rem 0 0;">
-          Event data: <strong style="color:#6dd58c">⚠ partial</strong> — JOI
+          Event data: <strong style="color:#6dd58c">⚠ partial</strong>. JOI
           catches A-B and B-C, but it can't tell whether B knew C was
           arriving <em>before</em> the pass. Attention shows the
           anticipation.
@@ -318,10 +352,10 @@
         <p class="small">
           Foot on the ball, dare the striker forward by a yard, slip past
           him.
-          <span class="dim">De Zerbi's Brighton — the "bait."</span>
+          <span class="dim">De Zerbi's Brighton, the "bait."</span>
         </p>
         <p class="small dim" style="margin:0.3rem 0 0;">
-          Event data: <strong style="color:#6dd58c">⚠ partial</strong> — the
+          Event data: <strong style="color:#6dd58c">⚠ partial</strong>. The
           pass after the bait is captured; the bait itself (the deliberate
           delay) is an off-ball intention. Attention picks up the
           coordinated wait.
@@ -333,8 +367,7 @@
         <h3>The Pin (Fixing the Defender)</h3>
         <p class="small">
           An off-ball attacker stands somewhere so threatening that a
-          defender refuses to leave them. The pinned defender becomes a
-          hole-puncher — their gravity opens a lane somewhere else.
+          defender refuses to leave them. The pinned defender becomes a hole-puncher whose gravity opens a lane somewhere else.
           <span class="dim">Saka holding the width · Pep's wide forwards.</span>
         </p>
         <p class="miss">
@@ -349,8 +382,7 @@
         <div class="bucket-eyebrow">Only we see these · off-ball gravity</div>
         <h3>The Decoy Run</h3>
         <p class="small">
-          A committed run toward space with no intent to receive — the
-          point is to drag a defender. The line between "I'm receiving"
+          A committed run toward space with no intent to receive, made only to drag a defender out of position. The line between "I'm receiving"
           and "I'm bait" is the defender's job to read.
           <span class="dim">Müller's Raumdeuter career · France's
           near-post run for Mbappé crosses.</span>
@@ -362,31 +394,28 @@
           takes the bait.
         </p>
       </div>
-
-      <div class="bucket-card blind">
-        <div class="bucket-eyebrow">Only we see these · off-ball gravity</div>
-        <h3>Gegenpressing Swarm</h3>
-        <p class="small">
-          Possession lost — the nearest 3–4 collapse on the ball-carrier
-          within five seconds, before the opponent's transition organises.
-          <span class="dim">Klopp's 5-second rule.</span>
-        </p>
-        <p class="miss">
-          Event data: <strong>✗ no</strong> until someone wins it back. The
-          off-ball <em>convergence</em> — three defenders sprinting toward
-          one point — fires as a cluster in our cross-team attention well
-          before the recovery touch.
-        </p>
-      </div>
     </div>
 
     <!-- 8. The transformer in one paragraph -->
-    <h2>One paragraph on the transformer</h2>
+    <h2>What is a transformer?</h2>
     <p>
-      Every frame is a 23-token sequence: 22 players + the ball. Each token
+      It is the model family behind tools like ChatGPT, pointed here at
+      bodies on a pitch instead of words in a sentence. The one idea that
+      makes it a transformer is the attention we just described: every token,
+      which for us is every player and the ball, looks at every other token,
+      decides how much each one matters to it right now, and updates its own
+      picture of the moment accordingly. A language model uses this to let a
+      pronoun reach back and find the noun it belongs to. Ours uses it to let
+      a striker weigh the centre-back stepping up against the runner arriving
+      late. Stack a few of these attention layers and the model builds a
+      richer and richer read of the whole configuration before it commits to
+      a number.
+    </p>
+    <p>
+      In our instance, every frame is a 23-token sequence: 22 players + the ball. Each token
       carries seven features (position, velocity, attacking side, GK flag,
       possession flag). Player ordering inside the block carries no
-      meaning — the transformer is <strong>permutation-equivariant</strong>,
+      meaning. The transformer is <strong>permutation-equivariant</strong>,
       which matters because we never have to hand-engineer "who is the
       left-back" or "who is the holding mid". The model figures out roles
       from the geometry. Stacked transformer encoder layers with pre-norm
@@ -399,8 +428,7 @@
     <!-- 9. Our model beats the event-based VAEP baseline -->
     <h2>Our model beats the event-based VAEP baseline</h2>
     <p>
-      Both pipelines predict the same two probabilities — P(score) and
-      P(concede) — but on different inputs. The event-based VAEP classifier
+      Both pipelines predict the same two probabilities, P(score) and P(concede), just from different inputs. The event-based VAEP classifier
       sees only the on-ball action stream; ours sees every frame of
       tracking. Numbers below are <strong>held-out</strong>: our transformer
       was trained on 36 PFF WC22 matches and the AUC is measured on the
@@ -474,8 +502,7 @@
     <p class="small dim">
       Scope of comparison: the event-based classifier is action-level and
       predicts "scores within next 10 actions"; ours is frame-level and
-      predicts "scores within next 10 seconds". Same labels, different
-      input modality — that's the point. The lift comes from seeing the 21
+      predicts "scores within next 10 seconds". Same labels, different input modality, and that is the point. The lift comes from seeing the 21
       players the event stream is blind to. Single-head specialists push
       score AUC to <strong>0.816</strong> and concede AUC to
       <strong>0.799</strong> when trained separately on the same backbone.
@@ -489,17 +516,14 @@
       them:
     </p>
     <ul>
-      <li><strong>AW-JOI</strong> (attention-weighted Joint Offensive
-        Impact, per pair) — JOI's continuous-time analogue. Sums
+      <li><strong>AW-JOI</strong> (attention-weighted Joint Offensive Impact, per pair) is JOI's continuous-time analogue. Sums
         ball-distance-corrected attention on a same-team pair during
         attacking frames; per 90 shared minutes.</li>
-      <li><strong>AW-JDI</strong> (attention-weighted Joint Defensive
-        Impact, per pair) — the prevention-aware analogue. Same recipe
+      <li><strong>AW-JDI</strong> (attention-weighted Joint Defensive Impact, per pair) is the prevention-aware analogue. Same recipe
         during defensive frames; captures the pins, rest-defence anchors,
         and swarms that JDI's responsibility-grid heuristic can only
         approximate.</li>
-      <li><strong>Team Chemistry Density (TCD)</strong> — the team
-        aggregate. Count of strong off-off pairs (above pool-median
+      <li><strong>Team Chemistry Density (TCD)</strong> is the team aggregate. Count of strong off-off pairs (above pool-median
         AW-JOI/90) + strong def-def pairs (above pool-median AW-JDI/90)
         + net cross-team strong pairs. One number per squad.</li>
     </ul>
@@ -549,7 +573,7 @@
       TCD = n<sub>off-strong</sub> + n<sub>def-strong</sub> + n<sub>cross-net</sub>
     </p>
     <p class="small">
-      Worked example &mdash; France (TCD rank 1):
+      A worked example, France (TCD rank 1):
       <strong>43</strong> off-off strong pairs +
       <strong>15</strong> def-def strong pairs +
       <strong>+81</strong> cross-team net =
@@ -562,10 +586,9 @@
       TCD's predictive payoff against the World Cup itself:
       <strong>Spearman ρ = +0.704</strong> with WC22 final finish across
       31 teams (p &lt; 0.001). Against a club-overlap History Index the
-      same metric runs <strong>ρ = +0.348</strong> — directional and
+      same metric runs <strong>ρ = +0.348</strong>, which is directional and
       suggestive (p ≈ 0.055) but not significant on a 31-row sample. For
-      context: <strong>FIFA-23 Overall vs WC22 finish runs ρ = +0.548</strong>
-      — so on this tournament, chemistry edges raw talent at the team
+      context: <strong>FIFA-23 Overall vs WC22 finish runs ρ = +0.548</strong>, so on this tournament chemistry edges raw talent at the team
       level. Semifinalist TCD ranks: <strong>France 1, Croatia 3, Morocco
       4, Argentina 7</strong>. All four deepest sides in the top seven.
     </p>
@@ -579,8 +602,7 @@
         size.</li>
       <li><strong>National-team novelty.</strong> The teams whose players
         rehearse together least are also the ones we most want to
-        compare. The signal that survives despite that — France, Croatia,
-        Morocco — is the interesting part.</li>
+        compare. The signal that survives despite that, in France, Croatia, and Morocco, is the interesting part.</li>
       <li><strong>Attention ≠ causation.</strong> High AW-JOI/AW-JDI says
         the model needed to look at both players to make its
         prediction. That's strong evidence of a coordinated tactical
