@@ -57,13 +57,22 @@
       <div id="chem-vs-result-scatter" class="fifa-scatter"></div>
 
       <h3 class="mt-2">Correlation summary &mdash; chemistry beats raw talent</h3>
-      <p class="dim small">Spearman rank correlations against the 31 WC22 sides. TCD is the strongest predictor we found.</p>
+      <p class="dim small">
+        Each row is a <strong>Spearman rank correlation</strong> &mdash; one number, &minus;1 to +1,
+        for how tightly two <em>rankings</em> move together. Here: does ranking high on the metric go
+        with finishing deep? <strong>+1</strong> = perfect match (more of it always means a deeper run),
+        <strong>0</strong> = no relationship, <strong>&minus;1</strong> = perfectly reversed. That
+        &rho; <em>is</em> the correlation; the separate <strong>p-value</strong> is just the odds the
+        pattern is a fluke given n teams (smaller = safer, not bigger effect). For a rough
+        &ldquo;how much does it explain,&rdquo; square it: TCD's +0.704 &rarr; &rho;&sup2; &asymp;
+        50&#37; of the finish order. TCD is the strongest predictor we found.
+      </p>
       <div class="table-wrap" style="margin-bottom: 1.4rem;">
         <table class="data-table fifa-data-table">
           <thead><tr>
             <th>Hypothesis</th>
-            <th class="num">Spearman ρ</th>
-            <th class="num">p</th>
+            <th class="num">Correlation <span class="dim" style="text-transform:none;font-weight:400">(Spearman&nbsp;<span style="text-transform:none">&rho;</span>)</span></th>
+            <th class="num">p-value</th>
             <th class="num">n</th>
             <th>Reading</th>
           </tr></thead>
@@ -88,6 +97,20 @@
               <td class="num tabular">0.011</td>
               <td class="num tabular">31</td>
               <td class="small">Per-pair intensity matters less than network breadth.</td>
+            </tr>
+            <tr>
+              <td><strong>Event JOI</strong> (on-ball, counted like TCD) &rarr; tournament finish</td>
+              <td class="num tabular">+0.01</td>
+              <td class="num tabular">0.96</td>
+              <td class="num tabular">31</td>
+              <td class="small">On-ball VAEP chemistry, counted the <em>same way</em> as TCD (strong per-90 pairs), carries <em>no</em> finish signal &mdash; the off-ball tracking view is where it lives. This is the tracking-vs-event punchline.</td>
+            </tr>
+            <tr>
+              <td>Event JOI (on-ball, raw running total) &rarr; tournament finish</td>
+              <td class="num tabular">+0.67</td>
+              <td class="num tabular">&lt; 0.001</td>
+              <td class="num tabular">31</td>
+              <td class="small">Looks predictive &mdash; but only as <em>accumulation</em>: teams that advance play more games (minutes-together &harr; finish &rho; = +0.93). Control for minutes and it collapses to +0.27. Raw totals reward survival, not chemistry &mdash; which is why TCD is a per-90 <em>rate</em>.</td>
             </tr>
             <tr>
               <td>FIFA 23 Overall &rarr; TCD</td>
