@@ -90,6 +90,26 @@
         own fingerprint. <strong>Further right</strong> = more chemistry than star power explains;
         <strong>higher</strong> = better than expected.
       </p>
+      <details class="xg-methods">
+        <summary>How we control for talent (and what &ldquo;caps&rdquo; means)</summary>
+        <p class="dim small">
+          Better teams tend to do everything more, so a raw correlation can just be &ldquo;good teams do good
+          things.&rdquo; To separate chemistry from talent, every axis on these charts is <strong>residualized</strong>
+          against four squad measures: <strong>FIFA-23 Overall</strong> (ability), <strong>caps</strong> (a &ldquo;cap&rdquo;
+          is one national-team appearance, so a squad&rsquo;s average caps is its international <em>experience</em>),
+          <strong>games played</strong> at the tournament, and <strong>opponent strength</strong>. We use those four to
+          predict what each team&rsquo;s number <em>should</em> be, then keep only how much it <strong>beats or misses</strong>
+          that prediction &mdash; and correlate those leftovers (&ldquo;more chemistry than talent predicts&rdquo; vs
+          &ldquo;better than talent predicts&rdquo;). The scatter axes you see <em>are</em> those leftovers, so the trend
+          shown is already talent-adjusted, not the raw relationship.
+          <br><br>
+          It survives the adjustment: shared club history &rarr; one-twos is &rho; +0.67 raw and <strong>+0.58</strong>
+          after it; the one-two &rarr; xG panel is <strong>+0.39</strong> post-adjustment. Metrics that were <em>just</em>
+          talent (generic partnership strength) collapse toward zero under the same controls. Caveat: this removes the
+          <em>linear</em> talent component and is only as good as FIFA&rsquo;s rating of talent (which is imperfect) &mdash;
+          so it means &ldquo;survives a standard talent adjustment,&rdquo; not &ldquo;talent is ruled out.&rdquo;
+        </p>
+      </details>
       <div id="chem-xg-panel" class="xg-panel-grid">
         <figure class="xg-panel-cell">
           <figcaption>
