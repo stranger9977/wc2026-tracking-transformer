@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "n_teams": 29,
+    "controls": "FIFA-23 Overall + mean caps + games played + opponent FIFA",
+    "defense": {
+      "partial_r": 0.381,
+      "ci90": [
+        0.086,
+        0.598
+      ]
+    },
+    "offense": {
+      "partial_r": 0.156,
+      "ci90": [
+        -0.183,
+        0.468
+      ]
+    }
+  },
+  "teams": [
+    {
+      "team_id": "364",
+      "team_name": "Argentina",
+      "is_semifinalist": true,
+      "def_chem_adj": 3.9255,
+      "xg_prevented_over_expected": -0.1917,
+      "off_chem_adj": -0.0866,
+      "xg_added_over_expected": 0.8037
+    },
+    {
+      "team_id": "386",
+      "team_name": "Australia",
+      "is_semifinalist": false,
+      "def_chem_adj": 2.7264,
+      "xg_prevented_over_expected": 0.1219,
+      "off_chem_adj": 0.0989,
+      "xg_added_over_expected": -0.3833
+    },
+    {
+      "team_id": "362",
+      "team_name": "Belgium",
+      "is_semifinalist": false,
+      "def_chem_adj": 4.6903,
+      "xg_prevented_over_expected": 0.2505,
+      "off_chem_adj": 0.1148,
+      "xg_added_over_expected": -0.0447
+    },
+    {
+      "team_id": "361",
+      "team_name": "Brazil",
+      "is_semifinalist": false,
+      "def_chem_adj": 1.0526,
+      "xg_prevented_over_expected": 0.5175,
+      "off_chem_adj": 0.1624,
+      "xg_added_over_expected": 0.3517
+    },
+    {
+      "team_id": "379",
+      "team_name": "Cameroon",
+      "is_semifinalist": false,
+      "def_chem_adj": -0.1186,
+      "xg_prevented_over_expected": -0.2836,
+      "off_chem_adj": 0.0393,
+      "xg_added_over_expected": 0.3078
+    },
+    {
+      "team_id": "380",
+      "team_name": "Canada",
+      "is_semifinalist": false,
+      "def_chem_adj": 0.8682,
+      "xg_prevented_over_expected": 0.2549,
+      "off_chem_adj": 0.0241,
+      "xg_added_over_expected": -0.4944
+    },
+    {
+      "team_id": "385",
+      "team_name": "Costa Rica",
+      "is_semifinalist": false,
+      "def_chem_adj": -2.8617,
+      "xg_prevented_over_expected": -0.6629,
+      "off_chem_adj": -0.0439,
+      "xg_added_over_expected": -0.2589
+    },
+    {
+      "team_id": "371",
+      "team_name": "Croatia",
+      "is_semifinalist": true,
+      "def_chem_adj": -4.5604,
+      "xg_prevented_over_expected": -0.5153,
+      "off_chem_adj": -0.01,
+      "xg_added_over_expected": 0.0318
+    },
+    {
+      "team_id": "367",
+      "team_name": "Denmark",
+      "is_semifinalist": false,
+      "def_chem_adj": -3.0047,
+      "xg_prevented_over_expected": 0.0827,
+      "off_chem_adj": 0.104,
+      "xg_added_over_expected": -0.6383
+    },
+    {
+      "team_id": "50",
+      "team_name": "England",
+      "is_semifinalist": false,
+      "def_chem_adj": -0.5913,
+      "xg_prevented_over_expected": 0.5455,
+      "off_chem_adj": -0.1569,
+      "xg_added_over_expected": 0.3022
+    },
+    {
+      "team_id": "363",
+      "team_name": "France",
+      "is_semifinalist": true,
+      "def_chem_adj": -2.3186,
+      "xg_prevented_over_expected": -0.0178,
+      "off_chem_adj": -0.1105,
+      "xg_added_over_expected": -0.4981
+    },
+    {
+      "team_id": "368",
+      "team_name": "Germany",
+      "is_semifinalist": false,
+      "def_chem_adj": -0.38,
+      "xg_prevented_over_expected": 0.257,
+      "off_chem_adj": 0.2734,
+      "xg_added_over_expected": 1.0425
+    },
+    {
+      "team_id": "383",
+      "team_name": "Ghana",
+      "is_semifinalist": false,
+      "def_chem_adj": -1.0594,
+      "xg_prevented_over_expected": 0.3394,
+      "off_chem_adj": -0.064,
+      "xg_added_over_expected": 0.0529
+    },
+    {
+      "team_id": "57",
+      "team_name": "Japan",
+      "is_semifinalist": false,
+      "def_chem_adj": -4.3014,
+      "xg_prevented_over_expected": 0.2248,
+      "off_chem_adj": 0.032,
+      "xg_added_over_expected": 0.7761
+    },
+    {
+      "team_id": "58",
+      "team_name": "Mexico",
+      "is_semifinalist": false,
+      "def_chem_adj": 1.3685,
+      "xg_prevented_over_expected": 0.7725,
+      "off_chem_adj": -0.0673,
+      "xg_added_over_expected": -0.1949
+    },
+    {
+      "team_id": "374",
+      "team_name": "Morocco",
+      "is_semifinalist": true,
+      "def_chem_adj": 4.7895,
+      "xg_prevented_over_expected": 0.7776,
+      "off_chem_adj": -0.0911,
+      "xg_added_over_expected": -0.3174
+    },
+    {
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "is_semifinalist": false,
+      "def_chem_adj": -7.5652,
+      "xg_prevented_over_expected": -0.5854,
+      "off_chem_adj": -0.1,
+      "xg_added_over_expected": -0.0028
+    },
+    {
+      "team_id": "376",
+      "team_name": "Poland",
+      "is_semifinalist": false,
+      "def_chem_adj": 1.2934,
+      "xg_prevented_over_expected": -0.3732,
+      "off_chem_adj": -0.0519,
+      "xg_added_over_expected": -0.1888
+    },
+    {
+      "team_id": "365",
+      "team_name": "Portugal",
+      "is_semifinalist": false,
+      "def_chem_adj": 2.5071,
+      "xg_prevented_over_expected": 0.0488,
+      "off_chem_adj": -0.1025,
+      "xg_added_over_expected": -0.5589
+    },
+    {
+      "team_id": "360",
+      "team_name": "Qatar",
+      "is_semifinalist": false,
+      "def_chem_adj": -0.4124,
+      "xg_prevented_over_expected": 0.1132,
+      "off_chem_adj": 0.0997,
+      "xg_added_over_expected": 0.1191
+    },
+    {
+      "team_id": "382",
+      "team_name": "Saudi Arabia",
+      "is_semifinalist": false,
+      "def_chem_adj": 5.488,
+      "xg_prevented_over_expected": 0.0847,
+      "off_chem_adj": 0.0531,
+      "xg_added_over_expected": 0.5821
+    },
+    {
+      "team_id": "372",
+      "team_name": "Senegal",
+      "is_semifinalist": false,
+      "def_chem_adj": 1.2504,
+      "xg_prevented_over_expected": 0.3511,
+      "off_chem_adj": -0.1322,
+      "xg_added_over_expected": -0.0245
+    },
+    {
+      "team_id": "375",
+      "team_name": "Serbia",
+      "is_semifinalist": false,
+      "def_chem_adj": -4.5996,
+      "xg_prevented_over_expected": -0.6793,
+      "off_chem_adj": 0.293,
+      "xg_added_over_expected": -0.3168
+    },
+    {
+      "team_id": "377",
+      "team_name": "South Korea",
+      "is_semifinalist": false,
+      "def_chem_adj": 2.3767,
+      "xg_prevented_over_expected": -0.0878,
+      "off_chem_adj": 0.1034,
+      "xg_added_over_expected": -0.1273
+    },
+    {
+      "team_id": "52",
+      "team_name": "Spain",
+      "is_semifinalist": false,
+      "def_chem_adj": 1.4301,
+      "xg_prevented_over_expected": -0.7574,
+      "off_chem_adj": 0.1767,
+      "xg_added_over_expected": -0.4764
+    },
+    {
+      "team_id": "370",
+      "team_name": "Switzerland",
+      "is_semifinalist": false,
+      "def_chem_adj": 1.8501,
+      "xg_prevented_over_expected": -0.0463,
+      "off_chem_adj": 0.0827,
+      "xg_added_over_expected": 0.308
+    },
+    {
+      "team_id": "378",
+      "team_name": "Tunisia",
+      "is_semifinalist": false,
+      "def_chem_adj": -2.0659,
+      "xg_prevented_over_expected": 1.0257,
+      "off_chem_adj": -0.0785,
+      "xg_added_over_expected": 0.1233
+    },
+    {
+      "team_id": "369",
+      "team_name": "Uruguay",
+      "is_semifinalist": false,
+      "def_chem_adj": 1.505,
+      "xg_prevented_over_expected": -0.0451,
+      "off_chem_adj": -0.2824,
+      "xg_added_over_expected": -0.1001
+    },
+    {
+      "team_id": "384",
+      "team_name": "Wales",
+      "is_semifinalist": false,
+      "def_chem_adj": -3.2825,
+      "xg_prevented_over_expected": -1.5219,
+      "off_chem_adj": -0.2795,
+      "xg_added_over_expected": -0.176
+    }
+  ]
+}

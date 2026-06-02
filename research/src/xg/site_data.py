@@ -40,7 +40,10 @@ def build_team_xg_table(parquet_path: str, chem_json_path: str) -> pd.DataFrame:
         if len(ids) == 2:
             opp.setdefault(ids[0], []).append(fifa.get(ids[1]))
             opp.setdefault(ids[1], []).append(fifa.get(ids[0]))
-    opp_fifa = {t: (np.nanmean(v) if len(v) else np.nan) for t, v in opp.items()}
+    opp_fifa = {
+        t: (float(np.mean(present)) if (present := [x for x in v if x == x]) else np.nan)
+        for t, v in opp.items()
+    }
 
     team = (
         df.groupby(["team_id", "team_name"])
