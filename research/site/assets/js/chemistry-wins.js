@@ -113,6 +113,88 @@ function renderTcdScatter(rows) {
     </div>`;
 }
 
+/* ---------------- chemistry → expected-goals panel (added-variable) ---------------- */
+
+const xgPanelEl = document.getElementById("chem-xg-panel");
+if (xgPanelEl) {
+  loadJSON("data/chemistry_xg.json").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
+}
+
+function renderChemistryXgPanel(xg) {
+  const defRows = xg.teams.filter((t) => t.def_chem_adj != null && t.xg_prevented_over_expected != null);
+  const offRows = xg.teams.filter((t) => t.off_chem_adj != null && t.xg_added_over_expected != null);
+  const defEl = document.getElementById("chem-xg-def");
+  const offEl = document.getElementById("chem-xg-off");
+  if (defEl) renderXgScatter(defEl, defRows, {
+    xKey: "def_chem_adj", yKey: "xg_prevented_over_expected",
+    xLabel: "Defensive chemistry (talent & schedule adjusted) →",
+    yTop: "prevents more than expected", yBot: "concedes more than expected",
+    r: xg.meta.defense.partial_r, ci: xg.meta.defense.ci90, n: xg.meta.n_teams,
+    blurb: "More strong defensive partnerships → fewer expected goals conceded than talent predicts.",
+  });
+  if (offEl) renderXgScatter(offEl, offRows, {
+    xKey: "off_chem_adj", yKey: "xg_added_over_expected",
+    xLabel: "Offensive chemistry (talent & schedule adjusted) →",
+    yTop: "creates more than expected", yBot: "creates less than expected",
+    r: xg.meta.offense.partial_r, ci: xg.meta.offense.ci90, n: xg.meta.n_teams,
+    blurb: "Stronger attacking partnerships trend toward more expected goals — entangled with talent.",
+  });
+}
+
+function renderXgScatter(mountEl, rows, opt) {
+  const W = 540, H = 440;
+  const padL = 58, padR = 26, padT = 20, padB = 64;
+  const innerW = W - padL - padR, innerH = H - padT - padB;
+  const xs = rows.map((r) => r[opt.xKey]), ys = rows.map((r) => r[opt.yKey]);
+  const xpad = (Math.max(...xs) - Math.min(...xs)) * 0.12 || 1;
+  const ypad = (Math.max(...ys) - Math.min(...ys)) * 0.12 || 1;
+  const xmin = Math.min(...xs) - xpad, xmax = Math.max(...xs) + xpad;
+  const ymin = Math.min(...ys) - ypad, ymax = Math.max(...ys) + ypad;
+  const sx = (x) => padL + ((x - xmin) / (xmax - xmin)) * innerW;
+  const sy = (y) => padT + innerH - ((y - ymin) / (ymax - ymin)) * innerH;
+
+  // zero reference lines (both axes are residuals → 0 = "exactly as expected")
+  const zeroX = (xmin < 0 && xmax > 0) ? `<line x1="${sx(0).toFixed(1)}" y1="${padT}" x2="${sx(0).toFixed(1)}" y2="${padT + innerH}" stroke="currentColor" stroke-width="0.5" opacity="0.18" stroke-dasharray="3 3"/>` : "";
+  const zeroY = (ymin < 0 && ymax > 0) ? `<line x1="${padL}" y1="${sy(0).toFixed(1)}" x2="${W - padR}" y2="${sy(0).toFixed(1)}" stroke="currentColor" stroke-width="0.5" opacity="0.18" stroke-dasharray="3 3"/>` : "";
+
+  // least-squares trend line over the residual cloud
+  const n = xs.length;
+  const mx = xs.reduce((a, b) => a + b, 0) / n, my = ys.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0, sxx = 0;
+  for (let i = 0; i < n; i++) { sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) ** 2; }
+  const slope = sxx ? sxy / sxx : 0, intc = my - slope * mx;
+  const trend = `<line x1="${sx(xmin).toFixed(1)}" y1="${sy(intc + slope * xmin).toFixed(1)}" x2="${sx(xmax).toFixed(1)}" y2="${sy(intc + slope * xmax).toFixed(1)}" stroke="#d4a23a" stroke-width="2" opacity="0.85"/>`;
+
+  const dots = rows.map((r) => {
+    const cx = sx(r[opt.xKey]), cy = sy(r[opt.yKey]);
+    const ring = r.is_semifinalist ? `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="8" fill="none" stroke="#d4a23a" stroke-width="2"/>` : "";
+    const fill = r.is_semifinalist ? "#d4a23a" : "#6b7280";
+    return `${ring}<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5" fill="${fill}" stroke="var(--bg, #0b1220)" stroke-width="1.1"/>`;
+  }).join("");
+
+  // label only the semifinalists (keep the small panels readable)
+  const labels = rows.filter((r) => r.is_semifinalist).map((r) => {
+    const cx = sx(r[opt.xKey]), cy = sy(r[opt.yKey]);
+    const anchor = cx > padL + innerW * 0.6 ? "end" : "start";
+    const dx = anchor === "start" ? 8 : -8;
+    return `<text x="${(cx + dx).toFixed(1)}" y="${(cy - 7).toFixed(1)}" font-size="11" font-weight="700" fill="currentColor" opacity="0.92" text-anchor="${anchor}">${escapeHTML(r.team_name)}</text>`;
+  }).join("");
+
+  const yTopLbl = `<text x="${padL - 8}" y="${padT + 10}" font-size="10.5" fill="currentColor" opacity="0.55" text-anchor="end">${opt.yTop} ↑</text>`;
+  const yBotLbl = `<text x="${padL - 8}" y="${padT + innerH - 2}" font-size="10.5" fill="currentColor" opacity="0.55" text-anchor="end">↓ ${opt.yBot}</text>`;
+  const xLbl = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - padB + 40}" font-size="11.5" fill="currentColor" opacity="0.6" text-anchor="middle">${opt.xLabel}</text>`;
+  const rTxt = (opt.r >= 0 ? "+" : "") + opt.r.toFixed(2);
+
+  mountEl.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="fifa-scatter-svg" role="img" aria-label="${escapeHTML(opt.xLabel)} added-variable scatter">
+      ${zeroX}${zeroY}${trend}${dots}${labels}${yTopLbl}${yBotLbl}${xLbl}
+    </svg>
+    <div class="scatter-legend small muted">
+      <span class="muted">${escapeHTML(opt.blurb)}</span>
+      <span class="muted">Partial r = <strong>${rTxt}</strong> &nbsp;(90% CI ${opt.ci[0].toFixed(2)} to ${opt.ci[1].toFixed(2)}, n = ${opt.n}); both axes adjusted for talent, caps, games &amp; opponent strength.</span>
+    </div>`;
+}
+
 /* ---------------- team network renderers ---------------- */
 
 const POS_XY = {
