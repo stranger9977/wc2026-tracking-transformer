@@ -1,0 +1,604 @@
+{
+  "meta": {
+    "n_teams": 29,
+    "metric": "final-third one-twos per game",
+    "partial_r": 0.387,
+    "ci90": [
+      0.075,
+      0.653
+    ],
+    "family_wise_p": 0.18,
+    "goals_partial": 0.02,
+    "controls": "FIFA-23 Overall + mean caps + games + opponent FIFA",
+    "model_giveback_acc": 0.834,
+    "model_overall_acc": 0.727,
+    "nearest_baseline_acc": 0.672,
+    "history_rho": 0.67,
+    "history_partial": 0.579,
+    "history_label": "avg prior minutes a pair has played together"
+  },
+  "teams": [
+    {
+      "team_id": "360",
+      "team_name": "Qatar",
+      "is_semifinalist": false,
+      "ggr_per_game": 6.0,
+      "n_combo_f3": 6,
+      "shared_history": 847.5,
+      "combo_chem_adj": 1.5667,
+      "xg_added_over_expected": 0.1191
+    },
+    {
+      "team_id": "361",
+      "team_name": "Brazil",
+      "is_semifinalist": false,
+      "ggr_per_game": 12.8,
+      "n_combo_f3": 64,
+      "shared_history": 637.3,
+      "combo_chem_adj": 1.0546,
+      "xg_added_over_expected": 0.3517
+    },
+    {
+      "team_id": "362",
+      "team_name": "Belgium",
+      "is_semifinalist": false,
+      "ggr_per_game": 11.0,
+      "n_combo_f3": 22,
+      "shared_history": 262.1,
+      "combo_chem_adj": 1.0929,
+      "xg_added_over_expected": -0.0447
+    },
+    {
+      "team_id": "363",
+      "team_name": "France",
+      "is_semifinalist": true,
+      "ggr_per_game": 12.4,
+      "n_combo_f3": 87,
+      "shared_history": 435.4,
+      "combo_chem_adj": 0.1059,
+      "xg_added_over_expected": -0.4981
+    },
+    {
+      "team_id": "364",
+      "team_name": "Argentina",
+      "is_semifinalist": true,
+      "ggr_per_game": 11.5,
+      "n_combo_f3": 69,
+      "shared_history": 431.5,
+      "combo_chem_adj": -0.4402,
+      "xg_added_over_expected": 0.8037
+    },
+    {
+      "team_id": "365",
+      "team_name": "Portugal",
+      "is_semifinalist": false,
+      "ggr_per_game": 7.7,
+      "n_combo_f3": 23,
+      "shared_history": 489.7,
+      "combo_chem_adj": -3.126,
+      "xg_added_over_expected": -0.5589
+    },
+    {
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "is_semifinalist": false,
+      "ggr_per_game": 9.5,
+      "n_combo_f3": 38,
+      "shared_history": 744.3,
+      "combo_chem_adj": -2.0783,
+      "xg_added_over_expected": -0.0028
+    },
+    {
+      "team_id": "367",
+      "team_name": "Denmark",
+      "is_semifinalist": false,
+      "ggr_per_game": 6.5,
+      "n_combo_f3": 13,
+      "shared_history": 111.1,
+      "combo_chem_adj": -3.338,
+      "xg_added_over_expected": -0.6383
+    },
+    {
+      "team_id": "368",
+      "team_name": "Germany",
+      "is_semifinalist": false,
+      "ggr_per_game": 14.5,
+      "n_combo_f3": 29,
+      "shared_history": 2460.0,
+      "combo_chem_adj": 3.3662,
+      "xg_added_over_expected": 1.0425
+    },
+    {
+      "team_id": "369",
+      "team_name": "Uruguay",
+      "is_semifinalist": false,
+      "ggr_per_game": 2.0,
+      "n_combo_f3": 2,
+      "shared_history": 82.6,
+      "combo_chem_adj": -6.2764,
+      "xg_added_over_expected": -0.1001
+    },
+    {
+      "team_id": "370",
+      "team_name": "Switzerland",
+      "is_semifinalist": false,
+      "ggr_per_game": 10.7,
+      "n_combo_f3": 32,
+      "shared_history": 187.1,
+      "combo_chem_adj": 0.7483,
+      "xg_added_over_expected": 0.308
+    },
+    {
+      "team_id": "371",
+      "team_name": "Croatia",
+      "is_semifinalist": true,
+      "ggr_per_game": 9.5,
+      "n_combo_f3": 57,
+      "shared_history": 171.2,
+      "combo_chem_adj": -0.7331,
+      "xg_added_over_expected": 0.0318
+    },
+    {
+      "team_id": "372",
+      "team_name": "Senegal",
+      "is_semifinalist": false,
+      "ggr_per_game": 9.5,
+      "n_combo_f3": 19,
+      "shared_history": 75.8,
+      "combo_chem_adj": -0.6539,
+      "xg_added_over_expected": -0.0245
+    },
+    {
+      "team_id": "374",
+      "team_name": "Morocco",
+      "is_semifinalist": true,
+      "ggr_per_game": 6.8,
+      "n_combo_f3": 41,
+      "shared_history": 112.8,
+      "combo_chem_adj": -3.4386,
+      "xg_added_over_expected": -0.3174
+    },
+    {
+      "team_id": "375",
+      "team_name": "Serbia",
+      "is_semifinalist": false,
+      "ggr_per_game": 9.0,
+      "n_combo_f3": 27,
+      "shared_history": 163.0,
+      "combo_chem_adj": 0.1313,
+      "xg_added_over_expected": -0.3168
+    },
+    {
+      "team_id": "376",
+      "team_name": "Poland",
+      "is_semifinalist": false,
+      "ggr_per_game": 6.7,
+      "n_combo_f3": 20,
+      "shared_history": 133.9,
+      "combo_chem_adj": -2.2324,
+      "xg_added_over_expected": -0.1888
+    },
+    {
+      "team_id": "377",
+      "team_name": "South Korea",
+      "is_semifinalist": false,
+      "ggr_per_game": 13.3,
+      "n_combo_f3": 40,
+      "shared_history": 177.2,
+      "combo_chem_adj": 4.7378,
+      "xg_added_over_expected": -0.1273
+    },
+    {
+      "team_id": "378",
+      "team_name": "Tunisia",
+      "is_semifinalist": false,
+      "ggr_per_game": 7.0,
+      "n_combo_f3": 7,
+      "shared_history": 0.0,
+      "combo_chem_adj": -0.4552,
+      "xg_added_over_expected": 0.1233
+    },
+    {
+      "team_id": "379",
+      "team_name": "Cameroon",
+      "is_semifinalist": false,
+      "ggr_per_game": 5.5,
+      "n_combo_f3": 11,
+      "shared_history": 0.0,
+      "combo_chem_adj": -2.5419,
+      "xg_added_over_expected": 0.3078
+    },
+    {
+      "team_id": "380",
+      "team_name": "Canada",
+      "is_semifinalist": false,
+      "ggr_per_game": 7.0,
+      "n_combo_f3": 14,
+      "shared_history": 103.3,
+      "combo_chem_adj": -0.7256,
+      "xg_added_over_expected": -0.4944
+    },
+    {
+      "team_id": "382",
+      "team_name": "Saudi Arabia",
+      "is_semifinalist": false,
+      "ggr_per_game": 13.0,
+      "n_combo_f3": 26,
+      "shared_history": 852.7,
+      "combo_chem_adj": 6.9034,
+      "xg_added_over_expected": 0.5821
+    },
+    {
+      "team_id": "383",
+      "team_name": "Ghana",
+      "is_semifinalist": false,
+      "ggr_per_game": 7.5,
+      "n_combo_f3": 15,
+      "shared_history": 0.0,
+      "combo_chem_adj": -0.7988,
+      "xg_added_over_expected": 0.0529
+    },
+    {
+      "team_id": "384",
+      "team_name": "Wales",
+      "is_semifinalist": false,
+      "ggr_per_game": 5.0,
+      "n_combo_f3": 5,
+      "shared_history": 92.6,
+      "combo_chem_adj": -3.0755,
+      "xg_added_over_expected": -0.176
+    },
+    {
+      "team_id": "385",
+      "team_name": "Costa Rica",
+      "is_semifinalist": false,
+      "ggr_per_game": 8.0,
+      "n_combo_f3": 16,
+      "shared_history": 189.1,
+      "combo_chem_adj": 1.8293,
+      "xg_added_over_expected": -0.2589
+    },
+    {
+      "team_id": "386",
+      "team_name": "Australia",
+      "is_semifinalist": false,
+      "ggr_per_game": 5.0,
+      "n_combo_f3": 15,
+      "shared_history": 22.5,
+      "combo_chem_adj": -3.4646,
+      "xg_added_over_expected": -0.3833
+    },
+    {
+      "team_id": "50",
+      "team_name": "England",
+      "is_semifinalist": false,
+      "ggr_per_game": 16.0,
+      "n_combo_f3": 48,
+      "shared_history": 1232.6,
+      "combo_chem_adj": 4.3513,
+      "xg_added_over_expected": 0.3022
+    },
+    {
+      "team_id": "52",
+      "team_name": "Spain",
+      "is_semifinalist": false,
+      "ggr_per_game": 18.7,
+      "n_combo_f3": 56,
+      "shared_history": 1198.6,
+      "combo_chem_adj": 6.8757,
+      "xg_added_over_expected": -0.4764
+    },
+    {
+      "team_id": "57",
+      "team_name": "Japan",
+      "is_semifinalist": false,
+      "ggr_per_game": 10.3,
+      "n_combo_f3": 31,
+      "shared_history": 16.2,
+      "combo_chem_adj": 2.6489,
+      "xg_added_over_expected": 0.7761
+    },
+    {
+      "team_id": "58",
+      "team_name": "Mexico",
+      "is_semifinalist": false,
+      "ggr_per_game": 6.0,
+      "n_combo_f3": 12,
+      "shared_history": 119.0,
+      "combo_chem_adj": -2.0339,
+      "xg_added_over_expected": -0.1949
+    }
+  ],
+  "leaderboard": [
+    {
+      "team_id": "52",
+      "team_name": "Spain",
+      "is_semifinalist": false,
+      "ggr_per_game": 18.7,
+      "n_combo_f3": 56,
+      "shared_history": 1198.6,
+      "combo_chem_adj": 6.8757,
+      "xg_added_over_expected": -0.4764
+    },
+    {
+      "team_id": "50",
+      "team_name": "England",
+      "is_semifinalist": false,
+      "ggr_per_game": 16.0,
+      "n_combo_f3": 48,
+      "shared_history": 1232.6,
+      "combo_chem_adj": 4.3513,
+      "xg_added_over_expected": 0.3022
+    },
+    {
+      "team_id": "368",
+      "team_name": "Germany",
+      "is_semifinalist": false,
+      "ggr_per_game": 14.5,
+      "n_combo_f3": 29,
+      "shared_history": 2460.0,
+      "combo_chem_adj": 3.3662,
+      "xg_added_over_expected": 1.0425
+    },
+    {
+      "team_id": "377",
+      "team_name": "South Korea",
+      "is_semifinalist": false,
+      "ggr_per_game": 13.3,
+      "n_combo_f3": 40,
+      "shared_history": 177.2,
+      "combo_chem_adj": 4.7378,
+      "xg_added_over_expected": -0.1273
+    },
+    {
+      "team_id": "382",
+      "team_name": "Saudi Arabia",
+      "is_semifinalist": false,
+      "ggr_per_game": 13.0,
+      "n_combo_f3": 26,
+      "shared_history": 852.7,
+      "combo_chem_adj": 6.9034,
+      "xg_added_over_expected": 0.5821
+    },
+    {
+      "team_id": "361",
+      "team_name": "Brazil",
+      "is_semifinalist": false,
+      "ggr_per_game": 12.8,
+      "n_combo_f3": 64,
+      "shared_history": 637.3,
+      "combo_chem_adj": 1.0546,
+      "xg_added_over_expected": 0.3517
+    },
+    {
+      "team_id": "363",
+      "team_name": "France",
+      "is_semifinalist": true,
+      "ggr_per_game": 12.4,
+      "n_combo_f3": 87,
+      "shared_history": 435.4,
+      "combo_chem_adj": 0.1059,
+      "xg_added_over_expected": -0.4981
+    },
+    {
+      "team_id": "364",
+      "team_name": "Argentina",
+      "is_semifinalist": true,
+      "ggr_per_game": 11.5,
+      "n_combo_f3": 69,
+      "shared_history": 431.5,
+      "combo_chem_adj": -0.4402,
+      "xg_added_over_expected": 0.8037
+    },
+    {
+      "team_id": "362",
+      "team_name": "Belgium",
+      "is_semifinalist": false,
+      "ggr_per_game": 11.0,
+      "n_combo_f3": 22,
+      "shared_history": 262.1,
+      "combo_chem_adj": 1.0929,
+      "xg_added_over_expected": -0.0447
+    },
+    {
+      "team_id": "370",
+      "team_name": "Switzerland",
+      "is_semifinalist": false,
+      "ggr_per_game": 10.7,
+      "n_combo_f3": 32,
+      "shared_history": 187.1,
+      "combo_chem_adj": 0.7483,
+      "xg_added_over_expected": 0.308
+    },
+    {
+      "team_id": "57",
+      "team_name": "Japan",
+      "is_semifinalist": false,
+      "ggr_per_game": 10.3,
+      "n_combo_f3": 31,
+      "shared_history": 16.2,
+      "combo_chem_adj": 2.6489,
+      "xg_added_over_expected": 0.7761
+    },
+    {
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "is_semifinalist": false,
+      "ggr_per_game": 9.5,
+      "n_combo_f3": 38,
+      "shared_history": 744.3,
+      "combo_chem_adj": -2.0783,
+      "xg_added_over_expected": -0.0028
+    },
+    {
+      "team_id": "371",
+      "team_name": "Croatia",
+      "is_semifinalist": true,
+      "ggr_per_game": 9.5,
+      "n_combo_f3": 57,
+      "shared_history": 171.2,
+      "combo_chem_adj": -0.7331,
+      "xg_added_over_expected": 0.0318
+    },
+    {
+      "team_id": "372",
+      "team_name": "Senegal",
+      "is_semifinalist": false,
+      "ggr_per_game": 9.5,
+      "n_combo_f3": 19,
+      "shared_history": 75.8,
+      "combo_chem_adj": -0.6539,
+      "xg_added_over_expected": -0.0245
+    },
+    {
+      "team_id": "375",
+      "team_name": "Serbia",
+      "is_semifinalist": false,
+      "ggr_per_game": 9.0,
+      "n_combo_f3": 27,
+      "shared_history": 163.0,
+      "combo_chem_adj": 0.1313,
+      "xg_added_over_expected": -0.3168
+    },
+    {
+      "team_id": "385",
+      "team_name": "Costa Rica",
+      "is_semifinalist": false,
+      "ggr_per_game": 8.0,
+      "n_combo_f3": 16,
+      "shared_history": 189.1,
+      "combo_chem_adj": 1.8293,
+      "xg_added_over_expected": -0.2589
+    },
+    {
+      "team_id": "365",
+      "team_name": "Portugal",
+      "is_semifinalist": false,
+      "ggr_per_game": 7.7,
+      "n_combo_f3": 23,
+      "shared_history": 489.7,
+      "combo_chem_adj": -3.126,
+      "xg_added_over_expected": -0.5589
+    },
+    {
+      "team_id": "383",
+      "team_name": "Ghana",
+      "is_semifinalist": false,
+      "ggr_per_game": 7.5,
+      "n_combo_f3": 15,
+      "shared_history": 0.0,
+      "combo_chem_adj": -0.7988,
+      "xg_added_over_expected": 0.0529
+    },
+    {
+      "team_id": "378",
+      "team_name": "Tunisia",
+      "is_semifinalist": false,
+      "ggr_per_game": 7.0,
+      "n_combo_f3": 7,
+      "shared_history": 0.0,
+      "combo_chem_adj": -0.4552,
+      "xg_added_over_expected": 0.1233
+    },
+    {
+      "team_id": "380",
+      "team_name": "Canada",
+      "is_semifinalist": false,
+      "ggr_per_game": 7.0,
+      "n_combo_f3": 14,
+      "shared_history": 103.3,
+      "combo_chem_adj": -0.7256,
+      "xg_added_over_expected": -0.4944
+    },
+    {
+      "team_id": "374",
+      "team_name": "Morocco",
+      "is_semifinalist": true,
+      "ggr_per_game": 6.8,
+      "n_combo_f3": 41,
+      "shared_history": 112.8,
+      "combo_chem_adj": -3.4386,
+      "xg_added_over_expected": -0.3174
+    },
+    {
+      "team_id": "376",
+      "team_name": "Poland",
+      "is_semifinalist": false,
+      "ggr_per_game": 6.7,
+      "n_combo_f3": 20,
+      "shared_history": 133.9,
+      "combo_chem_adj": -2.2324,
+      "xg_added_over_expected": -0.1888
+    },
+    {
+      "team_id": "367",
+      "team_name": "Denmark",
+      "is_semifinalist": false,
+      "ggr_per_game": 6.5,
+      "n_combo_f3": 13,
+      "shared_history": 111.1,
+      "combo_chem_adj": -3.338,
+      "xg_added_over_expected": -0.6383
+    },
+    {
+      "team_id": "360",
+      "team_name": "Qatar",
+      "is_semifinalist": false,
+      "ggr_per_game": 6.0,
+      "n_combo_f3": 6,
+      "shared_history": 847.5,
+      "combo_chem_adj": 1.5667,
+      "xg_added_over_expected": 0.1191
+    },
+    {
+      "team_id": "58",
+      "team_name": "Mexico",
+      "is_semifinalist": false,
+      "ggr_per_game": 6.0,
+      "n_combo_f3": 12,
+      "shared_history": 119.0,
+      "combo_chem_adj": -2.0339,
+      "xg_added_over_expected": -0.1949
+    },
+    {
+      "team_id": "379",
+      "team_name": "Cameroon",
+      "is_semifinalist": false,
+      "ggr_per_game": 5.5,
+      "n_combo_f3": 11,
+      "shared_history": 0.0,
+      "combo_chem_adj": -2.5419,
+      "xg_added_over_expected": 0.3078
+    },
+    {
+      "team_id": "384",
+      "team_name": "Wales",
+      "is_semifinalist": false,
+      "ggr_per_game": 5.0,
+      "n_combo_f3": 5,
+      "shared_history": 92.6,
+      "combo_chem_adj": -3.0755,
+      "xg_added_over_expected": -0.176
+    },
+    {
+      "team_id": "386",
+      "team_name": "Australia",
+      "is_semifinalist": false,
+      "ggr_per_game": 5.0,
+      "n_combo_f3": 15,
+      "shared_history": 22.5,
+      "combo_chem_adj": -3.4646,
+      "xg_added_over_expected": -0.3833
+    },
+    {
+      "team_id": "369",
+      "team_name": "Uruguay",
+      "is_semifinalist": false,
+      "ggr_per_game": 2.0,
+      "n_combo_f3": 2,
+      "shared_history": 82.6,
+      "combo_chem_adj": -6.2764,
+      "xg_added_over_expected": -0.1001
+    }
+  ]
+}

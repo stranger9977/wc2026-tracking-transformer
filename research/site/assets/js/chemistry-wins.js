@@ -234,6 +234,61 @@ function renderXgScatter(mountEl, rows, opt) {
     `${tint}${frame}${zeroX}${zeroY}${trend}${dots}${labels}${yTopLbl}${yBotLbl}${xLbl}</svg>`;
 }
 
+/* ---------------- combination play (final-third one-twos) ---------------- */
+
+const comboEl = document.getElementById("combo-scatter");
+if (comboEl) {
+  loadJSON("data/combination_xg.json").then((xg) => renderComboPanel(xg)).catch(() => {});
+}
+
+function renderComboPanel(xg) {
+  const rows = xg.teams.filter((t) => t.combo_chem_adj != null && t.xg_added_over_expected != null);
+  const sc = document.getElementById("combo-scatter");
+  if (sc) renderXgScatter(sc, rows, {
+    xKey: "combo_chem_adj", yKey: "xg_added_over_expected",
+    yTop: "Creates more chances than expected", yBot: "Creates fewer than expected",
+    xLabel: "More final-third one-twos →",
+    aria: "Final-third combination play vs expected goals created, talent-adjusted",
+  });
+  // where one-twos come from: a raw scatter vs squad shared history
+  const hist = document.getElementById("combo-history-scatter");
+  if (hist) renderXgScatter(hist, xg.teams.filter((t) => t.shared_history != null && t.ggr_per_game != null), {
+    xKey: "shared_history", yKey: "ggr_per_game",
+    yTop: "More one-twos", yBot: "Fewer one-twos",
+    xLabel: "More shared history (prior minutes together) →",
+    aria: "Final-third one-twos vs squad shared history",
+  });
+
+  renderComboLeaderboard(xg.leaderboard);
+  const m = xg.meta || {};
+  const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+  const sgn = (v) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(2);
+  if (m.partial_r != null) set("combo-r", sgn(m.partial_r));
+  if (m.ci90) set("combo-ci", `${m.ci90[0].toFixed(2)} to ${m.ci90[1].toFixed(2)}`);
+  if (m.n_teams != null) set("combo-n", String(m.n_teams));
+  if (m.model_giveback_acc != null) set("combo-mdl", Math.round(m.model_giveback_acc * 100) + "%");
+  if (m.model_overall_acc != null) set("combo-mdl-base", Math.round(m.model_overall_acc * 100) + "%");
+  if (m.nearest_baseline_acc != null) set("combo-near", Math.round(m.nearest_baseline_acc * 100) + "%");
+  if (m.history_rho != null) set("combo-hist-r", sgn(m.history_rho));
+  if (m.history_partial != null) set("combo-hist-partial", sgn(m.history_partial));
+}
+
+function renderComboLeaderboard(lb) {
+  const el = document.getElementById("combo-leaderboard");
+  if (!el || !Array.isArray(lb)) return;
+  const top = lb.slice(0, 12);
+  const max = Math.max(...top.map((t) => t.combo_per_game), 1);
+  el.innerHTML = top.map((t, i) => {
+    const w = Math.max(4, (t.combo_per_game / max) * 100);
+    return `<div class="combo-row">
+      <span class="combo-rank">${i + 1}</span>
+      <span class="combo-team">${escapeHTML(t.team_name)}</span>
+      <span class="combo-bar-wrap"><span class="combo-bar${t.is_semifinalist ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span>
+      <span class="combo-val">${t.combo_per_game.toFixed(1)}</span>
+    </div>`;
+  }).join("");
+}
+
 /* ---------------- team network renderers ---------------- */
 
 const POS_XY = {
