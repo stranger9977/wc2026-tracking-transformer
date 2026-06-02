@@ -113,7 +113,14 @@ function renderTcdScatter(rows) {
     </div>`;
 }
 
-/* ---------------- chemistry → expected-goals panel (added-variable) ---------------- */
+/* ---------------- chemistry → expected-goals panel ---------------- */
+/* Two added-variable scatters, but framed for casual fans: both axes have talent +
+   schedule stripped out, so the trend = chemistry's own effect. Plain-language copy
+   (title / verdict / strength meter) lives in the HTML; this draws the chart only.
+   The raw partial-r / CI / n live behind the "How we measured this" toggle, injected
+   from the JSON meta so they stay truthful. */
+
+const XG_MARQUEE = new Set(["Brazil", "Spain", "Portugal", "England", "Netherlands", "Germany", "Belgium"]);
 
 const xgPanelEl = document.getElementById("chem-xg-panel");
 if (xgPanelEl) {
@@ -127,72 +134,104 @@ function renderChemistryXgPanel(xg) {
   const offEl = document.getElementById("chem-xg-off");
   if (defEl) renderXgScatter(defEl, defRows, {
     xKey: "def_chem_adj", yKey: "xg_prevented_over_expected",
-    xLabel: "Defensive chemistry (talent & schedule adjusted) →",
-    yTop: "prevents more than expected", yBot: "concedes more than expected",
-    r: xg.meta.defense.partial_r, ci: xg.meta.defense.ci90, n: xg.meta.n_teams,
-    blurb: "More strong defensive partnerships → fewer expected goals conceded than talent predicts.",
+    yTop: "Allows fewer chances than expected", yBot: "Allows more than expected",
+    xLabel: "More defensive chemistry →",
+    aria: "Defensive chemistry vs expected goals allowed, with talent and schedule removed",
   });
   if (offEl) renderXgScatter(offEl, offRows, {
     xKey: "off_chem_adj", yKey: "xg_added_over_expected",
-    xLabel: "Offensive chemistry (talent & schedule adjusted) →",
-    yTop: "creates more than expected", yBot: "creates less than expected",
-    r: xg.meta.offense.partial_r, ci: xg.meta.offense.ci90, n: xg.meta.n_teams,
-    blurb: "Stronger attacking partnerships trend toward more expected goals — entangled with talent.",
+    yTop: "Creates more chances than expected", yBot: "Creates fewer than expected",
+    xLabel: "More attacking chemistry →",
+    aria: "Attacking chemistry vs expected goals created, with talent and schedule removed",
   });
+
+  // keep the "How we measured this" numbers in sync with the data (truthful, not hardcoded)
+  const fmtR = (r) => (r >= 0 ? "+" : "−") + Math.abs(r).toFixed(2);
+  const fmtCi = (ci) => `${ci[0] >= 0 ? "" : "−"}${Math.abs(ci[0]).toFixed(2)} to ${ci[1] >= 0 ? "" : "−"}${Math.abs(ci[1]).toFixed(2)}`;
+  const set = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+  set("xg-n", String(xg.meta.n_teams));
+  set("xg-def-r", fmtR(xg.meta.defense.partial_r));
+  set("xg-def-ci", fmtCi(xg.meta.defense.ci90));
+  set("xg-off-r", fmtR(xg.meta.offense.partial_r));
+  set("xg-off-ci", fmtCi(xg.meta.offense.ci90));
 }
 
 function renderXgScatter(mountEl, rows, opt) {
-  const W = 540, H = 440;
-  const padL = 58, padR = 26, padT = 20, padB = 64;
+  const W = 560, H = 430;
+  const padL = 44, padR = 26, padT = 30, padB = 54;
   const innerW = W - padL - padR, innerH = H - padT - padB;
   const xs = rows.map((r) => r[opt.xKey]), ys = rows.map((r) => r[opt.yKey]);
-  const xpad = (Math.max(...xs) - Math.min(...xs)) * 0.12 || 1;
-  const ypad = (Math.max(...ys) - Math.min(...ys)) * 0.12 || 1;
-  const xmin = Math.min(...xs) - xpad, xmax = Math.max(...xs) + xpad;
-  const ymin = Math.min(...ys) - ypad, ymax = Math.max(...ys) + ypad;
+  const xr = (Math.max(...xs) - Math.min(...xs)) || 1, yr = (Math.max(...ys) - Math.min(...ys)) || 1;
+  const xmin = Math.min(...xs) - xr * 0.10, xmax = Math.max(...xs) + xr * 0.14;
+  const ymin = Math.min(...ys) - yr * 0.10, ymax = Math.max(...ys) + yr * 0.10;
   const sx = (x) => padL + ((x - xmin) / (xmax - xmin)) * innerW;
   const sy = (y) => padT + innerH - ((y - ymin) / (ymax - ymin)) * innerH;
+  const zx = sx(0), zy = sy(0);
 
-  // zero reference lines (both axes are residuals → 0 = "exactly as expected")
-  const zeroX = (xmin < 0 && xmax > 0) ? `<line x1="${sx(0).toFixed(1)}" y1="${padT}" x2="${sx(0).toFixed(1)}" y2="${padT + innerH}" stroke="currentColor" stroke-width="0.5" opacity="0.18" stroke-dasharray="3 3"/>` : "";
-  const zeroY = (ymin < 0 && ymax > 0) ? `<line x1="${padL}" y1="${sy(0).toFixed(1)}" x2="${W - padR}" y2="${sy(0).toFixed(1)}" stroke="currentColor" stroke-width="0.5" opacity="0.18" stroke-dasharray="3 3"/>` : "";
+  // quadrant cues: up-right (more chemistry + better than expected) = the story holds (green);
+  // down-left = against it (red). Only drawn when zero is on-screen for both axes.
+  let tint = "";
+  if (xmin < 0 && xmax > 0 && ymin < 0 && ymax > 0) {
+    tint =
+      `<rect x="${zx.toFixed(1)}" y="${padT}" width="${(padL + innerW - zx).toFixed(1)}" height="${(zy - padT).toFixed(1)}" fill="#34d399" opacity="0.06"/>` +
+      `<rect x="${padL}" y="${zy.toFixed(1)}" width="${(zx - padL).toFixed(1)}" height="${(padT + innerH - zy).toFixed(1)}" fill="#f87171" opacity="0.05"/>`;
+  }
+  const frame = `<rect x="${padL}" y="${padT}" width="${innerW}" height="${innerH}" fill="none" stroke="currentColor" stroke-width="1" opacity="0.14"/>`;
+  const zeroX = (xmin < 0 && xmax > 0) ? `<line x1="${zx.toFixed(1)}" y1="${padT}" x2="${zx.toFixed(1)}" y2="${padT + innerH}" stroke="currentColor" stroke-width="1" opacity="0.28" stroke-dasharray="2 4"/>` : "";
+  const zeroY = (ymin < 0 && ymax > 0) ? `<line x1="${padL}" y1="${zy.toFixed(1)}" x2="${W - padR}" y2="${zy.toFixed(1)}" stroke="currentColor" stroke-width="1" opacity="0.28" stroke-dasharray="2 4"/>` : "";
 
-  // least-squares trend line over the residual cloud
+  // least-squares trend line over the cloud
   const n = xs.length;
   const mx = xs.reduce((a, b) => a + b, 0) / n, my = ys.reduce((a, b) => a + b, 0) / n;
   let sxy = 0, sxx = 0;
   for (let i = 0; i < n; i++) { sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) ** 2; }
   const slope = sxx ? sxy / sxx : 0, intc = my - slope * mx;
-  const trend = `<line x1="${sx(xmin).toFixed(1)}" y1="${sy(intc + slope * xmin).toFixed(1)}" x2="${sx(xmax).toFixed(1)}" y2="${sy(intc + slope * xmax).toFixed(1)}" stroke="#d4a23a" stroke-width="2" opacity="0.85"/>`;
+  const trend = `<line x1="${sx(xmin).toFixed(1)}" y1="${sy(intc + slope * xmin).toFixed(1)}" x2="${sx(xmax).toFixed(1)}" y2="${sy(intc + slope * xmax).toFixed(1)}" stroke="#d4a23a" stroke-width="3" stroke-linecap="round"/>`;
 
   const dots = rows.map((r) => {
     const cx = sx(r[opt.xKey]), cy = sy(r[opt.yKey]);
-    const ring = r.is_semifinalist ? `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="8" fill="none" stroke="#d4a23a" stroke-width="2"/>` : "";
-    const fill = r.is_semifinalist ? "#d4a23a" : "#6b7280";
-    return `${ring}<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5" fill="${fill}" stroke="var(--bg, #0b1220)" stroke-width="1.1"/>`;
+    if (r.is_semifinalist) {
+      return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="8.5" fill="none" stroke="#d4a23a" stroke-width="2.5"/>` +
+             `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5.5" fill="#d4a23a" stroke="var(--bg, #0b1220)" stroke-width="1.3"/>`;
+    }
+    const fill = XG_MARQUEE.has(r.team_name) ? "#9aa6ba" : "#56617a";
+    return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="4.5" fill="${fill}" stroke="var(--bg, #0b1220)" stroke-width="1.1"/>`;
   }).join("");
 
-  // label only the semifinalists (keep the small panels readable)
-  const labels = rows.filter((r) => r.is_semifinalist).map((r) => {
+  // labels: semifinalists (gold) + marquee teams (muted), greedy non-overlap
+  const labeled = rows.filter((r) => r.is_semifinalist || XG_MARQUEE.has(r.team_name));
+  const placed = [];
+  const inter = (a, b) => !(a.x2 < b.x1 || a.x1 > b.x2 || a.y2 < b.y1 || a.y1 > b.y2);
+  const order = [...labeled].sort((a, b) =>
+    (b.is_semifinalist ? 1 : 0) - (a.is_semifinalist ? 1 : 0) || b[opt.yKey] - a[opt.yKey]);
+  const labels = order.map((r) => {
     const cx = sx(r[opt.xKey]), cy = sy(r[opt.yKey]);
-    const anchor = cx > padL + innerW * 0.6 ? "end" : "start";
-    const dx = anchor === "start" ? 8 : -8;
-    return `<text x="${(cx + dx).toFixed(1)}" y="${(cy - 7).toFixed(1)}" font-size="11" font-weight="700" fill="currentColor" opacity="0.92" text-anchor="${anchor}">${escapeHTML(r.team_name)}</text>`;
+    const semi = r.is_semifinalist;
+    const fs = semi ? 12.5 : 11, fw = semi ? 800 : 600;
+    const fill = semi ? "#e0b450" : "currentColor", op = semi ? 1 : 0.78;
+    const w = r.team_name.length * fs * 0.6, h = fs + 2;
+    const anchor = cx > padL + innerW * 0.62 ? "end" : "start";
+    const dx = anchor === "start" ? 10 : -10;
+    let dy = -9, box;
+    const step = (cy < padT + innerH / 2) ? 14 : -14;
+    for (let k = 0; k < 16; k++) {
+      const lx = cx + dx, ly = cy + dy;
+      box = anchor === "start" ? { x1: lx, y1: ly - h, x2: lx + w, y2: ly + 3 } : { x1: lx - w, y1: ly - h, x2: lx, y2: ly + 3 };
+      if (!placed.some((p) => inter(p, box))) break;
+      dy += step;
+    }
+    placed.push(box);
+    return `<text x="${(cx + dx).toFixed(1)}" y="${(cy + dy).toFixed(1)}" font-size="${fs}" font-weight="${fw}" fill="${fill}" opacity="${op}" text-anchor="${anchor}">${escapeHTML(r.team_name)}</text>`;
   }).join("");
 
-  const yTopLbl = `<text x="${padL - 8}" y="${padT + 10}" font-size="10.5" fill="currentColor" opacity="0.55" text-anchor="end">${opt.yTop} ↑</text>`;
-  const yBotLbl = `<text x="${padL - 8}" y="${padT + innerH - 2}" font-size="10.5" fill="currentColor" opacity="0.55" text-anchor="end">↓ ${opt.yBot}</text>`;
-  const xLbl = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - padB + 40}" font-size="11.5" fill="currentColor" opacity="0.6" text-anchor="middle">${opt.xLabel}</text>`;
-  const rTxt = (opt.r >= 0 ? "+" : "") + opt.r.toFixed(2);
+  // directional axis labels INSIDE the plot (so they never clip)
+  const yTopLbl = `<text x="${padL + 8}" y="${padT + 18}" font-size="11.5" font-weight="600" fill="#7ed3ab">↑ ${escapeHTML(opt.yTop)}</text>`;
+  const yBotLbl = `<text x="${padL + 8}" y="${padT + innerH - 9}" font-size="11.5" font-weight="600" fill="#e29a9a">↓ ${escapeHTML(opt.yBot)}</text>`;
+  const xLbl = `<text x="${(padL + innerW / 2).toFixed(0)}" y="${H - 14}" font-size="12.5" font-weight="600" fill="currentColor" opacity="0.7" text-anchor="middle">${escapeHTML(opt.xLabel)}</text>`;
 
-  mountEl.innerHTML = `
-    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="fifa-scatter-svg" role="img" aria-label="${escapeHTML(opt.xLabel)} added-variable scatter">
-      ${zeroX}${zeroY}${trend}${dots}${labels}${yTopLbl}${yBotLbl}${xLbl}
-    </svg>
-    <div class="scatter-legend small muted">
-      <span class="muted">${escapeHTML(opt.blurb)}</span>
-      <span class="muted">Partial r = <strong>${rTxt}</strong> &nbsp;(90% CI ${opt.ci[0].toFixed(2)} to ${opt.ci[1].toFixed(2)}, n = ${opt.n}); both axes adjusted for talent, caps, games &amp; opponent strength.</span>
-    </div>`;
+  mountEl.innerHTML =
+    `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="fifa-scatter-svg" role="img" aria-label="${escapeHTML(opt.aria)}">` +
+    `${tint}${frame}${zeroX}${zeroY}${trend}${dots}${labels}${yTopLbl}${yBotLbl}${xLbl}</svg>`;
 }
 
 /* ---------------- team network renderers ---------------- */

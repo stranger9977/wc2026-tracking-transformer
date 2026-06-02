@@ -6,9 +6,21 @@
   <title>WC22 Player Chemistry — Chemistry &rarr; Winning</title>
   <link rel="stylesheet" href="assets/css/site.css">
   <style>
-    .xg-panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin: 0.6rem 0 1.6rem; }
+    .xg-panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin: 0.8rem 0 1.2rem; }
     .xg-panel-cell { margin: 0; }
-    .xg-panel-cell figcaption { margin-bottom: 0.4rem; opacity: 0.85; }
+    .xg-panel-cell figcaption { margin-bottom: 0.5rem; }
+    .xg-panel-title { display: block; font-weight: 700; font-size: 1.02rem; }
+    .xg-panel-sub { display: block; opacity: 0.7; font-size: 0.85rem; margin-top: 0.1rem; }
+    .xg-verdict { margin-top: 0.5rem; }
+    .xg-meter { display: inline-block; vertical-align: middle; }
+    .xg-meter i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid #d4a23a; margin-right: 4px; }
+    .xg-meter i.on { background: #d4a23a; }
+    .xg-meter-label { font-weight: 700; color: #d4a23a; margin-left: 0.35rem; vertical-align: middle; font-size: 0.9rem; }
+    .xg-verdict-text { margin: 0.3rem 0 0; }
+    .xg-methods { margin: 0.2rem 0 1.4rem; }
+    .xg-methods summary { cursor: pointer; opacity: 0.65; font-size: 0.85rem; }
+    .xg-methods summary:hover { opacity: 1; }
+    .xg-methods p { margin-top: 0.5rem; }
     @media (max-width: 760px) { .xg-panel-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -58,21 +70,54 @@
         the regression test is here.
       </p>
 
-      <h3 class="mt-2">Chemistry, grounded in expected goals</h3>
-      <p class="dim small">Each dot = one WC22 team (n = 29). These are <strong>added-variable plots</strong>:
-        both axes are adjusted for talent (FIFA-23 Overall + caps), games played, and opponent strength &mdash;
-        so the trend you see <em>is</em> the effect of chemistry after talent and schedule are removed.
-        Up = better than expected; right = more chemistry than talent predicts. Gold ring = semifinalist.</p>
+      <h3 class="mt-2">Does chemistry actually help? We tested it against expected goals.</h3>
+      <p class="dim small">
+        <strong>Expected goals (xG)</strong> measure the <em>quality</em> of a team's chances &mdash; the modern
+        way to judge attack and defense beyond the final score. We checked whether teams with better player
+        chemistry create more good chances, and allow fewer, than their talent alone would predict. Each dot is a
+        World Cup 2022 team; <span style="color:#d4a23a; font-weight:600">gold</span> = the four semifinalists.
+        We've stripped out talent, schedule, and how far each team advanced &mdash; so what's left is chemistry's
+        own fingerprint. <strong>Further right</strong> = more chemistry than star power explains;
+        <strong>higher</strong> = better than expected.
+      </p>
       <div id="chem-xg-panel" class="xg-panel-grid">
         <figure class="xg-panel-cell">
-          <figcaption class="small"><strong>Defensive chemistry &rarr; expected goals prevented</strong></figcaption>
+          <figcaption>
+            <span class="xg-panel-title">Defending as a unit</span>
+            <span class="xg-panel-sub">Better defensive chemistry &rarr; fewer good chances allowed?</span>
+          </figcaption>
           <div id="chem-xg-def" class="fifa-scatter"></div>
+          <div class="xg-verdict">
+            <span class="xg-meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span>
+            <span class="xg-meter-label">Modest but consistent</span>
+            <p class="dim small xg-verdict-text">Yes &mdash; it holds up even after accounting for talent &amp; schedule.</p>
+          </div>
         </figure>
         <figure class="xg-panel-cell">
-          <figcaption class="small"><strong>Offensive chemistry &rarr; expected goals added</strong></figcaption>
+          <figcaption>
+            <span class="xg-panel-title">Attacking as a unit</span>
+            <span class="xg-panel-sub">Stronger attacking partnerships &rarr; more good chances?</span>
+          </figcaption>
           <div id="chem-xg-off" class="fifa-scatter"></div>
+          <div class="xg-verdict">
+            <span class="xg-meter" aria-hidden="true"><i class="on"></i><i></i><i></i></span>
+            <span class="xg-meter-label">Faint, uncertain</span>
+            <p class="dim small xg-verdict-text">A hint &mdash; but hard to separate from just having better attackers.</p>
+          </div>
         </figure>
       </div>
+      <details class="xg-methods">
+        <summary>How we measured this</summary>
+        <p class="dim small">
+          Both axes are <em>residuals</em> after accounting for FIFA rating, caps, games played, and opponent
+          strength (an &ldquo;added-variable plot&rdquo;), across <span id="xg-n">29</span> teams with FIFA ratings.
+          <strong>Defensive chemistry</strong> vs expected goals allowed: partial correlation
+          <span id="xg-def-r">+0.38</span> (90% confidence interval <span id="xg-def-ci">0.09 to 0.60</span> &mdash;
+          clears zero, so it&rsquo;s a real signal). <strong>Attacking chemistry</strong> vs expected goals created:
+          <span id="xg-off-r">+0.16</span> (<span id="xg-off-ci">&minus;0.18 to 0.47</span> &mdash; includes zero,
+          so it can&rsquo;t be confirmed).
+        </p>
+      </details>
 
       <h3 class="mt-2">TCD vs tournament finish &nbsp;<span class="dim small">(ρ = +0.704, n = 31, p &lt; 0.001)</span></h3>
       <p class="dim small">Older, talent-confounded view: X = raw TCD, Y = stage reached (Group &rarr; Winner).
@@ -1124,6 +1169,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=xg-panel"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=xg-panel2"></script>
 </body>
 </html>
