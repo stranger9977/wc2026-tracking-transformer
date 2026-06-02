@@ -22,6 +22,7 @@
     .xg-methods summary:hover { opacity: 1; }
     .xg-methods p { margin-top: 0.5rem; }
     .combo-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 1.6rem; align-items: start; margin: 0.6rem 0 1rem; }
+    .combo-grid2 { display: grid; grid-template-columns: 1.7fr 1fr; gap: 1.8rem; align-items: start; margin: 0.4rem 0 1.2rem; }
     .combo-lb-cell h4 { margin: 0 0 0.6rem; }
     .combo-row { display: grid; grid-template-columns: 1.4rem 6.6rem 1fr 2.4rem; align-items: center; gap: 0.5rem; margin-bottom: 0.34rem; font-size: 0.86rem; }
     .combo-rank { opacity: 0.5; text-align: right; }
@@ -30,7 +31,7 @@
     .combo-bar { display: block; height: 11px; border-radius: 3px; background: #6b7280; }
     .combo-bar.semi { background: #d4a23a; }
     .combo-val { text-align: right; font-variant-numeric: tabular-nums; opacity: 0.85; }
-    @media (max-width: 760px) { .xg-panel-grid, .combo-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) { .xg-panel-grid, .combo-grid, .combo-grid2 { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -105,61 +106,47 @@
         <figure class="xg-panel-cell">
           <figcaption>
             <span class="xg-panel-title">Attacking as a unit</span>
-            <span class="xg-panel-sub">Stronger attacking partnerships &rarr; more good chances?</span>
+            <span class="xg-panel-sub">More final-third one-twos &rarr; more good chances than talent predicts?</span>
           </figcaption>
-          <div id="chem-xg-off" class="fifa-scatter"></div>
-          <div class="xg-verdict">
-            <span class="xg-meter" aria-hidden="true"><i class="on"></i><i></i><i></i></span>
-            <span class="xg-meter-label">Faint, uncertain</span>
-            <p class="dim small xg-verdict-text">A hint &mdash; but hard to separate from just having better attackers.</p>
-          </div>
-        </figure>
-      </div>
-      <details class="xg-methods">
-        <summary>How we measured this</summary>
-        <p class="dim small">
-          Both axes are <em>residuals</em> after accounting for FIFA rating, caps, games played, and opponent
-          strength (an &ldquo;added-variable plot&rdquo;), across <span id="xg-n">29</span> teams with FIFA ratings.
-          <strong>Defensive chemistry</strong> vs expected goals allowed: partial correlation
-          <span id="xg-def-r">+0.38</span> (90% confidence interval <span id="xg-def-ci">0.09 to 0.60</span> &mdash;
-          clears zero, so it&rsquo;s a real signal). <strong>Attacking chemistry</strong> vs expected goals created:
-          <span id="xg-off-r">+0.16</span> (<span id="xg-off-ci">&minus;0.18 to 0.47</span> &mdash; includes zero,
-          so it can&rsquo;t be confirmed).
-        </p>
-      </details>
-
-      <h3 class="mt-2">The offensive signal that holds up: one-twos in the final third</h3>
-      <p class="dim small">Most attacking-chemistry numbers wash out once you account for talent &mdash; but one
-        survives: the <strong>one-two</strong> (the quick give-and-go) played in the final third. It runs as a
-        chain &mdash; teams whose players have <strong>played together more</strong> work <strong>more one-twos
-        near goal</strong>, and those teams <strong>create more expected goals than their talent predicts</strong>.
-        It's a pattern the model itself knows: our passing model anticipates the give-back pass
-        <strong>83%</strong> of the time, better than it predicts passes in general. Each dot is a team;
-        <span style="color:#d4a23a; font-weight:600">gold</span> = the four semifinalists.</p>
-      <div class="combo-grid">
-        <figure class="xg-panel-cell" style="margin:0">
           <div id="combo-scatter" class="fifa-scatter"></div>
           <div class="xg-verdict">
             <span class="xg-meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span>
             <span class="xg-meter-label">Robust, but unconfirmed</span>
-            <p class="dim small xg-verdict-text">The strongest offensive &rarr; xG signal we found &mdash; stable across every control, with honest caveats below.</p>
+            <p class="dim small xg-verdict-text">The strongest offensive &rarr; xG signal we found &mdash; quick one-twos near goal; stable across every control.</p>
           </div>
+        </figure>
+      </div>
+      <details class="xg-methods">
+        <summary>How we measured the defensive panel</summary>
+        <p class="dim small">
+          Both axes are <em>residuals</em> after accounting for FIFA rating, caps, games played, and opponent
+          strength (an &ldquo;added-variable plot&rdquo;), across <span id="xg-n">29</span> teams with FIFA ratings.
+          <strong>Defensive chemistry</strong> (count of strong defensive partnerships) vs expected goals allowed:
+          partial correlation <span id="xg-def-r">+0.38</span> (90% confidence interval
+          <span id="xg-def-ci">0.09 to 0.60</span> &mdash; clears zero, so it&rsquo;s a real signal). The attacking
+          panel uses one-twos &mdash; detailed in its own &ldquo;how we measured this&rdquo; below.
+        </p>
+      </details>
+
+      <h3 class="mt-2">Where the one-twos come from: shared club history</h3>
+      <p class="dim small">The attacking signal runs as a chain: teams whose players were <strong>club teammates</strong>
+        before the World Cup &mdash; Real Madrid and Atl&eacute;tico blocs, or the almost-entirely-domestic Saudi and
+        Qatar squads &mdash; work <strong>more one-twos near goal</strong>, and those teams create more expected goals
+        than their talent predicts. Familiarity, not just ability. <span class="dim">(Shared club history = estimated
+        minutes a pair spent as teammates at the same club before the tournament.)</span></p>
+      <div class="combo-grid2">
+        <figure class="xg-panel-cell" style="margin:0">
+          <figcaption>
+            <span class="xg-panel-sub">Each dot a team. More shared club history &rarr; more final-third one-twos.
+              &rho; = <span id="combo-hist-r">+0.67</span>, and <span id="combo-hist-partial">+0.58</span> even at equal talent.</span>
+          </figcaption>
+          <div id="combo-history-scatter" class="fifa-scatter"></div>
         </figure>
         <div class="combo-lb-cell">
           <h4 class="small">Final-third one-twos per game</h4>
           <div id="combo-leaderboard"></div>
         </div>
       </div>
-
-      <figure class="xg-panel-cell" style="margin: 0.4rem 0 0">
-        <figcaption>
-          <span class="xg-panel-title">Where the one-twos come from: shared history</span>
-          <span class="xg-panel-sub">Teams whose players have played together more work more one-twos near goal
-            &mdash; &rho; = <span id="combo-hist-r">+0.67</span>, and <span id="combo-hist-partial">+0.58</span>
-            even at equal talent. Familiarity, not just ability.</span>
-        </figcaption>
-        <div id="combo-history-scatter" class="fifa-scatter" style="max-width: 720px"></div>
-      </figure>
 
       <details class="xg-methods">
         <summary>How we measured this</summary>
@@ -1227,6 +1214,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo2"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo3"></script>
 </body>
 </html>

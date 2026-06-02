@@ -254,9 +254,9 @@ function renderComboPanel(xg) {
   const hist = document.getElementById("combo-history-scatter");
   if (hist) renderXgScatter(hist, xg.teams.filter((t) => t.shared_history != null && t.ggr_per_game != null), {
     xKey: "shared_history", yKey: "ggr_per_game",
-    yTop: "More one-twos", yBot: "Fewer one-twos",
-    xLabel: "More shared history (prior minutes together) →",
-    aria: "Final-third one-twos vs squad shared history",
+    yTop: "More one-twos near goal", yBot: "Fewer one-twos",
+    xLabel: "More shared club history (prior minutes as club teammates) →",
+    aria: "Final-third one-twos vs squad shared club history",
   });
 
   renderComboLeaderboard(xg.leaderboard);
