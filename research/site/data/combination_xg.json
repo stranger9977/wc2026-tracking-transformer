@@ -1159,5 +1159,77 @@
       "n_goals": 0,
       "aw_joi": 1.87
     }
+  ],
+  "scored_pairs": [
+    {
+      "team_name": "England",
+      "is_semifinalist": false,
+      "player_a": "Harry Kane",
+      "player_b": "Phil Foden",
+      "n_goals_led": 2
+    },
+    {
+      "team_name": "Japan",
+      "is_semifinalist": false,
+      "player_a": "Junya Ito",
+      "player_b": "Ritsu Doan",
+      "n_goals_led": 2
+    },
+    {
+      "team_name": "Mexico",
+      "is_semifinalist": false,
+      "player_a": "Hirving Lozano",
+      "player_b": "Henry Mart\u00edn",
+      "n_goals_led": 2
+    },
+    {
+      "team_name": "Morocco",
+      "is_semifinalist": true,
+      "player_a": "Sofiane Boufal",
+      "player_b": "Azzedine Ounahi",
+      "n_goals_led": 2
+    },
+    {
+      "team_name": "Argentina",
+      "is_semifinalist": true,
+      "player_a": "Alexis Mac Allister",
+      "player_b": "Julian Alvarez",
+      "n_goals_led": 1
+    },
+    {
+      "team_name": "Argentina",
+      "is_semifinalist": true,
+      "player_a": "Alexis Mac Allister",
+      "player_b": "Rodrigo de Paul",
+      "n_goals_led": 1
+    },
+    {
+      "team_name": "Brazil",
+      "is_semifinalist": false,
+      "player_a": "Raphinha",
+      "player_b": "Lucas Paquet\u00e1",
+      "n_goals_led": 1
+    },
+    {
+      "team_name": "Brazil",
+      "is_semifinalist": false,
+      "player_a": "Richarlison",
+      "player_b": "Thiago Silva",
+      "n_goals_led": 1
+    },
+    {
+      "team_name": "Brazil",
+      "is_semifinalist": false,
+      "player_a": "Thiago Silva",
+      "player_b": "Danilo",
+      "n_goals_led": 1
+    },
+    {
+      "team_name": "Costa Rica",
+      "is_semifinalist": false,
+      "player_a": "Kendall Waston",
+      "player_b": "Keysher Fuller",
+      "n_goals_led": 1
+    }
   ]
 }

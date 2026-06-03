@@ -264,8 +264,9 @@ function renderComboPanel(xg) {
     aria: "Final-third combinations vs squad shared club history",
   });
 
-  // 3. the pairs that combine most (chemistry payoff)
+  // 3. the pairs that combine most (chemistry payoff) + which combos actually scored
   renderPairLeaderboard(document.getElementById("combo-leaderboard"), xg.pair_leaderboard);
+  renderScoredPairs(document.getElementById("combo-scored-list"), xg.scored_pairs);
 
   // 4. meta numbers (truthful, from JSON)
   const m = xg.meta || {};
@@ -364,6 +365,18 @@ function renderPairLeaderboard(el, pairs) {
       <span class="combo-team"><strong>${escapeHTML(p.player_a)}</strong> + ${escapeHTML(p.player_b)}<span class="dim"> · ${escapeHTML(p.team_name)}</span></span>
       <span class="combo-bar-wrap"><span class="combo-bar${p.is_semifinalist ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span>
       <span class="combo-val">${p.n_combos}</span>
+    </div>`;
+  }).join("");
+}
+
+// the pairs whose combinations actually led to a goal within 10s (a different, sparse set)
+function renderScoredPairs(el, pairs) {
+  if (!el || !Array.isArray(pairs) || !pairs.length) return;
+  el.innerHTML = pairs.map((p) => {
+    const n = p.n_goals_led;
+    return `<div class="scored-row">
+      <span class="combo-team"><strong>${escapeHTML(p.player_a)}</strong> + ${escapeHTML(p.player_b)}<span class="dim"> · ${escapeHTML(p.team_name)}</span></span>
+      <span class="sg">${n} goal${n === 1 ? "" : "s"}</span>
     </div>`;
   }).join("");
 }

@@ -38,6 +38,8 @@
     .combo-grid-toggle button.active { background: var(--bg-elev-3, #1a2333); opacity: 1; font-weight: 600; color: #e0b450; }
     .pair-row { grid-template-columns: 1.4rem minmax(0,1fr) 3.6rem 1.5rem; font-size: 0.82rem; }
     .pair-row .combo-team { white-space: normal; line-height: 1.18; }
+    .scored-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.5rem; margin-bottom: 0.32rem; font-size: 0.82rem; }
+    .scored-row .sg { color: #e0b450; font-weight: 700; white-space: nowrap; }
     .combo-anim-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 0.3rem 0 1.6rem; }
     .combo-anim-card { margin: 0; background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 9px; padding: 0.6rem; }
     .combo-anim-card svg { width: 100%; height: auto; display: block; }
@@ -262,7 +264,9 @@
         <div class="combo-lb-cell">
           <h4 class="small">The pairs that combine most <span class="dim" style="font-weight:400">(final-third combinations)</span></h4>
           <div id="combo-leaderboard"></div>
-          <p class="dim small" style="margin-top:0.5rem;">Volume isn't goals: the 31 combination-goals are spread across ~30 different pairs (about one each), so the biggest <em>combiners</em> here aren't usually the ones who <em>finish</em> &mdash; combinations make the chances, the team converts them.</p>
+          <h4 class="small" style="margin-top:1rem;">Whose combinations scored <span class="dim" style="font-weight:400">(led to a goal &le;10s)</span></h4>
+          <div id="combo-scored-list"></div>
+          <p class="dim small" style="margin-top:0.5rem;">A different set from the volume list: the biggest <em>combiners</em> build the most chances, but the combos that actually <em>scored</em> are spread thin (~1 pair each). Volume makes the chances; the team converts them.</p>
         </div>
       </div>
 
@@ -1280,6 +1284,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo8"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo9"></script>
 </body>
 </html>
