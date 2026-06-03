@@ -264,8 +264,18 @@ function renderComboPanel(xg) {
     aria: "Final-third combinations vs squad shared club history",
   });
 
-  // 3. the pairs that combine most (chemistry payoff) + which combos actually scored
-  renderPairLeaderboard(document.getElementById("combo-leaderboard"), xg.pair_leaderboard);
+  // 3. pairs that combine most (volume rank) + AW-JOI & xG-added columns, sliced by type
+  const lbEl = document.getElementById("combo-leaderboard");
+  let lbType = "all";
+  const drawLb = () => renderPairLeaderboard(lbEl, xg.pair_leaderboard, lbType);
+  drawLb();
+  document.querySelectorAll("[data-lb-type]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      lbType = btn.getAttribute("data-lb-type");
+      document.querySelectorAll("[data-lb-type]").forEach((b) => b.classList.toggle("active", b === btn));
+      drawLb();
+    });
+  });
   renderScoredPairs(document.getElementById("combo-scored-list"), xg.scored_pairs);
 
   // 4. meta numbers (truthful, from JSON)
@@ -354,19 +364,37 @@ function renderComboGrid(mountEl, grid, split) {
     `${grids}${bars}${lbls}${yLbl}${legend}</svg>`;
 }
 
-function renderPairLeaderboard(el, pairs) {
+// volume-ranked, with AW-JOI (co-attention×threat) + xG-added columns; sliced by combination type
+function renderPairLeaderboard(el, pairs, type) {
   if (!el || !Array.isArray(pairs)) return;
-  const top = pairs.slice(0, 10);
-  const max = Math.max(...top.map((p) => p.n_combos), 1);
-  el.innerHTML = top.map((p, i) => {
-    const w = Math.max(6, (p.n_combos / max) * 100);
-    return `<div class="combo-row pair-row">
-      <span class="combo-rank">${i + 1}</span>
-      <span class="combo-team"><strong>${escapeHTML(p.player_a)}</strong> + ${escapeHTML(p.player_b)}<span class="dim"> · ${escapeHTML(p.team_name)}</span></span>
-      <span class="combo-bar-wrap"><span class="combo-bar${p.is_semifinalist ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span>
-      <span class="combo-val">${p.n_combos}</span>
-    </div>`;
+  type = type || "all";
+  const metric = (p) => type === "all"
+    ? { n: p.n_combos, aw: p.combo_aw_joi || 0, xg: p.combo_xg_added || 0 }
+    : { n: (p.by_type && p.by_type[type] ? p.by_type[type].n : 0),
+        aw: (p.by_type && p.by_type[type] ? p.by_type[type].aw_joi : 0) || 0,
+        xg: (p.by_type && p.by_type[type] ? p.by_type[type].xg_added : 0) || 0 };
+  const rows = pairs.map((p) => ({ p, v: metric(p) })).filter((r) => r.v.n > 0)
+    .sort((a, b) => b.v.n - a.v.n).slice(0, 10);
+  if (!rows.length) { el.innerHTML = '<p class="dim small">No pairs for this type.</p>'; return; }
+  const maxN = Math.max(...rows.map((r) => r.v.n), 1);
+  const TH = 'style="text-align:right; padding:0.3rem 0.5rem;"';
+  const body = rows.map(({ p, v }, i) => {
+    const w = Math.max(10, (v.n / maxN) * 100);
+    return `<tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:0.3rem 0.4rem; opacity:0.45; text-align:right;">${i + 1}</td>
+      <td style="padding:0.3rem 0.5rem; line-height:1.15;"><strong>${escapeHTML(p.player_a)}</strong> + ${escapeHTML(p.player_b)}<span class="dim small"> · ${escapeHTML(p.team_name)}</span></td>
+      <td style="padding:0.3rem 0.5rem; white-space:nowrap;"><span class="combo-bar-wrap" style="display:inline-block; width:34px; vertical-align:middle;"><span class="combo-bar${p.is_semifinalist ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span> <span class="tabular">${v.n}</span></td>
+      <td style="padding:0.3rem 0.5rem; text-align:right; color:#5eb1f8;" class="tabular">${(v.aw * 1000).toFixed(1)}</td>
+      <td style="padding:0.3rem 0.5rem; text-align:right; color:#e0b450;" class="tabular">${v.xg.toFixed(2)}</td>
+    </tr>`;
   }).join("");
+  el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
+    <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
+      <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Pair</th>
+      <th style="text-align:left; padding:0.3rem 0.5rem;">Combos</th>
+      <th ${TH} title="Co-attention × threat the model put on the pair during their combinations (×10⁻³).">AW-JOI</th>
+      <th ${TH} title="Scoring threat added during their combinations (summed calibrated ΔP-score).">xG+</th>
+    </tr></thead><tbody>${body}</tbody></table>`;
 }
 
 // the pairs whose combinations actually led to a goal within 10s (a different, sparse set)

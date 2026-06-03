@@ -262,8 +262,15 @@
           <div id="combo-history-scatter" class="fifa-scatter"></div>
         </figure>
         <div class="combo-lb-cell">
-          <h4 class="small">The pairs that combine most <span class="dim" style="font-weight:400">(final-third combinations)</span></h4>
+          <h4 class="small">The pairs that combine most <span class="dim" style="font-weight:400">(ranked by combinations; chemistry &amp; threat behind it)</span></h4>
+          <div class="combo-grid-toggle" role="group" aria-label="Slice by combination type" style="margin-bottom:0.5rem;">
+            <button type="button" data-lb-type="all" class="active">All</button>
+            <button type="button" data-lb-type="onetwo">Give-and-go</button>
+            <button type="button" data-lb-type="thirdman">Third-man</button>
+            <button type="button" data-lb-type="takeover">Take-over</button>
+          </div>
           <div id="combo-leaderboard"></div>
+          <p class="dim small" style="margin-top:0.4rem;"><strong>AW-JOI</strong> (&times;10&minus;&sup3;) = co-attention &times; threat the model put on the pair <em>during</em> their combinations; <strong>xG+</strong> = scoring threat those combinations added. Volume ranks; the columns show the chemistry and threat behind it.</p>
           <h4 class="small" style="margin-top:1rem;">Whose combinations scored <span class="dim" style="font-weight:400">(led to a goal &le;10s)</span></h4>
           <div id="combo-scored-list"></div>
           <p class="dim small" style="margin-top:0.5rem;">A different set from the volume list: the biggest <em>combiners</em> build the most chances, but the combos that actually <em>scored</em> are spread thin (~1 pair each). Volume makes the chances; the team converts them.</p>
@@ -1284,6 +1291,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo9"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo10"></script>
 </body>
 </html>

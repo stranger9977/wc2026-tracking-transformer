@@ -1040,7 +1040,25 @@
       "player_b": "Pedri",
       "n_combos": 20,
       "n_goals": 0,
-      "aw_joi": 2.21
+      "combo_aw_joi": 0.000152,
+      "combo_xg_added": 0.1385,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 0.000125,
+          "xg_added": 0.1346,
+          "n": 19
+        },
+        "thirdman": {
+          "aw_joi": 2.7e-05,
+          "xg_added": 0.0039,
+          "n": 1
+        },
+        "takeover": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0,
+          "n": 0
+        }
+      }
     },
     {
       "team_name": "Morocco",
@@ -1049,7 +1067,25 @@
       "player_b": "Hakim Ziyech",
       "n_combos": 20,
       "n_goals": 0,
-      "aw_joi": 5.52
+      "combo_aw_joi": 0.001365,
+      "combo_xg_added": 0.2944,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 0.000212,
+          "xg_added": 0.1986,
+          "n": 16
+        },
+        "thirdman": {
+          "aw_joi": 0.001153,
+          "xg_added": 0.0956,
+          "n": 3
+        },
+        "takeover": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0001,
+          "n": 1
+        }
+      }
     },
     {
       "team_name": "France",
@@ -1058,7 +1094,25 @@
       "player_b": "Theo Hernandez",
       "n_combos": 18,
       "n_goals": 0,
-      "aw_joi": 7.1
+      "combo_aw_joi": 0.000369,
+      "combo_xg_added": 0.3276,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 0.000241,
+          "xg_added": 0.2071,
+          "n": 16
+        },
+        "thirdman": {
+          "aw_joi": 3.3e-05,
+          "xg_added": 0.0715,
+          "n": 1
+        },
+        "takeover": {
+          "aw_joi": 9.5e-05,
+          "xg_added": 0.0491,
+          "n": 1
+        }
+      }
     },
     {
       "team_name": "Morocco",
@@ -1067,7 +1121,25 @@
       "player_b": "Azzedine Ounahi",
       "n_combos": 14,
       "n_goals": 0,
-      "aw_joi": 2.87
+      "combo_aw_joi": 0.000137,
+      "combo_xg_added": 0.1376,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 5.8e-05,
+          "xg_added": 0.0985,
+          "n": 13
+        },
+        "thirdman": {
+          "aw_joi": 7.9e-05,
+          "xg_added": 0.0391,
+          "n": 1
+        },
+        "takeover": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0,
+          "n": 0
+        }
+      }
     },
     {
       "team_name": "Argentina",
@@ -1076,7 +1148,25 @@
       "player_b": "Rodrigo de Paul",
       "n_combos": 14,
       "n_goals": 0,
-      "aw_joi": 3.65
+      "combo_aw_joi": 0.000443,
+      "combo_xg_added": 0.3931,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 0.0004,
+          "xg_added": 0.3142,
+          "n": 11
+        },
+        "thirdman": {
+          "aw_joi": 3e-06,
+          "xg_added": 0.0119,
+          "n": 1
+        },
+        "takeover": {
+          "aw_joi": 4.1e-05,
+          "xg_added": 0.067,
+          "n": 2
+        }
+      }
     },
     {
       "team_name": "France",
@@ -1085,7 +1175,25 @@
       "player_b": "Adrien Rabiot",
       "n_combos": 13,
       "n_goals": 0,
-      "aw_joi": 4.18
+      "combo_aw_joi": 0.00019,
+      "combo_xg_added": 0.5152,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 0.000116,
+          "xg_added": 0.376,
+          "n": 7
+        },
+        "thirdman": {
+          "aw_joi": 6.8e-05,
+          "xg_added": 0.0563,
+          "n": 4
+        },
+        "takeover": {
+          "aw_joi": 6e-06,
+          "xg_added": 0.0829,
+          "n": 2
+        }
+      }
     },
     {
       "team_name": "England",
@@ -1094,7 +1202,25 @@
       "player_b": "Jude Bellingham",
       "n_combos": 12,
       "n_goals": 0,
-      "aw_joi": 1.72
+      "combo_aw_joi": 8.2e-05,
+      "combo_xg_added": 0.0588,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 8.1e-05,
+          "xg_added": 0.0578,
+          "n": 9
+        },
+        "thirdman": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0,
+          "n": 0
+        },
+        "takeover": {
+          "aw_joi": 1e-06,
+          "xg_added": 0.0011,
+          "n": 3
+        }
+      }
     },
     {
       "team_name": "France",
@@ -1103,7 +1229,25 @@
       "player_b": "Jules Kounde",
       "n_combos": 12,
       "n_goals": 0,
-      "aw_joi": 3.88
+      "combo_aw_joi": 0.000128,
+      "combo_xg_added": 0.1886,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 0.000128,
+          "xg_added": 0.1854,
+          "n": 11
+        },
+        "thirdman": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0,
+          "n": 0
+        },
+        "takeover": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0032,
+          "n": 1
+        }
+      }
     },
     {
       "team_name": "Morocco",
@@ -1112,7 +1256,25 @@
       "player_b": "Azzedine Ounahi",
       "n_combos": 11,
       "n_goals": 0,
-      "aw_joi": 3.18
+      "combo_aw_joi": 3.8e-05,
+      "combo_xg_added": 0.098,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 1.5e-05,
+          "xg_added": 0.0495,
+          "n": 6
+        },
+        "thirdman": {
+          "aw_joi": 2.2e-05,
+          "xg_added": 0.0348,
+          "n": 2
+        },
+        "takeover": {
+          "aw_joi": 2e-06,
+          "xg_added": 0.0138,
+          "n": 3
+        }
+      }
     },
     {
       "team_name": "Croatia",
@@ -1121,7 +1283,25 @@
       "player_b": "Borna Sosa",
       "n_combos": 11,
       "n_goals": 0,
-      "aw_joi": 2.75
+      "combo_aw_joi": 0.000885,
+      "combo_xg_added": 0.1901,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 3e-06,
+          "xg_added": 0.0105,
+          "n": 5
+        },
+        "thirdman": {
+          "aw_joi": 0.000882,
+          "xg_added": 0.1792,
+          "n": 3
+        },
+        "takeover": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0004,
+          "n": 3
+        }
+      }
     },
     {
       "team_name": "Argentina",
@@ -1130,7 +1310,25 @@
       "player_b": "Marcos Acu\u00f1a",
       "n_combos": 11,
       "n_goals": 0,
-      "aw_joi": 2.73
+      "combo_aw_joi": 0.0001,
+      "combo_xg_added": 0.4782,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 0.0001,
+          "xg_added": 0.4782,
+          "n": 11
+        },
+        "thirdman": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0,
+          "n": 0
+        },
+        "takeover": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0,
+          "n": 0
+        }
+      }
     },
     {
       "team_name": "South Korea",
@@ -1139,7 +1337,25 @@
       "player_b": "Moon-hwan Kim",
       "n_combos": 11,
       "n_goals": 0,
-      "aw_joi": 1.81
+      "combo_aw_joi": 0.000656,
+      "combo_xg_added": 0.1654,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 0.000485,
+          "xg_added": 0.1117,
+          "n": 7
+        },
+        "thirdman": {
+          "aw_joi": 7.8e-05,
+          "xg_added": 0.0142,
+          "n": 1
+        },
+        "takeover": {
+          "aw_joi": 9.3e-05,
+          "xg_added": 0.0395,
+          "n": 3
+        }
+      }
     },
     {
       "team_name": "Serbia",
@@ -1148,7 +1364,25 @@
       "player_b": "Dusan Tadi\u0107",
       "n_combos": 10,
       "n_goals": 0,
-      "aw_joi": 1.51
+      "combo_aw_joi": 0.000292,
+      "combo_xg_added": 0.127,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 0.000289,
+          "xg_added": 0.1248,
+          "n": 9
+        },
+        "thirdman": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0,
+          "n": 0
+        },
+        "takeover": {
+          "aw_joi": 3e-06,
+          "xg_added": 0.0022,
+          "n": 1
+        }
+      }
     },
     {
       "team_name": "Serbia",
@@ -1157,7 +1391,25 @@
       "player_b": "Sa\u0161a Luki\u0107",
       "n_combos": 10,
       "n_goals": 0,
-      "aw_joi": 1.87
+      "combo_aw_joi": 0.000607,
+      "combo_xg_added": 0.1366,
+      "by_type": {
+        "onetwo": {
+          "aw_joi": 0.000498,
+          "xg_added": 0.1143,
+          "n": 9
+        },
+        "thirdman": {
+          "aw_joi": 0.000108,
+          "xg_added": 0.0223,
+          "n": 1
+        },
+        "takeover": {
+          "aw_joi": 0.0,
+          "xg_added": 0.0,
+          "n": 0
+        }
+      }
     }
   ],
   "scored_pairs": [
