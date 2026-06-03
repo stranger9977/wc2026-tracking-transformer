@@ -268,6 +268,25 @@
         </p>
       </details>
 
+      <h3 class="mt-2">Which teams combine most <span class="dim small">(final third, per game &mdash; broken down by type)</span></h3>
+      <p class="dim small" style="margin:0.2rem 0 0.6rem;">
+        The team-level view. Ranked by combinations <strong>per game</strong> &mdash; so a group-stage exit isn't
+        punished against a finalist who played seven matches. <strong style="color:#e0b450;">Gold &#9733; = reached the
+        semifinals.</strong> The talent leaders combine most (Spain, Germany, England); the four teams that went
+        deepest sit <strong>mid-pack on raw volume</strong> &mdash; Argentina&nbsp;29, France&nbsp;26, Croatia&nbsp;25,
+        Morocco&nbsp;20 per game. Their deep runs were built on defence and moments, not on out-combining everyone.
+        Switch the type toggle to see each one's strength: among the four semifinalists, <strong>Argentina</strong>
+        leads the take-overs and <strong>Croatia</strong> the third-man relays.
+      </p>
+      <div class="combo-grid-toggle" role="group" aria-label="Slice teams by combination type" style="margin-bottom:0.5rem;">
+        <button type="button" data-team-lb-type="all" class="active">All</button>
+        <button type="button" data-team-lb-type="onetwo">Give-and-go</button>
+        <button type="button" data-team-lb-type="thirdman">Third-man</button>
+        <button type="button" data-team-lb-type="takeover">Take-over</button>
+      </div>
+      <div id="combo-team-leaderboard" style="max-height:30rem; overflow-y:auto;"></div>
+      <p class="dim small" style="margin-top:0.4rem;"><strong>Combos / game</strong> = final-third combinations of this type per match played (hover a bar for the raw total). <strong>AW-JOI</strong> (&times;10&minus;&sup3;) and <strong>xG+</strong> are the team's totals across those combinations, also per game &mdash; the model's chemistry and the scoring threat behind the volume.</p>
+
       <h3 class="mt-2">Where the combinations come from: shared club history</h3>
       <p class="dim small">The attacking signal runs as a chain: teams whose players were <strong>club teammates</strong>
         before the World Cup &mdash; Real Madrid and Atl&eacute;tico blocs, or the almost-entirely-domestic Saudi and
@@ -1313,6 +1332,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo10"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo11"></script>
 </body>
 </html>

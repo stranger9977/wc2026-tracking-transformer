@@ -278,6 +278,19 @@ function renderComboPanel(xg) {
   });
   renderScoredPairs(document.getElementById("combo-scored-list"), xg.scored_pairs);
 
+  // 3b. team version of the pair table — which teams combine most (per game), sliced by type
+  const tlbEl = document.getElementById("combo-team-leaderboard");
+  let tlbType = "all";
+  const drawTlb = () => renderTeamComboLeaderboard(tlbEl, xg.team_leaderboard, tlbType);
+  drawTlb();
+  document.querySelectorAll("[data-team-lb-type]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      tlbType = btn.getAttribute("data-team-lb-type");
+      document.querySelectorAll("[data-team-lb-type]").forEach((b) => b.classList.toggle("active", b === btn));
+      drawTlb();
+    });
+  });
+
   // 4. meta numbers (truthful, from JSON)
   const m = xg.meta || {};
   const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
@@ -394,6 +407,43 @@ function renderPairLeaderboard(el, pairs, type) {
       <th style="text-align:left; padding:0.3rem 0.5rem;">Combos</th>
       <th ${TH} title="Co-attention × threat the model put on the pair during their combinations (×10⁻³).">AW-JOI</th>
       <th ${TH} title="Scoring threat added during their combinations (summed calibrated ΔP-score).">xG+</th>
+    </tr></thead><tbody>${body}</tbody></table>`;
+}
+
+// team version of the pair table: which teams combine most PER GAME (fair across teams that
+// played a different number of matches), sliced by type. Final-four teams flagged gold.
+function renderTeamComboLeaderboard(el, teams, type) {
+  if (!el || !Array.isArray(teams)) return;
+  type = type || "all";
+  const metric = (t) => {
+    if (type === "all") return { n: t.n_combos || 0, aw: t.combo_aw_joi || 0, xg: t.combo_xg_added || 0 };
+    const b = (t.by_type && t.by_type[type]) || {};
+    return { n: b.n || 0, aw: b.aw_joi || 0, xg: b.xg_added || 0 };
+  };
+  const rows = teams.map((t) => {
+    const v = metric(t); const g = t.games || 1;
+    return { t, n: v.n, g, perG: v.n / g, aw: (v.aw / g) * 1000, xg: v.xg / g };
+  }).filter((r) => r.n > 0).sort((a, b) => b.perG - a.perG);
+  if (!rows.length) { el.innerHTML = '<p class="dim small">No teams for this type.</p>'; return; }
+  const maxP = Math.max(...rows.map((r) => r.perG), 1);
+  const TH = 'style="text-align:right; padding:0.3rem 0.5rem;"';
+  const body = rows.map((r, i) => {
+    const w = Math.max(8, (r.perG / maxP) * 100);
+    const semi = r.t.is_semifinalist;
+    return `<tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:0.3rem 0.4rem; opacity:0.45; text-align:right;">${i + 1}</td>
+      <td style="padding:0.3rem 0.5rem; line-height:1.15;"><strong${semi ? ' style="color:#e0b450;"' : ""}>${escapeHTML(r.t.team_name)}</strong>${semi ? ' <span style="color:#e0b450;" title="Reached the semifinals">★</span>' : ""}</td>
+      <td style="padding:0.3rem 0.5rem; white-space:nowrap;" title="${r.n} total over ${r.g} game${r.g === 1 ? "" : "s"}"><span class="combo-bar-wrap" style="display:inline-block; width:34px; vertical-align:middle;"><span class="combo-bar${semi ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span> <span class="tabular">${r.perG.toFixed(1)}</span></td>
+      <td style="padding:0.3rem 0.5rem; text-align:right; color:#5eb1f8;" class="tabular">${r.aw.toFixed(1)}</td>
+      <td style="padding:0.3rem 0.5rem; text-align:right; color:#e0b450;" class="tabular">${r.xg.toFixed(2)}</td>
+    </tr>`;
+  }).join("");
+  el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
+    <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
+      <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
+      <th style="text-align:left; padding:0.3rem 0.5rem;">Combos / game</th>
+      <th ${TH} title="Team total co-attention × threat the model put on its pairs during these combinations, per game (×10⁻³).">AW-JOI</th>
+      <th ${TH} title="Scoring threat added during these combinations, per game (summed calibrated ΔP-score).">xG+</th>
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 

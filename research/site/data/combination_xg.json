@@ -49,8 +49,29 @@
       "team_id": "360",
       "team_name": "Qatar",
       "is_semifinalist": false,
+      "games": 1,
       "combos_per_game": 11.0,
       "n_combo_f3": 11,
+      "n_combos": 11,
+      "combo_aw_joi": 0.000757,
+      "combo_xg_added": 0.113,
+      "by_type": {
+        "onetwo": {
+          "n": 7,
+          "aw_joi": 0.000369,
+          "xg_added": 0.088
+        },
+        "thirdman": {
+          "n": 3,
+          "aw_joi": 0.000388,
+          "xg_added": 0.0249
+        },
+        "takeover": {
+          "n": 1,
+          "aw_joi": 0.0,
+          "xg_added": 0.0001
+        }
+      },
       "xg_for_pm": 0.14,
       "overall": 68,
       "shared_history": 847.5,
@@ -63,8 +84,29 @@
       "team_id": "361",
       "team_name": "Brazil",
       "is_semifinalist": false,
+      "games": 5,
       "combos_per_game": 30.0,
       "n_combo_f3": 150,
+      "n_combos": 150,
+      "combo_aw_joi": 0.007143,
+      "combo_xg_added": 2.8412,
+      "by_type": {
+        "onetwo": {
+          "n": 104,
+          "aw_joi": 0.00304,
+          "xg_added": 1.736
+        },
+        "thirdman": {
+          "n": 28,
+          "aw_joi": 0.00376,
+          "xg_added": 0.8585
+        },
+        "takeover": {
+          "n": 18,
+          "aw_joi": 0.00034,
+          "xg_added": 0.2468
+        }
+      },
       "xg_for_pm": 2.73,
       "overall": 84,
       "shared_history": 637.3,
@@ -77,8 +119,29 @@
       "team_id": "362",
       "team_name": "Belgium",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 21.0,
       "n_combo_f3": 42,
+      "n_combos": 42,
+      "combo_aw_joi": 0.003618,
+      "combo_xg_added": 0.9624,
+      "by_type": {
+        "onetwo": {
+          "n": 29,
+          "aw_joi": 0.000947,
+          "xg_added": 0.7302
+        },
+        "thirdman": {
+          "n": 6,
+          "aw_joi": 0.002197,
+          "xg_added": 0.1244
+        },
+        "takeover": {
+          "n": 7,
+          "aw_joi": 0.000472,
+          "xg_added": 0.1078
+        }
+      },
       "xg_for_pm": 1.51,
       "overall": 83,
       "shared_history": 262.1,
@@ -91,8 +154,29 @@
       "team_id": "363",
       "team_name": "France",
       "is_semifinalist": true,
+      "games": 7,
       "combos_per_game": 26.1,
       "n_combo_f3": 183,
+      "n_combos": 183,
+      "combo_aw_joi": 0.004638,
+      "combo_xg_added": 3.1812,
+      "by_type": {
+        "onetwo": {
+          "n": 133,
+          "aw_joi": 0.002839,
+          "xg_added": 2.2763
+        },
+        "thirdman": {
+          "n": 27,
+          "aw_joi": 0.001497,
+          "xg_added": 0.5042
+        },
+        "takeover": {
+          "n": 23,
+          "aw_joi": 0.000299,
+          "xg_added": 0.4008
+        }
+      },
       "xg_for_pm": 2.14,
       "overall": 84,
       "shared_history": 435.4,
@@ -105,8 +189,29 @@
       "team_id": "364",
       "team_name": "Argentina",
       "is_semifinalist": true,
+      "games": 6,
       "combos_per_game": 29.2,
       "n_combo_f3": 175,
+      "n_combos": 175,
+      "combo_aw_joi": 0.004064,
+      "combo_xg_added": 2.5636,
+      "by_type": {
+        "onetwo": {
+          "n": 117,
+          "aw_joi": 0.002286,
+          "xg_added": 1.7924
+        },
+        "thirdman": {
+          "n": 27,
+          "aw_joi": 0.001497,
+          "xg_added": 0.4867
+        },
+        "takeover": {
+          "n": 31,
+          "aw_joi": 0.000282,
+          "xg_added": 0.2847
+        }
+      },
       "xg_for_pm": 3.08,
       "overall": 83,
       "shared_history": 431.5,
@@ -119,8 +224,29 @@
       "team_id": "365",
       "team_name": "Portugal",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 20.3,
       "n_combo_f3": 61,
+      "n_combos": 61,
+      "combo_aw_joi": 0.005381,
+      "combo_xg_added": 0.95,
+      "by_type": {
+        "onetwo": {
+          "n": 43,
+          "aw_joi": 0.001534,
+          "xg_added": 0.6046
+        },
+        "thirdman": {
+          "n": 11,
+          "aw_joi": 0.003418,
+          "xg_added": 0.2283
+        },
+        "takeover": {
+          "n": 7,
+          "aw_joi": 0.000427,
+          "xg_added": 0.1173
+        }
+      },
       "xg_for_pm": 1.33,
       "overall": 83,
       "shared_history": 489.7,
@@ -133,8 +259,29 @@
       "team_id": "366",
       "team_name": "Netherlands",
       "is_semifinalist": false,
+      "games": 4,
       "combos_per_game": 25.0,
       "n_combo_f3": 100,
+      "n_combos": 100,
+      "combo_aw_joi": 0.005474,
+      "combo_xg_added": 1.5303,
+      "by_type": {
+        "onetwo": {
+          "n": 65,
+          "aw_joi": 0.002502,
+          "xg_added": 0.9958
+        },
+        "thirdman": {
+          "n": 18,
+          "aw_joi": 0.002542,
+          "xg_added": 0.3404
+        },
+        "takeover": {
+          "n": 17,
+          "aw_joi": 0.000432,
+          "xg_added": 0.1941
+        }
+      },
       "xg_for_pm": 2.2,
       "overall": 82,
       "shared_history": 744.3,
@@ -147,8 +294,29 @@
       "team_id": "367",
       "team_name": "Denmark",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 28.0,
       "n_combo_f3": 56,
+      "n_combos": 56,
+      "combo_aw_joi": 0.001449,
+      "combo_xg_added": 1.2094,
+      "by_type": {
+        "onetwo": {
+          "n": 36,
+          "aw_joi": 0.000827,
+          "xg_added": 0.8863
+        },
+        "thirdman": {
+          "n": 9,
+          "aw_joi": 0.000378,
+          "xg_added": 0.0853
+        },
+        "takeover": {
+          "n": 11,
+          "aw_joi": 0.000245,
+          "xg_added": 0.2378
+        }
+      },
       "xg_for_pm": 0.81,
       "overall": 80,
       "shared_history": 111.1,
@@ -161,8 +329,29 @@
       "team_id": "368",
       "team_name": "Germany",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 41.0,
       "n_combo_f3": 82,
+      "n_combos": 82,
+      "combo_aw_joi": 0.003886,
+      "combo_xg_added": 1.5103,
+      "by_type": {
+        "onetwo": {
+          "n": 54,
+          "aw_joi": 0.002269,
+          "xg_added": 1.0679
+        },
+        "thirdman": {
+          "n": 16,
+          "aw_joi": 0.001559,
+          "xg_added": 0.3587
+        },
+        "takeover": {
+          "n": 12,
+          "aw_joi": 6.1e-05,
+          "xg_added": 0.0838
+        }
+      },
       "xg_for_pm": 2.73,
       "overall": 83,
       "shared_history": 2460.0,
@@ -175,8 +364,29 @@
       "team_id": "369",
       "team_name": "Uruguay",
       "is_semifinalist": false,
+      "games": 1,
       "combos_per_game": 19.0,
       "n_combo_f3": 19,
+      "n_combos": 19,
+      "combo_aw_joi": 0.001597,
+      "combo_xg_added": 0.5671,
+      "by_type": {
+        "onetwo": {
+          "n": 10,
+          "aw_joi": 0.000441,
+          "xg_added": 0.1371
+        },
+        "thirdman": {
+          "n": 4,
+          "aw_joi": 0.001106,
+          "xg_added": 0.3321
+        },
+        "takeover": {
+          "n": 5,
+          "aw_joi": 5e-05,
+          "xg_added": 0.0979
+        }
+      },
       "xg_for_pm": 1.64,
       "overall": 79,
       "shared_history": 82.6,
@@ -189,8 +399,29 @@
       "team_id": "370",
       "team_name": "Switzerland",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 23.3,
       "n_combo_f3": 70,
+      "n_combos": 70,
+      "combo_aw_joi": 0.002443,
+      "combo_xg_added": 1.3967,
+      "by_type": {
+        "onetwo": {
+          "n": 46,
+          "aw_joi": 0.001428,
+          "xg_added": 1.1675
+        },
+        "thirdman": {
+          "n": 13,
+          "aw_joi": 0.000933,
+          "xg_added": 0.1619
+        },
+        "takeover": {
+          "n": 11,
+          "aw_joi": 7.9e-05,
+          "xg_added": 0.0675
+        }
+      },
       "xg_for_pm": 1.55,
       "overall": 79,
       "shared_history": 187.1,
@@ -203,8 +434,29 @@
       "team_id": "371",
       "team_name": "Croatia",
       "is_semifinalist": true,
+      "games": 6,
       "combos_per_game": 25.0,
       "n_combo_f3": 150,
+      "n_combos": 150,
+      "combo_aw_joi": 0.009317,
+      "combo_xg_added": 2.7529,
+      "by_type": {
+        "onetwo": {
+          "n": 98,
+          "aw_joi": 0.003166,
+          "xg_added": 1.5355
+        },
+        "thirdman": {
+          "n": 32,
+          "aw_joi": 0.006072,
+          "xg_added": 1.128
+        },
+        "takeover": {
+          "n": 20,
+          "aw_joi": 7.8e-05,
+          "xg_added": 0.0895
+        }
+      },
       "xg_for_pm": 2.05,
       "overall": 79,
       "shared_history": 171.2,
@@ -217,8 +469,29 @@
       "team_id": "372",
       "team_name": "Senegal",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 25.0,
       "n_combo_f3": 50,
+      "n_combos": 50,
+      "combo_aw_joi": 0.003497,
+      "combo_xg_added": 1.4104,
+      "by_type": {
+        "onetwo": {
+          "n": 33,
+          "aw_joi": 0.00062,
+          "xg_added": 0.8416
+        },
+        "thirdman": {
+          "n": 8,
+          "aw_joi": 0.002812,
+          "xg_added": 0.4761
+        },
+        "takeover": {
+          "n": 9,
+          "aw_joi": 6.6e-05,
+          "xg_added": 0.0926
+        }
+      },
       "xg_for_pm": 0.83,
       "overall": 76,
       "shared_history": 75.8,
@@ -231,8 +504,29 @@
       "team_id": "374",
       "team_name": "Morocco",
       "is_semifinalist": true,
+      "games": 6,
       "combos_per_game": 19.7,
       "n_combo_f3": 118,
+      "n_combos": 118,
+      "combo_aw_joi": 0.003866,
+      "combo_xg_added": 1.5676,
+      "by_type": {
+        "onetwo": {
+          "n": 80,
+          "aw_joi": 0.00087,
+          "xg_added": 0.9642
+        },
+        "thirdman": {
+          "n": 21,
+          "aw_joi": 0.002958,
+          "xg_added": 0.5766
+        },
+        "takeover": {
+          "n": 17,
+          "aw_joi": 4e-05,
+          "xg_added": 0.0267
+        }
+      },
       "xg_for_pm": 1.39,
       "overall": 75,
       "shared_history": 112.8,
@@ -245,8 +539,29 @@
       "team_id": "375",
       "team_name": "Serbia",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 19.0,
       "n_combo_f3": 57,
+      "n_combos": 57,
+      "combo_aw_joi": 0.006801,
+      "combo_xg_added": 1.5752,
+      "by_type": {
+        "onetwo": {
+          "n": 39,
+          "aw_joi": 0.00236,
+          "xg_added": 1.0336
+        },
+        "thirdman": {
+          "n": 11,
+          "aw_joi": 0.004341,
+          "xg_added": 0.4432
+        },
+        "takeover": {
+          "n": 7,
+          "aw_joi": 9.8e-05,
+          "xg_added": 0.0983
+        }
+      },
       "xg_for_pm": 1.03,
       "overall": 75,
       "shared_history": 163.0,
@@ -259,8 +574,29 @@
       "team_id": "376",
       "team_name": "Poland",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 15.7,
       "n_combo_f3": 47,
+      "n_combos": 47,
+      "combo_aw_joi": 0.001198,
+      "combo_xg_added": 0.589,
+      "by_type": {
+        "onetwo": {
+          "n": 33,
+          "aw_joi": 0.0008,
+          "xg_added": 0.4411
+        },
+        "thirdman": {
+          "n": 5,
+          "aw_joi": 0.000353,
+          "xg_added": 0.1227
+        },
+        "takeover": {
+          "n": 9,
+          "aw_joi": 4.5e-05,
+          "xg_added": 0.0253
+        }
+      },
       "xg_for_pm": 1.18,
       "overall": 76,
       "shared_history": 133.9,
@@ -273,8 +609,29 @@
       "team_id": "377",
       "team_name": "South Korea",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 31.3,
       "n_combo_f3": 94,
+      "n_combos": 94,
+      "combo_aw_joi": 0.003128,
+      "combo_xg_added": 1.4052,
+      "by_type": {
+        "onetwo": {
+          "n": 65,
+          "aw_joi": 0.002106,
+          "xg_added": 1.0119
+        },
+        "thirdman": {
+          "n": 8,
+          "aw_joi": 0.000526,
+          "xg_added": 0.1023
+        },
+        "takeover": {
+          "n": 21,
+          "aw_joi": 0.000491,
+          "xg_added": 0.2912
+        }
+      },
       "xg_for_pm": 1.04,
       "overall": 75,
       "shared_history": 177.2,
@@ -287,8 +644,29 @@
       "team_id": "378",
       "team_name": "Tunisia",
       "is_semifinalist": false,
+      "games": 1,
       "combos_per_game": 19.0,
       "n_combo_f3": 19,
+      "n_combos": 19,
+      "combo_aw_joi": 0.000844,
+      "combo_xg_added": 0.4098,
+      "by_type": {
+        "onetwo": {
+          "n": 11,
+          "aw_joi": 0.000236,
+          "xg_added": 0.2312
+        },
+        "thirdman": {
+          "n": 2,
+          "aw_joi": 0.000473,
+          "xg_added": 0.1106
+        },
+        "takeover": {
+          "n": 6,
+          "aw_joi": 0.000135,
+          "xg_added": 0.0681
+        }
+      },
       "xg_for_pm": 0.3,
       "overall": 72,
       "shared_history": 0.0,
@@ -301,8 +679,29 @@
       "team_id": "379",
       "team_name": "Cameroon",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 15.0,
       "n_combo_f3": 30,
+      "n_combos": 30,
+      "combo_aw_joi": 0.002568,
+      "combo_xg_added": 0.5055,
+      "by_type": {
+        "onetwo": {
+          "n": 19,
+          "aw_joi": 0.000623,
+          "xg_added": 0.2566
+        },
+        "thirdman": {
+          "n": 6,
+          "aw_joi": 0.001922,
+          "xg_added": 0.2115
+        },
+        "takeover": {
+          "n": 5,
+          "aw_joi": 2.1e-05,
+          "xg_added": 0.0375
+        }
+      },
       "xg_for_pm": 1.23,
       "overall": 72,
       "shared_history": 0.0,
@@ -315,8 +714,29 @@
       "team_id": "380",
       "team_name": "Canada",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 21.0,
       "n_combo_f3": 42,
+      "n_combos": 42,
+      "combo_aw_joi": 0.003296,
+      "combo_xg_added": 0.8469,
+      "by_type": {
+        "onetwo": {
+          "n": 21,
+          "aw_joi": 0.000475,
+          "xg_added": 0.4731
+        },
+        "thirdman": {
+          "n": 12,
+          "aw_joi": 0.002799,
+          "xg_added": 0.2726
+        },
+        "takeover": {
+          "n": 9,
+          "aw_joi": 2.3e-05,
+          "xg_added": 0.1012
+        }
+      },
       "xg_for_pm": 0.69,
       "overall": 73,
       "shared_history": 103.3,
@@ -329,8 +749,29 @@
       "team_id": "382",
       "team_name": "Saudi Arabia",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 30.5,
       "n_combo_f3": 61,
+      "n_combos": 61,
+      "combo_aw_joi": 0.002859,
+      "combo_xg_added": 1.5279,
+      "by_type": {
+        "onetwo": {
+          "n": 42,
+          "aw_joi": 0.001831,
+          "xg_added": 1.2244
+        },
+        "thirdman": {
+          "n": 10,
+          "aw_joi": 0.00091,
+          "xg_added": 0.1661
+        },
+        "takeover": {
+          "n": 9,
+          "aw_joi": 0.000119,
+          "xg_added": 0.1372
+        }
+      },
       "xg_for_pm": 1.52,
       "overall": 68,
       "shared_history": 852.7,
@@ -343,8 +784,29 @@
       "team_id": "383",
       "team_name": "Ghana",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 20.5,
       "n_combo_f3": 41,
+      "n_combos": 41,
+      "combo_aw_joi": 0.000921,
+      "combo_xg_added": 1.2094,
+      "by_type": {
+        "onetwo": {
+          "n": 31,
+          "aw_joi": 0.000739,
+          "xg_added": 1.0487
+        },
+        "thirdman": {
+          "n": 3,
+          "aw_joi": 0.000126,
+          "xg_added": 0.0227
+        },
+        "takeover": {
+          "n": 7,
+          "aw_joi": 5.3e-05,
+          "xg_added": 0.138
+        }
+      },
       "xg_for_pm": 1.29,
       "overall": 72,
       "shared_history": 0.0,
@@ -357,8 +819,29 @@
       "team_id": "384",
       "team_name": "Wales",
       "is_semifinalist": false,
+      "games": 1,
       "combos_per_game": 12.0,
       "n_combo_f3": 12,
+      "n_combos": 12,
+      "combo_aw_joi": 8.7e-05,
+      "combo_xg_added": 0.095,
+      "by_type": {
+        "onetwo": {
+          "n": 7,
+          "aw_joi": 6.7e-05,
+          "xg_added": 0.0923
+        },
+        "thirdman": {
+          "n": 3,
+          "aw_joi": 1.9e-05,
+          "xg_added": 0.0021
+        },
+        "takeover": {
+          "n": 2,
+          "aw_joi": 0.0,
+          "xg_added": 0.0007
+        }
+      },
       "xg_for_pm": 0.21,
       "overall": 74,
       "shared_history": 92.6,
@@ -371,8 +854,29 @@
       "team_id": "385",
       "team_name": "Costa Rica",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 18.5,
       "n_combo_f3": 37,
+      "n_combos": 37,
+      "combo_aw_joi": 0.00105,
+      "combo_xg_added": 0.3525,
+      "by_type": {
+        "onetwo": {
+          "n": 26,
+          "aw_joi": 0.000977,
+          "xg_added": 0.3415
+        },
+        "thirdman": {
+          "n": 8,
+          "aw_joi": 7.2e-05,
+          "xg_added": 0.0102
+        },
+        "takeover": {
+          "n": 3,
+          "aw_joi": 2e-06,
+          "xg_added": 0.0009
+        }
+      },
       "xg_for_pm": 0.62,
       "overall": 71,
       "shared_history": 189.1,
@@ -385,8 +889,29 @@
       "team_id": "386",
       "team_name": "Australia",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 12.3,
       "n_combo_f3": 37,
+      "n_combos": 37,
+      "combo_aw_joi": 0.001402,
+      "combo_xg_added": 0.6327,
+      "by_type": {
+        "onetwo": {
+          "n": 27,
+          "aw_joi": 0.000877,
+          "xg_added": 0.4638
+        },
+        "thirdman": {
+          "n": 9,
+          "aw_joi": 0.000518,
+          "xg_added": 0.1167
+        },
+        "takeover": {
+          "n": 1,
+          "aw_joi": 6e-06,
+          "xg_added": 0.0522
+        }
+      },
       "xg_for_pm": 0.41,
       "overall": 71,
       "shared_history": 22.5,
@@ -399,8 +924,29 @@
       "team_id": "50",
       "team_name": "England",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 36.0,
       "n_combo_f3": 108,
+      "n_combos": 108,
+      "combo_aw_joi": 0.00249,
+      "combo_xg_added": 0.8124,
+      "by_type": {
+        "onetwo": {
+          "n": 72,
+          "aw_joi": 0.000969,
+          "xg_added": 0.6498
+        },
+        "thirdman": {
+          "n": 20,
+          "aw_joi": 0.00149,
+          "xg_added": 0.1434
+        },
+        "takeover": {
+          "n": 16,
+          "aw_joi": 3.3e-05,
+          "xg_added": 0.0192
+        }
+      },
       "xg_for_pm": 2.1,
       "overall": 83,
       "shared_history": 1232.6,
@@ -413,8 +959,29 @@
       "team_id": "52",
       "team_name": "Spain",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 43.0,
       "n_combo_f3": 129,
+      "n_combos": 129,
+      "combo_aw_joi": 0.002393,
+      "combo_xg_added": 1.1498,
+      "by_type": {
+        "onetwo": {
+          "n": 92,
+          "aw_joi": 0.001299,
+          "xg_added": 0.8207
+        },
+        "thirdman": {
+          "n": 24,
+          "aw_joi": 0.00067,
+          "xg_added": 0.1968
+        },
+        "takeover": {
+          "n": 13,
+          "aw_joi": 0.000422,
+          "xg_added": 0.1324
+        }
+      },
       "xg_for_pm": 1.45,
       "overall": 83,
       "shared_history": 1198.6,
@@ -427,8 +994,29 @@
       "team_id": "57",
       "team_name": "Japan",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 24.7,
       "n_combo_f3": 74,
+      "n_combos": 74,
+      "combo_aw_joi": 0.001134,
+      "combo_xg_added": 0.505,
+      "by_type": {
+        "onetwo": {
+          "n": 52,
+          "aw_joi": 0.000932,
+          "xg_added": 0.3338
+        },
+        "thirdman": {
+          "n": 10,
+          "aw_joi": 0.000136,
+          "xg_added": 0.066
+        },
+        "takeover": {
+          "n": 12,
+          "aw_joi": 6.6e-05,
+          "xg_added": 0.1051
+        }
+      },
       "xg_for_pm": 2.04,
       "overall": 73,
       "shared_history": 16.2,
@@ -441,8 +1029,29 @@
       "team_id": "58",
       "team_name": "Mexico",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 14.0,
       "n_combo_f3": 28,
+      "n_combos": 28,
+      "combo_aw_joi": 0.000994,
+      "combo_xg_added": 0.4586,
+      "by_type": {
+        "onetwo": {
+          "n": 20,
+          "aw_joi": 0.000393,
+          "xg_added": 0.2809
+        },
+        "thirdman": {
+          "n": 5,
+          "aw_joi": 0.000438,
+          "xg_added": 0.1201
+        },
+        "takeover": {
+          "n": 3,
+          "aw_joi": 0.000163,
+          "xg_added": 0.0576
+        }
+      },
       "xg_for_pm": 1.26,
       "overall": 78,
       "shared_history": 119.0,
@@ -457,8 +1066,29 @@
       "team_id": "52",
       "team_name": "Spain",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 43.0,
       "n_combo_f3": 129,
+      "n_combos": 129,
+      "combo_aw_joi": 0.002393,
+      "combo_xg_added": 1.1498,
+      "by_type": {
+        "onetwo": {
+          "n": 92,
+          "aw_joi": 0.001299,
+          "xg_added": 0.8207
+        },
+        "thirdman": {
+          "n": 24,
+          "aw_joi": 0.00067,
+          "xg_added": 0.1968
+        },
+        "takeover": {
+          "n": 13,
+          "aw_joi": 0.000422,
+          "xg_added": 0.1324
+        }
+      },
       "xg_for_pm": 1.45,
       "overall": 83,
       "shared_history": 1198.6,
@@ -471,8 +1101,29 @@
       "team_id": "368",
       "team_name": "Germany",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 41.0,
       "n_combo_f3": 82,
+      "n_combos": 82,
+      "combo_aw_joi": 0.003886,
+      "combo_xg_added": 1.5103,
+      "by_type": {
+        "onetwo": {
+          "n": 54,
+          "aw_joi": 0.002269,
+          "xg_added": 1.0679
+        },
+        "thirdman": {
+          "n": 16,
+          "aw_joi": 0.001559,
+          "xg_added": 0.3587
+        },
+        "takeover": {
+          "n": 12,
+          "aw_joi": 6.1e-05,
+          "xg_added": 0.0838
+        }
+      },
       "xg_for_pm": 2.73,
       "overall": 83,
       "shared_history": 2460.0,
@@ -485,8 +1136,29 @@
       "team_id": "50",
       "team_name": "England",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 36.0,
       "n_combo_f3": 108,
+      "n_combos": 108,
+      "combo_aw_joi": 0.00249,
+      "combo_xg_added": 0.8124,
+      "by_type": {
+        "onetwo": {
+          "n": 72,
+          "aw_joi": 0.000969,
+          "xg_added": 0.6498
+        },
+        "thirdman": {
+          "n": 20,
+          "aw_joi": 0.00149,
+          "xg_added": 0.1434
+        },
+        "takeover": {
+          "n": 16,
+          "aw_joi": 3.3e-05,
+          "xg_added": 0.0192
+        }
+      },
       "xg_for_pm": 2.1,
       "overall": 83,
       "shared_history": 1232.6,
@@ -499,8 +1171,29 @@
       "team_id": "377",
       "team_name": "South Korea",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 31.3,
       "n_combo_f3": 94,
+      "n_combos": 94,
+      "combo_aw_joi": 0.003128,
+      "combo_xg_added": 1.4052,
+      "by_type": {
+        "onetwo": {
+          "n": 65,
+          "aw_joi": 0.002106,
+          "xg_added": 1.0119
+        },
+        "thirdman": {
+          "n": 8,
+          "aw_joi": 0.000526,
+          "xg_added": 0.1023
+        },
+        "takeover": {
+          "n": 21,
+          "aw_joi": 0.000491,
+          "xg_added": 0.2912
+        }
+      },
       "xg_for_pm": 1.04,
       "overall": 75,
       "shared_history": 177.2,
@@ -513,8 +1206,29 @@
       "team_id": "382",
       "team_name": "Saudi Arabia",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 30.5,
       "n_combo_f3": 61,
+      "n_combos": 61,
+      "combo_aw_joi": 0.002859,
+      "combo_xg_added": 1.5279,
+      "by_type": {
+        "onetwo": {
+          "n": 42,
+          "aw_joi": 0.001831,
+          "xg_added": 1.2244
+        },
+        "thirdman": {
+          "n": 10,
+          "aw_joi": 0.00091,
+          "xg_added": 0.1661
+        },
+        "takeover": {
+          "n": 9,
+          "aw_joi": 0.000119,
+          "xg_added": 0.1372
+        }
+      },
       "xg_for_pm": 1.52,
       "overall": 68,
       "shared_history": 852.7,
@@ -527,8 +1241,29 @@
       "team_id": "361",
       "team_name": "Brazil",
       "is_semifinalist": false,
+      "games": 5,
       "combos_per_game": 30.0,
       "n_combo_f3": 150,
+      "n_combos": 150,
+      "combo_aw_joi": 0.007143,
+      "combo_xg_added": 2.8412,
+      "by_type": {
+        "onetwo": {
+          "n": 104,
+          "aw_joi": 0.00304,
+          "xg_added": 1.736
+        },
+        "thirdman": {
+          "n": 28,
+          "aw_joi": 0.00376,
+          "xg_added": 0.8585
+        },
+        "takeover": {
+          "n": 18,
+          "aw_joi": 0.00034,
+          "xg_added": 0.2468
+        }
+      },
       "xg_for_pm": 2.73,
       "overall": 84,
       "shared_history": 637.3,
@@ -541,8 +1276,29 @@
       "team_id": "364",
       "team_name": "Argentina",
       "is_semifinalist": true,
+      "games": 6,
       "combos_per_game": 29.2,
       "n_combo_f3": 175,
+      "n_combos": 175,
+      "combo_aw_joi": 0.004064,
+      "combo_xg_added": 2.5636,
+      "by_type": {
+        "onetwo": {
+          "n": 117,
+          "aw_joi": 0.002286,
+          "xg_added": 1.7924
+        },
+        "thirdman": {
+          "n": 27,
+          "aw_joi": 0.001497,
+          "xg_added": 0.4867
+        },
+        "takeover": {
+          "n": 31,
+          "aw_joi": 0.000282,
+          "xg_added": 0.2847
+        }
+      },
       "xg_for_pm": 3.08,
       "overall": 83,
       "shared_history": 431.5,
@@ -555,8 +1311,29 @@
       "team_id": "367",
       "team_name": "Denmark",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 28.0,
       "n_combo_f3": 56,
+      "n_combos": 56,
+      "combo_aw_joi": 0.001449,
+      "combo_xg_added": 1.2094,
+      "by_type": {
+        "onetwo": {
+          "n": 36,
+          "aw_joi": 0.000827,
+          "xg_added": 0.8863
+        },
+        "thirdman": {
+          "n": 9,
+          "aw_joi": 0.000378,
+          "xg_added": 0.0853
+        },
+        "takeover": {
+          "n": 11,
+          "aw_joi": 0.000245,
+          "xg_added": 0.2378
+        }
+      },
       "xg_for_pm": 0.81,
       "overall": 80,
       "shared_history": 111.1,
@@ -569,8 +1346,29 @@
       "team_id": "363",
       "team_name": "France",
       "is_semifinalist": true,
+      "games": 7,
       "combos_per_game": 26.1,
       "n_combo_f3": 183,
+      "n_combos": 183,
+      "combo_aw_joi": 0.004638,
+      "combo_xg_added": 3.1812,
+      "by_type": {
+        "onetwo": {
+          "n": 133,
+          "aw_joi": 0.002839,
+          "xg_added": 2.2763
+        },
+        "thirdman": {
+          "n": 27,
+          "aw_joi": 0.001497,
+          "xg_added": 0.5042
+        },
+        "takeover": {
+          "n": 23,
+          "aw_joi": 0.000299,
+          "xg_added": 0.4008
+        }
+      },
       "xg_for_pm": 2.14,
       "overall": 84,
       "shared_history": 435.4,
@@ -583,8 +1381,29 @@
       "team_id": "366",
       "team_name": "Netherlands",
       "is_semifinalist": false,
+      "games": 4,
       "combos_per_game": 25.0,
       "n_combo_f3": 100,
+      "n_combos": 100,
+      "combo_aw_joi": 0.005474,
+      "combo_xg_added": 1.5303,
+      "by_type": {
+        "onetwo": {
+          "n": 65,
+          "aw_joi": 0.002502,
+          "xg_added": 0.9958
+        },
+        "thirdman": {
+          "n": 18,
+          "aw_joi": 0.002542,
+          "xg_added": 0.3404
+        },
+        "takeover": {
+          "n": 17,
+          "aw_joi": 0.000432,
+          "xg_added": 0.1941
+        }
+      },
       "xg_for_pm": 2.2,
       "overall": 82,
       "shared_history": 744.3,
@@ -597,8 +1416,29 @@
       "team_id": "371",
       "team_name": "Croatia",
       "is_semifinalist": true,
+      "games": 6,
       "combos_per_game": 25.0,
       "n_combo_f3": 150,
+      "n_combos": 150,
+      "combo_aw_joi": 0.009317,
+      "combo_xg_added": 2.7529,
+      "by_type": {
+        "onetwo": {
+          "n": 98,
+          "aw_joi": 0.003166,
+          "xg_added": 1.5355
+        },
+        "thirdman": {
+          "n": 32,
+          "aw_joi": 0.006072,
+          "xg_added": 1.128
+        },
+        "takeover": {
+          "n": 20,
+          "aw_joi": 7.8e-05,
+          "xg_added": 0.0895
+        }
+      },
       "xg_for_pm": 2.05,
       "overall": 79,
       "shared_history": 171.2,
@@ -611,8 +1451,29 @@
       "team_id": "372",
       "team_name": "Senegal",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 25.0,
       "n_combo_f3": 50,
+      "n_combos": 50,
+      "combo_aw_joi": 0.003497,
+      "combo_xg_added": 1.4104,
+      "by_type": {
+        "onetwo": {
+          "n": 33,
+          "aw_joi": 0.00062,
+          "xg_added": 0.8416
+        },
+        "thirdman": {
+          "n": 8,
+          "aw_joi": 0.002812,
+          "xg_added": 0.4761
+        },
+        "takeover": {
+          "n": 9,
+          "aw_joi": 6.6e-05,
+          "xg_added": 0.0926
+        }
+      },
       "xg_for_pm": 0.83,
       "overall": 76,
       "shared_history": 75.8,
@@ -625,8 +1486,29 @@
       "team_id": "57",
       "team_name": "Japan",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 24.7,
       "n_combo_f3": 74,
+      "n_combos": 74,
+      "combo_aw_joi": 0.001134,
+      "combo_xg_added": 0.505,
+      "by_type": {
+        "onetwo": {
+          "n": 52,
+          "aw_joi": 0.000932,
+          "xg_added": 0.3338
+        },
+        "thirdman": {
+          "n": 10,
+          "aw_joi": 0.000136,
+          "xg_added": 0.066
+        },
+        "takeover": {
+          "n": 12,
+          "aw_joi": 6.6e-05,
+          "xg_added": 0.1051
+        }
+      },
       "xg_for_pm": 2.04,
       "overall": 73,
       "shared_history": 16.2,
@@ -639,8 +1521,29 @@
       "team_id": "370",
       "team_name": "Switzerland",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 23.3,
       "n_combo_f3": 70,
+      "n_combos": 70,
+      "combo_aw_joi": 0.002443,
+      "combo_xg_added": 1.3967,
+      "by_type": {
+        "onetwo": {
+          "n": 46,
+          "aw_joi": 0.001428,
+          "xg_added": 1.1675
+        },
+        "thirdman": {
+          "n": 13,
+          "aw_joi": 0.000933,
+          "xg_added": 0.1619
+        },
+        "takeover": {
+          "n": 11,
+          "aw_joi": 7.9e-05,
+          "xg_added": 0.0675
+        }
+      },
       "xg_for_pm": 1.55,
       "overall": 79,
       "shared_history": 187.1,
@@ -653,8 +1556,29 @@
       "team_id": "362",
       "team_name": "Belgium",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 21.0,
       "n_combo_f3": 42,
+      "n_combos": 42,
+      "combo_aw_joi": 0.003618,
+      "combo_xg_added": 0.9624,
+      "by_type": {
+        "onetwo": {
+          "n": 29,
+          "aw_joi": 0.000947,
+          "xg_added": 0.7302
+        },
+        "thirdman": {
+          "n": 6,
+          "aw_joi": 0.002197,
+          "xg_added": 0.1244
+        },
+        "takeover": {
+          "n": 7,
+          "aw_joi": 0.000472,
+          "xg_added": 0.1078
+        }
+      },
       "xg_for_pm": 1.51,
       "overall": 83,
       "shared_history": 262.1,
@@ -667,8 +1591,29 @@
       "team_id": "380",
       "team_name": "Canada",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 21.0,
       "n_combo_f3": 42,
+      "n_combos": 42,
+      "combo_aw_joi": 0.003296,
+      "combo_xg_added": 0.8469,
+      "by_type": {
+        "onetwo": {
+          "n": 21,
+          "aw_joi": 0.000475,
+          "xg_added": 0.4731
+        },
+        "thirdman": {
+          "n": 12,
+          "aw_joi": 0.002799,
+          "xg_added": 0.2726
+        },
+        "takeover": {
+          "n": 9,
+          "aw_joi": 2.3e-05,
+          "xg_added": 0.1012
+        }
+      },
       "xg_for_pm": 0.69,
       "overall": 73,
       "shared_history": 103.3,
@@ -681,8 +1626,29 @@
       "team_id": "383",
       "team_name": "Ghana",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 20.5,
       "n_combo_f3": 41,
+      "n_combos": 41,
+      "combo_aw_joi": 0.000921,
+      "combo_xg_added": 1.2094,
+      "by_type": {
+        "onetwo": {
+          "n": 31,
+          "aw_joi": 0.000739,
+          "xg_added": 1.0487
+        },
+        "thirdman": {
+          "n": 3,
+          "aw_joi": 0.000126,
+          "xg_added": 0.0227
+        },
+        "takeover": {
+          "n": 7,
+          "aw_joi": 5.3e-05,
+          "xg_added": 0.138
+        }
+      },
       "xg_for_pm": 1.29,
       "overall": 72,
       "shared_history": 0.0,
@@ -695,8 +1661,29 @@
       "team_id": "365",
       "team_name": "Portugal",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 20.3,
       "n_combo_f3": 61,
+      "n_combos": 61,
+      "combo_aw_joi": 0.005381,
+      "combo_xg_added": 0.95,
+      "by_type": {
+        "onetwo": {
+          "n": 43,
+          "aw_joi": 0.001534,
+          "xg_added": 0.6046
+        },
+        "thirdman": {
+          "n": 11,
+          "aw_joi": 0.003418,
+          "xg_added": 0.2283
+        },
+        "takeover": {
+          "n": 7,
+          "aw_joi": 0.000427,
+          "xg_added": 0.1173
+        }
+      },
       "xg_for_pm": 1.33,
       "overall": 83,
       "shared_history": 489.7,
@@ -709,8 +1696,29 @@
       "team_id": "374",
       "team_name": "Morocco",
       "is_semifinalist": true,
+      "games": 6,
       "combos_per_game": 19.7,
       "n_combo_f3": 118,
+      "n_combos": 118,
+      "combo_aw_joi": 0.003866,
+      "combo_xg_added": 1.5676,
+      "by_type": {
+        "onetwo": {
+          "n": 80,
+          "aw_joi": 0.00087,
+          "xg_added": 0.9642
+        },
+        "thirdman": {
+          "n": 21,
+          "aw_joi": 0.002958,
+          "xg_added": 0.5766
+        },
+        "takeover": {
+          "n": 17,
+          "aw_joi": 4e-05,
+          "xg_added": 0.0267
+        }
+      },
       "xg_for_pm": 1.39,
       "overall": 75,
       "shared_history": 112.8,
@@ -723,8 +1731,29 @@
       "team_id": "369",
       "team_name": "Uruguay",
       "is_semifinalist": false,
+      "games": 1,
       "combos_per_game": 19.0,
       "n_combo_f3": 19,
+      "n_combos": 19,
+      "combo_aw_joi": 0.001597,
+      "combo_xg_added": 0.5671,
+      "by_type": {
+        "onetwo": {
+          "n": 10,
+          "aw_joi": 0.000441,
+          "xg_added": 0.1371
+        },
+        "thirdman": {
+          "n": 4,
+          "aw_joi": 0.001106,
+          "xg_added": 0.3321
+        },
+        "takeover": {
+          "n": 5,
+          "aw_joi": 5e-05,
+          "xg_added": 0.0979
+        }
+      },
       "xg_for_pm": 1.64,
       "overall": 79,
       "shared_history": 82.6,
@@ -737,8 +1766,29 @@
       "team_id": "375",
       "team_name": "Serbia",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 19.0,
       "n_combo_f3": 57,
+      "n_combos": 57,
+      "combo_aw_joi": 0.006801,
+      "combo_xg_added": 1.5752,
+      "by_type": {
+        "onetwo": {
+          "n": 39,
+          "aw_joi": 0.00236,
+          "xg_added": 1.0336
+        },
+        "thirdman": {
+          "n": 11,
+          "aw_joi": 0.004341,
+          "xg_added": 0.4432
+        },
+        "takeover": {
+          "n": 7,
+          "aw_joi": 9.8e-05,
+          "xg_added": 0.0983
+        }
+      },
       "xg_for_pm": 1.03,
       "overall": 75,
       "shared_history": 163.0,
@@ -751,8 +1801,29 @@
       "team_id": "378",
       "team_name": "Tunisia",
       "is_semifinalist": false,
+      "games": 1,
       "combos_per_game": 19.0,
       "n_combo_f3": 19,
+      "n_combos": 19,
+      "combo_aw_joi": 0.000844,
+      "combo_xg_added": 0.4098,
+      "by_type": {
+        "onetwo": {
+          "n": 11,
+          "aw_joi": 0.000236,
+          "xg_added": 0.2312
+        },
+        "thirdman": {
+          "n": 2,
+          "aw_joi": 0.000473,
+          "xg_added": 0.1106
+        },
+        "takeover": {
+          "n": 6,
+          "aw_joi": 0.000135,
+          "xg_added": 0.0681
+        }
+      },
       "xg_for_pm": 0.3,
       "overall": 72,
       "shared_history": 0.0,
@@ -765,8 +1836,29 @@
       "team_id": "385",
       "team_name": "Costa Rica",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 18.5,
       "n_combo_f3": 37,
+      "n_combos": 37,
+      "combo_aw_joi": 0.00105,
+      "combo_xg_added": 0.3525,
+      "by_type": {
+        "onetwo": {
+          "n": 26,
+          "aw_joi": 0.000977,
+          "xg_added": 0.3415
+        },
+        "thirdman": {
+          "n": 8,
+          "aw_joi": 7.2e-05,
+          "xg_added": 0.0102
+        },
+        "takeover": {
+          "n": 3,
+          "aw_joi": 2e-06,
+          "xg_added": 0.0009
+        }
+      },
       "xg_for_pm": 0.62,
       "overall": 71,
       "shared_history": 189.1,
@@ -779,8 +1871,29 @@
       "team_id": "376",
       "team_name": "Poland",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 15.7,
       "n_combo_f3": 47,
+      "n_combos": 47,
+      "combo_aw_joi": 0.001198,
+      "combo_xg_added": 0.589,
+      "by_type": {
+        "onetwo": {
+          "n": 33,
+          "aw_joi": 0.0008,
+          "xg_added": 0.4411
+        },
+        "thirdman": {
+          "n": 5,
+          "aw_joi": 0.000353,
+          "xg_added": 0.1227
+        },
+        "takeover": {
+          "n": 9,
+          "aw_joi": 4.5e-05,
+          "xg_added": 0.0253
+        }
+      },
       "xg_for_pm": 1.18,
       "overall": 76,
       "shared_history": 133.9,
@@ -793,8 +1906,29 @@
       "team_id": "379",
       "team_name": "Cameroon",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 15.0,
       "n_combo_f3": 30,
+      "n_combos": 30,
+      "combo_aw_joi": 0.002568,
+      "combo_xg_added": 0.5055,
+      "by_type": {
+        "onetwo": {
+          "n": 19,
+          "aw_joi": 0.000623,
+          "xg_added": 0.2566
+        },
+        "thirdman": {
+          "n": 6,
+          "aw_joi": 0.001922,
+          "xg_added": 0.2115
+        },
+        "takeover": {
+          "n": 5,
+          "aw_joi": 2.1e-05,
+          "xg_added": 0.0375
+        }
+      },
       "xg_for_pm": 1.23,
       "overall": 72,
       "shared_history": 0.0,
@@ -807,8 +1941,29 @@
       "team_id": "58",
       "team_name": "Mexico",
       "is_semifinalist": false,
+      "games": 2,
       "combos_per_game": 14.0,
       "n_combo_f3": 28,
+      "n_combos": 28,
+      "combo_aw_joi": 0.000994,
+      "combo_xg_added": 0.4586,
+      "by_type": {
+        "onetwo": {
+          "n": 20,
+          "aw_joi": 0.000393,
+          "xg_added": 0.2809
+        },
+        "thirdman": {
+          "n": 5,
+          "aw_joi": 0.000438,
+          "xg_added": 0.1201
+        },
+        "takeover": {
+          "n": 3,
+          "aw_joi": 0.000163,
+          "xg_added": 0.0576
+        }
+      },
       "xg_for_pm": 1.26,
       "overall": 78,
       "shared_history": 119.0,
@@ -821,8 +1976,29 @@
       "team_id": "386",
       "team_name": "Australia",
       "is_semifinalist": false,
+      "games": 3,
       "combos_per_game": 12.3,
       "n_combo_f3": 37,
+      "n_combos": 37,
+      "combo_aw_joi": 0.001402,
+      "combo_xg_added": 0.6327,
+      "by_type": {
+        "onetwo": {
+          "n": 27,
+          "aw_joi": 0.000877,
+          "xg_added": 0.4638
+        },
+        "thirdman": {
+          "n": 9,
+          "aw_joi": 0.000518,
+          "xg_added": 0.1167
+        },
+        "takeover": {
+          "n": 1,
+          "aw_joi": 6e-06,
+          "xg_added": 0.0522
+        }
+      },
       "xg_for_pm": 0.41,
       "overall": 71,
       "shared_history": 22.5,
@@ -835,8 +2011,29 @@
       "team_id": "384",
       "team_name": "Wales",
       "is_semifinalist": false,
+      "games": 1,
       "combos_per_game": 12.0,
       "n_combo_f3": 12,
+      "n_combos": 12,
+      "combo_aw_joi": 8.7e-05,
+      "combo_xg_added": 0.095,
+      "by_type": {
+        "onetwo": {
+          "n": 7,
+          "aw_joi": 6.7e-05,
+          "xg_added": 0.0923
+        },
+        "thirdman": {
+          "n": 3,
+          "aw_joi": 1.9e-05,
+          "xg_added": 0.0021
+        },
+        "takeover": {
+          "n": 2,
+          "aw_joi": 0.0,
+          "xg_added": 0.0007
+        }
+      },
       "xg_for_pm": 0.21,
       "overall": 74,
       "shared_history": 92.6,
@@ -849,8 +2046,29 @@
       "team_id": "360",
       "team_name": "Qatar",
       "is_semifinalist": false,
+      "games": 1,
       "combos_per_game": 11.0,
       "n_combo_f3": 11,
+      "n_combos": 11,
+      "combo_aw_joi": 0.000757,
+      "combo_xg_added": 0.113,
+      "by_type": {
+        "onetwo": {
+          "n": 7,
+          "aw_joi": 0.000369,
+          "xg_added": 0.088
+        },
+        "thirdman": {
+          "n": 3,
+          "aw_joi": 0.000388,
+          "xg_added": 0.0249
+        },
+        "takeover": {
+          "n": 1,
+          "aw_joi": 0.0,
+          "xg_added": 0.0001
+        }
+      },
       "xg_for_pm": 0.14,
       "overall": 68,
       "shared_history": 847.5,
