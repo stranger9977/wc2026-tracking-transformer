@@ -160,7 +160,29 @@
       often each was <strong>part of a move that scored within 10 seconds</strong> across World Cup 2022 &mdash; a kind
       of shooting percentage. They <em>make</em> the chances; finishing them is rare.
       <span class="dim">(That's why we score them against xG, not goals.)</span></p>
-    <div id="combo-goals-table" style="overflow-x:auto; margin:0 0 1.6rem;"></div>
+    <div id="combo-goals-table" style="overflow-x:auto; margin:0 0 1rem;"></div>
+    <details class="xg-methods" style="margin:0 0 1.6rem;">
+      <summary>How we detect these &mdash; the exact rules (no labels, just tracking)</summary>
+      <div class="dim small" style="padding-top:0.5rem;">
+        <p>We read the <strong>ball-carrier every frame</strong> (the player with possession) and match three
+          structural patterns in the final third &mdash; no hand-labels, no model, just the ball's path:</p>
+        <ul>
+          <li><strong>Give-and-go (1-2):</strong> the ball goes A&nbsp;&rarr;&nbsp;B&nbsp;&rarr;&nbsp;back to A,
+            with B&rsquo;s touch brief and each pass within ~3&nbsp;s &mdash; it returns to the player who started
+            it after one quick intermediate touch.</li>
+          <li><strong>Third-man:</strong> A&nbsp;&rarr;&nbsp;B&nbsp;&rarr;&nbsp;C&nbsp;&rarr;&nbsp;back to A &mdash;
+            it returns to the starter via a two-touch relay (brief touches, within ~6&nbsp;s).</li>
+          <li><strong>Take-over:</strong> two teammates run <em>toward</em> each other within ~4&nbsp;m and the ball
+            transfers between them over &lt;5&nbsp;m &mdash; a hand-off, not a pass.</li>
+          <li>A brief opponent touch (&le;0.6&nbsp;s) the team instantly re-wins doesn&rsquo;t break a move.</li>
+        </ul>
+        <p><strong>The honest limit.</strong> This is a <em>structural</em> detector &mdash; it reads the ball&rsquo;s
+          movement, with no judgement of intent. It reliably finds the <em>pattern</em> (the ball returning to a
+          recent teammate), which usually matches the eye-test 1-2 or relay &mdash; but it will sometimes flag a
+          return a coach wouldn&rsquo;t call a clean give-and-go (e.g. a wide switch that happens to come back). It&rsquo;s
+          a count of a repeatable structural signature, not a coach&rsquo;s tag &mdash; which is why we publish the rule.</p>
+      </div>
+    </details>
 
     <!-- =========================================================== -->
     <!-- 1. HEADLINE — TCD vs WC22 finish                              -->
