@@ -617,16 +617,17 @@ function initClip(c, detail) {
         pairDrawn.add(si); pairDrawn.add(sj);
       }
     }
-    // Force-draw the active chapter's highlighted "chemistry" pairs (the
-    // combination partners) even when their INSTANTANEOUS attention is below
-    // the top-N threshold — a combination's signal lives in the CUMULATIVE
-    // AW-JOI that builds off the ball, not a single-frame spike. They render
-    // as a bright dashed edge labelled with that running AW-JOI.
-    if (annNow && Array.isArray(annNow.highlight_pairs)) {
+    // When the active chapter names specific pairs (highlight_pairs), show ONLY
+    // those on the pitch and DROP the generic top-N edges — so the lines you see
+    // are exactly the rows in the table you're reading, not the high-traffic
+    // pairs that never line up with the narrative. Each is force-drawn as a
+    // bright dashed edge labelled with its CUMULATIVE AW-JOI (a combination's
+    // signal is cumulative, not a single-frame spike).
+    if (annNow && Array.isArray(annNow.highlight_pairs) && annNow.highlight_pairs.length) {
+      filteredPair.length = 0;
       for (const hp of annNow.highlight_pairs) {
         const si = hp[0], sj = hp[1];
         if (!playerDOM[si] || !playerDOM[sj]) continue;
-        if (filteredPair.some((p) => (p.si === si && p.sj === sj) || (p.si === sj && p.sj === si))) continue;
         let w = 0;
         for (const tr of pairTop) { if ((tr[0] === si && tr[1] === sj) || (tr[0] === sj && tr[1] === si)) { w = tr[2] || 0; break; } }
         filteredPair.push({ si, sj, w, cat: "off-off", forced: true });

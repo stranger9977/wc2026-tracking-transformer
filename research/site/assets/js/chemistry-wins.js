@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=lines-labels2";
+import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=lines-labels3";
 
 /* ---------------- data ---------------- */
 
@@ -1074,17 +1074,23 @@ const PLAY_INDEX = {
     // AW-JOI) even though its single-frame attention is below the top-N floor —
     // that running number is "the attention that matters." Legs 1–2 stay wide
     // so the highlighted edge reads against the team; the climax focuses.
+    // Each chapter's highlight_pairs ARE the rows of the table you're reading at
+    // that moment, and they suppress the generic top-N edges — so the lines on the
+    // pitch always match the narrative. SPINE = the four off-ball-table pairs
+    // (Otamendi↔Fernández 2, ↔Romero 7, Álvarez 0↔Otamendi, ↔Acuña 10); the legs
+    // are the pass-table combination pairs.
     annotations: [
-      { from: 0,  to: 13, text: "Messi's early cross — Souttar clears",
-        pair_defaults: { cats: ["off-off"], top: 2 } },
-      { from: 14, to: 35, text: "Argentina win it back — Messi restarts the move",
-        pair_defaults: { cats: ["off-off"], top: 3 } },
+      { from: 0,  to: 13, text: "Messi's early cross — Souttar clears (no threat yet)",
+        pair_defaults: { cats: ["off-off"], top: 4 } },
+      { from: 14, to: 35, text: "Argentina recycle — the off-ball spine the model keeps linked (the off-ball table)",
+        highlight_pairs: [[1, 2], [1, 7], [0, 1], [1, 10]],
+        pair_defaults: { cats: ["off-off"], top: 4 } },
       { from: 36, to: 44, text: "Third-man run · leg 1 — Messi ➝ Mac Allister",
         highlight_pairs: [[5, 6]],
-        pair_defaults: { cats: ["off-off"], top: 2 } },
+        pair_defaults: { cats: ["off-off"], top: 1 } },
       { from: 45, to: 50, text: "Leg 2 — Mac Allister ➝ Otamendi (the relay; their chemistry is already ~0.09)",
         highlight_pairs: [[6, 1]],
-        pair_defaults: { cats: ["off-off"], top: 2 } },
+        pair_defaults: { cats: ["off-off"], top: 1 } },
       // Climax: tighten to Otamendi + Messi as the ball comes back and Messi
       // arrives to finish.
       { from: 51, to: 58, text: "Leg 3 — Otamendi slips it back; Messi has run in to finish",
