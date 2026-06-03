@@ -21,7 +21,16 @@
     "model_overall_acc": 0.7008,
     "nearest_baseline_acc": 0.4387,
     "dp_combo_pp": 0.023355,
-    "dp_ordinary_pp": -0.06006
+    "dp_ordinary_pp": -0.06006,
+    "combo_goals": 31,
+    "combo_goals_per_match": 0.7,
+    "goals_by_kind": {
+      "onetwo": 22,
+      "thirdman": 6,
+      "takeover": 3
+    },
+    "combo_conversion": 0.0143,
+    "n_goals_placed": 131
   },
   "teams": [
     {
@@ -1018,6 +1027,7 @@
       "player_a": "Jordi Alba",
       "player_b": "Pedri",
       "n_combos": 20,
+      "n_goals": 0,
       "aw_joi": 2.21
     },
     {
@@ -1026,6 +1036,7 @@
       "player_a": "Achraf Hakimi",
       "player_b": "Hakim Ziyech",
       "n_combos": 20,
+      "n_goals": 0,
       "aw_joi": 5.52
     },
     {
@@ -1034,6 +1045,7 @@
       "player_a": "Kylian Mbapp\u00e9",
       "player_b": "Theo Hernandez",
       "n_combos": 18,
+      "n_goals": 0,
       "aw_joi": 7.1
     },
     {
@@ -1042,6 +1054,7 @@
       "player_a": "Achraf Hakimi",
       "player_b": "Azzedine Ounahi",
       "n_combos": 14,
+      "n_goals": 0,
       "aw_joi": 2.87
     },
     {
@@ -1050,6 +1063,7 @@
       "player_a": "Lionel Messi",
       "player_b": "Rodrigo de Paul",
       "n_combos": 14,
+      "n_goals": 0,
       "aw_joi": 3.65
     },
     {
@@ -1058,6 +1072,7 @@
       "player_a": "Kylian Mbapp\u00e9",
       "player_b": "Adrien Rabiot",
       "n_combos": 13,
+      "n_goals": 0,
       "aw_joi": 4.18
     },
     {
@@ -1066,6 +1081,7 @@
       "player_a": "Luke Shaw",
       "player_b": "Jude Bellingham",
       "n_combos": 12,
+      "n_goals": 0,
       "aw_joi": 1.72
     },
     {
@@ -1074,6 +1090,7 @@
       "player_a": "Ousmane Dembele",
       "player_b": "Jules Kounde",
       "n_combos": 12,
+      "n_goals": 0,
       "aw_joi": 3.88
     },
     {
@@ -1082,6 +1099,7 @@
       "player_a": "Hakim Ziyech",
       "player_b": "Azzedine Ounahi",
       "n_combos": 11,
+      "n_goals": 0,
       "aw_joi": 3.18
     },
     {
@@ -1090,6 +1108,7 @@
       "player_a": "Mateo Kovacic",
       "player_b": "Borna Sosa",
       "n_combos": 11,
+      "n_goals": 0,
       "aw_joi": 2.75
     },
     {
@@ -1098,6 +1117,7 @@
       "player_a": "Alexis Mac Allister",
       "player_b": "Marcos Acu\u00f1a",
       "n_combos": 11,
+      "n_goals": 0,
       "aw_joi": 2.73
     },
     {
@@ -1106,6 +1126,7 @@
       "player_a": "In-beom Hwang",
       "player_b": "Moon-hwan Kim",
       "n_combos": 11,
+      "n_goals": 0,
       "aw_joi": 1.81
     },
     {
@@ -1114,6 +1135,7 @@
       "player_a": "Filip Kostic",
       "player_b": "Dusan Tadi\u0107",
       "n_combos": 10,
+      "n_goals": 0,
       "aw_joi": 1.51
     },
     {
@@ -1122,6 +1144,7 @@
       "player_a": "Aleksandar Mitrovic",
       "player_b": "Sa\u0161a Luki\u0107",
       "n_combos": 10,
+      "n_goals": 0,
       "aw_joi": 1.87
     }
   ]

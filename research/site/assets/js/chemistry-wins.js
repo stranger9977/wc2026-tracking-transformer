@@ -280,6 +280,15 @@ function renderComboPanel(xg) {
   if (m.nearest_baseline_acc != null) set("combo-near", pct(m.nearest_baseline_acc));
   if (m.history_rho != null) set("combo-hist-r", sgn(m.history_rho));
   if (m.history_partial != null) set("combo-hist-partial", sgn(m.history_partial));
+  // goals these combinations set up (the "did they create goals" answer)
+  if (m.combo_goals != null) set("cg-total", String(m.combo_goals));
+  if (m.goals_by_kind) {
+    set("cg-onetwo", String(m.goals_by_kind.onetwo));
+    set("cg-thirdman", String(m.goals_by_kind.thirdman));
+    set("cg-takeover", String(m.goals_by_kind.takeover));
+  }
+  if (m.combo_goals_per_match != null) set("cg-pm", String(m.combo_goals_per_match));
+  if (m.combo_conversion != null) set("cg-conv", "~" + (m.combo_conversion * 100).toFixed(1) + "%");
 }
 
 // grouped-bar cell-mean grid: 3 talent/history tiers x {fewer, more} combinations -> avg xG/game
