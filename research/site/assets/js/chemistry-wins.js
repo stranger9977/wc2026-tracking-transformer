@@ -280,15 +280,39 @@ function renderComboPanel(xg) {
   if (m.nearest_baseline_acc != null) set("combo-near", pct(m.nearest_baseline_acc));
   if (m.history_rho != null) set("combo-hist-r", sgn(m.history_rho));
   if (m.history_partial != null) set("combo-hist-partial", sgn(m.history_partial));
-  // goals these combinations set up (the "did they create goals" answer)
-  if (m.combo_goals != null) set("cg-total", String(m.combo_goals));
-  if (m.goals_by_kind) {
-    set("cg-onetwo", String(m.goals_by_kind.onetwo));
-    set("cg-thirdman", String(m.goals_by_kind.thirdman));
-    set("cg-takeover", String(m.goals_by_kind.takeover));
-  }
-  if (m.combo_goals_per_match != null) set("cg-pm", String(m.combo_goals_per_match));
-  if (m.combo_conversion != null) set("cg-conv", "~" + (m.combo_conversion * 100).toFixed(1) + "%");
+  renderComboGoalsTable(m);
+}
+
+// "did these create goals?" — per type: how often it happens, how often it was part of a move
+// that scored within 10s (a shooting percentage). Numbers from combination_xg.json meta.
+function renderComboGoalsTable(m) {
+  const el = document.getElementById("combo-goals-table");
+  if (!el || !m.kinds || !m.led_to_goal_by_kind) return;
+  const rate = m.led_rate_by_kind || {};
+  const pct = (v) => (v == null ? "—" : (v * 100).toFixed(1) + "%");
+  const num = (v) => (v || 0).toLocaleString();
+  const totCombos = (m.kinds.onetwo || 0) + (m.kinds.thirdman || 0) + (m.kinds.takeover || 0);
+  const row = (lab, k) => `<tr style="border-bottom:1px solid var(--border);">
+    <td style="padding:0.4rem 0.7rem;">${lab}</td>
+    <td style="padding:0.4rem 0.7rem; text-align:right;" class="tabular">${num(m.kinds[k])}</td>
+    <td style="padding:0.4rem 0.7rem; text-align:right; color:#e0b450; font-weight:700;" class="tabular">${m.led_to_goal_by_kind[k] || 0}</td>
+    <td style="padding:0.4rem 0.7rem; text-align:right;" class="tabular">${pct(rate[k])}</td></tr>`;
+  el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.9rem; min-width:28rem;">
+    <thead><tr style="border-bottom:1px solid var(--border); color:var(--text-dim); text-transform:uppercase; letter-spacing:0.4px; font-size:0.74rem;">
+      <th style="text-align:left; padding:0.4rem 0.7rem;">Combination</th>
+      <th style="text-align:right; padding:0.4rem 0.7rem;">In WC22<br>(final third)</th>
+      <th style="text-align:right; padding:0.4rem 0.7rem;">Led to a goal<br>(within 10s)</th>
+      <th style="text-align:right; padding:0.4rem 0.7rem;">Rate</th></tr></thead>
+    <tbody>
+      ${row("Give-and-go", "onetwo")}
+      ${row("Third-man run", "thirdman")}
+      ${row("Take-over", "takeover")}
+      <tr style="font-weight:700; border-top:2px solid var(--border);">
+        <td style="padding:0.4rem 0.7rem;">All three</td>
+        <td style="padding:0.4rem 0.7rem; text-align:right;" class="tabular">${num(totCombos)}</td>
+        <td style="padding:0.4rem 0.7rem; text-align:right; color:#e0b450;" class="tabular">${m.n_combo_led}</td>
+        <td style="padding:0.4rem 0.7rem; text-align:right;" class="tabular">${pct(m.led_rate)}</td></tr>
+    </tbody></table>`;
 }
 
 // grouped-bar cell-mean grid: 3 talent/history tiers x {fewer, more} combinations -> avg xG/game

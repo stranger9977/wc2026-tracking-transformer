@@ -30,7 +30,19 @@
       "takeover": 3
     },
     "combo_conversion": 0.0143,
-    "n_goals_placed": 131
+    "n_goals_placed": 131,
+    "led_to_goal_by_kind": {
+      "onetwo": 28,
+      "thirdman": 6,
+      "takeover": 4
+    },
+    "n_combo_led": 38,
+    "led_rate": 0.0175,
+    "led_rate_by_kind": {
+      "onetwo": 0.019,
+      "thirdman": 0.0162,
+      "takeover": 0.0123
+    }
   },
   "teams": [
     {
