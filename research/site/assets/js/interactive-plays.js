@@ -617,6 +617,22 @@ function initClip(c, detail) {
         pairDrawn.add(si); pairDrawn.add(sj);
       }
     }
+    // Force-draw the active chapter's highlighted "chemistry" pairs (the
+    // combination partners) even when their INSTANTANEOUS attention is below
+    // the top-N threshold — a combination's signal lives in the CUMULATIVE
+    // AW-JOI that builds off the ball, not a single-frame spike. They render
+    // as a bright dashed edge labelled with that running AW-JOI.
+    if (annNow && Array.isArray(annNow.highlight_pairs)) {
+      for (const hp of annNow.highlight_pairs) {
+        const si = hp[0], sj = hp[1];
+        if (!playerDOM[si] || !playerDOM[sj]) continue;
+        if (filteredPair.some((p) => (p.si === si && p.sj === sj) || (p.si === sj && p.sj === si))) continue;
+        let w = 0;
+        for (const tr of pairTop) { if ((tr[0] === si && tr[1] === sj) || (tr[0] === sj && tr[1] === si)) { w = tr[2] || 0; break; } }
+        filteredPair.push({ si, sj, w, cat: "off-off", forced: true });
+        pairDrawn.add(si); pairDrawn.add(sj);
+      }
+    }
     // Also keep the goal scorer (if configured) visible even when no pair edge
     // touches them — so the user can see what the header-taker is doing.
     if (c.scorer_slot != null && playerDOM[c.scorer_slot]) pairDrawn.add(c.scorer_slot);
@@ -738,12 +754,13 @@ function initClip(c, detail) {
     if (filteredPair.length) {
       const maxW = filteredPair.reduce((m, p) => Math.max(m, p.w), 0) || 1;
       const STROKE = { "off-off": "#facc15", "def-def": "#60a5fa", "cross": "#a78bfa" };
-      for (const { si, sj, w, cat } of filteredPair) {
+      for (const { si, sj, w, cat, forced } of filteredPair) {
         const a = playerDOM[si], b = playerDOM[sj];
         if (!a || !b) continue;
-        const widthSvg = 1.4 + (w / maxW) * 4.6;
-        const op = 0.5 + (w / maxW) * 0.4;
-        pairEdgesHTML += `<line x1="${a.sx}" y1="${a.sy}" x2="${b.sx}" y2="${b.sy}" stroke="${STROKE[cat]}" stroke-width="${widthSvg.toFixed(2)}" stroke-opacity="${op.toFixed(2)}" stroke-linecap="round" />`;
+        const widthSvg = forced ? 3.2 : 1.4 + (w / maxW) * 4.6;
+        const op = forced ? 0.96 : 0.5 + (w / maxW) * 0.4;
+        const dash = forced ? ` stroke-dasharray="5 3"` : "";
+        pairEdgesHTML += `<line x1="${a.sx}" y1="${a.sy}" x2="${b.sx}" y2="${b.sy}" stroke="${STROKE[cat]}" stroke-width="${widthSvg.toFixed(2)}" stroke-opacity="${op.toFixed(2)}" stroke-linecap="round"${dash} />`;
         // Cumulative AW-JOI for this pair UP TO the current frame: sum
         // (pair_w * dPos) at every previous frame for this slot pair.
         // Cheap to compute on demand (≤15 pairs × ≤200 frames).

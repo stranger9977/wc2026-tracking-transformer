@@ -38,6 +38,13 @@
     .combo-grid-toggle button.active { background: var(--bg-elev-3, #1a2333); opacity: 1; font-weight: 600; color: #e0b450; }
     .pair-row { grid-template-columns: 1.4rem minmax(0,1fr) 3.6rem 1.5rem; font-size: 0.82rem; }
     .pair-row .combo-team { white-space: normal; line-height: 1.18; }
+    .combo-anim-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 0.3rem 0 1.6rem; }
+    .combo-anim-card { margin: 0; background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 9px; padding: 0.6rem; }
+    .combo-anim-card svg { width: 100%; height: auto; display: block; }
+    .combo-anim-card figcaption { margin-top: 0.5rem; }
+    .combo-anim-card figcaption strong { display: block; font-size: 0.95rem; }
+    .combo-anim-card figcaption span { display: block; font-size: 0.82rem; opacity: 0.72; margin-top: 0.15rem; line-height: 1.3; }
+    @media (max-width: 680px) { .combo-anim-grid { grid-template-columns: 1fr; } }
     @media (max-width: 760px) { .xg-panel-grid, .combo-grid, .combo-grid2 { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -83,11 +90,69 @@
           teammates <em>off the ball</em>, weighted by the danger they create together. The strongest pairs in the
           tournament: Mbapp&eacute; &amp; Theo Hernandez, Hakimi &amp; Ziyech, Messi &amp; de&nbsp;Paul.</li>
         <li><strong>Strong pairs combine more.</strong> They work more <strong>combinations near goal</strong> &mdash;
-          give-and-gos, third-man moves, take-overs &mdash; and that, more than raw talent, is what creates extra
+          give-and-gos, third-man runs, take-overs &mdash; and that, more than raw talent, is what creates extra
           good chances (xG). Where it comes from: how long the players have been club teammates.</li>
         <li><strong>You can watch it happen</strong> in Messi&rsquo;s goal vs Australia below &mdash; the chemistry
           signal lighting up off the ball, frame by frame, before the pass that frees him.</li>
       </ol>
+    </div>
+    <p class="dim small" style="margin:0.2rem 0 0.55rem;"><strong>The three combinations we count</strong> &mdash; quick exchanges near goal that only click when players know each other:</p>
+    <div class="combo-anim-grid">
+      <figure class="combo-anim-card">
+        <svg viewBox="0 0 220 140" role="img" aria-label="Give-and-go: A passes to B and B bounces it straight back into A's path">
+          <rect x="2" y="2" width="216" height="136" rx="8" fill="#0e1626" stroke="#22304a"/>
+          <line x1="210" y1="52" x2="210" y2="88" stroke="#3a4a66" stroke-width="2"/>
+          <text x="205" y="17" font-size="8.5" fill="#52617e" text-anchor="end">attacking &rarr;</text>
+          <path d="M35,95 L132,50" stroke="#2f3e5a" stroke-width="1.4" stroke-dasharray="3 3" fill="none"/>
+          <path d="M132,50 L162,84" stroke="#2f3e5a" stroke-width="1.4" stroke-dasharray="3 3" fill="none"/>
+          <g transform="translate(108,80)"><circle r="9" fill="#e07474"/><text y="3.2" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">D</text></g>
+          <g transform="translate(132,50)"><circle r="9" fill="#5eb1f8"/><text y="3.2" font-size="9" font-weight="700" fill="#06101f" text-anchor="middle">B</text></g>
+          <g transform="translate(35,95)"><circle r="9" fill="#5eb1f8"/><text y="3.2" font-size="9" font-weight="700" fill="#06101f" text-anchor="middle">A</text>
+            <animateTransform attributeName="transform" type="translate" values="35,95; 35,95; 162,84; 162,84; 35,95" keyTimes="0;0.22;0.56;0.93;1" dur="4s" repeatCount="indefinite"/></g>
+          <circle r="4.5" fill="#ffd166" stroke="#0e1626" stroke-width="1" cx="35" cy="95">
+            <animate attributeName="cx" values="35;132;132;162;162;35" keyTimes="0;0.2;0.4;0.6;0.93;1" dur="4s" repeatCount="indefinite"/>
+            <animate attributeName="cy" values="95;50;50;84;84;95" keyTimes="0;0.2;0.4;0.6;0.93;1" dur="4s" repeatCount="indefinite"/></circle>
+        </svg>
+        <figcaption><strong>Give-and-go</strong><span>Pass and sprint &mdash; the teammate bounces it straight back into your path, behind the defender.</span></figcaption>
+      </figure>
+      <figure class="combo-anim-card">
+        <svg viewBox="0 0 220 140" role="img" aria-label="Third-man run: the ball is worked through two teammates and comes back to a runner arriving to finish">
+          <rect x="2" y="2" width="216" height="136" rx="8" fill="#0e1626" stroke="#22304a"/>
+          <line x1="210" y1="52" x2="210" y2="88" stroke="#3a4a66" stroke-width="2"/>
+          <text x="205" y="17" font-size="8.5" fill="#52617e" text-anchor="end">attacking &rarr;</text>
+          <path d="M32,96 L98,44" stroke="#2f3e5a" stroke-width="1.4" stroke-dasharray="3 3" fill="none"/>
+          <path d="M98,44 L120,104" stroke="#2f3e5a" stroke-width="1.4" stroke-dasharray="3 3" fill="none"/>
+          <path d="M120,104 L180,72" stroke="#2f3e5a" stroke-width="1.4" stroke-dasharray="3 3" fill="none"/>
+          <g transform="translate(140,58)"><circle r="8.5" fill="#e07474"/><text y="3" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">D</text></g>
+          <g transform="translate(150,94)"><circle r="8.5" fill="#e07474"/><text y="3" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">D</text></g>
+          <g transform="translate(98,44)"><circle r="9" fill="#5eb1f8"/><text y="3.2" font-size="9" font-weight="700" fill="#06101f" text-anchor="middle">B</text></g>
+          <g transform="translate(120,104)"><circle r="9" fill="#5eb1f8"/><text y="3.2" font-size="9" font-weight="700" fill="#06101f" text-anchor="middle">C</text></g>
+          <g transform="translate(32,96)"><circle r="9" fill="#ffd166"/><text y="3.2" font-size="9" font-weight="700" fill="#06101f" text-anchor="middle">A</text>
+            <animateTransform attributeName="transform" type="translate" values="32,96; 32,96; 180,72; 180,72; 32,96" keyTimes="0;0.16;0.68;0.93;1" dur="4.6s" repeatCount="indefinite"/></g>
+          <circle r="4.5" fill="#ffd166" stroke="#0e1626" stroke-width="1" cx="32" cy="96">
+            <animate attributeName="cx" values="32;98;98;120;120;180;180;32" keyTimes="0;0.16;0.30;0.44;0.58;0.74;0.93;1" dur="4.6s" repeatCount="indefinite"/>
+            <animate attributeName="cy" values="96;44;44;104;104;72;72;96" keyTimes="0;0.16;0.30;0.44;0.58;0.74;0.93;1" dur="4.6s" repeatCount="indefinite"/></circle>
+        </svg>
+        <figcaption><strong>Third-man run</strong><span>The ball is worked through two teammates &mdash; while the man who started it makes a run to arrive and finish. (Messi&rsquo;s goal below.)</span></figcaption>
+      </figure>
+      <figure class="combo-anim-card">
+        <svg viewBox="0 0 220 140" role="img" aria-label="Take-over: two teammates run at each other and swap the ball as they cross">
+          <rect x="2" y="2" width="216" height="136" rx="8" fill="#0e1626" stroke="#22304a"/>
+          <line x1="210" y1="52" x2="210" y2="88" stroke="#3a4a66" stroke-width="2"/>
+          <text x="205" y="17" font-size="8.5" fill="#52617e" text-anchor="end">attacking &rarr;</text>
+          <path d="M48,96 L100,74" stroke="#2f3e5a" stroke-width="1.4" stroke-dasharray="3 3" fill="none"/>
+          <path d="M100,74 L192,86" stroke="#2f3e5a" stroke-width="1.4" stroke-dasharray="3 3" fill="none"/>
+          <g transform="translate(168,70)"><circle r="8.5" fill="#e07474"/><text y="3" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">D</text></g>
+          <g transform="translate(150,50)"><circle r="9" fill="#5eb1f8"/><text y="3.2" font-size="9" font-weight="700" fill="#06101f" text-anchor="middle">B</text>
+            <animateTransform attributeName="transform" type="translate" values="150,50; 100,74; 192,86; 192,86; 150,50" keyTimes="0;0.45;0.78;0.93;1" dur="4s" repeatCount="indefinite"/></g>
+          <g transform="translate(48,96)"><circle r="9" fill="#ffd166"/><text y="3.2" font-size="9" font-weight="700" fill="#06101f" text-anchor="middle">A</text>
+            <animateTransform attributeName="transform" type="translate" values="48,96; 100,74; 150,58; 150,58; 48,96" keyTimes="0;0.45;0.72;0.93;1" dur="4s" repeatCount="indefinite"/></g>
+          <circle r="4.5" fill="#ffd166" stroke="#0e1626" stroke-width="1" cx="48" cy="96">
+            <animate attributeName="cx" values="48;100;192;192;48" keyTimes="0;0.45;0.78;0.93;1" dur="4s" repeatCount="indefinite"/>
+            <animate attributeName="cy" values="96;74;86;86;96" keyTimes="0;0.45;0.78;0.93;1" dur="4s" repeatCount="indefinite"/></circle>
+        </svg>
+        <figcaption><strong>Take-over</strong><span>Two teammates run at each other and swap the ball as they cross &mdash; changing the angle of attack.</span></figcaption>
+      </figure>
     </div>
 
     <!-- =========================================================== -->
@@ -158,7 +223,7 @@
           </div>
           <div id="combo-grid" class="fifa-scatter"></div>
           <div class="xg-verdict">
-            <p class="dim small xg-verdict-text">In every group, the teams that combine more near goal create more good chances &mdash; gold beats grey at every level.</p>
+            <p class="dim small xg-verdict-text">Each group is split in half &mdash; the teams that <strong>combine less</strong> (grey) vs <strong>more</strong> (gold). Bar height = the good chances they create. Gold is taller in <em>every</em> group: more combinations &rarr; more chances, at every level of talent.</p>
           </div>
         </figure>
       </div>
@@ -199,7 +264,7 @@
         <summary>How we measured this</summary>
         <p class="dim small">A <strong>combination</strong> is a quick exchange between teammates in the final third the
           tracking data can see structurally &mdash; a <strong>give-and-go</strong> (the ball comes straight back to the
-          passer), a <strong>third-man move</strong> (it returns via a relay), or a <strong>take-over</strong> (a close
+          passer), a <strong>third-man run</strong> (it returns via a relay), or a <strong>take-over</strong> (a close
           cross-over hand-off). It uses no value signal, so it can't be circular with xG. Versus expected-goals-for,
           talent-adjusted (FIFA + caps + games + opponent strength): partial r <span id="combo-r">+0.43</span>
           (90% CI <span id="combo-ci">0.09 to 0.69</span>, n = <span id="combo-n">29</span> &mdash; clears zero).
@@ -211,6 +276,8 @@
           that link holds even at equal talent &mdash; familiarity, not just ability.</p>
       </details>
 
+      <details class="xg-methods" style="margin:1.6rem 0;">
+        <summary>The original chemistry &rarr; winning evidence (TCD rankings &amp; the tracking-beats-event test)</summary>
       <h3 class="mt-2">TCD vs tournament finish &nbsp;<span class="dim small">(ρ = +0.704, n = 31, p &lt; 0.001)</span></h3>
       <p class="dim small">Older, talent-confounded view: X = raw TCD, Y = stage reached (Group &rarr; Winner).
         Predictive, but talent and chemistry are entangled here &mdash; the xG panels above isolate chemistry's
@@ -283,6 +350,7 @@
           </tbody>
         </table>
       </div>
+      </details>
 
       <div class="callout" role="note" style="margin-top: 1.4rem;">
         <p class="mt-0"><strong>The four semifinalists were the four densest networks in the tournament.</strong>
@@ -352,19 +420,17 @@
           <strong style="color:var(--text)">What the interactive play below shows</strong> &mdash;
           this goal is a <strong style="color:var(--text)">combination</strong>: Messi plays it back into the
           recycle, it works through Mac&nbsp;Allister and Otamendi, and Otamendi feeds it straight back to Messi
-          to finish &mdash; a <strong style="color:var(--text)">third-man move</strong>, the ball returning to the
+          to finish &mdash; a <strong style="color:var(--text)">third-man run</strong>, the ball returning to the
           player who started it. Watch the <strong style="color:var(--text)">chemistry</strong> signal light up on
           exactly the two return passes that complete it, while Australia's back line never steps to Messi.
         </figcaption>
       </figure>
       <div id="play-argentina" class="mt-2"></div>
       <p class="dim small">
-        Why this clip: Argentina build out from the back, Otamendi flicks it across
-        the box, and Messi finishes &mdash; one of his goals against Australia in
-        the R16. Watch how the build-up is structural recycling through Romero,
-        Otamendi and Mart&iacute;nez, and then how attention collapses onto Messi
-        at the strike. That collapse is the nucleus &mdash; the gravity TCD's
-        breadth-based score doesn't see.
+        Why this clip: it's a <strong>third-man run</strong> &mdash; Messi feeds the build-up,
+        Mac&nbsp;Allister and Otamendi work it, and Otamendi slips it back to Messi, who has run into
+        the box to finish (R16 vs Australia). Watch how the model&rsquo;s chemistry loads onto the
+        combining players off the ball, then how attention collapses onto Messi at the strike.
       </p>
 
       <!-- =========================================================== -->
@@ -448,40 +514,6 @@
             the ones whose <em>relationship</em> the data calls real.
           </p>
 
-          <h3 class="mt-2">Reading the Messi play above</h3>
-          <p>
-            The build-up phase (Argentina recycling: Otamendi &harr;
-            Fernández, Otamendi &harr; Romero, Otamendi &harr;
-            Mac Allister) keeps adding small contributions every frame
-            as the model warms up to the developing attack and the
-            scoring probability climbs gradually &mdash; while
-            <strong>Fernández peels away to drag a defender</strong> and
-            Otamendi recycles out to Messi. The
-            <strong>Otamendi &harr; Messi</strong> pair itself spikes in a
-            single frame right at the recovery (its 0.087 is mostly that
-            one instant), so its total is smaller than the sustained
-            recycle pairs even though it's the on-ball "feed."
-            <br><br>
-            The <strong>per-edge chips</strong> on the network
-            graph (the small coloured numbers floating at the
-            midpoint of each pair edge) show each pair's cumulative
-            AW-JOI <em>up to the current frame</em> &mdash; you can
-            watch them climb in real time as you scrub through.
-          </p>
-
-          <h3 class="mt-2">AW-JDI is the symmetric defensive twin</h3>
-          <p>
-            Same formula, but flip the value signal:
-            <strong>max(&minus;&Delta;P<sub>score</sub>(t), 0)</strong>
-            attributed to the team <em>without</em> the ball. Pairs of
-            defenders who keep the opposition's scoring probability
-            from rising &mdash; or actively drop it &mdash; earn
-            AW-JDI. That's how Morocco's def&harr;def wall (Hakimi
-            &harr; El Yamiq, El Yamiq &harr; Attiat-Allah) lands in
-            the 87th percentile of every def&harr;def pair in the
-            tournament.
-          </p>
-
           <style>
             tr.clip-jump { cursor: pointer; transition: background 0.12s ease; }
             tr.clip-jump:hover { background: rgba(255,209,102,0.12) !important; }
@@ -503,8 +535,8 @@
           <p>
             The pass chain that produced this goal:
             <strong>Messi &rarr; Mac Allister &rarr; Otamendi &rarr;
-            Messi (finish)</strong> &mdash; a <strong>third-man combination</strong>, the ball
-            returning to the player who started it. For each pass we show the model's read on
+            Messi (finish)</strong> &mdash; a <strong>third-man run</strong>, the ball worked
+            through two teammates while the man who started it arrives to finish. For each pass we show the model's read on
             Argentina's 10-second scoring probability, the <strong>Chemistry</strong> on the pass
             partners (cumulative AW-JOI &mdash; the model's attention on the relationship, weighted by
             the threat it creates), and what Australia's nearest defenders are doing. Times are counted
@@ -558,7 +590,7 @@
                   <td style="padding:0.4rem 0.6rem;"><strong>Otamendi &rarr; Messi</strong> (feed)</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">4.2%</td>
                   <td style="padding:0.4rem 0.6rem;"><span style="display:inline-flex;align-items:center;gap:0.45rem;"><span style="display:inline-block;width:56px;height:9px;border-radius:3px;background:rgba(255,255,255,0.08);"><span style="display:block;height:9px;border-radius:3px;background:#5eb1f8;width:87%;"></span></span><span class="tabular" style="color:#5eb1f8;font-weight:700;">0.087</span></span></td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>The feed back to Messi &mdash; completing the third-man.</strong> Australia's centre-backs <strong>Rowles &amp; Souttar sit flat</strong> &mdash; nobody steps to Messi at the top of the box. P peaks &asymp;&nbsp;4.6&#37; the frame before he strikes.</td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>The feed back to Messi &mdash; completing the third-man run.</strong> Australia's centre-backs <strong>Rowles &amp; Souttar sit flat</strong> &mdash; nobody steps to Messi at the top of the box. P peaks &asymp;&nbsp;4.6&#37; the frame before he strikes.</td>
                 </tr>
                 <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="59" data-slots="5" title="Click → jump the play here and circle Messi" style="border-bottom:1px solid var(--border); background:rgba(255,209,102,0.08);">
                   <td style="padding:0.4rem 0.6rem;"><strong>0.0&nbsp;s</strong></td>
@@ -694,6 +726,9 @@
             numbers here are recomputed from the live clip you're scrubbing, so
             they match its edge chips.
           </p>
+          <details class="card dim small" style="margin-top:0.6rem; padding:0.2rem 0.8rem;">
+            <summary style="cursor:pointer;"><strong>How we traced each off-ball pair to a real move on the pitch</strong></summary>
+            <div style="padding-top:0.4rem;">
           <div class="callout" style="background:var(--bg-elev-2); border-left:3px solid #54c875; padding:0.8rem 1rem; margin:0.8rem 0 0;">
             <p class="mt-0"><strong style="color:#54c875;">Why the model co-loads #1 (Otamendi&nbsp;&harr;&nbsp;Fernández) &mdash; we traced it in the tracking.</strong></p>
             <p>
@@ -748,9 +783,11 @@
               moment the model is co-loading them.
             </p>
           </div>
+            </div>
+          </details>
           <h3 class="mt-2">Common questions about the numbers above</h3>
 
-          <details class="callout" style="margin-bottom:0.5rem;" open>
+          <details class="callout" style="margin-bottom:0.5rem;">
             <summary><strong>Q1.</strong> Mac Allister &rarr; Otamendi is a completed pass toward goal &mdash; why does it barely move P(score)?</summary>
             <p class="mt-0">
               Because the model was <em>already</em> reading the threat:
@@ -769,7 +806,7 @@
             </p>
           </details>
 
-          <details class="callout" id="q2-pscore-calibration" style="margin-bottom:0.5rem;" open>
+          <details class="callout" id="q2-pscore-calibration" style="margin-bottom:0.5rem;">
             <summary><strong>Q2.</strong> What does P<sub>score</sub>&nbsp;&asymp;&nbsp;4&#37; actually mean? Is it calibrated?</summary>
             <p class="mt-0">
               Yes &mdash; this is a <strong>Beta-calibrated
@@ -803,7 +840,7 @@
             </p>
           </details>
 
-          <details class="callout" style="margin-bottom:0.5rem;" open>
+          <details class="callout" style="margin-bottom:0.5rem;">
             <summary><strong>Q3.</strong> If event JOI isn't tracking-based, how does event data capture location?</summary>
             <p class="mt-0">
               Honest correction from an earlier framing: PFF's event
@@ -862,7 +899,7 @@
             </p>
           </details>
 
-          <details class="callout" style="margin-bottom:0.5rem;" open>
+          <details class="callout" style="margin-bottom:0.5rem;">
             <summary><strong>Q4.</strong> Are there timestamps on the off-ball pairs so I can sync with the video?</summary>
             <p class="mt-0">
               Yes &mdash; the "Co-attended window" column shows each
@@ -1238,6 +1275,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo4"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo5"></script>
 </body>
 </html>

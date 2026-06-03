@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=lines-labels";
+import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=lines-labels2";
 
 /* ---------------- data ---------------- */
 
@@ -313,8 +313,8 @@ function renderComboGrid(mountEl, grid, split) {
   });
   const yLbl = `<text transform="translate(13,${(padT + innerH / 2).toFixed(0)}) rotate(-90)" font-size="11.5" font-weight="600" fill="currentColor" opacity="0.7" text-anchor="middle">Good chances created / game (xG)</text>`;
   const legend = `<g transform="translate(${padL},${H - 10})">` +
-    `<rect x="0" y="-9" width="11" height="11" fill="#566179" rx="2"/><text x="16" y="0" font-size="10.5" fill="currentColor" opacity="0.7">Fewer combinations</text>` +
-    `<rect x="158" y="-9" width="11" height="11" fill="#d4a23a" rx="2"/><text x="174" y="0" font-size="10.5" fill="currentColor" opacity="0.9">More combinations</text></g>`;
+    `<rect x="0" y="-9" width="11" height="11" fill="#566179" rx="2"/><text x="16" y="0" font-size="10.5" fill="currentColor" opacity="0.7">Teams that combine less</text>` +
+    `<rect x="166" y="-9" width="11" height="11" fill="#d4a23a" rx="2"/><text x="182" y="0" font-size="10.5" fill="currentColor" opacity="0.9">…combine more</text></g>`;
   mountEl.innerHTML =
     `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="fifa-scatter-svg" role="img" aria-label="Average good chances created by combination level, split by ${escapeHTML(d.label)}">` +
     `${grids}${bars}${lbls}${yLbl}${legend}</svg>`;
@@ -1061,7 +1061,7 @@ wireMoroccoMetricSwitcher();
 const PLAY_INDEX = {
   "argentina-australia-messi": {
     title: "Messi 35' (Argentina v Australia, R16)",
-    summary: "Argentina build out of their own half, Otamendi flicks it across the box, and Messi finishes low past Ryan. The model reads it as Argentina's signature: the build-up is structural recycling, then attention collapses onto Messi at the strike.",
+    summary: "A third-man run: Messi feeds the build-up, it works through Mac Allister and Otamendi, and Otamendi slips it back to Messi — who has run into the box to finish low past Ryan. Watch the chemistry load onto the Mac Allister↔Otamendi↔Messi link off the ball, before the pass that frees him.",
     // Clip total 69 frames: 59 real (Argentina's first attempt
     // cleared, then they recover and Messi finishes) + 10 synthetic
     // tail frames driving the ball into the net. Argentina attacks
@@ -1069,22 +1069,29 @@ const PLAY_INDEX = {
     // Event timings (clip-relative): cross @0s, clearance @1s,
     // Argentina recovery 3-8s, Mac Allister & Otamendi feed Messi @10s,
     // Messi shot @11s, ball in net @11.8s.
+    // The third-man run, narrated leg by leg. highlight_pairs force-draws the
+    // combining pair's edge (bright dashed, labelled with its CUMULATIVE
+    // AW-JOI) even though its single-frame attention is below the top-N floor —
+    // that running number is "the attention that matters." Legs 1–2 stay wide
+    // so the highlighted edge reads against the team; the climax focuses.
     annotations: [
-      { from: 0,  to: 13, text: "Messi early cross — Souttar clears",
+      { from: 0,  to: 13, text: "Messi's early cross — Souttar clears",
         pair_defaults: { cats: ["off-off"], top: 2 } },
-      { from: 14, to: 39, text: "Argentina recover through Gómez and Messi",
+      { from: 14, to: 35, text: "Argentina win it back — Messi restarts the move",
         pair_defaults: { cats: ["off-off"], top: 3 } },
-      // From the feed onwards the chapter is "focused" — only Otamendi
-      // (the feeder) and Messi (the scorer) stay bright; the camera
-      // tightens to their bounding box + ball. Everyone else fades.
-      { from: 40, to: 49, text: "Otamendi feeds Messi",
-        focus_slots: [1, 5],
+      { from: 36, to: 44, text: "Third-man run · leg 1 — Messi ➝ Mac Allister",
+        highlight_pairs: [[5, 6]],
+        pair_defaults: { cats: ["off-off"], top: 2 } },
+      { from: 45, to: 50, text: "Leg 2 — Mac Allister ➝ Otamendi (the relay; their chemistry is already ~0.09)",
+        highlight_pairs: [[6, 1]],
+        pair_defaults: { cats: ["off-off"], top: 2 } },
+      // Climax: tighten to Otamendi + Messi as the ball comes back and Messi
+      // arrives to finish.
+      { from: 51, to: 58, text: "Leg 3 — Otamendi slips it back; Messi has run in to finish",
+        focus_slots: [1, 5], highlight_pairs: [[1, 5]],
         pair_defaults: { cats: ["off-off"], top: 1 } },
-      { from: 50, to: 58, text: "Messi strikes — ball in flight",
-        focus_slots: [5],
-        pair_defaults: { cats: ["off-off"], top: 1 } },
-      { from: 59, to: 200, text: "GOAL — Messi", color: "#ffd166",
-        focus_slots: [5],
+      { from: 59, to: 200, text: "GOAL — Messi · third-man run complete", color: "#ffd166",
+        focus_slots: [5], highlight_pairs: [[1, 5]],
         pair_defaults: { cats: ["off-off"], top: 1 } },
     ],
     // Otamendi's feed to Messi lands at frame ~50.
