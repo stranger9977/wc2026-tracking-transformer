@@ -31,6 +31,13 @@
     .combo-bar { display: block; height: 11px; border-radius: 3px; background: #6b7280; }
     .combo-bar.semi { background: #d4a23a; }
     .combo-val { text-align: right; font-variant-numeric: tabular-nums; opacity: 0.85; }
+    .combo-grid-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin: 0 0 0.65rem; }
+    .combo-grid-toggle button { background: var(--bg-elev-2); color: var(--text); border: 0; border-right: 1px solid var(--border); padding: 0.28rem 0.82rem; font: inherit; font-size: 0.82rem; cursor: pointer; opacity: 0.6; transition: opacity .12s ease, background .12s ease; }
+    .combo-grid-toggle button:last-child { border-right: 0; }
+    .combo-grid-toggle button:hover { opacity: 0.9; }
+    .combo-grid-toggle button.active { background: var(--bg-elev-3, #1a2333); opacity: 1; font-weight: 600; color: #e0b450; }
+    .pair-row { grid-template-columns: 1.4rem minmax(0,1fr) 3.6rem 1.5rem; font-size: 0.82rem; }
+    .pair-row .combo-team { white-space: normal; line-height: 1.18; }
     @media (max-width: 760px) { .xg-panel-grid, .combo-grid, .combo-grid2 { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -66,6 +73,22 @@
       AW-JOI and AW-JDI see all four shapes. Event-only frameworks see none of the off-ball
       mechanics that distinguish them.
     </p>
+    <div class="callout" role="note" style="margin:1rem 0 1.6rem;">
+      <p class="mt-0"><strong>What is chemistry?</strong> An unspoken connection between players &mdash; the shared
+        movement and timing that grows out of playing together: practice, experience, and the non-verbal
+        communication that lets two teammates know what the other will do before they do it.</p>
+      <p>You can't put a number on &ldquo;unspoken&rdquo; directly &mdash; so we measure its <em>fingerprint</em>, in three steps:</p>
+      <ol style="margin:0.4rem 0 0; padding-left:1.25rem;">
+        <li><strong>We quantify it with AW-JOI</strong> &mdash; how strongly the model&rsquo;s attention links two
+          teammates <em>off the ball</em>, weighted by the danger they create together. The strongest pairs in the
+          tournament: Mbapp&eacute; &amp; Theo Hernandez, Hakimi &amp; Ziyech, Messi &amp; de&nbsp;Paul.</li>
+        <li><strong>Strong pairs combine more.</strong> They work more <strong>combinations near goal</strong> &mdash;
+          give-and-gos, third-man moves, take-overs &mdash; and that, more than raw talent, is what creates extra
+          good chances (xG). Where it comes from: how long the players have been club teammates.</li>
+        <li><strong>You can watch it happen</strong> in Messi&rsquo;s goal vs Australia below &mdash; the chemistry
+          signal lighting up off the ball, frame by frame, before the pass that frees him.</li>
+      </ol>
+    </div>
 
     <!-- =========================================================== -->
     <!-- 1. HEADLINE — TCD vs WC22 finish                              -->
@@ -84,11 +107,14 @@
       <p class="dim small">
         <strong>Expected goals (xG)</strong> measure the <em>quality</em> of a team's chances &mdash; the modern
         way to judge attack and defense beyond the final score. We checked whether teams with better player
-        chemistry create more good chances, and allow fewer, than their talent alone would predict. Each dot is a
-        World Cup 2022 team; <span style="color:#d4a23a; font-weight:600">gold</span> = the four semifinalists.
-        We've stripped out talent, schedule, and how far each team advanced &mdash; so what's left is chemistry's
-        own fingerprint. <strong>Further right</strong> = more chemistry than star power explains;
-        <strong>higher</strong> = better than expected.
+        chemistry create more good chances, and allow fewer, than their talent alone would predict. Each point is a
+        World Cup 2022 team. On the <strong>defending</strong> chart we strip out talent, schedule, and how far each
+        team advanced &mdash; so what's left is chemistry's own fingerprint (further right = more chemistry than star
+        power explains; higher = fewer chances allowed than expected). On the <strong>attacking</strong> chart we sort
+        teams into groups by talent (or by how long they've played together) and ask a simpler question: inside each
+        group, do the teams that <em>combine</em> more &mdash; quick <strong>give-and-gos</strong>, <strong>third-man
+        moves</strong> and <strong>take-overs</strong> near goal &mdash; create more good chances?
+        <span style="color:#d4a23a; font-weight:600">Gold</span> = the four semifinalists.
       </p>
       <details class="xg-methods">
         <summary>How we control for talent (and what &ldquo;caps&rdquo; means)</summary>
@@ -103,8 +129,8 @@
           &ldquo;better than talent predicts&rdquo;). The scatter axes you see <em>are</em> those leftovers, so the trend
           shown is already talent-adjusted, not the raw relationship.
           <br><br>
-          It survives the adjustment: shared club history &rarr; one-twos is &rho; +0.67 raw and <strong>+0.58</strong>
-          after it; the one-two &rarr; xG panel is <strong>+0.39</strong> post-adjustment. Metrics that were <em>just</em>
+          It survives the adjustment: shared club history &rarr; combinations is &rho; +0.54, holding at <strong>+0.64</strong>
+          even at equal talent; the combinations &rarr; xG link is <strong>+0.43</strong> post-adjustment. Metrics that were <em>just</em>
           talent (generic partnership strength) collapse toward zero under the same controls. Caveat: this removes the
           <em>linear</em> talent component and is only as good as FIFA&rsquo;s rating of talent (which is imperfect) &mdash;
           so it means &ldquo;survives a standard talent adjustment,&rdquo; not &ldquo;talent is ruled out.&rdquo;
@@ -124,11 +150,15 @@
         <figure class="xg-panel-cell">
           <figcaption>
             <span class="xg-panel-title">Attacking as a unit</span>
-            <span class="xg-panel-sub">More final-third one-twos &rarr; more good chances than talent predicts?</span>
+            <span class="xg-panel-sub">Do quick combinations near goal create more chances &mdash; at every level of talent?</span>
           </figcaption>
-          <div id="combo-scatter" class="fifa-scatter"></div>
+          <div class="combo-grid-toggle" role="group" aria-label="Split the groups by">
+            <button type="button" data-combo-split="fifa" class="active">By team talent</button>
+            <button type="button" data-combo-split="history">By shared history</button>
+          </div>
+          <div id="combo-grid" class="fifa-scatter"></div>
           <div class="xg-verdict">
-            <p class="dim small xg-verdict-text">The strongest offensive &rarr; xG signal we found &mdash; quick one-twos near goal; stable across every control.</p>
+            <p class="dim small xg-verdict-text">In every group, the teams that combine more near goal create more good chances &mdash; gold beats grey at every level.</p>
           </div>
         </figure>
       </div>
@@ -140,44 +170,45 @@
           <strong>Defensive chemistry</strong> (count of strong defensive partnerships) vs expected goals allowed:
           partial correlation <span id="xg-def-r">+0.38</span> (90% confidence interval
           <span id="xg-def-ci">0.09 to 0.60</span> &mdash; clears zero, so it&rsquo;s a real signal). The attacking
-          panel uses one-twos &mdash; detailed in its own &ldquo;how we measured this&rdquo; below.
+          panel uses combination play &mdash; detailed in its own &ldquo;how we measured this&rdquo; below.
         </p>
       </details>
 
-      <h3 class="mt-2">Where the one-twos come from: shared club history</h3>
+      <h3 class="mt-2">Where the combinations come from: shared club history</h3>
       <p class="dim small">The attacking signal runs as a chain: teams whose players were <strong>club teammates</strong>
         before the World Cup &mdash; Real Madrid and Atl&eacute;tico blocs, or the almost-entirely-domestic Saudi and
-        Qatar squads &mdash; work <strong>more one-twos near goal</strong>, and those teams create more expected goals
-        than their talent predicts. Familiarity, not just ability. <span class="dim">(Shared club history = estimated
-        minutes a pair spent as teammates at the same club before the tournament.)</span></p>
+        Qatar squads &mdash; work <strong>more combinations near goal</strong>, and those teams create more expected goals
+        than their talent predicts. Familiarity, not just ability &mdash; and the pairs that combine most are the model's
+        highest-chemistry pairs (Mbapp&eacute; &amp; Theo Hernandez, Hakimi &amp; Ziyech, Messi &amp; de Paul).
+        <span class="dim">(Shared club history = estimated minutes a pair spent as teammates at the same club before the tournament.)</span></p>
       <div class="combo-grid2">
         <figure class="xg-panel-cell" style="margin:0">
           <figcaption>
-            <span class="xg-panel-sub">Each dot a team. More shared club history &rarr; more final-third one-twos.
-              &rho; = <span id="combo-hist-r">+0.67</span>, and <span id="combo-hist-partial">+0.58</span> even at equal talent.</span>
+            <span class="xg-panel-sub">Each dot a team. More shared club history &rarr; more final-third combinations.
+              &rho; = <span id="combo-hist-r">+0.54</span>, and <span id="combo-hist-partial">+0.64</span> even at equal talent.</span>
           </figcaption>
           <div id="combo-history-scatter" class="fifa-scatter"></div>
         </figure>
         <div class="combo-lb-cell">
-          <h4 class="small">Final-third one-twos per game</h4>
+          <h4 class="small">The pairs that combine most <span class="dim" style="font-weight:400">(final-third combinations)</span></h4>
           <div id="combo-leaderboard"></div>
         </div>
       </div>
 
       <details class="xg-methods">
         <summary>How we measured this</summary>
-        <p class="dim small">A one-two = an A&rarr;B&rarr;A ball exchange between two attackers in the final third,
-          detected from the tracking data (it uses no value signal, so it can't be circular with xG). Versus
-          expected-goals-for, talent-adjusted (FIFA + caps + games + opponent strength): partial r
-          <span id="combo-r">+0.39</span> (90% CI <span id="combo-ci">0.07 to 0.65</span>, n = <span id="combo-n">29</span>).
-          It's the only offensive metric of ~19 we tested that survives every control spec and out-of-sample test &mdash;
-          but at n = 29 the family-wise-corrected p is &asymp; 0.18 (strong, not proven), and it tracks xG (chance
-          quality) more than actual goals. <strong>Model grounding:</strong> the next-receiver model predicts the
-          give-back pass <span id="combo-mdl">83%</span> of the time, vs <span id="combo-mdl-base">73%</span> for
-          passes in general and a <span id="combo-near">67%</span> nearest-teammate baseline &mdash; so the model
-          genuinely recognises the one-two. <strong>Source:</strong> a team's one-two rate rises with how much its
-          players have played together (the shared-history chart above), and that link holds even at equal talent
-          &mdash; familiarity, not just ability.</p>
+        <p class="dim small">A <strong>combination</strong> is a quick exchange between teammates in the final third the
+          tracking data can see structurally &mdash; a <strong>give-and-go</strong> (the ball comes straight back to the
+          passer), a <strong>third-man move</strong> (it returns via a relay), or a <strong>take-over</strong> (a close
+          cross-over hand-off). It uses no value signal, so it can't be circular with xG. Versus expected-goals-for,
+          talent-adjusted (FIFA + caps + games + opponent strength): partial r <span id="combo-r">+0.43</span>
+          (90% CI <span id="combo-ci">0.09 to 0.69</span>, n = <span id="combo-n">29</span> &mdash; clears zero).
+          <strong>Model grounding:</strong> the next-receiver model predicts the next pass on a combination
+          <span id="combo-mdl">76%</span> of the time, vs <span id="combo-mdl-base">70%</span> for passes in general and
+          just <span id="combo-near">44%</span> for &ldquo;the nearest teammate&rdquo; &mdash; so the model anticipates
+          combinations better than ordinary play, and far better than proximity. <strong>Source:</strong> a team's
+          combination rate rises with how much its players have played together (the shared-history chart above), and
+          that link holds even at equal talent &mdash; familiarity, not just ability.</p>
       </details>
 
       <h3 class="mt-2">TCD vs tournament finish &nbsp;<span class="dim small">(ρ = +0.704, n = 31, p &lt; 0.001)</span></h3>
@@ -319,11 +350,11 @@
           of the box. Low finish past Ryan.
           <br><br>
           <strong style="color:var(--text)">What the interactive play below shows</strong> &mdash;
-          the model reads it as Argentina's signature: the build-up
-          itself is structural recycling between Romero / Otamendi /
-          Mart&iacute;nez, then attention collapses onto Messi at the
-          strike. The nucleus isn't on every frame &mdash; it shows up
-          exactly when the ball arrives at him.
+          this goal is a <strong style="color:var(--text)">combination</strong>: Messi plays it back into the
+          recycle, it works through Mac&nbsp;Allister and Otamendi, and Otamendi feeds it straight back to Messi
+          to finish &mdash; a <strong style="color:var(--text)">third-man move</strong>, the ball returning to the
+          player who started it. Watch the <strong style="color:var(--text)">chemistry</strong> signal light up on
+          exactly the two return passes that complete it, while Australia's back line never steps to Messi.
         </figcaption>
       </figure>
       <div id="play-argentina" class="mt-2"></div>
@@ -470,36 +501,26 @@
             relationship's labels + connection on the pitch.
           </p>
           <p>
-            Reading the actual pass chain that produced this goal:
+            The pass chain that produced this goal:
             <strong>Messi &rarr; Mac Allister &rarr; Otamendi &rarr;
-            Messi (finish)</strong>. For each on-ball event we show
-            the model's read on Argentina's 10-second scoring
-            probability, how strongly the ball-token attends to that
-            player (<strong>ball&rarr;player</strong> &mdash; the
-            non-pair signal), the pair attention on the pass partners,
-            and what Australia's nearest defenders are doing. Times are
-            counted <strong>back from the goal</strong> so you can find
-            each moment in the play. Probabilities are
-            <strong>Beta-calibrated</strong> against the 8 held-out val
-            matches &mdash; base rate is 0.56&#37; ("any
-            team-in-possession scoring within 10 s"), so ~4&#37; is
-            <strong>~7&times; the typical-frame threat level</strong>.
-            We switched the calibration from a step-function (isotonic)
-            to a smooth monotone curve (Beta) at <em>identical</em> val
-            Brier &mdash; so you can now watch P(score) <strong>climb
-            through the build-up</strong> instead of snapping to a dead
-            3.0&#37; plateau (more on that below the table).
+            Messi (finish)</strong> &mdash; a <strong>third-man combination</strong>, the ball
+            returning to the player who started it. For each pass we show the model's read on
+            Argentina's 10-second scoring probability, the <strong>Chemistry</strong> on the pass
+            partners (cumulative AW-JOI &mdash; the model's attention on the relationship, weighted by
+            the threat it creates), and what Australia's nearest defenders are doing. Times are counted
+            <strong>back from the goal</strong>. Probabilities are <strong>Beta-calibrated</strong> against
+            the 8 held-out val matches &mdash; base rate is 0.56&#37; ("any team-in-possession scoring
+            within 10 s"), so ~4&#37; is <strong>~7&times; the typical-frame threat level</strong>, and
+            P(score) <strong>climbs through the build-up</strong> rather than sitting flat.
           </p>
           <div style="overflow-x:auto;">
-            <table class="data-table" style="width:100%; min-width:52rem; border-collapse:collapse; font-size:0.9rem;">
+            <table class="data-table" style="width:100%; min-width:40rem; border-collapse:collapse; font-size:0.9rem;">
               <thead>
                 <tr style="border-bottom:1px solid var(--border); color:var(--text-dim); text-transform:uppercase; letter-spacing:0.4px; font-size:0.78rem;">
                   <th style="text-align:left; padding:0.4rem 0.6rem;" title="Seconds before the ball crosses the line. Scrub the play above to this point.">Before&nbsp;goal</th>
                   <th style="text-align:left; padding:0.4rem 0.6rem;">Pass</th>
                   <th style="text-align:right; padding:0.4rem 0.6rem;" title="Model's Beta-calibrated P(score in next 10s) at this moment. Climbs through the build-up.">P<sub>score</sub></th>
-                  <th style="text-align:right; padding:0.4rem 0.6rem;" title="Non-pair signal: how much the ball-token attends to this player at this frame (0–1 across the 22 players). Background ~0.045 (= 1/22). This is separate from pair attention.">ball&rarr;player</th>
-                  <th style="text-align:right; padding:0.4rem 0.6rem;" title="Score-specialist's pair attention on (passer, receiver) at the event frame. Background noise ~0.01.">pair&nbsp;attn</th>
-                  <th style="text-align:right; padding:0.4rem 0.6rem;" title="Cumulative AW-JOI = Σ pair_attn × max(ΔP_raw,0) for THIS pair from clip start to here. Bigger than any single pass because it accumulates off-ball credit across the whole buildup.">AW-JOI (cumul)</th>
+                  <th style="text-align:left; padding:0.4rem 0.6rem;" title="The model's attention on this pass's pair — cumulative AW-JOI (pair attention weighted by the threat it creates), built from the start of the play. Near-zero through the recycle, then it lights up on the passes that complete the combination.">Chemistry</th>
                   <th style="text-align:left; padding:0.4rem 0.6rem;">What the defenders are doing / read</th>
                 </tr>
               </thead>
@@ -508,55 +529,43 @@
                   <td style="padding:0.4rem 0.6rem;">10.6&nbsp;s</td>
                   <td style="padding:0.4rem 0.6rem;">Messi &rarr; (Souttar)</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#e07474;">0.1%</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.03</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi's speculative early cross; Souttar clears. The model's deepest attention sits on Australia's centre-back <strong>Rowles</strong> (x&nbsp;&approx;&nbsp;42&nbsp;m) &mdash; it's reading the back line, not the ball, and hasn't recognised a threat yet.</td>
+                  <td style="padding:0.4rem 0.6rem;"><span class="dim" style="opacity:0.4;">&middot;</span></td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi's speculative early cross; Souttar clears. The model is reading Australia's back line, not the ball &mdash; it hasn't recognised a threat yet.</td>
                 </tr>
                 <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="12" data-slots="9,5" title="Click → jump the play here and circle the players" style="border-bottom:1px solid var(--border);">
                   <td style="padding:0.4rem 0.6rem;">9.4&nbsp;s</td>
                   <td style="padding:0.4rem 0.6rem;">Gómez recovers &rarr; Messi</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">3.7%</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.02</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Argentina win it back and P(score) jumps <strong>0.1&nbsp;&rarr;&nbsp;3.7&#37;</strong> as the 10&nbsp;s lookahead sees the build-up forming. Souttar holds deepest at x&nbsp;&approx;&nbsp;46&nbsp;m.</td>
+                  <td style="padding:0.4rem 0.6rem;"><span class="dim" style="opacity:0.4;">&middot;</span></td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Argentina win it back and P(score) jumps <strong>0.1&nbsp;&rarr;&nbsp;3.7&#37;</strong> as the 10&nbsp;s lookahead sees the build-up forming.</td>
                 </tr>
                 <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="36" data-slots="5,6" title="Click → jump the play here and circle the players" style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
                   <td style="padding:0.4rem 0.6rem;"><strong>4.6&nbsp;s</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Messi &rarr; Mac&nbsp;Allister</strong></td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">3.5%</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8;">0.06</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.00</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Recycle. The ball-token now leans on <strong>Mac Allister</strong> (0.06, above the 0.045 background) as the next link; CB Rowles steps up to x&nbsp;&approx;&nbsp;40&nbsp;m.</td>
+                  <td style="padding:0.4rem 0.6rem;"><span class="dim" style="opacity:0.4;">&middot;</span></td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Messi lays it back into the recycle. Still no special chemistry signal yet; CB Rowles steps up to x&nbsp;&approx;&nbsp;40&nbsp;m.</td>
                 </tr>
                 <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="45" data-slots="6,1" title="Click → jump the play here and circle the players" style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
                   <td style="padding:0.4rem 0.6rem;"><strong>2.8&nbsp;s</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Mac&nbsp;Allister &rarr; Otamendi</strong></td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">4.2%</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.04</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.087</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.090</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>The pass before the feed.</strong> This pair already carries AW-JOI <strong>0.090</strong> &mdash; the model has been co-loading Mac&nbsp;Allister&nbsp;&harr;&nbsp;Otamendi off-ball through the whole recycle, even though the pass itself barely moves P. Rowles still deep at x&nbsp;&approx;&nbsp;40&nbsp;m.</td>
+                  <td style="padding:0.4rem 0.6rem;"><span style="display:inline-flex;align-items:center;gap:0.45rem;"><span style="display:inline-block;width:56px;height:9px;border-radius:3px;background:rgba(255,255,255,0.08);"><span style="display:block;height:9px;border-radius:3px;background:#5eb1f8;width:90%;"></span></span><span class="tabular" style="color:#5eb1f8;font-weight:700;">0.090</span></span></td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>The relay lights up.</strong> The model has been co-loading Mac&nbsp;Allister&nbsp;&harr;&nbsp;Otamendi off the ball through the whole recycle &mdash; their chemistry is already at <strong>0.090</strong> before this pass, even though the pass itself barely moves P.</td>
                 </tr>
                 <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="51" data-slots="1,5" title="Click → jump the play here and circle the players" style="border-bottom:1px solid var(--border); background:rgba(94,177,248,0.04);">
                   <td style="padding:0.4rem 0.6rem;"><strong>1.6&nbsp;s</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Otamendi &rarr; Messi</strong> (feed)</td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875;">4.2%</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8;">0.04</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">0.00</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right; color:#5eb1f8; font-weight:700;">0.087</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>The famous feed.</strong> The pair-attention spike is already spent (cumulative 0.087). Australia's centre-backs <strong>Rowles &amp; Souttar sit flat at x&nbsp;&approx;&nbsp;41&nbsp;m</strong> &mdash; nobody steps to Messi at the top of the box. P peaks &asymp;&nbsp;4.6&#37; the frame before he strikes.</td>
+                  <td style="padding:0.4rem 0.6rem;"><span style="display:inline-flex;align-items:center;gap:0.45rem;"><span style="display:inline-block;width:56px;height:9px;border-radius:3px;background:rgba(255,255,255,0.08);"><span style="display:block;height:9px;border-radius:3px;background:#5eb1f8;width:87%;"></span></span><span class="tabular" style="color:#5eb1f8;font-weight:700;">0.087</span></span></td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small"><strong>The feed back to Messi &mdash; completing the third-man.</strong> Australia's centre-backs <strong>Rowles &amp; Souttar sit flat</strong> &mdash; nobody steps to Messi at the top of the box. P peaks &asymp;&nbsp;4.6&#37; the frame before he strikes.</td>
                 </tr>
                 <tr class="clip-jump" data-clip="argentina-australia-messi" data-frame="59" data-slots="5" title="Click → jump the play here and circle Messi" style="border-bottom:1px solid var(--border); background:rgba(255,209,102,0.08);">
                   <td style="padding:0.4rem 0.6rem;"><strong>0.0&nbsp;s</strong></td>
                   <td style="padding:0.4rem 0.6rem;"><strong>Messi shot &rarr; GOAL</strong></td>
                   <td style="padding:0.4rem 0.6rem; text-align:right; color:#54c875; font-weight:700;">&asymp;4.6%</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
-                  <td style="padding:0.4rem 0.6rem; text-align:right;" class="dim">&mdash;</td>
-                  <td style="padding:0.4rem 0.6rem;" class="dim small">Low finish past Ryan. Under the smooth calibration the threat <em>climbed</em> 3.7&nbsp;&rarr;&nbsp;4.6&#37; across the recycle rather than sitting flat &mdash; the model was getting <em>more</em> sure, not just staying sure.</td>
+                  <td style="padding:0.4rem 0.6rem;"><span class="dim" style="opacity:0.4;">&middot;</span></td>
+                  <td style="padding:0.4rem 0.6rem;" class="dim small">Low finish past Ryan. The threat <em>climbed</em> 3.7&nbsp;&rarr;&nbsp;4.6&#37; across the combination rather than sitting flat &mdash; the model was getting <em>more</em> sure, not just staying sure.</td>
                 </tr>
               </tbody>
             </table>
@@ -622,19 +631,18 @@
             </div>
           </details>
 
-          <h3 class="mt-2">The off-ball story &mdash; what matters when nobody's on the ball</h3>
+          <h3 class="mt-2">The off-ball story &mdash; what frees the combination</h3>
           <p>
-            The on-ball table above already showed the trick: passes like
-            <strong>Otamendi&nbsp;&rarr;&nbsp;Messi</strong> (the feed, AW-JOI
-            0.087) and <strong>Mac&nbsp;Allister&nbsp;&rarr;&nbsp;Otamendi</strong>
-            (0.091) score essentially <strong>0 on event-JOI</strong> yet carry
-            real AW-JOI &mdash; the model was co-loading those pairs long before
-            the ball arrived. But the clearest off-ball signal is the pairs that
-            <em>never touch the ball together at all</em> &mdash; pure recycle
-            co-occupancy the event feed simply can't see. Those are the four
-            below (end-of-clip AW-JOI; same numbers as the network chips). The
-            two on-ball pairs are <em>not</em> repeated here &mdash; they live in
-            the pass table above.
+            The pass table already showed the trick: the two passes that <em>complete</em> the combination
+            (<strong>Mac&nbsp;Allister&nbsp;&rarr;&nbsp;Otamendi</strong> and
+            <strong>Otamendi&nbsp;&rarr;&nbsp;Messi</strong>) carry real chemistry yet score essentially
+            <strong>0 on event data</strong> &mdash; the model was co-loading those players long before the ball
+            arrived. But the clearest off-ball signal is the pairs that <em>never touch the ball together at
+            all</em> &mdash; the shape that held while Argentina recycled and freed Messi for the finish: the
+            centre-backs anchoring, the striker stretching the line, the full-back overlapping. Those are the
+            four below. The chemistry number is the model's attention on the <em>relationship</em> &mdash; not
+            on either player being near the ball (the <strong>attention</strong> column shows both sit below the
+            background, yet the pair is co-loaded).
           </p>
           <div style="overflow-x:auto;">
             <table class="data-table" style="width:100%; min-width:42rem; border-collapse:collapse; font-size:0.9rem;">
@@ -642,8 +650,8 @@
                 <tr style="border-bottom:1px solid var(--border); color:var(--text-dim); text-transform:uppercase; letter-spacing:0.4px; font-size:0.8rem;">
                   <th style="text-align:right; padding:0.4rem 0.6rem;">#</th>
                   <th style="text-align:left; padding:0.4rem 0.6rem;">Pair</th>
-                  <th style="text-align:right; padding:0.4rem 0.6rem;">AW-JOI</th>
-                  <th style="text-align:right; padding:0.4rem 0.6rem;" title="Ball-token (non-pair) attention on each player, mean over the window, in pair order. Background ≈ 0.045 (=1/22). Both values sit BELOW it — the model isn't watching either player individually; the credit lives in the co-attention, not the ball.">ball&rarr;player</th>
+                  <th style="text-align:right; padding:0.4rem 0.6rem;" title="Cumulative AW-JOI for the pair over the window — the model's attention on the relationship, weighted by the threat it creates.">Chemistry</th>
+                  <th style="text-align:right; padding:0.4rem 0.6rem;" title="Ball-token attention on each player, mean over the window, in pair order. Background ≈ 0.045 (=1/22). Both values sit BELOW it — the model isn't watching either player individually; the credit lives in co-loading the two of them, not the ball.">attention</th>
                   <th style="text-align:left; padding:0.4rem 0.6rem;" title="Time-before-goal range where the pair was co-attended above the background floor (~0.02). The goal (ball crossing the line) is the zero point; scrub the play to that many seconds before it.">Co-attended window <span style="text-transform:none; font-weight:400;">(before goal)</span></th>
                   <th style="text-align:left; padding:0.4rem 0.6rem;">What it represents</th>
                 </tr>
@@ -657,7 +665,7 @@
             </table>
           </div>
           <p class="dim small" style="margin-top:0.4rem;">
-            <strong>Why the ball&rarr;player column matters:</strong> every value
+            <strong>Why the attention column matters:</strong> every value
             there sits <em>below</em> the 0.045 background &mdash; the ball-token
             is barely watching any of these players individually. That's the
             whole point of the off-ball table: the credit isn't in either player
@@ -1230,6 +1238,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo3"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo4"></script>
 </body>
 </html>

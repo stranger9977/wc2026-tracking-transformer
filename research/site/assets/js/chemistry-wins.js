@@ -234,57 +234,103 @@ function renderXgScatter(mountEl, rows, opt) {
     `${tint}${frame}${zeroX}${zeroY}${trend}${dots}${labels}${yTopLbl}${yBotLbl}${xLbl}</svg>`;
 }
 
-/* ---------------- combination play (final-third one-twos) ---------------- */
+/* ---------------- combination play (final-third give-and-gos + third-man + take-overs) -------- */
 
-const comboEl = document.getElementById("combo-scatter");
+const comboEl = document.getElementById("combo-grid");
 if (comboEl) {
   loadJSON("data/combination_xg.json").then((xg) => renderComboPanel(xg)).catch(() => {});
 }
 
 function renderComboPanel(xg) {
-  const rows = xg.teams.filter((t) => t.combo_chem_adj != null && t.xg_added_over_expected != null);
-  const sc = document.getElementById("combo-scatter");
-  if (sc) renderXgScatter(sc, rows, {
-    xKey: "combo_chem_adj", yKey: "xg_added_over_expected",
-    yTop: "Creates more chances than expected", yBot: "Creates fewer than expected",
-    xLabel: "More final-third one-twos →",
-    aria: "Final-third combination play vs expected goals created, talent-adjusted",
-  });
-  // where one-twos come from: a raw scatter vs squad shared history
-  const hist = document.getElementById("combo-history-scatter");
-  if (hist) renderXgScatter(hist, xg.teams.filter((t) => t.shared_history != null && t.ggr_per_game != null), {
-    xKey: "shared_history", yKey: "ggr_per_game",
-    yTop: "More one-twos near goal", yBot: "Fewer one-twos",
-    xLabel: "More shared club history (prior minutes as club teammates) →",
-    aria: "Final-third one-twos vs squad shared club history",
+  // 1. the cell-mean grid (toggle: team talent <-> shared club history)
+  let split = "fifa";
+  const gridEl = document.getElementById("combo-grid");
+  const draw = () => { if (gridEl) renderComboGrid(gridEl, xg.grid, split); };
+  draw();
+  document.querySelectorAll("[data-combo-split]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      split = btn.getAttribute("data-combo-split");
+      document.querySelectorAll("[data-combo-split]").forEach((b) => b.classList.toggle("active", b === btn));
+      draw();
+    });
   });
 
-  renderComboLeaderboard(xg.leaderboard);
+  // 2. where combinations come from — raw scatter vs squad shared club history
+  const hist = document.getElementById("combo-history-scatter");
+  if (hist) renderXgScatter(hist, xg.teams.filter((t) => t.shared_history != null && t.combos_per_game != null), {
+    xKey: "shared_history", yKey: "combos_per_game",
+    yTop: "More combinations near goal", yBot: "Fewer combinations",
+    xLabel: "More shared club history (prior minutes as club teammates) →",
+    aria: "Final-third combinations vs squad shared club history",
+  });
+
+  // 3. the pairs that combine most (chemistry payoff)
+  renderPairLeaderboard(document.getElementById("combo-leaderboard"), xg.pair_leaderboard);
+
+  // 4. meta numbers (truthful, from JSON)
   const m = xg.meta || {};
   const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
   const sgn = (v) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(2);
+  const pct = (v) => Math.round(v * 100) + "%";
   if (m.partial_r != null) set("combo-r", sgn(m.partial_r));
   if (m.ci90) set("combo-ci", `${m.ci90[0].toFixed(2)} to ${m.ci90[1].toFixed(2)}`);
   if (m.n_teams != null) set("combo-n", String(m.n_teams));
-  if (m.model_giveback_acc != null) set("combo-mdl", Math.round(m.model_giveback_acc * 100) + "%");
-  if (m.model_overall_acc != null) set("combo-mdl-base", Math.round(m.model_overall_acc * 100) + "%");
-  if (m.nearest_baseline_acc != null) set("combo-near", Math.round(m.nearest_baseline_acc * 100) + "%");
+  if (m.model_combination_acc != null) set("combo-mdl", pct(m.model_combination_acc));
+  if (m.model_overall_acc != null) set("combo-mdl-base", pct(m.model_overall_acc));
+  if (m.nearest_baseline_acc != null) set("combo-near", pct(m.nearest_baseline_acc));
   if (m.history_rho != null) set("combo-hist-r", sgn(m.history_rho));
   if (m.history_partial != null) set("combo-hist-partial", sgn(m.history_partial));
 }
 
-function renderComboLeaderboard(lb) {
-  const el = document.getElementById("combo-leaderboard");
-  if (!el || !Array.isArray(lb)) return;
-  const top = lb.slice(0, 12);
-  const max = Math.max(...top.map((t) => t.combo_per_game), 1);
-  el.innerHTML = top.map((t, i) => {
-    const w = Math.max(4, (t.combo_per_game / max) * 100);
-    return `<div class="combo-row">
+// grouped-bar cell-mean grid: 3 talent/history tiers x {fewer, more} combinations -> avg xG/game
+function renderComboGrid(mountEl, grid, split) {
+  const d = grid[split], tiers = d.tiers;
+  const W = 560, H = 430, padL = 46, padR = 18, padT = 22, padB = 72;
+  const innerW = W - padL - padR, innerH = H - padT - padB, base = padT + innerH;
+  const ymax = Math.max(...tiers.flatMap((t) => [t.low.mean_xg, t.high.mean_xg]), 1) * 1.18;
+  const sy = (v) => padT + innerH - (v / ymax) * innerH;
+  const groupW = innerW / tiers.length, barW = groupW * 0.28, gap = groupW * 0.07;
+  const name = { low: "Lower", mid: "Mid", high: "Higher" };
+
+  let grids = "";
+  for (let g = 0; g <= ymax + 1e-9; g += 0.5) {
+    const y = sy(g);
+    grids += `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" stroke="currentColor" stroke-width="1" opacity="0.10"/>` +
+             `<text x="${padL - 6}" y="${(y + 3.5).toFixed(1)}" font-size="10" fill="currentColor" opacity="0.5" text-anchor="end">${g.toFixed(1)}</text>`;
+  }
+  let bars = "", lbls = "";
+  tiers.forEach((t, i) => {
+    const cx = padL + groupW * (i + 0.5);
+    const xL = cx - barW - gap / 2, xR = cx + gap / 2;
+    const hL = base - sy(t.low.mean_xg), hR = base - sy(t.high.mean_xg);
+    bars += `<rect x="${xL.toFixed(1)}" y="${sy(t.low.mean_xg).toFixed(1)}" width="${barW.toFixed(1)}" height="${hL.toFixed(1)}" fill="#566179" rx="2.5"/>` +
+            `<rect x="${xR.toFixed(1)}" y="${sy(t.high.mean_xg).toFixed(1)}" width="${barW.toFixed(1)}" height="${hR.toFixed(1)}" fill="#d4a23a" rx="2.5"/>`;
+    lbls += `<text x="${(xL + barW / 2).toFixed(1)}" y="${(sy(t.low.mean_xg) - 6).toFixed(1)}" font-size="11.5" font-weight="700" fill="currentColor" opacity="0.7" text-anchor="middle">${t.low.mean_xg.toFixed(1)}</text>` +
+            `<text x="${(xR + barW / 2).toFixed(1)}" y="${(sy(t.high.mean_xg) - 6).toFixed(1)}" font-size="12.5" font-weight="800" fill="#e0b450" text-anchor="middle">${t.high.mean_xg.toFixed(1)}</text>`;
+    const sub = split === "fifa" ? `FIFA ${t.range}` : `${t.range} min`;
+    lbls += `<text x="${cx.toFixed(1)}" y="${(base + 19).toFixed(1)}" font-size="12.5" font-weight="700" fill="currentColor" opacity="0.85" text-anchor="middle">${name[t.tier]}</text>` +
+            `<text x="${cx.toFixed(1)}" y="${(base + 34).toFixed(1)}" font-size="10" fill="currentColor" opacity="0.5" text-anchor="middle">${escapeHTML(sub)}</text>`;
+  });
+  const yLbl = `<text transform="translate(13,${(padT + innerH / 2).toFixed(0)}) rotate(-90)" font-size="11.5" font-weight="600" fill="currentColor" opacity="0.7" text-anchor="middle">Good chances created / game (xG)</text>`;
+  const legend = `<g transform="translate(${padL},${H - 10})">` +
+    `<rect x="0" y="-9" width="11" height="11" fill="#566179" rx="2"/><text x="16" y="0" font-size="10.5" fill="currentColor" opacity="0.7">Fewer combinations</text>` +
+    `<rect x="158" y="-9" width="11" height="11" fill="#d4a23a" rx="2"/><text x="174" y="0" font-size="10.5" fill="currentColor" opacity="0.9">More combinations</text></g>`;
+  mountEl.innerHTML =
+    `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="fifa-scatter-svg" role="img" aria-label="Average good chances created by combination level, split by ${escapeHTML(d.label)}">` +
+    `${grids}${bars}${lbls}${yLbl}${legend}</svg>`;
+}
+
+function renderPairLeaderboard(el, pairs) {
+  if (!el || !Array.isArray(pairs)) return;
+  const top = pairs.slice(0, 10);
+  const max = Math.max(...top.map((p) => p.n_combos), 1);
+  el.innerHTML = top.map((p, i) => {
+    const w = Math.max(6, (p.n_combos / max) * 100);
+    return `<div class="combo-row pair-row">
       <span class="combo-rank">${i + 1}</span>
-      <span class="combo-team">${escapeHTML(t.team_name)}</span>
-      <span class="combo-bar-wrap"><span class="combo-bar${t.is_semifinalist ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span>
-      <span class="combo-val">${t.combo_per_game.toFixed(1)}</span>
+      <span class="combo-team"><strong>${escapeHTML(p.player_a)}</strong> + ${escapeHTML(p.player_b)}<span class="dim"> · ${escapeHTML(p.team_name)}</span></span>
+      <span class="combo-bar-wrap"><span class="combo-bar${p.is_semifinalist ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span>
+      <span class="combo-val">${p.n_combos}</span>
     </div>`;
   }).join("");
 }
