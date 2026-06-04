@@ -445,7 +445,7 @@ function renderPairLeaderboard(el, pairs, type) {
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Pair</th>
       <th style="text-align:left; padding:0.3rem 0.5rem;">Combos</th>
       <th ${TH} title="Co-attention × threat the model put on the pair during their combinations (×10⁻³).">AW-JOI</th>
-      <th ${TH} title="Scoring threat added during their combinations (summed calibrated ΔP-score).">xG+</th>
+      <th ${TH} title="Threat the model added during their combinations (summed ΔP-score) — the model's scoring-probability rise, NOT StatsBomb xG.">Threat+</th>
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 
@@ -482,20 +482,23 @@ function renderTeamComboLeaderboard(el, teams, type) {
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
       <th style="text-align:left; padding:0.3rem 0.5rem;">Combos / game</th>
       <th ${TH} title="Team total co-attention × threat the model put on its pairs during these combinations, per game (×10⁻³).">AW-JOI</th>
-      <th ${TH} title="Scoring threat added during these combinations, per game (summed calibrated ΔP-score).">xG+</th>
+      <th ${TH} title="Model threat added during these combinations, per game (summed ΔP-score) — NOT StatsBomb xG.">Threat+</th>
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 
 // talent-adjusted view: chances each team's combinations add BEYOND talent/experience/schedule/opp
 // (chem_added_xg), with what they ACTUALLY created vs expected — so the relationship is visible
 // team-by-team (mostly aligned; Spain the honest miss). This is the answer to "the raw top underachieved".
-function renderTalentAdjustedLeaderboard(el, teams) {
+function renderTalentAdjustedLeaderboard(el, teams, sortKey) {
   if (!el || !Array.isArray(teams)) return;
-  const rows = teams.filter((t) => t.chem_added_xg != null)
-    .map((t) => ({ t, add: t.chem_added_xg, act: t.xg_added_over_expected }))
-    .sort((a, b) => b.add - a.add);
-  if (!rows.length) { el.innerHTML = '<p class="dim small">No data.</p>'; return; }
-  const maxA = Math.max(...rows.map((r) => Math.abs(r.add)), 0.01);
+  sortKey = sortKey || "add";
+  const data = teams.filter((t) => t.chem_added_xg != null)
+    .map((t) => ({ t, add: t.chem_added_xg, act: t.xg_added_over_expected }));
+  if (!data.length) { el.innerHTML = '<p class="dim small">No data.</p>'; return; }
+  const rows = data.slice().sort((a, b) => b[sortKey] - a[sortKey]);
+  const maxA = Math.max(...data.map((r) => Math.abs(r.add)), 0.01);
+  const hl = (k) => (k === sortKey ? " color:#e0b450;" : "");
+  const arr = (k) => (k === sortKey ? " ▼" : "");
   const fmt = (v) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(2);
   const col = (v) => (v >= 0 ? "#54c875" : "#e07474");
   const body = rows.map((r, i) => {
@@ -512,40 +515,40 @@ function renderTalentAdjustedLeaderboard(el, teams) {
   el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
     <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
-      <th style="text-align:left; padding:0.3rem 0.5rem;" title="Chances per game the team's combinations add beyond what talent, experience, schedule and opponents predict.">Chemistry-added xG/g</th>
-      <th style="text-align:right; padding:0.3rem 0.5rem;" title="What the team actually created above/below its talent-based expectation. A check means chemistry's call paid off.">Chances vs expected</th>
+      <th data-teamsort="add" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("add")}" title="Chances per game the team's combinations add beyond talent + opponents · click to sort">Chemistry-added xG/g${arr("add")}</th>
+      <th data-teamsort="act" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("act")}" title="What the team actually created above/below its talent baseline (✓ = the read paid off) · click to sort">Chances vs expected${arr("act")}</th>
     </tr></thead><tbody>${body}</tbody></table>`;
+  el.querySelectorAll("[data-teamsort]").forEach((h) => h.addEventListener("click", () => renderTalentAdjustedLeaderboard(el, teams, h.getAttribute("data-teamsort"))));
 }
 
 // NUCLEUS ranking — players by combinations with teammates. Sort by total / per-game / AW-JOI;
 // the active column is highlighted. The face-valid view: the creative hub of every deep team.
-function renderNucleusRanking(el, players, mode) {
+function renderNucleusRanking(el, players, sortKey) {
   if (!el || !Array.isArray(players)) return;
-  mode = mode || "combos";
-  const kf = { combos: (p) => p.combos, per_game: (p) => p.per_game, aw_joi: (p) => p.aw_joi };
-  const rows = players.slice().sort((a, b) => kf[mode](b) - kf[mode](a)).slice(0, 20);
-  const act = (m) => (m === mode ? ' style="color:#e0b450; font-weight:700;"' : "");
+  sortKey = sortKey || "combos";
+  const cols = [
+    { k: "combos", label: "Combos", get: (p) => p.combos, fmt: (v) => String(v), color: "", title: "combinations with teammates (final third)" },
+    { k: "per_game", label: "/ game", get: (p) => p.per_game, fmt: (v) => v.toFixed(1), color: "", title: "combinations per match played" },
+    { k: "partners", label: "Partners", get: (p) => p.partners, fmt: (v) => String(v), color: "", title: "distinct teammates combined with — the breadth of the hub" },
+    { k: "aw_joi", label: "AW-JOI", get: (p) => p.aw_joi, fmt: (v) => v.toFixed(1), color: "", title: "model's attention-weighted threat on this player's combinations (×10⁻³)" },
+    { k: "xg_added", label: "Threat+", get: (p) => p.xg_added, fmt: (v) => v.toFixed(2), color: "#5eb1f8", title: "the model's scoring-probability rise (ΔP-score) during this player's combinations — NOT StatsBomb xG" },
+  ];
+  const sc = cols.find((c) => c.k === sortKey) || cols[0];
+  const rows = players.slice().sort((a, b) => sc.get(b) - sc.get(a)).slice(0, 20);
+  const th = (c) => `<th data-nucsort="${c.k}" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${c.k === sortKey ? " color:#e0b450;" : ""}" title="${c.title} · click to sort">${c.label}${c.k === sortKey ? " ▼" : ""}</th>`;
   const body = rows.map((p, i) => {
     const semi = p.is_semifinalist;
+    const td = (c) => `<td style="text-align:right; padding:0.3rem 0.5rem;${c.k === sortKey ? " color:#e0b450; font-weight:700;" : (c.color ? ` color:${c.color};` : "")}" class="tabular">${c.fmt(c.get(p))}</td>`;
     return `<tr style="border-bottom:1px solid var(--border);">
       <td style="padding:0.3rem 0.4rem; opacity:0.45; text-align:right;">${i + 1}</td>
       <td style="padding:0.3rem 0.5rem; line-height:1.15;"><strong${semi ? ' style="color:#e0b450;"' : ""}>${escapeHTML(p.player)}</strong>${semi ? ' <span style="color:#e0b450;" title="semifinalist">★</span>' : ""}<span class="dim small"> · ${escapeHTML(p.team)}</span></td>
-      <td style="padding:0.3rem 0.5rem; text-align:right;" class="tabular"${act("combos")}>${p.combos}</td>
-      <td style="padding:0.3rem 0.5rem; text-align:right;" class="tabular"${act("per_game")}>${p.per_game.toFixed(1)}</td>
-      <td style="padding:0.3rem 0.5rem; text-align:right;" class="tabular">${p.partners}</td>
-      <td style="padding:0.3rem 0.5rem; text-align:right;" class="tabular"${act("aw_joi")}>${p.aw_joi.toFixed(1)}</td>
-      <td style="padding:0.3rem 0.5rem; text-align:right; color:#5eb1f8;" class="tabular">${p.xg_added.toFixed(2)}</td>
-    </tr>`;
+      ${cols.map(td).join("")}</tr>`;
   }).join("");
   el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
     <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
-      <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Player</th>
-      <th style="text-align:right; padding:0.3rem 0.5rem;"${act("combos")}>Combos</th>
-      <th style="text-align:right; padding:0.3rem 0.5rem;"${act("per_game")}>/ game</th>
-      <th style="text-align:right; padding:0.3rem 0.5rem;" title="distinct teammates combined with — the breadth of the hub">Partners</th>
-      <th style="text-align:right; padding:0.3rem 0.5rem;"${act("aw_joi")} title="model's attention-weighted threat on this player's combinations (×10⁻³)">AW-JOI</th>
-      <th style="text-align:right; padding:0.3rem 0.5rem;" title="scoring threat added across this player's combinations">xG+</th>
+      <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Player</th>${cols.map(th).join("")}
     </tr></thead><tbody>${body}</tbody></table>`;
+  el.querySelectorAll("[data-nucsort]").forEach((h) => h.addEventListener("click", () => renderNucleusRanking(el, players, h.getAttribute("data-nucsort"))));
 }
 
 // the pairs whose combinations actually led to a goal within 10s (a different, sparse set)
