@@ -9,6 +9,9 @@
     ],
     "raw_rho": 0.65,
     "controls": "FIFA-23 Overall + mean caps + games + opponent FIFA",
+    "cv_r2_baseline": 0.562,
+    "cv_r2_chem": 0.606,
+    "beta_xg_per_combo": 0.0293,
     "history_rho": 0.544,
     "history_partial": 0.643,
     "kinds": {
@@ -78,7 +81,8 @@
       "fifa_tier": "low",
       "hist_tier": "high",
       "combo_chem_adj": 2.8051,
-      "xg_added_over_expected": 0.1191
+      "xg_added_over_expected": 0.1191,
+      "chem_added_xg": 0.082
     },
     {
       "team_id": "361",
@@ -113,7 +117,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": 0.9741,
-      "xg_added_over_expected": 0.3517
+      "xg_added_over_expected": 0.3517,
+      "chem_added_xg": 0.029
     },
     {
       "team_id": "362",
@@ -148,7 +153,8 @@
       "fifa_tier": "high",
       "hist_tier": "mid",
       "combo_chem_adj": -3.901,
-      "xg_added_over_expected": -0.0447
+      "xg_added_over_expected": -0.0447,
+      "chem_added_xg": -0.114
     },
     {
       "team_id": "363",
@@ -183,7 +189,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": -2.0097,
-      "xg_added_over_expected": -0.4981
+      "xg_added_over_expected": -0.4981,
+      "chem_added_xg": -0.059
     },
     {
       "team_id": "364",
@@ -218,7 +225,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": 1.7311,
-      "xg_added_over_expected": 0.8037
+      "xg_added_over_expected": 0.8037,
+      "chem_added_xg": 0.051
     },
     {
       "team_id": "365",
@@ -253,7 +261,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": -7.4796,
-      "xg_added_over_expected": -0.5589
+      "xg_added_over_expected": -0.5589,
+      "chem_added_xg": -0.219
     },
     {
       "team_id": "366",
@@ -288,7 +297,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": -5.8577,
-      "xg_added_over_expected": -0.0028
+      "xg_added_over_expected": -0.0028,
+      "chem_added_xg": -0.172
     },
     {
       "team_id": "367",
@@ -323,7 +333,8 @@
       "fifa_tier": "high",
       "hist_tier": "low",
       "combo_chem_adj": 2.1347,
-      "xg_added_over_expected": -0.6383
+      "xg_added_over_expected": -0.6383,
+      "chem_added_xg": 0.063
     },
     {
       "team_id": "368",
@@ -358,7 +369,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": 11.1111,
-      "xg_added_over_expected": 1.0425
+      "xg_added_over_expected": 1.0425,
+      "chem_added_xg": 0.326
     },
     {
       "team_id": "369",
@@ -393,7 +405,8 @@
       "fifa_tier": "mid",
       "hist_tier": "low",
       "combo_chem_adj": -6.3325,
-      "xg_added_over_expected": -0.1001
+      "xg_added_over_expected": -0.1001,
+      "chem_added_xg": -0.186
     },
     {
       "team_id": "370",
@@ -428,7 +441,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": 0.1436,
-      "xg_added_over_expected": 0.308
+      "xg_added_over_expected": 0.308,
+      "chem_added_xg": 0.004
     },
     {
       "team_id": "371",
@@ -463,7 +477,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": 2.4734,
-      "xg_added_over_expected": 0.0318
+      "xg_added_over_expected": 0.0318,
+      "chem_added_xg": 0.073
     },
     {
       "team_id": "372",
@@ -498,7 +513,8 @@
       "fifa_tier": "mid",
       "hist_tier": "low",
       "combo_chem_adj": -0.5857,
-      "xg_added_over_expected": -0.0245
+      "xg_added_over_expected": -0.0245,
+      "chem_added_xg": -0.017
     },
     {
       "team_id": "374",
@@ -533,7 +549,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": -3.438,
-      "xg_added_over_expected": -0.3174
+      "xg_added_over_expected": -0.3174,
+      "chem_added_xg": -0.101
     },
     {
       "team_id": "375",
@@ -568,7 +585,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": -3.8145,
-      "xg_added_over_expected": -0.3168
+      "xg_added_over_expected": -0.3168,
+      "chem_added_xg": -0.112
     },
     {
       "team_id": "376",
@@ -603,7 +621,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": -6.7322,
-      "xg_added_over_expected": -0.1888
+      "xg_added_over_expected": -0.1888,
+      "chem_added_xg": -0.197
     },
     {
       "team_id": "377",
@@ -638,7 +657,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": 10.6216,
-      "xg_added_over_expected": -0.1273
+      "xg_added_over_expected": -0.1273,
+      "chem_added_xg": 0.311
     },
     {
       "team_id": "378",
@@ -673,7 +693,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": 2.1622,
-      "xg_added_over_expected": 0.1233
+      "xg_added_over_expected": 0.1233,
+      "chem_added_xg": 0.063
     },
     {
       "team_id": "379",
@@ -708,7 +729,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": -6.3871,
-      "xg_added_over_expected": 0.3078
+      "xg_added_over_expected": 0.3078,
+      "chem_added_xg": -0.187
     },
     {
       "team_id": "380",
@@ -743,7 +765,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": -0.4221,
-      "xg_added_over_expected": -0.4944
+      "xg_added_over_expected": -0.4944,
+      "chem_added_xg": -0.012
     },
     {
       "team_id": "382",
@@ -778,7 +801,8 @@
       "fifa_tier": "low",
       "hist_tier": "high",
       "combo_chem_adj": 13.0058,
-      "xg_added_over_expected": 0.5821
+      "xg_added_over_expected": 0.5821,
+      "chem_added_xg": 0.381
     },
     {
       "team_id": "383",
@@ -813,7 +837,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": -3.7921,
-      "xg_added_over_expected": 0.0529
+      "xg_added_over_expected": 0.0529,
+      "chem_added_xg": -0.111
     },
     {
       "team_id": "384",
@@ -848,7 +873,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": -7.0259,
-      "xg_added_over_expected": -0.176
+      "xg_added_over_expected": -0.176,
+      "chem_added_xg": -0.206
     },
     {
       "team_id": "385",
@@ -883,7 +909,8 @@
       "fifa_tier": "low",
       "hist_tier": "mid",
       "combo_chem_adj": 3.0662,
-      "xg_added_over_expected": -0.2589
+      "xg_added_over_expected": -0.2589,
+      "chem_added_xg": 0.09
     },
     {
       "team_id": "386",
@@ -918,7 +945,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": -8.0179,
-      "xg_added_over_expected": -0.3833
+      "xg_added_over_expected": -0.3833,
+      "chem_added_xg": -0.235
     },
     {
       "team_id": "50",
@@ -953,7 +981,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": 5.9464,
-      "xg_added_over_expected": 0.3022
+      "xg_added_over_expected": 0.3022,
+      "chem_added_xg": 0.174
     },
     {
       "team_id": "52",
@@ -988,7 +1017,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": 11.6238,
-      "xg_added_over_expected": -0.4764
+      "xg_added_over_expected": -0.4764,
+      "chem_added_xg": 0.341
     },
     {
       "team_id": "57",
@@ -1023,7 +1053,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": 5.0933,
-      "xg_added_over_expected": 0.7761
+      "xg_added_over_expected": 0.7761,
+      "chem_added_xg": 0.149
     },
     {
       "team_id": "58",
@@ -1058,7 +1089,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": -7.0964,
-      "xg_added_over_expected": -0.1949
+      "xg_added_over_expected": -0.1949,
+      "chem_added_xg": -0.208
     }
   ],
   "team_leaderboard": [
@@ -1095,7 +1127,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": 11.6238,
-      "xg_added_over_expected": -0.4764
+      "xg_added_over_expected": -0.4764,
+      "chem_added_xg": 0.341
     },
     {
       "team_id": "368",
@@ -1130,7 +1163,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": 11.1111,
-      "xg_added_over_expected": 1.0425
+      "xg_added_over_expected": 1.0425,
+      "chem_added_xg": 0.326
     },
     {
       "team_id": "50",
@@ -1165,7 +1199,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": 5.9464,
-      "xg_added_over_expected": 0.3022
+      "xg_added_over_expected": 0.3022,
+      "chem_added_xg": 0.174
     },
     {
       "team_id": "377",
@@ -1200,7 +1235,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": 10.6216,
-      "xg_added_over_expected": -0.1273
+      "xg_added_over_expected": -0.1273,
+      "chem_added_xg": 0.311
     },
     {
       "team_id": "382",
@@ -1235,7 +1271,8 @@
       "fifa_tier": "low",
       "hist_tier": "high",
       "combo_chem_adj": 13.0058,
-      "xg_added_over_expected": 0.5821
+      "xg_added_over_expected": 0.5821,
+      "chem_added_xg": 0.381
     },
     {
       "team_id": "361",
@@ -1270,7 +1307,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": 0.9741,
-      "xg_added_over_expected": 0.3517
+      "xg_added_over_expected": 0.3517,
+      "chem_added_xg": 0.029
     },
     {
       "team_id": "364",
@@ -1305,7 +1343,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": 1.7311,
-      "xg_added_over_expected": 0.8037
+      "xg_added_over_expected": 0.8037,
+      "chem_added_xg": 0.051
     },
     {
       "team_id": "367",
@@ -1340,7 +1379,8 @@
       "fifa_tier": "high",
       "hist_tier": "low",
       "combo_chem_adj": 2.1347,
-      "xg_added_over_expected": -0.6383
+      "xg_added_over_expected": -0.6383,
+      "chem_added_xg": 0.063
     },
     {
       "team_id": "363",
@@ -1375,7 +1415,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": -2.0097,
-      "xg_added_over_expected": -0.4981
+      "xg_added_over_expected": -0.4981,
+      "chem_added_xg": -0.059
     },
     {
       "team_id": "366",
@@ -1410,7 +1451,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": -5.8577,
-      "xg_added_over_expected": -0.0028
+      "xg_added_over_expected": -0.0028,
+      "chem_added_xg": -0.172
     },
     {
       "team_id": "371",
@@ -1445,7 +1487,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": 2.4734,
-      "xg_added_over_expected": 0.0318
+      "xg_added_over_expected": 0.0318,
+      "chem_added_xg": 0.073
     },
     {
       "team_id": "372",
@@ -1480,7 +1523,8 @@
       "fifa_tier": "mid",
       "hist_tier": "low",
       "combo_chem_adj": -0.5857,
-      "xg_added_over_expected": -0.0245
+      "xg_added_over_expected": -0.0245,
+      "chem_added_xg": -0.017
     },
     {
       "team_id": "57",
@@ -1515,7 +1559,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": 5.0933,
-      "xg_added_over_expected": 0.7761
+      "xg_added_over_expected": 0.7761,
+      "chem_added_xg": 0.149
     },
     {
       "team_id": "370",
@@ -1550,7 +1595,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": 0.1436,
-      "xg_added_over_expected": 0.308
+      "xg_added_over_expected": 0.308,
+      "chem_added_xg": 0.004
     },
     {
       "team_id": "362",
@@ -1585,7 +1631,8 @@
       "fifa_tier": "high",
       "hist_tier": "mid",
       "combo_chem_adj": -3.901,
-      "xg_added_over_expected": -0.0447
+      "xg_added_over_expected": -0.0447,
+      "chem_added_xg": -0.114
     },
     {
       "team_id": "380",
@@ -1620,7 +1667,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": -0.4221,
-      "xg_added_over_expected": -0.4944
+      "xg_added_over_expected": -0.4944,
+      "chem_added_xg": -0.012
     },
     {
       "team_id": "383",
@@ -1655,7 +1703,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": -3.7921,
-      "xg_added_over_expected": 0.0529
+      "xg_added_over_expected": 0.0529,
+      "chem_added_xg": -0.111
     },
     {
       "team_id": "365",
@@ -1690,7 +1739,8 @@
       "fifa_tier": "high",
       "hist_tier": "high",
       "combo_chem_adj": -7.4796,
-      "xg_added_over_expected": -0.5589
+      "xg_added_over_expected": -0.5589,
+      "chem_added_xg": -0.219
     },
     {
       "team_id": "374",
@@ -1725,7 +1775,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": -3.438,
-      "xg_added_over_expected": -0.3174
+      "xg_added_over_expected": -0.3174,
+      "chem_added_xg": -0.101
     },
     {
       "team_id": "369",
@@ -1760,7 +1811,8 @@
       "fifa_tier": "mid",
       "hist_tier": "low",
       "combo_chem_adj": -6.3325,
-      "xg_added_over_expected": -0.1001
+      "xg_added_over_expected": -0.1001,
+      "chem_added_xg": -0.186
     },
     {
       "team_id": "375",
@@ -1795,7 +1847,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": -3.8145,
-      "xg_added_over_expected": -0.3168
+      "xg_added_over_expected": -0.3168,
+      "chem_added_xg": -0.112
     },
     {
       "team_id": "378",
@@ -1830,7 +1883,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": 2.1622,
-      "xg_added_over_expected": 0.1233
+      "xg_added_over_expected": 0.1233,
+      "chem_added_xg": 0.063
     },
     {
       "team_id": "385",
@@ -1865,7 +1919,8 @@
       "fifa_tier": "low",
       "hist_tier": "mid",
       "combo_chem_adj": 3.0662,
-      "xg_added_over_expected": -0.2589
+      "xg_added_over_expected": -0.2589,
+      "chem_added_xg": 0.09
     },
     {
       "team_id": "376",
@@ -1900,7 +1955,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": -6.7322,
-      "xg_added_over_expected": -0.1888
+      "xg_added_over_expected": -0.1888,
+      "chem_added_xg": -0.197
     },
     {
       "team_id": "379",
@@ -1935,7 +1991,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": -6.3871,
-      "xg_added_over_expected": 0.3078
+      "xg_added_over_expected": 0.3078,
+      "chem_added_xg": -0.187
     },
     {
       "team_id": "58",
@@ -1970,7 +2027,8 @@
       "fifa_tier": "mid",
       "hist_tier": "mid",
       "combo_chem_adj": -7.0964,
-      "xg_added_over_expected": -0.1949
+      "xg_added_over_expected": -0.1949,
+      "chem_added_xg": -0.208
     },
     {
       "team_id": "386",
@@ -2005,7 +2063,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": -8.0179,
-      "xg_added_over_expected": -0.3833
+      "xg_added_over_expected": -0.3833,
+      "chem_added_xg": -0.235
     },
     {
       "team_id": "384",
@@ -2040,7 +2099,8 @@
       "fifa_tier": "low",
       "hist_tier": "low",
       "combo_chem_adj": -7.0259,
-      "xg_added_over_expected": -0.176
+      "xg_added_over_expected": -0.176,
+      "chem_added_xg": -0.206
     },
     {
       "team_id": "360",
@@ -2075,7 +2135,8 @@
       "fifa_tier": "low",
       "hist_tier": "high",
       "combo_chem_adj": 2.8051,
-      "xg_added_over_expected": 0.1191
+      "xg_added_over_expected": 0.1191,
+      "chem_added_xg": 0.082
     }
   ],
   "grid": {

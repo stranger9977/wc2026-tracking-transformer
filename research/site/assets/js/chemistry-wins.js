@@ -278,11 +278,30 @@ function renderComboPanel(xg) {
   });
   renderScoredPairs(document.getElementById("combo-scored-list"), xg.scored_pairs);
 
-  // 3b. team version of the pair table — which teams combine most (per game), sliced by type
+  // 3b. team leaderboard — two views: "who combines most" (volume, by type) and
+  //     "chemistry beyond talent" (talent-adjusted chemistry-added xG). The latter answers the
+  //     "the top of the raw list underachieved" critique — it strips out talent.
   const tlbEl = document.getElementById("combo-team-leaderboard");
-  let tlbType = "all";
-  const drawTlb = () => renderTeamComboLeaderboard(tlbEl, xg.team_leaderboard, tlbType);
+  let tlbType = "all", teamView = "volume";
+  const typeToggleEl = document.getElementById("combo-team-type-toggle");
+  const noteVol = document.getElementById("combo-team-note-volume");
+  const noteAdj = document.getElementById("combo-team-note-adjusted");
+  const drawTlb = () => {
+    const adj = teamView === "adjusted";
+    if (typeToggleEl) typeToggleEl.style.display = adj ? "none" : "";
+    if (noteVol) noteVol.style.display = adj ? "none" : "";
+    if (noteAdj) noteAdj.style.display = adj ? "" : "none";
+    if (adj) renderTalentAdjustedLeaderboard(tlbEl, xg.team_leaderboard);
+    else renderTeamComboLeaderboard(tlbEl, xg.team_leaderboard, tlbType);
+  };
   drawTlb();
+  document.querySelectorAll("[data-team-view]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      teamView = btn.getAttribute("data-team-view");
+      document.querySelectorAll("[data-team-view]").forEach((b) => b.classList.toggle("active", b === btn));
+      drawTlb();
+    });
+  });
   document.querySelectorAll("[data-team-lb-type]").forEach((btn) => {
     btn.addEventListener("click", () => {
       tlbType = btn.getAttribute("data-team-lb-type");
@@ -298,6 +317,11 @@ function renderComboPanel(xg) {
   const pct = (v) => Math.round(v * 100) + "%";
   if (m.partial_r != null) set("combo-r", sgn(m.partial_r));
   if (m.ci90) set("combo-ci", `${m.ci90[0].toFixed(2)} to ${m.ci90[1].toFixed(2)}`);
+  // top-line "beats talent" stat block
+  if (m.cv_r2_baseline != null) set("combo-cv-base", m.cv_r2_baseline.toFixed(2));
+  if (m.cv_r2_chem != null) set("combo-cv-chem", m.cv_r2_chem.toFixed(2));
+  if (m.partial_r != null) { set("combo-r2-partial", sgn(m.partial_r)); set("combo-var-pct", Math.round(m.partial_r * m.partial_r * 100) + "%"); }
+  if (m.ci90) set("combo-ci2", `${m.ci90[0].toFixed(2)} to ${m.ci90[1].toFixed(2)}`);
   if (m.n_teams != null) set("combo-n", String(m.n_teams));
   if (m.model_combination_acc != null) set("combo-mdl", pct(m.model_combination_acc));
   if (m.model_overall_acc != null) set("combo-mdl-base", pct(m.model_overall_acc));
@@ -444,6 +468,37 @@ function renderTeamComboLeaderboard(el, teams, type) {
       <th style="text-align:left; padding:0.3rem 0.5rem;">Combos / game</th>
       <th ${TH} title="Team total co-attention × threat the model put on its pairs during these combinations, per game (×10⁻³).">AW-JOI</th>
       <th ${TH} title="Scoring threat added during these combinations, per game (summed calibrated ΔP-score).">xG+</th>
+    </tr></thead><tbody>${body}</tbody></table>`;
+}
+
+// talent-adjusted view: chances each team's combinations add BEYOND talent/experience/schedule/opp
+// (chem_added_xg), with what they ACTUALLY created vs expected — so the relationship is visible
+// team-by-team (mostly aligned; Spain the honest miss). This is the answer to "the raw top underachieved".
+function renderTalentAdjustedLeaderboard(el, teams) {
+  if (!el || !Array.isArray(teams)) return;
+  const rows = teams.filter((t) => t.chem_added_xg != null)
+    .map((t) => ({ t, add: t.chem_added_xg, act: t.xg_added_over_expected }))
+    .sort((a, b) => b.add - a.add);
+  if (!rows.length) { el.innerHTML = '<p class="dim small">No data.</p>'; return; }
+  const maxA = Math.max(...rows.map((r) => Math.abs(r.add)), 0.01);
+  const fmt = (v) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(2);
+  const col = (v) => (v >= 0 ? "#54c875" : "#e07474");
+  const body = rows.map((r, i) => {
+    const semi = r.t.is_semifinalist;
+    const w = Math.max(6, (Math.abs(r.add) / maxA) * 100);
+    const agree = (r.add >= 0) === (r.act >= 0);
+    return `<tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:0.3rem 0.4rem; opacity:0.45; text-align:right;">${i + 1}</td>
+      <td style="padding:0.3rem 0.5rem; line-height:1.15;"><strong${semi ? ' style="color:#e0b450;"' : ""}>${escapeHTML(r.t.team_name)}</strong>${semi ? ' <span style="color:#e0b450;" title="Reached the semifinals">★</span>' : ""}</td>
+      <td style="padding:0.3rem 0.5rem; white-space:nowrap;"><span class="combo-bar-wrap" style="display:inline-block; width:34px; vertical-align:middle;"><span class="combo-bar" style="width:${w.toFixed(0)}%; background:${col(r.add)};"></span></span> <span class="tabular" style="color:${col(r.add)}; font-weight:700;">${fmt(r.add)}</span></td>
+      <td style="padding:0.3rem 0.5rem; text-align:right; white-space:nowrap;" class="tabular"><span style="color:${col(r.act)};">${fmt(r.act)}</span> <span title="${agree ? "chemistry's call paid off" : "combined a lot, but it didn't translate"}" style="opacity:0.75;">${agree ? "✓" : "✗"}</span></td>
+    </tr>`;
+  }).join("");
+  el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
+    <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
+      <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
+      <th style="text-align:left; padding:0.3rem 0.5rem;" title="Chances per game the team's combinations add beyond what talent, experience, schedule and opponents predict.">Chemistry-added xG/g</th>
+      <th style="text-align:right; padding:0.3rem 0.5rem;" title="What the team actually created above/below its talent-based expectation. A check means chemistry's call paid off.">Chances vs expected</th>
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 
