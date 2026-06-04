@@ -240,6 +240,13 @@ const comboEl = document.getElementById("combo-grid");
 if (comboEl) {
   loadJSON("data/combination_xg.json").then((xg) => renderComboPanel(xg)).catch(() => {});
 }
+// defensive team leaderboard (the stronger, validated chemistry signal)
+{
+  loadJSON("data/defense_chemistry.json").then((dj) => {
+    const el = document.getElementById("defense-team-leaderboard");
+    if (el && Array.isArray(dj.teams)) renderDefenseTeams(el, dj.teams);
+  }).catch(() => {});
+}
 
 function renderComboPanel(xg) {
   // 1. the cell-mean grid (toggle: team talent <-> shared club history)
@@ -489,6 +496,39 @@ function renderTeamComboLeaderboard(el, teams, type) {
 // talent-adjusted view: chances each team's combinations add BEYOND talent/experience/schedule/opp
 // (chem_added_xg), with what they ACTUALLY created vs expected — so the relationship is visible
 // team-by-team (mostly aligned; Spain the honest miss). This is the answer to "the raw top underachieved".
+// DEFENSIVE team leaderboard — count of strong defensive partnerships (the validated −0.38 predictor
+// of fewer chances allowed) + StatsBomb xG prevented vs talent. Role-clean at TEAM level only (per-pair
+// AW-JDI is not face-valid — it surfaces attention-magnet attackers, so no defensive pair board).
+function renderDefenseTeams(el, teams, sortKey) {
+  if (!el || !Array.isArray(teams)) return;
+  sortKey = sortKey || "nsd";
+  const data = teams.map((t) => ({ t, nsd: t.n_strong_def, prev: t.xg_prevented_over_expected }));
+  if (!data.length) { el.innerHTML = '<p class="dim small">No data.</p>'; return; }
+  const rows = data.slice().sort((a, b) => b[sortKey] - a[sortKey]);
+  const maxN = Math.max(...data.map((r) => r.nsd), 1);
+  const fmt = (v) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(2);
+  const col = (v) => (v >= 0 ? "#54c875" : "#e07474");
+  const hl = (k) => (k === sortKey ? " color:#e0b450;" : "");
+  const arr = (k) => (k === sortKey ? " ▼" : "");
+  const body = rows.map((r, i) => {
+    const semi = r.t.is_semifinalist;
+    const w = Math.max(8, (r.nsd / maxN) * 100);
+    return `<tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:0.3rem 0.4rem; opacity:0.45; text-align:right;">${i + 1}</td>
+      <td style="padding:0.3rem 0.5rem;"><strong${semi ? ' style="color:#e0b450;"' : ""}>${escapeHTML(r.t.team_name)}</strong>${semi ? ' <span style="color:#e0b450;" title="semifinalist">★</span>' : ""}</td>
+      <td style="padding:0.3rem 0.5rem; white-space:nowrap;"><span class="combo-bar-wrap" style="display:inline-block; width:34px; vertical-align:middle;"><span class="combo-bar${semi ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span> <span class="tabular">${r.nsd}</span></td>
+      <td style="padding:0.3rem 0.5rem; text-align:right; white-space:nowrap;" class="tabular"><span style="color:${col(r.prev)};">${fmt(r.prev)}</span> <span title="${r.prev >= 0 ? "allowed fewer chances than talent predicted" : "allowed more than expected"}" style="opacity:0.75;">${r.prev >= 0 ? "✓" : "✗"}</span></td>
+    </tr>`;
+  }).join("");
+  el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
+    <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
+      <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
+      <th data-defsort="nsd" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("nsd")}" title="count of strong defensive partnerships — the validated predictor of fewer chances allowed · click to sort">Strong def pairs${arr("nsd")}</th>
+      <th data-defsort="prev" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("prev")}" title="StatsBomb xG PREVENTED vs talent expectation (✓ = allowed fewer than expected) · click to sort">xG prevented vs exp${arr("prev")}</th>
+    </tr></thead><tbody>${body}</tbody></table>`;
+  el.querySelectorAll("[data-defsort]").forEach((h) => h.addEventListener("click", () => renderDefenseTeams(el, teams, h.getAttribute("data-defsort"))));
+}
+
 function renderTalentAdjustedLeaderboard(el, teams, sortKey) {
   if (!el || !Array.isArray(teams)) return;
   sortKey = sortKey || "add";
@@ -515,7 +555,7 @@ function renderTalentAdjustedLeaderboard(el, teams, sortKey) {
   el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
     <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
-      <th data-teamsort="add" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("add")}" title="Chances per game the team's combinations add beyond talent + opponents · click to sort">Chemistry-added xG/g${arr("add")}</th>
+      <th data-teamsort="add" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("add")}" title="An ESTIMATE — the talent-adjusted genuine-combo rate × the xG-per-combo slope from the regression. A model attribution, NOT measured xG. ('Chances vs expected →' is the measured StatsBomb xG.) · click to sort">Chemistry-added xG/g <span style="text-transform:none; opacity:0.6;">(est.)</span>${arr("add")}</th>
       <th data-teamsort="act" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("act")}" title="What the team actually created above/below its talent baseline (✓ = the read paid off) · click to sort">Chances vs expected${arr("act")}</th>
     </tr></thead><tbody>${body}</tbody></table>`;
   el.querySelectorAll("[data-teamsort]").forEach((h) => h.addEventListener("click", () => renderTalentAdjustedLeaderboard(el, teams, h.getAttribute("data-teamsort"))));
@@ -532,6 +572,7 @@ function renderNucleusRanking(el, players, sortKey) {
     { k: "partners", label: "Partners", get: (p) => p.partners, fmt: (v) => String(v), color: "", title: "distinct teammates combined with — the breadth of the hub" },
     { k: "aw_joi", label: "AW-JOI", get: (p) => p.aw_joi, fmt: (v) => v.toFixed(1), color: "", title: "model's attention-weighted threat on this player's combinations (×10⁻³)" },
     { k: "xg_added", label: "Threat+", get: (p) => p.xg_added, fmt: (v) => v.toFixed(2), color: "#5eb1f8", title: "the model's scoring-probability rise (ΔP-score) during this player's combinations — NOT StatsBomb xG" },
+    { k: "per_100", label: "/100 touch", get: (p) => (p.per_100 == null ? -1 : p.per_100), fmt: (v) => (v < 0 ? "—" : v.toFixed(1)), color: "", title: "combinations per 100 ball-touches — controls for ball-volume (Mike's check: Pedri 6.5 ≈ Messi 6.2, so the raw counts mostly reward seeing the ball most)" },
   ];
   const sc = cols.find((c) => c.k === sortKey) || cols[0];
   const rows = players.slice().sort((a, b) => sc.get(b) - sc.get(a)).slice(0, 20);

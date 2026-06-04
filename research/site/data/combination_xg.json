@@ -1134,7 +1134,9 @@
       "per_game": 8.0,
       "partners": 12,
       "aw_joi": 1.44,
-      "xg_added": 1.36
+      "xg_added": 1.36,
+      "per_100": 8.1,
+      "touches": 700
     },
     {
       "player": "Lionel Messi",
@@ -1145,7 +1147,9 @@
       "per_game": 9.0,
       "partners": 13,
       "aw_joi": 1.99,
-      "xg_added": 1.12
+      "xg_added": 1.12,
+      "per_100": 6.2,
+      "touches": 873
     },
     {
       "player": "Achraf Hakimi",
@@ -1156,7 +1160,9 @@
       "per_game": 8.3,
       "partners": 8,
       "aw_joi": 1.85,
-      "xg_added": 0.53
+      "xg_added": 0.53,
+      "per_100": 7.9,
+      "touches": 633
     },
     {
       "player": "Pedri",
@@ -1167,7 +1173,9 @@
       "per_game": 15.3,
       "partners": 11,
       "aw_joi": 0.69,
-      "xg_added": 0.4
+      "xg_added": 0.4,
+      "per_100": 6.5,
+      "touches": 702
     },
     {
       "player": "Alexis Mac Allister",
@@ -1178,7 +1186,9 @@
       "per_game": 7.5,
       "partners": 14,
       "aw_joi": 0.98,
-      "xg_added": 0.83
+      "xg_added": 0.83,
+      "per_100": 7.6,
+      "touches": 589
     },
     {
       "player": "Mateo Kovacic",
@@ -1189,7 +1199,9 @@
       "per_game": 7.3,
       "partners": 11,
       "aw_joi": 4.19,
-      "xg_added": 0.7
+      "xg_added": 0.7,
+      "per_100": 5.3,
+      "touches": 846
     },
     {
       "player": "Hakim Ziyech",
@@ -1200,7 +1212,9 @@
       "per_game": 7.2,
       "partners": 9,
       "aw_joi": 2.5,
-      "xg_added": 0.81
+      "xg_added": 0.81,
+      "per_100": 7.1,
+      "touches": 606
     },
     {
       "player": "Adrien Rabiot",
@@ -1211,7 +1225,9 @@
       "per_game": 5.9,
       "partners": 12,
       "aw_joi": 0.61,
-      "xg_added": 0.79
+      "xg_added": 0.79,
+      "per_100": 7.1,
+      "touches": 575
     },
     {
       "player": "Marcelo Brozovic",
@@ -1222,7 +1238,9 @@
       "per_game": 6.8,
       "partners": 10,
       "aw_joi": 1.37,
-      "xg_added": 0.58
+      "xg_added": 0.58,
+      "per_100": 4.8,
+      "touches": 863
     },
     {
       "player": "Rodrigo de Paul",
@@ -1233,7 +1251,9 @@
       "per_game": 6.3,
       "partners": 9,
       "aw_joi": 1.41,
-      "xg_added": 0.75
+      "xg_added": 0.75,
+      "per_100": 3.9,
+      "touches": 968
     },
     {
       "player": "Antoine Griezmann",
@@ -1244,7 +1264,9 @@
       "per_game": 5.1,
       "partners": 10,
       "aw_joi": 1.48,
-      "xg_added": 0.54
+      "xg_added": 0.54,
+      "per_100": 5.6,
+      "touches": 645
     },
     {
       "player": "Azzedine Ounahi",
@@ -1255,7 +1277,9 @@
       "per_game": 6.0,
       "partners": 8,
       "aw_joi": 0.28,
-      "xg_added": 0.42
+      "xg_added": 0.42,
+      "per_100": 6.7,
+      "touches": 541
     },
     {
       "player": "Jordan Henderson",
@@ -1266,7 +1290,9 @@
       "per_game": 11.3,
       "partners": 8,
       "aw_joi": 0.81,
-      "xg_added": 0.32
+      "xg_added": 0.32,
+      "per_100": 11.6,
+      "touches": 301
     },
     {
       "player": "Frenkie de Jong",
@@ -1277,7 +1303,9 @@
       "per_game": 8.0,
       "partners": 11,
       "aw_joi": 2.08,
-      "xg_added": 0.45
+      "xg_added": 0.45,
+      "per_100": 5.5,
+      "touches": 587
     },
     {
       "player": "In-beom Hwang",
@@ -1288,7 +1316,9 @@
       "per_game": 10.7,
       "partners": 11,
       "aw_joi": 1.16,
-      "xg_added": 0.34
+      "xg_added": 0.34,
+      "per_100": 8.9,
+      "touches": 359
     },
     {
       "player": "Luka Modric",
@@ -1299,7 +1329,9 @@
       "per_game": 5.2,
       "partners": 9,
       "aw_joi": 2.57,
-      "xg_added": 0.92
+      "xg_added": 0.92,
+      "per_100": 3.4,
+      "touches": 903
     },
     {
       "player": "Raphinha",
@@ -1310,7 +1342,9 @@
       "per_game": 6.2,
       "partners": 10,
       "aw_joi": 2.4,
-      "xg_added": 0.73
+      "xg_added": 0.73,
+      "per_100": 8.9,
+      "touches": 349
     },
     {
       "player": "Ousmane Dembele",
@@ -1321,7 +1355,9 @@
       "per_game": 4.3,
       "partners": 8,
       "aw_joi": 1.11,
-      "xg_added": 0.48
+      "xg_added": 0.48,
+      "per_100": 6.9,
+      "touches": 437
     },
     {
       "player": "Aur\u00e9lien Tchouam\u00e9ni",
@@ -1332,7 +1368,9 @@
       "per_game": 4.1,
       "partners": 14,
       "aw_joi": 0.46,
-      "xg_added": 0.19
+      "xg_added": 0.19,
+      "per_100": 3.2,
+      "touches": 917
     },
     {
       "player": "Ivan Perisic",
@@ -1343,7 +1381,9 @@
       "per_game": 4.8,
       "partners": 11,
       "aw_joi": 0.91,
-      "xg_added": 0.66
+      "xg_added": 0.66,
+      "per_100": 5.4,
+      "touches": 541
     },
     {
       "player": "Memphis Depay",
@@ -1354,7 +1394,9 @@
       "per_game": 7.0,
       "partners": 9,
       "aw_joi": 1.77,
-      "xg_added": 0.47
+      "xg_added": 0.47,
+      "per_100": 9.3,
+      "touches": 301
     },
     {
       "player": "Phil Foden",
@@ -1365,7 +1407,9 @@
       "per_game": 9.3,
       "partners": 8,
       "aw_joi": 0.6,
-      "xg_added": 0.15
+      "xg_added": 0.15,
+      "per_100": 15.6,
+      "touches": 218
     },
     {
       "player": "Enzo Fernandez",
@@ -1376,7 +1420,9 @@
       "per_game": 4.5,
       "partners": 9,
       "aw_joi": 0.55,
-      "xg_added": 0.21
+      "xg_added": 0.21,
+      "per_100": 3.1,
+      "touches": 865
     },
     {
       "player": "Antony",
@@ -1387,7 +1433,9 @@
       "per_game": 5.4,
       "partners": 11,
       "aw_joi": 1.32,
-      "xg_added": 0.68
+      "xg_added": 0.68,
+      "per_100": 10.0,
+      "touches": 269
     },
     {
       "player": "Andrej Kramaric",
@@ -1398,7 +1446,9 @@
       "per_game": 4.3,
       "partners": 8,
       "aw_joi": 2.19,
-      "xg_added": 0.69
+      "xg_added": 0.69,
+      "per_100": 6.8,
+      "touches": 383
     },
     {
       "player": "Eder Militao",
@@ -1409,7 +1459,9 @@
       "per_game": 5.2,
       "partners": 10,
       "aw_joi": 0.57,
-      "xg_added": 0.35
+      "xg_added": 0.35,
+      "per_100": 5.0,
+      "touches": 519
     },
     {
       "player": "Moon-hwan Kim",
@@ -1420,7 +1472,9 @@
       "per_game": 8.7,
       "partners": 8,
       "aw_joi": 0.94,
-      "xg_added": 0.44
+      "xg_added": 0.44,
+      "per_100": 8.0,
+      "touches": 327
     },
     {
       "player": "Julian Alvarez",
@@ -1431,7 +1485,9 @@
       "per_game": 4.3,
       "partners": 7,
       "aw_joi": 0.27,
-      "xg_added": 0.36
+      "xg_added": 0.36,
+      "per_100": 9.6,
+      "touches": 271
     },
     {
       "player": "Dusan Tadi\u0107",
@@ -1442,7 +1498,9 @@
       "per_game": 8.7,
       "partners": 9,
       "aw_joi": 0.78,
-      "xg_added": 0.64
+      "xg_added": 0.64,
+      "per_100": 8.8,
+      "touches": 295
     },
     {
       "player": "Xherdan Shaqiri",
@@ -1453,7 +1511,9 @@
       "per_game": 8.3,
       "partners": 7,
       "aw_joi": 1.2,
-      "xg_added": 0.63
+      "xg_added": 0.63,
+      "per_100": 17.0,
+      "touches": 147
     },
     {
       "player": "Cody Gakpo",
@@ -1464,7 +1524,9 @@
       "per_game": 6.0,
       "partners": 8,
       "aw_joi": 1.38,
-      "xg_added": 0.4
+      "xg_added": 0.4,
+      "per_100": 7.8,
+      "touches": 309
     },
     {
       "player": "Daley Blind",
@@ -1475,7 +1537,9 @@
       "per_game": 6.0,
       "partners": 8,
       "aw_joi": 1.17,
-      "xg_added": 0.31
+      "xg_added": 0.31,
+      "per_100": 5.4,
+      "touches": 441
     },
     {
       "player": "Jules Kounde",
@@ -1486,7 +1550,9 @@
       "per_game": 3.4,
       "partners": 9,
       "aw_joi": 0.58,
-      "xg_added": 0.37
+      "xg_added": 0.37,
+      "per_100": 4.3,
+      "touches": 552
     },
     {
       "player": "Josip Juranovic",
@@ -1497,7 +1563,9 @@
       "per_game": 4.0,
       "partners": 7,
       "aw_joi": 1.91,
-      "xg_added": 0.48
+      "xg_added": 0.48,
+      "per_100": 3.9,
+      "touches": 623
     },
     {
       "player": "Casemiro",
@@ -1508,7 +1576,9 @@
       "per_game": 4.8,
       "partners": 11,
       "aw_joi": 0.6,
-      "xg_added": 0.46
+      "xg_added": 0.46,
+      "per_100": 4.8,
+      "touches": 502
     },
     {
       "player": "Nahuel Molina",
@@ -1519,7 +1589,9 @@
       "per_game": 3.8,
       "partners": 8,
       "aw_joi": 0.42,
-      "xg_added": 0.24
+      "xg_added": 0.24,
+      "per_100": 4.4,
+      "touches": 519
     },
     {
       "player": "Nicolas Tagliafico",
@@ -1530,7 +1602,9 @@
       "per_game": 3.8,
       "partners": 11,
       "aw_joi": 0.54,
-      "xg_added": 0.32
+      "xg_added": 0.32,
+      "per_100": 8.8,
+      "touches": 261
     },
     {
       "player": "Remo Freuler",
@@ -1541,7 +1615,9 @@
       "per_game": 7.7,
       "partners": 10,
       "aw_joi": 0.51,
-      "xg_added": 0.18
+      "xg_added": 0.18,
+      "per_100": 12.8,
+      "touches": 180
     },
     {
       "player": "Kevin De Bruyne",
@@ -1552,7 +1628,9 @@
       "per_game": 11.5,
       "partners": 10,
       "aw_joi": 3.28,
-      "xg_added": 0.64
+      "xg_added": 0.64,
+      "per_100": 10.8,
+      "touches": 212
     },
     {
       "player": "Leroy San\u00e9",
@@ -1563,7 +1641,9 @@
       "per_game": 11.5,
       "partners": 7,
       "aw_joi": 0.85,
-      "xg_added": 0.36
+      "xg_added": 0.36,
+      "per_100": 16.8,
+      "touches": 137
     },
     {
       "player": "Marcos Acu\u00f1a",
@@ -1574,7 +1654,9 @@
       "per_game": 3.7,
       "partners": 7,
       "aw_joi": 0.29,
-      "xg_added": 0.56
+      "xg_added": 0.56,
+      "per_100": 5.7,
+      "touches": 389
     },
     {
       "player": "Lucas Paquet\u00e1",
@@ -1585,7 +1667,9 @@
       "per_game": 4.4,
       "partners": 12,
       "aw_joi": 0.95,
-      "xg_added": 0.29
+      "xg_added": 0.29,
+      "per_100": 5.4,
+      "touches": 409
     },
     {
       "player": "Rodrygo",
@@ -1596,7 +1680,9 @@
       "per_game": 4.4,
       "partners": 11,
       "aw_joi": 0.92,
-      "xg_added": 0.56
+      "xg_added": 0.56,
+      "per_100": 8.6,
+      "touches": 256
     },
     {
       "player": "Jamal Musiala",
@@ -1607,7 +1693,9 @@
       "per_game": 11.0,
       "partners": 8,
       "aw_joi": 0.79,
-      "xg_added": 0.41
+      "xg_added": 0.41,
+      "per_100": 9.2,
+      "touches": 239
     },
     {
       "player": "Salem Al-Dawsari",
@@ -1618,7 +1706,9 @@
       "per_game": 10.5,
       "partners": 9,
       "aw_joi": 1.08,
-      "xg_added": 0.68
+      "xg_added": 0.68,
+      "per_100": 10.0,
+      "touches": 210
     },
     {
       "player": "David Raum",
@@ -1629,7 +1719,9 @@
       "per_game": 10.5,
       "partners": 8,
       "aw_joi": 0.43,
-      "xg_added": 0.33
+      "xg_added": 0.33,
+      "per_100": 10.1,
+      "touches": 208
     },
     {
       "player": "Wataru Endo",
@@ -1640,7 +1732,9 @@
       "per_game": 6.7,
       "partners": 12,
       "aw_joi": 0.16,
-      "xg_added": 0.12
+      "xg_added": 0.12,
+      "per_100": 6.7,
+      "touches": 315
     },
     {
       "player": "Joshua Kimmich",
@@ -1651,7 +1745,9 @@
       "per_game": 10.0,
       "partners": 11,
       "aw_joi": 1.65,
-      "xg_added": 0.36
+      "xg_added": 0.36,
+      "per_100": 6.5,
+      "touches": 310
     },
     {
       "player": "Rodri",
@@ -1662,7 +1758,9 @@
       "per_game": 6.3,
       "partners": 8,
       "aw_joi": 0.4,
-      "xg_added": 0.15
+      "xg_added": 0.15,
+      "per_100": 2.2,
+      "touches": 1007
     },
     {
       "player": "Kingsley Coman",
@@ -1673,7 +1771,9 @@
       "per_game": 2.6,
       "partners": 9,
       "aw_joi": 0.7,
-      "xg_added": 0.44
+      "xg_added": 0.44,
+      "per_100": 9.9,
+      "touches": 181
     }
   ],
   "team_leaderboard": [

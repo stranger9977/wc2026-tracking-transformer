@@ -1,0 +1,278 @@
+{
+  "meta": {
+    "metric": "aw_jdi \u2014 attention-weighted JDI (defensive chemistry); twin of aw_joi",
+    "headline_partial_r": -0.38,
+    "headline_partial_r_oriented_xg_prevented": 0.38,
+    "ci90_xga": [
+      -0.64,
+      -0.08
+    ],
+    "n_teams": 29,
+    "note": "n_strong_def -> lower xGA beyond talent (FIFA Overall + caps + games + opp FIFA controls). Oriented as xG-PREVENTED it is +0.38. Defense is the stronger of the two chemistry findings.",
+    "pair_filters": "same_team==True, GKs excluded, frames_active>=1500, ranked by aw_jdi_sum desc",
+    "scale": "aw_jdi values are aw_jdi_sum x 1000"
+  },
+  "teams": [
+    {
+      "team_id": "382",
+      "team_name": "Saudi Arabia",
+      "is_semifinalist": false,
+      "n_strong_def": 10,
+      "def_per_game": 5.0,
+      "xg_prevented_over_expected": 0.0847,
+      "def_chem_adj": 5.488
+    },
+    {
+      "team_id": "374",
+      "team_name": "Morocco",
+      "is_semifinalist": true,
+      "n_strong_def": 19,
+      "def_per_game": 3.167,
+      "xg_prevented_over_expected": 0.7776,
+      "def_chem_adj": 4.7895
+    },
+    {
+      "team_id": "362",
+      "team_name": "Belgium",
+      "is_semifinalist": false,
+      "n_strong_def": 11,
+      "def_per_game": 5.5,
+      "xg_prevented_over_expected": 0.2505,
+      "def_chem_adj": 4.6903
+    },
+    {
+      "team_id": "364",
+      "team_name": "Argentina",
+      "is_semifinalist": true,
+      "n_strong_def": 19,
+      "def_per_game": 3.167,
+      "xg_prevented_over_expected": -0.1917,
+      "def_chem_adj": 3.9255
+    },
+    {
+      "team_id": "386",
+      "team_name": "Australia",
+      "is_semifinalist": false,
+      "n_strong_def": 10,
+      "def_per_game": 3.333,
+      "xg_prevented_over_expected": 0.1219,
+      "def_chem_adj": 2.7264
+    },
+    {
+      "team_id": "365",
+      "team_name": "Portugal",
+      "is_semifinalist": false,
+      "n_strong_def": 11,
+      "def_per_game": 3.667,
+      "xg_prevented_over_expected": 0.0488,
+      "def_chem_adj": 2.5071
+    },
+    {
+      "team_id": "377",
+      "team_name": "South Korea",
+      "is_semifinalist": false,
+      "n_strong_def": 10,
+      "def_per_game": 3.333,
+      "xg_prevented_over_expected": -0.0878,
+      "def_chem_adj": 2.3767
+    },
+    {
+      "team_id": "370",
+      "team_name": "Switzerland",
+      "is_semifinalist": false,
+      "n_strong_def": 10,
+      "def_per_game": 3.333,
+      "xg_prevented_over_expected": -0.0463,
+      "def_chem_adj": 1.8501
+    },
+    {
+      "team_id": "369",
+      "team_name": "Uruguay",
+      "is_semifinalist": false,
+      "n_strong_def": 5,
+      "def_per_game": 5.0,
+      "xg_prevented_over_expected": -0.0451,
+      "def_chem_adj": 1.505
+    },
+    {
+      "team_id": "52",
+      "team_name": "Spain",
+      "is_semifinalist": false,
+      "n_strong_def": 10,
+      "def_per_game": 3.333,
+      "xg_prevented_over_expected": -0.7574,
+      "def_chem_adj": 1.4301
+    },
+    {
+      "team_id": "58",
+      "team_name": "Mexico",
+      "is_semifinalist": false,
+      "n_strong_def": 7,
+      "def_per_game": 3.5,
+      "xg_prevented_over_expected": 0.7725,
+      "def_chem_adj": 1.3685
+    },
+    {
+      "team_id": "376",
+      "team_name": "Poland",
+      "is_semifinalist": false,
+      "n_strong_def": 9,
+      "def_per_game": 3.0,
+      "xg_prevented_over_expected": -0.3732,
+      "def_chem_adj": 1.2934
+    },
+    {
+      "team_id": "372",
+      "team_name": "Senegal",
+      "is_semifinalist": false,
+      "n_strong_def": 7,
+      "def_per_game": 3.5,
+      "xg_prevented_over_expected": 0.3511,
+      "def_chem_adj": 1.2504
+    },
+    {
+      "team_id": "361",
+      "team_name": "Brazil",
+      "is_semifinalist": false,
+      "n_strong_def": 14,
+      "def_per_game": 2.8,
+      "xg_prevented_over_expected": 0.5175,
+      "def_chem_adj": 1.0526
+    },
+    {
+      "team_id": "380",
+      "team_name": "Canada",
+      "is_semifinalist": false,
+      "n_strong_def": 6,
+      "def_per_game": 3.0,
+      "xg_prevented_over_expected": 0.2549,
+      "def_chem_adj": 0.8682
+    },
+    {
+      "team_id": "379",
+      "team_name": "Cameroon",
+      "is_semifinalist": false,
+      "n_strong_def": 5,
+      "def_per_game": 2.5,
+      "xg_prevented_over_expected": -0.2836,
+      "def_chem_adj": -0.1186
+    },
+    {
+      "team_id": "368",
+      "team_name": "Germany",
+      "is_semifinalist": false,
+      "n_strong_def": 6,
+      "def_per_game": 3.0,
+      "xg_prevented_over_expected": 0.257,
+      "def_chem_adj": -0.38
+    },
+    {
+      "team_id": "360",
+      "team_name": "Qatar",
+      "is_semifinalist": false,
+      "n_strong_def": 2,
+      "def_per_game": 2.0,
+      "xg_prevented_over_expected": 0.1132,
+      "def_chem_adj": -0.4124
+    },
+    {
+      "team_id": "50",
+      "team_name": "England",
+      "is_semifinalist": false,
+      "n_strong_def": 8,
+      "def_per_game": 2.667,
+      "xg_prevented_over_expected": 0.5455,
+      "def_chem_adj": -0.5913
+    },
+    {
+      "team_id": "383",
+      "team_name": "Ghana",
+      "is_semifinalist": false,
+      "n_strong_def": 4,
+      "def_per_game": 2.0,
+      "xg_prevented_over_expected": 0.3394,
+      "def_chem_adj": -1.0594
+    },
+    {
+      "team_id": "378",
+      "team_name": "Tunisia",
+      "is_semifinalist": false,
+      "n_strong_def": 1,
+      "def_per_game": 1.0,
+      "xg_prevented_over_expected": 1.0257,
+      "def_chem_adj": -2.0659
+    },
+    {
+      "team_id": "363",
+      "team_name": "France",
+      "is_semifinalist": true,
+      "n_strong_def": 15,
+      "def_per_game": 2.143,
+      "xg_prevented_over_expected": -0.0178,
+      "def_chem_adj": -2.3186
+    },
+    {
+      "team_id": "385",
+      "team_name": "Costa Rica",
+      "is_semifinalist": false,
+      "n_strong_def": 2,
+      "def_per_game": 1.0,
+      "xg_prevented_over_expected": -0.6629,
+      "def_chem_adj": -2.8617
+    },
+    {
+      "team_id": "367",
+      "team_name": "Denmark",
+      "is_semifinalist": false,
+      "n_strong_def": 3,
+      "def_per_game": 1.5,
+      "xg_prevented_over_expected": 0.0827,
+      "def_chem_adj": -3.0047
+    },
+    {
+      "team_id": "384",
+      "team_name": "Wales",
+      "is_semifinalist": false,
+      "n_strong_def": 0,
+      "def_per_game": 0.0,
+      "xg_prevented_over_expected": -1.5219,
+      "def_chem_adj": -3.2825
+    },
+    {
+      "team_id": "57",
+      "team_name": "Japan",
+      "is_semifinalist": false,
+      "n_strong_def": 3,
+      "def_per_game": 1.0,
+      "xg_prevented_over_expected": 0.2248,
+      "def_chem_adj": -4.3014
+    },
+    {
+      "team_id": "371",
+      "team_name": "Croatia",
+      "is_semifinalist": true,
+      "n_strong_def": 10,
+      "def_per_game": 1.667,
+      "xg_prevented_over_expected": -0.5153,
+      "def_chem_adj": -4.5604
+    },
+    {
+      "team_id": "375",
+      "team_name": "Serbia",
+      "is_semifinalist": false,
+      "n_strong_def": 3,
+      "def_per_game": 1.0,
+      "xg_prevented_over_expected": -0.6793,
+      "def_chem_adj": -4.5996
+    },
+    {
+      "team_id": "366",
+      "team_name": "Netherlands",
+      "is_semifinalist": false,
+      "n_strong_def": 3,
+      "def_per_game": 0.75,
+      "xg_prevented_over_expected": -0.5854,
+      "def_chem_adj": -7.5652
+    }
+  ]
+}
