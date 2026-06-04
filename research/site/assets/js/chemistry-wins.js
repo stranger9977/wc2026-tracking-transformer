@@ -310,6 +310,21 @@ function renderComboPanel(xg) {
     });
   });
 
+  // 3c. NUCLEUS ranking — players by combinations with teammates (the hubs: Messi & his goons)
+  const nucEl = document.getElementById("combo-nucleus");
+  if (nucEl && Array.isArray(xg.nucleus)) {
+    let nucMode = "combos";
+    const drawNuc = () => renderNucleusRanking(nucEl, xg.nucleus, nucMode);
+    drawNuc();
+    document.querySelectorAll("[data-nuc-sort]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        nucMode = btn.getAttribute("data-nuc-sort");
+        document.querySelectorAll("[data-nuc-sort]").forEach((b) => b.classList.toggle("active", b === btn));
+        drawNuc();
+      });
+    });
+  }
+
   // 4. meta numbers (truthful, from JSON)
   const m = xg.meta || {};
   const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
@@ -499,6 +514,37 @@ function renderTalentAdjustedLeaderboard(el, teams) {
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
       <th style="text-align:left; padding:0.3rem 0.5rem;" title="Chances per game the team's combinations add beyond what talent, experience, schedule and opponents predict.">Chemistry-added xG/g</th>
       <th style="text-align:right; padding:0.3rem 0.5rem;" title="What the team actually created above/below its talent-based expectation. A check means chemistry's call paid off.">Chances vs expected</th>
+    </tr></thead><tbody>${body}</tbody></table>`;
+}
+
+// NUCLEUS ranking — players by combinations with teammates. Sort by total / per-game / AW-JOI;
+// the active column is highlighted. The face-valid view: the creative hub of every deep team.
+function renderNucleusRanking(el, players, mode) {
+  if (!el || !Array.isArray(players)) return;
+  mode = mode || "combos";
+  const kf = { combos: (p) => p.combos, per_game: (p) => p.per_game, aw_joi: (p) => p.aw_joi };
+  const rows = players.slice().sort((a, b) => kf[mode](b) - kf[mode](a)).slice(0, 20);
+  const act = (m) => (m === mode ? ' style="color:#e0b450; font-weight:700;"' : "");
+  const body = rows.map((p, i) => {
+    const semi = p.is_semifinalist;
+    return `<tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:0.3rem 0.4rem; opacity:0.45; text-align:right;">${i + 1}</td>
+      <td style="padding:0.3rem 0.5rem; line-height:1.15;"><strong${semi ? ' style="color:#e0b450;"' : ""}>${escapeHTML(p.player)}</strong>${semi ? ' <span style="color:#e0b450;" title="semifinalist">★</span>' : ""}<span class="dim small"> · ${escapeHTML(p.team)}</span></td>
+      <td style="padding:0.3rem 0.5rem; text-align:right;" class="tabular"${act("combos")}>${p.combos}</td>
+      <td style="padding:0.3rem 0.5rem; text-align:right;" class="tabular"${act("per_game")}>${p.per_game.toFixed(1)}</td>
+      <td style="padding:0.3rem 0.5rem; text-align:right;" class="tabular">${p.partners}</td>
+      <td style="padding:0.3rem 0.5rem; text-align:right;" class="tabular"${act("aw_joi")}>${p.aw_joi.toFixed(1)}</td>
+      <td style="padding:0.3rem 0.5rem; text-align:right; color:#5eb1f8;" class="tabular">${p.xg_added.toFixed(2)}</td>
+    </tr>`;
+  }).join("");
+  el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
+    <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
+      <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Player</th>
+      <th style="text-align:right; padding:0.3rem 0.5rem;"${act("combos")}>Combos</th>
+      <th style="text-align:right; padding:0.3rem 0.5rem;"${act("per_game")}>/ game</th>
+      <th style="text-align:right; padding:0.3rem 0.5rem;" title="distinct teammates combined with — the breadth of the hub">Partners</th>
+      <th style="text-align:right; padding:0.3rem 0.5rem;"${act("aw_joi")} title="model's attention-weighted threat on this player's combinations (×10⁻³)">AW-JOI</th>
+      <th style="text-align:right; padding:0.3rem 0.5rem;" title="scoring threat added across this player's combinations">xG+</th>
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 
