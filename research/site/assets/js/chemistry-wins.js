@@ -1446,6 +1446,7 @@ async function mountPlay(divId, label) {
   await mountClipInto(el, { label, ...meta });
 }
 
+await mountPlay("play-france-1-2", "france-australia-giroud");
 await mountPlay("play-argentina", "argentina-australia-messi");
 
 // Build a FILTER PANEL right above the Messi play. Each chip toggles one
