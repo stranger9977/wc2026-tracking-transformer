@@ -300,27 +300,30 @@
 
       <h3 class="mt-2">Which teams combine most</h3>
       <p class="dim small" style="margin:0.2rem 0 0.6rem;">
-        Two ways to read it. <strong>Who combines most</strong> is raw volume &mdash; and your eye should snag on the
-        problem your colleague spotted: the top is <em>talent</em> (Spain, Germany, England combine most, and didn't go
-        deep). <strong>Chemistry beyond talent</strong> strips that out &mdash; counting only <strong>genuine
-        partnerships</strong> (pairs that combined &ge;&nbsp;5 times, dropping the one-off noise) and adjusting for
-        talent&nbsp;+&nbsp;opponents. That filter is what surfaces the deep teams: <strong>3 of the 4 semifinalists reach
-        the top 10</strong> &mdash; Croatia&nbsp;#4, Argentina&nbsp;#6, Morocco&nbsp;#7. <strong style="color:#e0b450;">Gold
-        &#9733; = semifinalist.</strong>
+        <strong>This ranks chemistry, not raw volume.</strong> Raw volume just re-finds talent (Spain, Germany, England
+        combine most and didn't go deep), so the default &mdash; <strong>Chemistry beyond talent</strong> &mdash; counts
+        only <strong>genuine partnerships</strong> (pairs that combined <strong>&ge;&nbsp;6 times</strong>, dropping the
+        one-off noise) and adjusts for talent&nbsp;+&nbsp;opponents. <strong>Chemistry-added xG/g</strong> is how many
+        chances per game those partnerships add beyond that baseline; <strong>Chances vs expected</strong>
+        (<span style="color:#54c875;">&#10003;</span>&nbsp;= it paid off) is what the team actually created.
+        It's a chemistry <em>rate</em>, <strong>not a trophy predictor</strong> &mdash; the deep teams surface
+        (Morocco&nbsp;#3, Croatia&nbsp;#6, Argentina&nbsp;#7) alongside over-combiners like England and Spain, because
+        creating chances isn't the same as winning a knockout. Flip to <strong>Who combines most</strong> for the raw
+        volume foil. <strong style="color:#e0b450;">Gold&nbsp;&#9733; = semifinalist.</strong>
       </p>
       <div class="combo-grid-toggle" role="group" aria-label="Leaderboard view" style="margin-bottom:0.4rem;">
-        <button type="button" data-team-view="volume" class="active">Who combines most</button>
-        <button type="button" data-team-view="adjusted">Chemistry beyond talent</button>
+        <button type="button" data-team-view="adjusted" class="active">Chemistry beyond talent</button>
+        <button type="button" data-team-view="volume">Who combines most</button>
       </div>
-      <div id="combo-team-type-toggle" class="combo-grid-toggle" role="group" aria-label="Slice teams by combination type" style="margin-bottom:0.5rem;">
+      <div id="combo-team-type-toggle" class="combo-grid-toggle" role="group" aria-label="Slice teams by combination type" style="margin-bottom:0.5rem; display:none;">
         <button type="button" data-team-lb-type="all" class="active">All</button>
         <button type="button" data-team-lb-type="onetwo">Give-and-go</button>
         <button type="button" data-team-lb-type="thirdman">Third-man</button>
         <button type="button" data-team-lb-type="takeover">Take-over</button>
       </div>
       <div id="combo-team-leaderboard" style="max-height:30rem; overflow-y:auto;"></div>
-      <p class="dim small" id="combo-team-note-volume" style="margin-top:0.4rem;"><strong>Combos / game</strong> = final-third combinations of this type per match played (hover a bar for the raw total), normalised so a group-stage exit isn't punished against a finalist who played seven. <strong>AW-JOI</strong> (&times;10&minus;&sup3;) and <strong>xG+</strong> are the chemistry and scoring threat behind the volume. Among the four semifinalists, <strong>Argentina</strong> leads take-overs and <strong>Croatia</strong> the third-man relays.</p>
-      <p class="dim small" id="combo-team-note-adjusted" style="margin-top:0.4rem; display:none;"><strong>Chemistry-added xG/g</strong> = chances per game a team's <strong>genuine</strong> combinations (pairs that combined &ge;&nbsp;5 times) add beyond a talent&nbsp;+&nbsp;opponent baseline. Filtering out the bottom-feeder pairs is what pulls the deep teams up &mdash; <strong>Croatia&nbsp;#4, Argentina&nbsp;#6, Morocco&nbsp;#7</strong>. <strong>Chances vs expected</strong> is what each actually created above/below that baseline (<span style="color:#54c875;">&#10003;</span> = the read paid off). Honest caveat: we swept many filters, so at 29 teams this is a <em>modest, borderline</em> signal &mdash; the robust takeaway is the direction, <strong>partnership quality over raw volume</strong>.</p>
+      <p class="dim small" id="combo-team-note-volume" style="margin-top:0.4rem; display:none;"><strong>Combos / game</strong> = final-third combinations of this type per match played (hover a bar for the raw total), normalised so a group-stage exit isn't punished against a finalist who played seven. <strong>AW-JOI</strong> (&times;10&minus;&sup3;) and <strong>xG+</strong> are the chemistry and scoring threat behind the volume. Among the four semifinalists, <strong>Argentina</strong> leads take-overs and <strong>Croatia</strong> the third-man relays.</p>
+      <p class="dim small" id="combo-team-note-adjusted" style="margin-top:0.4rem;"><strong>Genuine partnerships</strong> = pairs that combined <strong>&ge;&nbsp;6 times</strong> (a true sustained duo, not a one-off). We adjust per game and for talent&nbsp;+&nbsp;opponents, so this is a chemistry <em>rate</em>. Honest caveat: a 5-agent stress-test confirmed <strong>no team metric can rank "the best teams"</strong> &mdash; going deep tracked games-played (&rho;&nbsp;0.89), not chemistry. So read this as <em>who builds genuine partnerships beyond their talent</em>, not who's best. The real chemistry signal lives at the <strong>player and pair level below</strong>.</p>
 
       <h3 class="mt-2">The nuclei &mdash; who the combinations run through</h3>
       <p class="dim small" style="margin:0.2rem 0 0.6rem;">
@@ -337,7 +340,7 @@
         <button type="button" data-nuc-sort="aw_joi">AW-JOI</button>
       </div>
       <div id="combo-nucleus" style="max-height:32rem; overflow-y:auto;"></div>
-      <p class="dim small" style="margin-top:0.4rem;"><strong>Combos</strong> = combinations with teammates (final third); <strong>Partners</strong> = distinct teammates combined with (how much of a hub). <strong>AW-JOI</strong> (&times;10&minus;&sup3;) is the model's attention-weighted threat on this player's combinations; <strong>xG+</strong> is the scoring threat they added. Top 50 by total shown; per-game and AW-JOI re-sort within them.</p>
+      <p class="dim small" style="margin-top:0.4rem;"><strong>Combos</strong> = combinations with teammates (final third); <strong>Partners</strong> = distinct teammates combined with (how much of a hub). <strong>AW-JOI</strong> (&times;10&minus;&sup3;) is the model's attention-weighted threat on this player's combinations; <strong>xG+</strong> is the scoring threat they added. Top 50 by total (min 7 distinct partners, so these are genuine hubs); per-game and AW-JOI re-sort within them.</p>
 
       <h3 class="mt-2">Where the combinations come from: shared club history</h3>
       <p class="dim small">The attacking signal runs as a chain: teams whose players were <strong>club teammates</strong>
@@ -349,8 +352,9 @@
       <div class="combo-grid2">
         <figure class="xg-panel-cell" style="margin:0">
           <figcaption>
-            <span class="xg-panel-sub">Each dot a team. More shared club history &rarr; more final-third combinations.
-              &rho; = <span id="combo-hist-r">+0.54</span>, and <span id="combo-hist-partial">+0.64</span> even at equal talent.</span>
+            <span class="xg-panel-sub">Each dot a team. Teams whose players share more club history build more
+              <strong>genuine partnerships</strong> (&ge;&nbsp;6-combo pairs) near goal &mdash; the familiarity chain, on the
+              filtered pairs. <span class="dim">(All-combinations version: &rho;&nbsp;+0.54, +0.64 at equal talent.)</span></span>
           </figcaption>
           <div id="combo-history-scatter" class="fifa-scatter"></div>
         </figure>
@@ -1384,6 +1388,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo13"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo14"></script>
 </body>
 </html>

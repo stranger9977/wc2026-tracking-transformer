@@ -257,8 +257,8 @@ function renderComboPanel(xg) {
 
   // 2. where combinations come from — raw scatter vs squad shared club history
   const hist = document.getElementById("combo-history-scatter");
-  if (hist) renderXgScatter(hist, xg.teams.filter((t) => t.shared_history != null && t.combos_per_game != null), {
-    xKey: "shared_history", yKey: "combos_per_game",
+  if (hist) renderXgScatter(hist, xg.teams.filter((t) => t.shared_history != null && t.genuine_combos_pg != null), {
+    xKey: "shared_history", yKey: "genuine_combos_pg",
     yTop: "More combinations near goal", yBot: "Fewer combinations",
     xLabel: "More shared club history (prior minutes as club teammates) →",
     aria: "Final-third combinations vs squad shared club history",
@@ -282,7 +282,7 @@ function renderComboPanel(xg) {
   //     "chemistry beyond talent" (talent-adjusted chemistry-added xG). The latter answers the
   //     "the top of the raw list underachieved" critique — it strips out talent.
   const tlbEl = document.getElementById("combo-team-leaderboard");
-  let tlbType = "all", teamView = "volume";
+  let tlbType = "all", teamView = "adjusted";
   const typeToggleEl = document.getElementById("combo-team-type-toggle");
   const noteVol = document.getElementById("combo-team-note-volume");
   const noteAdj = document.getElementById("combo-team-note-adjusted");
