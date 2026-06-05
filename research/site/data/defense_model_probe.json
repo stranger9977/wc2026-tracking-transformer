@@ -1,0 +1,61 @@
+{
+  "_meta": "Sensitivity of the score specialist's calibrated P(score) to perturbing a frame. Non-saturated danger band (calibrated P 3-12%), n=6000 frames across all 44 matches.",
+  "back_line_curve": [
+    {
+      "shift_m": -10,
+      "dP_pp": -2.072
+    },
+    {
+      "shift_m": -8,
+      "dP_pp": -1.653
+    },
+    {
+      "shift_m": -6,
+      "dP_pp": -1.229
+    },
+    {
+      "shift_m": -4,
+      "dP_pp": -0.808
+    },
+    {
+      "shift_m": -2,
+      "dP_pp": -0.394
+    },
+    {
+      "shift_m": 0,
+      "dP_pp": 0.0
+    },
+    {
+      "shift_m": 2,
+      "dP_pp": 0.365
+    },
+    {
+      "shift_m": 4,
+      "dP_pp": 0.693
+    },
+    {
+      "shift_m": 6,
+      "dP_pp": 0.987
+    },
+    {
+      "shift_m": 8,
+      "dP_pp": 1.251
+    },
+    {
+      "shift_m": 10,
+      "dP_pp": 1.494
+    }
+  ],
+  "sensitivity_pp": {
+    "defenders": 0.348,
+    "attackers": 0.955,
+    "ratio_att_over_def": 2.75
+  },
+  "attention": {
+    "ball_to_attackers": 0.0648,
+    "ball_to_defenders": 0.025,
+    "all_to_attackers": 0.0622,
+    "all_to_defenders": 0.0269,
+    "ratio_att_over_def": 2.45
+  }
+}

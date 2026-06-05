@@ -246,6 +246,10 @@ if (comboEl) {
     const el = document.getElementById("defense-team-leaderboard");
     if (el && Array.isArray(dj.teams)) renderDefenseTeams(el, dj.teams);
   }).catch(() => {});
+  loadJSON("data/defense_model_probe.json").then((pj) => {
+    const el = document.getElementById("defense-model-probe");
+    if (el) renderDefenseModelProbe(el, pj);
+  }).catch(() => {});
 }
 
 function renderComboPanel(xg) {
@@ -537,6 +541,37 @@ function renderDefenseTeams(el, teams, sortKey) {
       <th data-defsort="prev" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("prev")}" title="StatsBomb xG PREVENTED vs talent expectation — ✓ clearly fewer chances allowed, ✗ clearly more, blank = about as expected (within ±0.2 xG/game) · click to sort">xG prevented vs exp${arr("prev")}</th>
     </tr></thead><tbody>${body}</tbody></table>`;
   el.querySelectorAll("[data-defsort]").forEach((h) => h.addEventListener("click", () => renderDefenseTeams(el, teams, h.getAttribute("data-defsort"))));
+}
+
+// "What the model uses for defense" — the back-line-height sensitivity curve from the perturbation probe.
+function renderDefenseModelProbe(el, data) {
+  if (!el || !data || !Array.isArray(data.back_line_curve)) return;
+  const c = data.back_line_curve;
+  const W = 720, H = 300, padL = 58, padR = 22, padT = 22, padB = 54;
+  const iw = W - padL - padR, ih = H - padT - padB;
+  const xs = c.map((p) => p.shift_m), ys = c.map((p) => p.dP_pp);
+  const xmin = Math.min(...xs), xmax = Math.max(...xs);
+  const ymin = Math.min(...ys) - 0.3, ymax = Math.max(...ys) + 0.3;
+  const sx = (v) => padL + ((v - xmin) / (xmax - xmin)) * iw;
+  const sy = (v) => padT + ih - ((v - ymin) / (ymax - ymin)) * ih;
+  const path = c.map((p, i) => `${i ? "L" : "M"}${sx(p.shift_m).toFixed(1)},${sy(p.dP_pp).toFixed(1)}`).join(" ");
+  const dots = c.map((p) => `<circle cx="${sx(p.shift_m).toFixed(1)}" cy="${sy(p.dP_pp).toFixed(1)}" r="3.5" fill="#e0b450"><title>line ${p.shift_m >= 0 ? "+" : ""}${p.shift_m}m: ${p.dP_pp >= 0 ? "+" : ""}${p.dP_pp.toFixed(2)} pp</title></circle>`).join("");
+  const yrules = [-2, -1, 0, 1].filter((v) => v >= ymin && v <= ymax).map((v) =>
+    `<line x1="${padL}" y1="${sy(v).toFixed(1)}" x2="${W - padR}" y2="${sy(v).toFixed(1)}" stroke="currentColor" stroke-width="0.5" opacity="${v === 0 ? 0.4 : 0.1}"/>` +
+    `<text x="${padL - 8}" y="${(sy(v) + 4).toFixed(1)}" font-size="11" fill="currentColor" opacity="0.6" text-anchor="end">${v > 0 ? "+" : ""}${v}</text>`).join("");
+  const xticks = [-10, -5, 0, 5, 10].map((v) =>
+    `<text x="${sx(v).toFixed(1)}" y="${H - padB + 18}" font-size="11" fill="currentColor" opacity="0.55" text-anchor="middle">${v > 0 ? "+" : ""}${v}</text>`).join("");
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" class="fifa-scatter-svg" role="img" aria-label="Back-line height sensitivity curve">
+    ${yrules}
+    <line x1="${sx(0).toFixed(1)}" y1="${padT}" x2="${sx(0).toFixed(1)}" y2="${H - padB}" stroke="currentColor" stroke-width="0.5" opacity="0.25" stroke-dasharray="3,3"/>
+    <path d="${path}" fill="none" stroke="#e0b450" stroke-width="2.2"/>
+    ${dots}
+    ${xticks}
+    <text x="13" y="${(padT + ih / 2).toFixed(0)}" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle" transform="rotate(-90,13,${(padT + ih / 2).toFixed(0)})">danger added, pp</text>
+    <text x="${padL}" y="${H - 14}" font-size="11" font-weight="600" fill="#54c875" text-anchor="start">deeper line, safer</text>
+    <text x="${(padL + iw / 2).toFixed(0)}" y="${H - 14}" font-size="10.5" fill="currentColor" opacity="0.55" text-anchor="middle">back-line shift (m)</text>
+    <text x="${W - padR}" y="${H - 14}" font-size="11" font-weight="600" fill="#e07474" text-anchor="end">higher line, more danger</text>
+  </svg>`;
 }
 
 function renderTalentAdjustedLeaderboard(el, teams, sortKey) {

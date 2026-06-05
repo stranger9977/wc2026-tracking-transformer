@@ -315,6 +315,30 @@
         <strong>Croatia</strong> reached the semifinal (#12 here, &minus;0.52 prevented) on midfield
         control, not a defensive wall &mdash; chemistry rates a tendency, not a verdict.
       </p>
+
+      <h3 class="mt-2">What the model actually uses for defense</h3>
+      <p class="dim small" style="margin:0.2rem 0 0.6rem;">
+        How does the model judge defending? We probed it directly: nudge one part of a frame, watch
+        how its predicted chance of a goal moves. Two things stand out, and one of them is a surprise.
+        First, <strong>it reads the attack more than the defense</strong>. Moving the attackers around
+        changes its prediction about <strong>2.7&times;</strong> more than moving the defenders, and it
+        spends about <strong>2.5&times;</strong> more of its attention on attacking players. So it mostly
+        grades defending <em>indirectly</em>, by reading how dangerous the attack looks. Second, the one
+        defensive thing it keys on <em>directly</em> is <strong>how high the back line sits</strong>. The
+        curve below is the real measured response: drop the line about 10&nbsp;m deeper and predicted
+        danger falls roughly <strong>2 points</strong>; push it 10&nbsp;m higher and danger climbs about
+        <strong>1.5 points</strong>, cleanly and smoothly. A high line leaves space in behind, and the
+        model sees it. It is not grading individual defenders; it reads overall shape and line height.
+        That is also why defense is the cleaner team signal: line height and shape are drilled, stable
+        things, not volatile like attacking output.
+      </p>
+      <div id="defense-model-probe" style="max-width:760px;"></div>
+      <p class="dim small" style="margin-top:0.3rem;">
+        Sensitivity of the model's calibrated chance-of-a-goal to shifting the defending team's back
+        line up or down the pitch (positive = higher up), measured on 6,000 genuinely dangerous frames
+        across all 44 matches. Up and to the right means the model reads more danger; down and to the
+        left, less.
+      </p>
     </section>
 
       <!-- ============ THE "SO WHAT": does chemistry beat talent? ============ -->
@@ -1473,6 +1497,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo20"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo21"></script>
 </body>
 </html>
