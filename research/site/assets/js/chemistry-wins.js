@@ -267,7 +267,7 @@ function renderComboPanel(xg) {
   if (hist) renderXgScatter(hist, xg.teams.filter((t) => t.shared_history != null && t.genuine_combos_pg != null), {
     xKey: "shared_history", yKey: "genuine_combos_pg",
     yTop: "More combinations near goal", yBot: "Fewer combinations",
-    xLabel: "More shared club history (prior minutes as club teammates) →",
+    xLabel: "More shared club history (% of squad who've been club teammates) →",
     aria: "Final-third combinations vs squad shared club history",
   });
 
