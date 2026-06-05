@@ -1361,7 +1361,7 @@
       "history_count": 10,
       "history_share": 43.5,
       "largest_bloc": 2,
-      "largest_bloc_club": "UANL",
+      "largest_bloc_club": "Tigres UANL",
       "n_clubs": 18,
       "stage_int": 4,
       "stage_label": "R16"
@@ -1949,7 +1949,7 @@
       "history_count": 4,
       "history_share": 15.4,
       "largest_bloc": 2,
-      "largest_bloc_club": "USM Alger",
+      "largest_bloc_club": "Lille",
       "n_clubs": 24,
       "stage_int": null,
       "stage_label": "TBD"
@@ -1981,10 +1981,10 @@
     {
       "team": "Austria",
       "year": 2026,
-      "squad_size": 26,
-      "history_count": 9,
-      "history_share": 34.6,
-      "largest_bloc": 3,
+      "squad_size": 25,
+      "history_count": 8,
+      "history_share": 32.0,
+      "largest_bloc": 2,
       "largest_bloc_club": "RB Leipzig",
       "n_clubs": 21,
       "stage_int": null,
@@ -1997,7 +1997,7 @@
       "history_count": 14,
       "history_share": 53.8,
       "largest_bloc": 3,
-      "largest_bloc_club": "Lille",
+      "largest_bloc_club": "Club Brugge",
       "n_clubs": 18,
       "stage_int": null,
       "stage_label": "TBD"
@@ -2009,7 +2009,7 @@
       "history_count": 4,
       "history_share": 15.4,
       "largest_bloc": 2,
-      "largest_bloc_club": "Rijeka",
+      "largest_bloc_club": "Schalke 04",
       "n_clubs": 24,
       "stage_int": null,
       "stage_label": "TBD"
@@ -2105,8 +2105,20 @@
       "history_count": 4,
       "history_share": 15.4,
       "largest_bloc": 2,
-      "largest_bloc_club": "Lille",
+      "largest_bloc_club": "AEL",
       "n_clubs": 24,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
+      "team": "Ecuador",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 5,
+      "history_share": 19.2,
+      "largest_bloc": 3,
+      "largest_bloc_club": "Atl\u00e9tico Mineiro",
+      "n_clubs": 23,
       "stage_int": null,
       "stage_label": "TBD"
     },
@@ -2159,6 +2171,18 @@
       "stage_label": "TBD"
     },
     {
+      "team": "Ghana",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 5,
+      "history_share": 19.2,
+      "largest_bloc": 3,
+      "largest_bloc_club": "Auxerre",
+      "n_clubs": 23,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
       "team": "Haiti",
       "year": 2026,
       "squad_size": 26,
@@ -2167,6 +2191,30 @@
       "largest_bloc": 2,
       "largest_bloc_club": "Vizela",
       "n_clubs": 25,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
+      "team": "Iran",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 18,
+      "history_share": 69.2,
+      "largest_bloc": 4,
+      "largest_bloc_club": "Tractor",
+      "n_clubs": 14,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
+      "team": "Iraq",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 9,
+      "history_share": 34.6,
+      "largest_bloc": 4,
+      "largest_bloc_club": "Al-Shorta",
+      "n_clubs": 20,
       "stage_int": null,
       "stage_label": "TBD"
     },
@@ -2195,13 +2243,37 @@
       "stage_label": "TBD"
     },
     {
+      "team": "Jordan",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 17,
+      "history_share": 65.4,
+      "largest_bloc": 6,
+      "largest_bloc_club": "Al-Hussein",
+      "n_clubs": 15,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
+      "team": "Mexico",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 7,
+      "history_share": 26.9,
+      "largest_bloc": 5,
+      "largest_bloc_club": "Guadalajara",
+      "n_clubs": 21,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
       "team": "Morocco",
       "year": 2026,
       "squad_size": 26,
       "history_count": 6,
       "history_share": 23.1,
       "largest_bloc": 2,
-      "largest_bloc_club": "PSV Eindhoven",
+      "largest_bloc_club": "Real Betis",
       "n_clubs": 23,
       "stage_int": null,
       "stage_label": "TBD"
@@ -2249,8 +2321,20 @@
       "history_count": 6,
       "history_share": 23.1,
       "largest_bloc": 2,
-      "largest_bloc_club": "Plaza Amador",
+      "largest_bloc_club": "Saprissa",
       "n_clubs": 23,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
+      "team": "Paraguay",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 7,
+      "history_share": 26.9,
+      "largest_bloc": 3,
+      "largest_bloc_club": "Palmeiras",
+      "n_clubs": 22,
       "stage_int": null,
       "stage_label": "TBD"
     },
@@ -2267,13 +2351,49 @@
       "stage_label": "TBD"
     },
     {
+      "team": "Qatar",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 24,
+      "history_share": 92.3,
+      "largest_bloc": 6,
+      "largest_bloc_club": "Al-Duhail",
+      "n_clubs": 8,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
+      "team": "Saudi Arabia",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 22,
+      "history_share": 84.6,
+      "largest_bloc": 7,
+      "largest_bloc_club": "Al-Hilal",
+      "n_clubs": 9,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
       "team": "Scotland",
       "year": 2026,
       "squad_size": 26,
       "history_count": 8,
       "history_share": 30.8,
       "largest_bloc": 2,
-      "largest_bloc_club": "Heart of Midlothian",
+      "largest_bloc_club": "Celtic",
+      "n_clubs": 22,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
+      "team": "Senegal",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 8,
+      "history_share": 30.8,
+      "largest_bloc": 2,
+      "largest_bloc_club": "Nice",
       "n_clubs": 22,
       "stage_int": null,
       "stage_label": "TBD"
@@ -2351,6 +2471,18 @@
       "stage_label": "TBD"
     },
     {
+      "team": "Turkey",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 12,
+      "history_share": 46.2,
+      "largest_bloc": 6,
+      "largest_bloc_club": "Fenerbah\u00e7e",
+      "n_clubs": 16,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
       "team": "USA",
       "year": 2026,
       "squad_size": 26,
@@ -2371,6 +2503,18 @@
       "largest_bloc": 3,
       "largest_bloc_club": "Flamengo",
       "n_clubs": 22,
+      "stage_int": null,
+      "stage_label": "TBD"
+    },
+    {
+      "team": "Uzbekistan",
+      "year": 2026,
+      "squad_size": 26,
+      "history_count": 17,
+      "history_share": 65.4,
+      "largest_bloc": 3,
+      "largest_bloc_club": "Pakhtakor",
+      "n_clubs": 16,
       "stage_int": null,
       "stage_label": "TBD"
     }

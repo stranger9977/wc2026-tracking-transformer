@@ -5,324 +5,1243 @@
     "caveat": "WC26 has not happened. These are paper-talent ratings, not predictions. The point of FIFA Mode is to surface the gap between paper and result; the WC22 tab is the prior that argues that gap is large.",
     "note_licensing": "EA FC 26 launched licensing 28 men's national teams (down from 30 in FC 25); a multi-year CBF deal announced May 2026 (Gamescom LATAM) adds Brazil via a 2026 title update. Remaining WC26 omissions: Belgium, Senegal, Colombia, Switzerland, Australia, Japan, Korea, Canada, Saudi Arabia, Iran. For those nations we treat the rating as 'analyst proxy from individual player Overalls' rather than EA's official aggregate, and flag the row.",
     "scrape_date": "2026-05-24",
-    "updated": "2026-05-31: Brazil reclassified ea_licensed:true after the May 2026 EA/CBF licensing announcement; its Overall remains an estimate until EA's official team rating ships."
+    "updated": "2026-05-31: Brazil reclassified ea_licensed:true after the May 2026 EA/CBF licensing announcement; its Overall remains an estimate until EA's official team rating ships.",
+    "updated_2026_06_04": "Dropped Italy & Denmark (failed WC26 qualification). Added EA FC 26 team-Overall estimates for the remaining qualified nations (from EA nations-ratings pages / SoFIFA snippets / top-11 player average proxies) so every WC26 team has a rating; these carry ea_licensed=false (estimate)."
   },
   "teams": [
     {
-      "team": "France",   "flag": "fr", "overall": 85, "att": 86, "mid": 85, "def": 84, "depth_gap": 8.2, "ea_licensed": true,
+      "team": "France",
+      "flag": "fr",
+      "overall": 85,
+      "att": 86,
+      "mid": 85,
+      "def": 84,
+      "depth_gap": 8.2,
+      "ea_licensed": true,
       "qualification": "auto (UEFA)",
       "stars": [
-        {"name": "Kylian Mbappé", "overall": 91, "position": "ST"},
-        {"name": "Ousmane Dembélé", "overall": 90, "position": "ST"},
-        {"name": "Jules Koundé", "overall": 87, "position": "RB"},
-        {"name": "William Saliba", "overall": 87, "position": "CB"},
-        {"name": "Mike Maignan", "overall": 87, "position": "GK"},
-        {"name": "Antoine Griezmann", "overall": 85, "position": "CAM"},
-        {"name": "Theo Hernández", "overall": 84, "position": "LB"},
-        {"name": "Aurélien Tchouaméni", "overall": 84, "position": "CDM"}
+        {
+          "name": "Kylian Mbappé",
+          "overall": 91,
+          "position": "ST"
+        },
+        {
+          "name": "Ousmane Dembélé",
+          "overall": 90,
+          "position": "ST"
+        },
+        {
+          "name": "Jules Koundé",
+          "overall": 87,
+          "position": "RB"
+        },
+        {
+          "name": "William Saliba",
+          "overall": 87,
+          "position": "CB"
+        },
+        {
+          "name": "Mike Maignan",
+          "overall": 87,
+          "position": "GK"
+        },
+        {
+          "name": "Antoine Griezmann",
+          "overall": 85,
+          "position": "CAM"
+        },
+        {
+          "name": "Theo Hernández",
+          "overall": 84,
+          "position": "LB"
+        },
+        {
+          "name": "Aurélien Tchouaméni",
+          "overall": 84,
+          "position": "CDM"
+        }
       ],
       "notes": "Same France-in-basketball profile from 2022 — by far the deepest attacking pool, depth gap widening. Mbappé + Dembélé front line is the highest paper attack in the tournament."
     },
     {
-      "team": "Spain",    "flag": "es", "overall": 85, "att": 85, "mid": 87, "def": 84, "depth_gap": 6.5, "ea_licensed": true,
+      "team": "Spain",
+      "flag": "es",
+      "overall": 85,
+      "att": 85,
+      "mid": 87,
+      "def": 84,
+      "depth_gap": 6.5,
+      "ea_licensed": true,
       "qualification": "auto (UEFA, Euro 2024 champions)",
       "stars": [
-        {"name": "Rodri", "overall": 90, "position": "CDM"},
-        {"name": "Lamine Yamal", "overall": 89, "position": "RM"},
-        {"name": "Pedri", "overall": 89, "position": "CM"},
-        {"name": "David Raya", "overall": 87, "position": "GK"},
-        {"name": "Nico Williams", "overall": 86, "position": "LM"},
-        {"name": "Dani Olmo", "overall": 85, "position": "CAM"},
-        {"name": "Mikel Merino", "overall": 83, "position": "CM"},
-        {"name": "Carvajal", "overall": 85, "position": "RB"}
+        {
+          "name": "Rodri",
+          "overall": 90,
+          "position": "CDM"
+        },
+        {
+          "name": "Lamine Yamal",
+          "overall": 89,
+          "position": "RM"
+        },
+        {
+          "name": "Pedri",
+          "overall": 89,
+          "position": "CM"
+        },
+        {
+          "name": "David Raya",
+          "overall": 87,
+          "position": "GK"
+        },
+        {
+          "name": "Nico Williams",
+          "overall": 86,
+          "position": "LM"
+        },
+        {
+          "name": "Dani Olmo",
+          "overall": 85,
+          "position": "CAM"
+        },
+        {
+          "name": "Mikel Merino",
+          "overall": 83,
+          "position": "CM"
+        },
+        {
+          "name": "Carvajal",
+          "overall": 85,
+          "position": "RB"
+        }
       ],
       "notes": "Reigning Euro champions; midfield rated #1 in the world. Most balanced top-tier squad on paper."
     },
     {
-      "team": "England",  "flag": "gb-eng", "overall": 84, "att": 85, "mid": 85, "def": 84, "depth_gap": 6.0, "ea_licensed": true,
+      "team": "England",
+      "flag": "gb-eng",
+      "overall": 84,
+      "att": 85,
+      "mid": 85,
+      "def": 84,
+      "depth_gap": 6.0,
+      "ea_licensed": true,
       "qualification": "auto (UEFA)",
       "stars": [
-        {"name": "Jude Bellingham", "overall": 90, "position": "CAM"},
-        {"name": "Harry Kane", "overall": 89, "position": "ST"},
-        {"name": "Bukayo Saka", "overall": 88, "position": "RW"},
-        {"name": "Cole Palmer", "overall": 87, "position": "CAM"},
-        {"name": "Declan Rice", "overall": 87, "position": "CDM"},
-        {"name": "Trent Alexander-Arnold", "overall": 86, "position": "RB"},
-        {"name": "Phil Foden", "overall": 85, "position": "RW"}
+        {
+          "name": "Jude Bellingham",
+          "overall": 90,
+          "position": "CAM"
+        },
+        {
+          "name": "Harry Kane",
+          "overall": 89,
+          "position": "ST"
+        },
+        {
+          "name": "Bukayo Saka",
+          "overall": 88,
+          "position": "RW"
+        },
+        {
+          "name": "Cole Palmer",
+          "overall": 87,
+          "position": "CAM"
+        },
+        {
+          "name": "Declan Rice",
+          "overall": 87,
+          "position": "CDM"
+        },
+        {
+          "name": "Trent Alexander-Arnold",
+          "overall": 86,
+          "position": "RB"
+        },
+        {
+          "name": "Phil Foden",
+          "overall": 85,
+          "position": "RW"
+        }
       ],
       "notes": "Highest-paper midfield ever assembled for England. Still hasn't won a knockout final this generation."
     },
     {
-      "team": "Argentina", "flag": "ar", "overall": 83, "att": 84, "mid": 85, "def": 82, "depth_gap": 5.2, "ea_licensed": true,
+      "team": "Argentina",
+      "flag": "ar",
+      "overall": 83,
+      "att": 84,
+      "mid": 85,
+      "def": 82,
+      "depth_gap": 5.2,
+      "ea_licensed": true,
       "qualification": "auto (Copa champions 2024, defending WC champions)",
       "stars": [
-        {"name": "Lautaro Martínez", "overall": 88, "position": "ST"},
-        {"name": "Julián Álvarez", "overall": 87, "position": "ST"},
-        {"name": "Alexis Mac Allister", "overall": 87, "position": "CM"},
-        {"name": "Paulo Dybala", "overall": 86, "position": "CAM"},
-        {"name": "Lionel Messi", "overall": 86, "position": "RW"},
-        {"name": "Emiliano Martínez", "overall": 85, "position": "GK"},
-        {"name": "Enzo Fernández", "overall": 82, "position": "CM"},
-        {"name": "Rodrigo De Paul", "overall": 84, "position": "CM"}
+        {
+          "name": "Lautaro Martínez",
+          "overall": 88,
+          "position": "ST"
+        },
+        {
+          "name": "Julián Álvarez",
+          "overall": 87,
+          "position": "ST"
+        },
+        {
+          "name": "Alexis Mac Allister",
+          "overall": 87,
+          "position": "CM"
+        },
+        {
+          "name": "Paulo Dybala",
+          "overall": 86,
+          "position": "CAM"
+        },
+        {
+          "name": "Lionel Messi",
+          "overall": 86,
+          "position": "RW"
+        },
+        {
+          "name": "Emiliano Martínez",
+          "overall": 85,
+          "position": "GK"
+        },
+        {
+          "name": "Enzo Fernández",
+          "overall": 82,
+          "position": "CM"
+        },
+        {
+          "name": "Rodrigo De Paul",
+          "overall": 84,
+          "position": "CM"
+        }
       ],
       "notes": "Defending champions; Messi probable but not certain. Mac Allister + Enzo midfield has matured into a top-3-in-world unit."
     },
     {
-      "team": "Portugal", "flag": "pt", "overall": 84, "att": 85, "mid": 85, "def": 83, "depth_gap": 5.5, "ea_licensed": true,
+      "team": "Portugal",
+      "flag": "pt",
+      "overall": 84,
+      "att": 85,
+      "mid": 85,
+      "def": 83,
+      "depth_gap": 5.5,
+      "ea_licensed": true,
       "qualification": "auto (UEFA)",
       "stars": [
-        {"name": "Vitinha", "overall": 89, "position": "CM"},
-        {"name": "Bruno Fernandes", "overall": 87, "position": "CAM"},
-        {"name": "Nuno Mendes", "overall": 86, "position": "LB"},
-        {"name": "Rúben Dias", "overall": 86, "position": "CB"},
-        {"name": "João Neves", "overall": 85, "position": "CM"},
-        {"name": "Cristiano Ronaldo (40)", "overall": 85, "position": "ST"},
-        {"name": "Bernardo Silva", "overall": 84, "position": "CM"},
-        {"name": "Rafael Leão", "overall": 84, "position": "LW"}
+        {
+          "name": "Vitinha",
+          "overall": 89,
+          "position": "CM"
+        },
+        {
+          "name": "Bruno Fernandes",
+          "overall": 87,
+          "position": "CAM"
+        },
+        {
+          "name": "Nuno Mendes",
+          "overall": 86,
+          "position": "LB"
+        },
+        {
+          "name": "Rúben Dias",
+          "overall": 86,
+          "position": "CB"
+        },
+        {
+          "name": "João Neves",
+          "overall": 85,
+          "position": "CM"
+        },
+        {
+          "name": "Cristiano Ronaldo (40)",
+          "overall": 85,
+          "position": "ST"
+        },
+        {
+          "name": "Bernardo Silva",
+          "overall": 84,
+          "position": "CM"
+        },
+        {
+          "name": "Rafael Leão",
+          "overall": 84,
+          "position": "LW"
+        }
       ],
       "notes": "Ronaldo's last World Cup. Vitinha is the highest-rated Portuguese player in the game — passing of the torch made literal."
     },
     {
-      "team": "Germany",  "flag": "de", "overall": 84, "att": 84, "mid": 86, "def": 82, "depth_gap": 5.8, "ea_licensed": true,
+      "team": "Germany",
+      "flag": "de",
+      "overall": 84,
+      "att": 84,
+      "mid": 86,
+      "def": 82,
+      "depth_gap": 5.8,
+      "ea_licensed": true,
       "qualification": "auto (UEFA)",
       "stars": [
-        {"name": "Florian Wirtz", "overall": 89, "position": "CAM"},
-        {"name": "Joshua Kimmich", "overall": 89, "position": "CDM"},
-        {"name": "Jamal Musiala", "overall": 88, "position": "CAM"},
-        {"name": "Jonathan Tah", "overall": 87, "position": "CB"},
-        {"name": "Antonio Rüdiger", "overall": 86, "position": "CB"},
-        {"name": "Marc-André ter Stegen", "overall": 86, "position": "GK"},
-        {"name": "Nico Schlotterbeck", "overall": 85, "position": "CB"}
+        {
+          "name": "Florian Wirtz",
+          "overall": 89,
+          "position": "CAM"
+        },
+        {
+          "name": "Joshua Kimmich",
+          "overall": 89,
+          "position": "CDM"
+        },
+        {
+          "name": "Jamal Musiala",
+          "overall": 88,
+          "position": "CAM"
+        },
+        {
+          "name": "Jonathan Tah",
+          "overall": 87,
+          "position": "CB"
+        },
+        {
+          "name": "Antonio Rüdiger",
+          "overall": 86,
+          "position": "CB"
+        },
+        {
+          "name": "Marc-André ter Stegen",
+          "overall": 86,
+          "position": "GK"
+        },
+        {
+          "name": "Nico Schlotterbeck",
+          "overall": 85,
+          "position": "CB"
+        }
       ],
       "notes": "Wirtz + Musiala is the generational attacking midfield Germany has been waiting twenty years for."
     },
     {
-      "team": "Italy",    "flag": "it", "overall": 82, "att": 81, "mid": 84, "def": 85, "depth_gap": 4.5, "ea_licensed": true,
-      "qualification": "playoff (UEFA)",
-      "stars": [
-        {"name": "Gianluigi Donnarumma", "overall": 89, "position": "GK"},
-        {"name": "Alessandro Bastoni", "overall": 87, "position": "CB"},
-        {"name": "Nicolò Barella", "overall": 87, "position": "CM"},
-        {"name": "Sandro Tonali", "overall": 86, "position": "CDM"},
-        {"name": "Federico Dimarco", "overall": 85, "position": "LB"},
-        {"name": "Manuel Locatelli", "overall": 84, "position": "CDM"}
-      ],
-      "notes": "Could MISS a third consecutive World Cup. Defense top-3 in the world; attack thin."
-    },
-    {
-      "team": "Netherlands", "flag": "nl", "overall": 82, "att": 81, "mid": 83, "def": 84, "depth_gap": 4.2, "ea_licensed": true,
+      "team": "Netherlands",
+      "flag": "nl",
+      "overall": 82,
+      "att": 81,
+      "mid": 83,
+      "def": 84,
+      "depth_gap": 4.2,
+      "ea_licensed": true,
       "qualification": "auto (UEFA)",
       "stars": [
-        {"name": "Virgil van Dijk", "overall": 90, "position": "CB"},
-        {"name": "Frenkie de Jong", "overall": 87, "position": "CM"},
-        {"name": "Ryan Gravenberch", "overall": 85, "position": "CDM"},
-        {"name": "Xavi Simons", "overall": 84, "position": "CAM"},
-        {"name": "Cody Gakpo", "overall": 84, "position": "LM"},
-        {"name": "Tijjani Reijnders", "overall": 82, "position": "CM"}
+        {
+          "name": "Virgil van Dijk",
+          "overall": 90,
+          "position": "CB"
+        },
+        {
+          "name": "Frenkie de Jong",
+          "overall": 87,
+          "position": "CM"
+        },
+        {
+          "name": "Ryan Gravenberch",
+          "overall": 85,
+          "position": "CDM"
+        },
+        {
+          "name": "Xavi Simons",
+          "overall": 84,
+          "position": "CAM"
+        },
+        {
+          "name": "Cody Gakpo",
+          "overall": 84,
+          "position": "LM"
+        },
+        {
+          "name": "Tijjani Reijnders",
+          "overall": 82,
+          "position": "CM"
+        }
       ],
       "notes": "Aging core (Van Dijk 35); Gravenberch and Reijnders are the future of the midfield."
     },
     {
-      "team": "Morocco",  "flag": "ma", "overall": 80, "att": 79, "mid": 80, "def": 81, "depth_gap": 3.8, "ea_licensed": true,
+      "team": "Morocco",
+      "flag": "ma",
+      "overall": 80,
+      "att": 79,
+      "mid": 80,
+      "def": 81,
+      "depth_gap": 3.8,
+      "ea_licensed": true,
       "qualification": "auto (CAF)",
       "stars": [
-        {"name": "Achraf Hakimi", "overall": 89, "position": "RB"},
-        {"name": "Brahim Díaz", "overall": 82, "position": "CAM"},
-        {"name": "Hakim Ziyech", "overall": 80, "position": "RM"},
-        {"name": "Noussair Mazraoui", "overall": 80, "position": "RB"},
-        {"name": "Nayef Aguerd", "overall": 79, "position": "CB"},
-        {"name": "Sofyan Amrabat", "overall": 78, "position": "CDM"}
+        {
+          "name": "Achraf Hakimi",
+          "overall": 89,
+          "position": "RB"
+        },
+        {
+          "name": "Brahim Díaz",
+          "overall": 82,
+          "position": "CAM"
+        },
+        {
+          "name": "Hakim Ziyech",
+          "overall": 80,
+          "position": "RM"
+        },
+        {
+          "name": "Noussair Mazraoui",
+          "overall": 80,
+          "position": "RB"
+        },
+        {
+          "name": "Nayef Aguerd",
+          "overall": 79,
+          "position": "CB"
+        },
+        {
+          "name": "Sofyan Amrabat",
+          "overall": 78,
+          "position": "CDM"
+        }
       ],
       "notes": "2022 semi-finalist core intact. Hakimi is now the highest-rated full-back in the world."
     },
     {
-      "team": "USA",      "flag": "us", "overall": 78, "att": 77, "mid": 78, "def": 78, "depth_gap": 3.6, "ea_licensed": true,
+      "team": "USA",
+      "flag": "us",
+      "overall": 78,
+      "att": 77,
+      "mid": 78,
+      "def": 78,
+      "depth_gap": 3.6,
+      "ea_licensed": true,
       "qualification": "auto (host)",
       "stars": [
-        {"name": "Christian Pulisic", "overall": 84, "position": "RW"},
-        {"name": "Johnny Cardoso", "overall": 81, "position": "CDM"},
-        {"name": "Tyler Adams", "overall": 79, "position": "CDM"},
-        {"name": "Sergiño Dest", "overall": 79, "position": "RB"},
-        {"name": "Cameron Carter-Vickers", "overall": 79, "position": "CB"},
-        {"name": "Weston McKennie", "overall": 78, "position": "CM"}
+        {
+          "name": "Christian Pulisic",
+          "overall": 84,
+          "position": "RW"
+        },
+        {
+          "name": "Johnny Cardoso",
+          "overall": 81,
+          "position": "CDM"
+        },
+        {
+          "name": "Tyler Adams",
+          "overall": 79,
+          "position": "CDM"
+        },
+        {
+          "name": "Sergiño Dest",
+          "overall": 79,
+          "position": "RB"
+        },
+        {
+          "name": "Cameron Carter-Vickers",
+          "overall": 79,
+          "position": "CB"
+        },
+        {
+          "name": "Weston McKennie",
+          "overall": 78,
+          "position": "CM"
+        }
       ],
       "notes": "Co-host. Pulisic at AC Milan has matured into a 84-rated player — the highest USMNT individual rating since the game's existence."
     },
     {
-      "team": "Mexico",   "flag": "mx", "overall": 76, "att": 75, "mid": 76, "def": 76, "depth_gap": 2.8, "ea_licensed": true,
+      "team": "Mexico",
+      "flag": "mx",
+      "overall": 76,
+      "att": 75,
+      "mid": 76,
+      "def": 76,
+      "depth_gap": 2.8,
+      "ea_licensed": true,
       "qualification": "auto (host)",
       "stars": [
-        {"name": "Santiago Giménez", "overall": 79, "position": "ST"},
-        {"name": "Edson Álvarez", "overall": 78, "position": "CDM"},
-        {"name": "Hirving Lozano", "overall": 78, "position": "LW"},
-        {"name": "Raúl Jiménez", "overall": 77, "position": "ST"},
-        {"name": "Orbelín Pineda", "overall": 77, "position": "CAM"}
+        {
+          "name": "Santiago Giménez",
+          "overall": 79,
+          "position": "ST"
+        },
+        {
+          "name": "Edson Álvarez",
+          "overall": 78,
+          "position": "CDM"
+        },
+        {
+          "name": "Hirving Lozano",
+          "overall": 78,
+          "position": "LW"
+        },
+        {
+          "name": "Raúl Jiménez",
+          "overall": 77,
+          "position": "ST"
+        },
+        {
+          "name": "Orbelín Pineda",
+          "overall": 77,
+          "position": "CAM"
+        }
       ],
       "notes": "Co-host. Lowest individual-rating ceiling of any host nation in WC history."
     },
     {
-      "team": "Denmark",  "flag": "dk", "overall": 79, "att": 78, "mid": 80, "def": 80, "depth_gap": 3.6, "ea_licensed": true,
-      "qualification": "auto (UEFA)",
-      "stars": [
-        {"name": "Pierre-Emile Højbjerg", "overall": 80, "position": "CDM"},
-        {"name": "Morten Hjulmand", "overall": 80, "position": "CDM"},
-        {"name": "Joachim Andersen", "overall": 78, "position": "CB"},
-        {"name": "Jonas Wind", "overall": 78, "position": "ST"},
-        {"name": "Mika Biereth", "overall": 78, "position": "ST"},
-        {"name": "Joakim Mæhle", "overall": 78, "position": "LB"}
-      ],
-      "notes": "Reset after 2022 group exit; Højlund replaced by Biereth as #9."
-    },
-    {
-      "team": "Croatia",  "flag": "hr", "overall": 78, "att": 76, "mid": 82, "def": 78, "depth_gap": 3.4, "ea_licensed": true,
+      "team": "Croatia",
+      "flag": "hr",
+      "overall": 78,
+      "att": 76,
+      "mid": 82,
+      "def": 78,
+      "depth_gap": 3.4,
+      "ea_licensed": true,
       "qualification": "playoff (UEFA)",
       "stars": [
-        {"name": "Joško Gvardiol", "overall": 84, "position": "CB"},
-        {"name": "Mateo Kovačić", "overall": 83, "position": "CM"},
-        {"name": "Luka Modrić (40)", "overall": 83, "position": "CM"},
-        {"name": "Marcelo Brozović", "overall": 81, "position": "CDM"},
-        {"name": "Andrej Kramarić", "overall": 81, "position": "CAM"}
+        {
+          "name": "Joško Gvardiol",
+          "overall": 84,
+          "position": "CB"
+        },
+        {
+          "name": "Mateo Kovačić",
+          "overall": 83,
+          "position": "CM"
+        },
+        {
+          "name": "Luka Modrić (40)",
+          "overall": 83,
+          "position": "CM"
+        },
+        {
+          "name": "Marcelo Brozović",
+          "overall": 81,
+          "position": "CDM"
+        },
+        {
+          "name": "Andrej Kramarić",
+          "overall": 81,
+          "position": "CAM"
+        }
       ],
       "notes": "Modrić's last dance if they qualify. Same midfield-heavy profile that overperformed in 2018 and 2022."
     },
     {
-      "team": "Brazil",   "flag": "br", "overall": 83, "att": 86, "mid": 82, "def": 81, "depth_gap": 5.2, "ea_licensed": true,
+      "team": "Brazil",
+      "flag": "br",
+      "overall": 83,
+      "att": 86,
+      "mid": 82,
+      "def": 81,
+      "depth_gap": 5.2,
+      "ea_licensed": true,
       "qualification": "auto (CONMEBOL)",
       "stars": [
-        {"name": "Vinicius Jr", "overall": 89, "position": "LW"},
-        {"name": "Rodrygo", "overall": 86, "position": "RW"},
-        {"name": "Casemiro", "overall": 84, "position": "CDM"},
-        {"name": "Alisson", "overall": 88, "position": "GK"},
-        {"name": "Marquinhos", "overall": 86, "position": "CB"},
-        {"name": "Bruno Guimarães", "overall": 85, "position": "CM"}
+        {
+          "name": "Vinicius Jr",
+          "overall": 89,
+          "position": "LW"
+        },
+        {
+          "name": "Rodrygo",
+          "overall": 86,
+          "position": "RW"
+        },
+        {
+          "name": "Casemiro",
+          "overall": 84,
+          "position": "CDM"
+        },
+        {
+          "name": "Alisson",
+          "overall": 88,
+          "position": "GK"
+        },
+        {
+          "name": "Marquinhos",
+          "overall": 86,
+          "position": "CB"
+        },
+        {
+          "name": "Bruno Guimarães",
+          "overall": 85,
+          "position": "CM"
+        }
       ],
       "notes": "EA signed a multi-year CBF licensing deal (announced May 2026, Gamescom LATAM); Brazil's official kit/badge/team rating roll out via a 2026 title update, so the Overall here remains our analyst aggregate until EA's official number ships. Real Madrid front pair (Vini + Rodrygo) is the strongest attack on paper."
     },
     {
-      "team": "Belgium",  "flag": "be", "overall": 79, "att": 80, "mid": 80, "def": 79, "depth_gap": 3.8, "ea_licensed": false,
+      "team": "Belgium",
+      "flag": "be",
+      "overall": 79,
+      "att": 80,
+      "mid": 80,
+      "def": 79,
+      "depth_gap": 3.8,
+      "ea_licensed": false,
       "qualification": "auto (UEFA)",
       "stars": [
-        {"name": "Jérémy Doku (analyst proxy)", "overall": 84, "position": "LW"},
-        {"name": "Amadou Onana", "overall": 82, "position": "CDM"},
-        {"name": "Youri Tielemans", "overall": 82, "position": "CM"},
-        {"name": "Romelu Lukaku", "overall": 82, "position": "ST"},
-        {"name": "Lois Openda", "overall": 82, "position": "ST"}
+        {
+          "name": "Jérémy Doku (analyst proxy)",
+          "overall": 84,
+          "position": "LW"
+        },
+        {
+          "name": "Amadou Onana",
+          "overall": 82,
+          "position": "CDM"
+        },
+        {
+          "name": "Youri Tielemans",
+          "overall": 82,
+          "position": "CM"
+        },
+        {
+          "name": "Romelu Lukaku",
+          "overall": 82,
+          "position": "ST"
+        },
+        {
+          "name": "Lois Openda",
+          "overall": 82,
+          "position": "ST"
+        }
       ],
       "notes": "EA FC 26 unlicensed for Belgium. Generational reset complete — De Bruyne / Hazard era over."
     },
     {
-      "team": "Senegal",  "flag": "sn", "overall": 77, "att": 77, "mid": 77, "def": 77, "depth_gap": 3.4, "ea_licensed": false,
+      "team": "Senegal",
+      "flag": "sn",
+      "overall": 77,
+      "att": 77,
+      "mid": 77,
+      "def": 77,
+      "depth_gap": 3.4,
+      "ea_licensed": false,
       "qualification": "auto (CAF)",
       "stars": [
-        {"name": "Sadio Mané (analyst proxy)", "overall": 83, "position": "LW"},
-        {"name": "Édouard Mendy", "overall": 82, "position": "GK"},
-        {"name": "Ismaïla Sarr", "overall": 81, "position": "RW"},
-        {"name": "Kalidou Koulibaly", "overall": 82, "position": "CB"}
+        {
+          "name": "Sadio Mané (analyst proxy)",
+          "overall": 83,
+          "position": "LW"
+        },
+        {
+          "name": "Édouard Mendy",
+          "overall": 82,
+          "position": "GK"
+        },
+        {
+          "name": "Ismaïla Sarr",
+          "overall": 81,
+          "position": "RW"
+        },
+        {
+          "name": "Kalidou Koulibaly",
+          "overall": 82,
+          "position": "CB"
+        }
       ],
       "notes": "EA FC 26 unlicensed for Senegal. Mané healthy; full first XI from 2022 squad still active."
     },
     {
-      "team": "Uruguay",  "flag": "uy", "overall": 79, "att": 80, "mid": 80, "def": 79, "depth_gap": 4.0, "ea_licensed": false,
+      "team": "Uruguay",
+      "flag": "uy",
+      "overall": 79,
+      "att": 80,
+      "mid": 80,
+      "def": 79,
+      "depth_gap": 4.0,
+      "ea_licensed": false,
       "qualification": "auto (CONMEBOL)",
       "stars": [
-        {"name": "Darwin Núñez (analyst proxy)", "overall": 83, "position": "ST"},
-        {"name": "Federico Valverde", "overall": 87, "position": "CM"},
-        {"name": "Manuel Ugarte", "overall": 81, "position": "CDM"},
-        {"name": "Facundo Pellistri", "overall": 76, "position": "RW"}
+        {
+          "name": "Darwin Núñez (analyst proxy)",
+          "overall": 83,
+          "position": "ST"
+        },
+        {
+          "name": "Federico Valverde",
+          "overall": 87,
+          "position": "CM"
+        },
+        {
+          "name": "Manuel Ugarte",
+          "overall": 81,
+          "position": "CDM"
+        },
+        {
+          "name": "Facundo Pellistri",
+          "overall": 76,
+          "position": "RW"
+        }
       ],
       "notes": "EA FC 26 unlicensed for Uruguay. Bielsa effect — best squad since 2018; Valverde now a top-10 CM in the game."
     },
     {
-      "team": "Colombia", "flag": "co", "overall": 80, "att": 81, "mid": 80, "def": 79, "depth_gap": 3.7, "ea_licensed": false,
+      "team": "Colombia",
+      "flag": "co",
+      "overall": 80,
+      "att": 81,
+      "mid": 80,
+      "def": 79,
+      "depth_gap": 3.7,
+      "ea_licensed": false,
       "qualification": "auto (CONMEBOL)",
       "stars": [
-        {"name": "Luis Díaz (analyst proxy)", "overall": 85, "position": "LW"},
-        {"name": "James Rodríguez", "overall": 82, "position": "CAM"},
-        {"name": "Daniel Muñoz", "overall": 80, "position": "RB"},
-        {"name": "Richard Ríos", "overall": 79, "position": "CM"}
+        {
+          "name": "Luis Díaz (analyst proxy)",
+          "overall": 85,
+          "position": "LW"
+        },
+        {
+          "name": "James Rodríguez",
+          "overall": 82,
+          "position": "CAM"
+        },
+        {
+          "name": "Daniel Muñoz",
+          "overall": 80,
+          "position": "RB"
+        },
+        {
+          "name": "Richard Ríos",
+          "overall": 79,
+          "position": "CM"
+        }
       ],
       "notes": "EA FC 26 unlicensed for Colombia. Copa 2024 finalists; back at WC after missing 2022."
     },
     {
-      "team": "Switzerland", "flag": "ch", "overall": 77, "att": 76, "mid": 78, "def": 79, "depth_gap": 3.2, "ea_licensed": false,
+      "team": "Switzerland",
+      "flag": "ch",
+      "overall": 77,
+      "att": 76,
+      "mid": 78,
+      "def": 79,
+      "depth_gap": 3.2,
+      "ea_licensed": false,
       "qualification": "auto (UEFA)",
       "stars": [
-        {"name": "Granit Xhaka (analyst proxy)", "overall": 84, "position": "CDM"},
-        {"name": "Yann Sommer", "overall": 82, "position": "GK"},
-        {"name": "Manuel Akanji", "overall": 82, "position": "CB"},
-        {"name": "Breel Embolo", "overall": 80, "position": "ST"}
+        {
+          "name": "Granit Xhaka (analyst proxy)",
+          "overall": 84,
+          "position": "CDM"
+        },
+        {
+          "name": "Yann Sommer",
+          "overall": 82,
+          "position": "GK"
+        },
+        {
+          "name": "Manuel Akanji",
+          "overall": 82,
+          "position": "CB"
+        },
+        {
+          "name": "Breel Embolo",
+          "overall": 80,
+          "position": "ST"
+        }
       ],
       "notes": "EA FC 26 unlicensed. Steady — never embarrasses themselves, never wins."
     },
     {
-      "team": "Japan",    "flag": "jp", "overall": 75, "att": 75, "mid": 76, "def": 76, "depth_gap": 2.8, "ea_licensed": false,
+      "team": "Japan",
+      "flag": "jp",
+      "overall": 75,
+      "att": 75,
+      "mid": 76,
+      "def": 76,
+      "depth_gap": 2.8,
+      "ea_licensed": false,
       "qualification": "auto (AFC)",
       "stars": [
-        {"name": "Takefusa Kubo (analyst proxy)", "overall": 82, "position": "RW"},
-        {"name": "Kaoru Mitoma", "overall": 82, "position": "LW"},
-        {"name": "Wataru Endo", "overall": 80, "position": "CDM"},
-        {"name": "Takehiro Tomiyasu", "overall": 81, "position": "RB"}
+        {
+          "name": "Takefusa Kubo (analyst proxy)",
+          "overall": 82,
+          "position": "RW"
+        },
+        {
+          "name": "Kaoru Mitoma",
+          "overall": 82,
+          "position": "LW"
+        },
+        {
+          "name": "Wataru Endo",
+          "overall": 80,
+          "position": "CDM"
+        },
+        {
+          "name": "Takehiro Tomiyasu",
+          "overall": 81,
+          "position": "RB"
+        }
       ],
       "notes": "EA FC 26 unlicensed. AFC's most consistent qualifier; aiming for first QF."
     },
     {
-      "team": "South Korea", "flag": "kr", "overall": 77, "att": 77, "mid": 76, "def": 77, "depth_gap": 3.0, "ea_licensed": false,
+      "team": "South Korea",
+      "flag": "kr",
+      "overall": 77,
+      "att": 77,
+      "mid": 76,
+      "def": 77,
+      "depth_gap": 3.0,
+      "ea_licensed": false,
       "qualification": "auto (AFC)",
       "stars": [
-        {"name": "Son Heung-min (analyst proxy)", "overall": 86, "position": "LW"},
-        {"name": "Kim Min-jae", "overall": 86, "position": "CB"},
-        {"name": "Lee Kang-in", "overall": 81, "position": "CAM"},
-        {"name": "Hwang In-beom", "overall": 78, "position": "CM"}
+        {
+          "name": "Son Heung-min (analyst proxy)",
+          "overall": 86,
+          "position": "LW"
+        },
+        {
+          "name": "Kim Min-jae",
+          "overall": 86,
+          "position": "CB"
+        },
+        {
+          "name": "Lee Kang-in",
+          "overall": 81,
+          "position": "CAM"
+        },
+        {
+          "name": "Hwang In-beom",
+          "overall": 78,
+          "position": "CM"
+        }
       ],
       "notes": "EA FC 26 unlicensed. Son's last realistic shot."
     },
     {
-      "team": "Australia", "flag": "au", "overall": 70, "att": 68, "mid": 71, "def": 72, "depth_gap": 2.3, "ea_licensed": false,
+      "team": "Australia",
+      "flag": "au",
+      "overall": 70,
+      "att": 68,
+      "mid": 71,
+      "def": 72,
+      "depth_gap": 2.3,
+      "ea_licensed": false,
       "qualification": "auto (AFC)",
       "stars": [
-        {"name": "Jackson Irvine (analyst proxy)", "overall": 76, "position": "CM"},
-        {"name": "Harry Souttar", "overall": 75, "position": "CB"},
-        {"name": "Mat Ryan", "overall": 76, "position": "GK"}
+        {
+          "name": "Jackson Irvine (analyst proxy)",
+          "overall": 76,
+          "position": "CM"
+        },
+        {
+          "name": "Harry Souttar",
+          "overall": 75,
+          "position": "CB"
+        },
+        {
+          "name": "Mat Ryan",
+          "overall": 76,
+          "position": "GK"
+        }
       ],
       "notes": "EA FC 26 unlicensed. Same core as 2022."
     },
     {
-      "team": "Saudi Arabia", "flag": "sa", "overall": 69, "att": 68, "mid": 69, "def": 70, "depth_gap": 2.0, "ea_licensed": false,
+      "team": "Saudi Arabia",
+      "flag": "sa",
+      "overall": 69,
+      "att": 68,
+      "mid": 69,
+      "def": 70,
+      "depth_gap": 2.0,
+      "ea_licensed": false,
       "qualification": "auto (AFC)",
       "stars": [
-        {"name": "Salem Al-Dawsari (analyst proxy)", "overall": 76, "position": "LW"},
-        {"name": "Mohammed Al-Owais", "overall": 74, "position": "GK"}
+        {
+          "name": "Salem Al-Dawsari (analyst proxy)",
+          "overall": 76,
+          "position": "LW"
+        },
+        {
+          "name": "Mohammed Al-Owais",
+          "overall": 74,
+          "position": "GK"
+        }
       ],
       "notes": "EA FC 26 unlicensed. Pro League imports yet to lift national side."
     },
     {
-      "team": "Iran",     "flag": "ir", "overall": 71, "att": 71, "mid": 71, "def": 72, "depth_gap": 2.2, "ea_licensed": false,
+      "team": "Iran",
+      "flag": "ir",
+      "overall": 71,
+      "att": 71,
+      "mid": 71,
+      "def": 72,
+      "depth_gap": 2.2,
+      "ea_licensed": false,
       "qualification": "auto (AFC)",
       "stars": [
-        {"name": "Mehdi Taremi (analyst proxy)", "overall": 81, "position": "ST"},
-        {"name": "Sardar Azmoun", "overall": 78, "position": "ST"}
+        {
+          "name": "Mehdi Taremi (analyst proxy)",
+          "overall": 81,
+          "position": "ST"
+        },
+        {
+          "name": "Sardar Azmoun",
+          "overall": 78,
+          "position": "ST"
+        }
       ],
       "notes": "EA FC 26 unlicensed. Same core as 2022; one more cycle for Taremi/Azmoun."
     },
     {
-      "team": "Canada",   "flag": "ca", "overall": 75, "att": 75, "mid": 74, "def": 75, "depth_gap": 2.8, "ea_licensed": false,
+      "team": "Canada",
+      "flag": "ca",
+      "overall": 75,
+      "att": 75,
+      "mid": 74,
+      "def": 75,
+      "depth_gap": 2.8,
+      "ea_licensed": false,
       "qualification": "auto (host)",
       "stars": [
-        {"name": "Alphonso Davies (analyst proxy)", "overall": 84, "position": "LB"},
-        {"name": "Jonathan David", "overall": 82, "position": "ST"},
-        {"name": "Stephen Eustáquio", "overall": 78, "position": "CM"}
+        {
+          "name": "Alphonso Davies (analyst proxy)",
+          "overall": 84,
+          "position": "LB"
+        },
+        {
+          "name": "Jonathan David",
+          "overall": 82,
+          "position": "ST"
+        },
+        {
+          "name": "Stephen Eustáquio",
+          "overall": 78,
+          "position": "CM"
+        }
       ],
       "notes": "Co-host, EA FC 26 unlicensed despite being made in Vancouver. Davies-David tandem is the strongest Canada attack ever."
     },
     {
-      "team": "Norway",   "flag": "no", "overall": 80, "att": 84, "mid": 79, "def": 77, "depth_gap": 5.2, "ea_licensed": true,
+      "team": "Norway",
+      "flag": "no",
+      "overall": 80,
+      "att": 84,
+      "mid": 79,
+      "def": 77,
+      "depth_gap": 5.2,
+      "ea_licensed": true,
       "qualification": "auto (UEFA)",
       "stars": [
-        {"name": "Erling Haaland", "overall": 90, "position": "ST"},
-        {"name": "Martin Ødegaard", "overall": 87, "position": "CAM"},
-        {"name": "Alexander Sørloth", "overall": 82, "position": "ST"}
+        {
+          "name": "Erling Haaland",
+          "overall": 90,
+          "position": "ST"
+        },
+        {
+          "name": "Martin Ødegaard",
+          "overall": 87,
+          "position": "CAM"
+        },
+        {
+          "name": "Alexander Sørloth",
+          "overall": 82,
+          "position": "ST"
+        }
       ],
       "notes": "First WC since 1998. Largest depth gap of any qualifier — pure Haaland-Ødegaard story."
+    },
+    {
+      "team": "Algeria",
+      "flag": "dz",
+      "overall": 76,
+      "att": 75,
+      "mid": 76,
+      "def": 76,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/team/111448/algeria/260035/"
+    },
+    {
+      "team": "Austria",
+      "flag": "at",
+      "overall": 78,
+      "att": 79,
+      "mid": 75,
+      "def": 79,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (high confidence); source: https://www.ea.com/games/ea-sports-fc/ratings/nations-ratings/austria/4"
+    },
+    {
+      "team": "Bosnia and Herzegovina",
+      "flag": "ba",
+      "overall": 77,
+      "att": null,
+      "mid": null,
+      "def": null,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (high confidence, player-average proxy); source: https://www.ea.com/en/games/ea-sports-fc/ratings/nations-ratings/bosnia-and-herzegovina/8"
+    },
+    {
+      "team": "Cape Verde",
+      "flag": "cv",
+      "overall": 72,
+      "att": null,
+      "mid": null,
+      "def": null,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence, player-average proxy); source: https://www.ea.com/en/games/ea-sports-fc/ratings/nations-ratings/cape-verde-islands/104"
+    },
+    {
+      "team": "Curaçao",
+      "flag": "cw",
+      "overall": 66,
+      "att": 65,
+      "mid": 67,
+      "def": null,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (high confidence); source: https://www.ea.com/en/games/ea-sports-fc/ratings/nations-ratings/curacao/85"
+    },
+    {
+      "team": "Czech Republic",
+      "flag": "cz",
+      "overall": 76,
+      "att": 77,
+      "mid": 76,
+      "def": 74,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (high confidence); source: https://sofifa.com/team/1330/czechia/260007/"
+    },
+    {
+      "team": "DR Congo",
+      "flag": "cd",
+      "overall": 72,
+      "att": 76,
+      "mid": 72,
+      "def": 73,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (high confidence); source: https://sofifa.com/squad/1707181"
+    },
+    {
+      "team": "Ecuador",
+      "flag": "ec",
+      "overall": 76,
+      "att": null,
+      "mid": null,
+      "def": null,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://www.ea.com/games/ea-sports-fc/ratings/nations-ratings/ecuador/57"
+    },
+    {
+      "team": "Egypt",
+      "flag": "eg",
+      "overall": 72,
+      "att": 74,
+      "mid": 70,
+      "def": null,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (high confidence); source: https://sofifa.com/squad/1148915?hl=en-US"
+    },
+    {
+      "team": "Ghana",
+      "flag": "gh",
+      "overall": 75,
+      "att": 80,
+      "mid": 76,
+      "def": 74,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/team/111462/ghana/260006/"
+    },
+    {
+      "team": "Haiti",
+      "flag": "ht",
+      "overall": 71,
+      "att": null,
+      "mid": null,
+      "def": null,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence, player-average proxy); source: https://www.ea.com/games/ea-sports-fc/ratings/nations-ratings/haiti/80"
+    },
+    {
+      "team": "Iraq",
+      "flag": "iq",
+      "overall": 65,
+      "att": 63,
+      "mid": 66,
+      "def": 65,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/squad/1370084"
+    },
+    {
+      "team": "Ivory Coast",
+      "flag": "ci",
+      "overall": 78,
+      "att": 79,
+      "mid": 80,
+      "def": 78,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/squad/2348698"
+    },
+    {
+      "team": "Jordan",
+      "flag": "jo",
+      "overall": 70,
+      "att": 68,
+      "mid": 71,
+      "def": 69,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/squad/1799001"
+    },
+    {
+      "team": "New Zealand",
+      "flag": "nz",
+      "overall": 69,
+      "att": 71,
+      "mid": 68,
+      "def": 68,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/squad/2289262"
+    },
+    {
+      "team": "Panama",
+      "flag": "pa",
+      "overall": 70,
+      "att": 69,
+      "mid": 69,
+      "def": null,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/squad/544544?hl=en-US"
+    },
+    {
+      "team": "Paraguay",
+      "flag": "py",
+      "overall": 74,
+      "att": 75,
+      "mid": 74,
+      "def": 73,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (high confidence); source: https://www.ea.com/games/ea-sports-fc/ratings/nations-ratings/paraguay/58"
+    },
+    {
+      "team": "Qatar",
+      "flag": "qa",
+      "overall": 69,
+      "att": null,
+      "mid": null,
+      "def": null,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (high confidence); source: https://sofifa.com/team/111527/qatar/"
+    },
+    {
+      "team": "Scotland",
+      "flag": "gb-sct",
+      "overall": 76,
+      "att": 77,
+      "mid": 78,
+      "def": 75,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (high confidence); source: https://sofifa.com/team/1359/scotland/"
+    },
+    {
+      "team": "South Africa",
+      "flag": "za",
+      "overall": 65,
+      "att": 69,
+      "mid": 68,
+      "def": null,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/squad/1355968?hl=en-US"
+    },
+    {
+      "team": "Sweden",
+      "flag": "se",
+      "overall": 80,
+      "att": null,
+      "mid": null,
+      "def": null,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence, player-average proxy); source: https://www.ea.com/games/ea-sports-fc/ratings/nations-ratings/sweden/46"
+    },
+    {
+      "team": "Tunisia",
+      "flag": "tn",
+      "overall": 71,
+      "att": 70,
+      "mid": 72,
+      "def": 72,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/team/1391/tunisia/260035/"
+    },
+    {
+      "team": "Turkey",
+      "flag": "tr",
+      "overall": 80,
+      "att": 80,
+      "mid": 78,
+      "def": 78,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/team/1365/turkiye/260035/"
+    },
+    {
+      "team": "Uzbekistan",
+      "flag": "uz",
+      "overall": 66,
+      "att": 66,
+      "mid": 65,
+      "def": 66,
+      "ea_licensed": false,
+      "qualification": "WC26 qualified",
+      "stars": [],
+      "notes": "EA FC 26 team Overall estimate (medium confidence); source: https://sofifa.com/squad/1712692?hl=en-US"
     }
   ]
 }
