@@ -268,6 +268,50 @@
         </p>
       </details>
 
+    <!-- =========================================================== -->
+    <!-- DEFENSE: team-level strong-partnership leaderboard            -->
+    <!-- =========================================================== -->
+    <section>
+      <h2>The defensive half &mdash; chemistry's stronger signal</h2>
+      <p>
+        The left-hand scatter just above already shows it &mdash; <strong>defensive chemistry is the
+        cleaner finding</strong>. The same talent-adjusted test (FIFA&nbsp;+&nbsp;caps&nbsp;+&nbsp;games&nbsp;+&nbsp;opponent
+        strength) gives a partial correlation of <strong>&minus;0.38</strong>: teams with more
+        <strong>strong defensive partnerships</strong> concede <strong>fewer</strong> chances than
+        their talent predicts (90% CI &minus;0.64 to &minus;0.08, clears zero). Oriented as
+        <em>chances prevented</em> that's <strong style="color:#54c875;">+0.38</strong> &mdash;
+        stronger than the <strong>+0.16</strong> the attacking side earns. Here is the same story
+        team by team. <span class="dim">(Notice <strong>France</strong>: in the scatter it sits a touch
+        <em>above</em> the trend line &mdash; slightly outperforming what its <em>talent-adjusted</em>
+        defensive chemistry predicts &mdash; while its chances-prevented lands essentially level with
+        expectation (&minus;0.02). That's why France reads <strong>neutral, not red</strong>, in the
+        table below, even though it's 3rd by raw strong-pair count: a high partnership count, an
+        about-as-expected result.)</span>
+      </p>
+      <div id="defense-team-leaderboard" style="max-height:30rem; overflow-y:auto;"></div>
+      <p class="dim small" style="margin-top:0.4rem;">
+        <strong>Strong def pairs</strong> = the count of a team's defensive partnerships that rate in
+        the tournament's top tier (attention-weighted JDI &mdash; the defensive twin of AW-JOI, GKs
+        excluded). <strong>xG prevented vs exp</strong> is measured StatsBomb xG-against relative to
+        the talent baseline: <strong style="color:#54c875;">&#10003;</strong> clearly fewer chances
+        allowed, <strong style="color:#e07474;">&#10007;</strong> clearly more, and <strong>white,
+        no mark</strong> = about as expected (within &plusmn;0.2 xG/game &mdash; e.g. France
+        &minus;0.02 and Argentina &minus;0.19, essentially level). <strong>Morocco</strong> (19
+        strong pairs, +0.78 prevented) and
+        <strong>Argentina</strong> (19) lead; <strong>France</strong> (15) and
+        <strong>Brazil</strong> (14, +0.52) follow. <strong>Click either header to sort.</strong>
+      </p>
+      <p class="dim small" style="margin-top:0.3rem; opacity:0.85;">
+        <strong>Why team-level only &mdash; the honest caveat:</strong> we tried a per-<em>pair</em>
+        defensive board too, but raw AW-JDI tracks shared minutes almost perfectly (&rho;&nbsp;0.97),
+        so it surfaces attackers who simply played a lot rather than real stoppers &mdash; it fails
+        the eye test, so we don't ship it. The <em>count</em> of strong partnerships per team is the
+        part that survives the talent controls, so defense stays a team story. One honest exception:
+        <strong>Croatia</strong> reached the semifinal (#12 here, &minus;0.52 prevented) on midfield
+        control, not a defensive wall &mdash; chemistry rates a tendency, not a verdict.
+      </p>
+    </section>
+
       <!-- ============ THE "SO WHAT": does chemistry beat talent? ============ -->
       <div class="card" style="border-left:3px solid #54c875; margin:1.6rem 0 1.2rem; padding:1rem 1.2rem;">
         <h3 class="mt-0" style="margin-bottom:0.45rem;">Do quick combinations actually <em>create</em> chances &mdash; or do good teams just combine more?</h3>
@@ -305,7 +349,7 @@
         only <strong>genuine partnerships</strong> (pairs that combined <strong>&ge;&nbsp;6 times</strong>, dropping the
         one-off noise) and adjusts for talent&nbsp;+&nbsp;opponents. <strong>Chemistry-added xG/g</strong> is how many
         chances per game those partnerships add beyond that baseline; <strong>Chances vs expected</strong>
-        (<span style="color:#54c875;">&#10003;</span>&nbsp;= it paid off) is what the team actually created.
+        (<span style="color:#54c875;">&#10003;</span>&nbsp;= it paid off; <strong>white, no mark</strong> = about as expected) is what the team actually created.
         It's a chemistry <em>rate</em>, <strong>not a trophy predictor</strong> &mdash; the deep teams surface
         (Morocco&nbsp;#3, Croatia&nbsp;#6, Argentina&nbsp;#7) alongside over-combiners like England and Spain, because
         creating chances isn't the same as winning a knockout. Flip to <strong>Who combines most</strong> for the raw
@@ -323,7 +367,7 @@
       </div>
       <div id="combo-team-leaderboard" style="max-height:30rem; overflow-y:auto;"></div>
       <p class="dim small" id="combo-team-note-volume" style="margin-top:0.4rem; display:none;"><strong>Combos / game</strong> = final-third combinations of this type per match played (hover a bar for the raw total), normalised so a group-stage exit isn't punished against a finalist who played seven. <strong>AW-JOI</strong> (&times;10&minus;&sup3;) and <strong>Threat+</strong> are the chemistry and model-threat (&Delta;P-score, not StatsBomb&nbsp;xG) behind the volume. Among the four semifinalists, <strong>Argentina</strong> leads take-overs and <strong>Croatia</strong> the third-man relays.</p>
-      <p class="dim small" id="combo-team-note-adjusted" style="margin-top:0.4rem;"><strong>Genuine partnerships</strong> = pairs that combined <strong>&ge;&nbsp;6 times</strong> (a true sustained duo, not a one-off). We adjust per game and for talent&nbsp;+&nbsp;opponents, so this is a chemistry <em>rate</em>. <strong>Chemistry-added xG/g</strong> is an <em>estimate</em> (the combo rate &times; the regression's xG-per-combo slope) &mdash; a model attribution, <strong>not measured xG</strong>. <strong>Chances vs expected</strong> beside it is the <em>measured</em> StatsBomb xG above/below the talent baseline &mdash; a <strong>negative</strong> value (red&nbsp;&#10007;) means the team created <em>fewer</em> chances than its talent predicted (Spain&nbsp;&minus;0.56), positive means more (Argentina&nbsp;+1.18). <strong>Click either column header to sort</strong> (sort by Chances vs expected to see who actually produced). Honest caveat: a 5-agent stress-test confirmed <strong>no team metric can rank "the best teams"</strong> &mdash; going deep tracked games-played (&rho;&nbsp;0.89), not chemistry. So read this as <em>who builds genuine partnerships beyond their talent</em>, not who's best. The real chemistry signal lives at the <strong>player and pair level below</strong>.</p>
+      <p class="dim small" id="combo-team-note-adjusted" style="margin-top:0.4rem;"><strong>Genuine partnerships</strong> = pairs that combined <strong>&ge;&nbsp;6 times</strong> (a true sustained duo, not a one-off). We adjust per game and for talent&nbsp;+&nbsp;opponents, so this is a chemistry <em>rate</em>. <strong>Chemistry-added xG/g</strong> is an <em>estimate</em> (the combo rate &times; the regression's xG-per-combo slope) &mdash; a model attribution, <strong>not measured xG</strong>. <strong>Chances vs expected</strong> beside it is the <em>measured</em> StatsBomb xG above/below the talent baseline &mdash; a clearly <strong>negative</strong> value (red&nbsp;&#10007;) means the team created <em>fewer</em> chances than its talent predicted (Spain&nbsp;&minus;0.56), clearly positive means more (Argentina&nbsp;+1.18), and <strong>white with no mark</strong> means about as expected (within &plusmn;0.2 xG/game). <strong>Click either column header to sort</strong> (sort by Chances vs expected to see who actually produced). Honest caveat: a 5-agent stress-test confirmed <strong>no team metric can rank "the best teams"</strong> &mdash; going deep tracked games-played (&rho;&nbsp;0.89), not chemistry. So read this as <em>who builds genuine partnerships beyond their talent</em>, not who's best. The real chemistry signal lives at the <strong>player and pair level below</strong>.</p>
 
       <h3 class="mt-2">The nuclei &mdash; who the combinations run through</h3>
       <p class="dim small" style="margin:0.2rem 0 0.6rem;">
@@ -473,44 +517,6 @@
         Croatia (rank 3, engine).</p>
       </div>
     </section>
-
-    <!-- =========================================================== -->
-    <!-- DEFENSE: team-level strong-partnership leaderboard            -->
-    <!-- =========================================================== -->
-    <section>
-      <h2>The defensive half &mdash; chemistry's stronger signal</h2>
-      <p>
-        Everything above is the <em>attacking</em> side. But the cleaner finding is on defense.
-        Run the same talent-adjusted test (FIFA&nbsp;+&nbsp;caps&nbsp;+&nbsp;games&nbsp;+&nbsp;opponent
-        strength) on the defensive side and the partial correlation is <strong>&minus;0.38</strong>
-        &mdash; teams with more <strong>strong defensive partnerships</strong> concede
-        <strong>fewer</strong> chances than their talent predicts (90% CI &minus;0.64 to &minus;0.08,
-        clears zero). Oriented as <em>chances prevented</em> that's
-        <strong style="color:#54c875;">+0.38</strong> &mdash; stronger than the
-        <strong>+0.16</strong> the same attention-weighted chemistry measure earns on the attacking
-        side. Defending as a unit is where ball-independent chemistry shows up most.
-      </p>
-      <div id="defense-team-leaderboard" style="max-height:30rem; overflow-y:auto;"></div>
-      <p class="dim small" style="margin-top:0.4rem;">
-        <strong>Strong def pairs</strong> = the count of a team's defensive partnerships that rate in
-        the tournament's top tier (attention-weighted JDI &mdash; the defensive twin of AW-JOI, GKs
-        excluded). <strong>xG prevented vs exp</strong> is measured StatsBomb xG-against relative to
-        the talent baseline: <strong style="color:#54c875;">&#10003;</strong> = allowed fewer chances
-        than expected. <strong>Morocco</strong> (19 strong pairs, +0.78 prevented) and
-        <strong>Argentina</strong> (19) lead; <strong>France</strong> (15) and
-        <strong>Brazil</strong> (14, +0.52) follow. <strong>Click either header to sort.</strong>
-      </p>
-      <p class="dim small" style="margin-top:0.3rem; opacity:0.85;">
-        <strong>Why team-level only &mdash; the honest caveat:</strong> we tried a per-<em>pair</em>
-        defensive board too, but raw AW-JDI tracks shared minutes almost perfectly (&rho;&nbsp;0.97),
-        so it surfaces attackers who simply played a lot rather than real stoppers &mdash; it fails
-        the eye test, so we don't ship it. The <em>count</em> of strong partnerships per team is the
-        part that survives the talent controls, so defense stays a team story. One honest exception:
-        <strong>Croatia</strong> reached the semifinal (#12 here, &minus;0.52 prevented) on midfield
-        control, not a defensive wall &mdash; chemistry rates a tendency, not a verdict.
-      </p>
-    </section>
-
     <!-- =========================================================== -->
     <!-- Per-clip controls: each embedded scrubber below renders its    -->
     <!-- own controls bar (chart, focus, top-N, GKs, edges, attention).  -->
@@ -1462,6 +1468,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo17"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo18"></script>
 </body>
 </html>

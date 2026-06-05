@@ -499,6 +499,11 @@ function renderTeamComboLeaderboard(el, teams, type) {
 // DEFENSIVE team leaderboard — count of strong defensive partnerships (the validated −0.38 predictor
 // of fewer chances allowed) + StatsBomb xG prevented vs talent. Role-clean at TEAM level only (per-pair
 // AW-JDI is not face-valid — it surfaces attention-magnet attackers, so no defensive pair board).
+// Residuals within ±NEUTRAL_BAND xG/game read as "about as expected" (≈ one goal's worth of xG
+// over a tournament) — show the number in white with NO ✓/✗, so near-zero isn't mislabelled a miss.
+const NEUTRAL_BAND = 0.2;
+function nearZero(v) { return Math.abs(v) < NEUTRAL_BAND; }
+
 function renderDefenseTeams(el, teams, sortKey) {
   if (!el || !Array.isArray(teams)) return;
   sortKey = sortKey || "nsd";
@@ -513,18 +518,19 @@ function renderDefenseTeams(el, teams, sortKey) {
   const body = rows.map((r, i) => {
     const semi = r.t.is_semifinalist;
     const w = Math.max(8, (r.nsd / maxN) * 100);
+    const nz = nearZero(r.prev);
     return `<tr style="border-bottom:1px solid var(--border);">
       <td style="padding:0.3rem 0.4rem; opacity:0.45; text-align:right;">${i + 1}</td>
       <td style="padding:0.3rem 0.5rem;"><strong${semi ? ' style="color:#e0b450;"' : ""}>${escapeHTML(r.t.team_name)}</strong>${semi ? ' <span style="color:#e0b450;" title="semifinalist">★</span>' : ""}</td>
       <td style="padding:0.3rem 0.5rem; white-space:nowrap;"><span class="combo-bar-wrap" style="display:inline-block; width:34px; vertical-align:middle;"><span class="combo-bar${semi ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span> <span class="tabular">${r.nsd}</span></td>
-      <td style="padding:0.3rem 0.5rem; text-align:right; white-space:nowrap;" class="tabular"><span style="color:${col(r.prev)};">${fmt(r.prev)}</span> <span title="${r.prev >= 0 ? "allowed fewer chances than talent predicted" : "allowed more than expected"}" style="opacity:0.75;">${r.prev >= 0 ? "✓" : "✗"}</span></td>
+      <td style="padding:0.3rem 0.5rem; text-align:right; white-space:nowrap;" class="tabular"><span style="color:${nz ? "var(--text)" : col(r.prev)};">${fmt(r.prev)}</span> ${nz ? "" : `<span title="${r.prev >= 0 ? "allowed fewer chances than talent predicted" : "allowed more than expected"}" style="opacity:0.75;">${r.prev >= 0 ? "✓" : "✗"}</span>`}</td>
     </tr>`;
   }).join("");
   el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
     <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
       <th data-defsort="nsd" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("nsd")}" title="count of strong defensive partnerships — the validated predictor of fewer chances allowed · click to sort">Strong def pairs${arr("nsd")}</th>
-      <th data-defsort="prev" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("prev")}" title="StatsBomb xG PREVENTED vs talent expectation (✓ = allowed fewer than expected) · click to sort">xG prevented vs exp${arr("prev")}</th>
+      <th data-defsort="prev" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("prev")}" title="StatsBomb xG PREVENTED vs talent expectation — ✓ clearly fewer chances allowed, ✗ clearly more, blank = about as expected (within ±0.2 xG/game) · click to sort">xG prevented vs exp${arr("prev")}</th>
     </tr></thead><tbody>${body}</tbody></table>`;
   el.querySelectorAll("[data-defsort]").forEach((h) => h.addEventListener("click", () => renderDefenseTeams(el, teams, h.getAttribute("data-defsort"))));
 }
@@ -545,18 +551,19 @@ function renderTalentAdjustedLeaderboard(el, teams, sortKey) {
     const semi = r.t.is_semifinalist;
     const w = Math.max(6, (Math.abs(r.add) / maxA) * 100);
     const agree = (r.add >= 0) === (r.act >= 0);
+    const nz = nearZero(r.act);
     return `<tr style="border-bottom:1px solid var(--border);">
       <td style="padding:0.3rem 0.4rem; opacity:0.45; text-align:right;">${i + 1}</td>
       <td style="padding:0.3rem 0.5rem; line-height:1.15;"><strong${semi ? ' style="color:#e0b450;"' : ""}>${escapeHTML(r.t.team_name)}</strong>${semi ? ' <span style="color:#e0b450;" title="Reached the semifinals">★</span>' : ""}</td>
       <td style="padding:0.3rem 0.5rem; white-space:nowrap;"><span class="combo-bar-wrap" style="display:inline-block; width:34px; vertical-align:middle;"><span class="combo-bar" style="width:${w.toFixed(0)}%; background:${col(r.add)};"></span></span> <span class="tabular" style="color:${col(r.add)}; font-weight:700;">${fmt(r.add)}</span></td>
-      <td style="padding:0.3rem 0.5rem; text-align:right; white-space:nowrap;" class="tabular"><span style="color:${col(r.act)};">${fmt(r.act)}</span> <span title="${agree ? "chemistry's call paid off" : "combined a lot, but it didn't translate"}" style="opacity:0.75;">${agree ? "✓" : "✗"}</span></td>
+      <td style="padding:0.3rem 0.5rem; text-align:right; white-space:nowrap;" class="tabular"><span style="color:${nz ? "var(--text)" : col(r.act)};">${fmt(r.act)}</span> ${nz ? "" : `<span title="${agree ? "chemistry's call paid off" : "combined a lot, but it didn't translate"}" style="opacity:0.75;">${agree ? "✓" : "✗"}</span>`}</td>
     </tr>`;
   }).join("");
   el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
     <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
       <th data-teamsort="add" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("add")}" title="An ESTIMATE — the talent-adjusted genuine-combo rate × the xG-per-combo slope from the regression. A model attribution, NOT measured xG. ('Chances vs expected →' is the measured StatsBomb xG.) · click to sort">Chemistry-added xG/g <span style="text-transform:none; opacity:0.6;">(est.)</span>${arr("add")}</th>
-      <th data-teamsort="act" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("act")}" title="What the team actually created above/below its talent baseline (✓ = the read paid off) · click to sort">Chances vs expected${arr("act")}</th>
+      <th data-teamsort="act" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("act")}" title="What the team actually created above/below its talent baseline — ✓ = the read paid off; blank = about as expected (within ±0.2 xG/game) · click to sort">Chances vs expected${arr("act")}</th>
     </tr></thead><tbody>${body}</tbody></table>`;
   el.querySelectorAll("[data-teamsort]").forEach((h) => h.addEventListener("click", () => renderTalentAdjustedLeaderboard(el, teams, h.getAttribute("data-teamsort"))));
 }
