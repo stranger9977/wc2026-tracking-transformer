@@ -10,8 +10,8 @@ import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipG
 /* ---------------- data ---------------- */
 
 const [teamRows, fullNets] = await Promise.all([
-  loadJSON("data/team_chemistry_vs_paper.json"),
-  loadJSON("data/team_full_networks.json"),
+  loadJSON("data/team_chemistry_vs_paper.json?v=combo22"),
+  loadJSON("data/team_full_networks.json?v=combo22"),
 ]);
 
 const TEAM_IDS = { France: "363", Argentina: "364", Morocco: "374", Croatia: "371" };
@@ -124,7 +124,7 @@ const XG_MARQUEE = new Set(["Brazil", "Spain", "Portugal", "England", "Netherlan
 
 const xgPanelEl = document.getElementById("chem-xg-panel");
 if (xgPanelEl) {
-  loadJSON("data/chemistry_xg.json").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
+  loadJSON("data/chemistry_xg.json?v=combo22").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
 }
 
 function renderChemistryXgPanel(xg) {
@@ -238,15 +238,15 @@ function renderXgScatter(mountEl, rows, opt) {
 
 const comboEl = document.getElementById("combo-grid");
 if (comboEl) {
-  loadJSON("data/combination_xg.json").then((xg) => renderComboPanel(xg)).catch(() => {});
+  loadJSON("data/combination_xg.json?v=combo22").then((xg) => renderComboPanel(xg)).catch(() => {});
 }
 // defensive team leaderboard (the stronger, validated chemistry signal)
 {
-  loadJSON("data/defense_chemistry.json").then((dj) => {
+  loadJSON("data/defense_chemistry.json?v=combo22").then((dj) => {
     const el = document.getElementById("defense-team-leaderboard");
     if (el && Array.isArray(dj.teams)) renderDefenseTeams(el, dj.teams);
   }).catch(() => {});
-  loadJSON("data/defense_model_probe.json").then((pj) => {
+  loadJSON("data/defense_model_probe.json?v=combo22").then((pj) => {
     const el = document.getElementById("defense-model-probe");
     if (el) renderDefenseModelProbe(el, pj);
   }).catch(() => {});
