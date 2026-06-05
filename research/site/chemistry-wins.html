@@ -339,6 +339,38 @@
         across all 44 matches. Up and to the right means the model reads more danger; down and to the
         left, less.
       </p>
+
+      <h3 class="mt-2">How these teams actually defended</h3>
+      <p class="dim small" style="margin:0.2rem 0 0.6rem;">
+        The model keys on line height and shape, so here is the shape itself, measured straight from the
+        tracking with no model involved. These are classic position numbers any viewer can check: how high
+        the back line sat when the opponent had the ball in its own half, how compact the block was front to
+        back (length) and side to side (width), how often a defender actually closed down the ball (press),
+        and how much territory the opponent was allowed (final-third entries). They describe a defensive
+        <em>style</em>, not a grade. A high line is a choice, not a mistake, so there is no good or bad
+        colour here, just where each team sat. <strong>Click any header to sort.</strong>
+      </p>
+      <div class="card" style="border-left:3px solid #e0b450; margin:0 0 0.8rem; padding:0.8rem 1rem;">
+        <strong style="color:#e0b450;">Morocco, by the tracking.</strong> Not the deepest line: that turned
+        out to be a measurement artifact, and when you isolate settled defending in their own half their line
+        sat mid-pack. What was genuinely distinctive: the <strong>lowest press of any team in the field</strong>
+        (a defender within 5m of the ball just 32% of the time, against 34 to 49% for everyone else), one of the
+        <strong>most vertically compact</strong> blocks, and the <strong>6th-most final-third entries
+        allowed</strong>. They let you carry the ball forward, stayed organized, and conceded territory but not
+        chances. That last gap, lots of entries and little danger, is exactly what the model is built to see.
+      </div>
+      <div id="defensive-style" style="max-height:32rem; overflow-y:auto;"></div>
+      <p class="dim small" style="margin-top:0.4rem; opacity:0.85;">
+        <strong>Press</strong> = share of out-of-possession time with a defender within 5m of the ball.
+        <strong>Line, own half</strong> = average back-line height (4 deepest outfielders, from own goal)
+        while pinned in the defensive half; it is compressed because when a team is truly camped back,
+        everyone defends near their box. <strong>Length</strong> and <strong>Width</strong> are the block's
+        front-to-back and side-to-side spread (lower = more compact). <strong>F3 entries</strong> is opponent
+        entries into the final third per game, which is territory, not chances. Honest limits: samples run 1 to
+        7 games per team (the G column), we have 44 of the 64 matches so opponents and scorelines shape the
+        numbers, and forced turnovers, line breaks and PPDA need event data we do not have here, so we leave
+        them out rather than estimate them.
+      </p>
     </section>
 
       <!-- ============ THE "SO WHAT": does chemistry beat talent? ============ -->
@@ -1497,6 +1529,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo22"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo23"></script>
 </body>
 </html>

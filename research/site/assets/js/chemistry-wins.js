@@ -10,8 +10,8 @@ import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipG
 /* ---------------- data ---------------- */
 
 const [teamRows, fullNets] = await Promise.all([
-  loadJSON("data/team_chemistry_vs_paper.json?v=combo22"),
-  loadJSON("data/team_full_networks.json?v=combo22"),
+  loadJSON("data/team_chemistry_vs_paper.json?v=combo23"),
+  loadJSON("data/team_full_networks.json?v=combo23"),
 ]);
 
 const TEAM_IDS = { France: "363", Argentina: "364", Morocco: "374", Croatia: "371" };
@@ -124,7 +124,7 @@ const XG_MARQUEE = new Set(["Brazil", "Spain", "Portugal", "England", "Netherlan
 
 const xgPanelEl = document.getElementById("chem-xg-panel");
 if (xgPanelEl) {
-  loadJSON("data/chemistry_xg.json?v=combo22").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
+  loadJSON("data/chemistry_xg.json?v=combo23").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
 }
 
 function renderChemistryXgPanel(xg) {
@@ -238,17 +238,21 @@ function renderXgScatter(mountEl, rows, opt) {
 
 const comboEl = document.getElementById("combo-grid");
 if (comboEl) {
-  loadJSON("data/combination_xg.json?v=combo22").then((xg) => renderComboPanel(xg)).catch(() => {});
+  loadJSON("data/combination_xg.json?v=combo23").then((xg) => renderComboPanel(xg)).catch(() => {});
 }
 // defensive team leaderboard (the stronger, validated chemistry signal)
 {
-  loadJSON("data/defense_chemistry.json?v=combo22").then((dj) => {
+  loadJSON("data/defense_chemistry.json?v=combo23").then((dj) => {
     const el = document.getElementById("defense-team-leaderboard");
     if (el && Array.isArray(dj.teams)) renderDefenseTeams(el, dj.teams);
   }).catch(() => {});
-  loadJSON("data/defense_model_probe.json?v=combo22").then((pj) => {
+  loadJSON("data/defense_model_probe.json?v=combo23").then((pj) => {
     const el = document.getElementById("defense-model-probe");
     if (el) renderDefenseModelProbe(el, pj);
+  }).catch(() => {});
+  loadJSON("data/defensive_style.json?v=combo23").then((sj) => {
+    const el = document.getElementById("defensive-style");
+    if (el) renderDefensiveStyle(el, sj);
   }).catch(() => {});
 }
 
@@ -572,6 +576,59 @@ function renderDefenseModelProbe(el, data) {
     <text x="${(padL + iw / 2).toFixed(0)}" y="${H - 14}" font-size="10.5" fill="currentColor" opacity="0.55" text-anchor="middle">back-line shift (m)</text>
     <text x="${W - padR}" y="${H - 14}" font-size="11" font-weight="600" fill="#e07474" text-anchor="end">higher line, more danger</text>
   </svg>`;
+}
+
+// "How these teams actually defended" — explainable tracking STYLE metrics (no model).
+// Descriptive, not quality: no good/bad colouring. Bar on the active sort column only.
+function renderDefensiveStyle(el, data, sortKey) {
+  if (!el || !data || !Array.isArray(data.teams) || !data.teams.length) {
+    if (el) el.innerHTML = '<p class="dim small">No data.</p>';
+    return;
+  }
+  const teams = data.teams;
+  sortKey = sortKey || "press_pct";
+  const cols = [
+    { k: "press_pct", label: "Press", fmt: (v) => v.toFixed(0) + "%", title: "How often a defender was within 5m of the ball while out of possession. High = hunts the ball, low = sits off. Morocco lowest of all 31 (32%); Spain highest (49%)." },
+    { k: "line_settled_m", label: "Line, own half", fmt: (v) => (v == null ? "—" : v.toFixed(1) + "m"), title: "Average back-line height (4 deepest outfielders, from own goal) when the opponent has the ball in this team's own half. Low = deeper. Compressed across teams: when truly pinned, everyone defends near their box." },
+    { k: "length_m", label: "Length", fmt: (v) => v.toFixed(1) + "m", title: "Vertical spread of the outfield block, front to back. Low = compact. Morocco 4th-most compact." },
+    { k: "width_m", label: "Width", fmt: (v) => v.toFixed(1) + "m", title: "Lateral spread of the outfield block, side to side. Low = narrow." },
+    { k: "f3_entries", label: "F3 entries /g", fmt: (v) => v.toFixed(0), title: "Times the opponent carried or played the ball into this team's final third, per game. Territory conceded, NOT chances. Morocco 6th-MOST despite reaching the semis: they let you in, then strangled the chance." },
+  ];
+  const cur = cols.find((c) => c.k === sortKey) || cols[0];
+  const vals = teams.map((t) => t[cur.k]).filter((v) => v != null);
+  const lo = Math.min(...vals), hi = Math.max(...vals);
+  const rows = teams.slice().sort((a, b) => {
+    const av = a[sortKey], bv = b[sortKey];
+    if (av == null) return 1; if (bv == null) return -1; return bv - av;
+  });
+  const hl = (k) => (k === sortKey ? " color:#e0b450;" : "");
+  const arr = (k) => (k === sortKey ? " ▼" : "");
+  const body = rows.map((r, i) => {
+    const semi = r.is_semifinalist;
+    const isMor = r.team === "Morocco";
+    const cells = cols.map((c) => {
+      const val = r[c.k];
+      if (c.k === sortKey) {
+        const w = (val == null || hi === lo) ? 0 : Math.max(5, ((val - lo) / (hi - lo)) * 100);
+        return `<td style="padding:0.3rem 0.5rem; white-space:nowrap;"><span class="combo-bar-wrap" style="display:inline-block; width:30px; vertical-align:middle;"><span class="combo-bar${semi ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span> <span class="tabular" style="font-weight:700;">${c.fmt(val)}</span></td>`;
+      }
+      return `<td style="padding:0.3rem 0.5rem; text-align:right; white-space:nowrap;" class="tabular">${val == null ? "—" : c.fmt(val)}</td>`;
+    }).join("");
+    return `<tr style="border-bottom:1px solid var(--border);${isMor ? "background:rgba(224,180,80,0.08);" : ""}">
+      <td style="padding:0.3rem 0.4rem; opacity:0.45; text-align:right;">${i + 1}</td>
+      <td style="padding:0.3rem 0.5rem;"><strong${semi ? ' style="color:#e0b450;"' : ""}>${escapeHTML(r.team)}</strong>${semi ? ' <span style="color:#e0b450;" title="reached the semifinals">★</span>' : ""}</td>
+      <td style="padding:0.3rem 0.4rem; text-align:right; opacity:0.55;" class="tabular" title="matches in our 44-match sample">${r.n_matches}</td>
+      ${cells}
+    </tr>`;
+  }).join("");
+  const th = cols.map((c) => `<th data-stylesort="${c.k}" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl(c.k)}" title="${c.title} · click to sort">${c.label}${arr(c.k)}</th>`).join("");
+  el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.8rem; width:100%;">
+    <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.64rem; border-bottom:1px solid var(--border);">
+      <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
+      <th style="text-align:right; padding:0.3rem 0.4rem;" title="matches in our 44-match sample">G</th>
+      ${th}
+    </tr></thead><tbody>${body}</tbody></table>`;
+  el.querySelectorAll("[data-stylesort]").forEach((h) => h.addEventListener("click", () => renderDefensiveStyle(el, data, h.getAttribute("data-stylesort"))));
 }
 
 function renderTalentAdjustedLeaderboard(el, teams, sortKey) {
