@@ -1135,6 +1135,8 @@
       "partners": 12,
       "aw_joi": 1.44,
       "xg_added": 1.36,
+      "per_combo": 2.4,
+      "team_share": 21.4,
       "per_100": 8.1,
       "touches": 700
     },
@@ -1148,6 +1150,8 @@
       "partners": 13,
       "aw_joi": 1.99,
       "xg_added": 1.12,
+      "per_combo": 2.1,
+      "team_share": 21.8,
       "per_100": 6.2,
       "touches": 873
     },
@@ -1161,6 +1165,8 @@
       "partners": 8,
       "aw_joi": 1.85,
       "xg_added": 0.53,
+      "per_combo": 1.1,
+      "team_share": 16.9,
       "per_100": 7.9,
       "touches": 633
     },
@@ -1174,6 +1180,8 @@
       "partners": 11,
       "aw_joi": 0.69,
       "xg_added": 0.4,
+      "per_combo": 0.9,
+      "team_share": 17.3,
       "per_100": 6.5,
       "touches": 702
     },
@@ -1187,6 +1195,8 @@
       "partners": 14,
       "aw_joi": 0.98,
       "xg_added": 0.83,
+      "per_combo": 1.9,
+      "team_share": 16.1,
       "per_100": 7.6,
       "touches": 589
     },
@@ -1200,6 +1210,8 @@
       "partners": 11,
       "aw_joi": 4.19,
       "xg_added": 0.7,
+      "per_combo": 1.6,
+      "team_share": 12.7,
       "per_100": 5.3,
       "touches": 846
     },
@@ -1213,6 +1225,8 @@
       "partners": 9,
       "aw_joi": 2.5,
       "xg_added": 0.81,
+      "per_combo": 1.9,
+      "team_share": 25.9,
       "per_100": 7.1,
       "touches": 606
     },
@@ -1226,6 +1240,8 @@
       "partners": 12,
       "aw_joi": 0.61,
       "xg_added": 0.79,
+      "per_combo": 1.9,
+      "team_share": 12.4,
       "per_100": 7.1,
       "touches": 575
     },
@@ -1239,6 +1255,8 @@
       "partners": 10,
       "aw_joi": 1.37,
       "xg_added": 0.58,
+      "per_combo": 1.4,
+      "team_share": 10.5,
       "per_100": 4.8,
       "touches": 863
     },
@@ -1252,6 +1270,8 @@
       "partners": 9,
       "aw_joi": 1.41,
       "xg_added": 0.75,
+      "per_combo": 2.0,
+      "team_share": 14.6,
       "per_100": 3.9,
       "touches": 968
     },
@@ -1265,6 +1285,8 @@
       "partners": 10,
       "aw_joi": 1.48,
       "xg_added": 0.54,
+      "per_combo": 1.5,
+      "team_share": 8.5,
       "per_100": 5.6,
       "touches": 645
     },
@@ -1278,6 +1300,8 @@
       "partners": 8,
       "aw_joi": 0.28,
       "xg_added": 0.42,
+      "per_combo": 1.2,
+      "team_share": 13.4,
       "per_100": 6.7,
       "touches": 541
     },
@@ -1291,6 +1315,8 @@
       "partners": 8,
       "aw_joi": 0.81,
       "xg_added": 0.32,
+      "per_combo": 0.9,
+      "team_share": 19.6,
       "per_100": 11.6,
       "touches": 301
     },
@@ -1304,6 +1330,8 @@
       "partners": 11,
       "aw_joi": 2.08,
       "xg_added": 0.45,
+      "per_combo": 1.4,
+      "team_share": 14.6,
       "per_100": 5.5,
       "touches": 587
     },
@@ -1317,6 +1345,8 @@
       "partners": 11,
       "aw_joi": 1.16,
       "xg_added": 0.34,
+      "per_combo": 1.1,
+      "team_share": 12.1,
       "per_100": 8.9,
       "touches": 359
     },
@@ -1330,6 +1360,8 @@
       "partners": 9,
       "aw_joi": 2.57,
       "xg_added": 0.92,
+      "per_combo": 3.0,
+      "team_share": 16.7,
       "per_100": 3.4,
       "touches": 903
     },
@@ -1343,6 +1375,8 @@
       "partners": 10,
       "aw_joi": 2.4,
       "xg_added": 0.73,
+      "per_combo": 2.4,
+      "team_share": 12.8,
       "per_100": 8.9,
       "touches": 349
     },
@@ -1356,6 +1390,8 @@
       "partners": 8,
       "aw_joi": 1.11,
       "xg_added": 0.48,
+      "per_combo": 1.6,
+      "team_share": 7.6,
       "per_100": 6.9,
       "touches": 437
     },
@@ -1369,6 +1405,8 @@
       "partners": 14,
       "aw_joi": 0.46,
       "xg_added": 0.19,
+      "per_combo": 0.7,
+      "team_share": 3.0,
       "per_100": 3.2,
       "touches": 917
     },
@@ -1382,6 +1420,8 @@
       "partners": 11,
       "aw_joi": 0.91,
       "xg_added": 0.66,
+      "per_combo": 2.3,
+      "team_share": 12.0,
       "per_100": 5.4,
       "touches": 541
     },
@@ -1395,6 +1435,8 @@
       "partners": 9,
       "aw_joi": 1.77,
       "xg_added": 0.47,
+      "per_combo": 1.7,
+      "team_share": 15.2,
       "per_100": 9.3,
       "touches": 301
     },
@@ -1408,6 +1450,8 @@
       "partners": 8,
       "aw_joi": 0.6,
       "xg_added": 0.15,
+      "per_combo": 0.5,
+      "team_share": 9.2,
       "per_100": 15.6,
       "touches": 218
     },
@@ -1421,6 +1465,8 @@
       "partners": 9,
       "aw_joi": 0.55,
       "xg_added": 0.21,
+      "per_combo": 0.8,
+      "team_share": 4.1,
       "per_100": 3.1,
       "touches": 865
     },
@@ -1434,6 +1480,8 @@
       "partners": 11,
       "aw_joi": 1.32,
       "xg_added": 0.68,
+      "per_combo": 2.5,
+      "team_share": 12.0,
       "per_100": 10.0,
       "touches": 269
     },
@@ -1447,6 +1495,8 @@
       "partners": 8,
       "aw_joi": 2.19,
       "xg_added": 0.69,
+      "per_combo": 2.6,
+      "team_share": 12.5,
       "per_100": 6.8,
       "touches": 383
     },
@@ -1460,6 +1510,8 @@
       "partners": 10,
       "aw_joi": 0.57,
       "xg_added": 0.35,
+      "per_combo": 1.3,
+      "team_share": 6.2,
       "per_100": 5.0,
       "touches": 519
     },
@@ -1473,6 +1525,8 @@
       "partners": 8,
       "aw_joi": 0.94,
       "xg_added": 0.44,
+      "per_combo": 1.7,
+      "team_share": 15.6,
       "per_100": 8.0,
       "touches": 327
     },
@@ -1486,6 +1540,8 @@
       "partners": 7,
       "aw_joi": 0.27,
       "xg_added": 0.36,
+      "per_combo": 1.4,
+      "team_share": 7.0,
       "per_100": 9.6,
       "touches": 271
     },
@@ -1499,6 +1555,8 @@
       "partners": 9,
       "aw_joi": 0.78,
       "xg_added": 0.64,
+      "per_combo": 2.5,
+      "team_share": 20.3,
       "per_100": 8.8,
       "touches": 295
     },
@@ -1512,6 +1570,8 @@
       "partners": 7,
       "aw_joi": 1.2,
       "xg_added": 0.63,
+      "per_combo": 2.5,
+      "team_share": 22.7,
       "per_100": 17.0,
       "touches": 147
     },
@@ -1525,6 +1585,8 @@
       "partners": 8,
       "aw_joi": 1.38,
       "xg_added": 0.4,
+      "per_combo": 1.7,
+      "team_share": 12.9,
       "per_100": 7.8,
       "touches": 309
     },
@@ -1538,6 +1600,8 @@
       "partners": 8,
       "aw_joi": 1.17,
       "xg_added": 0.31,
+      "per_combo": 1.3,
+      "team_share": 10.0,
       "per_100": 5.4,
       "touches": 441
     },
@@ -1551,6 +1615,8 @@
       "partners": 9,
       "aw_joi": 0.58,
       "xg_added": 0.37,
+      "per_combo": 1.5,
+      "team_share": 5.8,
       "per_100": 4.3,
       "touches": 552
     },
@@ -1564,6 +1630,8 @@
       "partners": 7,
       "aw_joi": 1.91,
       "xg_added": 0.48,
+      "per_combo": 2.0,
+      "team_share": 8.7,
       "per_100": 3.9,
       "touches": 623
     },
@@ -1577,6 +1645,8 @@
       "partners": 11,
       "aw_joi": 0.6,
       "xg_added": 0.46,
+      "per_combo": 1.9,
+      "team_share": 8.1,
       "per_100": 4.8,
       "touches": 502
     },
@@ -1590,6 +1660,8 @@
       "partners": 8,
       "aw_joi": 0.42,
       "xg_added": 0.24,
+      "per_combo": 1.0,
+      "team_share": 4.7,
       "per_100": 4.4,
       "touches": 519
     },
@@ -1603,6 +1675,8 @@
       "partners": 11,
       "aw_joi": 0.54,
       "xg_added": 0.32,
+      "per_combo": 1.4,
+      "team_share": 6.2,
       "per_100": 8.8,
       "touches": 261
     },
@@ -1616,6 +1690,8 @@
       "partners": 10,
       "aw_joi": 0.51,
       "xg_added": 0.18,
+      "per_combo": 0.8,
+      "team_share": 6.5,
       "per_100": 12.8,
       "touches": 180
     },
@@ -1629,6 +1705,8 @@
       "partners": 10,
       "aw_joi": 3.28,
       "xg_added": 0.64,
+      "per_combo": 2.8,
+      "team_share": 33.3,
       "per_100": 10.8,
       "touches": 212
     },
@@ -1642,6 +1720,8 @@
       "partners": 7,
       "aw_joi": 0.85,
       "xg_added": 0.36,
+      "per_combo": 1.6,
+      "team_share": 12.0,
       "per_100": 16.8,
       "touches": 137
     },
@@ -1655,6 +1735,8 @@
       "partners": 7,
       "aw_joi": 0.29,
       "xg_added": 0.56,
+      "per_combo": 2.5,
+      "team_share": 10.9,
       "per_100": 5.7,
       "touches": 389
     },
@@ -1668,6 +1750,8 @@
       "partners": 12,
       "aw_joi": 0.95,
       "xg_added": 0.29,
+      "per_combo": 1.3,
+      "team_share": 5.1,
       "per_100": 5.4,
       "touches": 409
     },
@@ -1681,6 +1765,8 @@
       "partners": 11,
       "aw_joi": 0.92,
       "xg_added": 0.56,
+      "per_combo": 2.6,
+      "team_share": 9.8,
       "per_100": 8.6,
       "touches": 256
     },
@@ -1694,6 +1780,8 @@
       "partners": 8,
       "aw_joi": 0.79,
       "xg_added": 0.41,
+      "per_combo": 1.9,
+      "team_share": 13.6,
       "per_100": 9.2,
       "touches": 239
     },
@@ -1707,6 +1795,8 @@
       "partners": 9,
       "aw_joi": 1.08,
       "xg_added": 0.68,
+      "per_combo": 3.3,
+      "team_share": 22.3,
       "per_100": 10.0,
       "touches": 210
     },
@@ -1720,6 +1810,8 @@
       "partners": 8,
       "aw_joi": 0.43,
       "xg_added": 0.33,
+      "per_combo": 1.6,
+      "team_share": 11.0,
       "per_100": 10.1,
       "touches": 208
     },
@@ -1733,6 +1825,8 @@
       "partners": 12,
       "aw_joi": 0.16,
       "xg_added": 0.12,
+      "per_combo": 0.6,
+      "team_share": 11.9,
       "per_100": 6.7,
       "touches": 315
     },
@@ -1746,6 +1840,8 @@
       "partners": 11,
       "aw_joi": 1.65,
       "xg_added": 0.36,
+      "per_combo": 1.8,
+      "team_share": 12.0,
       "per_100": 6.5,
       "touches": 310
     },
@@ -1759,6 +1855,8 @@
       "partners": 8,
       "aw_joi": 0.4,
       "xg_added": 0.15,
+      "per_combo": 0.8,
+      "team_share": 6.5,
       "per_100": 2.2,
       "touches": 1007
     },
@@ -1772,6 +1870,8 @@
       "partners": 9,
       "aw_joi": 0.7,
       "xg_added": 0.44,
+      "per_combo": 2.5,
+      "team_share": 6.9,
       "per_100": 9.9,
       "touches": 181
     }

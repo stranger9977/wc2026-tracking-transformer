@@ -507,11 +507,13 @@ function nearZero(v) { return Math.abs(v) < NEUTRAL_BAND; }
 function renderDefenseTeams(el, teams, sortKey) {
   if (!el || !Array.isArray(teams)) return;
   sortKey = sortKey || "nsd";
-  const data = teams.map((t) => ({ t, nsd: t.n_strong_def, prev: t.xg_prevented_over_expected }));
+  const data = teams.map((t) => ({ t, nsd: t.n_strong_def, adj: t.def_chem_adj, prev: t.xg_prevented_over_expected }));
   if (!data.length) { el.innerHTML = '<p class="dim small">No data.</p>'; return; }
-  const rows = data.slice().sort((a, b) => b[sortKey] - a[sortKey]);
+  const sv = (r) => (r[sortKey] == null ? -Infinity : r[sortKey]);
+  const rows = data.slice().sort((a, b) => sv(b) - sv(a));
   const maxN = Math.max(...data.map((r) => r.nsd), 1);
   const fmt = (v) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(2);
+  const fmt1 = (v) => (v == null ? "—" : (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(1));
   const col = (v) => (v >= 0 ? "#54c875" : "#e07474");
   const hl = (k) => (k === sortKey ? " color:#e0b450;" : "");
   const arr = (k) => (k === sortKey ? " ▼" : "");
@@ -523,13 +525,15 @@ function renderDefenseTeams(el, teams, sortKey) {
       <td style="padding:0.3rem 0.4rem; opacity:0.45; text-align:right;">${i + 1}</td>
       <td style="padding:0.3rem 0.5rem;"><strong${semi ? ' style="color:#e0b450;"' : ""}>${escapeHTML(r.t.team_name)}</strong>${semi ? ' <span style="color:#e0b450;" title="semifinalist">★</span>' : ""}</td>
       <td style="padding:0.3rem 0.5rem; white-space:nowrap;"><span class="combo-bar-wrap" style="display:inline-block; width:34px; vertical-align:middle;"><span class="combo-bar${semi ? " semi" : ""}" style="width:${w.toFixed(0)}%"></span></span> <span class="tabular">${r.nsd}</span></td>
+      <td style="padding:0.3rem 0.5rem; text-align:right; white-space:nowrap;" class="tabular"><span style="color:${r.adj == null ? "var(--text)" : col(r.adj)};${sortKey === "adj" ? " font-weight:700;" : ""}">${fmt1(r.adj)}</span></td>
       <td style="padding:0.3rem 0.5rem; text-align:right; white-space:nowrap;" class="tabular"><span style="color:${nz ? "var(--text)" : col(r.prev)};">${fmt(r.prev)}</span> ${nz ? "" : `<span title="${r.prev >= 0 ? "allowed fewer chances than talent predicted" : "allowed more than expected"}" style="opacity:0.75;">${r.prev >= 0 ? "✓" : "✗"}</span>`}</td>
     </tr>`;
   }).join("");
   el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
     <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
-      <th data-defsort="nsd" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("nsd")}" title="count of strong defensive partnerships — the validated predictor of fewer chances allowed · click to sort">Strong def pairs${arr("nsd")}</th>
+      <th data-defsort="nsd" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("nsd")}" title="RAW count of strong defensive partnerships (AW-JDI above the tournament median). It is additive, so it leans toward teams that played more (corr +0.51 with games) — the Adjusted column corrects for that. · click to sort">Strong def pairs${arr("nsd")}</th>
+      <th data-defsort="adj" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("adj")}" title="Defensive chemistry ADJUSTED for talent + games + opponent strength — strong pairs above/below what a team's rating and schedule predict. The games-FAIR ranking, and what the validated −0.38 finding is built on. Morocco and Argentina stay top-4; France slides. · click to sort">Adjusted (talent+games)${arr("adj")}</th>
       <th data-defsort="prev" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("prev")}" title="StatsBomb xG PREVENTED vs talent expectation — ✓ clearly fewer chances allowed, ✗ clearly more, blank = about as expected (within ±0.2 xG/game) · click to sort">xG prevented vs exp${arr("prev")}</th>
     </tr></thead><tbody>${body}</tbody></table>`;
   el.querySelectorAll("[data-defsort]").forEach((h) => h.addEventListener("click", () => renderDefenseTeams(el, teams, h.getAttribute("data-defsort"))));
@@ -580,6 +584,8 @@ function renderNucleusRanking(el, players, sortKey) {
     { k: "aw_joi", label: "AW-JOI", get: (p) => p.aw_joi, fmt: (v) => v.toFixed(1), color: "", title: "model's attention-weighted threat on this player's combinations (×10⁻³)" },
     { k: "xg_added", label: "Threat+", get: (p) => p.xg_added, fmt: (v) => v.toFixed(2), color: "#5eb1f8", title: "the model's scoring-probability rise (ΔP-score) during this player's combinations — NOT StatsBomb xG" },
     { k: "per_100", label: "/100 touch", get: (p) => (p.per_100 == null ? -1 : p.per_100), fmt: (v) => (v < 0 ? "—" : v.toFixed(1)), color: "", title: "combinations per 100 ball-touches — controls for ball-volume (Mike's check: Pedri 6.5 ≈ Messi 6.2, so the raw counts mostly reward seeing the ball most)" },
+    { k: "per_combo", label: "Threat/combo", get: (p) => (p.per_combo == null ? -1 : p.per_combo), fmt: (v) => (v < 0 ? "—" : v.toFixed(1) + "%"), color: "#5eb1f8", title: "model P(score)-rise PER combination (Threat+ ÷ combos) — quality per play, robust to games AND ball-volume; Modrić 3.0%, Mbappé 2.4%, Messi 2.1%, Pedri 0.9%" },
+    { k: "team_share", label: "% of team", get: (p) => (p.team_share == null ? -1 : p.team_share), fmt: (v) => (v < 0 ? "—" : v.toFixed(1) + "%"), color: "#c08cf0", title: "share of the team's TOTAL combination threat that runs through this player — the nucleus/centrality cut, fully games-invariant; De Bruyne 33%, Messi 22%, Mbappé 21%" },
   ];
   const sc = cols.find((c) => c.k === sortKey) || cols[0];
   const rows = players.slice().sort((a, b) => sc.get(b) - sc.get(a)).slice(0, 20);

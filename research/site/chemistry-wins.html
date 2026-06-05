@@ -290,16 +290,21 @@
       </p>
       <div id="defense-team-leaderboard" style="max-height:30rem; overflow-y:auto;"></div>
       <p class="dim small" style="margin-top:0.4rem;">
-        <strong>Strong def pairs</strong> = the count of a team's defensive partnerships that rate in
-        the tournament's top tier (attention-weighted JDI &mdash; the defensive twin of AW-JOI, GKs
-        excluded). <strong>xG prevented vs exp</strong> is measured StatsBomb xG-against relative to
-        the talent baseline: <strong style="color:#54c875;">&#10003;</strong> clearly fewer chances
-        allowed, <strong style="color:#e07474;">&#10007;</strong> clearly more, and <strong>white,
-        no mark</strong> = about as expected (within &plusmn;0.2 xG/game &mdash; e.g. France
-        &minus;0.02 and Argentina &minus;0.19, essentially level). <strong>Morocco</strong> (19
-        strong pairs, +0.78 prevented) and
-        <strong>Argentina</strong> (19) lead; <strong>France</strong> (15) and
-        <strong>Brazil</strong> (14, +0.52) follow. <strong>Click either header to sort.</strong>
+        <strong>Strong def pairs</strong> = the count of a team's defensive partnerships whose
+        coordination (attention-weighted JDI &mdash; the defensive twin of AW-JOI, GKs excluded)
+        rates <strong>above the tournament median</strong>. Because it's a <em>count</em>, it leans
+        toward teams that played more (corr <strong>+0.51</strong> with games) &mdash; so the
+        <strong>Adjusted (talent+games)</strong> column strips out talent, schedule and opponents for
+        the games-fair version. Adjusting doesn't kill the finding, it <em>reveals</em> it: the raw
+        count's link to actually preventing chances is &asymp;0 (games masks it), and the validated
+        <strong>&minus;0.38</strong> result is built on this adjusted column. <strong>Morocco</strong>
+        and <strong>Argentina</strong> stay top-4 adjusted; <strong>France</strong> slides (its 15 was
+        inflated by 7 games + elite talent). <strong>xG prevented vs exp</strong> is measured
+        StatsBomb xG-against relative to the talent baseline:
+        <strong style="color:#54c875;">&#10003;</strong> clearly fewer chances allowed,
+        <strong style="color:#e07474;">&#10007;</strong> clearly more, and <strong>white, no
+        mark</strong> = about as expected (within &plusmn;0.2 xG/game &mdash; e.g. France
+        &minus;0.02, Argentina &minus;0.19). <strong>Click any header to sort.</strong>
       </p>
       <p class="dim small" style="margin-top:0.3rem; opacity:0.85;">
         <strong>Why team-level only &mdash; the honest caveat:</strong> we tried a per-<em>pair</em>
@@ -384,7 +389,7 @@
         <button type="button" data-nuc-sort="aw_joi">AW-JOI</button>
       </div>
       <div id="combo-nucleus" style="max-height:32rem; overflow-y:auto;"></div>
-      <p class="dim small" style="margin-top:0.4rem;"><strong>Click any column header to sort.</strong> <strong>Combos</strong> (combinations with teammates, final third) and <strong>Threat+</strong> are tournament <em>totals</em>; <strong>/ game</strong> is per match. <strong>Partners</strong> = distinct teammates combined with (how much of a hub). <strong>AW-JOI</strong> (&times;10&minus;&sup3;) = the model's attention-weighted read on the move; <strong>Threat+</strong> = the model's scoring-probability rise during the move (&Delta;P-score) &mdash; <em>not</em> StatsBomb&nbsp;xG. Sort by <strong>Threat+</strong> to split ball-volume from output: <strong>Messi</strong> (54 combos, 1.12) vs <strong>Pedri</strong> (46 combos, 0.40) &mdash; both saw the ball constantly, but only Messi's combinations actually threatened. And <strong>/ 100 touches</strong> controls for ball-volume directly &mdash; <strong>Pedri 6.5 &asymp; Messi 6.2</strong> (tied), so neither is a per-touch specialist; the raw counts reward whoever sees the ball most (Mike's point). Top 50 by total (min 7 partners = genuine hubs).</p>
+      <p class="dim small" style="margin-top:0.4rem;"><strong>Click any column header to sort.</strong> <strong>Combos</strong> (combinations with teammates, final third) and <strong>Threat+</strong> are tournament <em>totals</em>; <strong>/ game</strong> is per match. <strong>Partners</strong> = distinct teammates combined with (how much of a hub). <strong>AW-JOI</strong> (&times;10&minus;&sup3;) = the model's attention-weighted read on the move; <strong>Threat+</strong> = the model's scoring-probability rise during the move (&Delta;P-score) &mdash; <em>not</em> StatsBomb&nbsp;xG. Sort by <strong>Threat+</strong> to split ball-volume from output: <strong>Messi</strong> (54 combos, 1.12) vs <strong>Pedri</strong> (46 combos, 0.40) &mdash; both saw the ball constantly, but only Messi's combinations actually threatened. And <strong>/ 100 touches</strong> controls for ball-volume directly &mdash; <strong>Pedri 6.5 &asymp; Messi 6.2</strong> (tied), so neither is a per-touch specialist; the raw counts reward whoever sees the ball most (Mike's point). Two model-based, <strong>games-fair</strong> cuts close the loop: <strong>Threat/combo</strong> = the model's P(score) rise <em>per combination</em> (quality per play, robust to games <em>and</em> volume &mdash; Modri&#263; 3.0%, Mbapp&eacute; 2.4%, Messi 2.1%, Pedri 0.9%), and <strong>% of team</strong> = the share of the team's total combination threat that runs through this player (the nucleus / centrality cut, fully games-invariant &mdash; De&nbsp;Bruyne 33%, Messi 22%, Mbapp&eacute; 21%). Top 50 by total (min 7 partners = genuine hubs).</p>
 
       <h3 class="mt-2">Where the combinations come from: shared club history</h3>
       <p class="dim small">The attacking signal runs as a chain: teams whose players were <strong>club teammates</strong>
@@ -1468,6 +1473,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo18"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo19"></script>
 </body>
 </html>
