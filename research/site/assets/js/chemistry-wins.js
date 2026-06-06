@@ -10,8 +10,8 @@ import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipG
 /* ---------------- data ---------------- */
 
 const [teamRows, fullNets] = await Promise.all([
-  loadJSON("data/team_chemistry_vs_paper.json?v=combo25"),
-  loadJSON("data/team_full_networks.json?v=combo25"),
+  loadJSON("data/team_chemistry_vs_paper.json?v=combo26"),
+  loadJSON("data/team_full_networks.json?v=combo26"),
 ]);
 
 const TEAM_IDS = { France: "363", Argentina: "364", Morocco: "374", Croatia: "371" };
@@ -124,7 +124,7 @@ const XG_MARQUEE = new Set(["Brazil", "Spain", "Portugal", "England", "Netherlan
 
 const xgPanelEl = document.getElementById("chem-xg-panel");
 if (xgPanelEl) {
-  loadJSON("data/chemistry_xg.json?v=combo25").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
+  loadJSON("data/chemistry_xg.json?v=combo26").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
 }
 
 function renderChemistryXgPanel(xg) {
@@ -238,30 +238,30 @@ function renderXgScatter(mountEl, rows, opt) {
 
 const comboEl = document.getElementById("combo-grid");
 if (comboEl) {
-  loadJSON("data/combination_xg.json?v=combo25").then((xg) => renderComboPanel(xg)).catch(() => {});
+  loadJSON("data/combination_xg.json?v=combo26").then((xg) => renderComboPanel(xg)).catch(() => {});
 }
 // defensive team leaderboard (the stronger, validated chemistry signal)
 {
-  loadJSON("data/defense_chemistry.json?v=combo25").then((dj) => {
+  loadJSON("data/defense_chemistry.json?v=combo26").then((dj) => {
     const el = document.getElementById("defense-team-leaderboard");
     if (el && Array.isArray(dj.teams)) renderDefenseTeams(el, dj.teams);
   }).catch(() => {});
-  loadJSON("data/defense_model_probe.json?v=combo25").then((pj) => {
+  loadJSON("data/defense_model_probe.json?v=combo26").then((pj) => {
     const el = document.getElementById("defense-model-probe");
     if (el) renderDefenseModelProbe(el, pj);
   }).catch(() => {});
-  loadJSON("data/defensive_style.json?v=combo25").then((sj) => {
+  loadJSON("data/defensive_style.json?v=combo26").then((sj) => {
     const el = document.getElementById("defensive-style");
     if (el) renderDefensiveStyle(el, sj);
   }).catch(() => {});
-  loadJSON("data/team_shape.json?v=combo25").then((tj) => {
+  loadJSON("data/team_shape.json?v=combo26").then((tj) => {
     renderShapePanel(tj);
   }).catch(() => {});
-  loadJSON("data/morocco_positioning.json?v=combo25").then((mp) => {
+  loadJSON("data/morocco_positioning.json?v=combo26").then((mp) => {
     const el = document.getElementById("morocco-positioning");
     if (el) renderMoroccoPositioning(el, mp);
   }).catch(() => {});
-  loadJSON("data/messi_positioning.json?v=combo25").then((mj) => {
+  loadJSON("data/messi_positioning.json?v=combo26").then((mj) => {
     const el = document.getElementById("messi-positioning");
     if (el) renderMessiPositioning(el, mj);
   }).catch(() => {});
@@ -802,7 +802,7 @@ function renderShapeLeaderboard(el, data, sortKey) {
 }
 
 // ============ MOROCCO UP CLOSE: length + where-they-sat heatmap ============
-function buildMoroccoHeatmap(H, backline, blockmean) {
+function buildMoroccoHeatmap(H, backline, blockmean, morLen, avgLen) {
   const ACC = "#e0b450";
   const counts = H.counts_normalized;      // rows = lateral, cols = up-pitch
   const rows = H.grid.rows_lateral, cols = H.grid.cols_up;
@@ -829,7 +829,18 @@ function buildMoroccoHeatmap(H, backline, blockmean) {
     <text x="${spx(backline)}" y="${SP_PAD - 4}" fill="#9fd6a0" font-size="9" text-anchor="middle" opacity="0.95">back line 24m</text>
     <text x="${spx(blockmean)}" y="${SP_PAD - 4}" fill="#e07474" font-size="9" text-anchor="middle" opacity="0.95">block 42m</text>
     <text x="${spx(87)}" y="${SP_PAD + SP_inH + 15}" fill="var(--text-dim)" font-size="9" text-anchor="middle" opacity="0.7">opponent goal</text>`;
-  return `<svg viewBox="0 0 ${SP_W} ${SP_H + 20}" width="100%" style="max-width:720px; height:auto;" xmlns="http://www.w3.org/2000/svg">${cells}${pitch}${ref}${labels}</svg>`;
+  // length-comparison brackets below the pitch: Morocco vs field average, centred on the block mean
+  const morLo = blockmean - morLen / 2, morHi = blockmean + morLen / 2;
+  const avgLo = blockmean - avgLen / 2, avgHi = blockmean + avgLen / 2;
+  const by1 = SP_PAD + SP_inH + 36, by2 = SP_PAD + SP_inH + 52, cap = 4;
+  const brk = (lo, hi, yc, color, dash, label) => `<line x1="${spx(lo)}" y1="${yc}" x2="${spx(hi)}" y2="${yc}" stroke="${color}" stroke-width="2"${dash ? ' stroke-dasharray="4 3"' : ""}/>
+    <line x1="${spx(lo)}" y1="${yc - cap}" x2="${spx(lo)}" y2="${yc + cap}" stroke="${color}" stroke-width="2"/>
+    <line x1="${spx(hi)}" y1="${yc - cap}" x2="${spx(hi)}" y2="${yc + cap}" stroke="${color}" stroke-width="2"/>
+    <text x="${spx(hi) + 6}" y="${yc + 3}" fill="${color}" font-size="9" opacity="0.95">${label}</text>`;
+  const brackets = `<text x="${SP_PAD}" y="${by1 - 11}" fill="var(--text-dim)" font-size="9" opacity="0.75">block length front to back, centred on the same point:</text>
+    ${brk(morLo, morHi, by1, "#e0b450", false, "Morocco " + morLen.toFixed(1) + "m")}
+    ${brk(avgLo, avgHi, by2, "#8b93a3", true, "field average " + avgLen.toFixed(1) + "m")}`;
+  return `<svg viewBox="0 0 ${SP_W} ${SP_H + 66}" width="100%" style="max-width:720px; height:auto;" xmlns="http://www.w3.org/2000/svg">${cells}${pitch}${ref}${labels}${brackets}</svg>`;
 }
 
 function renderMoroccoPositioning(el, data) {
@@ -838,12 +849,14 @@ function renderMoroccoPositioning(el, data) {
   const blockmean = data.depth_1d ? data.depth_1d.block_mean_up_m : 42.2;
   const backline = data.backline_settled_m || 24.2;
   const SCALE = 36;
-  const bar = (label, v, solid) => `<div style="display:flex; align-items:center; gap:0.5rem; margin:0.18rem 0;">
+  const bar = (label, v, solid, baseline) => `<div style="display:flex; align-items:center; gap:0.5rem; margin:0.18rem 0;">
     <span class="small" style="width:8.5rem; color:var(--text-dim);">${label}</span>
     <span style="flex:1; background:var(--bg-elev-2); border-radius:3px; height:0.95rem; position:relative; max-width:380px;">
       <span style="position:absolute; left:0; top:0; bottom:0; width:${(v / SCALE * 100).toFixed(1)}%; background:${solid ? "#e0b450" : "rgba(224,180,80,0.4)"}; border-radius:3px;"></span>
+      <span title="field average ${baseline.toFixed(1)}m" style="position:absolute; left:${(baseline / SCALE * 100).toFixed(1)}%; top:-3px; bottom:-3px; border-left:2px dashed var(--text); opacity:0.85;"></span>
     </span>
     <span class="tabular small" style="width:3.2rem; font-weight:700;">${v.toFixed(1)}m</span></div>`;
+  const fa = L.field_attacking_m || L.field_defending_m;
   const lengthBlock = `
     <p class="small" style="margin:0.2rem 0 0.4rem;"><strong>Length, how compact front to back.</strong>
       Morocco's defending block measured <strong>${L.morocco_defending_m.toFixed(1)}m</strong>, the
@@ -851,16 +864,20 @@ function renderMoroccoPositioning(el, data) {
       teams (field median ${L.field_defending_m.median.toFixed(1)}m). It stretches to
       <strong>${L.morocco_attacking_m.toFixed(1)}m</strong> with the ball, so this is a compact defensive
       block, not a passive team overall.</p>
-    ${bar("Without the ball", L.morocco_defending_m, true)}
-    ${bar("With the ball", L.morocco_attacking_m, false)}`;
+    ${bar("Without the ball", L.morocco_defending_m, true, L.field_defending_m.median)}
+    ${bar("With the ball", L.morocco_attacking_m, false, fa.median)}
+    <p class="dim small" style="margin:0.2rem 0 0; opacity:0.85;">The dashed line is the field-average length for
+      that phase (defending ${L.field_defending_m.median.toFixed(1)}m, attacking ${fa.median.toFixed(1)}m). Morocco
+      sits well short of it without the ball, but right on it with the ball: compact only when defending.</p>`;
   const thirds = T ? `<span style="white-space:nowrap;">own third <strong>${Math.round(T.own_0_35 * 100)}%</strong>, middle <strong>${Math.round(T.middle_35_70 * 100)}%</strong>, final <strong>${Math.round(T.final_70_105 * 100)}%</strong></span>` : "";
   const heatBlock = `
     <p class="small" style="margin:0.9rem 0 0.3rem;"><strong>Where they sat when defending.</strong>
       Heat is the average position of Morocco's ten outfielders while out of possession, attacking left to
       right (their own goal at the left). The block lived in its own and middle thirds (${thirds}); the green
       line is the settled back line (${backline.toFixed(0)}m from goal), the red line the block's mean depth
-      (${blockmean.toFixed(0)}m). Deep and compact, but a mid-block, not parked on the goal line.</p>
-    ${buildMoroccoHeatmap(data.heatmap, backline, blockmean)}
+      (${blockmean.toFixed(0)}m). Deep and compact, but a mid-block, not parked on the goal line. The brackets
+      below compare Morocco's front-to-back block length with the field average, centred on the same point.</p>
+    ${buildMoroccoHeatmap(data.heatmap, backline, blockmean, L.morocco_defending_m, L.field_defending_m.median)}
     <p class="dim small" style="margin-top:0.3rem; opacity:0.8;">Pure tracking position, not a quality grade.
       Pooled over Morocco's 6 games, all against strong, ball-dominant sides (Spain, Portugal, France, Croatia,
       Belgium, Canada), so the depth is partly opponent driven.</p>`;

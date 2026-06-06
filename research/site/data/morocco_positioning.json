@@ -35,6 +35,11 @@
       "median": 29.18,
       "max": 31.5
     },
+    "field_attacking_m": {
+      "min": 28.81,
+      "median": 32.15,
+      "max": 34.1
+    },
     "per_match": [
       {
         "match_id": "10508",
