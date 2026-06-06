@@ -1,0 +1,306 @@
+{
+  "_meta": "Morocco (team 374) positioning from PFF WC22 tracking, pooled over its 6 cached matches, 5 Hz. NOT a model output: pure geometry. Frame x oriented per (team, period) by the geometric GK (own goal = sign(GK mean x)); up_dist = 52.5*(1 - g*x_norm) is metres from Morocco's OWN goal (0) to the opponent goal (105); lateral = y_norm*34 (centred, shifted to 0..68 for the grid). GK excluded from the 10 outfielders. Extra-time coordinate corruption repaired per period (rounded-median shift).",
+  "params": {
+    "team_id": "374",
+    "hz": 5.0,
+    "n_backline": 4,
+    "pitch_len_m": 105.0,
+    "pitch_wid_m": 68.0,
+    "thirds_m": {
+      "own": [
+        0,
+        35.0
+      ],
+      "middle": [
+        35.0,
+        70.0
+      ],
+      "final": [
+        70.0,
+        105.0
+      ]
+    }
+  },
+  "length": {
+    "_meta": "Team LENGTH = mean per-frame vertical spread (deepest to highest of the 10 outfielders, up-pitch metres). LOW = compact. Defending and attacking phases reported separately.",
+    "morocco_defending_m": 24.71,
+    "morocco_attacking_m": 32.43,
+    "field_rank_defending": {
+      "rank": 4,
+      "of": 31,
+      "note": "1 = most compact defending block in the field"
+    },
+    "field_defending_m": {
+      "min": 22.98,
+      "median": 29.18,
+      "max": 31.5
+    },
+    "per_match": [
+      {
+        "match_id": "10508",
+        "opponent_id": "52",
+        "opponent": "Spain",
+        "defending_length_m": 21.14,
+        "attacking_length_m": 31.06,
+        "def_frames": 16834
+      },
+      {
+        "match_id": "10512",
+        "opponent_id": "365",
+        "opponent": "Portugal",
+        "defending_length_m": 23.37,
+        "attacking_length_m": 29.19,
+        "def_frames": 11116
+      },
+      {
+        "match_id": "10515",
+        "opponent_id": "363",
+        "opponent": "France",
+        "defending_length_m": 28.4,
+        "attacking_length_m": 33.81,
+        "def_frames": 7101
+      },
+      {
+        "match_id": "10516",
+        "opponent_id": "371",
+        "opponent": "Croatia",
+        "defending_length_m": 26.73,
+        "attacking_length_m": 32.03,
+        "def_frames": 8513
+      },
+      {
+        "match_id": "3837",
+        "opponent_id": "362",
+        "opponent": "Belgium",
+        "defending_length_m": 26.69,
+        "attacking_length_m": 34.18,
+        "def_frames": 10393
+      },
+      {
+        "match_id": "3853",
+        "opponent_id": "380",
+        "opponent": "Canada",
+        "defending_length_m": 25.92,
+        "attacking_length_m": 32.91,
+        "def_frames": 9300
+      }
+    ]
+  },
+  "heatmap": {
+    "_meta": "2D density of Morocco's 10 outfield players during OUT-OF-POSSESSION frames only, pooled over 6 matches. Counts normalised to sum 1.",
+    "grid": {
+      "cols_up": 12,
+      "rows_lateral": 7
+    },
+    "axes": {
+      "x_up_pitch_m": [
+        0,
+        105.0
+      ],
+      "x_meaning": "0 = Morocco's own goal, 105 = opponent goal",
+      "y_lateral_m": [
+        0,
+        68.0
+      ],
+      "y_meaning": "0..68 across the pitch (34 = centre); col-major rows are lateral"
+    },
+    "counts_normalized": [
+      [
+        0.00036,
+        0.00144,
+        0.0039,
+        0.00563,
+        0.00651,
+        0.00558,
+        0.00421,
+        0.00253,
+        0.00205,
+        0.00125,
+        0.00069,
+        0.0001
+      ],
+      [
+        0.00066,
+        0.00384,
+        0.01344,
+        0.02609,
+        0.03072,
+        0.02543,
+        0.0164,
+        0.00815,
+        0.00456,
+        0.00265,
+        0.00094,
+        0.00026
+      ],
+      [
+        0.00152,
+        0.00961,
+        0.02548,
+        0.04062,
+        0.04025,
+        0.03203,
+        0.02006,
+        0.01051,
+        0.00591,
+        0.00377,
+        0.00203,
+        0.0006
+      ],
+      [
+        0.00546,
+        0.01949,
+        0.03121,
+        0.04461,
+        0.04675,
+        0.04023,
+        0.02561,
+        0.01406,
+        0.00869,
+        0.00523,
+        0.00444,
+        0.00092
+      ],
+      [
+        0.00139,
+        0.00905,
+        0.02432,
+        0.03583,
+        0.04111,
+        0.03302,
+        0.02084,
+        0.01331,
+        0.00678,
+        0.00377,
+        0.00211,
+        0.00051
+      ],
+      [
+        0.00082,
+        0.00341,
+        0.01264,
+        0.02833,
+        0.0368,
+        0.03338,
+        0.01875,
+        0.00974,
+        0.00525,
+        0.00293,
+        0.00101,
+        0.00034
+      ],
+      [
+        0.00036,
+        0.00155,
+        0.00381,
+        0.00689,
+        0.00925,
+        0.00945,
+        0.00667,
+        0.00502,
+        0.00244,
+        0.00164,
+        0.00081,
+        0.00018
+      ]
+    ]
+  },
+  "depth_1d": {
+    "_meta": "1D up-pitch density of Morocco's defending BLOCK (mean up-pitch of the 10 outfielders) per defending frame; bins of 5 m over 0..105. Normalised to sum 1.",
+    "n_bins": 21,
+    "bin_width_m": 5.0,
+    "block_mean_up_m": 42.24,
+    "density": [
+      0.0,
+      0.00514,
+      0.01684,
+      0.0308,
+      0.06317,
+      0.09382,
+      0.13431,
+      0.12843,
+      0.13374,
+      0.11701,
+      0.08742,
+      0.06254,
+      0.0457,
+      0.03051,
+      0.01902,
+      0.0166,
+      0.01097,
+      0.00321,
+      0.00077,
+      0.0,
+      0.0
+    ]
+  },
+  "third_occupancy_def": {
+    "_meta": "Share of Morocco's defending frames in which the block mean (10 outfielders) sat in each pitch third, measured from Morocco's own goal.",
+    "own_0_35": 0.3441,
+    "middle_35_70": 0.6054,
+    "final_70_105": 0.0506
+  },
+  "backline_settled_m": 24.18,
+  "qa": {
+    "matches_processed": 44,
+    "morocco_matches": [
+      "10508",
+      "10512",
+      "10515",
+      "10516",
+      "3837",
+      "3853"
+    ],
+    "et_corrected_matches": [
+      "10506",
+      "10508",
+      "10517"
+    ],
+    "et_corrected_periods": [
+      {
+        "match": "10506",
+        "period": 3,
+        "frames": 2913,
+        "dx": 2,
+        "dy": 2
+      },
+      {
+        "match": "10506",
+        "period": 4,
+        "frames": 3015,
+        "dx": 2,
+        "dy": 2
+      },
+      {
+        "match": "10508",
+        "period": 3,
+        "frames": 2952,
+        "dx": 2,
+        "dy": 2
+      },
+      {
+        "match": "10508",
+        "period": 4,
+        "frames": 2915,
+        "dx": 2,
+        "dy": 2
+      },
+      {
+        "match": "10517",
+        "period": 3,
+        "frames": 2601,
+        "dx": 2,
+        "dy": 2
+      },
+      {
+        "match": "10517",
+        "period": 4,
+        "frames": 1960,
+        "dx": 2,
+        "dy": 2
+      }
+    ],
+    "mean_bad_gk_frac": 0.0,
+    "def_block_in_own_half_frac": 0.7706
+  }
+}

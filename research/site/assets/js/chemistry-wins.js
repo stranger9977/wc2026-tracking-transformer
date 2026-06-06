@@ -10,8 +10,8 @@ import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipG
 /* ---------------- data ---------------- */
 
 const [teamRows, fullNets] = await Promise.all([
-  loadJSON("data/team_chemistry_vs_paper.json?v=combo24"),
-  loadJSON("data/team_full_networks.json?v=combo24"),
+  loadJSON("data/team_chemistry_vs_paper.json?v=combo25"),
+  loadJSON("data/team_full_networks.json?v=combo25"),
 ]);
 
 const TEAM_IDS = { France: "363", Argentina: "364", Morocco: "374", Croatia: "371" };
@@ -124,7 +124,7 @@ const XG_MARQUEE = new Set(["Brazil", "Spain", "Portugal", "England", "Netherlan
 
 const xgPanelEl = document.getElementById("chem-xg-panel");
 if (xgPanelEl) {
-  loadJSON("data/chemistry_xg.json?v=combo24").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
+  loadJSON("data/chemistry_xg.json?v=combo25").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
 }
 
 function renderChemistryXgPanel(xg) {
@@ -238,24 +238,32 @@ function renderXgScatter(mountEl, rows, opt) {
 
 const comboEl = document.getElementById("combo-grid");
 if (comboEl) {
-  loadJSON("data/combination_xg.json?v=combo24").then((xg) => renderComboPanel(xg)).catch(() => {});
+  loadJSON("data/combination_xg.json?v=combo25").then((xg) => renderComboPanel(xg)).catch(() => {});
 }
 // defensive team leaderboard (the stronger, validated chemistry signal)
 {
-  loadJSON("data/defense_chemistry.json?v=combo24").then((dj) => {
+  loadJSON("data/defense_chemistry.json?v=combo25").then((dj) => {
     const el = document.getElementById("defense-team-leaderboard");
     if (el && Array.isArray(dj.teams)) renderDefenseTeams(el, dj.teams);
   }).catch(() => {});
-  loadJSON("data/defense_model_probe.json?v=combo24").then((pj) => {
+  loadJSON("data/defense_model_probe.json?v=combo25").then((pj) => {
     const el = document.getElementById("defense-model-probe");
     if (el) renderDefenseModelProbe(el, pj);
   }).catch(() => {});
-  loadJSON("data/defensive_style.json?v=combo24").then((sj) => {
+  loadJSON("data/defensive_style.json?v=combo25").then((sj) => {
     const el = document.getElementById("defensive-style");
     if (el) renderDefensiveStyle(el, sj);
   }).catch(() => {});
-  loadJSON("data/team_shape.json?v=combo24").then((tj) => {
+  loadJSON("data/team_shape.json?v=combo25").then((tj) => {
     renderShapePanel(tj);
+  }).catch(() => {});
+  loadJSON("data/morocco_positioning.json?v=combo25").then((mp) => {
+    const el = document.getElementById("morocco-positioning");
+    if (el) renderMoroccoPositioning(el, mp);
+  }).catch(() => {});
+  loadJSON("data/messi_positioning.json?v=combo25").then((mj) => {
+    const el = document.getElementById("messi-positioning");
+    if (el) renderMessiPositioning(el, mj);
   }).catch(() => {});
 }
 
@@ -791,6 +799,126 @@ function renderShapeLeaderboard(el, data, sortKey) {
       ${th}
     </tr></thead><tbody>${body}</tbody></table>`;
   el.querySelectorAll("[data-shapesort]").forEach((h) => h.addEventListener("click", () => renderShapeLeaderboard(el, data, h.getAttribute("data-shapesort"))));
+}
+
+// ============ MOROCCO UP CLOSE: length + where-they-sat heatmap ============
+function buildMoroccoHeatmap(H, backline, blockmean) {
+  const ACC = "#e0b450";
+  const counts = H.counts_normalized;      // rows = lateral, cols = up-pitch
+  const rows = H.grid.rows_lateral, cols = H.grid.cols_up;
+  let max = 0;
+  counts.forEach((r) => r.forEach((c) => { if (c > max) max = c; }));
+  let cells = "";
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const x = spx(c * 105 / cols), w = spx((c + 1) * 105 / cols) - spx(c * 105 / cols);
+      const y = spy(r * 68 / rows - 34), h = spy((r + 1) * 68 / rows - 34) - spy(r * 68 / rows - 34);
+      const op = (counts[r][c] / max) * 0.92;
+      cells += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${ACC}" opacity="${op.toFixed(3)}"/>`;
+    }
+  }
+  const pitch = `<rect x="${SP_PAD}" y="${SP_PAD}" width="${SP_inW}" height="${SP_inH}" fill="none" stroke="var(--border)" stroke-width="1"/>
+    <line x1="${spx(35)}" y1="${SP_PAD}" x2="${spx(35)}" y2="${SP_PAD + SP_inH}" stroke="var(--border)" stroke-width="0.6" stroke-dasharray="3 3" opacity="0.55"/>
+    <line x1="${spx(70)}" y1="${SP_PAD}" x2="${spx(70)}" y2="${SP_PAD + SP_inH}" stroke="var(--border)" stroke-width="0.6" stroke-dasharray="3 3" opacity="0.55"/>
+    <line x1="${spx(52.5)}" y1="${SP_PAD}" x2="${spx(52.5)}" y2="${SP_PAD + SP_inH}" stroke="var(--border)" stroke-width="0.8"/>
+    <rect x="${SP_PAD}" y="${spy(-20.16)}" width="${spd(16.5)}" height="${spy(20.16) - spy(-20.16)}" fill="none" stroke="var(--border)" stroke-width="0.8"/>`;
+  const ref = `<line x1="${spx(backline)}" y1="${SP_PAD}" x2="${spx(backline)}" y2="${SP_PAD + SP_inH}" stroke="#9fd6a0" stroke-width="1.4" opacity="0.9"/>
+    <line x1="${spx(blockmean)}" y1="${SP_PAD}" x2="${spx(blockmean)}" y2="${SP_PAD + SP_inH}" stroke="#e07474" stroke-width="1.4" stroke-dasharray="4 2" opacity="0.9"/>`;
+  const gx = spx(3.5);
+  const labels = `<text x="${gx}" y="${spy(0)}" fill="var(--text-dim)" font-size="9" transform="rotate(-90 ${gx} ${spy(0)})" text-anchor="middle" opacity="0.6">MOROCCO GOAL</text>
+    <text x="${spx(backline)}" y="${SP_PAD - 4}" fill="#9fd6a0" font-size="9" text-anchor="middle" opacity="0.95">back line 24m</text>
+    <text x="${spx(blockmean)}" y="${SP_PAD - 4}" fill="#e07474" font-size="9" text-anchor="middle" opacity="0.95">block 42m</text>
+    <text x="${spx(87)}" y="${SP_PAD + SP_inH + 15}" fill="var(--text-dim)" font-size="9" text-anchor="middle" opacity="0.7">opponent goal</text>`;
+  return `<svg viewBox="0 0 ${SP_W} ${SP_H + 20}" width="100%" style="max-width:720px; height:auto;" xmlns="http://www.w3.org/2000/svg">${cells}${pitch}${ref}${labels}</svg>`;
+}
+
+function renderMoroccoPositioning(el, data) {
+  if (!el || !data || !data.length || !data.heatmap) return;
+  const L = data.length, T = data.third_occupancy_def;
+  const blockmean = data.depth_1d ? data.depth_1d.block_mean_up_m : 42.2;
+  const backline = data.backline_settled_m || 24.2;
+  const SCALE = 36;
+  const bar = (label, v, solid) => `<div style="display:flex; align-items:center; gap:0.5rem; margin:0.18rem 0;">
+    <span class="small" style="width:8.5rem; color:var(--text-dim);">${label}</span>
+    <span style="flex:1; background:var(--bg-elev-2); border-radius:3px; height:0.95rem; position:relative; max-width:380px;">
+      <span style="position:absolute; left:0; top:0; bottom:0; width:${(v / SCALE * 100).toFixed(1)}%; background:${solid ? "#e0b450" : "rgba(224,180,80,0.4)"}; border-radius:3px;"></span>
+    </span>
+    <span class="tabular small" style="width:3.2rem; font-weight:700;">${v.toFixed(1)}m</span></div>`;
+  const lengthBlock = `
+    <p class="small" style="margin:0.2rem 0 0.4rem;"><strong>Length, how compact front to back.</strong>
+      Morocco's defending block measured <strong>${L.morocco_defending_m.toFixed(1)}m</strong>, the
+      <strong>${ordinal(L.field_rank_defending.rank)}-most compact of ${L.field_rank_defending.of}</strong>
+      teams (field median ${L.field_defending_m.median.toFixed(1)}m). It stretches to
+      <strong>${L.morocco_attacking_m.toFixed(1)}m</strong> with the ball, so this is a compact defensive
+      block, not a passive team overall.</p>
+    ${bar("Without the ball", L.morocco_defending_m, true)}
+    ${bar("With the ball", L.morocco_attacking_m, false)}`;
+  const thirds = T ? `<span style="white-space:nowrap;">own third <strong>${Math.round(T.own_0_35 * 100)}%</strong>, middle <strong>${Math.round(T.middle_35_70 * 100)}%</strong>, final <strong>${Math.round(T.final_70_105 * 100)}%</strong></span>` : "";
+  const heatBlock = `
+    <p class="small" style="margin:0.9rem 0 0.3rem;"><strong>Where they sat when defending.</strong>
+      Heat is the average position of Morocco's ten outfielders while out of possession, attacking left to
+      right (their own goal at the left). The block lived in its own and middle thirds (${thirds}); the green
+      line is the settled back line (${backline.toFixed(0)}m from goal), the red line the block's mean depth
+      (${blockmean.toFixed(0)}m). Deep and compact, but a mid-block, not parked on the goal line.</p>
+    ${buildMoroccoHeatmap(data.heatmap, backline, blockmean)}
+    <p class="dim small" style="margin-top:0.3rem; opacity:0.8;">Pure tracking position, not a quality grade.
+      Pooled over Morocco's 6 games, all against strong, ball-dominant sides (Spain, Portugal, France, Croatia,
+      Belgium, Canada), so the depth is partly opponent driven.</p>`;
+  el.innerHTML = lengthBlock + heatBlock;
+}
+
+function ordinal(n) {
+  const s = ["th", "st", "nd", "rd"], v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+// ============ WHERE MESSI PLAYED: position-density heatmap (mirrors Opta) ============
+function buildMessiHeatmap(H, meanUp, meanRight) {
+  const ACC = "#e0b450";
+  const counts = H.counts_normalized;      // [row=lateral][col=up]; row 0 = left, last = right
+  const rows = H.grid.rows_lateral, cols = H.grid.cols_up;
+  let max = 0;
+  counts.forEach((r) => r.forEach((c) => { if (c > max) max = c; }));
+  let cells = "";
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const x = spx(c * 105 / cols), w = spx((c + 1) * 105 / cols) - spx(c * 105 / cols);
+      const y = spy(r * 68 / rows - 34), h = spy((r + 1) * 68 / rows - 34) - spy(r * 68 / rows - 34);
+      const op = (counts[r][c] / max) * 0.92;
+      cells += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${ACC}" opacity="${op.toFixed(3)}"/>`;
+    }
+  }
+  const pitch = `<rect x="${SP_PAD}" y="${SP_PAD}" width="${SP_inW}" height="${SP_inH}" fill="none" stroke="var(--border)" stroke-width="1"/>
+    <line x1="${spx(52.5)}" y1="${SP_PAD}" x2="${spx(52.5)}" y2="${SP_PAD + SP_inH}" stroke="var(--border)" stroke-width="0.8"/>
+    <circle cx="${spx(52.5)}" cy="${spy(0)}" r="${spd(9.15)}" fill="none" stroke="var(--border)" stroke-width="0.8"/>
+    <rect x="${SP_PAD}" y="${spy(-20.16)}" width="${spd(16.5)}" height="${spy(20.16) - spy(-20.16)}" fill="none" stroke="var(--border)" stroke-width="0.8"/>
+    <rect x="${SP_PAD + SP_inW - spd(16.5)}" y="${spy(-20.16)}" width="${spd(16.5)}" height="${spy(20.16) - spy(-20.16)}" fill="none" stroke="var(--border)" stroke-width="0.8"/>`;
+  const ozx = spx(85);
+  const oz = `<rect x="${spx(65)}" y="${spy(2)}" width="${spx(105) - spx(65)}" height="${spy(22) - spy(2)}" fill="none" stroke="#7fbfff" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
+    <text x="${ozx}" y="${spy(2) - 3}" fill="#7fbfff" font-size="9" text-anchor="middle" opacity="0.9">Opta zone</text>`;
+  const mk = `<circle cx="${spx(meanUp)}" cy="${spy(meanRight)}" r="5" fill="none" stroke="#fff" stroke-width="1.6"/>
+    <text x="${spx(meanUp)}" y="${spy(meanRight) - 8}" fill="#fff" font-size="8.5" text-anchor="middle" opacity="0.85">avg</text>`;
+  const gx = spx(3.5);
+  const dir = `<text x="${gx}" y="${spy(0)}" fill="var(--text-dim)" font-size="9" transform="rotate(-90 ${gx} ${spy(0)})" text-anchor="middle" opacity="0.6">OWN GOAL</text>
+    <text x="${spx(52.5)}" y="${SP_PAD + SP_inH + 15}" fill="var(--text-dim)" font-size="10" text-anchor="middle" opacity="0.7">attacking direction &#8594; (right side at the bottom)</text>`;
+  return `<svg viewBox="0 0 ${SP_W} ${SP_H + 20}" width="100%" style="max-width:720px; height:auto;" xmlns="http://www.w3.org/2000/svg">${cells}${pitch}${oz}${mk}${dir}</svg>`;
+}
+
+function renderMessiPositioning(el, data) {
+  if (!el || !data || !data.heatmap || !data.stats) return;
+  const s = data.stats;
+  const oz = data.opta_zone ? Math.round(data.opta_zone.share * 100) : 24;
+  const svg = buildMessiHeatmap(data.heatmap, s.mean_up_m, s.mean_rightness_m);
+  const cap = `<p class="small" style="margin:0.2rem 0 0.4rem;">
+    Where Messi actually stood, on every on-pitch frame, oriented from our tracking with no model and
+    independently of Opta. He was Argentina's <strong>highest non-striker</strong> (mean
+    ${s.mean_up_m.toFixed(0)}m up the pitch, ${ordinal(s.up_rank_argentina)} of ${s.up_rank_of} outfielders),
+    spent only <strong>${Math.round(s.def_third_share * 100)}%</strong> of his time in his own defensive third,
+    and sat <strong>${Math.round(s.right_share * 100)}% right of centre</strong>. About
+    <strong>${oz}%</strong> of his positions fall in the high right half-space, the exact patch Opta's touch and
+    passes-received maps light up. Our data, oriented on its own, lands on the same zone.</p>`;
+  const depaul = data.depaul_combo ? `<p class="dim small" style="margin-top:0.3rem; opacity:0.85;">${escapeHTML(data.depaul_combo.note)}.</p>` : "";
+  el.innerHTML = cap + svg + depaul;
 }
 
 function renderTalentAdjustedLeaderboard(el, teams, sortKey) {
