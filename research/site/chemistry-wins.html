@@ -371,6 +371,30 @@
         numbers, and forced turnovers, line breaks and PPDA need event data we do not have here, so we leave
         them out rather than estimate them.
       </p>
+
+      <h3 class="mt-2">How their shape changes with the ball</h3>
+      <p class="dim small" style="margin:0.2rem 0 0.6rem;">
+        The panel above is the block <em>without</em> the ball. This is the other half, and the part the
+        defensive numbers cannot show: where the same ten outfielders sit <em>with</em> the ball, and how far
+        the shape stretches between the two. Faded dots are the defending shape, solid gold dots the attacking
+        shape, and each arrow is how that line moves when the team wins possession. Pick a team to see its two
+        shapes, an example play, and where it sits on the whole field. The point: the model reads danger off
+        shape, and shape is not one number, it is a thing that breathes.
+      </p>
+      <div id="shape-morph"></div>
+      <h4 class="mt-2" style="margin-bottom:0.3rem;">The whole field, by how much the shape stretches</h4>
+      <p class="dim small" style="margin:0 0 0.5rem;">
+        Every team we have, by their shape with the ball and the swing from defending to attacking.
+        <strong>Widen</strong> is how much wider they get on winning it, <strong>Advance</strong> how much
+        higher up the pitch. Semifinalists are starred and Morocco is highlighted. <strong>Click any header to sort.</strong>
+      </p>
+      <div id="shape-leaderboard" style="max-height:30rem; overflow-y:auto;"></div>
+      <p class="dim small" style="margin-top:0.4rem; opacity:0.85;">
+        Honest limits: these are average banded positions (a back four, a midfield, a front line), not individual
+        tracked players, and real shapes morph constantly. Samples run 1 to 7 games per team; the four
+        semifinalists have 6 or 7. Morocco's six games were all against strong, ball-dominant sides, so the size
+        of its low-possession and deep-block numbers is partly opponent driven.
+      </p>
     </section>
 
       <!-- ============ THE "SO WHAT": does chemistry beat talent? ============ -->
@@ -1529,6 +1553,6 @@
     TCD and AW-JOI/AW-JDI from this study's tracking pipeline; tournament results from FIFA's official records; Morocco quotation from Decroos &amp; Verbeke (2023), <a href="morocco-paper-summary.html">study summary</a>.
   </footer>
 
-  <script type="module" src="assets/js/chemistry-wins.js?v=combo23"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo24"></script>
 </body>
 </html>

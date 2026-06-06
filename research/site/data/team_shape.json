@@ -1,0 +1,809 @@
+{
+  "_meta": "FIFA-style team SHAPE (NOT model output), 44 PFF WC22 matches, 5 Hz. Average banded positions of the 10 outfielders, computed separately with the ball (attacking) and without it (defending). Descriptive style, not quality.",
+  "order": [
+    "Morocco",
+    "France",
+    "Croatia",
+    "Argentina"
+  ],
+  "pitch": {
+    "length_m": 105.0,
+    "width_m": 68.0
+  },
+  "caveats": [
+    "These are average player positions over the tournament, a descriptive shape, not a quality grade.",
+    "The dots are banded averages (a back four, a midfield, a front line), not individual tracked players, and real shapes morph constantly.",
+    "Samples run 1 to 7 games per team; all four semifinalists have 6 or 7.",
+    "Morocco's six games were all against strong, ball-dominant sides, so the size of its low-possession and deep-block numbers is partly opponent driven.",
+    "Widen and Advance are the attacking shape minus the defending shape: how much wider, and how much higher up the pitch, a team gets when it wins the ball."
+  ],
+  "teams": [
+    {
+      "team": "Spain",
+      "team_id": "52",
+      "n_matches": 3,
+      "is_semifinalist": false,
+      "poss": 72.0,
+      "att_width_m": 51.98,
+      "att_block_m": 58.24,
+      "d_width_m": 12.39,
+      "d_block_m": 4.31
+    },
+    {
+      "team": "Belgium",
+      "team_id": "362",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 56.0,
+      "att_width_m": 48.98,
+      "att_block_m": 53.33,
+      "d_width_m": 11.73,
+      "d_block_m": 5.95
+    },
+    {
+      "team": "Qatar",
+      "team_id": "360",
+      "n_matches": 1,
+      "is_semifinalist": false,
+      "poss": 42.0,
+      "att_width_m": 50.74,
+      "att_block_m": 51.75,
+      "d_width_m": 10.84,
+      "d_block_m": 13.26
+    },
+    {
+      "team": "Denmark",
+      "team_id": "367",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 57.9,
+      "att_width_m": 49.34,
+      "att_block_m": 55.46,
+      "d_width_m": 10.61,
+      "d_block_m": 7.95
+    },
+    {
+      "team": "Wales",
+      "team_id": "384",
+      "n_matches": 1,
+      "is_semifinalist": false,
+      "poss": 35.8,
+      "att_width_m": 47.57,
+      "att_block_m": 48.77,
+      "d_width_m": 10.0,
+      "d_block_m": 4.7
+    },
+    {
+      "team": "France",
+      "team_id": "363",
+      "n_matches": 7,
+      "is_semifinalist": true,
+      "poss": 50.6,
+      "att_width_m": 47.73,
+      "att_block_m": 54.46,
+      "d_width_m": 9.47,
+      "d_block_m": 8.1
+    },
+    {
+      "team": "South Korea",
+      "team_id": "377",
+      "n_matches": 3,
+      "is_semifinalist": false,
+      "poss": 48.2,
+      "att_width_m": 45.16,
+      "att_block_m": 56.34,
+      "d_width_m": 9.11,
+      "d_block_m": 10.78
+    },
+    {
+      "team": "Switzerland",
+      "team_id": "370",
+      "n_matches": 3,
+      "is_semifinalist": false,
+      "poss": 48.6,
+      "att_width_m": 47.13,
+      "att_block_m": 50.52,
+      "d_width_m": 9.1,
+      "d_block_m": 5.99
+    },
+    {
+      "team": "Australia",
+      "team_id": "386",
+      "n_matches": 3,
+      "is_semifinalist": false,
+      "poss": 38.3,
+      "att_width_m": 46.43,
+      "att_block_m": 48.23,
+      "d_width_m": 9.04,
+      "d_block_m": 5.81
+    },
+    {
+      "team": "England",
+      "team_id": "50",
+      "n_matches": 3,
+      "is_semifinalist": false,
+      "poss": 60.7,
+      "att_width_m": 47.45,
+      "att_block_m": 54.76,
+      "d_width_m": 8.9,
+      "d_block_m": 6.24
+    },
+    {
+      "team": "Netherlands",
+      "team_id": "366",
+      "n_matches": 4,
+      "is_semifinalist": false,
+      "poss": 51.0,
+      "att_width_m": 43.94,
+      "att_block_m": 53.69,
+      "d_width_m": 8.79,
+      "d_block_m": 9.28
+    },
+    {
+      "team": "Iran",
+      "team_id": "373",
+      "n_matches": 1,
+      "is_semifinalist": false,
+      "poss": 46.9,
+      "att_width_m": 45.2,
+      "att_block_m": 51.88,
+      "d_width_m": 8.69,
+      "d_block_m": 7.28
+    },
+    {
+      "team": "Brazil",
+      "team_id": "361",
+      "n_matches": 5,
+      "is_semifinalist": false,
+      "poss": 55.8,
+      "att_width_m": 47.05,
+      "att_block_m": 55.99,
+      "d_width_m": 8.62,
+      "d_block_m": 7.21
+    },
+    {
+      "team": "Serbia",
+      "team_id": "375",
+      "n_matches": 3,
+      "is_semifinalist": false,
+      "poss": 50.0,
+      "att_width_m": 48.11,
+      "att_block_m": 52.33,
+      "d_width_m": 8.62,
+      "d_block_m": 6.04
+    },
+    {
+      "team": "Poland",
+      "team_id": "376",
+      "n_matches": 3,
+      "is_semifinalist": false,
+      "poss": 37.7,
+      "att_width_m": 43.81,
+      "att_block_m": 48.69,
+      "d_width_m": 8.4,
+      "d_block_m": 8.38
+    },
+    {
+      "team": "Croatia",
+      "team_id": "371",
+      "n_matches": 6,
+      "is_semifinalist": true,
+      "poss": 52.1,
+      "att_width_m": 45.28,
+      "att_block_m": 52.0,
+      "d_width_m": 8.14,
+      "d_block_m": 6.3
+    },
+    {
+      "team": "Senegal",
+      "team_id": "372",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 44.2,
+      "att_width_m": 45.59,
+      "att_block_m": 51.96,
+      "d_width_m": 8.11,
+      "d_block_m": 6.42
+    },
+    {
+      "team": "Portugal",
+      "team_id": "365",
+      "n_matches": 3,
+      "is_semifinalist": false,
+      "poss": 58.3,
+      "att_width_m": 44.94,
+      "att_block_m": 55.55,
+      "d_width_m": 7.99,
+      "d_block_m": 5.32
+    },
+    {
+      "team": "United States",
+      "team_id": "51",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 57.5,
+      "att_width_m": 44.52,
+      "att_block_m": 56.09,
+      "d_width_m": 7.71,
+      "d_block_m": 5.67
+    },
+    {
+      "team": "Argentina",
+      "team_id": "364",
+      "n_matches": 6,
+      "is_semifinalist": true,
+      "poss": 54.7,
+      "att_width_m": 46.22,
+      "att_block_m": 53.53,
+      "d_width_m": 7.7,
+      "d_block_m": 7.29
+    },
+    {
+      "team": "Mexico",
+      "team_id": "58",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 49.1,
+      "att_width_m": 46.07,
+      "att_block_m": 54.08,
+      "d_width_m": 7.44,
+      "d_block_m": 6.82
+    },
+    {
+      "team": "Costa Rica",
+      "team_id": "385",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 37.8,
+      "att_width_m": 42.79,
+      "att_block_m": 43.01,
+      "d_width_m": 7.42,
+      "d_block_m": 6.4
+    },
+    {
+      "team": "Morocco",
+      "team_id": "374",
+      "n_matches": 6,
+      "is_semifinalist": true,
+      "poss": 40.6,
+      "att_width_m": 46.92,
+      "att_block_m": 48.25,
+      "d_width_m": 7.39,
+      "d_block_m": 6.02
+    },
+    {
+      "team": "Canada",
+      "team_id": "380",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 55.7,
+      "att_width_m": 46.73,
+      "att_block_m": 55.49,
+      "d_width_m": 7.3,
+      "d_block_m": 6.02
+    },
+    {
+      "team": "Ghana",
+      "team_id": "383",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 46.7,
+      "att_width_m": 41.69,
+      "att_block_m": 51.88,
+      "d_width_m": 6.91,
+      "d_block_m": 9.71
+    },
+    {
+      "team": "Germany",
+      "team_id": "368",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 54.5,
+      "att_width_m": 44.68,
+      "att_block_m": 59.71,
+      "d_width_m": 6.86,
+      "d_block_m": 5.64
+    },
+    {
+      "team": "Uruguay",
+      "team_id": "369",
+      "n_matches": 1,
+      "is_semifinalist": false,
+      "poss": 46.4,
+      "att_width_m": 40.28,
+      "att_block_m": 50.51,
+      "d_width_m": 6.08,
+      "d_block_m": 5.44
+    },
+    {
+      "team": "Saudi Arabia",
+      "team_id": "382",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 53.9,
+      "att_width_m": 44.23,
+      "att_block_m": 53.56,
+      "d_width_m": 5.97,
+      "d_block_m": 5.84
+    },
+    {
+      "team": "Tunisia",
+      "team_id": "378",
+      "n_matches": 1,
+      "is_semifinalist": false,
+      "poss": 37.5,
+      "att_width_m": 44.25,
+      "att_block_m": 49.55,
+      "d_width_m": 5.45,
+      "d_block_m": 8.34
+    },
+    {
+      "team": "Cameroon",
+      "team_id": "379",
+      "n_matches": 2,
+      "is_semifinalist": false,
+      "poss": 41.3,
+      "att_width_m": 42.84,
+      "att_block_m": 50.22,
+      "d_width_m": 4.9,
+      "d_block_m": 4.01
+    },
+    {
+      "team": "Japan",
+      "team_id": "57",
+      "n_matches": 3,
+      "is_semifinalist": false,
+      "poss": 38.8,
+      "att_width_m": 44.48,
+      "att_block_m": 53.54,
+      "d_width_m": 3.96,
+      "d_block_m": 9.38
+    }
+  ],
+  "shapes": {
+    "Morocco": {
+      "team": "Morocco",
+      "team_id": "374",
+      "n_matches": 6,
+      "poss": 40.6,
+      "attacking": {
+        "length_m": 32.43,
+        "width_m": 46.92,
+        "block_m": 48.25,
+        "back_m": 37.47,
+        "mid_m": 50.33,
+        "front_m": 60.54,
+        "dots": [
+          {
+            "up_m": 38.2,
+            "lat_m": -15.4
+          },
+          {
+            "up_m": 36.5,
+            "lat_m": -4.4
+          },
+          {
+            "up_m": 36.4,
+            "lat_m": 5.8
+          },
+          {
+            "up_m": 38.8,
+            "lat_m": 16.5
+          },
+          {
+            "up_m": 50.2,
+            "lat_m": -14.7
+          },
+          {
+            "up_m": 50.2,
+            "lat_m": 0.9
+          },
+          {
+            "up_m": 50.5,
+            "lat_m": 15.8
+          },
+          {
+            "up_m": 60.1,
+            "lat_m": -13.7
+          },
+          {
+            "up_m": 61.7,
+            "lat_m": 2.0
+          },
+          {
+            "up_m": 59.8,
+            "lat_m": 16.9
+          }
+        ]
+      },
+      "defending": {
+        "length_m": 24.71,
+        "width_m": 39.53,
+        "block_m": 42.23,
+        "back_m": 34.07,
+        "mid_m": 43.17,
+        "front_m": 52.18,
+        "dots": [
+          {
+            "up_m": 34.6,
+            "lat_m": -14.2
+          },
+          {
+            "up_m": 33.5,
+            "lat_m": -4.0
+          },
+          {
+            "up_m": 33.5,
+            "lat_m": 5.0
+          },
+          {
+            "up_m": 34.7,
+            "lat_m": 15.6
+          },
+          {
+            "up_m": 43.4,
+            "lat_m": -12.4
+          },
+          {
+            "up_m": 42.6,
+            "lat_m": 0.6
+          },
+          {
+            "up_m": 43.5,
+            "lat_m": 13.5
+          },
+          {
+            "up_m": 51.6,
+            "lat_m": -11.1
+          },
+          {
+            "up_m": 53.5,
+            "lat_m": 1.5
+          },
+          {
+            "up_m": 51.5,
+            "lat_m": 13.6
+          }
+        ]
+      },
+      "elasticity": {
+        "d_length_m": 7.72,
+        "d_width_m": 7.39,
+        "d_block_m": 6.02
+      }
+    },
+    "France": {
+      "team": "France",
+      "team_id": "363",
+      "n_matches": 7,
+      "poss": 50.6,
+      "attacking": {
+        "length_m": 31.05,
+        "width_m": 47.73,
+        "block_m": 54.46,
+        "back_m": 43.86,
+        "mid_m": 56.03,
+        "front_m": 67.02,
+        "dots": [
+          {
+            "up_m": 44.9,
+            "lat_m": -16.1
+          },
+          {
+            "up_m": 42.9,
+            "lat_m": -5.3
+          },
+          {
+            "up_m": 42.8,
+            "lat_m": 5.1
+          },
+          {
+            "up_m": 44.9,
+            "lat_m": 16.4
+          },
+          {
+            "up_m": 56.3,
+            "lat_m": -15.9
+          },
+          {
+            "up_m": 55.5,
+            "lat_m": -1.3
+          },
+          {
+            "up_m": 56.2,
+            "lat_m": 14.3
+          },
+          {
+            "up_m": 66.6,
+            "lat_m": -17.1
+          },
+          {
+            "up_m": 67.9,
+            "lat_m": -0.1
+          },
+          {
+            "up_m": 66.5,
+            "lat_m": 16.6
+          }
+        ]
+      },
+      "defending": {
+        "length_m": 28.11,
+        "width_m": 38.26,
+        "block_m": 46.36,
+        "back_m": 37.15,
+        "mid_m": 46.85,
+        "front_m": 58.14,
+        "dots": [
+          {
+            "up_m": 37.8,
+            "lat_m": -14.8
+          },
+          {
+            "up_m": 36.4,
+            "lat_m": -4.4
+          },
+          {
+            "up_m": 36.5,
+            "lat_m": 4.8
+          },
+          {
+            "up_m": 37.9,
+            "lat_m": 15.4
+          },
+          {
+            "up_m": 47.1,
+            "lat_m": -12.0
+          },
+          {
+            "up_m": 46.2,
+            "lat_m": -0.0
+          },
+          {
+            "up_m": 47.3,
+            "lat_m": 12.2
+          },
+          {
+            "up_m": 57.4,
+            "lat_m": -12.8
+          },
+          {
+            "up_m": 59.2,
+            "lat_m": 0.3
+          },
+          {
+            "up_m": 57.8,
+            "lat_m": 13.4
+          }
+        ]
+      },
+      "elasticity": {
+        "d_length_m": 2.94,
+        "d_width_m": 9.47,
+        "d_block_m": 8.1
+      }
+    },
+    "Croatia": {
+      "team": "Croatia",
+      "team_id": "371",
+      "n_matches": 6,
+      "poss": 52.1,
+      "attacking": {
+        "length_m": 31.2,
+        "width_m": 45.28,
+        "block_m": 52.0,
+        "back_m": 41.6,
+        "mid_m": 53.73,
+        "front_m": 64.15,
+        "dots": [
+          {
+            "up_m": 42.7,
+            "lat_m": -14.9
+          },
+          {
+            "up_m": 40.5,
+            "lat_m": -4.0
+          },
+          {
+            "up_m": 40.6,
+            "lat_m": 5.1
+          },
+          {
+            "up_m": 42.6,
+            "lat_m": 16.3
+          },
+          {
+            "up_m": 53.7,
+            "lat_m": -13.9
+          },
+          {
+            "up_m": 53.7,
+            "lat_m": 0.7
+          },
+          {
+            "up_m": 53.8,
+            "lat_m": 15.9
+          },
+          {
+            "up_m": 63.8,
+            "lat_m": -14.8
+          },
+          {
+            "up_m": 65.2,
+            "lat_m": -0.0
+          },
+          {
+            "up_m": 63.5,
+            "lat_m": 15.2
+          }
+        ]
+      },
+      "defending": {
+        "length_m": 28.09,
+        "width_m": 37.14,
+        "block_m": 45.7,
+        "back_m": 36.75,
+        "mid_m": 46.48,
+        "front_m": 56.86,
+        "dots": [
+          {
+            "up_m": 37.5,
+            "lat_m": -13.9
+          },
+          {
+            "up_m": 35.9,
+            "lat_m": -3.5
+          },
+          {
+            "up_m": 36.0,
+            "lat_m": 5.2
+          },
+          {
+            "up_m": 37.6,
+            "lat_m": 15.6
+          },
+          {
+            "up_m": 46.8,
+            "lat_m": -10.2
+          },
+          {
+            "up_m": 46.3,
+            "lat_m": 1.1
+          },
+          {
+            "up_m": 46.3,
+            "lat_m": 12.9
+          },
+          {
+            "up_m": 56.0,
+            "lat_m": -10.7
+          },
+          {
+            "up_m": 58.3,
+            "lat_m": 0.5
+          },
+          {
+            "up_m": 56.2,
+            "lat_m": 11.1
+          }
+        ]
+      },
+      "elasticity": {
+        "d_length_m": 3.11,
+        "d_width_m": 8.14,
+        "d_block_m": 6.3
+      }
+    },
+    "Argentina": {
+      "team": "Argentina",
+      "team_id": "364",
+      "n_matches": 6,
+      "poss": 54.7,
+      "attacking": {
+        "length_m": 31.63,
+        "width_m": 46.22,
+        "block_m": 53.53,
+        "back_m": 42.82,
+        "mid_m": 55.54,
+        "front_m": 65.81,
+        "dots": [
+          {
+            "up_m": 43.7,
+            "lat_m": -14.9
+          },
+          {
+            "up_m": 41.9,
+            "lat_m": -5.1
+          },
+          {
+            "up_m": 41.8,
+            "lat_m": 3.8
+          },
+          {
+            "up_m": 43.8,
+            "lat_m": 14.8
+          },
+          {
+            "up_m": 55.7,
+            "lat_m": -15.1
+          },
+          {
+            "up_m": 55.4,
+            "lat_m": -0.1
+          },
+          {
+            "up_m": 55.5,
+            "lat_m": 15.6
+          },
+          {
+            "up_m": 65.5,
+            "lat_m": -15.1
+          },
+          {
+            "up_m": 66.3,
+            "lat_m": -0.0
+          },
+          {
+            "up_m": 65.6,
+            "lat_m": 14.4
+          }
+        ]
+      },
+      "defending": {
+        "length_m": 29.47,
+        "width_m": 38.52,
+        "block_m": 46.24,
+        "back_m": 36.8,
+        "mid_m": 46.68,
+        "front_m": 58.4,
+        "dots": [
+          {
+            "up_m": 37.4,
+            "lat_m": -14.0
+          },
+          {
+            "up_m": 36.0,
+            "lat_m": -4.8
+          },
+          {
+            "up_m": 36.2,
+            "lat_m": 3.8
+          },
+          {
+            "up_m": 37.6,
+            "lat_m": 14.1
+          },
+          {
+            "up_m": 46.8,
+            "lat_m": -12.4
+          },
+          {
+            "up_m": 46.6,
+            "lat_m": -0.3
+          },
+          {
+            "up_m": 46.7,
+            "lat_m": 12.5
+          },
+          {
+            "up_m": 57.9,
+            "lat_m": -12.2
+          },
+          {
+            "up_m": 58.9,
+            "lat_m": -0.1
+          },
+          {
+            "up_m": 58.4,
+            "lat_m": 11.6
+          }
+        ]
+      },
+      "elasticity": {
+        "d_length_m": 2.16,
+        "d_width_m": 7.7,
+        "d_block_m": 7.29
+      }
+    }
+  }
+}
