@@ -10,8 +10,8 @@ import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipG
 /* ---------------- data ---------------- */
 
 const [teamRows, fullNets] = await Promise.all([
-  loadJSON("data/team_chemistry_vs_paper.json?v=combo26"),
-  loadJSON("data/team_full_networks.json?v=combo26"),
+  loadJSON("data/team_chemistry_vs_paper.json?v=combo27"),
+  loadJSON("data/team_full_networks.json?v=combo27"),
 ]);
 
 const TEAM_IDS = { France: "363", Argentina: "364", Morocco: "374", Croatia: "371" };
@@ -124,7 +124,7 @@ const XG_MARQUEE = new Set(["Brazil", "Spain", "Portugal", "England", "Netherlan
 
 const xgPanelEl = document.getElementById("chem-xg-panel");
 if (xgPanelEl) {
-  loadJSON("data/chemistry_xg.json?v=combo26").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
+  loadJSON("data/chemistry_xg.json?v=combo27").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
 }
 
 function renderChemistryXgPanel(xg) {
@@ -238,30 +238,30 @@ function renderXgScatter(mountEl, rows, opt) {
 
 const comboEl = document.getElementById("combo-grid");
 if (comboEl) {
-  loadJSON("data/combination_xg.json?v=combo26").then((xg) => renderComboPanel(xg)).catch(() => {});
+  loadJSON("data/combination_xg.json?v=combo27").then((xg) => renderComboPanel(xg)).catch(() => {});
 }
 // defensive team leaderboard (the stronger, validated chemistry signal)
 {
-  loadJSON("data/defense_chemistry.json?v=combo26").then((dj) => {
+  loadJSON("data/defense_chemistry.json?v=combo27").then((dj) => {
     const el = document.getElementById("defense-team-leaderboard");
     if (el && Array.isArray(dj.teams)) renderDefenseTeams(el, dj.teams);
   }).catch(() => {});
-  loadJSON("data/defense_model_probe.json?v=combo26").then((pj) => {
+  loadJSON("data/defense_model_probe.json?v=combo27").then((pj) => {
     const el = document.getElementById("defense-model-probe");
     if (el) renderDefenseModelProbe(el, pj);
   }).catch(() => {});
-  loadJSON("data/defensive_style.json?v=combo26").then((sj) => {
+  loadJSON("data/defensive_style.json?v=combo27").then((sj) => {
     const el = document.getElementById("defensive-style");
     if (el) renderDefensiveStyle(el, sj);
   }).catch(() => {});
-  loadJSON("data/team_shape.json?v=combo26").then((tj) => {
+  loadJSON("data/team_shape.json?v=combo27").then((tj) => {
     renderShapePanel(tj);
   }).catch(() => {});
-  loadJSON("data/morocco_positioning.json?v=combo26").then((mp) => {
+  loadJSON("data/morocco_positioning.json?v=combo27").then((mp) => {
     const el = document.getElementById("morocco-positioning");
     if (el) renderMoroccoPositioning(el, mp);
   }).catch(() => {});
-  loadJSON("data/messi_positioning.json?v=combo26").then((mj) => {
+  loadJSON("data/messi_positioning.json?v=combo27").then((mj) => {
     const el = document.getElementById("messi-positioning");
     if (el) renderMessiPositioning(el, mj);
   }).catch(() => {});
@@ -667,8 +667,9 @@ const spx = (up) => SP_PAD + (up / SP_PL) * SP_inW;
 const spy = (lat) => SP_PAD + ((lat + 34) / SP_PW) * SP_inH;
 const spd = (m) => (m / SP_PL) * SP_inW;
 
-function buildShapeSvg(sh) {
-  const ACC = "#e0b450";
+function buildShapeSvg(sh, view) {
+  view = view || "both";   // "both" | "def" (without the ball) | "att" (with the ball)
+  const ACC = "#e0b450", SLATE = "#94a3b8";
   const pitch = `
     <rect x="${SP_PAD}" y="${SP_PAD}" width="${SP_inW}" height="${SP_inH}" fill="rgba(255,255,255,0.015)" stroke="var(--border)" stroke-width="1"/>
     <line x1="${spx(52.5)}" y1="${SP_PAD}" x2="${spx(52.5)}" y2="${SP_PAD + SP_inH}" stroke="var(--border)" stroke-width="1"/>
@@ -676,19 +677,21 @@ function buildShapeSvg(sh) {
     <rect x="${SP_PAD}" y="${spy(-20.16)}" width="${spd(16.5)}" height="${spy(20.16) - spy(-20.16)}" fill="none" stroke="var(--border)" stroke-width="1"/>
     <rect x="${SP_PAD + SP_inW - spd(16.5)}" y="${spy(-20.16)}" width="${spd(16.5)}" height="${spy(20.16) - spy(-20.16)}" fill="none" stroke="var(--border)" stroke-width="1"/>`;
   const da = sh.attacking.dots, dd = sh.defending.dots;
-  let arrows = "", defDots = "", attDots = "";
+  let arrows = "", defFaded = "", defSolid = "", attDots = "";
   for (let i = 0; i < da.length; i++) {
     const ax = spx(da[i].up_m), ay = spy(da[i].lat_m);
     const dx = spx(dd[i].up_m), dy = spy(dd[i].lat_m);
     arrows += `<line x1="${dx}" y1="${dy}" x2="${ax}" y2="${ay}" stroke="${ACC}" stroke-width="1.6" opacity="0.5" marker-end="url(#sp-arrow)"/>`;
-    defDots += `<circle cx="${dx}" cy="${dy}" r="6" fill="rgba(148,163,184,0.32)" stroke="rgba(148,163,184,0.6)" stroke-width="1"/>`;
+    defFaded += `<circle cx="${dx}" cy="${dy}" r="6" fill="rgba(148,163,184,0.32)" stroke="rgba(148,163,184,0.6)" stroke-width="1"/>`;
+    defSolid += `<circle cx="${dx}" cy="${dy}" r="6" fill="${SLATE}" stroke="#15130c" stroke-width="0.8"/>`;
     attDots += `<circle cx="${ax}" cy="${ay}" r="6" fill="${ACC}" stroke="#15130c" stroke-width="0.8"/>`;
   }
   const defs = `<defs><marker id="sp-arrow" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="${ACC}" opacity="0.85"/></marker></defs>`;
   const ogx = spx(3.5), ogy = spy(0);
   const goalLbl = `<text x="${ogx}" y="${ogy}" fill="var(--text-dim)" font-size="9" transform="rotate(-90 ${ogx} ${ogy})" text-anchor="middle" opacity="0.55">OWN GOAL</text>`;
   const dirLbl = `<text x="${spx(52.5)}" y="${SP_PAD + SP_inH + 16}" fill="var(--text-dim)" font-size="10" text-anchor="middle" opacity="0.7">attacking direction &#8594;</text>`;
-  return `<svg viewBox="0 0 ${SP_W} ${SP_H + 22}" width="100%" style="max-width:720px; height:auto;" xmlns="http://www.w3.org/2000/svg">${defs}${pitch}${goalLbl}${arrows}${defDots}${attDots}${dirLbl}</svg>`;
+  const body = view === "def" ? defSolid : view === "att" ? attDots : (arrows + defFaded + attDots);
+  return `<svg viewBox="0 0 ${SP_W} ${SP_H + 22}" width="100%" style="max-width:720px; height:auto;" xmlns="http://www.w3.org/2000/svg">${defs}${pitch}${goalLbl}${body}${dirLbl}</svg>`;
 }
 
 async function mountShapeClip(team) {
@@ -710,12 +713,19 @@ function renderShapePanel(data) {
   if (!host || !data || !data.shapes) return;
   const order = (data.order || Object.keys(data.shapes)).filter((t) => data.shapes[t]);
   if (!order.length) return;
+  const VIEWS = [["both", "Both"], ["def", "Without the ball"], ["att", "With the ball"]];
+  const vbtn = (v, label) => `<button type="button" data-shapeview="${v}" style="appearance:none; border:none; background:transparent; color:var(--text-dim); padding:0.2rem 0.65rem; font:inherit; cursor:pointer; border-right:1px solid var(--border);">${label}</button>`;
   host.innerHTML = `
-    <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.5rem;">
-      <label class="small" style="color:var(--text-dim);">Team</label>
-      <select id="shape-team" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.15rem 0.5rem;font:inherit;">
-        ${order.map((t) => `<option value="${escapeHTML(t)}">${escapeHTML(t)}</option>`).join("")}
-      </select>
+    <div style="display:flex; align-items:center; gap:0.6rem 0.9rem; flex-wrap:wrap; margin-bottom:0.5rem;">
+      <span style="display:inline-flex; align-items:center; gap:0.5rem;">
+        <label class="small" style="color:var(--text-dim);">Team</label>
+        <select id="shape-team" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.15rem 0.5rem;font:inherit;">
+          ${order.map((t) => `<option value="${escapeHTML(t)}">${escapeHTML(t)}</option>`).join("")}
+        </select>
+      </span>
+      <span id="shape-view-toggle" style="display:inline-flex; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden;">
+        ${VIEWS.map(([v, l]) => vbtn(v, l)).join("")}
+      </span>
       <span class="small" style="display:inline-flex; gap:0.9rem; align-items:center; flex-wrap:wrap; color:var(--text-dim);">
         <span style="display:inline-flex;align-items:center;gap:0.3rem;"><span style="width:0.6rem;height:0.6rem;border-radius:50%;background:rgba(148,163,184,0.4);"></span>without the ball</span>
         <span style="display:inline-flex;align-items:center;gap:0.3rem;"><span style="width:0.6rem;height:0.6rem;border-radius:50%;background:#e0b450;"></span>with the ball</span>
@@ -727,13 +737,24 @@ function renderShapePanel(data) {
     <div id="shape-stats" class="small" style="color:var(--text-dim); margin-top:0.25rem; max-width:720px;"></div>
     <div id="shape-clip-mount" style="margin-top:0.8rem;"></div>`;
   const sel = host.querySelector("#shape-team");
-  const draw = (team) => {
+  let team = order[0], view = "both";
+  const toggle = host.querySelector("#shape-view-toggle");
+  const setActive = () => toggle.querySelectorAll("[data-shapeview]").forEach((b) => {
+    const on = b.getAttribute("data-shapeview") === view;
+    b.style.background = on ? "var(--bg-elev-2)" : "transparent";
+    b.style.color = on ? "var(--text)" : "var(--text-dim)";
+    b.style.fontWeight = on ? "600" : "400";
+  });
+  const drawSvg = () => {
+    const sh = data.shapes[team];
+    const svg = document.getElementById("shape-svg");
+    if (svg && sh) svg.innerHTML = buildShapeSvg(sh, view);
+  };
+  const drawTeam = () => {
     const sh = data.shapes[team];
     if (!sh) return;
     const cap = document.getElementById("shape-caption");
     if (cap) cap.innerHTML = `<strong style="color:#e0b450;">${escapeHTML(team)}</strong> <span style="opacity:0.7;">${sh.poss}% possession, ${sh.n_matches} games.</span> ${escapeHTML(SHAPE_READS[team] || "")}`;
-    const svg = document.getElementById("shape-svg");
-    if (svg) svg.innerHTML = buildShapeSvg(sh);
     const stats = document.getElementById("shape-stats");
     if (stats) {
       const a = sh.attacking, df = sh.defending, e = sh.elasticity;
@@ -742,10 +763,15 @@ function renderShapePanel(data) {
         `Width: <strong>${df.width_m.toFixed(0)}m</strong> to <strong>${a.width_m.toFixed(0)}m</strong>. ` +
         `Widen <strong>${sg(e.d_width_m)}m</strong>, advance <strong>${sg(e.d_block_m)}m</strong> up the pitch.`;
     }
+    drawSvg();
     mountShapeClip(team);
   };
-  sel.addEventListener("change", () => draw(sel.value));
-  draw(order[0]);
+  sel.addEventListener("change", () => { team = sel.value; drawTeam(); });
+  toggle.querySelectorAll("[data-shapeview]").forEach((b) => b.addEventListener("click", () => {
+    view = b.getAttribute("data-shapeview"); setActive(); drawSvg();
+  }));
+  setActive();
+  drawTeam();
   const lb = document.getElementById("shape-leaderboard");
   if (lb) renderShapeLeaderboard(lb, data);
 }
@@ -869,7 +895,19 @@ function renderMoroccoPositioning(el, data) {
     <p class="dim small" style="margin:0.2rem 0 0; opacity:0.85;">The dashed line is the field-average length for
       that phase (defending ${L.field_defending_m.median.toFixed(1)}m, attacking ${fa.median.toFixed(1)}m). Morocco
       sits well short of it without the ball, but right on it with the ball: compact only when defending.</p>`;
-  const thirds = T ? `<span style="white-space:nowrap;">own third <strong>${Math.round(T.own_0_35 * 100)}%</strong>, middle <strong>${Math.round(T.middle_35_70 * 100)}%</strong>, final <strong>${Math.round(T.final_70_105 * 100)}%</strong></span>` : "";
+  const tpct = (v) => Math.round(v * 100);
+  const thirds = T ? `<span style="white-space:nowrap;">own third <strong>${tpct(T.own_0_35)}%</strong>, middle <strong>${tpct(T.middle_35_70)}%</strong>, final <strong>${tpct(T.final_70_105)}%</strong></span>` : "";
+  const seg = (w, bg, label) => `<div style="width:${w}%; background:${bg}; display:flex; align-items:center; justify-content:center; min-width:0;"><span class="small" style="color:#11130f; font-weight:700; white-space:nowrap;">${label}</span></div>`;
+  const thirdsBar = T ? `
+    <div style="margin:0.6rem 0 0.2rem; max-width:560px;">
+      <div class="small" style="color:var(--text-dim); margin-bottom:0.25rem;"><strong>How deep, by third.</strong> Where the block's average sat, measured from Morocco's own goal:</div>
+      <div style="display:flex; height:1.3rem; border-radius:4px; overflow:hidden; border:1px solid var(--border);">
+        ${seg(tpct(T.own_0_35), "#b9772a", "own " + tpct(T.own_0_35) + "%")}
+        ${seg(tpct(T.middle_35_70), "#e0b450", "middle " + tpct(T.middle_35_70) + "%")}
+        ${seg(tpct(T.final_70_105), "#efd9a0", tpct(T.final_70_105) + "%")}
+      </div>
+      <div class="small dim" style="margin-top:0.2rem;">Almost all of it in their own and middle thirds, barely pressing into the final third. Deep, but a mid-block: the average sat at ${blockmean.toFixed(0)}m, the settled back line at ${backline.toFixed(0)}m from goal.</div>
+    </div>` : "";
   const heatBlock = `
     <p class="small" style="margin:0.9rem 0 0.3rem;"><strong>Where they sat when defending.</strong>
       Heat is the average position of Morocco's ten outfielders while out of possession, attacking left to
@@ -878,6 +916,7 @@ function renderMoroccoPositioning(el, data) {
       (${blockmean.toFixed(0)}m). Deep and compact, but a mid-block, not parked on the goal line. The brackets
       below compare Morocco's front-to-back block length with the field average, centred on the same point.</p>
     ${buildMoroccoHeatmap(data.heatmap, backline, blockmean, L.morocco_defending_m, L.field_defending_m.median)}
+    ${thirdsBar}
     <p class="dim small" style="margin-top:0.3rem; opacity:0.8;">Pure tracking position, not a quality grade.
       Pooled over Morocco's 6 games, all against strong, ball-dominant sides (Spain, Portugal, France, Croatia,
       Belgium, Canada), so the depth is partly opponent driven.</p>`;
