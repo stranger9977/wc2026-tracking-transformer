@@ -246,6 +246,323 @@
     "final_70_105": 0.0506
   },
   "backline_settled_m": 24.18,
+  "depth_leaderboard": {
+    "_meta": "Every team's defending DEPTH: the block mean (mean up-pitch of the 10 outfielders while out of possession, from own goal; LOW = deeper) and the share of defending time the block sat in each third. Deepest first.",
+    "morocco_rank": 5,
+    "of": 31,
+    "teams": [
+      {
+        "team": "Costa Rica",
+        "team_id": "385",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 36.6,
+        "own_pct": 51.5,
+        "mid_pct": 45.6,
+        "final_pct": 2.9
+      },
+      {
+        "team": "Qatar",
+        "team_id": "360",
+        "is_semifinalist": false,
+        "n_matches": 1,
+        "block_m": 38.5,
+        "own_pct": 49.2,
+        "mid_pct": 47.3,
+        "final_pct": 3.4
+      },
+      {
+        "team": "Poland",
+        "team_id": "376",
+        "is_semifinalist": false,
+        "n_matches": 3,
+        "block_m": 40.3,
+        "own_pct": 41.5,
+        "mid_pct": 53.6,
+        "final_pct": 4.9
+      },
+      {
+        "team": "Tunisia",
+        "team_id": "378",
+        "is_semifinalist": false,
+        "n_matches": 1,
+        "block_m": 41.2,
+        "own_pct": 38.7,
+        "mid_pct": 54.3,
+        "final_pct": 6.9
+      },
+      {
+        "team": "Morocco",
+        "team_id": "374",
+        "is_semifinalist": true,
+        "n_matches": 6,
+        "block_m": 42.2,
+        "own_pct": 34.4,
+        "mid_pct": 60.5,
+        "final_pct": 5.1
+      },
+      {
+        "team": "Ghana",
+        "team_id": "383",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 42.2,
+        "own_pct": 38.2,
+        "mid_pct": 54.1,
+        "final_pct": 7.7
+      },
+      {
+        "team": "Australia",
+        "team_id": "386",
+        "is_semifinalist": false,
+        "n_matches": 3,
+        "block_m": 42.4,
+        "own_pct": 36.3,
+        "mid_pct": 58.2,
+        "final_pct": 5.5
+      },
+      {
+        "team": "Wales",
+        "team_id": "384",
+        "is_semifinalist": false,
+        "n_matches": 1,
+        "block_m": 44.1,
+        "own_pct": 27.1,
+        "mid_pct": 69.3,
+        "final_pct": 3.6
+      },
+      {
+        "team": "Japan",
+        "team_id": "57",
+        "is_semifinalist": false,
+        "n_matches": 3,
+        "block_m": 44.2,
+        "own_pct": 30.6,
+        "mid_pct": 61.0,
+        "final_pct": 8.4
+      },
+      {
+        "team": "Netherlands",
+        "team_id": "366",
+        "is_semifinalist": false,
+        "n_matches": 4,
+        "block_m": 44.4,
+        "own_pct": 31.5,
+        "mid_pct": 60.7,
+        "final_pct": 7.8
+      },
+      {
+        "team": "Switzerland",
+        "team_id": "370",
+        "is_semifinalist": false,
+        "n_matches": 3,
+        "block_m": 44.5,
+        "own_pct": 30.1,
+        "mid_pct": 63.3,
+        "final_pct": 6.7
+      },
+      {
+        "team": "Iran",
+        "team_id": "373",
+        "is_semifinalist": false,
+        "n_matches": 1,
+        "block_m": 44.6,
+        "own_pct": 31.2,
+        "mid_pct": 60.5,
+        "final_pct": 8.3
+      },
+      {
+        "team": "Uruguay",
+        "team_id": "369",
+        "is_semifinalist": false,
+        "n_matches": 1,
+        "block_m": 45.1,
+        "own_pct": 35.1,
+        "mid_pct": 54.9,
+        "final_pct": 10.0
+      },
+      {
+        "team": "Senegal",
+        "team_id": "372",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 45.5,
+        "own_pct": 27.0,
+        "mid_pct": 67.5,
+        "final_pct": 5.5
+      },
+      {
+        "team": "South Korea",
+        "team_id": "377",
+        "is_semifinalist": false,
+        "n_matches": 3,
+        "block_m": 45.6,
+        "own_pct": 31.0,
+        "mid_pct": 58.8,
+        "final_pct": 10.2
+      },
+      {
+        "team": "Croatia",
+        "team_id": "371",
+        "is_semifinalist": true,
+        "n_matches": 6,
+        "block_m": 45.7,
+        "own_pct": 32.1,
+        "mid_pct": 57.5,
+        "final_pct": 10.4
+      },
+      {
+        "team": "Argentina",
+        "team_id": "364",
+        "is_semifinalist": true,
+        "n_matches": 6,
+        "block_m": 46.2,
+        "own_pct": 24.5,
+        "mid_pct": 68.0,
+        "final_pct": 7.5
+      },
+      {
+        "team": "Cameroon",
+        "team_id": "379",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 46.2,
+        "own_pct": 28.1,
+        "mid_pct": 64.4,
+        "final_pct": 7.5
+      },
+      {
+        "team": "Serbia",
+        "team_id": "375",
+        "is_semifinalist": false,
+        "n_matches": 3,
+        "block_m": 46.3,
+        "own_pct": 30.4,
+        "mid_pct": 59.1,
+        "final_pct": 10.5
+      },
+      {
+        "team": "France",
+        "team_id": "363",
+        "is_semifinalist": true,
+        "n_matches": 7,
+        "block_m": 46.4,
+        "own_pct": 24.5,
+        "mid_pct": 66.6,
+        "final_pct": 8.9
+      },
+      {
+        "team": "Mexico",
+        "team_id": "58",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 47.3,
+        "own_pct": 26.4,
+        "mid_pct": 63.2,
+        "final_pct": 10.4
+      },
+      {
+        "team": "Belgium",
+        "team_id": "362",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 47.4,
+        "own_pct": 27.3,
+        "mid_pct": 62.6,
+        "final_pct": 10.1
+      },
+      {
+        "team": "Denmark",
+        "team_id": "367",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 47.5,
+        "own_pct": 26.7,
+        "mid_pct": 61.0,
+        "final_pct": 12.3
+      },
+      {
+        "team": "Saudi Arabia",
+        "team_id": "382",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 47.7,
+        "own_pct": 25.4,
+        "mid_pct": 64.3,
+        "final_pct": 10.3
+      },
+      {
+        "team": "England",
+        "team_id": "50",
+        "is_semifinalist": false,
+        "n_matches": 3,
+        "block_m": 48.5,
+        "own_pct": 24.0,
+        "mid_pct": 66.2,
+        "final_pct": 9.8
+      },
+      {
+        "team": "Brazil",
+        "team_id": "361",
+        "is_semifinalist": false,
+        "n_matches": 5,
+        "block_m": 48.8,
+        "own_pct": 26.0,
+        "mid_pct": 60.8,
+        "final_pct": 13.2
+      },
+      {
+        "team": "Canada",
+        "team_id": "380",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 49.5,
+        "own_pct": 23.5,
+        "mid_pct": 63.3,
+        "final_pct": 13.2
+      },
+      {
+        "team": "Portugal",
+        "team_id": "365",
+        "is_semifinalist": false,
+        "n_matches": 3,
+        "block_m": 50.2,
+        "own_pct": 21.3,
+        "mid_pct": 64.8,
+        "final_pct": 13.9
+      },
+      {
+        "team": "United States",
+        "team_id": "51",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 50.4,
+        "own_pct": 22.1,
+        "mid_pct": 63.2,
+        "final_pct": 14.6
+      },
+      {
+        "team": "Spain",
+        "team_id": "52",
+        "is_semifinalist": false,
+        "n_matches": 3,
+        "block_m": 53.9,
+        "own_pct": 18.8,
+        "mid_pct": 59.0,
+        "final_pct": 22.2
+      },
+      {
+        "team": "Germany",
+        "team_id": "368",
+        "is_semifinalist": false,
+        "n_matches": 2,
+        "block_m": 54.1,
+        "own_pct": 15.4,
+        "mid_pct": 64.5,
+        "final_pct": 20.1
+      }
+    ]
+  },
   "qa": {
     "matches_processed": 44,
     "morocco_matches": [

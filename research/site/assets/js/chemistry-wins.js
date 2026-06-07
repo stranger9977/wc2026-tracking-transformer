@@ -10,8 +10,8 @@ import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipG
 /* ---------------- data ---------------- */
 
 const [teamRows, fullNets] = await Promise.all([
-  loadJSON("data/team_chemistry_vs_paper.json?v=combo27"),
-  loadJSON("data/team_full_networks.json?v=combo27"),
+  loadJSON("data/team_chemistry_vs_paper.json?v=combo28"),
+  loadJSON("data/team_full_networks.json?v=combo28"),
 ]);
 
 const TEAM_IDS = { France: "363", Argentina: "364", Morocco: "374", Croatia: "371" };
@@ -124,7 +124,7 @@ const XG_MARQUEE = new Set(["Brazil", "Spain", "Portugal", "England", "Netherlan
 
 const xgPanelEl = document.getElementById("chem-xg-panel");
 if (xgPanelEl) {
-  loadJSON("data/chemistry_xg.json?v=combo27").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
+  loadJSON("data/chemistry_xg.json?v=combo28").then((xg) => renderChemistryXgPanel(xg)).catch(() => {});
 }
 
 function renderChemistryXgPanel(xg) {
@@ -238,30 +238,30 @@ function renderXgScatter(mountEl, rows, opt) {
 
 const comboEl = document.getElementById("combo-grid");
 if (comboEl) {
-  loadJSON("data/combination_xg.json?v=combo27").then((xg) => renderComboPanel(xg)).catch(() => {});
+  loadJSON("data/combination_xg.json?v=combo28").then((xg) => renderComboPanel(xg)).catch(() => {});
 }
 // defensive team leaderboard (the stronger, validated chemistry signal)
 {
-  loadJSON("data/defense_chemistry.json?v=combo27").then((dj) => {
+  loadJSON("data/defense_chemistry.json?v=combo28").then((dj) => {
     const el = document.getElementById("defense-team-leaderboard");
     if (el && Array.isArray(dj.teams)) renderDefenseTeams(el, dj.teams);
   }).catch(() => {});
-  loadJSON("data/defense_model_probe.json?v=combo27").then((pj) => {
+  loadJSON("data/defense_model_probe.json?v=combo28").then((pj) => {
     const el = document.getElementById("defense-model-probe");
     if (el) renderDefenseModelProbe(el, pj);
   }).catch(() => {});
-  loadJSON("data/defensive_style.json?v=combo27").then((sj) => {
+  loadJSON("data/defensive_style.json?v=combo28").then((sj) => {
     const el = document.getElementById("defensive-style");
     if (el) renderDefensiveStyle(el, sj);
   }).catch(() => {});
-  loadJSON("data/team_shape.json?v=combo27").then((tj) => {
+  loadJSON("data/team_shape.json?v=combo28").then((tj) => {
     renderShapePanel(tj);
   }).catch(() => {});
-  loadJSON("data/morocco_positioning.json?v=combo27").then((mp) => {
+  loadJSON("data/morocco_positioning.json?v=combo28").then((mp) => {
     const el = document.getElementById("morocco-positioning");
     if (el) renderMoroccoPositioning(el, mp);
   }).catch(() => {});
-  loadJSON("data/messi_positioning.json?v=combo27").then((mj) => {
+  loadJSON("data/messi_positioning.json?v=combo28").then((mj) => {
     const el = document.getElementById("messi-positioning");
     if (el) renderMessiPositioning(el, mj);
   }).catch(() => {});
@@ -920,7 +920,36 @@ function renderMoroccoPositioning(el, data) {
     <p class="dim small" style="margin-top:0.3rem; opacity:0.8;">Pure tracking position, not a quality grade.
       Pooled over Morocco's 6 games, all against strong, ball-dominant sides (Spain, Portugal, France, Croatia,
       Belgium, Canada), so the depth is partly opponent driven.</p>`;
-  el.innerHTML = lengthBlock + heatBlock;
+  const dl = data.depth_leaderboard;
+  const chartBlock = dl ? `
+    <h4 class="mt-2" style="margin-bottom:0.2rem;">And how every team compares</h4>
+    <p class="dim small" style="margin:0 0 0.4rem;">The same own / middle / final split for all ${dl.of} teams we
+      have, deepest first (by the block's average position). Morocco sits <strong>${ordinal(dl.morocco_rank)}</strong>:
+      a deep block, though Costa Rica, Qatar, Poland and Tunisia sat deeper. A bigger dark band means more time
+      camped in its own third.</p>
+    <div id="morocco-depth-chart" style="max-height:28rem; overflow-y:auto;"></div>` : "";
+  el.innerHTML = lengthBlock + heatBlock + chartBlock;
+  if (dl) renderDepthChart(document.getElementById("morocco-depth-chart"), dl);
+}
+
+function renderDepthChart(el, dl) {
+  if (!el || !dl || !Array.isArray(dl.teams) || !dl.teams.length) return;
+  const OWN = "#b9772a", MID = "#e0b450", FIN = "#efd9a0";
+  const seg = (w, bg) => w > 0 ? `<div style="width:${w}%; background:${bg};"></div>` : "";
+  const legend = `<div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
+    <span class="small" style="width:1.4rem;"></span><span class="small" style="width:7.5rem;"></span>
+    <span class="small dim" style="flex:1;"><span style="color:${OWN};">&#9632;</span> own&nbsp; <span style="color:${MID};">&#9632;</span> middle&nbsp; <span style="color:${FIN};">&#9632;</span> final third</span>
+    <span class="small dim" style="width:3.2rem; text-align:right;">depth</span></div>`;
+  const body = dl.teams.map((r, i) => {
+    const isMor = r.team_id === "374", semi = r.is_semifinalist;
+    return `<div style="display:flex; align-items:center; gap:0.5rem; padding:0.12rem 0.3rem; border-radius:3px;${isMor ? "background:rgba(224,180,80,0.1);" : ""}">
+      <span class="small tabular" style="width:1.4rem; text-align:right; opacity:0.5;">${i + 1}</span>
+      <span class="small" style="width:7.5rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><strong${semi ? ' style="color:#e0b450;"' : ""}>${escapeHTML(r.team)}</strong>${semi ? ' <span style="color:#e0b450;" title="semifinalist">&#9733;</span>' : ""}</span>
+      <span style="flex:1; display:flex; height:0.85rem; border-radius:2px; overflow:hidden; min-width:0; border:1px solid var(--border);" title="own ${r.own_pct}%, middle ${r.mid_pct}%, final ${r.final_pct}%">${seg(r.own_pct, OWN)}${seg(r.mid_pct, MID)}${seg(r.final_pct, FIN)}</span>
+      <span class="small tabular" style="width:3.2rem; text-align:right;" title="block mean depth from own goal (lower = deeper)">${r.block_m}m</span>
+    </div>`;
+  }).join("");
+  el.innerHTML = legend + body;
 }
 
 function ordinal(n) {
