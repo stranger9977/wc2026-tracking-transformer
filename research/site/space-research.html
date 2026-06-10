@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Space: Soccer's Dark Matter — Research &amp; Ideas for 2026</title>
+  <meta name="description" content="Research synthesis and project ideas for an analytically driven narrative around space and off-ball movement, teeing up the 2026 World Cup. Built on PFF FC's World Cup 2022 event + tracking data.">
+  <style>
+    :root {
+      --bg: #0e1014;
+      --bg-elev: #171a21;
+      --bg-elev-2: #1f242d;
+      --border: #2a313d;
+      --text: #e6e9ef;
+      --text-dim: #97a0b0;
+      --text-mute: #6c7689;
+      --link: #6aa8ff;
+      --link-hover: #9cc3ff;
+      --orange: #d4793a;
+      --orange-soft: rgba(212, 121, 58, 0.08);
+      --green: #6dd58c;
+      --green-soft: rgba(109, 213, 140, 0.08);
+      --radius: 10px;
+      --radius-sm: 6px;
+      --font: -apple-system, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--bg); color: var(--text);
+      font-family: var(--font); font-size: 16px; line-height: 1.55;
+      -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    main { max-width: 860px; margin: 0 auto; padding: 2.2rem 1.2rem 4rem; }
+    .eyebrow {
+      text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.75rem;
+      font-weight: 600; color: var(--orange); margin: 0 0 0.5rem;
+    }
+    h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 0.4rem; font-weight: 700; }
+    .subtitle { color: var(--text-dim); font-size: 1.05rem; margin: 0 0 0.8rem; }
+    .meta { color: var(--text-mute); font-size: 0.85rem; margin-bottom: 2rem; }
+    h2 {
+      font-size: 1.35rem; font-weight: 650; line-height: 1.25;
+      margin: 2.4em 0 0.6em; padding-top: 1.2em; border-top: 1px solid var(--border);
+    }
+    h3 { font-size: 1.08rem; font-weight: 650; margin: 1.6em 0 0.5em; }
+    p { margin: 0.8em 0; }
+    ul, ol { margin: 0.6em 0 1em; padding-left: 1.4em; }
+    li { margin: 0.35em 0; }
+    code {
+      font-family: var(--mono); font-size: 0.88em;
+      background: var(--bg-elev-2); padding: 0.1em 0.35em; border-radius: 3px;
+    }
+    strong { color: #fff; }
+    .callout {
+      border-left: 3px solid var(--orange);
+      background: var(--orange-soft);
+      padding: 0.9rem 1.1rem; margin: 1.2rem 0;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .callout.green { border-left-color: var(--green); background: var(--green-soft); }
+    .callout p { margin: 0.4em 0; }
+    .table-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 0.92rem;
+      background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    th, td {
+      padding: 0.6rem 0.75rem; text-align: left; vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      font-weight: 600; color: var(--text-dim); font-size: 0.82rem;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      background: var(--bg-elev-2);
+    }
+    tr:last-child td { border-bottom: none; }
+    .idea {
+      border: 1px solid var(--border); border-left: 4px solid var(--link);
+      border-radius: var(--radius-sm); background: var(--bg-elev);
+      padding: 0.85rem 1.05rem; margin: 0.9rem 0;
+    }
+    .idea.novel { border-left-color: var(--green); }
+    .idea.replication { border-left-color: var(--orange); }
+    .idea h4 { margin: 0 0 0.35rem; font-size: 1rem; font-weight: 650; }
+    .idea p { margin: 0.35em 0; color: var(--text); }
+    .idea .hook { color: var(--text-dim); font-size: 0.9em; }
+    .toc {
+      background: var(--bg-elev); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem 1.3rem; margin: 1.6rem 0;
+      font-size: 0.93rem;
+    }
+    .toc strong { display: block; margin-bottom: 0.4rem; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .toc ol { margin: 0; }
+    .sources { font-size: 0.9rem; color: var(--text-dim); }
+    .sources li { margin: 0.45em 0; }
+    .footnote { color: var(--text-mute); font-size: 0.85rem; font-style: italic; }
+    @media (max-width: 600px) { h1 { font-size: 1.5rem; } main { padding-top: 1.4rem; } }
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">World Cup 2026 · Research Brief</p>
+  <h1>Space: Soccer's Dark Matter</h1>
+  <p class="subtitle">A research synthesis and idea board for an analytically driven narrative around space and off-ball movement — built on PFF FC's World Cup 2022 event + tracking data.</p>
+  <p class="meta">June 2026 · Literature claims verified against primary sources via adversarial multi-agent review (25 verified, 0 refuted) · Full citations at the end</p>
+
+  <div class="callout">
+    <p><strong>The pitch.</strong> Off-ball movement is soccer analytics' best unanswered question. The literature's most striking admission: <strong>there is no ground truth for "space."</strong> Fernández &amp; Bornn validated their space metrics by having two FC Barcelona video analysts eyeball clips — that is the state of the art for validation.</p>
+    <p>Our angle: PFF's human-graded events (<code>createsSpace</code>, <code>movementGrade</code>, <code>betterOptionPlayerId</code>, <code>pressureType</code>) are synchronized with 30&nbsp;Hz tracking on the same World Cup matches — labels nobody else pairs with tracking — plus an already-trained tracking transformer with calibrated P(score), an xT-regression head, a next-receiver head, a motion-forecasting head, and a positional-counterfactual pipeline. <em>The question nobody has answered, attacked with labels nobody else has, on the world's biggest stage, right before it returns.</em></p>
+  </div>
+
+  <nav class="toc">
+    <strong>Contents</strong>
+    <ol>
+      <li><a href="#literature">What the literature says</a></li>
+      <li><a href="#assets">What we already have</a></li>
+      <li><a href="#improve">Q1: Would we improve preexisting models?</a></li>
+      <li><a href="#ideas">Q2: What else could we measure? — the idea board</a></li>
+      <li><a href="#arc">Suggested content arc</a></li>
+      <li><a href="#caveats">Order of operations &amp; caveats</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="literature">1 · What the literature says (verified)</h2>
+
+  <h3>The model ladder, by data requirement</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Model</th><th>Data needed</th><th>What it measures</th><th>Key limitation</th></tr>
+      <tr>
+        <td><strong>xT</strong> (Singh 2019)</td>
+        <td>Events only</td>
+        <td>Value of on-ball moves via Markov chain over a 12×8 grid</td>
+        <td>Only <em>successful, on-ball</em> moves; explicitly tolerates ignoring off-ball effects ("moving in a loop might actually draw defenders out of position... an inaccuracy we tolerate")</td>
+      </tr>
+      <tr>
+        <td><strong>OBSO</strong> (Spearman 2018)</td>
+        <td>Events + one tracking snapshot per on-ball event (~1,000 frames/match, not ~8M)</td>
+        <td>Off-ball scoring opportunity = Σ over pitch of Transition × Control (PPCF) × Score</td>
+        <td>Distance-only scoring model with a "fudge factor" β; transition model has no toward-goal preference; <strong>ignores defensive pressure and carrier speed</strong> (all three named by Spearman himself)</td>
+      </tr>
+      <tr>
+        <td><strong>Pitch control / SOG–SGG</strong> (Fernández &amp; Bornn 2018)</td>
+        <td>Full tracking — but the parametric pitch-control component deliberately runs on a single frame, no training data</td>
+        <td>Continuous control surface (bivariate-normal influence per player, logistic team difference); Space Occupation Gain / Space Generation Gain</td>
+        <td>Validated only by expert video review — the "no ground truth" problem</td>
+      </tr>
+      <tr>
+        <td><strong>EPV</strong> (Fernández, Bornn, Cervone 2019/2021)</td>
+        <td>Full tracking + events (633 EPL matches @ 10&nbsp;Hz)</td>
+        <td>EPV ∈ [−1,1]; decomposed pass/carry/shot surfaces; off-ball value for all 10 teammates at every pass + every 1&nbsp;s of carries</td>
+        <td><strong>No body orientation</strong> (the Rakitić example); <strong>average-player model</strong> — the authors' own "Messi effect" gap</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3>Verified findings worth building on</h3>
+  <ul>
+    <li><strong>OBSO is a leading indicator</strong>: per-game OBSO → next-game goals r = 0.26, vs 0.17 for shots and 0.12 for goals; autocorrelation 0.60; team opportunity/match vs goals/match r = 0.76. (53-game sample, no significance tests — improvable.)</li>
+    <li><strong>"Messi walking" is quantified — but only once</strong>: in a <em>single match</em> (Barcelona–Villarreal 2017, 845 attacking situations), 66.67% of Messi's space gain was passive (&lt; 1.5 m/s), 71% of it in front of the ball, yet he ranked near the top in total space gained. The authors' gloss: walking is "a conscious action to move through empty spaces of value." Iniesta + Busquets + Messi = 41.2% of Barça's space-occupation gains. <strong>n = 1 match. Nobody has replicated it at tournament scale.</strong></li>
+    <li><strong>Forwards generate as much or more off-ball value than midfielders</strong> despite much lower reception probability (EPV, KDE plots, no formal tests) — counterintuitive, content-friendly, replicable.</li>
+    <li><strong>Published content templates exist</strong>: "Pressing Liverpool" (how a 4-3-3 press pushes buildup into low-value wide space) and "Growing around David Silva" (which teammates generate space for the star) are the verified blueprints for team-level pieces.</li>
+    <li><strong>Broadcast tracking caveat</strong> (Penn, Donnelly &amp; Bhatt 2025): reconstructed off-camera positions carry ~7.3 m mean error in a comparable method — fine for team-level structure and xT-style modeling, <strong>not</strong> for fine-grained off-camera run detection. Our spot check of one PFF match: event-snapshot player positions are <strong>54% VISIBLE / 46% ESTIMATED</strong>. Every "getting open" claim must be conditioned on visibility.</li>
+    <li>Research-corpus caveat: the verified sweep covers the canonical 2017–2021 stack plus one 2025 paper; post-2021 graph/transformer approaches (TacticAI-style) weren't in the verified set. Locally, <em>our transformer is that newer generation</em> — which is exactly the gap our work fills.</li>
+  </ul>
+
+  <h2 id="assets">2 · What we already have (asset inventory)</h2>
+
+  <p><strong>Data</strong> — 44 of PFF FC's 64 free World Cup 2022 matches: 30&nbsp;Hz broadcast tracking (all players + ball x/y/z), event data, rosters, per-event player snapshots with <code>speed</code>, <code>visibility</code>, <code>confidence</code>.</p>
+
+  <div class="callout green">
+    <p><strong>Human labels nobody else pairs with tracking</strong> (counts from one match, ×44 for rough tournament scale):</p>
+    <ul>
+      <li><code>createsSpace</code> boolean — ~27 True/match → <strong>~1,200 expert-tagged space-creation moments</strong></li>
+      <li><code>betterOptionPlayerId/Type/Time</code> — ~6/match → <strong>~250 "an open man was ignored" tags</strong></li>
+      <li><code>grades.movementGrade</code> + <code>positionGrade</code> — ~24/match → <strong>~1,000 graded off-ball movement/positioning events</strong></li>
+      <li><code>pressureType</code> (N/P/A/L) on ~63% of possession events → <strong>the pressure annotation Spearman said OBSO needs</strong></li>
+      <li><code>bodyMovementType</code> (toward-goal / away / lateral / stationary; sparse) and <code>bodyType</code> → partial orientation signal (the EPV authors' named gap)</li>
+    </ul>
+  </div>
+
+  <p><strong>Models</strong> (this repo):</p>
+  <ul>
+    <li>Tracking transformer (23 tokens × 7 features) with calibrated P(score)/P(concede) specialists</li>
+    <li><strong>xT-regression head</strong> — predicts max xT in the next K seconds; lift over the static xT lookup is already framed as the off-ball signal; a prototype attributes per-player off-ball xT lift via ball→player attention</li>
+    <li><strong>Next-receiver head</strong> — possessor-conditioned P(receive) per teammate</li>
+    <li><strong>Motion-forecasting head</strong> — 2&nbsp;s displacement forecast per player (= a built-in "average player" ghost)</li>
+    <li><strong>Whiteboard counterfactuals</strong> — perturb a player's position, recompute ΔP(score)</li>
+    <li>Messi oriented position-density work (geometry, 6 cached Argentina matches)</li>
+    <li>AW-JOI attention chemistry + this static site for interactive clips</li>
+  </ul>
+
+  <h2 id="improve">3 · Q1: Would we improve any preexisting models? — Yes, four ways</h2>
+
+  <p>Each is a gap <em>named by the original authors</em>, matched to an asset we hold:</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Named open problem (source)</th><th>Our asset</th><th>The improvement</th></tr>
+      <tr>
+        <td>OBSO ignores defensive pressure &amp; carrier speed (Spearman)</td>
+        <td><code>pressureType</code> on ~63% of events; <code>speed</code> per player snapshot</td>
+        <td><strong>Pressure-aware OBSO</strong>: condition the transition/control models on pressure state. Benchmark: does opportunity→goals correlation beat the published r = 0.76 team-level / 0.26 leading-indicator marks on WC22?</td>
+      </tr>
+      <tr>
+        <td>No ground truth for space (Fernández &amp; Bornn)</td>
+        <td>~1,200 <code>createsSpace</code> tags, ~1,000 movement/position grades</td>
+        <td><strong>First label-validated space metric</strong>: report precision/recall of pitch-control gain, SOG, and our off-ball xT lift against expert tags — upgrading the field's validation story from "two analysts watched video" to quantitative agreement with independent expert labels.</td>
+      </tr>
+      <tr>
+        <td>Average-player EPV, no "Messi effect" (Fernández et al.)</td>
+        <td>Transformer + 44 matches with player IDs</td>
+        <td><strong>Player-conditioned value</strong>: add player-identity embeddings to the value heads; measure how the surface shifts when "a generic forward" becomes Messi/Mbappé. Even a null result is content ("one World Cup isn't enough to learn Messi — here's why").</td>
+      </tr>
+      <tr>
+        <td>No body orientation in tracking (Fernández et al.)</td>
+        <td><code>bodyMovementType</code>/<code>bodyType</code> (sparse)</td>
+        <td>Supplementary: orientation-aware corrections on the subset of tagged events. Honest framing: partial, exploratory.</td>
+      </tr>
+    </table>
+  </div>
+
+  <p>Plus a transfer-learning question the literature flags and we can answer: pitch-control/EPV parameters were calibrated on club data (EPL 2013–15, La Liga) — <strong>do they hold in international tournament play?</strong> Re-fit on WC22 and report the differences. That's a methods piece in itself.</p>
+
+  <h2 id="ideas">4 · Q2: What else could we look at or measure? — The idea board</h2>
+
+  <h3>Track A — Tournament-scale replications (fast, citable lineage)</h3>
+
+  <div class="idea replication">
+    <h4>A1 · "Messi Walked Here" — the replication the field never did</h4>
+    <p>Fernández &amp; Bornn's walking result is one club match. We run the active/passive (1.5 m/s) space-gain split across all of Argentina's matches in our data — did Messi <em>walk his way to the trophy</em>? Pairs with the existing position-density work and the FiveThirtyEight "Messi walks better than most players run" lineage.</p>
+    <p class="hook">2026 hook: he may play his last World Cup at 39 — will he walk through it one more time?</p>
+  </div>
+
+  <div class="idea replication">
+    <h4>A2 · The WC22 OBSO leaderboard</h4>
+    <p>Who generated the most off-ball scoring danger in Qatar? OBSO needs only event-time snapshots — we exceed its data bar by orders of magnitude. Cross-check the EPV finding that forwards out-generate midfielders off the ball.</p>
+  </div>
+
+  <div class="idea replication">
+    <h4>A3 · "Growing around Pedri"</h4>
+    <p>The David Silva case study, on Spain 2022: which teammates' movement opened space for Pedri — and vice versa (is Pedri the space <em>consumer</em> or <em>creator</em>?).</p>
+    <p class="hook">Perfect tee-up: Spain enter 2026 as Euro champions with Pedri and Yamal.</p>
+  </div>
+
+  <div class="idea replication">
+    <h4>A4 · Strangling space</h4>
+    <p>The "Pressing Liverpool" template on Morocco's semifinal run: quantify how their block pushed opponents' buildup into low-value space. Also: the final — how Argentina's space control collapsed for 20 minutes of Mbappé.</p>
+  </div>
+
+  <h3>Track B — Model improvements (Section 3, as runnable projects)</h3>
+  <ul>
+    <li><strong>B1.</strong> Pressure-aware OBSO (benchmark vs published correlations)</li>
+    <li><strong>B2.</strong> Label-validated space metrics (<code>createsSpace</code> precision/recall + a case-study gallery of hits and misses — <em>the misses are content too</em>)</li>
+    <li><strong>B3.</strong> Player-conditioned value heads</li>
+    <li><strong>B4.</strong> Re-fit club-calibrated models on tournament data; report what moves</li>
+  </ul>
+
+  <h3>Track C — Novel, ours-only (the transformer plays)</h3>
+
+  <div class="idea novel">
+    <h4>C1 · Space Above Replacement (ghosting)</h4>
+    <p>The motion-forecast head predicts what an average player would do in the next 2&nbsp;s. The gap between a player's <em>actual</em> movement and the forecast, valued through Δpitch-control or ΔP(score), is <strong>movement skill above expectation</strong> — the ghosting idea, applied to space, at a World Cup. The headline-metric candidate.</p>
+  </div>
+
+  <div class="idea novel">
+    <h4>C2 · The Most Ignored Open Man</h4>
+    <p>Combine the next-receiver head (P(receive) trajectory — who <em>gets open</em>) with PFF's <code>betterOptionPlayerId</code> tags (who got open <em>and was ignored</em>). Leaderboard + film room.</p>
+    <p class="hook">This is the Pedri narrative in metric form: getting open is a skill even when the pass never comes.</p>
+  </div>
+
+  <div class="idea novel">
+    <h4>C3 · Move the players yourself</h4>
+    <p>The whiteboard counterfactual pipeline as public-facing interactive content: drag the winger wider, watch P(score) move. "What if" is the most shareable form of tactics content — and it's already built.</p>
+  </div>
+
+  <div class="idea novel">
+    <h4>C4 · Off-ball xT lift, formalized</h4>
+    <p>The existing prototype (attention-weighted lift over the xT lookup) graduated into a tournament leaderboard — validated against <code>movementGrade</code>/<code>createsSpace</code> (B2) before publishing.</p>
+  </div>
+
+  <div class="idea novel">
+    <h4>C5 · How much of the World Cup does the camera actually see?</h4>
+    <p>The occlusion audit (visibility/confidence rates by player, team, phase of play) is both the mandatory methods prerequisite for everything above <em>and</em> a standalone story — the dark-matter framing made literal: the players you can't see are often the ones creating the space.</p>
+  </div>
+
+  <div class="callout">
+    <p><strong>The meta-piece: where the models disagree.</strong> xT, OBSO, pitch control, and our transformer will rank moments and players differently. Chart the disagreement instead of hiding it. An unanswered question is still very interesting — this positions the series as honest science, not metric-mongering.</p>
+  </div>
+
+  <h2 id="arc">5 · Suggested content arc ("Space: Soccer's Dark Matter")</h2>
+  <ol>
+    <li><strong>The unanswered question</strong> — explainer: why off-ball movement resists measurement (the xT → OBSO → pitch control → EPV ladder)</li>
+    <li><strong>How much of the game can we even see?</strong> (C5 occlusion audit)</li>
+    <li><strong>Messi walked here</strong> (A1)</li>
+    <li><strong>The most ignored open man in Qatar</strong> (C2)</li>
+    <li><strong>Who actually creates space</strong> (B2 validation + C4 leaderboard)</li>
+    <li><strong>Strangling space: Morocco</strong> (A4)</li>
+    <li><strong>Interactive: move the players yourself</strong> (C3)</li>
+    <li><strong>Where the models disagree</strong> (meta-piece)</li>
+    <li><strong>2026 preview</strong>: the space-creators to watch (Pedri/Yamal's Spain, France, host-nation angles)</li>
+  </ol>
+
+  <h2 id="caveats">6 · Order of operations &amp; honest caveats</h2>
+  <ol>
+    <li><strong>C5 first</strong> — quantify PFF occlusion (visibility = ESTIMATED ≈ 46% of event-snapshot positions in our spot check). Every downstream claim gets conditioned on it.</li>
+    <li><strong>Parametric pitch control next</strong> — single-frame, no training data, designed for exactly this situation; unlocks A3/A4/B2/C4.</li>
+    <li><strong>A1 + A2 as first publishable pieces</strong> (replication lineage = low methodological risk).</li>
+    <li>Then B-track improvements and C-track novel metrics, validated against the PFF labels before any leaderboard goes public.</li>
+  </ol>
+  <p class="footnote">Caveats to carry everywhere: broadcast-derived tracking (off-camera ≈ imputed); the Messi-walking original is n=1 with the "deliberate" framing being the authors' interpretation; OBSO's validation sample was small and test-free; label counts (~27 createsSpace/match) are sparse — they validate, they don't train; we hold 44 of 64 matches.</p>
+
+  <h2 id="sources">Sources (primary, verified in adversarial review)</h2>
+  <ul class="sources">
+    <li>Singh, <em>Introducing Expected Threat (xT)</em>, 2019 — <a href="https://karun.in/blog/expected-threat.html">karun.in/blog/expected-threat.html</a></li>
+    <li>Spearman, <em>Beyond Expected Goals</em> (OBSO), SSAC 2018 — <a href="https://www.researchgate.net/publication/327139841_Beyond_Expected_Goals">researchgate.net/publication/327139841</a></li>
+    <li>Fernández &amp; Bornn, <em>Wide Open Spaces</em>, SSAC 2018 — <a href="https://www.lukebornn.com/papers/fernandez_ssac_2018.pdf">lukebornn.com/papers/fernandez_ssac_2018.pdf</a></li>
+    <li>Fernández, Bornn &amp; Cervone, <em>Decomposing the Immeasurable Sport</em> (EPV), SSAC 2019 — <a href="http://www.lukebornn.com/papers/fernandez_ssac_2019.pdf">lukebornn.com/papers/fernandez_ssac_2019.pdf</a>; journal version, <em>Machine Learning</em> 2021 — <a href="https://arxiv.org/abs/2011.09426">arxiv.org/abs/2011.09426</a></li>
+    <li>Penn, Donnelly &amp; Bhatt, <em>Continuous football player tracking from discrete broadcast data</em>, R. Soc. Open Science 2025 — <a href="https://royalsocietypublishing.org/rsos/article/12/10/251175/236076">royalsocietypublishing.org</a></li>
+    <li>PFF FC WC2022 dataset — <a href="https://www.blog.fc.pff.com/blog/enhanced-2022-world-cup-dataset">blog.fc.pff.com</a>; kloppy loader — <a href="https://kloppy.pysport.org/user-guide/loading-data/pff/">kloppy.pysport.org</a></li>
+    <li>Narrative lineage: FiveThirtyEight, <em>Messi walks better than most players run</em> — <a href="https://fivethirtyeight.com/features/messi-walks-better-than-most-players-run/">fivethirtyeight.com</a>; Karun Singh's space-control talk — <a href="https://youtu.be/X9PrwPyolyU">youtu.be/X9PrwPyolyU</a></li>
+  </ul>
+</main>
+</body>
+</html>
