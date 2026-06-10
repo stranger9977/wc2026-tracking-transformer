@@ -289,6 +289,12 @@
     <p>The occlusion audit (visibility/confidence rates by player, team, phase of play) is both the mandatory methods prerequisite for everything above <em>and</em> a standalone story — the dark-matter framing made literal: the players you can't see are often the ones creating the space.</p>
   </div>
 
+  <div class="idea novel">
+    <h4>C6 · Gravity: who stretches the block (CHASE, translated)</h4>
+    <p><a href="https://www.kaggle.com/code/lauerjames/chase-a-new-metric-for-receiver-spatial-impact">CHASE</a> — Convex Hull Area Strength Estimate (Lauer et al., NFL Big Data Bowl 2025) — measures an NFL receiver's impact on <em>defensive spacing</em> via the defenders' convex hull, inspired by basketball "gravity," validated against teammate catch probability. Every other metric here values space from the <em>attacker's</em> side; CHASE measures the <strong>defense's geometric reaction</strong> — a complementary axis. Soccer translation: when a striker runs in behind or a winger holds width, how much does the block deform — line height pushed back, width pulled apart, inter-line gaps opened? (Line-based compactness beats a raw convex hull in soccer, where outliers dominate the hull.) Pure geometry, no trained model, and it credits decoy runs the instant defenders react — even when no pass comes. Validate against <code>createsSpace</code> tags; cash out the opened space via ΔP(score) for teammates.</p>
+    <p class="hook">Hook: "Gravity leaderboard — whose runs bend defenses." Obvious 2026 candidates: Mbappé's depth, Yamal's width.</p>
+  </div>
+
   <div class="callout">
     <p><strong>The meta-piece: where the models disagree.</strong> xT, OBSO, pitch control, and our transformer will rank moments and players differently. Chart the disagreement instead of hiding it. An unanswered question is still very interesting — this positions the series as honest science, not metric-mongering.</p>
   </div>
