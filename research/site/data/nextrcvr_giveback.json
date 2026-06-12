@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "split": "val",
+    "val_match_ids": [
+      3852,
+      3853,
+      3854,
+      3855,
+      3856,
+      3857,
+      3858,
+      3859
+    ],
+    "checkpoint": "transformer_nextrcvr_main.ckpt",
+    "max_gap": 25,
+    "combo_window_frames": 100,
+    "n_val_frames": 53258,
+    "n_giveback": 8932,
+    "n_combination": 4338
+  },
+  "giveback_acc": 0.7221,
+  "overall_acc": 0.7008,
+  "nearest_baseline_acc": 0.4387,
+  "giveback_nearest_baseline_acc": 0.6439,
+  "giveback_lift_vs_overall": 0.0213,
+  "combination_acc": 0.7568,
+  "combination_nearest_baseline_acc": 0.6823,
+  "giveback_higher_than_overall": true
+}

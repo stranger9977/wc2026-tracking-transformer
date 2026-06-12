@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "method": "Score specialist (transformer_score_only.ckpt) forward over all 44 matches -> raw sigmoid; calibrated via Beta dense LUT. Per final-third combination (combo_wide_events is_f3==1, t3=completing pass): pre=mean p over [t3-3,t3], post=mean p over [t3+1,t3+10] (~2s), both on possession-stable same-team frames. Control = ordinary final-third possessor anchors (ball_x_norm>1/3, >5 frames from any combo, de-correlated) with the same windows. Control matched 1:1 to combos by nearest pre-event calibrated p_score. Delta in calibrated pp. Bootstrap 90% CI (paired, 5000 resamples) on combo-minus-matched-control.",
+    "n_combo": 2095,
+    "n_control": 36485,
+    "n_control_matched": 2095,
+    "matched": true,
+    "base_rate_pct": 0.56487,
+    "combo_pre_pct": 1.697331,
+    "ordinary_pre_pct": 1.663825,
+    "verdict": "SIGNIFICANT (CI excludes 0)"
+  },
+  "combo_pp": 0.023355,
+  "ordinary_pp": -0.06006,
+  "diff_pp": 0.083416,
+  "ci90": [
+    0.030438,
+    0.137348
+  ]
+}

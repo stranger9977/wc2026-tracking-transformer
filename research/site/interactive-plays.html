@@ -20,6 +20,7 @@
         <a href="chemistry-leaderboard.html">Chemistry Leaderboard</a>
         <a href="how-chemistry-develops.html">Time &rarr; Chemistry</a>
         <a href="chemistry-wins.html">Chemistry &rarr; Winning</a>
+        <a href="interactive-plays.html">Interactive Plays</a>
         <a href="fifa-mode.html">FIFA Mode</a>
         <span class="nav-sep" aria-hidden="true">&middot;</span>
         <a href="methodology.html" class="muted-nav">Methodology</a>
@@ -31,24 +32,17 @@
 
   <main>
     <h1>See chemistry happen, frame by frame</h1>
-    <div class="callout" role="note" style="margin-bottom: 1rem;">
-      <p class="mt-0 mb-0"><strong>Looking for the case studies?</strong> The
-      four semifinalists (Argentina, France, Morocco, Croatia) and their
-      networks now live on
-      <a href="chemistry-wins.html">Chemistry &rarr; Winning</a>, with one
-      embedded play each. This page is the full play-by-play gallery.</p>
-    </div>
     <p>
-      <strong>This is the play-by-play backup to the
+      <strong>This is the play-by-play companion to the
       <a href="chemistry-leaderboard.html">leaderboards</a> and
       <a href="chemistry-wins.html">Chemistry &rarr; Winning</a>.</strong>
       The other tabs aggregate chemistry across whole tournaments; this one
-      zooms all the way in &mdash; to a single play, frame by frame. For every play below, our tracking
+      zooms all the way in, to a single play, frame by frame. For every play below, our tracking
       transformer (trained on PFF tracking) emits two per-frame probabilities:
     </p>
     <ul>
-      <li><strong>P(score next 10s)</strong> — calibrated probability the team currently in possession scores in the next 10 seconds, conditional on the full 22-player state. Base rate across all frames ~0.5&#37;; build-ups that lead to goals typically peak around 3&ndash;15&#37;.</li>
-      <li><strong>P(concede next 10s)</strong> — calibrated probability they concede.</li>
+      <li><strong>P(score next 10s)</strong>: calibrated probability the team currently in possession scores in the next 10 seconds, conditional on the full 22-player state. Base rate across all frames ~0.5&#37;; build-ups that lead to goals typically peak around 3&ndash;15&#37;.</li>
+      <li><strong>P(concede next 10s)</strong>: calibrated probability they concede.</li>
     </ul>
     <p>
       The model also tells us which players the ball token is "watching"
@@ -59,54 +53,224 @@
       transferring to the shooter.
     </p>
 
-    <div class="controls iplay-globals" style="margin: 0.4rem 0 1rem; display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center;">
-      <span class="wb-toggle" style="cursor:default" title="Two specialist models run per frame: a P(score next 10s) specialist and a P(concede next 10s) specialist. Each is conditioned on whichever team is in possession, so the raw curves flip on every turnover. 'From <team>' collapses both into one signed net line = P_score − P_concede always from that team's POV.">
-        <span style="color:var(--text)">Chart:</span>
-        <select id="iplay-perspective" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-          <option value="raw" selected>Raw &mdash; two lines (P(score), P(concede))</option>
-          <option value="home">Net &mdash; from home (P(score) &minus; P(concede))</option>
-          <option value="away">Net &mdash; from away (P(score) &minus; P(concede))</option>
-        </select>
-      </span>
-      <label class="wb-toggle" title="Restrict the scrubber to the 10 seconds before the goal frame — the window where a different decision would have mattered most.">
-        <input type="checkbox" id="iplay-focus-toggle">
-        <span>10s pre-goal focus</span>
-      </label>
-      <span class="wb-toggle" style="cursor:default" title="How many top-attended players to ring with a halo + draw a ball→player attention line to.">
-        <span>Top attended:</span>
-        <select id="iplay-top-n" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-          <option value="3" selected>3</option>
-          <option value="5">5</option>
-          <option value="7">7</option>
-          <option value="all">all 22</option>
-        </select>
-      </span>
-      <label class="wb-toggle" title="Include goalkeepers when picking the top-attended players. GKs often dominate raw attention during defensive sequences.">
-        <input type="checkbox" id="iplay-include-gk">
-        <span>Include GKs</span>
-      </label>
-      <span class="wb-toggle" style="cursor:default" title="Filter the attention edges to a specific category.">
-        <span>Edges:</span>
-        <select id="iplay-edge-filter" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-          <option value="all" selected>All</option>
-          <option value="off">Offense only</option>
-          <option value="def">Defense only</option>
-        </select>
-      </span>
-      <span class="wb-toggle small dim" style="cursor:default" title="Halos and edges are driven by the score-specialist model — the production attention source used throughout the study. The legacy 'shared model' (two-head Frame-VAEP) is retained internally for comparison only.">
-        Attention: <strong style="color:var(--text)">score specialist</strong>
-      </span>
-    </div>
-
-    <div id="play-list">
+    <div id="play-list" data-exclude="argentina-france-mbappe-volley,morocco-portugal-en-nesyri,croatia-japan-perisic">
       <div class="empty-state">Loading clips…</div>
     </div>
+
+    <!-- =========================================================== -->
+    <!-- Case studies: France, Morocco, Croatia.                       -->
+    <!-- Moved here from Chemistry → Winning; the developed Argentina   -->
+    <!-- study lives there. These are earlier drafts being rebuilt.     -->
+    <!-- =========================================================== -->
+    <section>
+      <h2>Case studies: the other three semifinalists</h2>
+      <p class="dim">
+        The four semifinalists were the four densest chemistry networks in the
+        tournament, and each one looked different. The developed case study,
+        <strong>Argentina's nucleus</strong>, is on
+        <a href="chemistry-wins.html">Chemistry &rarr; Winning</a>. The three
+        below are earlier drafts we're still rebuilding to that standard;
+        treat the numbers and narratives as provisional.
+      </p>
+    </section>
+
+    <section>
+      <h2>France: the network &nbsp;<span class="dim small">(TCD rank 1)</span></h2>
+      <p>
+        France ran the deepest, most distributed chemistry of the tournament.
+        They didn't depend on one player. The visible top edge by AW-JOI in
+        the squad we have on record is <strong>Mbappé + Hernandez (1.16)</strong>,
+        not Mbappé + Griezmann. Mbappé + Dembélé and Tchouaméni + Rabiot
+        sit in the top tier, with strong cross-team pairs anchoring the
+        midfield-to-attack flow. Where Argentina is a star with orbitals,
+        France is a graph: edges spread across the squad with no
+        single hub.
+      </p>
+      <div class="card">
+        <h3 class="mt-0">France's distributed network</h3>
+        <p class="dim small">
+          Pitch-positioned pair graph (GKs excluded). Orange = off&harr;off, blue = def&harr;def,
+          purple = cross. Notice how the strong edges don't all meet at one node;
+          the network is broad.
+        </p>
+        <div class="net-view-toggle" data-team="france" data-default="network" role="group" aria-label="France network view toggle" style="display:inline-flex; gap:0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin:0 0 0.6rem;">
+          <button type="button" class="net-view-btn" data-view="nucleus">Nucleus</button>
+          <button type="button" class="net-view-btn" data-view="network">Network</button>
+        </div>
+        <div id="net-france" class="team-network"></div>
+      </div>
+      <div id="play-france" class="mt-2"></div>
+      <p class="dim small">
+        Why this clip: France break in transition and the model's attention snaps
+        across the squad. Mbappé, Hernández and Dembélé all light up before the
+        ball leaves Mbappé's foot. The shape is the chemistry.
+      </p>
+    </section>
+
+    <section>
+      <h2>Morocco: the wall that fed the attack &nbsp;<span class="dim small">(#2 in total defensive mass &middot; only Argentina ahead)</span></h2>
+      <p>
+        Morocco made the semi-final on a wall, and the data backs it harder
+        than the popular narrative did. By
+        <strong>total defensive mass</strong>, the sum of every
+        def&harr;def pair's AW-JDI90 across the tournament, Morocco
+        rank <strong>#2 of 31</strong>, behind only eventual champions
+        Argentina (and ahead of France, Brazil and Croatia). Their two
+        strongest pairs, <strong>Hakimi&harr;El Yamiq</strong> and
+        <strong>El Yamiq&harr;Attiat-Allah</strong>, both sit at the
+        87th percentile of every def&harr;def pair in the tournament.
+        El Yamiq is in three of the top five; the wall has a hub.
+        <br><br>
+        But the wall by itself doesn't make a semi-final. The bigger half of
+        Morocco's TCD lives in <strong>cross-team chemistry</strong>
+        (def&harr;mid and def&harr;att, 72 strong pairs, their own
+        biggest block): the recycle that turned a defensive structure
+        into an attacking one. Defenders found midfielders, midfielders found
+        wide players, the cross arrived, and the off-ball runner was already
+        in the box. <strong>You'll see the whole sequence in the clip
+        below.</strong>
+      </p>
+      <div class="callout" role="note" style="margin: 1rem 0;">
+        <p class="mt-0">
+          <strong>This is where we see what nobody else saw.</strong> The published
+          academic analysis of Morocco's run
+          (<a href="morocco-paper-summary.html">summary here</a>) was event-based.
+          The authors quote their own limitation:
+        </p>
+        <blockquote class="mt-0" style="border-left: 3px solid var(--border); padding: 0.2rem 0.9rem; margin: 0.6rem 0; color: var(--text-muted); font-style: italic;">
+          "The match event data only describes the actions that actually happened
+          in the match but not the actions that players prevented from happening,
+          for instance, by smart runs or clever positioning."
+        </blockquote>
+        <p class="mb-0">
+          That is exactly the off-ball pinning that defined Morocco's tournament,
+          and exactly what AW-JDI sees directly. Their paper couldn't measure it.
+          Ours does. The blue lattice below is the part of Morocco's chemistry
+          that event-only frameworks are structurally blind to.
+        </p>
+      </div>
+      <div class="card" style="margin-bottom:1rem;">
+        <h3 class="mt-0">Morocco's elite defensive pairs</h3>
+        <p class="dim small mt-0">
+          Top defensive pairs by <strong>AW-JDI90</strong> (attention-weighted
+          joint defensive impact per 90, GKs excluded). El Yamiq anchors three
+          of the top five: the wall is literal, a graph with a hub.
+        </p>
+        <div id="morocco-elite-pairs" style="margin-top:0.5rem;"></div>
+      </div>
+      <div class="card" style="margin-bottom:1rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap;">
+          <div>
+            <h3 class="mt-0">How Morocco ranks among the 31</h3>
+            <p class="dim small mt-0" id="morocco-metric-blurb"></p>
+          </div>
+          <label style="display:inline-flex; flex-direction:column; gap:0.2rem;">
+            <span class="dim small" style="text-transform:uppercase; letter-spacing:0.5px;">Metric</span>
+            <select id="morocco-metric-select" style="background:var(--bg-elev-2); color:var(--text); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.25rem 0.5rem; font:inherit; min-width:14rem;">
+              <option value="sum_jdi" selected>Total defensive mass &middot; sum of AW-JDI90</option>
+              <option value="n_strong">Count of strong pairs (AW-JDI90 &ge; 0.30)</option>
+              <option value="top5_mean">Mean of top-5 def&harr;def pairs</option>
+              <option value="mean_jdi">Mean across all def&harr;def pairs</option>
+            </select>
+          </label>
+        </div>
+        <div id="morocco-tcd-hero" style="margin:0.6rem 0 0.6rem;"></div>
+        <div id="morocco-tcd-def-leaderboard" style="margin-top:0.4rem;"></div>
+        <p class="dim small" style="margin-top:0.4rem;">
+          <strong style="color:var(--text)">Morocco's own breakdown:</strong>
+          <span id="morocco-tcd-breakdown"></span>
+        </p>
+      </div>
+      <div class="card">
+        <h3 class="mt-0">The wall and the recycle</h3>
+        <p class="dim small">
+          <strong style="color:#5eb1f8;">Blue lattice</strong> on the left
+          is the def&harr;def wall (Saiss / Aguerd / El Yamiq / Hakimi /
+          Mazraoui attending to each other).
+          <strong style="color:#f59e0b;">Orange edges</strong> running into
+          the attacking third are the def&harr;att cross-team feeds, the
+          recycle that became the En-Nesyri goal below. Hover any edge
+          for AW-JOI90 / AW-JDI90.
+        </p>
+        <div class="net-view-toggle" data-team="morocco" data-default="network" role="group" aria-label="Morocco network view toggle" style="display:inline-flex; gap:0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin:0 0 0.6rem;">
+          <button type="button" class="net-view-btn" data-view="nucleus">Nucleus</button>
+          <button type="button" class="net-view-btn" data-view="network">Network</button>
+        </div>
+        <div id="net-morocco" class="team-network"></div>
+      </div>
+      <figure class="card mt-2" style="margin:0 0 1rem;">
+        <img src="assets/img/morocco-en-nesyri-goal.gif"
+             alt="En-Nesyri header vs Portugal — 5s broadcast clip"
+             style="width:100%; max-width:720px; display:block; margin:0 auto; border-radius:var(--radius-sm);"
+             loading="lazy">
+        <figcaption class="small dim" style="margin-top:0.4rem; text-align:center;">
+          <strong style="color:var(--text)">What you're seeing:</strong>
+          the play in broadcast view (5 s, looped). Morocco swing it left,
+          Attiat-Allah whips a cross in, and En-Nesyri out-jumps the
+          Portugal back line to head it past Diogo Costa.
+          <br><br>
+          <strong style="color:var(--text)">What the interactive play below shows:</strong>
+          while the ball is travelling down the left side, the cross-team
+          pair-attention edges from <em>Boufal &middot; Ounahi &middot;
+          Attiat-Allah</em> concentrate on <em>Dias and Pepe</em>, pulling
+          the centre-backs to the ball-side and clearing the central lane
+          for the header. The build-up <em>is</em> the chemistry; the cross
+          is what the lane was opened for.
+        </figcaption>
+      </figure>
+      <div id="play-morocco" class="mt-2"></div>
+      <p class="dim small">
+        Open-play header that out-leaped Portugal's back line and Diogo Costa.
+        Build-up reads like this in the model: Morocco swing it
+        <strong style="color:var(--text)">Ziyech &rarr; Boufal &rarr; Ounahi
+        &rarr; Attiat-Allah</strong>, and at the moment of the
+        <strong style="color:var(--text)">cross from the left</strong>
+        En-Nesyri's halo lights up. He's pinned between Dias and Pepe,
+        so the cross-team attention rings the centre-back line, not the ball.
+        Then the cross arrives and the header goes in.
+        <br><br>
+        The defensive lattice above explains the tournament; the clip shows
+        Morocco when the attention engine was theirs, the half of
+        Morocco's tournament the published event-based analysis couldn't measure.
+      </p>
+    </section>
+
+    <section>
+      <h2>Croatia: the engine &nbsp;<span class="dim small">(TCD rank 3)</span></h2>
+      <p>
+        Croatia's TCD comes from a midfield-centric off-off subgraph. The
+        <strong>Modrić / Brozović / Kovačić triangle</strong> drove their
+        tournament. When the model's attention orbits Croatia, it orbits the middle
+        third; the wide players (Perišić, Juranović) hook into it, but the engine
+        room is where the chemistry lives.
+      </p>
+      <div class="card">
+        <h3 class="mt-0">Croatia's midfield engine</h3>
+        <p class="dim small">
+          Pitch-positioned network with the Modrić / Brozović / Kovačić triangle
+          highlighted in gold; non-engine edges muted. Note how every other strong
+          edge in the squad funnels through this trio.
+        </p>
+        <div class="net-view-toggle" data-team="croatia" data-default="network" role="group" aria-label="Croatia network view toggle" style="display:inline-flex; gap:0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin:0 0 0.6rem;">
+          <button type="button" class="net-view-btn" data-view="nucleus">Nucleus</button>
+          <button type="button" class="net-view-btn" data-view="network">Network</button>
+        </div>
+        <div id="net-croatia" class="team-network"></div>
+      </div>
+      <div id="play-croatia" class="mt-2"></div>
+      <p class="dim small">
+        Croatia's R16 equalizer against Japan. The Modrić / Brozović / Kovačić
+        triangle owns the buildup. Attention orbits the middle third for
+        most of the sequence, then snaps wide for the cross. The midfield engine
+        in motion, not a single passing combination.
+      </p>
+    </section>
 
     <h2>What chemistry looks like on a pitch</h2>
     <div class="card">
       <p>
         <strong>Working definition.</strong> Chemistry between two players is
-        the part of the <em>moment-to-moment</em> P(score) − P(concede) signal
+        the part of the <em>moment-to-moment</em> P(score) &minus; P(concede) signal
         that is attributable to <em>their joint configuration</em>, not to the
         ball location or to either player alone. The transformer scores the
         full 22-player state; the attention map tells us which partnerships
@@ -116,14 +280,14 @@
       <ul>
         <li><strong>P(score) climbs before the ball moves.</strong> An off-ball
           runner that drags a defender opens a passing lane. The model sees this
-          even though no SPADL event has fired — event-level VAEP can't.</li>
+          even though no SPADL event has fired; event-level VAEP can't.</li>
         <li><strong>Attention transfers from passer to receiver.</strong> On a
           good combination, the model's attention smoothly hands off from the
-          player on the ball to the teammate about to receive — a yellow line
+          player on the ball to the teammate about to receive. A yellow line
           that survives the pass is a "chemistry edge."</li>
         <li><strong>Defensive shape collapses before the goal.</strong>
           P(concede) spikes a beat before the shot because defenders are
-          structurally beaten — chemistry asks not just "did they score" but
+          structurally beaten. Chemistry asks not just "did they score" but
           "did the build-up <em>force the defence apart together</em>."</li>
       </ul>
     </div>
@@ -132,14 +296,14 @@
       JOI and JDI on the other tabs are <em>event-level</em>: they assign
       VAEP at every on-ball action and aggregate. Their strength: a clean
       sum per pair across 64 matches. Their weakness: only on-ball moments
-      get a value. Frame-level VAEP is the same idea applied 5× per second
-      and to all 22 players — chemistry as a continuous trace rather than a
+      get a value. Frame-level VAEP is the same idea applied 5&times; per second
+      and to all 22 players, chemistry as a continuous trace rather than a
       tally. The two are complementary: JOI/JDI for season-long rankings,
       this view for individual partnerships and clip-level storytelling.
     </p>
 
     <p class="small muted" style="margin-top: 1.5rem;">
-      <strong>Next →</strong> the full math for VAEP, JOI, JDI, and the
+      <strong>Next &rarr;</strong> the full math for VAEP, JOI, JDI, and the
       transformer is on <a href="methodology.html">Methodology</a>. All raw
       tables and PNGs are on <a href="downloads.html">Downloads</a>.
     </p>
@@ -149,6 +313,6 @@
     Frame-by-frame inference from the tracking transformer (P_score / P_concede heads).
   </footer>
 
-  <script type="module" src="assets/js/interactive-plays.js?v=lines-labels3"></script>
+  <script type="module" src="assets/js/chemistry-wins.js?v=combo30"></script>
 </body>
 </html>

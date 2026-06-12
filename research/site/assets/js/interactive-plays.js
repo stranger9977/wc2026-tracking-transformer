@@ -34,13 +34,13 @@ export function clipScaffold(c) {
       <span class="wb-toggle" style="cursor:default" title="Two specialist models run per frame: a P(score next 10s) specialist and a P(concede next 10s) specialist. Each is conditioned on whichever team is in possession, so the raw curves flip on every turnover. 'Net' collapses both into one signed P_score − P_concede line from that team's POV.">
         <span style="color:var(--text)">Chart:</span>
         <select data-iplay="perspective" style="background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.1rem 0.35rem;font:inherit">
-          <option value="raw" selected>Raw &mdash; two lines (P(score), P(concede))</option>
-          <option value="home">Net &mdash; from home (P(score) &minus; P(concede))</option>
-          <option value="away">Net &mdash; from away (P(score) &minus; P(concede))</option>
-          <option value="aw_joi">AW-JOI &mdash; cumulative offensive, per team</option>
-          <option value="aw_jdi">AW-JDI &mdash; cumulative defensive, per team</option>
-          <option value="event_joi">Event-JOI &mdash; cumulative offensive, per team</option>
-          <option value="event_jdi">Event-JDI &mdash; cumulative defensive, per team</option>
+          <option value="raw" selected>Raw &middot; two lines (P(score), P(concede))</option>
+          <option value="home">Net &middot; from home (P(score) &minus; P(concede))</option>
+          <option value="away">Net &middot; from away (P(score) &minus; P(concede))</option>
+          <option value="aw_joi">AW-JOI &middot; cumulative offensive, per team</option>
+          <option value="aw_jdi">AW-JDI &middot; cumulative defensive, per team</option>
+          <option value="event_joi">Event-JOI &middot; cumulative offensive, per team</option>
+          <option value="event_jdi">Event-JDI &middot; cumulative defensive, per team</option>
         </select>
       </span>
       <label class="wb-toggle" title="Restrict the scrubber to the 10 seconds before the goal frame.">
@@ -240,25 +240,6 @@ function cleanEventLabel(s) {
   const t = String(s).trim();
   if (!t || t === "None" || t === "IT" || t.endsWith(" — None") || t.endsWith(" — ")) return "";
   return t;
-}
-
-// Only auto-boot the gallery if the host page wires a #play-list mount point.
-// The case-study page (chemistry-wins.html) imports mountClipInto directly and
-// drives its own layout, so it intentionally has no #play-list.
-if (listEl) {
-  const idx = await loadJSON("data/clips/index.json").catch(() => null);
-  if (!idx || !Array.isArray(idx) || idx.length === 0) {
-    renderEmpty(listEl,
-      "Clips not yet rendered.",
-      "Run scripts/render_interactive_clip.py for each play you want to publish.");
-  } else {
-    listEl.innerHTML = idx.map((c) => clipScaffold(c)).join("");
-    for (const c of idx) {
-      const detail = await loadJSON(`data/clips/${c.label}.json`).catch(() => null);
-      if (!detail) continue;
-      initClip(c, detail);
-    }
-  }
 }
 
 export { initClip };
@@ -1073,7 +1054,7 @@ function initClip(c, detail) {
       // moment the ball crosses the line — make the timing explicit.
       // Strip any redundant leading "GOAL  —  " from the upstream label.
       const cleaned = (cleanEventLabel(f.event_label) || "").replace(/^GOAL\s*[—-]\s*/i, "");
-      evtStrip.innerHTML = `⚽ <strong>Goal shot</strong> (ball released) — ${escapeHTML(cleaned)}`;
+      evtStrip.innerHTML = `⚽ <strong>Goal shot</strong> (ball released) · ${escapeHTML(cleaned)}`;
     } else if (evLabel) {
       evtStrip.className = "event-strip";
       evtStrip.innerHTML = escapeHTML(evLabel);
@@ -1112,7 +1093,7 @@ function initClip(c, detail) {
       const ttgTxt = d > 0 ? `${(d * 0.2).toFixed(1)}s to goal`
                    : d === 0 ? `goal frame`
                    : `${(Math.abs(d) * 0.2).toFixed(1)}s after goal`;
-      ttgChip = `&nbsp;•&nbsp; <span class="chip tabular" title="Seconds until the ball crosses the line — matches the time-to-goal columns in the write-up below.">${ttgTxt}</span>`;
+      ttgChip = `&nbsp;•&nbsp; <span class="chip tabular" title="Seconds until the ball crosses the line; matches the time-to-goal columns in the write-up below.">${ttgTxt}</span>`;
     }
     meta.innerHTML = `
       <strong>Frame ${i + 1}/${n}</strong>${ttgChip} &nbsp;•&nbsp;
@@ -1788,4 +1769,33 @@ function escapeSvg(s) {
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;");
+}
+
+// NOTE: this boot runs LAST so every module-level const (e.g. clipControllers)
+// is initialized before initClip executes for gallery clips.
+// Only auto-boot the gallery if the host page wires a #play-list mount point.
+// The case-study page (chemistry-wins.html) imports mountClipInto directly and
+// drives its own layout, so it intentionally has no #play-list.
+// A page can keep specific clips out of the gallery with
+// data-exclude="label-a,label-b" on #play-list — used by interactive-plays.html
+// for the clips its case-study sections mount themselves (clip DOM ids are
+// label-based, so the same clip must not be mounted twice on one page).
+if (listEl) {
+  const excluded = new Set(
+    (listEl.dataset.exclude || "").split(",").map((s) => s.trim()).filter(Boolean)
+  );
+  const idx = await loadJSON("data/clips/index.json").catch(() => null);
+  const shown = Array.isArray(idx) ? idx.filter((c) => !excluded.has(c.label)) : null;
+  if (!shown || shown.length === 0) {
+    renderEmpty(listEl,
+      "Clips not yet rendered.",
+      "Run scripts/render_interactive_clip.py for each play you want to publish.");
+  } else {
+    listEl.innerHTML = shown.map((c) => clipScaffold(c)).join("");
+    for (const c of shown) {
+      const detail = await loadJSON(`data/clips/${c.label}.json`).catch(() => null);
+      if (!detail) continue;
+      initClip(c, detail);
+    }
+  }
 }

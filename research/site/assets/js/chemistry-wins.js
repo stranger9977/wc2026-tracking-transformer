@@ -5,7 +5,7 @@
    appendix of remaining interactive plays. */
 
 import { loadJSON, escapeHTML } from "./site.js";
-import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=lines-labels3";
+import { mountClipInto, toggleClipGroup, setClipGroups, clearClipLabels, isClipGroupActive } from "./interactive-plays.js?v=lines-labels4";
 
 /* ---------------- data ---------------- */
 
@@ -471,7 +471,7 @@ function renderPairLeaderboard(el, pairs, type) {
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Pair</th>
       <th style="text-align:left; padding:0.3rem 0.5rem;">Combos</th>
       <th ${TH} title="Co-attention × threat the model put on the pair during their combinations (×10⁻³).">AW-JOI</th>
-      <th ${TH} title="Threat the model added during their combinations (summed ΔP-score) — the model's scoring-probability rise, NOT StatsBomb xG.">Threat+</th>
+      <th ${TH} title="Threat the model added during their combinations (summed ΔP-score): the model's scoring-probability rise, NOT StatsBomb xG.">Threat+</th>
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 
@@ -508,7 +508,7 @@ function renderTeamComboLeaderboard(el, teams, type) {
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
       <th style="text-align:left; padding:0.3rem 0.5rem;">Combos / game</th>
       <th ${TH} title="Team total co-attention × threat the model put on its pairs during these combinations, per game (×10⁻³).">AW-JOI</th>
-      <th ${TH} title="Model threat added during these combinations, per game (summed ΔP-score) — NOT StatsBomb xG.">Threat+</th>
+      <th ${TH} title="Model threat added during these combinations, per game (summed ΔP-score), NOT StatsBomb xG.">Threat+</th>
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 
@@ -551,9 +551,9 @@ function renderDefenseTeams(el, teams, sortKey) {
   el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
     <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
-      <th data-defsort="nsd" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("nsd")}" title="RAW count of strong defensive partnerships (AW-JDI above the tournament median). It is additive, so it leans toward teams that played more (corr +0.51 with games) — the Adjusted column corrects for that. · click to sort">Strong def pairs${arr("nsd")}</th>
-      <th data-defsort="adj" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("adj")}" title="Defensive chemistry ADJUSTED for talent + games + opponent strength — strong pairs above/below what a team's rating and schedule predict. The games-FAIR ranking, and what the validated −0.38 finding is built on. Morocco and Argentina stay top-4; France slides. · click to sort">Adjusted (talent+games)${arr("adj")}</th>
-      <th data-defsort="prev" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("prev")}" title="StatsBomb xG PREVENTED vs talent expectation — ✓ clearly fewer chances allowed, ✗ clearly more, blank = about as expected (within ±0.2 xG/game) · click to sort">xG prevented vs exp${arr("prev")}</th>
+      <th data-defsort="nsd" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("nsd")}" title="RAW count of strong defensive partnerships (AW-JDI above the tournament median). It is additive, so it leans toward teams that played more (corr +0.51 with games); the Adjusted column corrects for that. · click to sort">Strong def pairs${arr("nsd")}</th>
+      <th data-defsort="adj" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("adj")}" title="Defensive chemistry ADJUSTED for talent + games + opponent strength: strong pairs above/below what a team's rating and schedule predict. The games-FAIR ranking, and what the validated −0.38 finding is built on. Morocco and Argentina stay top-4; France slides. · click to sort">Adjusted (talent+games)${arr("adj")}</th>
+      <th data-defsort="prev" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("prev")}" title="StatsBomb xG PREVENTED vs talent expectation: ✓ clearly fewer chances allowed, ✗ clearly more, blank = about as expected (within ±0.2 xG/game) · click to sort">xG prevented vs exp${arr("prev")}</th>
     </tr></thead><tbody>${body}</tbody></table>`;
   el.querySelectorAll("[data-defsort]").forEach((h) => h.addEventListener("click", () => renderDefenseTeams(el, teams, h.getAttribute("data-defsort"))));
 }
@@ -1051,8 +1051,8 @@ function renderTalentAdjustedLeaderboard(el, teams, sortKey) {
   el.innerHTML = `<table class="data-table" style="border-collapse:collapse; font-size:0.82rem; width:100%;">
     <thead><tr style="color:var(--text-dim); text-transform:uppercase; letter-spacing:0.3px; font-size:0.66rem; border-bottom:1px solid var(--border);">
       <th></th><th style="text-align:left; padding:0.3rem 0.5rem;">Team</th>
-      <th data-teamsort="add" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("add")}" title="An ESTIMATE — the talent-adjusted genuine-combo rate × the xG-per-combo slope from the regression. A model attribution, NOT measured xG. ('Chances vs expected →' is the measured StatsBomb xG.) · click to sort">Chemistry-added xG/g <span style="text-transform:none; opacity:0.6;">(est.)</span>${arr("add")}</th>
-      <th data-teamsort="act" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("act")}" title="What the team actually created above/below its talent baseline — ✓ = the read paid off; blank = about as expected (within ±0.2 xG/game) · click to sort">Chances vs expected${arr("act")}</th>
+      <th data-teamsort="add" style="text-align:left; padding:0.3rem 0.5rem; cursor:pointer;${hl("add")}" title="An ESTIMATE: the talent-adjusted genuine-combo rate × the xG-per-combo slope from the regression. A model attribution, NOT measured xG. ('Chances vs expected →' is the measured StatsBomb xG.) · click to sort">Chemistry-added xG/g <span style="text-transform:none; opacity:0.6;">(est.)</span>${arr("add")}</th>
+      <th data-teamsort="act" style="text-align:right; padding:0.3rem 0.5rem; cursor:pointer;${hl("act")}" title="What the team actually created above/below its talent baseline: ✓ = the read paid off; blank = about as expected (within ±0.2 xG/game) · click to sort">Chances vs expected${arr("act")}</th>
     </tr></thead><tbody>${body}</tbody></table>`;
   el.querySelectorAll("[data-teamsort]").forEach((h) => h.addEventListener("click", () => renderTalentAdjustedLeaderboard(el, teams, h.getAttribute("data-teamsort"))));
 }
@@ -1065,12 +1065,12 @@ function renderNucleusRanking(el, players, sortKey) {
   const cols = [
     { k: "combos", label: "Combos", get: (p) => p.combos, fmt: (v) => String(v), color: "", title: "combinations with teammates (final third)" },
     { k: "per_game", label: "/ game", get: (p) => p.per_game, fmt: (v) => v.toFixed(1), color: "", title: "combinations per match played" },
-    { k: "partners", label: "Partners", get: (p) => p.partners, fmt: (v) => String(v), color: "", title: "distinct teammates combined with — the breadth of the hub" },
+    { k: "partners", label: "Partners", get: (p) => p.partners, fmt: (v) => String(v), color: "", title: "distinct teammates combined with, the breadth of the hub" },
     { k: "aw_joi", label: "AW-JOI", get: (p) => p.aw_joi, fmt: (v) => v.toFixed(1), color: "", title: "model's attention-weighted threat on this player's combinations (×10⁻³)" },
-    { k: "xg_added", label: "Threat+", get: (p) => p.xg_added, fmt: (v) => v.toFixed(2), color: "#5eb1f8", title: "the model's scoring-probability rise (ΔP-score) during this player's combinations — NOT StatsBomb xG" },
-    { k: "per_100", label: "/100 touch", get: (p) => (p.per_100 == null ? -1 : p.per_100), fmt: (v) => (v < 0 ? "—" : v.toFixed(1)), color: "", title: "combinations per 100 ball-touches — controls for ball-volume (Mike's check: Pedri 6.5 ≈ Messi 6.2, so the raw counts mostly reward seeing the ball most)" },
-    { k: "per_combo", label: "Threat/combo", get: (p) => (p.per_combo == null ? -1 : p.per_combo), fmt: (v) => (v < 0 ? "—" : v.toFixed(1) + "%"), color: "#5eb1f8", title: "model P(score)-rise PER combination (Threat+ ÷ combos) — quality per play, robust to games AND ball-volume; Modrić 3.0%, Mbappé 2.4%, Messi 2.1%, Pedri 0.9%" },
-    { k: "team_share", label: "% of team", get: (p) => (p.team_share == null ? -1 : p.team_share), fmt: (v) => (v < 0 ? "—" : v.toFixed(1) + "%"), color: "#c08cf0", title: "share of the team's TOTAL combination threat that runs through this player — the nucleus/centrality cut, fully games-invariant; De Bruyne 33%, Messi 22%, Mbappé 21%" },
+    { k: "xg_added", label: "Threat+", get: (p) => p.xg_added, fmt: (v) => v.toFixed(2), color: "#5eb1f8", title: "the model's scoring-probability rise (ΔP-score) during this player's combinations, NOT StatsBomb xG" },
+    { k: "per_100", label: "/100 touch", get: (p) => (p.per_100 == null ? -1 : p.per_100), fmt: (v) => (v < 0 ? "—" : v.toFixed(1)), color: "", title: "combinations per 100 ball-touches: controls for ball-volume (Pedri 6.5 ≈ Messi 6.2, so the raw counts mostly reward seeing the ball most)" },
+    { k: "per_combo", label: "Threat/combo", get: (p) => (p.per_combo == null ? -1 : p.per_combo), fmt: (v) => (v < 0 ? "—" : v.toFixed(1) + "%"), color: "#5eb1f8", title: "model P(score)-rise PER combination (Threat+ ÷ combos): quality per play, robust to games AND ball-volume; Modrić 3.0%, Mbappé 2.4%, Messi 2.1%, Pedri 0.9%" },
+    { k: "team_share", label: "% of team", get: (p) => (p.team_share == null ? -1 : p.team_share), fmt: (v) => (v < 0 ? "—" : v.toFixed(1) + "%"), color: "#c08cf0", title: "share of the team's TOTAL combination threat that runs through this player: the nucleus/centrality cut, fully games-invariant; De Bruyne 33%, Messi 22%, Mbappé 21%" },
   ];
   const sc = cols.find((c) => c.k === sortKey) || cols[0];
   const rows = players.slice().sort((a, b) => sc.get(b) - sc.get(a)).slice(0, 20);
@@ -1511,7 +1511,7 @@ const NET_VIEW_TEXT = {
       p: "Spokes from Messi to every strong same-squad partner. Line thickness ∝ AW-JOI90; shorter orbit = stronger pair. Goalkeeper excluded.",
     },
     network: {
-      h: "Argentina — pitch-positioned chemistry network",
+      h: "Argentina: pitch-positioned chemistry network",
       p: "Every Argentina player as a node on the pitch; edges colored by pair category (yellow off↔off, blue def↔def, purple cross-team). Capped per category so the strongest pairs read at a glance.",
     },
   },
@@ -1593,16 +1593,16 @@ function computeDefMetrics() {
 const DEF_METRICS = computeDefMetrics();
 const METRIC_META = {
   sum_jdi:    { label: "Total defensive mass (Σ AW-JDI90)",
-                blurb: "Add up the AW-JDI90 contribution of every def↔def pair on the team. Bigger number = either more elite pairs, more total defender minutes together, or both. Reads as <em>how much joint-defending work the back line did per 90</em>, in the model's units (so the absolute value isn't a probability &mdash; it's a relative threat-suppression score). The Morocco vs Argentina gap (3.33 vs 3.40) is &lt;3&#37;: effectively tied at the top.",
+                blurb: "Add up the AW-JDI90 contribution of every def↔def pair on the team. Bigger number = either more elite pairs, more total defender minutes together, or both. Reads as <em>how much joint-defending work the back line did per 90</em>, in the model's units (so the absolute value isn't a probability; it's a relative threat-suppression score). The Morocco vs Argentina gap (3.33 vs 3.40) is &lt;3&#37;: effectively tied at the top.",
                 fmt: (v) => (v == null ? "—" : v.toFixed(2)) },
   n_strong:   { label: "Strong pairs (AW-JDI90 ≥ 0.30)",
-                blurb: "Count of pair-edges whose AW-JDI90 clears 0.30 &mdash; the cutoff Bransen &amp; Van Haaren used as their \"elite pair\" threshold. Rewards breadth: a team with five solid pairs scores higher than a team carried by one star duo.",
+                blurb: "Count of pair-edges whose AW-JDI90 clears 0.30, the cutoff Bransen &amp; Van Haaren used as their \"elite pair\" threshold. Rewards breadth: a team with five solid pairs scores higher than a team carried by one star duo.",
                 fmt: (v) => String(Math.round(v)) },
   top5_mean:  { label: "Mean of top-5 pairs",
                 blurb: "Average AW-JDI90 across a team's five strongest def↔def pairs. Strips out depth: a team with one elite back four can still rank high here even if their bench partnerships have no chemistry signal.",
                 fmt: (v) => (v == null ? "—" : v.toFixed(3)) },
   mean_jdi:   { label: "Mean across all pairs",
-                blurb: "Average AW-JDI90 across every def↔def pair the team has minutes for. Closer to a per-pair quality floor than a ceiling &mdash; a team is penalised here if rotations dilute the back-line chemistry.",
+                blurb: "Average AW-JDI90 across every def↔def pair the team has minutes for. Closer to a per-pair quality floor than a ceiling; a team is penalised here if rotations dilute the back-line chemistry.",
                 fmt: (v) => (v == null ? "—" : v.toFixed(3)) },
 };
 
@@ -1727,7 +1727,7 @@ function renderMoroccoElitePairs() {
     else if (pct >= 70) { bg = "#332815"; border = "#eab308"; fg = "#fde68a"; label = "strong"; }
     else if (pct >= 50) { bg = "#33240e"; border = "#f59e0b"; fg = "#fbbf24"; label = "solid"; }
     else                { bg = "#1f2a3a"; border = "#3a4554"; fg = "#9aa5b1"; label = "ok"; }
-    return `<span title="${label} — beats ${pct.toFixed(1)}% of all def↔def pairs in the tournament"
+    return `<span title="${label}: beats ${pct.toFixed(1)}% of all def↔def pairs in the tournament"
                    style="display:inline-flex; align-items:center; gap:0.3rem; padding:0.12rem 0.45rem; border-radius:999px; background:${bg}; border:1px solid ${border}; color:${fg}; font-weight:700; font-size:0.78rem; letter-spacing:0.3px; text-transform:uppercase;">
         ${label} &middot; p${Math.round(pct)}
       </span>`;
@@ -1768,8 +1768,8 @@ function renderMoroccoElitePairs() {
     </div>
     <p class="dim small" style="margin:0.6rem 0 0;">
       <strong style="color:#cfe3ff;">El Yamiq</strong> appears in
-      ${[...appearCount.values()].filter((v) => v >= 2).length > 0 ? "3 of the top 5 pairs" : "multiple top pairs"}
-      &mdash; the wall has a hub. Percentile is vs every def&harr;def pair
+      ${[...appearCount.values()].filter((v) => v >= 2).length > 0 ? "3 of the top 5 pairs" : "multiple top pairs"};
+      the wall has a hub. Percentile is vs every def&harr;def pair
       across all 32 squads (${allDefJdis.length} pairs).
     </p>`;
 }
@@ -1790,7 +1790,7 @@ function renderMoroccoTcdHero(metric = "sum_jdi") {
     <div style="display:flex; align-items:center; gap:0.9rem; padding:0.75rem 1rem; border-radius:var(--radius-sm); background:linear-gradient(90deg, #1e3a5f 0%, #1a2840 100%); border:1px solid #5eb1f8;">
       <span style="font-size:2.4rem; line-height:1;">🇲🇦</span>
       <div style="flex:1;">
-        <div style="font-weight:800; font-size:1.1rem; color:#cfe3ff;">Morocco &mdash; <span style="color:#5eb1f8;">#${rank} of ${total}</span></div>
+        <div style="font-weight:800; font-size:1.1rem; color:#cfe3ff;">Morocco &middot; <span style="color:#5eb1f8;">#${rank} of ${total}</span></div>
         <div class="small" style="color:#a6c1e0;">
           <strong class="tabular" style="color:#cfe3ff;">${meta.fmt(mar[metric])}</strong> &middot; ${meta.label}
           ${ahead.length ? `<br>only behind ${escapeHTML(ahead.join(" and "))}` : ""}
@@ -1820,15 +1820,19 @@ wireMoroccoMetricSwitcher();
 // One per case study, plus an appendix.
 // Argentina → Julián Álvarez carry (Messi off-ball gravity visible).
 // France    → Mbappé 81' volley.
-// Morocco   → no clean Morocco clip in the current set; honest placeholder.
-// Croatia   → no clean Croatia clip in the current set; honest placeholder.
+// Morocco   → no clean Morocco clip in the current set; placeholder.
+// Croatia   → no clean Croatia clip in the current set; placeholder.
 // Appendix: Memphis 10' (Netherlands-USA), Doan 48' (Japan-Spain),
 //           Di María 36' (Argentina-France final).
 
 const PLAY_INDEX = {
+  "france-australia-giroud": {
+    title: "Giroud 31' (France v Australia, group stage)",
+    summary: "The textbook give-and-go: Rabiot plays it into Mbappé and bursts forward; Mbappé returns it first-time into his path (a 0.6 s lay-off). Rabiot feeds the box and Giroud finishes. Watch the chemistry edge fire on the Rabiot↔Mbappé wall pass.",
+  },
   "argentina-australia-messi": {
     title: "Messi 35' (Argentina v Australia, R16)",
-    summary: "A third-man run: Messi feeds the build-up, it works through Mac Allister and Otamendi, and Otamendi slips it back to Messi — who has run into the box to finish low past Ryan. Watch the chemistry load onto the Mac Allister↔Otamendi↔Messi link off the ball, before the pass that frees him.",
+    summary: "A third-man run: Messi feeds the build-up, it works through Mac Allister and Otamendi, and Otamendi slips it back to Messi, who has run into the box to finish low past Ryan. Watch the chemistry load onto the Mac Allister↔Otamendi↔Messi link off the ball, before the pass that frees him.",
     // Clip total 69 frames: 59 real (Argentina's first attempt
     // cleared, then they recover and Messi finishes) + 10 synthetic
     // tail frames driving the ball into the net. Argentina attacks
@@ -1847,23 +1851,23 @@ const PLAY_INDEX = {
     // (Otamendi↔Fernández 2, ↔Romero 7, Álvarez 0↔Otamendi, ↔Acuña 10); the legs
     // are the pass-table combination pairs.
     annotations: [
-      { from: 0,  to: 13, text: "Messi's early cross — Souttar clears (no threat yet)",
+      { from: 0,  to: 13, text: "Messi's early cross · Souttar clears (no threat yet)",
         pair_defaults: { cats: ["off-off"], top: 4 } },
-      { from: 14, to: 35, text: "Argentina recycle — the off-ball spine the model keeps linked (the off-ball table)",
+      { from: 14, to: 35, text: "Argentina recycle · the off-ball spine the model keeps linked (the off-ball table)",
         highlight_pairs: [[1, 2], [1, 7], [0, 1], [1, 10]],
         pair_defaults: { cats: ["off-off"], top: 4 } },
-      { from: 36, to: 44, text: "Third-man run · leg 1 — Messi ➝ Mac Allister",
+      { from: 36, to: 44, text: "Third-man run · leg 1: Messi ➝ Mac Allister",
         highlight_pairs: [[5, 6]],
         pair_defaults: { cats: ["off-off"], top: 1 } },
-      { from: 45, to: 50, text: "Leg 2 — Mac Allister ➝ Otamendi (the relay; their chemistry is already ~0.09)",
+      { from: 45, to: 50, text: "Leg 2: Mac Allister ➝ Otamendi (the relay; their chemistry is already ~0.09)",
         highlight_pairs: [[6, 1]],
         pair_defaults: { cats: ["off-off"], top: 1 } },
       // Climax: tighten to Otamendi + Messi as the ball comes back and Messi
       // arrives to finish.
-      { from: 51, to: 58, text: "Leg 3 — Otamendi slips it back; Messi has run in to finish",
+      { from: 51, to: 58, text: "Leg 3: Otamendi slips it back; Messi has run in to finish",
         focus_slots: [1, 5], highlight_pairs: [[1, 5]],
         pair_defaults: { cats: ["off-off"], top: 1 } },
-      { from: 59, to: 200, text: "GOAL — Messi · third-man run complete", color: "#ffd166",
+      { from: 59, to: 200, text: "GOAL · Messi · third-man run complete", color: "#ffd166",
         focus_slots: [5], highlight_pairs: [[1, 5]],
         pair_defaults: { cats: ["off-off"], top: 1 } },
     ],
@@ -1881,37 +1885,37 @@ const PLAY_INDEX = {
   },
   "argentina-france-mbappe-volley": {
     title: "Mbappé 81' volley (France v Argentina, final)",
-    summary: "Mbappé's second goal in 97 seconds. P(concede) for Argentina spikes as France break — the network around Mbappé snaps shut around the ball.",
+    summary: "Mbappé's second goal in 97 seconds. P(concede) for Argentina spikes as France break; the network around Mbappé snaps shut around the ball.",
   },
   "netherlands-usa-memphis": {
     title: "Memphis 10' (Netherlands v USA, R16)",
-    summary: "Memphis at the end of a 20-pass Dutch sequence. Cross-team attention hands off down the chain — the chemistry edge that lives in pure tracking.",
+    summary: "Memphis at the end of a 20-pass Dutch sequence. Cross-team attention hands off down the chain: the chemistry edge that lives in pure tracking.",
   },
   "japan-spain-doan": {
     title: "Doan 48' (Japan v Spain, group stage)",
-    summary: "Japan equalize from a press-and-recover sequence. Watch P(concede) for Spain climb in the seconds before any touch — that's their defensive shape breaking, not a Japanese on-ball action.",
+    summary: "Japan equalize from a press-and-recover sequence. Watch P(concede) for Spain climb in the seconds before any touch: that's their defensive shape breaking, not a Japanese on-ball action.",
   },
   "argentina-france-di-maria": {
     title: "Di María 36' (Argentina v France, final)",
-    summary: "Argentina build the third goal from Tagliafico's interception — attention chains through Mac Allister to Messi to Di María. The off-ball spreading happens before any pass on the goal.",
+    summary: "Argentina build the third goal from Tagliafico's interception; attention chains through Mac Allister to Messi to Di María. The off-ball spreading happens before any pass on the goal.",
   },
   "croatia-japan-perisic": {
     title: "Perišić equalizer (Croatia v Japan, R16)",
     summary: "Croatia's midfield engine sets up Perišić's header. Modrić plays the QB-ball that leads the runner; Barišić bombs forward on the left to drag the line; Lovren whips the cross to the back post for Perišić.",
     annotations: [
-      { from: 0,   to: 39,  text: "Build-up — Croatia recycle through the middle",
+      { from: 0,   to: 39,  text: "Build-up · Croatia recycle through the middle",
         pair_defaults: { cats: ["off-off"], top: 3 } },
-      { from: 40,  to: 99,  text: "Modrić threads it — QB-style read",
+      { from: 40,  to: 99,  text: "Modrić threads it · QB-style read",
         pair_defaults: { cats: ["off-off", "cross"], top: 3 } },
       { from: 100, to: 134, text: "Barišić bombs forward on the left",
         pair_defaults: { cats: ["off-off"], top: 3 } },
-      { from: 135, to: 149, text: "Lovren cross — Perišić attacks the back post",
+      { from: 135, to: 149, text: "Lovren cross · Perišić attacks the back post",
         pair_defaults: { cats: ["cross"], top: 4 } },
-      { from: 150, to: 200, text: "GOAL — Perišić", color: "#ffd166",
+      { from: 150, to: 200, text: "GOAL · Perišić", color: "#ffd166",
         pair_defaults: { cats: ["off-off", "cross"], top: 4 } },
     ],
     // Modrić (slot 16) gets the pink ring during his ignite-window. Pin
-    // label "QB" because that's the user's own framing — the touch that
+    // label "QB" to match the body-text framing: the touch that
     // throws someone open.
     pinning: { slots: [16], from: 40, to: 99, label: "QB" },
     // Perišić (slot 21) is the eventual scorer; the gold ring tracks him
@@ -1923,10 +1927,10 @@ const PLAY_INDEX = {
   },
   "morocco-portugal-en-nesyri": {
     title: "En-Nesyri header (Morocco v Portugal, QF)",
-    summary: "The defining Morocco moment. Build-up Ziyech → Boufal → Ounahi → Attiat-Allah, then a left-side cross. The off-ball move that makes it work: En-Nesyri pins between Dias and Pepe a beat before contact — watch his halo brighten while the cross-team attention edges concentrate on the centre-back pair, not the ball. Open-play header that out-leaps the Portugal back line and Diogo Costa.",
+    summary: "The defining Morocco moment. Build-up Ziyech → Boufal → Ounahi → Attiat-Allah, then a left-side cross. The off-ball move that makes it work: En-Nesyri pins between Dias and Pepe a beat before contact. Watch his halo brighten while the cross-team attention edges concentrate on the centre-back pair, not the ball. Open-play header that out-leaps the Portugal back line and Diogo Costa.",
     // Wall+recycle reading spans the full pitch (defenders feeding
     // attackers across both halves). Auto-zoom obscured the off-ball
-    // shape that's the whole point of this clip — keep the full field.
+    // shape this clip exists to show, so keep the full field.
     disable_autozoom: true,
     // Frame indices reference the clip's own frames[] (5 Hz). Goal frame = 139.
     // Later entries take precedence when windows overlap (the renderer reads
@@ -1939,7 +1943,7 @@ const PLAY_INDEX = {
     // pair_defaults: when this chapter starts, sync the pair-edge toggles to
     // what makes sense for this phase. User can still override mid-chapter.
     annotations: [
-      { from: 0, to: 30, text: "Build-up — Morocco recycle",
+      { from: 0, to: 30, text: "Build-up · Morocco recycle",
         pair_defaults: { cats: ["off-off", "cross"], top: 6 } },
       { from: 31, to: 70, text: "Ziyech turns it down the right",
         pair_defaults: { cats: ["off-off", "cross"], top: 6 } },
@@ -1949,9 +1953,9 @@ const PLAY_INDEX = {
         pair_defaults: { cats: ["cross"], top: 6 } },
       { from: 110, to: 132, text: "Dias & Pepe pulled by ball-side", color: "#ec4899",
         pair_defaults: { cats: ["cross"], top: 6 } },
-      { from: 133, to: 156, text: "Header — ball in flight",
+      { from: 133, to: 156, text: "Header · ball in flight",
         pair_defaults: { cats: ["off-off", "cross"], top: 6 } },
-      { from: 157, to: 200, text: "GOAL — En-Nesyri", color: "#ffd166",
+      { from: 157, to: 200, text: "GOAL · En-Nesyri", color: "#ffd166",
         pair_defaults: { cats: ["off-off", "def-def", "cross"], top: 6 } },
     ],
     // Pin highlight switched to the two CBs that the model actually
@@ -1968,12 +1972,12 @@ const PLAY_INDEX = {
     scorer_to: 158,
   },
   "near-miss-netherlands-janssen": {
-    title: "Janssen 4' blocked — near-miss (Senegal v Netherlands, group stage)",
+    title: "Janssen 4' blocked, a near-miss (Senegal v Netherlands, group stage)",
     summary: "A near-miss: Netherlands work the ball into Senegal's box and P(score) climbs above 0.9 before Janssen's shot is blocked and the probability collapses. The model picks up chemistry on a sequence that didn't end in a goal.",
   },
   "bad-chemistry-australia-argentina": {
-    title: "Turnover thrash 78' — bad chemistry (Argentina v Australia, R16)",
-    summary: "What a breakdown looks like in the model. Net (P_score − P_concede) flips between +0.9 and −0.9 four times across 27 s as possession ping-pongs — high net is fragile when teams keep giving the ball back.",
+    title: "Turnover thrash 78', bad chemistry (Argentina v Australia, R16)",
+    summary: "What a breakdown looks like in the model. Net (P_score − P_concede) flips between +0.9 and −0.9 four times across 27 s as possession ping-pongs. High net is fragile when teams keep giving the ball back.",
   },
 };
 
@@ -2056,7 +2060,7 @@ function wireClipFilters() {
   const intro = document.createElement("p");
   intro.className = "small mt-0 mb-0";
   intro.style.marginBottom = "0.45rem";
-  intro.innerHTML = `<strong style="color:var(--accent)">&#9678; Filter the play</strong> &mdash; click a chip to label + connect that relationship on the pitch. The labels match the numbered rows in the two tables further down. Toggle as many as you want; the play stays on whatever you pick as you scrub.`;
+  intro.innerHTML = `<strong style="color:var(--accent)">&#9678; Filter the play</strong>: click a chip to label + connect that relationship on the pitch. The labels match the numbered rows in the two tables further down. Toggle as many as you want; the play stays on whatever you pick as you scrub.`;
   panel.appendChild(intro);
 
   const mkRow = (label, list) => {
@@ -2101,8 +2105,5 @@ wireClipFilters();
 await mountPlay("play-france", "argentina-france-mbappe-volley");
 await mountPlay("play-morocco", "morocco-portugal-en-nesyri");
 await mountPlay("play-croatia", "croatia-japan-perisic");
-await mountPlay("play-appendix-1", "netherlands-usa-memphis");
-await mountPlay("play-appendix-2", "japan-spain-doan");
-await mountPlay("play-appendix-3", "argentina-france-di-maria");
-await mountPlay("play-appendix-4", "near-miss-netherlands-janssen");
-await mountPlay("play-appendix-5", "bad-chemistry-australia-argentina");
+// The remaining clips (Memphis, Doan, Di María, Janssen, turnover thrash)
+// render in the interactive-plays.html gallery via data/clips/index.json.

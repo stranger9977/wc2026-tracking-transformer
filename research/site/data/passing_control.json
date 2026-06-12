@@ -1,0 +1,3914 @@
+[
+ {
+  "player_id": 3870,
+  "player": "Kylian Mbapp\u00e9",
+  "team": "France",
+  "touches": 700,
+  "combos": 57,
+  "combos_per_100": 8.14
+ },
+ {
+  "player_id": 1531,
+  "player": "Lionel Messi",
+  "team": "Argentina",
+  "touches": 873,
+  "combos": 54,
+  "combos_per_100": 6.19
+ },
+ {
+  "player_id": 1681,
+  "player": "Achraf Hakimi",
+  "team": "Morocco",
+  "touches": 633,
+  "combos": 50,
+  "combos_per_100": 7.9
+ },
+ {
+  "player_id": 1530,
+  "player": "Pedri",
+  "team": "Spain",
+  "touches": 702,
+  "combos": 46,
+  "combos_per_100": 6.55
+ },
+ {
+  "player_id": 453,
+  "player": "Alexis Mac Allister",
+  "team": "Argentina",
+  "touches": 589,
+  "combos": 45,
+  "combos_per_100": 7.64
+ },
+ {
+  "player_id": 100,
+  "player": "Mateo Kovacic",
+  "team": "Croatia",
+  "touches": 846,
+  "combos": 45,
+  "combos_per_100": 5.32
+ },
+ {
+  "player_id": 1938,
+  "player": "Hakim Ziyech",
+  "team": "Morocco",
+  "touches": 606,
+  "combos": 43,
+  "combos_per_100": 7.1
+ },
+ {
+  "player_id": 8054,
+  "player": "Adrien Rabiot",
+  "team": "France",
+  "touches": 575,
+  "combos": 41,
+  "combos_per_100": 7.13
+ },
+ {
+  "player_id": 8129,
+  "player": "Marcelo Brozovic",
+  "team": "Croatia",
+  "touches": 863,
+  "combos": 41,
+  "combos_per_100": 4.75
+ },
+ {
+  "player_id": 6895,
+  "player": "Rodrigo de Paul",
+  "team": "Argentina",
+  "touches": 968,
+  "combos": 38,
+  "combos_per_100": 3.93
+ },
+ {
+  "player_id": 1534,
+  "player": "Antoine Griezmann",
+  "team": "France",
+  "touches": 645,
+  "combos": 36,
+  "combos_per_100": 5.58
+ },
+ {
+  "player_id": 4324,
+  "player": "Azzedine Ounahi",
+  "team": "Morocco",
+  "touches": 541,
+  "combos": 36,
+  "combos_per_100": 6.65
+ },
+ {
+  "player_id": 47,
+  "player": "Jordan Henderson",
+  "team": "England",
+  "touches": 301,
+  "combos": 35,
+  "combos_per_100": 11.63
+ },
+ {
+  "player_id": 21,
+  "player": "Phil Foden",
+  "team": "England",
+  "touches": 218,
+  "combos": 34,
+  "combos_per_100": 15.6
+ },
+ {
+  "player_id": 8583,
+  "player": "Theo Hernandez",
+  "team": "France",
+  "touches": 634,
+  "combos": 33,
+  "combos_per_100": 5.21
+ },
+ {
+  "player_id": 123,
+  "player": "Luke Shaw",
+  "team": "England",
+  "touches": 365,
+  "combos": 33,
+  "combos_per_100": 9.04
+ },
+ {
+  "player_id": 1522,
+  "player": "Frenkie de Jong",
+  "team": "Netherlands",
+  "touches": 587,
+  "combos": 32,
+  "combos_per_100": 5.45
+ },
+ {
+  "player_id": 1257,
+  "player": "In-beom Hwang",
+  "team": "South Korea",
+  "touches": 359,
+  "combos": 32,
+  "combos_per_100": 8.91
+ },
+ {
+  "player_id": 1687,
+  "player": "Luka Modric",
+  "team": "Croatia",
+  "touches": 903,
+  "combos": 31,
+  "combos_per_100": 3.43
+ },
+ {
+  "player_id": 2074,
+  "player": "Raphinha",
+  "team": "Brazil",
+  "touches": 349,
+  "combos": 31,
+  "combos_per_100": 8.88
+ },
+ {
+  "player_id": 1513,
+  "player": "Jordi Alba",
+  "team": "Spain",
+  "touches": 468,
+  "combos": 31,
+  "combos_per_100": 6.62
+ },
+ {
+  "player_id": 1532,
+  "player": "Ousmane Dembele",
+  "team": "France",
+  "touches": 437,
+  "combos": 30,
+  "combos_per_100": 6.86
+ },
+ {
+  "player_id": 3888,
+  "player": "Aur\u00e9lien Tchouam\u00e9ni",
+  "team": "France",
+  "touches": 917,
+  "combos": 29,
+  "combos_per_100": 3.16
+ },
+ {
+  "player_id": 8136,
+  "player": "Ivan Perisic",
+  "team": "Croatia",
+  "touches": 541,
+  "combos": 29,
+  "combos_per_100": 5.36
+ },
+ {
+  "player_id": 8342,
+  "player": "Memphis Depay",
+  "team": "Netherlands",
+  "touches": 301,
+  "combos": 28,
+  "combos_per_100": 9.3
+ },
+ {
+  "player_id": 4677,
+  "player": "Jude Bellingham",
+  "team": "England",
+  "touches": 286,
+  "combos": 28,
+  "combos_per_100": 9.79
+ },
+ {
+  "player_id": 11856,
+  "player": "Enzo Fernandez",
+  "team": "Argentina",
+  "touches": 865,
+  "combos": 27,
+  "combos_per_100": 3.12
+ },
+ {
+  "player_id": 8039,
+  "player": "Antony",
+  "team": "Brazil",
+  "touches": 269,
+  "combos": 27,
+  "combos_per_100": 10.04
+ },
+ {
+  "player_id": 4883,
+  "player": "Andrej Kramaric",
+  "team": "Croatia",
+  "touches": 383,
+  "combos": 26,
+  "combos_per_100": 6.79
+ },
+ {
+  "player_id": 1676,
+  "player": "Eder Militao",
+  "team": "Brazil",
+  "touches": 519,
+  "combos": 26,
+  "combos_per_100": 5.01
+ },
+ {
+  "player_id": 2443,
+  "player": "Moon-hwan Kim",
+  "team": "South Korea",
+  "touches": 327,
+  "combos": 26,
+  "combos_per_100": 7.95
+ },
+ {
+  "player_id": 10715,
+  "player": "Julian Alvarez",
+  "team": "Argentina",
+  "touches": 271,
+  "combos": 26,
+  "combos_per_100": 9.59
+ },
+ {
+  "player_id": 8037,
+  "player": "Dusan Tadi\u0107",
+  "team": "Serbia",
+  "touches": 295,
+  "combos": 26,
+  "combos_per_100": 8.81
+ },
+ {
+  "player_id": 57,
+  "player": "Xherdan Shaqiri",
+  "team": "Switzerland",
+  "touches": 147,
+  "combos": 25,
+  "combos_per_100": 17.01
+ },
+ {
+  "player_id": 11094,
+  "player": "Cody Gakpo",
+  "team": "Netherlands",
+  "touches": 309,
+  "combos": 24,
+  "combos_per_100": 7.77
+ },
+ {
+  "player_id": 8026,
+  "player": "Daley Blind",
+  "team": "Netherlands",
+  "touches": 441,
+  "combos": 24,
+  "combos_per_100": 5.44
+ },
+ {
+  "player_id": 1789,
+  "player": "Jules Kounde",
+  "team": "France",
+  "touches": 552,
+  "combos": 24,
+  "combos_per_100": 4.35
+ },
+ {
+  "player_id": 13858,
+  "player": "Josip Juranovic",
+  "team": "Croatia",
+  "touches": 623,
+  "combos": 24,
+  "combos_per_100": 3.85
+ },
+ {
+  "player_id": 1683,
+  "player": "Casemiro",
+  "team": "Brazil",
+  "touches": 502,
+  "combos": 24,
+  "combos_per_100": 4.78
+ },
+ {
+  "player_id": 1336,
+  "player": "Timothy Weah",
+  "team": "United States",
+  "touches": 133,
+  "combos": 23,
+  "combos_per_100": 17.29
+ },
+ {
+  "player_id": 13222,
+  "player": "Nahuel Molina",
+  "team": "Argentina",
+  "touches": 519,
+  "combos": 23,
+  "combos_per_100": 4.43
+ },
+ {
+  "player_id": 8025,
+  "player": "Nicolas Tagliafico",
+  "team": "Argentina",
+  "touches": 261,
+  "combos": 23,
+  "combos_per_100": 8.81
+ },
+ {
+  "player_id": 8328,
+  "player": "Remo Freuler",
+  "team": "Switzerland",
+  "touches": 180,
+  "combos": 23,
+  "combos_per_100": 12.78
+ },
+ {
+  "player_id": 4926,
+  "player": "Borna Sosa",
+  "team": "Croatia",
+  "touches": 404,
+  "combos": 23,
+  "combos_per_100": 5.69
+ },
+ {
+  "player_id": 3868,
+  "player": "\u00c1ngel Di Mar\u00eda",
+  "team": "Argentina",
+  "touches": 301,
+  "combos": 23,
+  "combos_per_100": 7.64
+ },
+ {
+  "player_id": 22,
+  "player": "Kevin De Bruyne",
+  "team": "Belgium",
+  "touches": 212,
+  "combos": 23,
+  "combos_per_100": 10.85
+ },
+ {
+  "player_id": 26,
+  "player": "Leroy San\u00e9",
+  "team": "Germany",
+  "touches": 137,
+  "combos": 23,
+  "combos_per_100": 16.79
+ },
+ {
+  "player_id": 9178,
+  "player": "Marcos Acu\u00f1a",
+  "team": "Argentina",
+  "touches": 389,
+  "combos": 22,
+  "combos_per_100": 5.66
+ },
+ {
+  "player_id": 3930,
+  "player": "Lucas Paquet\u00e1",
+  "team": "Brazil",
+  "touches": 409,
+  "combos": 22,
+  "combos_per_100": 5.38
+ },
+ {
+  "player_id": 1697,
+  "player": "Rodrygo",
+  "team": "Brazil",
+  "touches": 256,
+  "combos": 22,
+  "combos_per_100": 8.59
+ },
+ {
+  "player_id": 18,
+  "player": "Rodri",
+  "team": "Spain",
+  "touches": 1007,
+  "combos": 22,
+  "combos_per_100": 2.18
+ },
+ {
+  "player_id": 4621,
+  "player": "Jamal Musiala",
+  "team": "Germany",
+  "touches": 239,
+  "combos": 22,
+  "combos_per_100": 9.21
+ },
+ {
+  "player_id": 4928,
+  "player": "Wataru Endo",
+  "team": "Japan",
+  "touches": 315,
+  "combos": 21,
+  "combos_per_100": 6.67
+ },
+ {
+  "player_id": 13998,
+  "player": "Salem Al-Dawsari",
+  "team": "Saudi Arabia",
+  "touches": 210,
+  "combos": 21,
+  "combos_per_100": 10.0
+ },
+ {
+  "player_id": 4868,
+  "player": "David Raum",
+  "team": "Germany",
+  "touches": 208,
+  "combos": 21,
+  "combos_per_100": 10.1
+ },
+ {
+  "player_id": 4737,
+  "player": "Jesper Lindstr\u00f6m",
+  "team": "Denmark",
+  "touches": 128,
+  "combos": 20,
+  "combos_per_100": 15.62
+ },
+ {
+  "player_id": 4616,
+  "player": "Joshua Kimmich",
+  "team": "Germany",
+  "touches": 310,
+  "combos": 20,
+  "combos_per_100": 6.45
+ },
+ {
+  "player_id": 8343,
+  "player": "Sergi\u00f1o Dest",
+  "team": "United States",
+  "touches": 221,
+  "combos": 19,
+  "combos_per_100": 8.6
+ },
+ {
+  "player_id": 11,
+  "player": "Nicol\u00e1s Otamendi",
+  "team": "Argentina",
+  "touches": 880,
+  "combos": 19,
+  "combos_per_100": 2.16
+ },
+ {
+  "player_id": 3903,
+  "player": "Kr\u00e9pin Diatta",
+  "team": "Senegal",
+  "touches": 114,
+  "combos": 19,
+  "combos_per_100": 16.67
+ },
+ {
+  "player_id": 12514,
+  "player": "Piotr Zielinski",
+  "team": "Poland",
+  "touches": 233,
+  "combos": 18,
+  "combos_per_100": 7.73
+ },
+ {
+  "player_id": 4622,
+  "player": "Kingsley Coman",
+  "team": "France",
+  "touches": 181,
+  "combos": 18,
+  "combos_per_100": 9.94
+ },
+ {
+  "player_id": 1,
+  "player": "Harry Kane",
+  "team": "England",
+  "touches": 174,
+  "combos": 18,
+  "combos_per_100": 10.34
+ },
+ {
+  "player_id": 13228,
+  "player": "Youssouf Sabaly",
+  "team": "Senegal",
+  "touches": 201,
+  "combos": 18,
+  "combos_per_100": 8.96
+ },
+ {
+  "player_id": 13912,
+  "player": "Jin-su Kim",
+  "team": "South Korea",
+  "touches": 216,
+  "combos": 18,
+  "combos_per_100": 8.33
+ },
+ {
+  "player_id": 1696,
+  "player": "Marco Asensio",
+  "team": "Spain",
+  "touches": 189,
+  "combos": 18,
+  "combos_per_100": 9.52
+ },
+ {
+  "player_id": 1907,
+  "player": "Vitinha",
+  "team": "Portugal",
+  "touches": 232,
+  "combos": 18,
+  "combos_per_100": 7.76
+ },
+ {
+  "player_id": 14003,
+  "player": "Mohamed Kanno",
+  "team": "Saudi Arabia",
+  "touches": 223,
+  "combos": 18,
+  "combos_per_100": 8.07
+ },
+ {
+  "player_id": 1896,
+  "player": "Matty Cash",
+  "team": "Poland",
+  "touches": 230,
+  "combos": 17,
+  "combos_per_100": 7.39
+ },
+ {
+  "player_id": 2087,
+  "player": "Takehiro Tomiyasu",
+  "team": "Japan",
+  "touches": 134,
+  "combos": 17,
+  "combos_per_100": 12.69
+ },
+ {
+  "player_id": 1381,
+  "player": "Marcos Llorente",
+  "team": "Spain",
+  "touches": 185,
+  "combos": 17,
+  "combos_per_100": 9.19
+ },
+ {
+  "player_id": 401,
+  "player": "Sofiane Boufal",
+  "team": "Morocco",
+  "touches": 324,
+  "combos": 17,
+  "combos_per_100": 5.25
+ },
+ {
+  "player_id": 13994,
+  "player": "Saud Abdulhamid",
+  "team": "Saudi Arabia",
+  "touches": 167,
+  "combos": 17,
+  "combos_per_100": 10.18
+ },
+ {
+  "player_id": 4623,
+  "player": "Serge Gnabry",
+  "team": "Germany",
+  "touches": 168,
+  "combos": 17,
+  "combos_per_100": 10.12
+ },
+ {
+  "player_id": 1991,
+  "player": "Aleksandar Mitrovic",
+  "team": "Serbia",
+  "touches": 169,
+  "combos": 17,
+  "combos_per_100": 10.06
+ },
+ {
+  "player_id": 8061,
+  "player": "Danilo",
+  "team": "Brazil",
+  "touches": 479,
+  "combos": 16,
+  "combos_per_100": 3.34
+ },
+ {
+  "player_id": 83,
+  "player": "Heung-min Son",
+  "team": "South Korea",
+  "touches": 227,
+  "combos": 16,
+  "combos_per_100": 7.05
+ },
+ {
+  "player_id": 12586,
+  "player": "Sofyan Amrabat",
+  "team": "Morocco",
+  "touches": 530,
+  "combos": 16,
+  "combos_per_100": 3.02
+ },
+ {
+  "player_id": 13178,
+  "player": "Nico Williams",
+  "team": "Spain",
+  "touches": 145,
+  "combos": 16,
+  "combos_per_100": 11.03
+ },
+ {
+  "player_id": 1529,
+  "player": "Ansu Fati",
+  "team": "Spain",
+  "touches": 63,
+  "combos": 16,
+  "combos_per_100": 25.4
+ },
+ {
+  "player_id": 5035,
+  "player": "Edimilson Fernandes",
+  "team": "Switzerland",
+  "touches": 154,
+  "combos": 16,
+  "combos_per_100": 10.39
+ },
+ {
+  "player_id": 4012,
+  "player": "Eduardo Camavinga",
+  "team": "France",
+  "touches": 204,
+  "combos": 16,
+  "combos_per_100": 7.84
+ },
+ {
+  "player_id": 7443,
+  "player": "Christian Eriksen",
+  "team": "Denmark",
+  "touches": 277,
+  "combos": 16,
+  "combos_per_100": 5.78
+ },
+ {
+  "player_id": 12664,
+  "player": "Sa\u0161a Luki\u0107",
+  "team": "Serbia",
+  "touches": 304,
+  "combos": 16,
+  "combos_per_100": 5.26
+ },
+ {
+  "player_id": 13121,
+  "player": "Yunus Musah",
+  "team": "United States",
+  "touches": 207,
+  "combos": 15,
+  "combos_per_100": 7.25
+ },
+ {
+  "player_id": 163,
+  "player": "Bukayo Saka",
+  "team": "England",
+  "touches": 128,
+  "combos": 15,
+  "combos_per_100": 11.72
+ },
+ {
+  "player_id": 265,
+  "player": "Declan Rice",
+  "team": "England",
+  "touches": 319,
+  "combos": 15,
+  "combos_per_100": 4.7
+ },
+ {
+  "player_id": 4915,
+  "player": "Hee-chan Hwang",
+  "team": "South Korea",
+  "touches": 150,
+  "combos": 15,
+  "combos_per_100": 10.0
+ },
+ {
+  "player_id": 3865,
+  "player": "Neymar",
+  "team": "Brazil",
+  "touches": 425,
+  "combos": 15,
+  "combos_per_100": 3.53
+ },
+ {
+  "player_id": 1519,
+  "player": "Sergio Busquets",
+  "team": "Spain",
+  "touches": 364,
+  "combos": 15,
+  "combos_per_100": 4.12
+ },
+ {
+  "player_id": 9,
+  "player": "Aymeric Laporte",
+  "team": "Spain",
+  "touches": 543,
+  "combos": 15,
+  "combos_per_100": 2.76
+ },
+ {
+  "player_id": 8034,
+  "player": "Steven Berghuis",
+  "team": "Netherlands",
+  "touches": 222,
+  "combos": 15,
+  "combos_per_100": 6.76
+ },
+ {
+  "player_id": 8099,
+  "player": "Rasmus Kristensen",
+  "team": "Denmark",
+  "touches": 229,
+  "combos": 15,
+  "combos_per_100": 6.55
+ },
+ {
+  "player_id": 1830,
+  "player": "Kang-in Lee",
+  "team": "South Korea",
+  "touches": 140,
+  "combos": 15,
+  "combos_per_100": 10.71
+ },
+ {
+  "player_id": 3924,
+  "player": "Bruno Guimar\u00e3es",
+  "team": "Brazil",
+  "touches": 126,
+  "combos": 15,
+  "combos_per_100": 11.9
+ },
+ {
+  "player_id": 428,
+  "player": "Isma\u00efla Sarr",
+  "team": "Senegal",
+  "touches": 123,
+  "combos": 14,
+  "combos_per_100": 11.38
+ },
+ {
+  "player_id": 16,
+  "player": "Kyle Walker",
+  "team": "England",
+  "touches": 320,
+  "combos": 14,
+  "combos_per_100": 4.38
+ },
+ {
+  "player_id": 11841,
+  "player": "Hidemasa Morita",
+  "team": "Japan",
+  "touches": 314,
+  "combos": 14,
+  "combos_per_100": 4.46
+ },
+ {
+  "player_id": 8324,
+  "player": "Joakim Maehle",
+  "team": "Denmark",
+  "touches": 191,
+  "combos": 14,
+  "combos_per_100": 7.33
+ },
+ {
+  "player_id": 8627,
+  "player": "Atiba Hutchinson",
+  "team": "Canada",
+  "touches": 158,
+  "combos": 14,
+  "combos_per_100": 8.86
+ },
+ {
+  "player_id": 4611,
+  "player": "Alphonso Davies",
+  "team": "Canada",
+  "touches": 204,
+  "combos": 14,
+  "combos_per_100": 6.86
+ },
+ {
+  "player_id": 4734,
+  "player": "Filip Kostic",
+  "team": "Serbia",
+  "touches": 199,
+  "combos": 14,
+  "combos_per_100": 7.04
+ },
+ {
+  "player_id": 13922,
+  "player": "Woo-young Jung",
+  "team": "South Korea",
+  "touches": 279,
+  "combos": 14,
+  "combos_per_100": 5.02
+ },
+ {
+  "player_id": 8134,
+  "player": "Denzel Dumfries",
+  "team": "Netherlands",
+  "touches": 378,
+  "combos": 13,
+  "combos_per_100": 3.44
+ },
+ {
+  "player_id": 6967,
+  "player": "Riley McGree",
+  "team": "Australia",
+  "touches": 123,
+  "combos": 13,
+  "combos_per_100": 10.57
+ },
+ {
+  "player_id": 40,
+  "player": "Dejan Lovren",
+  "team": "Croatia",
+  "touches": 675,
+  "combos": 13,
+  "combos_per_100": 1.93
+ },
+ {
+  "player_id": 8927,
+  "player": "Ao Tanaka",
+  "team": "Japan",
+  "touches": 76,
+  "combos": 13,
+  "combos_per_100": 17.11
+ },
+ {
+  "player_id": 1695,
+  "player": "Vin\u00edcius Junior",
+  "team": "Brazil",
+  "touches": 270,
+  "combos": 13,
+  "combos_per_100": 4.81
+ },
+ {
+  "player_id": 13923,
+  "player": "Gue-sung Cho",
+  "team": "South Korea",
+  "touches": 157,
+  "combos": 13,
+  "combos_per_100": 8.28
+ },
+ {
+  "player_id": 9330,
+  "player": "Dani Alves",
+  "team": "Brazil",
+  "touches": 189,
+  "combos": 13,
+  "combos_per_100": 6.88
+ },
+ {
+  "player_id": 4566,
+  "player": "Rub\u00e9n Vargas",
+  "team": "Switzerland",
+  "touches": 168,
+  "combos": 13,
+  "combos_per_100": 7.74
+ },
+ {
+  "player_id": 4194,
+  "player": "Randal Kolo Muani",
+  "team": "France",
+  "touches": 132,
+  "combos": 13,
+  "combos_per_100": 9.85
+ },
+ {
+  "player_id": 8031,
+  "player": "Mohammed Kudus",
+  "team": "Ghana",
+  "touches": 166,
+  "combos": 13,
+  "combos_per_100": 7.83
+ },
+ {
+  "player_id": 5085,
+  "player": "Abdul Rahman Baba",
+  "team": "Ghana",
+  "touches": 106,
+  "combos": 13,
+  "combos_per_100": 12.26
+ },
+ {
+  "player_id": 13815,
+  "player": "Mathew Leckie",
+  "team": "Australia",
+  "touches": 191,
+  "combos": 12,
+  "combos_per_100": 6.28
+ },
+ {
+  "player_id": 214,
+  "player": "Nampalys Mendy",
+  "team": "Senegal",
+  "touches": 190,
+  "combos": 12,
+  "combos_per_100": 6.32
+ },
+ {
+  "player_id": 157,
+  "player": "Granit Xhaka",
+  "team": "Switzerland",
+  "touches": 378,
+  "combos": 12,
+  "combos_per_100": 3.17
+ },
+ {
+  "player_id": 11488,
+  "player": "Ricardo Horta",
+  "team": "Portugal",
+  "touches": 88,
+  "combos": 12,
+  "combos_per_100": 13.64
+ },
+ {
+  "player_id": 17,
+  "player": "Jo\u00e3o Cancelo",
+  "team": "Portugal",
+  "touches": 255,
+  "combos": 12,
+  "combos_per_100": 4.71
+ },
+ {
+  "player_id": 3856,
+  "player": "Leandro Paredes",
+  "team": "Argentina",
+  "touches": 331,
+  "combos": 12,
+  "combos_per_100": 3.63
+ },
+ {
+  "player_id": 3890,
+  "player": "Youssouf Fofana",
+  "team": "France",
+  "touches": 228,
+  "combos": 12,
+  "combos_per_100": 5.26
+ },
+ {
+  "player_id": 13860,
+  "player": "Marko Livaja",
+  "team": "Croatia",
+  "touches": 137,
+  "combos": 12,
+  "combos_per_100": 8.76
+ },
+ {
+  "player_id": 13788,
+  "player": "Yeltsin Tejeda",
+  "team": "Costa Rica",
+  "touches": 155,
+  "combos": 12,
+  "combos_per_100": 7.74
+ },
+ {
+  "player_id": 649,
+  "player": "Francisco Calvo",
+  "team": "Costa Rica",
+  "touches": 146,
+  "combos": 12,
+  "combos_per_100": 8.22
+ },
+ {
+  "player_id": 3316,
+  "player": "Joel Campbell",
+  "team": "Costa Rica",
+  "touches": 284,
+  "combos": 12,
+  "combos_per_100": 4.23
+ },
+ {
+  "player_id": 4618,
+  "player": "Leon Goretzka",
+  "team": "Germany",
+  "touches": 95,
+  "combos": 12,
+  "combos_per_100": 12.63
+ },
+ {
+  "player_id": 107,
+  "player": "Christian Pulisic",
+  "team": "United States",
+  "touches": 147,
+  "combos": 11,
+  "combos_per_100": 7.48
+ },
+ {
+  "player_id": 13861,
+  "player": "Bruno Petkovic",
+  "team": "Croatia",
+  "touches": 217,
+  "combos": 11,
+  "combos_per_100": 5.07
+ },
+ {
+  "player_id": 2095,
+  "player": "Daichi Kamada",
+  "team": "Japan",
+  "touches": 194,
+  "combos": 11,
+  "combos_per_100": 5.67
+ },
+ {
+  "player_id": 4908,
+  "player": "Dani Olmo",
+  "team": "Spain",
+  "touches": 321,
+  "combos": 11,
+  "combos_per_100": 3.43
+ },
+ {
+  "player_id": 27,
+  "player": "Bernardo Silva",
+  "team": "Portugal",
+  "touches": 299,
+  "combos": 11,
+  "combos_per_100": 3.68
+ },
+ {
+  "player_id": 13859,
+  "player": "Mislav Orsic",
+  "team": "Croatia",
+  "touches": 133,
+  "combos": 11,
+  "combos_per_100": 8.27
+ },
+ {
+  "player_id": 13867,
+  "player": "Bilal El Khannouss",
+  "team": "Morocco",
+  "touches": 52,
+  "combos": 11,
+  "combos_per_100": 21.15
+ },
+ {
+  "player_id": 3858,
+  "player": "Idrissa Gueye",
+  "team": "Senegal",
+  "touches": 83,
+  "combos": 11,
+  "combos_per_100": 13.25
+ },
+ {
+  "player_id": 12561,
+  "player": "Sergej Milinkovi\u0107-Savi\u0107",
+  "team": "Serbia",
+  "touches": 254,
+  "combos": 11,
+  "combos_per_100": 4.33
+ },
+ {
+  "player_id": 8050,
+  "player": "Alex Sandro",
+  "team": "Brazil",
+  "touches": 299,
+  "combos": 11,
+  "combos_per_100": 3.68
+ },
+ {
+  "player_id": 3846,
+  "player": "Marquinhos",
+  "team": "Brazil",
+  "touches": 681,
+  "combos": 11,
+  "combos_per_100": 1.62
+ },
+ {
+  "player_id": 754,
+  "player": "Kendall Waston",
+  "team": "Costa Rica",
+  "touches": 115,
+  "combos": 11,
+  "combos_per_100": 9.57
+ },
+ {
+  "player_id": 4408,
+  "player": "Salis Abdul Samed",
+  "team": "Ghana",
+  "touches": 194,
+  "combos": 11,
+  "combos_per_100": 5.67
+ },
+ {
+  "player_id": 8327,
+  "player": "Marten De Roon",
+  "team": "Netherlands",
+  "touches": 206,
+  "combos": 11,
+  "combos_per_100": 5.34
+ },
+ {
+  "player_id": 14017,
+  "player": "Ali Maaloul",
+  "team": "Tunisia",
+  "touches": 102,
+  "combos": 11,
+  "combos_per_100": 10.78
+ },
+ {
+  "player_id": 1682,
+  "player": "Daniel Carvajal",
+  "team": "Spain",
+  "touches": 230,
+  "combos": 11,
+  "combos_per_100": 4.78
+ },
+ {
+  "player_id": 4681,
+  "player": "Giovanni Reyna",
+  "team": "United States",
+  "touches": 70,
+  "combos": 10,
+  "combos_per_100": 14.29
+ },
+ {
+  "player_id": 1973,
+  "player": "Antonee Robinson",
+  "team": "United States",
+  "touches": 242,
+  "combos": 10,
+  "combos_per_100": 4.13
+ },
+ {
+  "player_id": 5116,
+  "player": "Cristian Romero",
+  "team": "Argentina",
+  "touches": 559,
+  "combos": 10,
+  "combos_per_100": 1.79
+ },
+ {
+  "player_id": 9939,
+  "player": "Jakub Kaminski",
+  "team": "Poland",
+  "touches": 95,
+  "combos": 10,
+  "combos_per_100": 10.53
+ },
+ {
+  "player_id": 4625,
+  "player": "Robert Lewandowski",
+  "team": "Poland",
+  "touches": 230,
+  "combos": 10,
+  "combos_per_100": 4.35
+ },
+ {
+  "player_id": 8344,
+  "player": "Alex Balde",
+  "team": "Spain",
+  "touches": 168,
+  "combos": 10,
+  "combos_per_100": 5.95
+ },
+ {
+  "player_id": 4717,
+  "player": "Breel Embolo",
+  "team": "Switzerland",
+  "touches": 153,
+  "combos": 10,
+  "combos_per_100": 6.54
+ },
+ {
+  "player_id": 13906,
+  "player": "Andrija Zivkovic",
+  "team": "Serbia",
+  "touches": 197,
+  "combos": 10,
+  "combos_per_100": 5.08
+ },
+ {
+  "player_id": 132,
+  "player": "Fred",
+  "team": "Brazil",
+  "touches": 164,
+  "combos": 10,
+  "combos_per_100": 6.1
+ },
+ {
+  "player_id": 14010,
+  "player": "Firas Al-Buraikan",
+  "team": "Saudi Arabia",
+  "touches": 122,
+  "combos": 10,
+  "combos_per_100": 8.2
+ },
+ {
+  "player_id": 13801,
+  "player": "Yuki Soma",
+  "team": "Japan",
+  "touches": 49,
+  "combos": 10,
+  "combos_per_100": 20.41
+ },
+ {
+  "player_id": 5074,
+  "player": "Bryan Mbeumo",
+  "team": "Cameroon",
+  "touches": 98,
+  "combos": 10,
+  "combos_per_100": 10.2
+ },
+ {
+  "player_id": 13872,
+  "player": "Collins Fai",
+  "team": "Cameroon",
+  "touches": 146,
+  "combos": 10,
+  "combos_per_100": 6.85
+ },
+ {
+  "player_id": 1977,
+  "player": "Andr\u00e9 Zambo Anguissa",
+  "team": "Cameroon",
+  "touches": 148,
+  "combos": 10,
+  "combos_per_100": 6.76
+ },
+ {
+  "player_id": 5029,
+  "player": "Silvan Widmer",
+  "team": "Switzerland",
+  "touches": 213,
+  "combos": 10,
+  "combos_per_100": 4.69
+ },
+ {
+  "player_id": 4020,
+  "player": "Kamaldeen Sulemana",
+  "team": "Ghana",
+  "touches": 62,
+  "combos": 10,
+  "combos_per_100": 16.13
+ },
+ {
+  "player_id": 8000,
+  "player": "Joao Mario",
+  "team": "Portugal",
+  "touches": 78,
+  "combos": 10,
+  "combos_per_100": 12.82
+ },
+ {
+  "player_id": 84,
+  "player": "Steven Bergwijn",
+  "team": "Netherlands",
+  "touches": 138,
+  "combos": 9,
+  "combos_per_100": 6.52
+ },
+ {
+  "player_id": 13819,
+  "player": "Mitchell Duke",
+  "team": "Australia",
+  "touches": 123,
+  "combos": 9,
+  "combos_per_100": 7.32
+ },
+ {
+  "player_id": 8854,
+  "player": "Jackson Irvine",
+  "team": "Australia",
+  "touches": 193,
+  "combos": 9,
+  "combos_per_100": 4.66
+ },
+ {
+  "player_id": 13820,
+  "player": "Aziz Behich",
+  "team": "Australia",
+  "touches": 306,
+  "combos": 9,
+  "combos_per_100": 2.94
+ },
+ {
+  "player_id": 12766,
+  "player": "Bartosz Bereszynski",
+  "team": "Poland",
+  "touches": 207,
+  "combos": 9,
+  "combos_per_100": 4.35
+ },
+ {
+  "player_id": 4892,
+  "player": "Josko Gvardiol",
+  "team": "Croatia",
+  "touches": 754,
+  "combos": 9,
+  "combos_per_100": 1.19
+ },
+ {
+  "player_id": 195,
+  "player": "Richarlison",
+  "team": "Brazil",
+  "touches": 165,
+  "combos": 9,
+  "combos_per_100": 5.45
+ },
+ {
+  "player_id": 4732,
+  "player": "Djibril Sow",
+  "team": "Switzerland",
+  "touches": 126,
+  "combos": 9,
+  "combos_per_100": 7.14
+ },
+ {
+  "player_id": 133,
+  "player": "Bruno Fernandes",
+  "team": "Portugal",
+  "touches": 223,
+  "combos": 9,
+  "combos_per_100": 4.04
+ },
+ {
+  "player_id": 113,
+  "player": "Olivier Giroud",
+  "team": "France",
+  "touches": 200,
+  "combos": 9,
+  "combos_per_100": 4.5
+ },
+ {
+  "player_id": 4712,
+  "player": "Marcus Thuram",
+  "team": "France",
+  "touches": 141,
+  "combos": 9,
+  "combos_per_100": 6.38
+ },
+ {
+  "player_id": 30,
+  "player": "Gabriel Jesus",
+  "team": "Brazil",
+  "touches": 66,
+  "combos": 9,
+  "combos_per_100": 13.64
+ },
+ {
+  "player_id": 14000,
+  "player": "Nawaf Al-Abed",
+  "team": "Saudi Arabia",
+  "touches": 77,
+  "combos": 9,
+  "combos_per_100": 11.69
+ },
+ {
+  "player_id": 12779,
+  "player": "Mikkel Damsgaard",
+  "team": "Denmark",
+  "touches": 90,
+  "combos": 9,
+  "combos_per_100": 10.0
+ },
+ {
+  "player_id": 4608,
+  "player": "Niklas S\u00fcle",
+  "team": "Germany",
+  "touches": 281,
+  "combos": 9,
+  "combos_per_100": 3.2
+ },
+ {
+  "player_id": 8022,
+  "player": "Jurrien Timber",
+  "team": "Netherlands",
+  "touches": 483,
+  "combos": 9,
+  "combos_per_100": 1.86
+ },
+ {
+  "player_id": 12022,
+  "player": "Andreas Cornelius",
+  "team": "Denmark",
+  "touches": 71,
+  "combos": 9,
+  "combos_per_100": 12.68
+ },
+ {
+  "player_id": 8419,
+  "player": "Gonzalo Montiel",
+  "team": "Argentina",
+  "touches": 167,
+  "combos": 8,
+  "combos_per_100": 4.79
+ },
+ {
+  "player_id": 1675,
+  "player": "Raphael Varane",
+  "team": "France",
+  "touches": 524,
+  "combos": 8,
+  "combos_per_100": 1.53
+ },
+ {
+  "player_id": 4606,
+  "player": "Dayot Upamecano",
+  "team": "France",
+  "touches": 651,
+  "combos": 8,
+  "combos_per_100": 1.23
+ },
+ {
+  "player_id": 2090,
+  "player": "Hiroki Sakai",
+  "team": "Japan",
+  "touches": 32,
+  "combos": 8,
+  "combos_per_100": 25.0
+ },
+ {
+  "player_id": 10704,
+  "player": "Kaoru Mitoma",
+  "team": "Japan",
+  "touches": 122,
+  "combos": 8,
+  "combos_per_100": 6.56
+ },
+ {
+  "player_id": 2094,
+  "player": "Junya Ito",
+  "team": "Japan",
+  "touches": 151,
+  "combos": 8,
+  "combos_per_100": 5.3
+ },
+ {
+  "player_id": 9981,
+  "player": "Ritsu Doan",
+  "team": "Japan",
+  "touches": 140,
+  "combos": 8,
+  "combos_per_100": 5.71
+ },
+ {
+  "player_id": 162,
+  "player": "Gabriel Martinelli",
+  "team": "Brazil",
+  "touches": 126,
+  "combos": 8,
+  "combos_per_100": 6.35
+ },
+ {
+  "player_id": 12960,
+  "player": "Ricardo Rodriguez",
+  "team": "Switzerland",
+  "touches": 298,
+  "combos": 8,
+  "combos_per_100": 2.68
+ },
+ {
+  "player_id": 14011,
+  "player": "Saleh Al-Shehri",
+  "team": "Saudi Arabia",
+  "touches": 87,
+  "combos": 8,
+  "combos_per_100": 9.2
+ },
+ {
+  "player_id": 2111,
+  "player": "Hirving Lozano",
+  "team": "Mexico",
+  "touches": 124,
+  "combos": 8,
+  "combos_per_100": 6.45
+ },
+ {
+  "player_id": 13371,
+  "player": "Bryan Oviedo",
+  "team": "Costa Rica",
+  "touches": 125,
+  "combos": 8,
+  "combos_per_100": 6.4
+ },
+ {
+  "player_id": 4674,
+  "player": "Axel Witsel",
+  "team": "Belgium",
+  "touches": 248,
+  "combos": 8,
+  "combos_per_100": 3.23
+ },
+ {
+  "player_id": 20,
+  "player": "Ilkay G\u00fcndogan",
+  "team": "Germany",
+  "touches": 184,
+  "combos": 8,
+  "combos_per_100": 4.35
+ },
+ {
+  "player_id": 4795,
+  "player": "Woo-yeong Jeong",
+  "team": "South Korea",
+  "touches": 36,
+  "combos": 8,
+  "combos_per_100": 22.22
+ },
+ {
+  "player_id": 483,
+  "player": "Jordan Ayew",
+  "team": "Ghana",
+  "touches": 86,
+  "combos": 8,
+  "combos_per_100": 9.3
+ },
+ {
+  "player_id": 5135,
+  "player": "Josh Sargent",
+  "team": "United States",
+  "touches": 65,
+  "combos": 8,
+  "combos_per_100": 12.31
+ },
+ {
+  "player_id": 13977,
+  "player": "Morteza Pouraliganji",
+  "team": "Iran",
+  "touches": 139,
+  "combos": 8,
+  "combos_per_100": 5.76
+ },
+ {
+  "player_id": 1067,
+  "player": "Brenden Aaronson",
+  "team": "United States",
+  "touches": 67,
+  "combos": 7,
+  "combos_per_100": 10.45
+ },
+ {
+  "player_id": 8033,
+  "player": "Davy Klaassen",
+  "team": "Netherlands",
+  "touches": 110,
+  "combos": 7,
+  "combos_per_100": 6.36
+ },
+ {
+  "player_id": 8138,
+  "player": "Lautaro Martinez",
+  "team": "Argentina",
+  "touches": 158,
+  "combos": 7,
+  "combos_per_100": 4.43
+ },
+ {
+  "player_id": 668,
+  "player": "Przemyslaw Frankowski",
+  "team": "Poland",
+  "touches": 142,
+  "combos": 7,
+  "combos_per_100": 4.93
+ },
+ {
+  "player_id": 118,
+  "player": "Harry Maguire",
+  "team": "England",
+  "touches": 498,
+  "combos": 7,
+  "combos_per_100": 1.41
+ },
+ {
+  "player_id": 13857,
+  "player": "Borna Barisic",
+  "team": "Croatia",
+  "touches": 113,
+  "combos": 7,
+  "combos_per_100": 6.19
+ },
+ {
+  "player_id": 13798,
+  "player": "Yuto Nagatomo",
+  "team": "Japan",
+  "touches": 161,
+  "combos": 7,
+  "combos_per_100": 4.35
+ },
+ {
+  "player_id": 12502,
+  "player": "Min Jae Kim",
+  "team": "South Korea",
+  "touches": 260,
+  "combos": 7,
+  "combos_per_100": 2.69
+ },
+ {
+  "player_id": 13044,
+  "player": "Jawad El Yamiq",
+  "team": "Morocco",
+  "touches": 305,
+  "combos": 7,
+  "combos_per_100": 2.3
+ },
+ {
+  "player_id": 233,
+  "player": "Romain Sa\u00efss",
+  "team": "Morocco",
+  "touches": 253,
+  "combos": 7,
+  "combos_per_100": 2.77
+ },
+ {
+  "player_id": 8341,
+  "player": "Gavi",
+  "team": "Spain",
+  "touches": 184,
+  "combos": 7,
+  "combos_per_100": 3.8
+ },
+ {
+  "player_id": 8555,
+  "player": "Otavio",
+  "team": "Portugal",
+  "touches": 182,
+  "combos": 7,
+  "combos_per_100": 3.85
+ },
+ {
+  "player_id": 127,
+  "player": "Diogo Dalot",
+  "team": "Portugal",
+  "touches": 268,
+  "combos": 7,
+  "combos_per_100": 2.61
+ },
+ {
+  "player_id": 5968,
+  "player": "Lovro Majer",
+  "team": "Croatia",
+  "touches": 204,
+  "combos": 7,
+  "combos_per_100": 3.43
+ },
+ {
+  "player_id": 3315,
+  "player": "Vincent Janssen",
+  "team": "Netherlands",
+  "touches": 58,
+  "combos": 7,
+  "combos_per_100": 12.07
+ },
+ {
+  "player_id": 284,
+  "player": "Nathan Ak\u00e9",
+  "team": "Netherlands",
+  "touches": 505,
+  "combos": 7,
+  "combos_per_100": 1.39
+ },
+ {
+  "player_id": 13991,
+  "player": "Mohammed Al-Burayk",
+  "team": "Saudi Arabia",
+  "touches": 89,
+  "combos": 7,
+  "combos_per_100": 7.87
+ },
+ {
+  "player_id": 14009,
+  "player": "Abdulrahman Al-Oboud",
+  "team": "Saudi Arabia",
+  "touches": 38,
+  "combos": 7,
+  "combos_per_100": 18.42
+ },
+ {
+  "player_id": 4684,
+  "player": "Thorgan Hazard",
+  "team": "Belgium",
+  "touches": 110,
+  "combos": 7,
+  "combos_per_100": 6.36
+ },
+ {
+  "player_id": 963,
+  "player": "Tajon Buchanan",
+  "team": "Canada",
+  "touches": 167,
+  "combos": 7,
+  "combos_per_100": 4.19
+ },
+ {
+  "player_id": 6916,
+  "player": "Junior Hoilett",
+  "team": "Canada",
+  "touches": 106,
+  "combos": 7,
+  "combos_per_100": 6.6
+ },
+ {
+  "player_id": 926,
+  "player": "Alistair Johnston",
+  "team": "Canada",
+  "touches": 226,
+  "combos": 7,
+  "combos_per_100": 3.1
+ },
+ {
+  "player_id": 4624,
+  "player": "Thomas M\u00fcller",
+  "team": "Germany",
+  "touches": 88,
+  "combos": 7,
+  "combos_per_100": 7.95
+ },
+ {
+  "player_id": 4897,
+  "player": "Lukas Klostermann",
+  "team": "Germany",
+  "touches": 87,
+  "combos": 7,
+  "combos_per_100": 8.05
+ },
+ {
+  "player_id": 13873,
+  "player": "Pierre Kunde",
+  "team": "Cameroon",
+  "touches": 103,
+  "combos": 7,
+  "combos_per_100": 6.8
+ },
+ {
+  "player_id": 1380,
+  "player": "Thomas Partey",
+  "team": "Ghana",
+  "touches": 232,
+  "combos": 7,
+  "combos_per_100": 3.02
+ },
+ {
+  "player_id": 11854,
+  "player": "Alexander Bah",
+  "team": "Denmark",
+  "touches": 97,
+  "combos": 7,
+  "combos_per_100": 7.22
+ },
+ {
+  "player_id": 14022,
+  "player": "Aissa Laidouni",
+  "team": "Tunisia",
+  "touches": 104,
+  "combos": 7,
+  "combos_per_100": 6.73
+ },
+ {
+  "player_id": 4669,
+  "player": "Thomas Meunier",
+  "team": "Belgium",
+  "touches": 230,
+  "combos": 7,
+  "combos_per_100": 3.04
+ },
+ {
+  "player_id": 9918,
+  "player": "Mario G\u00f6tze",
+  "team": "Germany",
+  "touches": 35,
+  "combos": 7,
+  "combos_per_100": 20.0
+ },
+ {
+  "player_id": 3880,
+  "player": "Strahinja Pavlovic",
+  "team": "Serbia",
+  "touches": 293,
+  "combos": 7,
+  "combos_per_100": 2.39
+ },
+ {
+  "player_id": 802,
+  "player": "Jes\u00fas Ferreira",
+  "team": "United States",
+  "touches": 41,
+  "combos": 6,
+  "combos_per_100": 14.63
+ },
+ {
+  "player_id": 1339,
+  "player": "Tyler Adams",
+  "team": "United States",
+  "touches": 276,
+  "combos": 6,
+  "combos_per_100": 2.17
+ },
+ {
+  "player_id": 449,
+  "player": "Aaron Mooy",
+  "team": "Australia",
+  "touches": 320,
+  "combos": 6,
+  "combos_per_100": 1.88
+ },
+ {
+  "player_id": 13916,
+  "player": "Chul Hong",
+  "team": "South Korea",
+  "touches": 36,
+  "combos": 6,
+  "combos_per_100": 16.67
+ },
+ {
+  "player_id": 1394,
+  "player": "Alvaro Morata",
+  "team": "Spain",
+  "touches": 101,
+  "combos": 6,
+  "combos_per_100": 5.94
+ },
+ {
+  "player_id": 13864,
+  "player": "Yahia Attiat-Allah",
+  "team": "Morocco",
+  "touches": 222,
+  "combos": 6,
+  "combos_per_100": 2.7
+ },
+ {
+  "player_id": 13866,
+  "player": "Selim Amallah",
+  "team": "Morocco",
+  "touches": 190,
+  "combos": 6,
+  "combos_per_100": 3.16
+ },
+ {
+  "player_id": 5097,
+  "player": "Ibrahima Konat\u00e9",
+  "team": "France",
+  "touches": 449,
+  "combos": 6,
+  "combos_per_100": 1.34
+ },
+ {
+  "player_id": 13560,
+  "player": "Anass Zaroury",
+  "team": "Morocco",
+  "touches": 25,
+  "combos": 6,
+  "combos_per_100": 24.0
+ },
+ {
+  "player_id": 3878,
+  "player": "Axel Disasi",
+  "team": "France",
+  "touches": 135,
+  "combos": 6,
+  "combos_per_100": 4.44
+ },
+ {
+  "player_id": 4613,
+  "player": "Benjamin Pavard",
+  "team": "France",
+  "touches": 157,
+  "combos": 6,
+  "combos_per_100": 3.82
+ },
+ {
+  "player_id": 14005,
+  "player": "Sami Al-Najei",
+  "team": "Saudi Arabia",
+  "touches": 36,
+  "combos": 6,
+  "combos_per_100": 16.67
+ },
+ {
+  "player_id": 1384,
+  "player": "Hector Herrera",
+  "team": "Mexico",
+  "touches": 73,
+  "combos": 6,
+  "combos_per_100": 8.22
+ },
+ {
+  "player_id": 3455,
+  "player": "Luis Ch\u00e1vez",
+  "team": "Mexico",
+  "touches": 175,
+  "combos": 6,
+  "combos_per_100": 3.43
+ },
+ {
+  "player_id": 1593,
+  "player": "\u00d3scar Duarte",
+  "team": "Costa Rica",
+  "touches": 138,
+  "combos": 6,
+  "combos_per_100": 4.35
+ },
+ {
+  "player_id": 66,
+  "player": "Toby Alderweireld",
+  "team": "Belgium",
+  "touches": 375,
+  "combos": 6,
+  "combos_per_100": 1.6
+ },
+ {
+  "player_id": 1228,
+  "player": "Jonathan Osorio",
+  "team": "Canada",
+  "touches": 102,
+  "combos": 6,
+  "combos_per_100": 5.88
+ },
+ {
+  "player_id": 9094,
+  "player": "Cyle Larin",
+  "team": "Canada",
+  "touches": 58,
+  "combos": 6,
+  "combos_per_100": 10.34
+ },
+ {
+  "player_id": 12235,
+  "player": "Ali Karimi",
+  "team": "Iran",
+  "touches": 66,
+  "combos": 6,
+  "combos_per_100": 9.09
+ },
+ {
+  "player_id": 14030,
+  "player": "Anis Slimane",
+  "team": "Tunisia",
+  "touches": 76,
+  "combos": 6,
+  "combos_per_100": 7.89
+ },
+ {
+  "player_id": 14023,
+  "player": "Mohamed Ali Ben Romdhane",
+  "team": "Tunisia",
+  "touches": 51,
+  "combos": 6,
+  "combos_per_100": 11.76
+ },
+ {
+  "player_id": 8402,
+  "player": "Nicolas Ngamaleu",
+  "team": "Cameroon",
+  "touches": 58,
+  "combos": 6,
+  "combos_per_100": 10.34
+ },
+ {
+  "player_id": 44,
+  "player": "Fabinho",
+  "team": "Brazil",
+  "touches": 96,
+  "combos": 6,
+  "combos_per_100": 6.25
+ },
+ {
+  "player_id": 12183,
+  "player": "Haji Wright",
+  "team": "United States",
+  "touches": 39,
+  "combos": 5,
+  "combos_per_100": 12.82
+ },
+ {
+  "player_id": 1334,
+  "player": "Weston McKennie",
+  "team": "United States",
+  "touches": 169,
+  "combos": 5,
+  "combos_per_100": 2.96
+ },
+ {
+  "player_id": 13823,
+  "player": "Craig Goodwin",
+  "team": "Australia",
+  "touches": 120,
+  "combos": 5,
+  "combos_per_100": 4.17
+ },
+ {
+  "player_id": 3895,
+  "player": "Ismail Jakobs",
+  "team": "Senegal",
+  "touches": 87,
+  "combos": 5,
+  "combos_per_100": 5.75
+ },
+ {
+  "player_id": 2099,
+  "player": "Takuma Asano",
+  "team": "Japan",
+  "touches": 66,
+  "combos": 5,
+  "combos_per_100": 7.58
+ },
+ {
+  "player_id": 1393,
+  "player": "Joao Felix",
+  "team": "Portugal",
+  "touches": 139,
+  "combos": 5,
+  "combos_per_100": 3.6
+ },
+ {
+  "player_id": 240,
+  "player": "R\u00faben Neves",
+  "team": "Portugal",
+  "touches": 272,
+  "combos": 5,
+  "combos_per_100": 1.84
+ },
+ {
+  "player_id": 8027,
+  "player": "Noussair Mazraoui",
+  "team": "Morocco",
+  "touches": 186,
+  "combos": 5,
+  "combos_per_100": 2.69
+ },
+ {
+  "player_id": 9865,
+  "player": "Zakaria Aboukhlal",
+  "team": "Morocco",
+  "touches": 41,
+  "combos": 5,
+  "combos_per_100": 12.2
+ },
+ {
+  "player_id": 12642,
+  "player": "Ivan Ili\u0107",
+  "team": "Serbia",
+  "touches": 39,
+  "combos": 5,
+  "combos_per_100": 12.82
+ },
+ {
+  "player_id": 13993,
+  "player": "Sultan Al-Ghannam",
+  "team": "Saudi Arabia",
+  "touches": 94,
+  "combos": 5,
+  "combos_per_100": 5.32
+ },
+ {
+  "player_id": 3303,
+  "player": "Jes\u00fas Gallardo",
+  "team": "Mexico",
+  "touches": 142,
+  "combos": 5,
+  "combos_per_100": 3.52
+ },
+ {
+  "player_id": 13780,
+  "player": "Keysher Fuller",
+  "team": "Costa Rica",
+  "touches": 94,
+  "combos": 5,
+  "combos_per_100": 5.32
+ },
+ {
+  "player_id": 215,
+  "player": "Youri Tielemans",
+  "team": "Belgium",
+  "touches": 83,
+  "combos": 5,
+  "combos_per_100": 6.02
+ },
+ {
+  "player_id": 3934,
+  "player": "Karl Toko Ekambi",
+  "team": "Cameroon",
+  "touches": 50,
+  "combos": 5,
+  "combos_per_100": 10.0
+ },
+ {
+  "player_id": 14040,
+  "player": "Andre Ayew",
+  "team": "Ghana",
+  "touches": 72,
+  "combos": 5,
+  "combos_per_100": 6.94
+ },
+ {
+  "player_id": 1910,
+  "player": "Mohammed Salisu",
+  "team": "Ghana",
+  "touches": 187,
+  "combos": 5,
+  "combos_per_100": 2.67
+ },
+ {
+  "player_id": 13918,
+  "player": "Sang-ho Na",
+  "team": "South Korea",
+  "touches": 36,
+  "combos": 5,
+  "combos_per_100": 13.89
+ },
+ {
+  "player_id": 71,
+  "player": "Ben Davies",
+  "team": "Wales",
+  "touches": 50,
+  "combos": 5,
+  "combos_per_100": 10.0
+ },
+ {
+  "player_id": 8561,
+  "player": "Mehdi Taremi",
+  "team": "Iran",
+  "touches": 84,
+  "combos": 5,
+  "combos_per_100": 5.95
+ },
+ {
+  "player_id": 13984,
+  "player": "Karim Ansarifard",
+  "team": "Iran",
+  "touches": 9,
+  "combos": 5,
+  "combos_per_100": 55.56
+ },
+ {
+  "player_id": 4882,
+  "player": "Robert Skov",
+  "team": "Denmark",
+  "touches": 43,
+  "combos": 5,
+  "combos_per_100": 11.63
+ },
+ {
+  "player_id": 4105,
+  "player": "Wahbi Khazri",
+  "team": "Tunisia",
+  "touches": 36,
+  "combos": 5,
+  "combos_per_100": 13.89
+ },
+ {
+  "player_id": 5139,
+  "player": "Romelu Lukaku",
+  "team": "Belgium",
+  "touches": 31,
+  "combos": 5,
+  "combos_per_100": 16.13
+ },
+ {
+  "player_id": 1289,
+  "player": "Mark-Anthony Kaye",
+  "team": "Canada",
+  "touches": 118,
+  "combos": 5,
+  "combos_per_100": 4.24
+ },
+ {
+  "player_id": 96,
+  "player": "C\u00e9sar Azpilicueta",
+  "team": "Spain",
+  "touches": 141,
+  "combos": 5,
+  "combos_per_100": 3.55
+ },
+ {
+  "player_id": 2075,
+  "player": "Facundo Pellistri",
+  "team": "Uruguay",
+  "touches": 40,
+  "combos": 5,
+  "combos_per_100": 12.5
+ },
+ {
+  "player_id": 8079,
+  "player": "Matheus Nunes",
+  "team": "Portugal",
+  "touches": 64,
+  "combos": 5,
+  "combos_per_100": 7.81
+ },
+ {
+  "player_id": 6020,
+  "player": "Cristiano Ronaldo",
+  "team": "Portugal",
+  "touches": 85,
+  "combos": 5,
+  "combos_per_100": 5.88
+ },
+ {
+  "player_id": 13831,
+  "player": "Everton Ribeiro",
+  "team": "Brazil",
+  "touches": 44,
+  "combos": 5,
+  "combos_per_100": 11.36
+ },
+ {
+  "player_id": 8326,
+  "player": "Teun Koopmeiners",
+  "team": "Netherlands",
+  "touches": 158,
+  "combos": 4,
+  "combos_per_100": 2.53
+ },
+ {
+  "player_id": 7478,
+  "player": "Milos Degenek",
+  "team": "Australia",
+  "touches": 148,
+  "combos": 4,
+  "combos_per_100": 2.7
+ },
+ {
+  "player_id": 12537,
+  "player": "Nicola Zalewski",
+  "team": "Poland",
+  "touches": 15,
+  "combos": 4,
+  "combos_per_100": 26.67
+ },
+ {
+  "player_id": 2042,
+  "player": "Kamil Grosicki",
+  "team": "Poland",
+  "touches": 12,
+  "combos": 4,
+  "combos_per_100": 33.33
+ },
+ {
+  "player_id": 7419,
+  "player": "Krystian Bielik",
+  "team": "Poland",
+  "touches": 164,
+  "combos": 4,
+  "combos_per_100": 2.44
+ },
+ {
+  "player_id": 7988,
+  "player": "Boulaye Dia",
+  "team": "Senegal",
+  "touches": 65,
+  "combos": 4,
+  "combos_per_100": 6.15
+ },
+ {
+  "player_id": 3848,
+  "player": "Abdou Diallo",
+  "team": "Senegal",
+  "touches": 157,
+  "combos": 4,
+  "combos_per_100": 2.55
+ },
+ {
+  "player_id": 13854,
+  "player": "Dominik Livakovic",
+  "team": "Croatia",
+  "touches": 308,
+  "combos": 4,
+  "combos_per_100": 1.3
+ },
+ {
+  "player_id": 2088,
+  "player": "Maya Yoshida",
+  "team": "Japan",
+  "touches": 357,
+  "combos": 4,
+  "combos_per_100": 1.12
+ },
+ {
+  "player_id": 5038,
+  "player": "Jae-sung Lee",
+  "team": "South Korea",
+  "touches": 121,
+  "combos": 4,
+  "combos_per_100": 3.31
+ },
+ {
+  "player_id": 1810,
+  "player": "Youssef En-Nesyri",
+  "team": "Morocco",
+  "touches": 170,
+  "combos": 4,
+  "combos_per_100": 2.35
+ },
+ {
+  "player_id": 13021,
+  "player": "Abde Ezzalzouli",
+  "team": "Morocco",
+  "touches": 38,
+  "combos": 4,
+  "combos_per_100": 10.53
+ },
+ {
+  "player_id": 12777,
+  "player": "Abdelhamid Sabiri",
+  "team": "Morocco",
+  "touches": 102,
+  "combos": 4,
+  "combos_per_100": 3.92
+ },
+ {
+  "player_id": 1341,
+  "player": "Unai Simon",
+  "team": "Spain",
+  "touches": 207,
+  "combos": 4,
+  "combos_per_100": 1.93
+ },
+ {
+  "player_id": 474,
+  "player": "Cheikhou Kouyat\u00e9",
+  "team": "Senegal",
+  "touches": 49,
+  "combos": 4,
+  "combos_per_100": 8.16
+ },
+ {
+  "player_id": 3989,
+  "player": "Nemanja Radonjic",
+  "team": "Serbia",
+  "touches": 56,
+  "combos": 4,
+  "combos_per_100": 7.14
+ },
+ {
+  "player_id": 14004,
+  "player": "Abdulelah Al-Malki",
+  "team": "Saudi Arabia",
+  "touches": 90,
+  "combos": 4,
+  "combos_per_100": 4.44
+ },
+ {
+  "player_id": 144,
+  "player": "Emiliano Mart\u00ednez",
+  "team": "Argentina",
+  "touches": 236,
+  "combos": 4,
+  "combos_per_100": 1.69
+ },
+ {
+  "player_id": 3452,
+  "player": "Kevin \u00c1lvarez",
+  "team": "Mexico",
+  "touches": 49,
+  "combos": 4,
+  "combos_per_100": 8.16
+ },
+ {
+  "player_id": 252,
+  "player": "Ra\u00fal Jim\u00e9nez",
+  "team": "Mexico",
+  "touches": 42,
+  "combos": 4,
+  "combos_per_100": 9.52
+ },
+ {
+  "player_id": 67,
+  "player": "Jan Vertonghen",
+  "team": "Belgium",
+  "touches": 367,
+  "combos": 4,
+  "combos_per_100": 1.09
+ },
+ {
+  "player_id": 13870,
+  "player": "Abderrazak Hamdallah",
+  "team": "Morocco",
+  "touches": 46,
+  "combos": 4,
+  "combos_per_100": 8.7
+ },
+ {
+  "player_id": 1960,
+  "player": "Timothy Castagne",
+  "team": "Belgium",
+  "touches": 293,
+  "combos": 4,
+  "combos_per_100": 1.37
+ },
+ {
+  "player_id": 11790,
+  "player": "Steven Vitoria",
+  "team": "Canada",
+  "touches": 249,
+  "combos": 4,
+  "combos_per_100": 1.61
+ },
+ {
+  "player_id": 3965,
+  "player": "Jonathan David",
+  "team": "Canada",
+  "touches": 77,
+  "combos": 4,
+  "combos_per_100": 5.19
+ },
+ {
+  "player_id": 1025,
+  "player": "Kamal Miller",
+  "team": "Canada",
+  "touches": 304,
+  "combos": 4,
+  "combos_per_100": 1.32
+ },
+ {
+  "player_id": 90,
+  "player": "Antonio R\u00fcdiger",
+  "team": "Germany",
+  "touches": 245,
+  "combos": 4,
+  "combos_per_100": 1.63
+ },
+ {
+  "player_id": 13917,
+  "player": "Chang-hoon Kwon",
+  "team": "South Korea",
+  "touches": 53,
+  "combos": 4,
+  "combos_per_100": 7.55
+ },
+ {
+  "player_id": 13944,
+  "player": "Abdelkarim Hassan",
+  "team": "Qatar",
+  "touches": 83,
+  "combos": 4,
+  "combos_per_100": 4.82
+ },
+ {
+  "player_id": 13961,
+  "player": "Akram Afif",
+  "team": "Qatar",
+  "touches": 161,
+  "combos": 4,
+  "combos_per_100": 2.48
+ },
+ {
+  "player_id": 2083,
+  "player": "Joe Rodon",
+  "team": "Wales",
+  "touches": 84,
+  "combos": 4,
+  "combos_per_100": 4.76
+ },
+ {
+  "player_id": 136,
+  "player": "Marcus Rashford",
+  "team": "England",
+  "touches": 112,
+  "combos": 4,
+  "combos_per_100": 3.57
+ },
+ {
+  "player_id": 286,
+  "player": "Chris Mepham",
+  "team": "Wales",
+  "touches": 99,
+  "combos": 4,
+  "combos_per_100": 4.04
+ },
+ {
+  "player_id": 13978,
+  "player": "Ramin Rezaeian",
+  "team": "Iran",
+  "touches": 110,
+  "combos": 4,
+  "combos_per_100": 3.64
+ },
+ {
+  "player_id": 5063,
+  "player": "Mathias Jensen",
+  "team": "Denmark",
+  "touches": 71,
+  "combos": 4,
+  "combos_per_100": 5.63
+ },
+ {
+  "player_id": 9089,
+  "player": "Andreas Skov Olsen",
+  "team": "Denmark",
+  "touches": 84,
+  "combos": 4,
+  "combos_per_100": 4.76
+ },
+ {
+  "player_id": 1387,
+  "player": "Yannick Carrasco",
+  "team": "Belgium",
+  "touches": 78,
+  "combos": 4,
+  "combos_per_100": 5.13
+ },
+ {
+  "player_id": 1545,
+  "player": "Math\u00ed\u00adas Olivera",
+  "team": "Uruguay",
+  "touches": 93,
+  "combos": 4,
+  "combos_per_100": 4.3
+ },
+ {
+  "player_id": 8009,
+  "player": "Darwin Nunez",
+  "team": "Uruguay",
+  "touches": 48,
+  "combos": 4,
+  "combos_per_100": 8.33
+ },
+ {
+  "player_id": 13929,
+  "player": "Nicolas De La Cruz",
+  "team": "Uruguay",
+  "touches": 29,
+  "combos": 4,
+  "combos_per_100": 13.79
+ },
+ {
+  "player_id": 1684,
+  "player": "Federico Valverde",
+  "team": "Uruguay",
+  "touches": 143,
+  "combos": 4,
+  "combos_per_100": 2.8
+ },
+ {
+  "player_id": 1876,
+  "player": "William Carvalho",
+  "team": "Portugal",
+  "touches": 144,
+  "combos": 4,
+  "combos_per_100": 2.78
+ },
+ {
+  "player_id": 8400,
+  "player": "Christian Fassnacht",
+  "team": "Switzerland",
+  "touches": 27,
+  "combos": 4,
+  "combos_per_100": 14.81
+ },
+ {
+  "player_id": 13830,
+  "player": "Pedro",
+  "team": "Brazil",
+  "touches": 48,
+  "combos": 4,
+  "combos_per_100": 8.33
+ },
+ {
+  "player_id": 13821,
+  "player": "Keanu Baccus",
+  "team": "Australia",
+  "touches": 70,
+  "combos": 3,
+  "combos_per_100": 4.29
+ },
+ {
+  "player_id": 3994,
+  "player": "Arkadiusz Milik",
+  "team": "Poland",
+  "touches": 62,
+  "combos": 3,
+  "combos_per_100": 4.84
+ },
+ {
+  "player_id": 55,
+  "player": "Takumi Minamino",
+  "team": "Japan",
+  "touches": 44,
+  "combos": 3,
+  "combos_per_100": 6.82
+ },
+ {
+  "player_id": 13797,
+  "player": "Shogo Taniguchi",
+  "team": "Japan",
+  "touches": 151,
+  "combos": 3,
+  "combos_per_100": 1.99
+ },
+ {
+  "player_id": 13911,
+  "player": "Young-gwon Kim",
+  "team": "South Korea",
+  "touches": 305,
+  "combos": 3,
+  "combos_per_100": 0.98
+ },
+ {
+  "player_id": 1950,
+  "player": "Ferran Torres",
+  "team": "Spain",
+  "touches": 180,
+  "combos": 3,
+  "combos_per_100": 1.67
+ },
+ {
+  "player_id": 8330,
+  "player": "Mario Pasalic",
+  "team": "Croatia",
+  "touches": 183,
+  "combos": 3,
+  "combos_per_100": 1.64
+ },
+ {
+  "player_id": 8008,
+  "player": "Goncalo Ramos",
+  "team": "Portugal",
+  "touches": 70,
+  "combos": 3,
+  "combos_per_100": 4.29
+ },
+ {
+  "player_id": 371,
+  "player": "Jack Grealish",
+  "team": "England",
+  "touches": 63,
+  "combos": 3,
+  "combos_per_100": 4.76
+ },
+ {
+  "player_id": 10,
+  "player": "John Stones",
+  "team": "England",
+  "touches": 473,
+  "combos": 3,
+  "combos_per_100": 0.63
+ },
+ {
+  "player_id": 6925,
+  "player": "Ilias Chair",
+  "team": "Morocco",
+  "touches": 30,
+  "combos": 3,
+  "combos_per_100": 10.0
+ },
+ {
+  "player_id": 13995,
+  "player": "Abdulelah Al-Amri",
+  "team": "Saudi Arabia",
+  "touches": 169,
+  "combos": 3,
+  "combos_per_100": 1.78
+ },
+ {
+  "player_id": 395,
+  "player": "Pierre-Emile H\u00f6jbjerg",
+  "team": "Denmark",
+  "touches": 271,
+  "combos": 3,
+  "combos_per_100": 1.11
+ },
+ {
+  "player_id": 4053,
+  "player": "Kasper Dolberg",
+  "team": "Denmark",
+  "touches": 32,
+  "combos": 3,
+  "combos_per_100": 9.38
+ },
+ {
+  "player_id": 2108,
+  "player": "Uriel Antuna",
+  "team": "Mexico",
+  "touches": 49,
+  "combos": 3,
+  "combos_per_100": 6.12
+ },
+ {
+  "player_id": 2110,
+  "player": "Roberto Alvarado",
+  "team": "Mexico",
+  "touches": 22,
+  "combos": 3,
+  "combos_per_100": 13.64
+ },
+ {
+  "player_id": 1694,
+  "player": "Eden Hazard",
+  "team": "Belgium",
+  "touches": 88,
+  "combos": 3,
+  "combos_per_100": 3.41
+ },
+ {
+  "player_id": 3849,
+  "player": "Thilo Kehrer",
+  "team": "Germany",
+  "touches": 50,
+  "combos": 3,
+  "combos_per_100": 6.0
+ },
+ {
+  "player_id": 9963,
+  "player": "Niclas Fullkrug",
+  "team": "Germany",
+  "touches": 57,
+  "combos": 3,
+  "combos_per_100": 5.26
+ },
+ {
+  "player_id": 4265,
+  "player": "Gideon Mensah",
+  "team": "Ghana",
+  "touches": 81,
+  "combos": 3,
+  "combos_per_100": 3.7
+ },
+ {
+  "player_id": 1931,
+  "player": "Ethan Ampadu",
+  "team": "Wales",
+  "touches": 57,
+  "combos": 3,
+  "combos_per_100": 5.26
+ },
+ {
+  "player_id": 13981,
+  "player": "Ali Gholizadeh",
+  "team": "Iran",
+  "touches": 41,
+  "combos": 3,
+  "combos_per_100": 7.32
+ },
+ {
+  "player_id": 13971,
+  "player": "Ehsan Hajsafi",
+  "team": "Iran",
+  "touches": 75,
+  "combos": 3,
+  "combos_per_100": 4.0
+ },
+ {
+  "player_id": 13982,
+  "player": "Ahmad Nourollahi",
+  "team": "Iran",
+  "touches": 36,
+  "combos": 3,
+  "combos_per_100": 8.33
+ },
+ {
+  "player_id": 13851,
+  "player": "Michal Skoras",
+  "team": "Poland",
+  "touches": 22,
+  "combos": 3,
+  "combos_per_100": 13.64
+ },
+ {
+  "player_id": 2106,
+  "player": "Edson Alvarez",
+  "team": "Mexico",
+  "touches": 90,
+  "combos": 3,
+  "combos_per_100": 3.33
+ },
+ {
+  "player_id": 3387,
+  "player": "Orbel\u00edn Pineda",
+  "team": "Mexico",
+  "touches": 77,
+  "combos": 3,
+  "combos_per_100": 3.9
+ },
+ {
+  "player_id": 14008,
+  "player": "Riad Sharahili",
+  "team": "Saudi Arabia",
+  "touches": 40,
+  "combos": 3,
+  "combos_per_100": 7.5
+ },
+ {
+  "player_id": 4021,
+  "player": "J\u00e9r\u00e9my Doku",
+  "team": "Belgium",
+  "touches": 38,
+  "combos": 3,
+  "combos_per_100": 7.89
+ },
+ {
+  "player_id": 13930,
+  "player": "Giorgian De Arrascaeta",
+  "team": "Uruguay",
+  "touches": 63,
+  "combos": 3,
+  "combos_per_100": 4.76
+ },
+ {
+  "player_id": 1368,
+  "player": "Jose Gimenez",
+  "team": "Uruguay",
+  "touches": 69,
+  "combos": 3,
+  "combos_per_100": 4.35
+ },
+ {
+  "player_id": 2077,
+  "player": "Edinson Cavani",
+  "team": "Uruguay",
+  "touches": 32,
+  "combos": 3,
+  "combos_per_100": 9.38
+ },
+ {
+  "player_id": 1168,
+  "player": "Nouhou Tolo",
+  "team": "Cameroon",
+  "touches": 108,
+  "combos": 3,
+  "combos_per_100": 2.78
+ },
+ {
+  "player_id": 3861,
+  "player": "Xavi Simons",
+  "team": "Netherlands",
+  "touches": 22,
+  "combos": 2,
+  "combos_per_100": 9.09
+ },
+ {
+  "player_id": 13817,
+  "player": "Jamie Maclaren",
+  "team": "Australia",
+  "touches": 14,
+  "combos": 2,
+  "combos_per_100": 14.29
+ },
+ {
+  "player_id": 13850,
+  "player": "Grzegorz Krychowiak",
+  "team": "Poland",
+  "touches": 191,
+  "combos": 2,
+  "combos_per_100": 1.05
+ },
+ {
+  "player_id": 2144,
+  "player": "Iliman Ndiaye",
+  "team": "Senegal",
+  "touches": 29,
+  "combos": 2,
+  "combos_per_100": 6.9
+ },
+ {
+  "player_id": 3978,
+  "player": "Pape Gueye",
+  "team": "Senegal",
+  "touches": 70,
+  "combos": 2,
+  "combos_per_100": 2.86
+ },
+ {
+  "player_id": 13799,
+  "player": "Shuichi Gonda",
+  "team": "Japan",
+  "touches": 111,
+  "combos": 2,
+  "combos_per_100": 1.8
+ },
+ {
+  "player_id": 1926,
+  "player": "Thiago Silva",
+  "team": "Brazil",
+  "touches": 629,
+  "combos": 2,
+  "combos_per_100": 0.32
+ },
+ {
+  "player_id": 1829,
+  "player": "Carlos Soler",
+  "team": "Spain",
+  "touches": 78,
+  "combos": 2,
+  "combos_per_100": 2.56
+ },
+ {
+  "player_id": 2066,
+  "player": "Ruben Dias",
+  "team": "Portugal",
+  "touches": 260,
+  "combos": 2,
+  "combos_per_100": 0.77
+ },
+ {
+  "player_id": 4666,
+  "player": "Rapha\u00ebl Guerreiro",
+  "team": "Portugal",
+  "touches": 138,
+  "combos": 2,
+  "combos_per_100": 1.45
+ },
+ {
+  "player_id": 8564,
+  "player": "Pepe",
+  "team": "Portugal",
+  "touches": 440,
+  "combos": 2,
+  "combos_per_100": 0.45
+ },
+ {
+  "player_id": 4703,
+  "player": "Denis Zakaria",
+  "team": "Switzerland",
+  "touches": 52,
+  "combos": 2,
+  "combos_per_100": 3.85
+ },
+ {
+  "player_id": 8593,
+  "player": "Rafael Leao",
+  "team": "Portugal",
+  "touches": 66,
+  "combos": 2,
+  "combos_per_100": 3.03
+ },
+ {
+  "player_id": 5009,
+  "player": "Wout Weghorst",
+  "team": "Netherlands",
+  "touches": 38,
+  "combos": 2,
+  "combos_per_100": 5.26
+ },
+ {
+  "player_id": 25,
+  "player": "Raheem Sterling",
+  "team": "England",
+  "touches": 16,
+  "combos": 2,
+  "combos_per_100": 12.5
+ },
+ {
+  "player_id": 6019,
+  "player": "Nikola Vlasic",
+  "team": "Croatia",
+  "touches": 122,
+  "combos": 2,
+  "combos_per_100": 1.64
+ },
+ {
+  "player_id": 4590,
+  "player": "Exequiel Palacios",
+  "team": "Argentina",
+  "touches": 59,
+  "combos": 2,
+  "combos_per_100": 3.39
+ },
+ {
+  "player_id": 4615,
+  "player": "Josip Stanisic",
+  "team": "Croatia",
+  "touches": 81,
+  "combos": 2,
+  "combos_per_100": 2.47
+ },
+ {
+  "player_id": 13226,
+  "player": "German Pezzella",
+  "team": "Argentina",
+  "touches": 92,
+  "combos": 2,
+  "combos_per_100": 2.17
+ },
+ {
+  "player_id": 61,
+  "player": "Hugo Lloris",
+  "team": "France",
+  "touches": 258,
+  "combos": 2,
+  "combos_per_100": 0.78
+ },
+ {
+  "player_id": 8045,
+  "player": "Matthijs De Ligt",
+  "team": "Netherlands",
+  "touches": 81,
+  "combos": 2,
+  "combos_per_100": 2.47
+ },
+ {
+  "player_id": 13901,
+  "player": "Pape Abou Ciss\u00e9",
+  "team": "Senegal",
+  "touches": 51,
+  "combos": 2,
+  "combos_per_100": 3.92
+ },
+ {
+  "player_id": 4851,
+  "player": "Krzysztof Piatek",
+  "team": "Poland",
+  "touches": 18,
+  "combos": 2,
+  "combos_per_100": 11.11
+ },
+ {
+  "player_id": 14007,
+  "player": "Nasser Al-Dawsari",
+  "team": "Saudi Arabia",
+  "touches": 23,
+  "combos": 2,
+  "combos_per_100": 8.7
+ },
+ {
+  "player_id": 1452,
+  "player": "Nestor Araujo",
+  "team": "Mexico",
+  "touches": 96,
+  "combos": 2,
+  "combos_per_100": 2.08
+ },
+ {
+  "player_id": 1877,
+  "player": "Guido Rodr\u00edguez",
+  "team": "Argentina",
+  "touches": 121,
+  "combos": 2,
+  "combos_per_100": 1.65
+ },
+ {
+  "player_id": 13796,
+  "player": "Miki Yamane",
+  "team": "Japan",
+  "touches": 51,
+  "combos": 2,
+  "combos_per_100": 3.92
+ },
+ {
+  "player_id": 3841,
+  "player": "Keylor Navas",
+  "team": "Costa Rica",
+  "touches": 101,
+  "combos": 2,
+  "combos_per_100": 1.98
+ },
+ {
+  "player_id": 13781,
+  "player": "Celso Borges",
+  "team": "Costa Rica",
+  "touches": 167,
+  "combos": 2,
+  "combos_per_100": 1.2
+ },
+ {
+  "player_id": 4925,
+  "player": "Hiroki Ito",
+  "team": "Japan",
+  "touches": 112,
+  "combos": 2,
+  "combos_per_100": 1.79
+ },
+ {
+  "player_id": 11994,
+  "player": "Dries Mertens",
+  "team": "Belgium",
+  "touches": 75,
+  "combos": 2,
+  "combos_per_100": 2.67
+ },
+ {
+  "player_id": 1225,
+  "player": "Richie Laryea",
+  "team": "Canada",
+  "touches": 76,
+  "combos": 2,
+  "combos_per_100": 2.63
+ },
+ {
+  "player_id": 8741,
+  "player": "Gael Ondoua",
+  "team": "Cameroon",
+  "touches": 19,
+  "combos": 2,
+  "combos_per_100": 10.53
+ },
+ {
+  "player_id": 4626,
+  "player": "Eric Maxim Choupo-Moting",
+  "team": "Cameroon",
+  "touches": 120,
+  "combos": 2,
+  "combos_per_100": 1.67
+ },
+ {
+  "player_id": 213,
+  "player": "Daniel Amartey",
+  "team": "Ghana",
+  "touches": 172,
+  "combos": 2,
+  "combos_per_100": 1.16
+ },
+ {
+  "player_id": 8397,
+  "player": "Fabian Rieder",
+  "team": "Switzerland",
+  "touches": 36,
+  "combos": 2,
+  "combos_per_100": 5.56
+ },
+ {
+  "player_id": 13956,
+  "player": "Assim Madibo",
+  "team": "Qatar",
+  "touches": 41,
+  "combos": 2,
+  "combos_per_100": 4.88
+ },
+ {
+  "player_id": 13945,
+  "player": "Boualem Khoukhi",
+  "team": "Qatar",
+  "touches": 101,
+  "combos": 2,
+  "combos_per_100": 1.98
+ },
+ {
+  "player_id": 13960,
+  "player": "Hasan Al-Haydos",
+  "team": "Qatar",
+  "touches": 59,
+  "combos": 2,
+  "combos_per_100": 3.39
+ },
+ {
+  "player_id": 13962,
+  "player": "Almoez Ali",
+  "team": "Qatar",
+  "touches": 34,
+  "combos": 2,
+  "combos_per_100": 5.88
+ },
+ {
+  "player_id": 13951,
+  "player": "Homam Ahmed",
+  "team": "Qatar",
+  "touches": 58,
+  "combos": 2,
+  "combos_per_100": 3.45
+ },
+ {
+  "player_id": 13955,
+  "player": "Ali Asad",
+  "team": "Qatar",
+  "touches": 43,
+  "combos": 2,
+  "combos_per_100": 4.65
+ },
+ {
+  "player_id": 8032,
+  "player": "Kenneth Taylor",
+  "team": "Netherlands",
+  "touches": 20,
+  "combos": 2,
+  "combos_per_100": 10.0
+ },
+ {
+  "player_id": 137,
+  "player": "Daniel James",
+  "team": "Wales",
+  "touches": 27,
+  "combos": 2,
+  "combos_per_100": 7.41
+ },
+ {
+  "player_id": 6935,
+  "player": "Joe Allen",
+  "team": "Wales",
+  "touches": 59,
+  "combos": 2,
+  "combos_per_100": 3.39
+ },
+ {
+  "player_id": 5070,
+  "player": "Saman Ghoddos",
+  "team": "Iran",
+  "touches": 50,
+  "combos": 2,
+  "combos_per_100": 4.0
+ },
+ {
+  "player_id": 13980,
+  "player": "Saeid Ezatolahi",
+  "team": "Iran",
+  "touches": 102,
+  "combos": 2,
+  "combos_per_100": 1.96
+ },
+ {
+  "player_id": 1536,
+  "player": "Martin Braithwaite",
+  "team": "Denmark",
+  "touches": 52,
+  "combos": 2,
+  "combos_per_100": 3.85
+ },
+ {
+  "player_id": 4758,
+  "player": "Ellyes Skhiri",
+  "team": "Tunisia",
+  "touches": 78,
+  "combos": 2,
+  "combos_per_100": 2.56
+ },
+ {
+  "player_id": 10756,
+  "player": "Jordan Veretout",
+  "team": "France",
+  "touches": 68,
+  "combos": 2,
+  "combos_per_100": 2.94
+ },
+ {
+  "player_id": 3367,
+  "player": "Henry Mart\u00edn",
+  "team": "Mexico",
+  "touches": 34,
+  "combos": 2,
+  "combos_per_100": 5.88
+ },
+ {
+  "player_id": 3352,
+  "player": "Jorge S\u00e1nchez",
+  "team": "Mexico",
+  "touches": 64,
+  "combos": 2,
+  "combos_per_100": 3.12
+ },
+ {
+  "player_id": 14002,
+  "player": "Hattan Bahebri",
+  "team": "Saudi Arabia",
+  "touches": 12,
+  "combos": 2,
+  "combos_per_100": 16.67
+ },
+ {
+  "player_id": 241,
+  "player": "Leander Dendoncker",
+  "team": "Belgium",
+  "touches": 90,
+  "combos": 2,
+  "combos_per_100": 2.22
+ },
+ {
+  "player_id": 1841,
+  "player": "Pau Torres",
+  "team": "Spain",
+  "touches": 364,
+  "combos": 2,
+  "combos_per_100": 0.55
+ },
+ {
+  "player_id": 13784,
+  "player": "Johan Venegas",
+  "team": "Costa Rica",
+  "touches": 39,
+  "combos": 2,
+  "combos_per_100": 5.13
+ },
+ {
+  "player_id": 1363,
+  "player": "Inaki Williams",
+  "team": "Ghana",
+  "touches": 69,
+  "combos": 2,
+  "combos_per_100": 2.9
+ },
+ {
+  "player_id": 8133,
+  "player": "Matias Vecino",
+  "team": "Uruguay",
+  "touches": 89,
+  "combos": 2,
+  "combos_per_100": 2.25
+ },
+ {
+  "player_id": 13928,
+  "player": "Agustin Canobbio",
+  "team": "Uruguay",
+  "touches": 15,
+  "combos": 2,
+  "combos_per_100": 13.33
+ },
+ {
+  "player_id": 328,
+  "player": "DeAndre Yedlin",
+  "team": "United States",
+  "touches": 17,
+  "combos": 1,
+  "combos_per_100": 5.88
+ },
+ {
+  "player_id": 1971,
+  "player": "Tim Ream",
+  "team": "United States",
+  "touches": 261,
+  "combos": 1,
+  "combos_per_100": 0.38
+ },
+ {
+  "player_id": 4739,
+  "player": "Ajdin Hrustic",
+  "team": "Australia",
+  "touches": 26,
+  "combos": 1,
+  "combos_per_100": 3.85
+ },
+ {
+  "player_id": 13848,
+  "player": "Kamil Glik",
+  "team": "Poland",
+  "touches": 194,
+  "combos": 1,
+  "combos_per_100": 0.52
+ },
+ {
+  "player_id": 13032,
+  "player": "Pathe Ciss",
+  "team": "Senegal",
+  "touches": 28,
+  "combos": 1,
+  "combos_per_100": 3.57
+ },
+ {
+  "player_id": 9993,
+  "player": "Kalidou Koulibaly",
+  "team": "Senegal",
+  "touches": 177,
+  "combos": 1,
+  "combos_per_100": 0.56
+ },
+ {
+  "player_id": 3996,
+  "player": "Bamba Dieng",
+  "team": "Senegal",
+  "touches": 32,
+  "combos": 1,
+  "combos_per_100": 3.12
+ },
+ {
+  "player_id": 13865,
+  "player": "Badr Benoun",
+  "team": "Morocco",
+  "touches": 46,
+  "combos": 1,
+  "combos_per_100": 2.17
+ },
+ {
+  "player_id": 1785,
+  "player": "Bono",
+  "team": "Morocco",
+  "touches": 275,
+  "combos": 1,
+  "combos_per_100": 0.36
+ },
+ {
+  "player_id": 8113,
+  "player": "Noah Okafor",
+  "team": "Switzerland",
+  "touches": 31,
+  "combos": 1,
+  "combos_per_100": 3.23
+ },
+ {
+  "player_id": 13881,
+  "player": "Ardon Jashari",
+  "team": "Switzerland",
+  "touches": 12,
+  "combos": 1,
+  "combos_per_100": 8.33
+ },
+ {
+  "player_id": 37,
+  "player": "Virgil van Dijk",
+  "team": "Netherlands",
+  "touches": 540,
+  "combos": 1,
+  "combos_per_100": 0.19
+ },
+ {
+  "player_id": 1812,
+  "player": "Luuk de Jong",
+  "team": "Netherlands",
+  "touches": 35,
+  "combos": 1,
+  "combos_per_100": 2.86
+ },
+ {
+  "player_id": 105,
+  "player": "Mason Mount",
+  "team": "England",
+  "touches": 11,
+  "combos": 1,
+  "combos_per_100": 9.09
+ },
+ {
+  "player_id": 169,
+  "player": "Jordan Pickford",
+  "team": "England",
+  "touches": 166,
+  "combos": 1,
+  "combos_per_100": 0.6
+ },
+ {
+  "player_id": 8058,
+  "player": "Paulo Dybala",
+  "team": "Argentina",
+  "touches": 36,
+  "combos": 1,
+  "combos_per_100": 2.78
+ },
+ {
+  "player_id": 11090,
+  "player": "Erick Gutierrez",
+  "team": "Mexico",
+  "touches": 54,
+  "combos": 1,
+  "combos_per_100": 1.85
+ },
+ {
+  "player_id": 1880,
+  "player": "Andres Guardado",
+  "team": "Mexico",
+  "touches": 32,
+  "combos": 1,
+  "combos_per_100": 3.12
+ },
+ {
+  "player_id": 8023,
+  "player": "Lisandro Martinez",
+  "team": "Argentina",
+  "touches": 233,
+  "combos": 1,
+  "combos_per_100": 0.43
+ },
+ {
+  "player_id": 3301,
+  "player": "H\u00e9ctor Moreno",
+  "team": "Mexico",
+  "touches": 196,
+  "combos": 1,
+  "combos_per_100": 0.51
+ },
+ {
+  "player_id": 3299,
+  "player": "C\u00e9sar Montes",
+  "team": "Mexico",
+  "touches": 235,
+  "combos": 1,
+  "combos_per_100": 0.43
+ },
+ {
+  "player_id": 13785,
+  "player": "Gerson Torres",
+  "team": "Costa Rica",
+  "touches": 51,
+  "combos": 1,
+  "combos_per_100": 1.96
+ },
+ {
+  "player_id": 13800,
+  "player": "Ayase Ueda",
+  "team": "Japan",
+  "touches": 36,
+  "combos": 1,
+  "combos_per_100": 2.78
+ },
+ {
+  "player_id": 8551,
+  "player": "Stephen Eustaquio",
+  "team": "Canada",
+  "touches": 50,
+  "combos": 1,
+  "combos_per_100": 2.0
+ },
+ {
+  "player_id": 5173,
+  "player": "Ismael Kone",
+  "team": "Canada",
+  "touches": 147,
+  "combos": 1,
+  "combos_per_100": 0.68
+ },
+ {
+  "player_id": 1383,
+  "player": "Koke",
+  "team": "Spain",
+  "touches": 24,
+  "combos": 1,
+  "combos_per_100": 4.17
+ },
+ {
+  "player_id": 9947,
+  "player": "Milos Veljkovic",
+  "team": "Serbia",
+  "touches": 203,
+  "combos": 1,
+  "combos_per_100": 0.49
+ },
+ {
+  "player_id": 12640,
+  "player": "Martin Hongla",
+  "team": "Cameroon",
+  "touches": 47,
+  "combos": 1,
+  "combos_per_100": 2.13
+ },
+ {
+  "player_id": 1550,
+  "player": "Nemanja Maksimovic",
+  "team": "Serbia",
+  "touches": 103,
+  "combos": 1,
+  "combos_per_100": 0.97
+ },
+ {
+  "player_id": 8631,
+  "player": "Georges-Kevin N'Koudou",
+  "team": "Cameroon",
+  "touches": 19,
+  "combos": 1,
+  "combos_per_100": 5.26
+ },
+ {
+  "player_id": 12776,
+  "player": "Filip Djuricic",
+  "team": "Serbia",
+  "touches": 14,
+  "combos": 1,
+  "combos_per_100": 7.14
+ },
+ {
+  "player_id": 13874,
+  "player": "Samuel Oum Gouet",
+  "team": "Cameroon",
+  "touches": 12,
+  "combos": 1,
+  "combos_per_100": 8.33
+ },
+ {
+  "player_id": 6655,
+  "player": "Nicolas N'Koulou",
+  "team": "Cameroon",
+  "touches": 64,
+  "combos": 1,
+  "combos_per_100": 1.56
+ },
+ {
+  "player_id": 4280,
+  "player": "Ui-jo Hwang",
+  "team": "South Korea",
+  "touches": 7,
+  "combos": 1,
+  "combos_per_100": 14.29
+ },
+ {
+  "player_id": 9980,
+  "player": "Daniel-Kofi Kyereh",
+  "team": "Ghana",
+  "touches": 44,
+  "combos": 1,
+  "combos_per_100": 2.27
+ },
+ {
+  "player_id": 13910,
+  "player": "Kyung-won Kwon",
+  "team": "South Korea",
+  "touches": 84,
+  "combos": 1,
+  "combos_per_100": 1.19
+ },
+ {
+  "player_id": 2071,
+  "player": "Alex Telles",
+  "team": "Brazil",
+  "touches": 75,
+  "combos": 1,
+  "combos_per_100": 1.33
+ },
+ {
+  "player_id": 4695,
+  "player": "Nico Elvedi",
+  "team": "Switzerland",
+  "touches": 128,
+  "combos": 1,
+  "combos_per_100": 0.78
+ },
+ {
+  "player_id": 8416,
+  "player": "Michel Aebischer",
+  "team": "Switzerland",
+  "touches": 6,
+  "combos": 1,
+  "combos_per_100": 16.67
+ },
+ {
+  "player_id": 5006,
+  "player": "Renato Steffen",
+  "team": "Switzerland",
+  "touches": 21,
+  "combos": 1,
+  "combos_per_100": 4.76
+ },
+ {
+  "player_id": 13954,
+  "player": "Abdulaziz Hatem",
+  "team": "Qatar",
+  "touches": 78,
+  "combos": 1,
+  "combos_per_100": 1.28
+ },
+ {
+  "player_id": 13947,
+  "player": "Ismaeel Mohammed",
+  "team": "Qatar",
+  "touches": 60,
+  "combos": 1,
+  "combos_per_100": 1.67
+ },
+ {
+  "player_id": 589,
+  "player": "Neco Williams",
+  "team": "Wales",
+  "touches": 12,
+  "combos": 1,
+  "combos_per_100": 8.33
+ },
+ {
+  "player_id": 201,
+  "player": "Danny Ward",
+  "team": "Wales",
+  "touches": 49,
+  "combos": 1,
+  "combos_per_100": 2.04
+ },
+ {
+  "player_id": 6018,
+  "player": "Connor Roberts",
+  "team": "Wales",
+  "touches": 55,
+  "combos": 1,
+  "combos_per_100": 1.82
+ },
+ {
+  "player_id": 8062,
+  "player": "Aaron Ramsey",
+  "team": "Wales",
+  "touches": 57,
+  "combos": 1,
+  "combos_per_100": 1.75
+ },
+ {
+  "player_id": 311,
+  "player": "Callum Wilson",
+  "team": "England",
+  "touches": 24,
+  "combos": 1,
+  "combos_per_100": 4.17
+ },
+ {
+  "player_id": 1377,
+  "player": "Kieran Trippier",
+  "team": "England",
+  "touches": 27,
+  "combos": 1,
+  "combos_per_100": 3.7
+ },
+ {
+  "player_id": 42,
+  "player": "Trent Alexander-Arnold",
+  "team": "England",
+  "touches": 40,
+  "combos": 1,
+  "combos_per_100": 2.5
+ },
+ {
+  "player_id": 13975,
+  "player": "Milad Mohammadi",
+  "team": "Iran",
+  "touches": 32,
+  "combos": 1,
+  "combos_per_100": 3.12
+ },
+ {
+  "player_id": 70,
+  "player": "Cameron Carter-Vickers",
+  "team": "United States",
+  "touches": 103,
+  "combos": 1,
+  "combos_per_100": 0.97
+ },
+ {
+  "player_id": 12222,
+  "player": "Majid Hosseini",
+  "team": "Iran",
+  "touches": 100,
+  "combos": 1,
+  "combos_per_100": 1.0
+ },
+ {
+  "player_id": 13983,
+  "player": "Mehdi Torabi",
+  "team": "Iran",
+  "touches": 29,
+  "combos": 1,
+  "combos_per_100": 3.45
+ },
+ {
+  "player_id": 2073,
+  "player": "Joachim Andersen",
+  "team": "Denmark",
+  "touches": 327,
+  "combos": 1,
+  "combos_per_100": 0.31
+ },
+ {
+  "player_id": 9290,
+  "player": "Bailey Wright",
+  "team": "Australia",
+  "touches": 7,
+  "combos": 1,
+  "combos_per_100": 14.29
+ },
+ {
+  "player_id": 1895,
+  "player": "William Saliba",
+  "team": "France",
+  "touches": 72,
+  "combos": 1,
+  "combos_per_100": 1.39
+ },
+ {
+  "player_id": 12862,
+  "player": "Wajdi Kechrida",
+  "team": "Tunisia",
+  "touches": 91,
+  "combos": 1,
+  "combos_per_100": 1.1
+ },
+ {
+  "player_id": 7757,
+  "player": "Thiago Almada",
+  "team": "Argentina",
+  "touches": 30,
+  "combos": 1,
+  "combos_per_100": 3.33
+ },
+ {
+  "player_id": 3414,
+  "player": "Alexis Vega",
+  "team": "Mexico",
+  "touches": 63,
+  "combos": 1,
+  "combos_per_100": 1.59
+ },
+ {
+  "player_id": 455,
+  "player": "Leandro Trossard",
+  "team": "Belgium",
+  "touches": 100,
+  "combos": 1,
+  "combos_per_100": 1.0
+ },
+ {
+  "player_id": 12315,
+  "player": "Sam Adekugbe",
+  "team": "Canada",
+  "touches": 91,
+  "combos": 1,
+  "combos_per_100": 1.1
+ },
+ {
+  "player_id": 14032,
+  "player": "David Wotherspoon",
+  "team": "Canada",
+  "touches": 15,
+  "combos": 1,
+  "combos_per_100": 6.67
+ },
+ {
+  "player_id": 1860,
+  "player": "Takefusa Kubo",
+  "team": "Japan",
+  "touches": 20,
+  "combos": 1,
+  "combos_per_100": 5.0
+ },
+ {
+  "player_id": 13790,
+  "player": "Brandon Aguilera",
+  "team": "Costa Rica",
+  "touches": 66,
+  "combos": 1,
+  "combos_per_100": 1.52
+ },
+ {
+  "player_id": 1937,
+  "player": "Kai Havertz",
+  "team": "Germany",
+  "touches": 36,
+  "combos": 1,
+  "combos_per_100": 2.78
+ },
+ {
+  "player_id": 1535,
+  "player": "Luis Suarez",
+  "team": "Uruguay",
+  "touches": 46,
+  "combos": 1,
+  "combos_per_100": 2.17
+ },
+ {
+  "player_id": 7584,
+  "player": "Rodrigo Bentancur",
+  "team": "Uruguay",
+  "touches": 35,
+  "combos": 1,
+  "combos_per_100": 2.86
+ },
+ {
+  "player_id": 8071,
+  "player": "Sebastian Coates",
+  "team": "Uruguay",
+  "touches": 89,
+  "combos": 1,
+  "combos_per_100": 1.12
+ },
+ {
+  "player_id": 4404,
+  "player": "Alidu Seidu",
+  "team": "Ghana",
+  "touches": 93,
+  "combos": 1,
+  "combos_per_100": 1.08
+ },
+ {
+  "player_id": 13927,
+  "player": "Guillermo Varela",
+  "team": "Uruguay",
+  "touches": 108,
+  "combos": 1,
+  "combos_per_100": 0.93
+ },
+ {
+  "player_id": 5178,
+  "player": "Osman Bukari",
+  "team": "Ghana",
+  "touches": 30,
+  "combos": 1,
+  "combos_per_100": 3.33
+ },
+ {
+  "player_id": 11853,
+  "player": "Antonio Silva",
+  "team": "Portugal",
+  "touches": 109,
+  "combos": 1,
+  "combos_per_100": 0.92
+ },
+ {
+  "player_id": 8059,
+  "player": "Du\u0161an Vlahovi\u0107",
+  "team": "Serbia",
+  "touches": 48,
+  "combos": 1,
+  "combos_per_100": 2.08
+ },
+ {
+  "player_id": 4661,
+  "player": "Manuel Akanji",
+  "team": "Switzerland",
+  "touches": 361,
+  "combos": 1,
+  "combos_per_100": 0.28
+ },
+ {
+  "player_id": 4207,
+  "player": "Christopher Wooh",
+  "team": "Cameroon",
+  "touches": 64,
+  "combos": 1,
+  "combos_per_100": 1.56
+ }
+]

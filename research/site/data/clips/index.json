@@ -1,65 +1,65 @@
 [
-  {
-    "label": "argentina-france-di-maria",
-    "title": "Di Mar\u00eda 36' (Argentina v France, final)",
-    "summary": "Argentina build the third goal from Tagliafico's interception. Watch attention follow Mac Allister and Di Mar\u00eda through the chain \u2014 and how P(score) climbs as the defence is spread before any pass on the goal is made.",
-    "match": "10517",
-    "period": 1
-  },
-  {
-    "label": "argentina-france-mbappe-volley",
-    "title": "Mbapp\u00e9 81' volley (France v Argentina, final)",
-    "summary": "Mbapp\u00e9's second goal in 97 seconds, this one off the volley. Watch P(concede) for Argentina spike as France break in transition before the strike.",
-    "match": "10517",
-    "period": 2
-  },
-  {
-    "label": "netherlands-usa-memphis",
-    "title": "Memphis 10' (Netherlands v USA, R16)",
-    "summary": "Netherlands' opener. Memphis at the end of a 20-pass Dutch sequence.",
-    "match": "10502",
-    "period": 1
-  },
-  {
-    "label": "japan-spain-doan",
-    "title": "Doan 48' (Japan v Spain, group stage)",
-    "summary": "Japan equalize from a press-and-recover sequence \u2014 Doan's strike that knocked Spain off top of the group.",
-    "match": "3854",
-    "period": 1
-  },
-  {
-    "label": "argentina-australia-messi",
-    "title": "Messi 35' (Argentina v Australia, R16)",
-    "summary": "Argentina build out of their own half; Otamendi flicks it to Messi at the top of the box; Messi finishes low past Ryan.",
-    "match": "10503",
-    "period": 1
-  },
-  {
-    "label": "croatia-japan-perisic",
-    "title": "Peri\u0161i\u0107 55' (Croatia v Japan, R16)",
-    "summary": "Croatia equalize through Peri\u0161i\u0107's header. The Modri\u0107\u2013Brozovi\u0107\u2013Kovaci\u0107 engine works the ball wide and the cross arrives where Japan's back line is least set \u2014 chemistry through the midfield triangle.",
-    "match": "10506",
-    "period": 2
-  },
-  {
-    "label": "morocco-portugal-en-nesyri",
-    "title": "En-Nesyri 42' (Morocco v Portugal, QF)",
-    "summary": "Morocco's opener and the goal that put them into the semis. En-Nesyri rises above Diogo Costa on a cross from the right \u2014 watch the off-ball runner shape and the wide build-up.",
-    "match": "10512",
-    "period": 1
-  },
-  {
-    "label": "near-miss-netherlands-janssen",
-    "title": "Janssen 4' blocked (Senegal v Netherlands, group stage)",
-    "summary": "A near-miss: Netherlands work the ball into Senegal's box and P(score) climbs above 0.9 before Janssen's shot is blocked. The probability collapses as Senegal clears — the model picks up on chemistry that doesn't end in a goal.",
-    "match": "3812",
-    "period": 1
-  },
-  {
-    "label": "bad-chemistry-australia-argentina",
-    "title": "Australia turnover 78' (Argentina v Australia, R16)",
-    "summary": "What a breakdown looks like in the model. Australia start in possession with a positive net, lose the ball to Argentina, briefly win it back, then lose it again — net (P_score − P_concede) flips repeatedly between +0.9 and −0.9 as possession ping-pongs.",
-    "match": "10503",
-    "period": 2
-  }
+ {
+  "label": "argentina-france-di-maria",
+  "title": "Di María 36' (Argentina v France, final)",
+  "summary": "Argentina build the third goal from Tagliafico's interception. Watch attention follow Mac Allister and Di María through the chain, and how P(score) climbs as the defence is spread before any pass on the goal is made.",
+  "match": "10517",
+  "period": 1
+ },
+ {
+  "label": "argentina-france-mbappe-volley",
+  "title": "Mbappé 81' volley (France v Argentina, final)",
+  "summary": "Mbappé's second goal in 97 seconds, this one off the volley. Watch P(concede) for Argentina spike as France break in transition before the strike.",
+  "match": "10517",
+  "period": 2
+ },
+ {
+  "label": "netherlands-usa-memphis",
+  "title": "Memphis 10' (Netherlands v USA, R16)",
+  "summary": "Netherlands' opener at the end of a 20-pass Dutch sequence. Watch attention chain along the build-up: chemistry as a continuous attention transfer, not a single decisive pass.",
+  "match": "10502",
+  "period": 1
+ },
+ {
+  "label": "japan-spain-doan",
+  "title": "Doan 48' (Japan v Spain, group stage)",
+  "summary": "Japan equalize from a press-and-recover sequence: Doan's strike that knocked Spain off top of the group. P(concede) for Spain climbs in the seconds before any touch; their defensive shape is breaking before the on-ball event lands.",
+  "match": "3854",
+  "period": 1
+ },
+ {
+  "label": "argentina-australia-messi",
+  "title": "Messi 35' (Argentina v Australia, R16)",
+  "summary": "Argentina build out of their own half; Otamendi flicks it to Messi at the top of the box; Messi finishes low past Ryan.",
+  "match": "10503",
+  "period": 1
+ },
+ {
+  "label": "croatia-japan-perisic",
+  "title": "Perišić 55' (Croatia v Japan, R16)",
+  "summary": "Croatia equalize through Perišić's header. The Modrić–Brozović–Kovacić engine works the ball wide and the cross arrives where Japan's back line is least set; chemistry through the midfield triangle.",
+  "match": "10506",
+  "period": 2
+ },
+ {
+  "label": "morocco-portugal-en-nesyri",
+  "title": "En-Nesyri 42' (Morocco v Portugal, QF)",
+  "summary": "Morocco's opener and the goal that put them into the semis. En-Nesyri rises above Diogo Costa on a cross from the right; watch the off-ball runner shape and the wide build-up.",
+  "match": "10512",
+  "period": 1
+ },
+ {
+  "label": "near-miss-netherlands-janssen",
+  "title": "Janssen 4' blocked (Senegal v Netherlands, group stage)",
+  "summary": "A near-miss: Netherlands work the ball into Senegal's box and P(score) climbs above 0.9 before Janssen's shot is blocked. The probability collapses as Senegal clears; the model picks up on chemistry that doesn't end in a goal.",
+  "match": "3812",
+  "period": 1
+ },
+ {
+  "label": "bad-chemistry-australia-argentina",
+  "title": "Australia turnover 78' (Argentina v Australia, R16)",
+  "summary": "What a breakdown looks like in the model. Net (P_score − P_concede) flips between +0.9 and −0.9 four times across 27 s as possession ping-pongs through the midfield. High net is fragile when teams keep giving the ball back.",
+  "match": "10503",
+  "period": 2
+ }
 ]
