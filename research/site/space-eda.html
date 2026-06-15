@@ -290,16 +290,20 @@ const MOVEMENT_GRADE = [["Kylian Mbappé","France",-0.10,5],["Aleksandar Mitrovi
 function render(){
   document.querySelectorAll('.chart[data-board]').forEach(el=>{
     const b = BOARDS[el.dataset.board]; if(!b) return;
-    const max = Math.max(...b.rows.map(r=>r[2]));
+    const isTeam = b.unit==="team";
+    const valOf  = r => isTeam ? r[1] : r[2];   // team rows are [name,val]; player rows [name,team,val]
+    const teamOf = r => isTeam ? r[0] : r[1];
+    const max = Math.max(...b.rows.map(valOf));
     el.innerHTML = b.rows.map((r,i)=>{
-      const [name,team,val] = r;
+      const name = r[0];
+      const team = teamOf(r);
+      const val  = valOf(r);
       const pct = (val/max*100);
-      const ab = b.unit==="team" ? "" : `<small>${ABBR[team]||""}</small>`;
-      const label = b.unit==="team" ? name : name;
+      const ab = isTeam ? "" : `<small>${ABBR[team]||""}</small>`;
       const disp = b.suffix ? val.toFixed(2)+b.suffix : val;
       const col = COLOR[team] || "#6aa8ff";
       return `<div class="bar-row${i===0?' lead':''}">
-        <span class="bar-label">${label}${ab}</span>
+        <span class="bar-label">${name}${ab}</span>
         <div class="bar-track"><div class="bar-fill" data-w="${pct}" style="background:${col}"></div></div>
         <span class="bar-val">${disp}</span></div>`;
     }).join("");
