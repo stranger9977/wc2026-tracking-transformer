@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Space — World Cup 2022 EDA</title>
+  <meta name="description" content="Exploratory data analysis of off-ball 'space' at the 2022 World Cup, from PFF FC human-graded events. Who creates space, who gets open, who works under pressure — teeing up 2026.">
+  <style>
+    :root {
+      --bg: #0e1014; --bg-elev: #171a21; --bg-elev-2: #1f242d; --border: #2a313d;
+      --text: #e6e9ef; --text-dim: #97a0b0; --text-mute: #6c7689;
+      --link: #6aa8ff; --orange: #d4793a; --green: #6dd58c;
+      --font: -apple-system, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+
+    .deck { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+    .slide {
+      min-height: 100vh; scroll-snap-align: start; scroll-snap-stop: always;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 4vh 6vw 7vh; position: relative; border-bottom: 1px solid var(--border);
+    }
+    .slide-inner { width: 100%; max-width: 1000px; margin: 0 auto; }
+
+    .eyebrow { text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; font-weight: 700; color: var(--orange); margin: 0 0 0.7rem; }
+    h1 { font-size: clamp(1.8rem, 5vw, 3.2rem); line-height: 1.08; margin: 0 0 0.8rem; font-weight: 750; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.3rem, 3.2vw, 2.05rem); line-height: 1.15; margin: 0 0 0.3rem; font-weight: 700; letter-spacing: -0.01em; }
+    .sub { color: var(--text-dim); font-size: clamp(0.95rem, 1.7vw, 1.15rem); margin: 0 0 1.4rem; max-width: 760px; }
+    .lede { color: var(--text); font-size: clamp(1.05rem, 2vw, 1.3rem); line-height: 1.5; max-width: 820px; }
+    .lede strong { color: #fff; }
+    p { line-height: 1.55; }
+    code { font-family: var(--mono); font-size: 0.85em; background: var(--bg-elev-2); padding: 0.08em 0.35em; border-radius: 3px; color: #cdd6e4; }
+    .muted { color: var(--text-mute); font-size: 0.85rem; }
+    a { color: var(--link); }
+
+    /* ---- bar charts ---- */
+    .chart { margin: 0.4rem 0 0; }
+    .bar-row { display: grid; grid-template-columns: minmax(150px, 230px) 1fr auto; align-items: center; gap: 0.7rem; margin: 0.32rem 0; }
+    .bar-label { font-size: 0.92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-label small { color: var(--text-mute); font-family: var(--mono); font-size: 0.74em; margin-left: 0.35em; }
+    .bar-track { background: var(--bg-elev-2); border-radius: 5px; height: 22px; overflow: hidden; }
+    .bar-fill { height: 100%; width: 0; border-radius: 5px; transition: width 0.9s cubic-bezier(.2,.7,.2,1); min-width: 2px; }
+    .bar-val { font-family: var(--mono); font-size: 0.9rem; color: var(--text-dim); text-align: right; min-width: 42px; }
+    .bar-row.lead .bar-label { font-weight: 700; color: #fff; }
+    .bar-row.lead .bar-val { color: var(--orange); font-weight: 700; }
+    .caption { margin-top: 1.1rem; color: var(--text-dim); font-size: 0.88rem; max-width: 820px; }
+    .caption strong { color: var(--green); }
+
+    /* ---- generic cards / grids ---- */
+    .grid2 { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 760px) { .grid2 { grid-template-columns: 1fr 1fr; } .chart.split { columns: 2; column-gap: 2.4rem; } }
+    .card { background: var(--bg-elev); border: 1px solid var(--border); border-left: 4px solid var(--link); border-radius: 8px; padding: 0.9rem 1.1rem; }
+    .card.green { border-left-color: var(--green); }
+    .card.orange { border-left-color: var(--orange); }
+    .card h3 { margin: 0 0 0.3rem; font-size: 1rem; }
+    .card p { margin: 0; font-size: 0.92rem; color: var(--text-dim); }
+    ul.findings { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+    ul.findings li { padding: 0.5rem 0 0.5rem 1.6rem; border-bottom: 1px solid var(--border); position: relative; font-size: 1.02rem; line-height: 1.45; }
+    ul.findings li::before { content: "▸"; color: var(--orange); position: absolute; left: 0; top: 0.5rem; }
+    ul.findings li strong { color: #fff; }
+    .vocab { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+    .vocab li { padding: 0.45rem 0; border-bottom: 1px solid var(--border); font-size: 0.98rem; color: var(--text-dim); }
+    .vocab li b { color: var(--text); }
+    .gradelist { margin: 0.4rem 0 0; padding: 0; list-style: none; }
+    .gradelist li { display: flex; justify-content: space-between; padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.98rem; }
+    .gradelist li span:last-child { font-family: var(--mono); color: var(--text-dim); }
+
+    /* ---- chrome ---- */
+    .counter { position: fixed; bottom: 16px; right: 20px; font-family: var(--mono); font-size: 0.8rem; color: var(--text-mute); z-index: 20; background: rgba(14,16,20,0.7); padding: 3px 8px; border-radius: 20px; }
+    .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--orange); width: 0; z-index: 21; transition: width 0.2s; }
+    .hint { position: fixed; bottom: 16px; left: 20px; font-size: 0.78rem; color: var(--text-mute); z-index: 20; }
+    .hint kbd { font-family: var(--mono); background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; }
+    .toplink { position: fixed; top: 12px; right: 18px; z-index: 20; font-size: 0.82rem; }
+    .scroll-cue { margin-top: 1.8rem; color: var(--text-mute); font-size: 0.85rem; animation: bob 2s ease-in-out infinite; }
+    @keyframes bob { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(5px);} }
+    .pill { display: inline-block; background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 20px; padding: 2px 11px; font-size: 0.8rem; color: var(--text-dim); margin: 0 0.3rem 0.4rem 0; }
+  </style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<a class="toplink" href="space-research.html">← Research brief</a>
+<div class="deck" id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">World Cup 2022 · Exploratory Data Analysis</p>
+      <h1>Space: Soccer's Dark Matter</h1>
+      <p class="lede">Who creates space, who gets open, and who works in the tightest areas — measured from <strong>PFF FC's human-graded events</strong> across all 64 matches of Qatar 2022. A first look at the data, teeing up 2026.</p>
+      <div style="margin-top:1.4rem">
+        <span class="pill">144,541 events</span>
+        <span class="pill">64 matches</span>
+        <span class="pill">32 squads</span>
+        <span class="pill">1,422 space-creation tags</span>
+      </div>
+      <p class="scroll-cue">Scroll ↓ or press → to advance</p>
+    </div>
+  </section>
+
+  <!-- 2 · THE 2026 VOCABULARY -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Why this matters for 2026</p>
+      <h2>FIFA already speaks the language of space</h2>
+      <p class="sub">FIFA's Enhanced Football Intelligence — debuted in 2022, carried into 2026 — names the off-ball game directly. PFF's human grades let us <em>operationalize and validate</em> that vocabulary today.</p>
+      <ul class="vocab">
+        <li><b>Line breaks</b> — moving the ball "beyond the deepest player in an opposition unit" (through, around, or over).</li>
+        <li><b>Receptions behind midfield &amp; defensive lines</b> — "where players receive the ball in relation to the opposition's team shape."</li>
+        <li><b>Pressure on the ball</b> — "closing the space between themselves and the player on the ball… limits the time a player has."</li>
+        <li><b>Team shape &amp; defensive line height</b> — positional structure and "how deep a team defends… how high it pushes."</li>
+        <li><b>Forced turnovers &amp; phases of play</b> — space denied, sliced by build-up / progression / final third.</li>
+      </ul>
+      <p class="caption">FIFA's metrics are algorithm-derived from tracking. PFF's are <strong>human judgments of off-ball quality</strong> — the ground truth those algorithms approximate. That's our edge.</p>
+    </div>
+  </section>
+
+  <!-- 3 · HOW TO READ THIS -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">How to read this deck</p>
+      <h2>What we computed — and the honest caveats</h2>
+      <div class="grid2" style="margin-top:0.6rem">
+        <div class="card green"><h3>Space creators</h3><p>Events PFF tagged <code>createsSpace</code>, attributed to the on-ball actor who played the ball that created space (1,422 tags).</p></div>
+        <div class="card green"><h3>Got open / ignored</h3><p><code>betterOptionPlayerId</code> — the open teammate a passer failed to find (518 tags). A "getting open" signal.</p></div>
+        <div class="card orange"><h3>Under pressure</h3><p>Actions with <code>pressureType</code> ∈ {P, A, L} — the pressure annotation OBSO's author said the model needs.</p></div>
+        <div class="card orange"><h3>Movement / position grades</h3><p>Mostly <em>deduction</em> metrics (movement ~71% negative, position ~99%): "best" = least-bad. Read with care.</p></div>
+      </div>
+      <p class="caption">Caveat carried everywhere: PFF tracking is <strong>broadcast-derived</strong> — off-ball players go off-camera, and tags are logged only on analyst-selected events. Counts are conservative and biased toward on-camera, high-leverage moments. <strong>Exploratory, not exhaustive.</strong></p>
+    </div>
+  </section>
+
+  <!-- 4 · SPACE CREATORS (PLAYER) -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Players · Space created</p>
+      <h2>Who creates space</h2>
+      <p class="sub">Total <code>createsSpace</code> actions, full tournament. The literal off-ball leaderboard.</p>
+      <div class="chart" data-board="space_creators"></div>
+      <p class="caption"><strong>Messi leads the World Cup</strong> in space creation (25) — ahead of France's wide pair, Dembélé and Mbappé. Morocco's Ziyech and Ounahi crack the top five despite their seeding: the semi-final run was no fluke off the ball.</p>
+    </div>
+  </section>
+
+  <!-- 5 · SPACE CREATORS UNDER PRESSURE -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Players · Space created under pressure</p>
+      <h2>Space, with a defender in your face</h2>
+      <p class="sub">Space-creating actions logged while under pressure (<code>pressureType</code> ∈ P/A/L). The hard version of the skill.</p>
+      <div class="chart" data-board="space_creators_under_pressure"></div>
+      <p class="caption"><strong>23 of Messi's 25 space-creations came under pressure</strong> — the highest pressured total at the tournament. This is the quantified version of "Messi walks, then the game opens."</p>
+    </div>
+  </section>
+
+  <!-- 6 · SPACE CREATORS PER MATCH -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Players · Space created per match (rate)</p>
+      <h2>The per-90 view — who punched above their minutes</h2>
+      <p class="sub">Space-creations ÷ matches appeared (min. 5 total, 2+ matches). Rewards short, explosive runs.</p>
+      <div class="chart" data-board="space_creators_per_match"></div>
+      <p class="caption"><strong>Hirving Lozano created space 5.7×/match</strong> — the tournament's top rate — on a Mexico side that went home in the group stage. Pedri (3.5) is the only deep-runner here from a team that advanced, a 2026 name to watch.</p>
+    </div>
+  </section>
+
+  <!-- 7 · GOT OPEN / IGNORED -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Players · Got open &amp; ignored</p>
+      <h2>The most-missed open men</h2>
+      <p class="sub">Times a player was flagged <code>betterOptionPlayerId</code> — they got open, and the pass never came.</p>
+      <div class="chart" data-board="got_open_better_option"></div>
+      <p class="caption">Morocco's <strong>En-Nesyri was the single most-ignored open man (8×)</strong>. Three Germans (Raum, Gnabry, Müller) crowd the board — a quantified signature of the chance-creation that went to waste in a group-stage exit.</p>
+    </div>
+  </section>
+
+  <!-- 8 · MOST ACTIONS UNDER PRESSURE -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Players · Volume under pressure</p>
+      <h2>The engines: most actions under pressure</h2>
+      <p class="sub">Total on-ball actions performed while pressed — the players their teams trusted in tight space.</p>
+      <div class="chart" data-board="most_actions_under_pressure"></div>
+      <p class="caption"><strong>Messi (472) again leads</strong>, with Croatia's midfield trio (Modrić, Kovačić, Brozović) and Argentina's De Paul close behind. Pedri's <strong>69.5 pressured actions/match</strong> is the highest rate on the board — Spain ran everything through him.</p>
+    </div>
+  </section>
+
+  <!-- 9 · TEAM: SPACE CREATED -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Teams · Space created</p>
+      <h2>Which teams manufactured the most space</h2>
+      <p class="sub">Total <code>createsSpace</code> actions by squad.</p>
+      <div class="chart" data-board="team_total_space_created"></div>
+      <p class="caption"><strong>Croatia (97) and Morocco (89)</strong> top the chart — two midfield-driven sides that overachieved their seeding, ahead of champions Argentina and France. Space creation, not star power, defined the surprise semi-finalists.</p>
+    </div>
+  </section>
+
+  <!-- 10 · TEAM: UNDER PRESSURE -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Teams · Actions under pressure</p>
+      <h2>Who lived in the tight areas</h2>
+      <p class="sub">Total actions performed under pressure, by squad.</p>
+      <div class="chart" data-board="team_actions_under_pressure"></div>
+      <p class="caption"><strong>Argentina (3,001) absorbed and generated the most pressured play</strong> of any team, with finalists France and the two semi-finalists right behind. The deepest runs in Qatar were the ones most comfortable with a defender attached.</p>
+    </div>
+  </section>
+
+  <!-- 11 · TEAM: GOT OPEN / IGNORED -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Teams · Open men ignored</p>
+      <h2>Space created — but not found</h2>
+      <p class="sub">Total <code>betterOption</code> events by squad: open teammates the passer missed.</p>
+      <div class="chart" data-board="team_got_open_better_option"></div>
+      <p class="caption">A double-edged stat: high totals mean a team <em>generated</em> openings (Argentina, Portugal) — but also left value on the table. The connection between movers and passers is itself a 2026 scouting axis.</p>
+    </div>
+  </section>
+
+  <!-- 12 · GRADES (deduction caveat) -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Players · Off-ball grades — read carefully</p>
+      <h2>The "least-bad" movers</h2>
+      <p class="sub">PFF's <code>movementGrade</code> is logged almost entirely as a <em>penalty</em> for poor off-ball runs (~71% negative). So the top of this list = players the analysts dinged <em>least</em>, not "best mover" awards. Small samples — directional only.</p>
+      <ul class="gradelist" id="grade-movement"></ul>
+      <p class="caption">Only 368 movement-graded and 1,300 position-graded events exist tournament-wide — too sparse to crown anyone. The signal is in <strong>who gets repeatedly flagged</strong> (a B2-style validation target), not in a leaderboard. Honest framing beats a misleading ranking.</p>
+    </div>
+  </section>
+
+  <!-- 13 · HEADLINE FINDINGS -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">The story so far</p>
+      <h2>Eight things the data says about space</h2>
+      <ul class="findings">
+        <li><strong>Messi is the tournament's space king</strong> — #1 in space created (25), space created under pressure (23), and total pressured actions (472).</li>
+        <li><strong>France's threat is its width</strong> — Dembélé and Mbappé rank #2 and #3 in space created.</li>
+        <li><strong>Morocco &amp; Croatia overachieved off the ball</strong> — the two surprise semi-finalists led all teams in space created.</li>
+        <li><strong>Lozano's 5.7 space-creations/match</strong> was the top rate — on a team eliminated in the group.</li>
+        <li><strong>Germany's exit, quantified</strong> — three Germans among the most-ignored open men.</li>
+        <li><strong>En-Nesyri got open and was missed 8 times</strong> — the most of anyone.</li>
+        <li><strong>Pedri is the 2026 bridge</strong> — top pressured-actions rate (69.5/match) and a deep-runner who advanced.</li>
+        <li><strong>Champions thrive in tight space</strong> — Argentina led all teams in pressured actions and openings generated.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 14 · 2026 WATCHLIST + CLOSE -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Teeing up 2026</p>
+      <h2>The space-creators to watch</h2>
+      <p class="sub">From the 2022 leaderboards, reframed for the tournament's return on home-ish soil.</p>
+      <div class="grid2" style="margin-top:0.5rem">
+        <div class="card"><h3>Messi (Argentina)</h3><p>The walking space-creator, possibly at 39. The whole "Messi walks" narrative, now with our own tournament-scale numbers behind it.</p></div>
+        <div class="card"><h3>Pedri &amp; the Spain engine</h3><p>Highest pressured-action rate in Qatar; Spain's space runs through him. Pair with Yamal's width for the 2026 preview.</p></div>
+        <div class="card"><h3>Mbappé &amp; Dembélé (France)</h3><p>The width that ranked #2/#3 in space created — France's blueprint to defend their final.</p></div>
+        <div class="card"><h3>Morocco's midfield</h3><p>Ziyech, Ounahi, Amrabat — the off-ball overachievers. Can the surprise run repeat?</p></div>
+      </div>
+      <p class="caption">Next: validate these event tags against tracking-derived pitch control (the <a href="space-research.html">research brief</a>'s C1/C4 ideas), then reproduce FIFA's line-breaks &amp; receptions-behind-lines on the same data. <strong>Proof of concept on 2022 → production vocabulary for 2026.</strong></p>
+      <p class="muted" style="margin-top:1.4rem">Source: PFF FC WC2022 event data · computed via <code>research/scripts/eda_space_leaderboards.py</code> · broadcast-tracking caveats apply.</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="counter" id="counter">1 / 14</div>
+<div class="hint">Navigate: <kbd>↑</kbd> <kbd>↓</kbd> / <kbd>←</kbd> <kbd>→</kbd> / scroll</div>
+
+<script>
+// ---- real data (computed from all 64 PFF WC2022 event files) ----
+const ABBR = {Argentina:"ARG",France:"FRA",Morocco:"MAR",Croatia:"CRO",Brazil:"BRA",Spain:"ESP",Portugal:"POR",England:"ENG","United States":"USA","South Korea":"KOR",Mexico:"MEX",Netherlands:"NED",Canada:"CAN",Japan:"JPN",Switzerland:"SUI",Germany:"GER",Serbia:"SRB",Senegal:"SEN",Ecuador:"ECU",Denmark:"DEN",Wales:"WAL",Iran:"IRN",Uruguay:"URU",Belgium:"BEL",Ghana:"GHA",Tunisia:"TUN",Poland:"POL","Costa Rica":"CRC",Cameroon:"CMR","Saudi Arabia":"KSA",Qatar:"QAT"};
+const COLOR = {Argentina:"#6CACE4",France:"#3D5AC9",Morocco:"#E04550",Croatia:"#E4434E",Brazil:"#F2D02C",Spain:"#E4572E",Portugal:"#2E8B57",England:"#D7DCE2","United States":"#4D6BD6","South Korea":"#5A8FD6",Mexico:"#2EA86A",Netherlands:"#FF8C2B",Canada:"#EF4B4B",Japan:"#4A66D6",Switzerland:"#E85A50",Germany:"#C9A227",Serbia:"#D85A60",Senegal:"#2CB36B",Ecuador:"#E3C13A",Denmark:"#E66068",Wales:"#D85560",Iran:"#3CB45C",Uruguay:"#5CB8E6",Belgium:"#E3565E",Ghana:"#9ACD5A",Tunisia:"#E35560",Poland:"#E0566E","Costa Rica":"#C75D8A",Cameroon:"#3FAE6B","Saudi Arabia":"#2CA86A",Qatar:"#B33A57"};
+
+const BOARDS = {
+  space_creators: {unit:"player", rows:[["Lionel Messi","Argentina",25],["Ousmane Dembele","France",23],["Kylian Mbappé","France",22],["Hakim Ziyech","Morocco",20],["Azzedine Ounahi","Morocco",18],["Ivan Perisic","Croatia",17],["Hirving Lozano","Mexico",17],["Luka Modric","Croatia",15],["Antony","Brazil",15],["Pedri","Spain",14],["Christian Pulisic","United States",13],["Andrej Kramaric","Croatia",13]]},
+  space_creators_under_pressure: {unit:"player", rows:[["Lionel Messi","Argentina",23],["Kylian Mbappé","France",20],["Hakim Ziyech","Morocco",17],["Azzedine Ounahi","Morocco",17],["Ousmane Dembele","France",16],["Ivan Perisic","Croatia",16],["Luka Modric","Croatia",13],["Hirving Lozano","Mexico",13],["Andrej Kramaric","Croatia",12],["Christian Pulisic","United States",11],["Vinícius Junior","Brazil",11],["Pedri","Spain",11]]},
+  space_creators_per_match: {unit:"player", suffix:"/m", rows:[["Hirving Lozano","Mexico",5.67],["Andreas Skov Olsen","Denmark",4.0],["Antony","Brazil",3.75],["Lionel Messi","Argentina",3.57],["Pedri","Spain",3.5],["César Azpilicueta","Spain",3.5],["Neco Williams","Wales",3.33],["Ousmane Dembele","France",3.29],["Christian Pulisic","United States",3.25],["Kylian Mbappé","France",3.14]]},
+  got_open_better_option: {unit:"player", rows:[["Youssef En-Nesyri","Morocco",8],["Ferran Torres","Spain",7],["Bruno Fernandes","Portugal",7],["Cristiano Ronaldo","Portugal",7],["David Raum","Germany",7],["Aleksandar Mitrovic","Serbia",7],["Ángel Di María","Argentina",6],["Serge Gnabry","Germany",6],["Thomas Müller","Germany",6],["Antoine Griezmann","France",5],["Boulaye Dia","Senegal",5],["Julian Alvarez","Argentina",5]]},
+  most_actions_under_pressure: {unit:"player", rows:[["Lionel Messi","Argentina",472],["Luka Modric","Croatia",372],["Rodrigo de Paul","Argentina",360],["Mateo Kovacic","Croatia",337],["Marcelo Brozovic","Croatia",323],["Kylian Mbappé","France",319],["Pedri","Spain",278],["Aurélien Tchouaméni","France",270],["Hakim Ziyech","Morocco",270],["Enzo Fernandez","Argentina",268],["Achraf Hakimi","Morocco",267],["Alexis Mac Allister","Argentina",266]]},
+  team_total_space_created: {unit:"team", rows:[["Croatia",97],["Morocco",89],["Argentina",85],["France",79],["Brazil",74],["Spain",71],["Portugal",67],["England",58],["United States",57],["South Korea",51],["Mexico",50],["Netherlands",46]]},
+  team_actions_under_pressure: {unit:"team", rows:[["Argentina",3001],["Croatia",2807],["France",2432],["England",2038],["Spain",1994],["Brazil",1972],["Morocco",1967],["Portugal",1781],["Netherlands",1726],["United States",1331],["Germany",1287],["Switzerland",1268]]},
+  team_got_open_better_option: {unit:"team", rows:[["Argentina",32],["Portugal",30],["Germany",29],["Croatia",28],["Morocco",27],["France",26],["England",23],["Brazil",23],["Serbia",22],["Spain",20],["Switzerland",19],["United States",18]]}
+};
+const MOVEMENT_GRADE = [["Kylian Mbappé","France",-0.10,5],["Aleksandar Mitrovic","Serbia",-0.36,7],["Breel Embolo","Switzerland",-0.40,5],["Andrej Kramaric","Croatia",-0.44,9],["Cristiano Ronaldo","Portugal",-0.50,7]];
+
+function render(){
+  document.querySelectorAll('.chart[data-board]').forEach(el=>{
+    const b = BOARDS[el.dataset.board]; if(!b) return;
+    const max = Math.max(...b.rows.map(r=>r[2]));
+    el.innerHTML = b.rows.map((r,i)=>{
+      const [name,team,val] = r;
+      const pct = (val/max*100);
+      const ab = b.unit==="team" ? "" : `<small>${ABBR[team]||""}</small>`;
+      const label = b.unit==="team" ? name : name;
+      const disp = b.suffix ? val.toFixed(2)+b.suffix : val;
+      const col = COLOR[team] || "#6aa8ff";
+      return `<div class="bar-row${i===0?' lead':''}">
+        <span class="bar-label">${label}${ab}</span>
+        <div class="bar-track"><div class="bar-fill" data-w="${pct}" style="background:${col}"></div></div>
+        <span class="bar-val">${disp}</span></div>`;
+    }).join("");
+  });
+  const gm = document.getElementById('grade-movement');
+  if(gm) gm.innerHTML = MOVEMENT_GRADE.map(r=>`<li><span>${r[0]} <small style="color:var(--text-mute);font-family:var(--mono)">${ABBR[r[1]]}</small></span><span>${r[2].toFixed(2)} · n=${r[3]}</span></li>`).join("");
+}
+render();
+
+// animate bars when a slide enters view
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.querySelectorAll('.bar-fill').forEach(f=>{ f.style.width = f.dataset.w + '%'; }); } });
+},{threshold:0.4});
+document.querySelectorAll('.slide').forEach(s=>io.observe(s));
+
+// navigation + chrome
+const deck = document.getElementById('deck');
+const slides = [...document.querySelectorAll('.slide')];
+const counter = document.getElementById('counter');
+const progress = document.getElementById('progress');
+function current(){ let idx=0,best=Infinity; slides.forEach((s,i)=>{ const d=Math.abs(s.getBoundingClientRect().top); if(d<best){best=d;idx=i;} }); return idx; }
+function update(){ const i=current(); counter.textContent=`${i+1} / ${slides.length}`; progress.style.width=`${(i)/(slides.length-1)*100}%`; }
+function go(n){ const i=current(); const t=Math.max(0,Math.min(slides.length-1,i+n)); slides[t].scrollIntoView({behavior:'smooth'}); }
+deck.addEventListener('scroll',()=>{ window.requestAnimationFrame(update); });
+document.addEventListener('keydown',e=>{
+  if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){ e.preventDefault(); go(1); }
+  else if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); go(-1); }
+  else if(e.key==='Home'){ e.preventDefault(); slides[0].scrollIntoView({behavior:'smooth'}); }
+  else if(e.key==='End'){ e.preventDefault(); slides[slides.length-1].scrollIntoView({behavior:'smooth'}); }
+});
+update();
+</script>
+</body>
+</html>
