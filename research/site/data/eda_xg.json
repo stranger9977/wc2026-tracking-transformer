@@ -1,0 +1,399 @@
+{
+  "meta": {
+    "competition": "FIFA World Cup 2022 (StatsBomb open-data)",
+    "n_matches": 64,
+    "n_shots": 1453,
+    "note": "xG is StatsBomb's statsbomb_xg. Penalty shootouts (period 5) excluded from all xG/shot/goal totals. In-game penalties are KEPT and flagged (players[].includes_penalty)."
+  },
+  "players_by_xg": [
+    {
+      "player": "Lionel Andrés Messi Cuccittini",
+      "team": "Argentina",
+      "xg": 6.03,
+      "shots": 32,
+      "goals": 7,
+      "includes_penalty": true
+    },
+    {
+      "player": "Kylian Mbappé Lottin",
+      "team": "France",
+      "xg": 4.23,
+      "shots": 31,
+      "goals": 8,
+      "includes_penalty": true
+    },
+    {
+      "player": "Robert Lewandowski",
+      "team": "Poland",
+      "xg": 3.13,
+      "shots": 12,
+      "goals": 2,
+      "includes_penalty": true
+    },
+    {
+      "player": "Olivier Giroud",
+      "team": "France",
+      "xg": 3.04,
+      "shots": 17,
+      "goals": 4,
+      "includes_penalty": false
+    },
+    {
+      "player": "Breel-Donald Embolo",
+      "team": "Switzerland",
+      "xg": 2.39,
+      "shots": 6,
+      "goals": 2,
+      "includes_penalty": false
+    },
+    {
+      "player": "Harry Kane",
+      "team": "England",
+      "xg": 2.33,
+      "shots": 12,
+      "goals": 2,
+      "includes_penalty": true
+    },
+    {
+      "player": "Neymar da Silva Santos Junior",
+      "team": "Brazil",
+      "xg": 2.13,
+      "shots": 12,
+      "goals": 2,
+      "includes_penalty": true
+    },
+    {
+      "player": "Lautaro Javier Martínez",
+      "team": "Argentina",
+      "xg": 2.12,
+      "shots": 14,
+      "goals": 0,
+      "includes_penalty": false
+    },
+    {
+      "player": "Cristiano Ronaldo dos Santos Aveiro",
+      "team": "Portugal",
+      "xg": 1.94,
+      "shots": 11,
+      "goals": 1,
+      "includes_penalty": true
+    },
+    {
+      "player": "Enner Remberto Valencia Lastra",
+      "team": "Ecuador",
+      "xg": 1.92,
+      "shots": 9,
+      "goals": 3,
+      "includes_penalty": true
+    },
+    {
+      "player": "Julián Álvarez",
+      "team": "Argentina",
+      "xg": 1.91,
+      "shots": 11,
+      "goals": 4,
+      "includes_penalty": false
+    },
+    {
+      "player": "Ismaïla Sarr",
+      "team": "Senegal",
+      "xg": 1.85,
+      "shots": 10,
+      "goals": 1,
+      "includes_penalty": true
+    },
+    {
+      "player": "Niclas Füllkrug",
+      "team": "Germany",
+      "xg": 1.69,
+      "shots": 8,
+      "goals": 2,
+      "includes_penalty": false
+    },
+    {
+      "player": "Romelu Lukaku Menama",
+      "team": "Belgium",
+      "xg": 1.68,
+      "shots": 5,
+      "goals": 0,
+      "includes_penalty": false
+    },
+    {
+      "player": "Gonçalo Matias Ramos",
+      "team": "Portugal",
+      "xg": 1.67,
+      "shots": 7,
+      "goals": 3,
+      "includes_penalty": false
+    },
+    {
+      "player": "Richarlison de Andrade",
+      "team": "Brazil",
+      "xg": 1.62,
+      "shots": 8,
+      "goals": 3,
+      "includes_penalty": false
+    },
+    {
+      "player": "Salem Mohammed Al Dawsari",
+      "team": "Saudi Arabia",
+      "xg": 1.56,
+      "shots": 7,
+      "goals": 2,
+      "includes_penalty": true
+    },
+    {
+      "player": "Aleksandar Mitrović",
+      "team": "Serbia",
+      "xg": 1.5,
+      "shots": 10,
+      "goals": 2,
+      "includes_penalty": false
+    },
+    {
+      "player": "Marcus Rashford",
+      "team": "England",
+      "xg": 1.38,
+      "shots": 11,
+      "goals": 3,
+      "includes_penalty": false
+    },
+    {
+      "player": "Mehdi Taremi",
+      "team": "Iran",
+      "xg": 1.38,
+      "shots": 6,
+      "goals": 2,
+      "includes_penalty": true
+    }
+  ],
+  "teams_by_xg": [
+    {
+      "team": "Argentina",
+      "xg": 13.94,
+      "shots": 101,
+      "goals": 15
+    },
+    {
+      "team": "France",
+      "xg": 11.82,
+      "shots": 102,
+      "goals": 16
+    },
+    {
+      "team": "Brazil",
+      "xg": 10.5,
+      "shots": 95,
+      "goals": 8
+    },
+    {
+      "team": "England",
+      "xg": 8.74,
+      "shots": 63,
+      "goals": 13
+    },
+    {
+      "team": "Germany",
+      "xg": 8.23,
+      "shots": 68,
+      "goals": 6
+    },
+    {
+      "team": "Portugal",
+      "xg": 7.31,
+      "shots": 66,
+      "goals": 12
+    },
+    {
+      "team": "Croatia",
+      "xg": 6.9,
+      "shots": 79,
+      "goals": 8
+    },
+    {
+      "team": "Switzerland",
+      "xg": 6.09,
+      "shots": 37,
+      "goals": 5
+    },
+    {
+      "team": "Morocco",
+      "xg": 5.54,
+      "shots": 62,
+      "goals": 6
+    },
+    {
+      "team": "Netherlands",
+      "xg": 4.99,
+      "shots": 43,
+      "goals": 10
+    },
+    {
+      "team": "Spain",
+      "xg": 4.75,
+      "shots": 48,
+      "goals": 9
+    },
+    {
+      "team": "Poland",
+      "xg": 4.66,
+      "shots": 31,
+      "goals": 3
+    },
+    {
+      "team": "Senegal",
+      "xg": 4.27,
+      "shots": 50,
+      "goals": 5
+    },
+    {
+      "team": "Japan",
+      "xg": 4.25,
+      "shots": 44,
+      "goals": 5
+    },
+    {
+      "team": "United States",
+      "xg": 3.94,
+      "shots": 46,
+      "goals": 3
+    },
+    {
+      "team": "Canada",
+      "xg": 3.93,
+      "shots": 35,
+      "goals": 1
+    },
+    {
+      "team": "Iran",
+      "xg": 3.83,
+      "shots": 33,
+      "goals": 4
+    },
+    {
+      "team": "Ecuador",
+      "xg": 3.81,
+      "shots": 30,
+      "goals": 4
+    },
+    {
+      "team": "Belgium",
+      "xg": 3.69,
+      "shots": 35,
+      "goals": 1
+    },
+    {
+      "team": "South Korea",
+      "xg": 3.6,
+      "shots": 48,
+      "goals": 5
+    }
+  ],
+  "players_by_goals": [
+    {
+      "player": "Kylian Mbappé Lottin",
+      "team": "France",
+      "goals": 8,
+      "xg": 4.23,
+      "shots": 31
+    },
+    {
+      "player": "Lionel Andrés Messi Cuccittini",
+      "team": "Argentina",
+      "goals": 7,
+      "xg": 6.03,
+      "shots": 32
+    },
+    {
+      "player": "Olivier Giroud",
+      "team": "France",
+      "goals": 4,
+      "xg": 3.04,
+      "shots": 17
+    },
+    {
+      "player": "Julián Álvarez",
+      "team": "Argentina",
+      "goals": 4,
+      "xg": 1.91,
+      "shots": 11
+    },
+    {
+      "player": "Enner Remberto Valencia Lastra",
+      "team": "Ecuador",
+      "goals": 3,
+      "xg": 1.92,
+      "shots": 9
+    },
+    {
+      "player": "Gonçalo Matias Ramos",
+      "team": "Portugal",
+      "goals": 3,
+      "xg": 1.67,
+      "shots": 7
+    },
+    {
+      "player": "Richarlison de Andrade",
+      "team": "Brazil",
+      "goals": 3,
+      "xg": 1.62,
+      "shots": 8
+    },
+    {
+      "player": "Marcus Rashford",
+      "team": "England",
+      "goals": 3,
+      "xg": 1.38,
+      "shots": 11
+    },
+    {
+      "player": "Álvaro Borja Morata Martín",
+      "team": "Spain",
+      "goals": 3,
+      "xg": 1.11,
+      "shots": 8
+    },
+    {
+      "player": "Bukayo Saka",
+      "team": "England",
+      "goals": 3,
+      "xg": 0.58,
+      "shots": 7
+    },
+    {
+      "player": "Cody Mathès Gakpo",
+      "team": "Netherlands",
+      "goals": 3,
+      "xg": 0.56,
+      "shots": 5
+    },
+    {
+      "player": "Robert Lewandowski",
+      "team": "Poland",
+      "goals": 2,
+      "xg": 3.13,
+      "shots": 12
+    },
+    {
+      "player": "Breel-Donald Embolo",
+      "team": "Switzerland",
+      "goals": 2,
+      "xg": 2.39,
+      "shots": 6
+    },
+    {
+      "player": "Harry Kane",
+      "team": "England",
+      "goals": 2,
+      "xg": 2.33,
+      "shots": 12
+    },
+    {
+      "player": "Neymar da Silva Santos Junior",
+      "team": "Brazil",
+      "goals": 2,
+      "xg": 2.13,
+      "shots": 12
+    }
+  ]
+}

@@ -1,0 +1,926 @@
+{
+  "meta": {
+    "match_id": 3869685,
+    "competition": "FIFA World Cup 2022 Final",
+    "home_team": "Argentina",
+    "away_team": "France",
+    "date": "2022-12-18",
+    "stadium": "Lusail Stadium",
+    "score_regulation": "3-3",
+    "score_note": "3-3 after extra time",
+    "shootout": "Argentina won 4-2 on penalties",
+    "shootout_attempts": [
+      {
+        "team": "France",
+        "player": "Kylian Mbappé Lottin",
+        "scored": true,
+        "outcome": "Goal"
+      },
+      {
+        "team": "Argentina",
+        "player": "Lionel Andrés Messi Cuccittini",
+        "scored": true,
+        "outcome": "Goal"
+      },
+      {
+        "team": "France",
+        "player": "Kingsley Coman",
+        "scored": false,
+        "outcome": "Saved"
+      },
+      {
+        "team": "Argentina",
+        "player": "Paulo Bruno Exequiel Dybala",
+        "scored": true,
+        "outcome": "Goal"
+      },
+      {
+        "team": "France",
+        "player": "Aurélien Djani Tchouaméni",
+        "scored": false,
+        "outcome": "Off T"
+      },
+      {
+        "team": "Argentina",
+        "player": "Leandro Daniel Paredes",
+        "scored": true,
+        "outcome": "Goal"
+      },
+      {
+        "team": "France",
+        "player": "Randal Kolo Muani",
+        "scored": true,
+        "outcome": "Goal"
+      },
+      {
+        "team": "Argentina",
+        "player": "Gonzalo Ariel Montiel",
+        "scored": true,
+        "outcome": "Goal"
+      }
+    ],
+    "orientation_method": "Shot scatter: StatsBomb stores shot locations in each team's attack frame (toward x=120), so both teams already attack the same (high-x) side; coords only scaled 120x80 -> 105x68. Pass-network coords use TRUE pitch coords (which swap by period), so per (team,period) attack direction is inferred from that team's goalkeeper event x (keeper near x<60 => team defends left => attacks right => +1, else flip x,y). All oriented to attack RIGHT, then scaled to 105x68.",
+    "possession_method": "possession_pct computed as each team's share of COMPLETED passes (in-play, shootout excluded).",
+    "xg_note": "xG excludes penalty shootout. In-game penalties kept."
+  },
+  "per_team": {
+    "Argentina": {
+      "xg": 2.76,
+      "shots": 20,
+      "shots_on_target": 10,
+      "possession_pct": 56.3,
+      "passes_total": 693,
+      "passes_completed": 560,
+      "pass_pct": 80.8
+    },
+    "France": {
+      "xg": 2.27,
+      "shots": 10,
+      "shots_on_target": 5,
+      "possession_pct": 43.7,
+      "passes_total": 570,
+      "passes_completed": 434,
+      "pass_pct": 76.1
+    }
+  },
+  "validation": {
+    "shots_total": 30,
+    "shots_in_attacking_half_pct": 100.0
+  },
+  "shots": [
+    {
+      "team": "Argentina",
+      "x": 80.85,
+      "y": 25.5,
+      "xg": 0.0245,
+      "outcome": "Saved",
+      "player": "Alexis Mac Allister",
+      "minute": 4,
+      "period": 1,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 86.8,
+      "y": 40.71,
+      "xg": 0.0628,
+      "outcome": "Blocked",
+      "player": "Rodrigo Javier De Paul",
+      "minute": 7,
+      "period": 1,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 90.21,
+      "y": 29.41,
+      "xg": 0.1068,
+      "outcome": "Off T",
+      "player": "Ángel Fabián Di María Hernández",
+      "minute": 16,
+      "period": 1,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 94.5,
+      "y": 34.0,
+      "xg": 0.7835,
+      "outcome": "Goal",
+      "player": "Lionel Andrés Messi Cuccittini",
+      "minute": 22,
+      "period": 1,
+      "is_penalty": true
+    },
+    {
+      "team": "Argentina",
+      "x": 82.51,
+      "y": 19.97,
+      "xg": 0.0106,
+      "outcome": "Wayward",
+      "player": "Alexis Mac Allister",
+      "minute": 31,
+      "period": 1,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 97.83,
+      "y": 27.29,
+      "xg": 0.3034,
+      "outcome": "Goal",
+      "player": "Ángel Fabián Di María Hernández",
+      "minute": 35,
+      "period": 1,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 90.39,
+      "y": 44.45,
+      "xg": 0.0402,
+      "outcome": "Saved",
+      "player": "Rodrigo Javier De Paul",
+      "minute": 48,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 96.69,
+      "y": 21.16,
+      "xg": 0.0595,
+      "outcome": "Saved",
+      "player": "Julián Álvarez",
+      "minute": 58,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 95.99,
+      "y": 39.1,
+      "xg": 0.1156,
+      "outcome": "Off T",
+      "player": "Lionel Andrés Messi Cuccittini",
+      "minute": 59,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "France",
+      "x": 99.23,
+      "y": 29.41,
+      "xg": 0.0962,
+      "outcome": "Off T",
+      "player": "Randal Kolo Muani",
+      "minute": 67,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "France",
+      "x": 89.69,
+      "y": 23.71,
+      "xg": 0.0506,
+      "outcome": "Off T",
+      "player": "Kylian Mbappé Lottin",
+      "minute": 70,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 86.54,
+      "y": 27.37,
+      "xg": 0.0416,
+      "outcome": "Saved",
+      "player": "Enzo Fernandez",
+      "minute": 71,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "France",
+      "x": 94.5,
+      "y": 34.0,
+      "xg": 0.7835,
+      "outcome": "Goal",
+      "player": "Kylian Mbappé Lottin",
+      "minute": 79,
+      "period": 2,
+      "is_penalty": true
+    },
+    {
+      "team": "France",
+      "x": 91.7,
+      "y": 25.59,
+      "xg": 0.1017,
+      "outcome": "Goal",
+      "player": "Kylian Mbappé Lottin",
+      "minute": 80,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 80.67,
+      "y": 30.51,
+      "xg": 0.0302,
+      "outcome": "Blocked",
+      "player": "Enzo Fernandez",
+      "minute": 83,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "France",
+      "x": 83.91,
+      "y": 27.37,
+      "xg": 0.0324,
+      "outcome": "Blocked",
+      "player": "Kylian Mbappé Lottin",
+      "minute": 92,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "France",
+      "x": 95.29,
+      "y": 24.22,
+      "xg": 0.0933,
+      "outcome": "Saved",
+      "player": "Adrien Rabiot",
+      "minute": 93,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 84.17,
+      "y": 34.77,
+      "xg": 0.043,
+      "outcome": "Saved",
+      "player": "Lionel Andrés Messi Cuccittini",
+      "minute": 96,
+      "period": 2,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 85.92,
+      "y": 20.23,
+      "xg": 0.0193,
+      "outcome": "Off T",
+      "player": "Alexis Mac Allister",
+      "minute": 92,
+      "period": 3,
+      "is_penalty": false
+    },
+    {
+      "team": "France",
+      "x": 78.58,
+      "y": 33.91,
+      "xg": 0.023,
+      "outcome": "Blocked",
+      "player": "Youssouf Fofana",
+      "minute": 99,
+      "period": 3,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 95.2,
+      "y": 38.5,
+      "xg": 0.2326,
+      "outcome": "Blocked",
+      "player": "Lautaro Javier Martínez",
+      "minute": 104,
+      "period": 3,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 84.26,
+      "y": 41.99,
+      "xg": 0.0206,
+      "outcome": "Blocked",
+      "player": "Gonzalo Ariel Montiel",
+      "minute": 104,
+      "period": 3,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 91.96,
+      "y": 28.47,
+      "xg": 0.1403,
+      "outcome": "Off T",
+      "player": "Lautaro Javier Martínez",
+      "minute": 105,
+      "period": 3,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 90.65,
+      "y": 47.43,
+      "xg": 0.0248,
+      "outcome": "Saved",
+      "player": "Lionel Andrés Messi Cuccittini",
+      "minute": 106,
+      "period": 4,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 100.1,
+      "y": 44.2,
+      "xg": 0.1041,
+      "outcome": "Saved",
+      "player": "Lautaro Javier Martínez",
+      "minute": 107,
+      "period": 4,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 102.02,
+      "y": 36.55,
+      "xg": 0.4884,
+      "outcome": "Goal",
+      "player": "Lionel Andrés Messi Cuccittini",
+      "minute": 107,
+      "period": 4,
+      "is_penalty": false
+    },
+    {
+      "team": "France",
+      "x": 88.73,
+      "y": 22.61,
+      "xg": 0.0308,
+      "outcome": "Blocked",
+      "player": "Kylian Mbappé Lottin",
+      "minute": 115,
+      "period": 4,
+      "is_penalty": false
+    },
+    {
+      "team": "France",
+      "x": 94.5,
+      "y": 34.0,
+      "xg": 0.7835,
+      "outcome": "Goal",
+      "player": "Kylian Mbappé Lottin",
+      "minute": 117,
+      "period": 4,
+      "is_penalty": true
+    },
+    {
+      "team": "France",
+      "x": 90.74,
+      "y": 38.34,
+      "xg": 0.2775,
+      "outcome": "Saved",
+      "player": "Randal Kolo Muani",
+      "minute": 122,
+      "period": 4,
+      "is_penalty": false
+    },
+    {
+      "team": "Argentina",
+      "x": 96.95,
+      "y": 35.36,
+      "xg": 0.1066,
+      "outcome": "Off T",
+      "player": "Lautaro Javier Martínez",
+      "minute": 122,
+      "period": 4,
+      "is_penalty": false
+    }
+  ],
+  "scorers": [
+    {
+      "player": "Lionel Andrés Messi Cuccittini",
+      "team": "Argentina",
+      "minute": 22,
+      "xg": 0.7835,
+      "period": 1
+    },
+    {
+      "player": "Ángel Fabián Di María Hernández",
+      "team": "Argentina",
+      "minute": 35,
+      "xg": 0.3034,
+      "period": 1
+    },
+    {
+      "player": "Kylian Mbappé Lottin",
+      "team": "France",
+      "minute": 79,
+      "xg": 0.7835,
+      "period": 2
+    },
+    {
+      "player": "Kylian Mbappé Lottin",
+      "team": "France",
+      "minute": 80,
+      "xg": 0.1017,
+      "period": 2
+    },
+    {
+      "player": "Lionel Andrés Messi Cuccittini",
+      "team": "Argentina",
+      "minute": 107,
+      "xg": 0.4884,
+      "period": 4
+    },
+    {
+      "player": "Kylian Mbappé Lottin",
+      "team": "France",
+      "minute": 117,
+      "xg": 0.7835,
+      "period": 4
+    }
+  ],
+  "xg_timeline": [
+    {
+      "team": "Argentina",
+      "minute": 4,
+      "xg": 0.0245
+    },
+    {
+      "team": "Argentina",
+      "minute": 7,
+      "xg": 0.0628
+    },
+    {
+      "team": "Argentina",
+      "minute": 16,
+      "xg": 0.1068
+    },
+    {
+      "team": "Argentina",
+      "minute": 22,
+      "xg": 0.7835
+    },
+    {
+      "team": "Argentina",
+      "minute": 31,
+      "xg": 0.0106
+    },
+    {
+      "team": "Argentina",
+      "minute": 35,
+      "xg": 0.3034
+    },
+    {
+      "team": "Argentina",
+      "minute": 48,
+      "xg": 0.0402
+    },
+    {
+      "team": "Argentina",
+      "minute": 58,
+      "xg": 0.0595
+    },
+    {
+      "team": "Argentina",
+      "minute": 59,
+      "xg": 0.1156
+    },
+    {
+      "team": "France",
+      "minute": 67,
+      "xg": 0.0962
+    },
+    {
+      "team": "France",
+      "minute": 70,
+      "xg": 0.0506
+    },
+    {
+      "team": "Argentina",
+      "minute": 71,
+      "xg": 0.0416
+    },
+    {
+      "team": "France",
+      "minute": 79,
+      "xg": 0.7835
+    },
+    {
+      "team": "France",
+      "minute": 80,
+      "xg": 0.1017
+    },
+    {
+      "team": "Argentina",
+      "minute": 83,
+      "xg": 0.0302
+    },
+    {
+      "team": "France",
+      "minute": 92,
+      "xg": 0.0324
+    },
+    {
+      "team": "France",
+      "minute": 93,
+      "xg": 0.0933
+    },
+    {
+      "team": "Argentina",
+      "minute": 96,
+      "xg": 0.043
+    },
+    {
+      "team": "Argentina",
+      "minute": 92,
+      "xg": 0.0193
+    },
+    {
+      "team": "France",
+      "minute": 99,
+      "xg": 0.023
+    },
+    {
+      "team": "Argentina",
+      "minute": 104,
+      "xg": 0.2326
+    },
+    {
+      "team": "Argentina",
+      "minute": 104,
+      "xg": 0.0206
+    },
+    {
+      "team": "Argentina",
+      "minute": 105,
+      "xg": 0.1403
+    },
+    {
+      "team": "Argentina",
+      "minute": 106,
+      "xg": 0.0248
+    },
+    {
+      "team": "Argentina",
+      "minute": 107,
+      "xg": 0.1041
+    },
+    {
+      "team": "Argentina",
+      "minute": 107,
+      "xg": 0.4884
+    },
+    {
+      "team": "France",
+      "minute": 115,
+      "xg": 0.0308
+    },
+    {
+      "team": "France",
+      "minute": 117,
+      "xg": 0.7835
+    },
+    {
+      "team": "France",
+      "minute": 122,
+      "xg": 0.2775
+    },
+    {
+      "team": "Argentina",
+      "minute": 122,
+      "xg": 0.1066
+    }
+  ],
+  "pass_network": {
+    "Argentina": {
+      "nodes": [
+        {
+          "player": "Enzo Fernandez",
+          "jersey": 24,
+          "avg_x": 48.26,
+          "avg_y": 36.75,
+          "passes": 79
+        },
+        {
+          "player": "Nicolás Hernán Otamendi",
+          "jersey": 19,
+          "avg_x": 33.72,
+          "avg_y": 20.95,
+          "passes": 69
+        },
+        {
+          "player": "Rodrigo Javier De Paul",
+          "jersey": 7,
+          "avg_x": 50.0,
+          "avg_y": 50.14,
+          "passes": 57
+        },
+        {
+          "player": "Lionel Andrés Messi Cuccittini",
+          "jersey": 10,
+          "avg_x": 66.9,
+          "avg_y": 42.22,
+          "passes": 49
+        },
+        {
+          "player": "Cristian Gabriel Romero",
+          "jersey": 13,
+          "avg_x": 29.64,
+          "avg_y": 44.78,
+          "passes": 60
+        },
+        {
+          "player": "Alexis Mac Allister",
+          "jersey": 20,
+          "avg_x": 59.63,
+          "avg_y": 22.64,
+          "passes": 45
+        },
+        {
+          "player": "Nicolás Alejandro Tagliafico",
+          "jersey": 3,
+          "avg_x": 51.6,
+          "avg_y": 6.5,
+          "passes": 44
+        },
+        {
+          "player": "Nahuel Molina Lucero",
+          "jersey": 26,
+          "avg_x": 50.14,
+          "avg_y": 61.25,
+          "passes": 39
+        },
+        {
+          "player": "Ángel Fabián Di María Hernández",
+          "jersey": 11,
+          "avg_x": 69.9,
+          "avg_y": 9.73,
+          "passes": 25
+        },
+        {
+          "player": "Julián Álvarez",
+          "jersey": 9,
+          "avg_x": 67.99,
+          "avg_y": 29.53,
+          "passes": 26
+        },
+        {
+          "player": "Marcos Javier Acuña",
+          "jersey": 8,
+          "avg_x": 70.85,
+          "avg_y": 8.46,
+          "passes": 19
+        }
+      ],
+      "edges": [
+        {
+          "from": "Nicolás Hernán Otamendi",
+          "to": "Cristian Gabriel Romero",
+          "count": 18
+        },
+        {
+          "from": "Nahuel Molina Lucero",
+          "to": "Rodrigo Javier De Paul",
+          "count": 15
+        },
+        {
+          "from": "Nicolás Hernán Otamendi",
+          "to": "Nicolás Alejandro Tagliafico",
+          "count": 15
+        },
+        {
+          "from": "Rodrigo Javier De Paul",
+          "to": "Lionel Andrés Messi Cuccittini",
+          "count": 14
+        },
+        {
+          "from": "Nicolás Hernán Otamendi",
+          "to": "Enzo Fernandez",
+          "count": 14
+        },
+        {
+          "from": "Cristian Gabriel Romero",
+          "to": "Enzo Fernandez",
+          "count": 14
+        },
+        {
+          "from": "Enzo Fernandez",
+          "to": "Rodrigo Javier De Paul",
+          "count": 14
+        },
+        {
+          "from": "Nicolás Alejandro Tagliafico",
+          "to": "Alexis Mac Allister",
+          "count": 13
+        },
+        {
+          "from": "Cristian Gabriel Romero",
+          "to": "Nicolás Hernán Otamendi",
+          "count": 12
+        },
+        {
+          "from": "Lionel Andrés Messi Cuccittini",
+          "to": "Rodrigo Javier De Paul",
+          "count": 12
+        },
+        {
+          "from": "Alexis Mac Allister",
+          "to": "Enzo Fernandez",
+          "count": 12
+        },
+        {
+          "from": "Enzo Fernandez",
+          "to": "Lionel Andrés Messi Cuccittini",
+          "count": 11
+        },
+        {
+          "from": "Cristian Gabriel Romero",
+          "to": "Rodrigo Javier De Paul",
+          "count": 11
+        },
+        {
+          "from": "Nicolás Alejandro Tagliafico",
+          "to": "Nicolás Hernán Otamendi",
+          "count": 10
+        }
+      ]
+    },
+    "France": {
+      "nodes": [
+        {
+          "player": "Dayotchanculle Upamecano",
+          "jersey": 18,
+          "avg_x": 39.91,
+          "avg_y": 21.71,
+          "passes": 51
+        },
+        {
+          "player": "Raphaël Varane",
+          "jersey": 4,
+          "avg_x": 39.21,
+          "avg_y": 42.74,
+          "passes": 55
+        },
+        {
+          "player": "Aurélien Djani Tchouaméni",
+          "jersey": 8,
+          "avg_x": 50.62,
+          "avg_y": 33.19,
+          "passes": 56
+        },
+        {
+          "player": "Jules Koundé",
+          "jersey": 5,
+          "avg_x": 46.94,
+          "avg_y": 58.28,
+          "passes": 52
+        },
+        {
+          "player": "Adrien Rabiot",
+          "jersey": 14,
+          "avg_x": 56.4,
+          "avg_y": 23.31,
+          "passes": 43
+        },
+        {
+          "player": "Theo Bernard François Hernández",
+          "jersey": 22,
+          "avg_x": 55.22,
+          "avg_y": 5.08,
+          "passes": 38
+        },
+        {
+          "player": "Kylian Mbappé Lottin",
+          "jersey": 10,
+          "avg_x": 70.9,
+          "avg_y": 14.25,
+          "passes": 19
+        },
+        {
+          "player": "Antoine Griezmann",
+          "jersey": 7,
+          "avg_x": 61.95,
+          "avg_y": 31.7,
+          "passes": 21
+        },
+        {
+          "player": "Hugo Lloris",
+          "jersey": 1,
+          "avg_x": 12.39,
+          "avg_y": 32.85,
+          "passes": 23
+        },
+        {
+          "player": "Marcus Thuram",
+          "jersey": 26,
+          "avg_x": 57.56,
+          "avg_y": 14.55,
+          "passes": 15
+        },
+        {
+          "player": "Eduardo Camavinga",
+          "jersey": 25,
+          "avg_x": 45.57,
+          "avg_y": 8.73,
+          "passes": 21
+        }
+      ],
+      "edges": [
+        {
+          "from": "Raphaël Varane",
+          "to": "Dayotchanculle Upamecano",
+          "count": 16
+        },
+        {
+          "from": "Jules Koundé",
+          "to": "Raphaël Varane",
+          "count": 15
+        },
+        {
+          "from": "Dayotchanculle Upamecano",
+          "to": "Raphaël Varane",
+          "count": 14
+        },
+        {
+          "from": "Raphaël Varane",
+          "to": "Jules Koundé",
+          "count": 12
+        },
+        {
+          "from": "Dayotchanculle Upamecano",
+          "to": "Theo Bernard François Hernández",
+          "count": 10
+        },
+        {
+          "from": "Aurélien Djani Tchouaméni",
+          "to": "Adrien Rabiot",
+          "count": 9
+        },
+        {
+          "from": "Aurélien Djani Tchouaméni",
+          "to": "Dayotchanculle Upamecano",
+          "count": 9
+        },
+        {
+          "from": "Theo Bernard François Hernández",
+          "to": "Kylian Mbappé Lottin",
+          "count": 8
+        },
+        {
+          "from": "Theo Bernard François Hernández",
+          "to": "Dayotchanculle Upamecano",
+          "count": 8
+        },
+        {
+          "from": "Adrien Rabiot",
+          "to": "Aurélien Djani Tchouaméni",
+          "count": 8
+        },
+        {
+          "from": "Aurélien Djani Tchouaméni",
+          "to": "Jules Koundé",
+          "count": 8
+        },
+        {
+          "from": "Dayotchanculle Upamecano",
+          "to": "Aurélien Djani Tchouaméni",
+          "count": 7
+        },
+        {
+          "from": "Adrien Rabiot",
+          "to": "Kylian Mbappé Lottin",
+          "count": 7
+        },
+        {
+          "from": "Raphaël Varane",
+          "to": "Aurélien Djani Tchouaméni",
+          "count": 7
+        }
+      ]
+    }
+  }
+}

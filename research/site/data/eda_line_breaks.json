@@ -1,0 +1,347 @@
+{
+  "players_by_line_breaking_passes_top20": [
+    {
+      "player": "John Stones",
+      "team": "England",
+      "line_breaks": 37,
+      "line_breaks_ge2": 90,
+      "matches": 5,
+      "per_match": 7.4
+    },
+    {
+      "player": "Luka Modric",
+      "team": "Croatia",
+      "line_breaks": 36,
+      "line_breaks_ge2": 102,
+      "matches": 7,
+      "per_match": 5.143
+    },
+    {
+      "player": "Rodri",
+      "team": "Spain",
+      "line_breaks": 35,
+      "line_breaks_ge2": 89,
+      "matches": 4,
+      "per_match": 8.75
+    },
+    {
+      "player": "Josko Gvardiol",
+      "team": "Croatia",
+      "line_breaks": 35,
+      "line_breaks_ge2": 87,
+      "matches": 7,
+      "per_match": 5.0
+    },
+    {
+      "player": "Marcelo Brozovic",
+      "team": "Croatia",
+      "line_breaks": 34,
+      "line_breaks_ge2": 82,
+      "matches": 6,
+      "per_match": 5.667
+    },
+    {
+      "player": "Harry Maguire",
+      "team": "England",
+      "line_breaks": 33,
+      "line_breaks_ge2": 59,
+      "matches": 5,
+      "per_match": 6.6
+    },
+    {
+      "player": "Lionel Messi",
+      "team": "Argentina",
+      "line_breaks": 33,
+      "line_breaks_ge2": 68,
+      "matches": 7,
+      "per_match": 4.714
+    },
+    {
+      "player": "Rodrigo de Paul",
+      "team": "Argentina",
+      "line_breaks": 27,
+      "line_breaks_ge2": 64,
+      "matches": 7,
+      "per_match": 3.857
+    },
+    {
+      "player": "Toby Alderweireld",
+      "team": "Belgium",
+      "line_breaks": 25,
+      "line_breaks_ge2": 51,
+      "matches": 3,
+      "per_match": 8.333
+    },
+    {
+      "player": "Casemiro",
+      "team": "Brazil",
+      "line_breaks": 25,
+      "line_breaks_ge2": 52,
+      "matches": 4,
+      "per_match": 6.25
+    },
+    {
+      "player": "Sofyan Amrabat",
+      "team": "Morocco",
+      "line_breaks": 25,
+      "line_breaks_ge2": 50,
+      "matches": 7,
+      "per_match": 3.571
+    },
+    {
+      "player": "Joshua Kimmich",
+      "team": "Germany",
+      "line_breaks": 24,
+      "line_breaks_ge2": 49,
+      "matches": 3,
+      "per_match": 8.0
+    },
+    {
+      "player": "Manuel Akanji",
+      "team": "Switzerland",
+      "line_breaks": 24,
+      "line_breaks_ge2": 51,
+      "matches": 4,
+      "per_match": 6.0
+    },
+    {
+      "player": "Cristian Romero",
+      "team": "Argentina",
+      "line_breaks": 23,
+      "line_breaks_ge2": 50,
+      "matches": 7,
+      "per_match": 3.286
+    },
+    {
+      "player": "Joachim Andersen",
+      "team": "Denmark",
+      "line_breaks": 22,
+      "line_breaks_ge2": 35,
+      "matches": 3,
+      "per_match": 7.333
+    },
+    {
+      "player": "Pedri",
+      "team": "Spain",
+      "line_breaks": 22,
+      "line_breaks_ge2": 76,
+      "matches": 4,
+      "per_match": 5.5
+    },
+    {
+      "player": "Tim Ream",
+      "team": "United States",
+      "line_breaks": 21,
+      "line_breaks_ge2": 33,
+      "matches": 4,
+      "per_match": 5.25
+    },
+    {
+      "player": "Daley Blind",
+      "team": "Netherlands",
+      "line_breaks": 21,
+      "line_breaks_ge2": 45,
+      "matches": 5,
+      "per_match": 4.2
+    },
+    {
+      "player": "Romain Saïss",
+      "team": "Morocco",
+      "line_breaks": 21,
+      "line_breaks_ge2": 31,
+      "matches": 6,
+      "per_match": 3.5
+    },
+    {
+      "player": "Enzo Fernandez",
+      "team": "Argentina",
+      "line_breaks": 21,
+      "line_breaks_ge2": 76,
+      "matches": 7,
+      "per_match": 3.0
+    }
+  ],
+  "teams_by_line_breaking_passes_top20": [
+    {
+      "team": "Croatia",
+      "line_breaks": 232
+    },
+    {
+      "team": "Argentina",
+      "line_breaks": 212
+    },
+    {
+      "team": "England",
+      "line_breaks": 161
+    },
+    {
+      "team": "Portugal",
+      "line_breaks": 156
+    },
+    {
+      "team": "Morocco",
+      "line_breaks": 137
+    },
+    {
+      "team": "Spain",
+      "line_breaks": 130
+    },
+    {
+      "team": "Brazil",
+      "line_breaks": 129
+    },
+    {
+      "team": "France",
+      "line_breaks": 125
+    },
+    {
+      "team": "Netherlands",
+      "line_breaks": 124
+    },
+    {
+      "team": "Germany",
+      "line_breaks": 102
+    },
+    {
+      "team": "Canada",
+      "line_breaks": 99
+    },
+    {
+      "team": "United States",
+      "line_breaks": 98
+    },
+    {
+      "team": "South Korea",
+      "line_breaks": 97
+    },
+    {
+      "team": "Denmark",
+      "line_breaks": 96
+    },
+    {
+      "team": "Australia",
+      "line_breaks": 92
+    },
+    {
+      "team": "Switzerland",
+      "line_breaks": 90
+    },
+    {
+      "team": "Belgium",
+      "line_breaks": 87
+    },
+    {
+      "team": "Uruguay",
+      "line_breaks": 82
+    },
+    {
+      "team": "Japan",
+      "line_breaks": 81
+    },
+    {
+      "team": "Iran",
+      "line_breaks": 79
+    }
+  ],
+  "final": {
+    "match_id": "10517",
+    "home": {
+      "team": "Argentina",
+      "id": 364,
+      "line_breaking_passes": 46,
+      "top5_players": [
+        {
+          "player": "Lionel Messi",
+          "line_breaks": 7
+        },
+        {
+          "player": "Enzo Fernandez",
+          "line_breaks": 5
+        },
+        {
+          "player": "Rodrigo de Paul",
+          "line_breaks": 4
+        },
+        {
+          "player": "Nicolas Tagliafico",
+          "line_breaks": 4
+        },
+        {
+          "player": "Ángel Di María",
+          "line_breaks": 4
+        }
+      ]
+    },
+    "away": {
+      "team": "France",
+      "id": 363,
+      "line_breaking_passes": 16,
+      "top5_players": [
+        {
+          "player": "Dayot Upamecano",
+          "line_breaks": 2
+        },
+        {
+          "player": "Aurélien Tchouaméni",
+          "line_breaks": 2
+        },
+        {
+          "player": "Theo Hernandez",
+          "line_breaks": 2
+        },
+        {
+          "player": "Jules Kounde",
+          "line_breaks": 2
+        },
+        {
+          "player": "Hugo Lloris",
+          "line_breaks": 2
+        }
+      ]
+    }
+  },
+  "meta": {
+    "rule": "Line-breaking pass = a COMPLETED, OPEN-PLAY pass played forward (goalward, oriented dx = rx-px > 0) that bypasses opponents. A defender at oriented (dx,dy) is bypassed if px < dx < rx AND the defender is within the pass corridor laterally: |dy - py_interp| <= 6 m, where py_interp is the pass line's y linearly interpolated at x=dx (fallback: dy within [min(py,ry)-4, max(py,ry)+4]). Attributed to the PASSER.",
+    "primary_threshold_opponents_bypassed": 3,
+    "secondary_threshold_opponents_bypassed": 2,
+    "corridor_half_width_m": 6.0,
+    "fallback_pad_m": 4.0,
+    "n_matches": 64,
+    "n_complete_open_play_passes_considered": 51007,
+    "n_forward_passes": 27903,
+    "filters": {
+      "possessionEventType": "PA",
+      "passOutcomeType": "C (complete)",
+      "setpieceType": "O (open play only; throw-ins/corners/FK/GK/kickoff excluded)",
+      "periods_included": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "periods_excluded": [
+        5
+      ]
+    },
+    "orientation": {
+      "convention": "Each passing team oriented to attack +x. Home P1 sign = +1 if homeTeamStartLeft else -1; flip each regular half. P3 uses homeTeamStartLeftExtraTime; P4 = flip(P3). Away = -home. Orient a point by multiplying BOTH x and y by the attack sign.",
+      "validation": {
+        "gk_located_by": "positionGroupType == 'GK' (passing team)",
+        "mean_oriented_gk_x_m": -34.39,
+        "median_oriented_gk_x_m": -34.84,
+        "pct_gk_in_own_half_oriented_x_lt_0": 98.32,
+        "expected": "GK should sit deep in own half (oriented x < 0; typically -30..-50 during open-play buildup, not on the goal line because keepers push up to support possession).",
+        "mean_forward_delta_x_on_forward_passes_m": 9.49,
+        "forward_pass_share": 0.547
+      }
+    },
+    "caveats": [
+      "Broadcast-tracking occlusion: ~37% of player-position rows are ESTIMATED (imputed) and ~48% are LOW confidence; off-ball defenders furthest from the ball are the most likely to be imputed, so corridor membership for distant defenders is noisy.",
+      "The corridor is a straight-line heuristic (6 m half-width + bbox fallback); it ignores pass curvature and defender facing/closing speed.",
+      "A single event snapshot is taken at the pass moment; defenders between passer and receiver in x are treated as 'a line' regardless of whether they form a tactical line.",
+      "Goalkeepers are included among the 11 opponents; a deep through-ball rarely passes the GK in x, so this seldom inflates counts.",
+      "PFF also ships its own subjective 'linesBrokenType' tag (D/M/A/AM) per pass; this metric is an INDEPENDENT geometric reconstruction and does not match it. Cross-check: of our 3,211 geometric LB>=3 passes only ~30%% are also PFF-tagged, and of PFF's 4,649 tagged passes only ~21%% reach our LB>=3 bar. They measure related but different things: PFF flags breaking a NAMED tactical line (can be 1-2 players that form a recognised line, incl. off-ball/dribble context), whereas we require >=3 opponents inside a forward corridor at the pass instant."
+    ],
+    "secondary_note": "line_breaks = passes bypassing >=3 opponents (primary). line_breaks_ge2 = passes bypassing >=2 (secondary column)."
+  }
+}
