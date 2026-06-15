@@ -106,7 +106,7 @@
   <p class="eyebrow">World Cup 2026 · Research Brief</p>
   <h1>Space: Soccer's Dark Matter</h1>
   <p class="subtitle">A research synthesis and idea board for an analytically driven narrative around space and off-ball movement — built on PFF FC's World Cup 2022 event + tracking data.</p>
-  <p class="meta">June 2026 · Literature claims verified against primary sources via adversarial multi-agent review (25 verified, 0 refuted) · Full citations at the end</p>
+  <p class="meta">June 2026 · Literature claims verified against primary sources via adversarial multi-agent review (27 verified, 0 refuted) · Full citations at the end · Companion: <a href="space-eda.html">Space EDA deck →</a></p>
 
   <div class="callout">
     <p><strong>The pitch.</strong> Off-ball movement is soccer analytics' best unanswered question. The literature's most striking admission: <strong>there is no ground truth for "space."</strong> Fernández &amp; Bornn validated their space metrics by having two FC Barcelona video analysts eyeball clips — that is the state of the art for validation.</p>
@@ -169,6 +169,11 @@
     <li>Research-corpus caveat: the verified sweep covers the canonical 2017–2021 stack plus one 2025 paper; post-2021 graph/transformer approaches (TacticAI-style) weren't in the verified set. Locally, <em>our transformer is that newer generation</em> — which is exactly the gap our work fills.</li>
   </ul>
 
+  <div class="callout">
+    <p><strong>The closest published analogue to our ghosting idea — and it predates us.</strong> Martens, Dick &amp; Brefeld (2021) rebuild Fernández &amp; Bornn's pitch control with <strong>individualized, data-driven movement models</strong> (learned per-player position triplets, KDE over velocity bins standing→sprinting) instead of a generic bivariate normal — exactly the "average-player" gap we flag for EPV. Their critique of the prior art: it "does not involve movement models or movement characteristics of an individual player; individual differences such as maximum speed, acceleration, and agility are ignored." Their <strong>Space Generation</strong> metric splits off-ball value into space a player makes for <em>himself</em> (<code>SG_rec</code>) vs. space a passer makes for <em>teammates</em> (<code>SG_pas</code>) — the same two axes as our next-receiver and off-ball-lift heads.</p>
+    <p>Validation worth beating: their data-driven control surface is positive for the attacking team in "nearly 75% of the cases…before the pass receiver is able to take a shot," <code>SG_rec</code> correlates with xG at <strong>r = 0.66</strong> (<em>p</em> = 8.85e−14), and <code>SG_total</code> tracks transfer market value. The catch: <strong>n = 54 Bundesliga matches, one club season (2017/18)</strong> — never run at tournament scale, and movement models learned on league play raise the same "do club parameters transfer to international tournaments?" question we already pose.</p>
+  </div>
+
   <h2 id="assets">2 · What we already have (asset inventory)</h2>
 
   <p><strong>Data</strong> — 44 of PFF FC's 64 free World Cup 2022 matches: 30&nbsp;Hz broadcast tracking (all players + ball x/y/z), event data, rosters, per-event player snapshots with <code>speed</code>, <code>visibility</code>, <code>confidence</code>.</p>
@@ -206,6 +211,11 @@
         <td>OBSO ignores defensive pressure &amp; carrier speed (Spearman)</td>
         <td><code>pressureType</code> on ~63% of events; <code>speed</code> per player snapshot</td>
         <td><strong>Pressure-aware OBSO</strong>: condition the transition/control models on pressure state. Benchmark: does opportunity→goals correlation beat the published r = 0.76 team-level / 0.26 leading-indicator marks on WC22?</td>
+      </tr>
+      <tr>
+        <td>OBSO score model is distance-only — ignores goal angle &amp; defender positions (Spearman; confirmed &amp; partially fixed by Teranishi et al. 2022)</td>
+        <td><code>pressureType</code>, defender x/y from 30&nbsp;Hz tracking, calibrated P(score) head</td>
+        <td><strong>Defender- and angle-aware scoring surface</strong>: Teranishi's "potential score model" cut shot-RMSE 0.324→0.309 (<em>p</em>&lt;10⁻¹⁰) by adding goal angle + multi-defender shot-blocking; our trained P(score) head already conditions on all 22 players — quantify the lift over OBSO's distance-only term.</td>
       </tr>
       <tr>
         <td>No ground truth for space (Fernández &amp; Bornn)</td>
@@ -268,6 +278,12 @@
     <p>The motion-forecast head predicts what an average player would do in the next 2&nbsp;s. The gap between a player's <em>actual</em> movement and the forecast, valued through Δpitch-control or ΔP(score), is <strong>movement skill above expectation</strong> — the ghosting idea, applied to space, at a World Cup. The headline-metric candidate.</p>
   </div>
 
+  <div class="idea replication">
+    <h4>C1-prior · C-OBSO — the ghosting idea, already published (2022)</h4>
+    <p>Teranishi, Tsutsui, Takeda &amp; Fujii (arXiv:2206.01899) built almost exactly C1 on J1-League data: <strong>C-OBSO</strong> = an off-ball player's <em>actual</em> OBSO minus the OBSO of a <strong>predicted "reference" trajectory</strong> (<code>V<sub>i</sub> = V_OBSO − V_OBSO'</code>), with reference paths from a graph variational RNN (GVRNN). They also fix two Spearman gaps we flagged — their score model "reflects the angle to the goal and the position of multiple defenders" rather than distance only. On 34 Yokohama F. Marinos matches, <strong>C-OBSO correlated with annual salary (ρ = 0.45, p = 0.046) where plain OBSO did not (ρ = −0.28) and goals did not (ρ = −0.23)</strong> — off-ball creation that "could not be explained by the existing indicators."</p>
+    <p class="hook">For us: prior art that de-risks C1 and B1. Our edge — their reference is a GVRNN on one club season predicting just 3 players; ours is a transformer motion-forecast head across the World Cup, validated against <code>createsSpace</code>/<code>movementGrade</code> labels they explicitly lacked ("no ground truth values").</p>
+  </div>
+
   <div class="idea novel">
     <h4>C2 · The Most Ignored Open Man</h4>
     <p>Combine the next-receiver head (P(receive) trajectory — who <em>gets open</em>) with PFF's <code>betterOptionPlayerId</code> tags (who got open <em>and was ignored</em>). Leaderboard + film room.</p>
@@ -327,6 +343,8 @@
     <li>Spearman, <em>Beyond Expected Goals</em> (OBSO), SSAC 2018 — <a href="https://www.researchgate.net/publication/327139841_Beyond_Expected_Goals">researchgate.net/publication/327139841</a></li>
     <li>Fernández &amp; Bornn, <em>Wide Open Spaces</em>, SSAC 2018 — <a href="https://www.lukebornn.com/papers/fernandez_ssac_2018.pdf">lukebornn.com/papers/fernandez_ssac_2018.pdf</a></li>
     <li>Fernández, Bornn &amp; Cervone, <em>Decomposing the Immeasurable Sport</em> (EPV), SSAC 2019 — <a href="http://www.lukebornn.com/papers/fernandez_ssac_2019.pdf">lukebornn.com/papers/fernandez_ssac_2019.pdf</a>; journal version, <em>Machine Learning</em> 2021 — <a href="https://arxiv.org/abs/2011.09426">arxiv.org/abs/2011.09426</a></li>
+    <li>Martens, Dick &amp; Brefeld, <em>Space and Control in Soccer</em>, Frontiers in Sports and Active Living 2021 — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8322620/">pmc.ncbi.nlm.nih.gov/articles/PMC8322620</a></li>
+    <li>Teranishi, Tsutsui, Takeda &amp; Fujii, <em>Evaluation of creating scoring opportunities for teammates in soccer via trajectory prediction</em> (C-OBSO), 2022 — <a href="https://arxiv.org/abs/2206.01899">arxiv.org/abs/2206.01899</a></li>
     <li>Penn, Donnelly &amp; Bhatt, <em>Continuous football player tracking from discrete broadcast data</em>, R. Soc. Open Science 2025 — <a href="https://royalsocietypublishing.org/rsos/article/12/10/251175/236076">royalsocietypublishing.org</a></li>
     <li>PFF FC WC2022 dataset — <a href="https://www.blog.fc.pff.com/blog/enhanced-2022-world-cup-dataset">blog.fc.pff.com</a>; kloppy loader — <a href="https://kloppy.pysport.org/user-guide/loading-data/pff/">kloppy.pysport.org</a></li>
     <li>Narrative lineage: FiveThirtyEight, <em>Messi walks better than most players run</em> — <a href="https://fivethirtyeight.com/features/messi-walks-better-than-most-players-run/">fivethirtyeight.com</a>; Karun Singh's space-control talk — <a href="https://youtu.be/X9PrwPyolyU">youtu.be/X9PrwPyolyU</a></li>

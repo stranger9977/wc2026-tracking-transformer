@@ -34,13 +34,13 @@ Our angle: **we have something nobody public has** — PFF's human-graded events
 
 ## 2. What we already have (asset inventory)
 
-**Data** (local PFF download at `$PFF_ROOT` — see CLAUDE.md; 44 of PFF's 64 free WC22 matches):
+**Data** (local PFF download at `$PFF_ROOT` — see CLAUDE.md; event data for all 64 WC22 matches, tracking cached for 44):
 - 30 Hz broadcast tracking (all players + ball x/y/z), event data, rosters, per-event player snapshots with `speed`, `visibility`, `confidence`.
-- **Human labels nobody else pairs with tracking** (counts from match 10502, ×44 for rough tournament scale):
-  - `createsSpace` boolean — 27 True/match → **~1,200 expert-tagged space-creation moments**
-  - `betterOptionPlayerId/Type/Time` — ~6/match → **~250 "an open man was ignored" tags**
-  - `grades.movementGrade` + `positionGrade` — ~24/match → **~1,000 graded off-ball movement/positioning events**
-  - `pressureType` (N/P/A/L) on ~63% of possession events → **the pressure annotation Spearman said OBSO needs**
+- **Human labels nobody else pairs with tracking** (actual tournament totals, computed over all 64 event files — 144,541 events; see `research/scripts/eda_space_leaderboards.py`):
+  - `createsSpace` boolean → **1,422 expert-tagged space-creation moments** (attributed to the on-ball actor; the dedicated `csPlayerId` is unusable, 2/1,422 populated)
+  - `betterOptionPlayerId/Type/Time` → **518 "an open man was ignored" tags**
+  - `grades.movementGrade` (368 events) + `positionGrade` (1,300 events) → **graded off-ball movement/positioning** — note: these are mostly *deduction* metrics (movementGrade ~71% negative, positionGrade ~99% negative), so "best avg grade" reads as "least-bad"
+  - `pressureType` (N/P/A/L) populated on ~62% of possession events (46,782 under pressure: P/A/L) → **the pressure annotation Spearman said OBSO needs**
   - `bodyMovementType` (toward-goal / away / lateral / stationary; sparse) and `bodyType` → partial orientation signal (the EPV authors' named gap)
 
 **Models** (this repo):
@@ -91,6 +91,8 @@ B4. Re-fit club-calibrated models on tournament data; report what moves
 
 **C1. Space Above Replacement (ghosting).** The motion-forecast head predicts what an average player would do in the next 2 s. The gap between a player's *actual* movement and the forecast, valued through Δpitch-control or ΔP(score), is **movement skill above expectation** — Le et al.'s ghosting idea, applied to space, at a World Cup. This is the headline metric candidate.
 
+> **Prior art (de-risks C1/B1): C-OBSO** — Teranishi, Tsutsui, Takeda & Fujii (arXiv:2206.01899, 2022) built almost exactly this on J1-League data: actual off-ball OBSO minus the OBSO of a GVRNN-predicted reference trajectory. They also fix two Spearman gaps (their score model adds goal angle + multi-defender shot-blocking). C-OBSO correlated with salary (ρ=0.45, p=0.046) where plain OBSO (ρ=−0.28) and goals (ρ=−0.23) did not. Our edge: a transformer forecast across the full World Cup, validated against `createsSpace`/`movementGrade` labels they explicitly lacked.
+
 **C2. The Most Ignored Open Man.** Combine the next-receiver head (P(receive) trajectory — who *gets open*) with PFF's `betterOptionPlayerId` tags (who got open *and was ignored*). Leaderboard + film room. This is the Pedri narrative in metric form: getting open is a skill even when the pass never comes.
 
 **C3. Move the players yourself.** The whiteboard counterfactual pipeline as public-facing interactive content: drag the winger wider, watch P(score) move. "What if" is the most shareable form of tactics content, and it's already built.
@@ -134,6 +136,8 @@ Caveats to carry everywhere: broadcast-derived tracking (off-camera ≈ imputed)
 - Spearman, *Beyond Expected Goals* (OBSO), SSAC 2018 — https://www.researchgate.net/publication/327139841_Beyond_Expected_Goals
 - Fernández & Bornn, *Wide Open Spaces*, SSAC 2018 — https://www.lukebornn.com/papers/fernandez_ssac_2018.pdf
 - Fernández, Bornn & Cervone, *Decomposing the Immeasurable Sport* (EPV), SSAC 2019 — http://www.lukebornn.com/papers/fernandez_ssac_2019.pdf; journal version, Machine Learning 2021 — https://arxiv.org/abs/2011.09426
+- Martens, Dick & Brefeld, *Space and Control in Soccer* (individualized pitch control + Space Generation), Frontiers in Sports and Active Living 2021 — https://pmc.ncbi.nlm.nih.gov/articles/PMC8322620/
+- Teranishi, Tsutsui, Takeda & Fujii, *Evaluation of creating scoring opportunities for teammates in soccer via trajectory prediction* (C-OBSO), 2022 — https://arxiv.org/abs/2206.01899
 - Penn, Donnelly & Bhatt, *Continuous football player tracking from discrete broadcast data*, R. Soc. Open Science 2025 — https://royalsocietypublishing.org/rsos/article/12/10/251175/236076
 - PFF FC WC2022 dataset — https://www.blog.fc.pff.com/blog/enhanced-2022-world-cup-dataset; kloppy loader — https://kloppy.pysport.org/user-guide/loading-data/pff/
 - Narrative lineage: FiveThirtyEight, *Messi walks better than most players run* — https://fivethirtyeight.com/features/messi-walks-better-than-most-players-run/; Karun Singh's space-control talk — https://youtu.be/X9PrwPyolyU
