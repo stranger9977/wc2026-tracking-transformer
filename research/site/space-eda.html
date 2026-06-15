@@ -219,6 +219,50 @@
     </div>
   </section>
 
+  <!-- 11b · xG players (real StatsBomb xG) -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Players · Expected goals (real xG, StatsBomb)</p>
+      <h2>Who generated the most danger</h2>
+      <p class="sub">Total <strong>StatsBomb xG</strong>, open play + penalties (shootout excluded). FIFA's flagship top-line metric — real xG, not a proxy.</p>
+      <div class="chart" data-board="xg_players"></div>
+      <p class="caption"><strong>Messi led the tournament with 6.03 xG</strong> and converted 7. Mbappé's Golden Boot 8 goals came from just 4.23 xG — clinical overperformance that decided the final.</p>
+    </div>
+  </section>
+
+  <!-- 11c · xG teams -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Teams · Expected goals (real xG)</p>
+      <h2>The chance-creation table</h2>
+      <p class="sub">Total StatsBomb xG by squad (shootout excluded).</p>
+      <div class="chart" data-board="xg_teams"></div>
+      <p class="caption"><strong>Argentina (13.94) and France (11.82)</strong> out-created everyone — the two finalists, by distance. Brazil's 10.5 xG went home in the quarters: creating chances isn't taking them.</p>
+    </div>
+  </section>
+
+  <!-- 11d · line breaks players -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Players · Line breaks</p>
+      <h2>Who broke the lines</h2>
+      <p class="sub">Completed open-play passes that bypass <strong>≥3 opponents</strong> in a forward corridor — FIFA's line-break concept, reconstructed from all 22 tracked positions.</p>
+      <div class="chart" data-board="lb_players"></div>
+      <p class="caption">Ball-playing center-backs and deep mids own it: <strong>John Stones (37)</strong>, Modrić, Rodri, Gvardiol, Brozović. Messi (33) is the only forward near the top — he breaks lines as a <em>passer</em>, not just a runner.</p>
+    </div>
+  </section>
+
+  <!-- 11e · line breaks teams -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Teams · Line breaks</p>
+      <h2>Progression, by squad</h2>
+      <p class="sub">Total ≥3-opponent line-breaking passes.</p>
+      <div class="chart" data-board="lb_teams"></div>
+      <p class="caption"><strong>Croatia (232) and Argentina (212)</strong> broke the most lines — the progression engine behind two deep runs. Independent geometric reconstruction; overlaps PFF's own tag ~21–30%.</p>
+    </div>
+  </section>
+
   <!-- 12 · GRADES (deduction caveat) -->
   <section class="slide">
     <div class="slide-inner">
@@ -261,7 +305,18 @@
         <div class="card"><h3>Morocco's midfield</h3><p>Ziyech, Ounahi, Amrabat — the off-ball overachievers. Can the surprise run repeat?</p></div>
       </div>
       <p class="caption">Next: validate these event tags against tracking-derived pitch control (the <a href="space-research.html">research brief</a>'s C1/C4 ideas), then reproduce FIFA's line-breaks &amp; receptions-behind-lines on the same data. <strong>Proof of concept on 2022 → production vocabulary for 2026.</strong></p>
-      <p class="muted" style="margin-top:1.4rem">Source: PFF FC WC2022 event data · computed via <code>research/scripts/eda_space_leaderboards.py</code> · broadcast-tracking caveats apply.</p>
+      <p class="muted" style="margin-top:1.4rem">Source: PFF FC WC2022 event data + StatsBomb open-data (xG) · broadcast-tracking caveats apply.</p>
+    </div>
+  </section>
+
+  <!-- 15 · MATCH REPORT CTA -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow">Deep dive</p>
+      <h2>The full report: 2022 Final</h2>
+      <p class="sub">Argentina 3–3 France (4–2 pens), recreated FIFA-style — real xG race, shot map, pass networks, and line breaks on one page.</p>
+      <p style="margin-top:1.1rem"><a href="match-report-final.html" style="font-size:1.35rem;font-weight:750;color:var(--orange)">Open the match report →</a></p>
+      <p class="muted" style="margin-top:1.8rem">Also: <a href="space-research.html">the research brief</a> · data via StatsBomb open-data + PFF FC.</p>
     </div>
   </section>
 
@@ -272,8 +327,8 @@
 
 <script>
 // ---- real data (computed from all 64 PFF WC2022 event files) ----
-const ABBR = {Argentina:"ARG",France:"FRA",Morocco:"MAR",Croatia:"CRO",Brazil:"BRA",Spain:"ESP",Portugal:"POR",England:"ENG","United States":"USA","South Korea":"KOR",Mexico:"MEX",Netherlands:"NED",Canada:"CAN",Japan:"JPN",Switzerland:"SUI",Germany:"GER",Serbia:"SRB",Senegal:"SEN",Ecuador:"ECU",Denmark:"DEN",Wales:"WAL",Iran:"IRN",Uruguay:"URU",Belgium:"BEL",Ghana:"GHA",Tunisia:"TUN",Poland:"POL","Costa Rica":"CRC",Cameroon:"CMR","Saudi Arabia":"KSA",Qatar:"QAT"};
-const COLOR = {Argentina:"#6CACE4",France:"#3D5AC9",Morocco:"#E04550",Croatia:"#E4434E",Brazil:"#F2D02C",Spain:"#E4572E",Portugal:"#2E8B57",England:"#D7DCE2","United States":"#4D6BD6","South Korea":"#5A8FD6",Mexico:"#2EA86A",Netherlands:"#FF8C2B",Canada:"#EF4B4B",Japan:"#4A66D6",Switzerland:"#E85A50",Germany:"#C9A227",Serbia:"#D85A60",Senegal:"#2CB36B",Ecuador:"#E3C13A",Denmark:"#E66068",Wales:"#D85560",Iran:"#3CB45C",Uruguay:"#5CB8E6",Belgium:"#E3565E",Ghana:"#9ACD5A",Tunisia:"#E35560",Poland:"#E0566E","Costa Rica":"#C75D8A",Cameroon:"#3FAE6B","Saudi Arabia":"#2CA86A",Qatar:"#B33A57"};
+const ABBR = {Argentina:"ARG",France:"FRA",Morocco:"MAR",Croatia:"CRO",Brazil:"BRA",Spain:"ESP",Portugal:"POR",England:"ENG","United States":"USA","South Korea":"KOR",Mexico:"MEX",Netherlands:"NED",Canada:"CAN",Japan:"JPN",Switzerland:"SUI",Germany:"GER",Serbia:"SRB",Senegal:"SEN",Ecuador:"ECU",Denmark:"DEN",Wales:"WAL",Iran:"IRN",Uruguay:"URU",Belgium:"BEL",Ghana:"GHA",Tunisia:"TUN",Poland:"POL","Costa Rica":"CRC",Cameroon:"CMR","Saudi Arabia":"KSA",Qatar:"QAT",Australia:"AUS"};
+const COLOR = {Argentina:"#6CACE4",France:"#3D5AC9",Morocco:"#E04550",Croatia:"#E4434E",Brazil:"#F2D02C",Spain:"#E4572E",Portugal:"#2E8B57",England:"#D7DCE2","United States":"#4D6BD6","South Korea":"#5A8FD6",Mexico:"#2EA86A",Netherlands:"#FF8C2B",Canada:"#EF4B4B",Japan:"#4A66D6",Switzerland:"#E85A50",Germany:"#C9A227",Serbia:"#D85A60",Senegal:"#2CB36B",Ecuador:"#E3C13A",Denmark:"#E66068",Wales:"#D85560",Iran:"#3CB45C",Uruguay:"#5CB8E6",Belgium:"#E3565E",Ghana:"#9ACD5A",Tunisia:"#E35560",Poland:"#E0566E","Costa Rica":"#C75D8A",Cameroon:"#3FAE6B","Saudi Arabia":"#2CA86A",Qatar:"#B33A57",Australia:"#E0A33A"};
 
 const BOARDS = {
   space_creators: {unit:"player", rows:[["Lionel Messi","Argentina",25],["Ousmane Dembele","France",23],["Kylian Mbappé","France",22],["Hakim Ziyech","Morocco",20],["Azzedine Ounahi","Morocco",18],["Ivan Perisic","Croatia",17],["Hirving Lozano","Mexico",17],["Luka Modric","Croatia",15],["Antony","Brazil",15],["Pedri","Spain",14],["Christian Pulisic","United States",13],["Andrej Kramaric","Croatia",13]]},
@@ -283,7 +338,11 @@ const BOARDS = {
   most_actions_under_pressure: {unit:"player", rows:[["Lionel Messi","Argentina",472],["Luka Modric","Croatia",372],["Rodrigo de Paul","Argentina",360],["Mateo Kovacic","Croatia",337],["Marcelo Brozovic","Croatia",323],["Kylian Mbappé","France",319],["Pedri","Spain",278],["Aurélien Tchouaméni","France",270],["Hakim Ziyech","Morocco",270],["Enzo Fernandez","Argentina",268],["Achraf Hakimi","Morocco",267],["Alexis Mac Allister","Argentina",266]]},
   team_total_space_created: {unit:"team", rows:[["Croatia",97],["Morocco",89],["Argentina",85],["France",79],["Brazil",74],["Spain",71],["Portugal",67],["England",58],["United States",57],["South Korea",51],["Mexico",50],["Netherlands",46]]},
   team_actions_under_pressure: {unit:"team", rows:[["Argentina",3001],["Croatia",2807],["France",2432],["England",2038],["Spain",1994],["Brazil",1972],["Morocco",1967],["Portugal",1781],["Netherlands",1726],["United States",1331],["Germany",1287],["Switzerland",1268]]},
-  team_got_open_better_option: {unit:"team", rows:[["Argentina",32],["Portugal",30],["Germany",29],["Croatia",28],["Morocco",27],["France",26],["England",23],["Brazil",23],["Serbia",22],["Spain",20],["Switzerland",19],["United States",18]]}
+  team_got_open_better_option: {unit:"team", rows:[["Argentina",32],["Portugal",30],["Germany",29],["Croatia",28],["Morocco",27],["France",26],["England",23],["Brazil",23],["Serbia",22],["Spain",20],["Switzerland",19],["United States",18]]},
+  xg_players: {unit:"player", rows:[["Messi","Argentina",6.03],["Mbappé","France",4.23],["Lewandowski","Poland",3.13],["Giroud","France",3.04],["Embolo","Switzerland",2.39],["Kane","England",2.33],["Neymar","Brazil",2.13],["L. Martínez","Argentina",2.12],["Ronaldo","Portugal",1.94],["E. Valencia","Ecuador",1.92],["J. Álvarez","Argentina",1.91],["Sarr","Senegal",1.85]]},
+  xg_teams: {unit:"team", rows:[["Argentina",13.94],["France",11.82],["Brazil",10.5],["England",8.74],["Germany",8.23],["Portugal",7.31],["Croatia",6.9],["Switzerland",6.09],["Morocco",5.54],["Netherlands",4.99],["Spain",4.75],["Poland",4.66]]},
+  lb_players: {unit:"player", rows:[["John Stones","England",37],["Modrić","Croatia",36],["Rodri","Spain",35],["Gvardiol","Croatia",35],["Brozović","Croatia",34],["Maguire","England",33],["Messi","Argentina",33],["De Paul","Argentina",27],["Alderweireld","Belgium",25],["Casemiro","Brazil",25],["Amrabat","Morocco",25],["Kimmich","Germany",24]]},
+  lb_teams: {unit:"team", rows:[["Croatia",232],["Argentina",212],["England",161],["Portugal",156],["Morocco",137],["Spain",130],["Brazil",129],["France",125],["Netherlands",124],["Germany",102],["Canada",99],["United States",98]]}
 };
 const MOVEMENT_GRADE = [["Kylian Mbappé","France",-0.10,5],["Aleksandar Mitrovic","Serbia",-0.36,7],["Breel Embolo","Switzerland",-0.40,5],["Andrej Kramaric","Croatia",-0.44,9],["Cristiano Ronaldo","Portugal",-0.50,7]];
 
