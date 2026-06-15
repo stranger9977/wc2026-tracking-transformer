@@ -122,9 +122,9 @@
     <p class="sub">Argentina attacking →, France attacking ←. Filled = on target, ring = goal, hollow = off target/blocked.</p>
     <div id="shotmap"></div>
     <div class="legend">
-      <span><span class="sw" style="background:var(--arg)"></span>Argentina</span>
-      <span><span class="sw" style="background:var(--fra)"></span>France</span>
-      <span>◯ goal · ● on target · ○ off/blocked · dashed = penalty</span>
+      <span><span class="sw" style="background:var(--arg)"></span>Argentina (right)</span>
+      <span><span class="sw" style="background:var(--fra)"></span>France (left)</span>
+      <span><span class="sw" style="background:none;border:1.5px solid #ffd479"></span>goal · solid = on target · faint = off/blocked · dashed = penalty</span>
     </div>
     <p class="caption">Argentina's 20 shots came from better positions (10 on target); France generated just 10 shots but three were Mbappé finishes worth the win.</p>
   </section>
@@ -249,27 +249,25 @@ function pitch(line="#3a4453",lw=0.4){
 
 // ---- shot map ----
 (function(){
-  const penJit={}; // jitter overlapping penalties
-  const marks = SHOTS.map((s,i)=>{
+  const penIdx={};
+  // draw goals last so their gold rings sit on top of the cluster
+  const ordered = SHOTS.slice().sort((a,b)=> (a[4]==="Goal"?1:0)-(b[4]==="Goal"?1:0));
+  const marks = ordered.map((s)=>{
     let [team,x,y,xg,out,pl,min,per,pen]=s;
-    // France attacks left: mirror
-    if(team==="France"){ x=105-x; y=68-y; }
-    if(pen){ penJit[team]=(penJit[team]||0)+1; y += (penJit[team]-1.5)*4; }
-    const r=2.2+Math.sqrt(xg)*9;
+    if(team==="France"){ x=105-x; y=68-y; }                 // France attacks left
+    if(pen){ const i=(penIdx[team]||0); penIdx[team]=i+1; y += (i-0.5)*5.2; x += (team==="France"?-1:1)*i*2.2; }
+    const r=1.5+Math.sqrt(xg)*4.2;                          // ~1.7 (low xG) .. ~5.2 (penalty)
     const col=tc(team);
-    const goal = out==="Goal";
-    const onT = goal || out==="Saved";
-    let fill = onT? col : "none";
-    let op = goal?1:(onT?0.8:0.9);
-    let stroke = col, sw=goal?1.4:0.6;
-    let extra = goal? `<circle cx="${x}" cy="${y}" r="${r+1.6}" fill="none" stroke="#fff" stroke-width="0.7"/>`:"";
-    let dash = pen? `stroke-dasharray="1.6 1.2"`:"";
-    return `${extra}<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" fill-opacity="${onT?0.85:0.16}" stroke="${stroke}" stroke-width="${sw}" stroke-opacity="${op}" ${dash}><title>${pl} ${min}' · xG ${xg.toFixed(2)} · ${out}${pen?' (pen)':''}</title></circle>`;
+    const goal=out==="Goal", onT=goal||out==="Saved";
+    const fillOp=goal?0.95:(onT?0.5:0.12);
+    const dash=pen?' stroke-dasharray="1.3 1"':"";
+    const ring=goal?`<circle cx="${x}" cy="${y}" r="${(r+1.7).toFixed(1)}" fill="none" stroke="#ffd479" stroke-width="0.8"/>`:"";
+    return `${ring}<circle cx="${x}" cy="${y}" r="${r.toFixed(1)}" fill="${col}" fill-opacity="${fillOp}" stroke="${col}" stroke-width="0.5" stroke-opacity="0.9"${dash}><title>${pl} ${min}' · xG ${xg.toFixed(2)} · ${out}${pen?' (pen)':''}</title></circle>`;
   }).join("");
   document.getElementById('shotmap').innerHTML =
     `<svg viewBox="-3 -3 111 74" role="img" aria-label="Shot map">${pitch()}
-     <text x="26" y="-0.2" fill="${ARG}" font-size="2.4" font-family="monospace">ARG →</text>
-     <text x="62" y="-0.2" fill="${FRA}" font-size="2.4" font-family="monospace">← FRA</text>
+     <text x="5" y="-0.4" fill="${FRA}" font-size="2.7" font-family="monospace">← France</text>
+     <text x="76" y="-0.4" fill="${ARG}" font-size="2.7" font-family="monospace">Argentina →</text>
      ${marks}</svg>`;
 })();
 
