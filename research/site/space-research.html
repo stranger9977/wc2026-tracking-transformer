@@ -120,6 +120,7 @@
       <li><a href="#assets">What we already have</a></li>
       <li><a href="#improve">Q1: Would we improve preexisting models?</a></li>
       <li><a href="#ideas">Q2: What else could we measure? — the idea board</a></li>
+      <li><a href="#theory">★ The Grand Unifying Theory of Space</a></li>
       <li><a href="#arc">Suggested content arc</a></li>
       <li><a href="#caveats">Order of operations &amp; caveats</a></li>
       <li><a href="#sources">Sources</a></li>
@@ -313,6 +314,94 @@
 
   <div class="callout">
     <p><strong>The meta-piece: where the models disagree.</strong> xT, OBSO, pitch control, and our transformer will rank moments and players differently. Chart the disagreement instead of hiding it. An unanswered question is still very interesting — this positions the series as honest science, not metric-mongering.</p>
+  </div>
+
+  <style>
+    .gut { margin: 1.4rem 0 0.4rem; }
+    .gut-band { text-align: center; border-radius: 10px; padding: 0.7rem 1rem; font-size: 0.9rem; }
+    .gut-object { background: var(--bg-elev-2); border: 1px solid var(--border); font-weight: 600; }
+    .gut-axes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.55rem; margin: 0.55rem 0; }
+    @media (max-width: 760px) { .gut-axes { grid-template-columns: 1fr 1fr; } }
+    .axis { background: var(--bg-elev); border: 1px solid var(--border); border-top: 3px solid var(--link); border-radius: 8px; padding: 0.65rem 0.6rem; }
+    .axis .ax-name { font-weight: 700; font-size: 0.86rem; display: block; }
+    .axis .ax-sub { color: var(--text-mute); font-size: 0.68rem; display: block; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .axis .ax-methods { font-size: 0.78rem; color: var(--text-dim); }
+    .axis .ax-fix { margin-top: 0.5rem; font-size: 0.7rem; color: var(--green); border-top: 1px dashed var(--border); padding-top: 0.35rem; }
+    .gut-arrows { text-align: center; color: var(--text-mute); letter-spacing: 2.6em; font-size: 0.8rem; padding: 0.1rem 0 0.2rem 1.3em; }
+    .gut-substrate { background: rgba(109,213,140,0.08); border: 1px solid var(--green); color: var(--text-dim); font-size: 0.82rem; }
+    ol.yt { list-style: none; counter-reset: yt; padding: 0; margin: 0.6rem 0; }
+    ol.yt li { counter-increment: yt; position: relative; padding: 0.55rem 0 0.6rem 2.1rem; border-bottom: 1px solid var(--border); }
+    ol.yt li::before { content: counter(yt); position: absolute; left: 0; top: 0.55rem; width: 1.5rem; height: 1.5rem; background: var(--orange); color: #0e1014; border-radius: 50%; font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; }
+    ol.yt li strong { color: #fff; }
+    ol.yt .ytmeta { display: block; color: var(--text-dim); font-size: 0.82rem; margin-top: 0.25rem; }
+    ol.yt .ytmeta b { color: var(--text-mute); font-weight: 600; }
+  </style>
+
+  <h2 id="theory">★ The Grand Unifying Theory of Space</h2>
+  <p class="eyebrow">Synthesized by a fan-out-and-synthesize workflow · 39 agents</p>
+  <p class="lede" style="font-size:1.1rem;color:var(--text);line-height:1.55;max-width:840px">Every method in the literature is computing one slice of the <strong>same object</strong> — the value of space — and they only look incompatible because each freezes a different variable. Read together they form one continuous quantity: <strong>the expected goal-probability mass a team controls across the whole pitch</strong>, decomposed along five orthogonal axes. The seven prior methods are exactly the special cases you recover by collapsing one axis at a time.</p>
+
+  <div class="gut">
+    <div class="gut-band gut-object">THE SPACE-VALUE OBJECT — Transition × Control × Score, differenced against an average-player <em>ghost</em></div>
+    <div class="gut-axes">
+      <div class="axis" style="border-top-color:#6aa8ff"><span class="ax-name">WHERE</span><span class="ax-sub">ball-location threat</span><div class="ax-methods">xT</div><div class="ax-fix">grounded by createsSpace</div></div>
+      <div class="axis" style="border-top-color:#6dd58c"><span class="ax-name">WHO CONTROLS</span><span class="ax-sub">pitch control / PPCF</span><div class="ax-methods">OBSO · SOG/SGG · Martens</div><div class="ax-fix">grounded by createsSpace + xG</div></div>
+      <div class="axis" style="border-top-color:#d4793a"><span class="ax-name">HOW MUCH</span><span class="ax-sub">lift above a ghost</span><div class="ax-methods">C-OBSO · our motion-forecast ghost</div><div class="ax-fix">grounded by movement grades</div></div>
+      <div class="axis" style="border-top-color:#c77dff"><span class="ax-name">FOR &amp; BY WHOM</span><span class="ax-sub">receiver value / affinity</span><div class="ax-methods">EPV · SG_pas · next-receiver</div><div class="ax-fix">grounded by betterOption (518)</div></div>
+      <div class="axis" style="border-top-color:#ff8c5a"><span class="ax-name">DEFENSE CONCEDES</span><span class="ax-sub">geometric reaction</span><div class="ax-methods">CHASE/gravity · line breaks</div><div class="ax-fix">grounded by positionGrade</div></div>
+    </div>
+    <div class="gut-arrows">▲ ▲ ▲ ▲ ▲</div>
+    <div class="gut-band gut-substrate"><strong style="color:var(--green)">PFF HUMAN LABELS</strong> — the first frame-level ground truth for space · createsSpace 1,422 · betterOption 518 · movement/position grades · pressureType · orientation</div>
+  </div>
+  <p class="caption" style="color:var(--text-dim);font-size:0.87rem">Our tracking transformer is the first instrument that holds all five axes open at once (calibrated P(score); off-ball xT-lift <strong>0.714</strong> vs 0.616 lookup; next-receiver top-1 <strong>0.70</strong> vs 0.44; a built-in 2 s ghost; counterfactual ΔP; ball-independent attention) — and its accumulated value reconstructs StatsBomb team xG at <strong>ρ = 0.885</strong>, tighter than xG itself tracks goals (0.82).</p>
+
+  <div class="callout">
+    <p><strong>The shared blind spot — what every prior method is missing.</strong> No prior method has ground truth for space. They are validated by <em>nothing</em> (xT, OBSO, line breaks are self-defining), by an outcome proxy that fires too late and too rarely to see off-ball movement (xG only exists at the shot), or — most tellingly — by "two analysts watched video" (Fernández &amp; Bornn 2018) and salary correlation (C-OBSO, ρ = 0.45). "Space" is unobservable, so each substitutes its own geometry for truth and then <strong>cannot tell a value-laden run from a decoy, an open man found from one ignored, or an elite mover from his average replacement.</strong></p>
+  </div>
+
+  <div class="callout green">
+    <p><strong>The keystone: PFF human labels are the first frame-level space ground truth.</strong> Each label is the missing external check for one axis. <code>createsSpace</code> (1,422 tags) grounds WHERE/HOW-MUCH — a credible surface must spike on these frames. <code>betterOptionPlayerId</code> (518 tags) is the <em>only</em> label that names a teammate who demonstrably got open and was not found — it grounds the FOR-WHOM axis. <code>pressureType</code> supplies the carrier-pressure signal Spearman named OBSO as ignoring. <code>movementGrade</code>/<code>positionGrade</code> calibrate the ghost-gap; <code>receiverFacingType</code> supplies EPV's missing orientation channel. Critically these labels <strong>validate but cannot train</strong> a continuous surface (sparse, ~27/match, on-camera biased) — so the transformer trains on dense tracking and is <em>graded</em> against the sparse labels. Internal coherence confirms real signal: the createsSpace leaderboard independently recovers Messi (#1, 25; 23 under pressure) and Croatia/Argentina as team leaders without being told who they are.</p>
+  </div>
+
+  <h3>The anchor metric: SAR — Space Above Replacement</h3>
+  <div class="idea novel">
+    <h4>SAR · pressure-gated, ghost-relative, label-grounded off-ball value</h4>
+    <p>For every off-ball attacker, every frame: <strong>(1)</strong> compute OBSO-style value (Transition × Control × Score) but replace Spearman's distance-only Score with the transformer's calibrated <strong>P(score)</strong> and sharpen Transition with the <strong>next-receiver</strong> head (who <em>this</em> carrier can actually reach); <strong>(2)</strong> gate the deliverability term by the PFF-graded <strong>pressureType</strong> + carrier speed — danger only counts if it's passable under the lunge (closing Spearman's named gap with a <em>real human-graded</em> pressure label, not a re-derived one); <strong>(3)</strong> subtract the same quantity for the transformer's 2 s motion-forecast <strong>ghost</strong> — only space generated <em>above an average mover</em> counts. Report per-90 and as actual-minus-ghost ΔP(score), cashed into StatsBomb-xG-equivalent terms.</p>
+    <p class="hook">Why novel: it's the first metric to hold all five axes open at once <em>and</em> the first with frame-level human ground truth. It's "C-OBSO with the one term C-OBSO never repaired, at 64-match scale, finally validated against humans (1,422 createsSpace + 518 betterOption tags) instead of salary or video."</p>
+  </div>
+
+  <h3>Four novel composites that survived adversarial verification (of 9 forged)</h3>
+  <div class="idea replication">
+    <h4>P-OBSO · Pressure-Gated Off-Ball Scoring Opportunity</h4>
+    <p>OBSO with the deliverability term gated by the carrier's <code>pressureType</code> (N/P/A/L) + speed, reported as lift over the ghost — pressure-resilient space, the danger Spearman said OBSO couldn't see. <span style="color:var(--text-mute)">Visual: interactive scrubber with a draggable pressure dial; Messi's open men stay reachable under a lunge while others' collapse.</span></p>
+  </div>
+  <div class="idea replication">
+    <h4>CoCE · Cost of the Closed Eye — "the Ignored Open Man Index"</h4>
+    <p>For every <code>betterOptionPlayerId</code> tag, value the ignored open man's location and recompute P(score) as if the ball had gone to him, minus the pass actually played — a dual leaderboard of passers who leave value on the table and movers who got open and weren't found. <span style="color:var(--text-mute)">Star: En-Nesyri ignored 8× (most in Qatar); Argentina ignored open men 32× — tournament-most, en route to the trophy.</span></p>
+  </div>
+  <div class="idea replication">
+    <h4>SMS · Self-Made Space — receiving-space self-generation</h4>
+    <p>next-receiver P(receive) × Fernández-Bornn space-occupation in the danger zone, ghost-subtracted — "who becomes the open, controllable receiving option through their <em>own</em> movement." <span style="color:var(--text-mute)">Star: Pedri leads SMS while topping 69.5 pressured actions/match; the betterOption tags prove teammates kept missing him.</span></p>
+  </div>
+  <div class="idea replication">
+    <h4>TURN · Turned Under-line Reception Network</h4>
+    <p>Receptions taken already turned toward goal beyond a broken line (<code>receiverFacingType</code>=G × <code>linesBrokenType</code> × xT-lift) — the half-turn EPV said it couldn't see. Sparse and clean: only 17.8% of line-break receptions arrive turned-to-goal. <span style="color:var(--text-mute)">Star: Di María received on the turn behind France's lines 6+ times in the final (ARG broke lines 46–16).</span></p>
+  </div>
+
+  <h3>The video: "Space — Soccer's Dark Matter" (8 segments)</h3>
+  <ol class="yt">
+    <li><strong>The metric that doesn't exist</strong> — for 50 years "space" was something pundits pointed at; PFF's labels are the first ground truth, and that one fact reorganizes every metric below it. <span class="ytmeta"><b>Visual:</b> split-screen "two analysts watched video" vs 1,422 createsSpace tags on a pitch · <b>Star:</b> Messi #1 (25 creations, 23 under pressure) — scored ~0 by xT because he never touched the ball.</span></li>
+    <li><strong>One object, five shadows</strong> — xT/OBSO/SOG/EPV/C-OBSO are five photographs of the same statue; collapse one axis and you recover each. <span class="ytmeta"><b>Visual:</b> a rotating 3D value surface; each prior metric flickers in as the flat shadow of one collapsed axis · <b>Star:</b> the xT-lift jump 0.616 → 0.714 is literally the off-ball space xT was blind to.</span></li>
+    <li><strong>The run that only counts when you're getting kicked</strong> — pressure-gated space is a rarer skill than space in acres of time, and it wins knockout games. <span class="ytmeta"><b>Visual:</b> interactive scrubber with a pressure dial (N→P→A→L) deflating each team's danger surface · <b>Star:</b> Messi #1 in actions-under-pressure (472) and pressured space-creations (23).</span></li>
+    <li><strong>The most ignored man in Qatar</strong> — a goal-probability price on passes that were never played. <span class="ytmeta"><b>Visual:</b> dual "Closed Eye / Ignored Creator" leaderboard, rows expand to a ghost-ball clip with live ΔP(score) · <b>Star:</b> En-Nesyri overlooked 8×; Argentina 32× (tournament-most).</span></li>
+    <li><strong>The half-turn that bent the third star into existence</strong> — the orientation EPV named as its gap, graded on 83% of passes. <span class="ytmeta"><b>Visual:</b> broken-line overlay + a receiver-orientation arrow flipping to GOAL at the touch · <b>Star:</b> Di María, 6+ turned-under-line receptions in the final.</span></li>
+    <li><strong>Whose legs? Replacing the average player</strong> — subtract a ghost to isolate skill above replacement (the "Messi effect"). <span class="ytmeta"><b>Visual:</b> a translucent average-player ghost vs the real star pulling into space it never reaches, gap shaded as SAR · <b>Star:</b> line-break top 7 is all CBs/#6s (Stones 37…) — Messi (33) the lone forward.</span></li>
+    <li><strong>Does the defense agree it lost?</strong> — pair attacker-side space taken with CHASE's space conceded; a decoy in a dead zone scores zero. <span class="ytmeta"><b>Visual:</b> the defensive convex hull collapsing, shaded by ΔP(concede) · <b>Star:</b> Croatia (232) &amp; Argentina (212) led line breaks — opponents' hulls deform most.</span></li>
+    <li><strong>Proof it's real: from space to a goal you can count</strong> — the framework grounds out in a number you can verify against goals, then points at 2026. <span class="ytmeta"><b>Visual:</b> scatter of model value vs StatsBomb xG hugging the diagonal at ρ = 0.885, 2026 nations sliding on as a teaser · <b>Star:</b> the final — ARG 2.76–2.27 xG, 46–16 line breaks: the space story and the outcome story are the same story.</span></li>
+  </ol>
+
+  <div class="callout">
+    <p><strong>Status &amp; open risks (honest).</strong> Distinguish what's <em>computed</em> (xT-lift 0.714, next-receiver 0.70, team-tournament xG ρ 0.885, line-break &amp; createsSpace leaderboards) from what's <em>proposed</em> (SAR, P-OBSO, CoCE, SMS, TURN — designed and feasibility-checked, not yet built end-to-end). Load-bearing caveats: <strong>(1)</strong> broadcast-tracking occlusion (~46% of off-ball positions imputed) degrades the continuous surfaces exactly where space is created — event-snapshot layers (line breaks, TURN counts) are robust, tracking-valued layers are not; <strong>(2)</strong> identity is unsolved — one tournament is too little to learn player-specific movement, so SAR under-credits stars whose <em>average</em> is elite; <strong>(3)</strong> <code>createsSpace</code> is attributed to the on-ball actor, so it's a team/possession-level co-check for receiver metrics, not a per-mover label; <strong>(4)</strong> movement/position grades are deduction-only ("least-bad", not "best"); <strong>(5)</strong> geometric line breaks overlap PFF's tactical-line tag only ~30% — present as "progression by corridor," not "beating a defensive line"; <strong>(6)</strong> 2026 transfer assumes stable styles and tracking pipeline.</p>
   </div>
 
   <h2 id="arc">5 · Suggested content arc ("Space: Soccer's Dark Matter")</h2>
