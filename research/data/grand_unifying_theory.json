@@ -1,0 +1,776 @@
+{
+  "nodes": [
+    {
+      "id": "xt",
+      "name": "Expected Threat (xT)",
+      "family": "Event-only value",
+      "measures": "The probability that a possession ends in a goal given the ball's current location, expressed as a per-cell scalar on a 12x8 pitch grid. xT (Singh 2019) is learned by iterating move/shoot probabilities through a Markov chain over event data; a ball move's value is the xT of the destination cell minus the xT of the origin cell, peaking just outside the six-yard box in the central channel (~0.30) and decaying toward one's own goal. It credits successful on-ball progression (passes and carries) by how much it advances the ball into more dangerous territory.",
+      "assumption": "Threat is a fixed, deterministic function of ball location alone: every possession from a given cell has the same goal probability regardless of who is on the pitch, where the other 21 players stand, defensive pressure, or player velocity. The Markov chain also assumes value accrues only on the ball, and only on the action that is actually executed and completed successfully.",
+      "limitation": "It ignores off-ball effects entirely and credits only successful on-ball moves. A run that drags a defender open, an unmade pass to a better-positioned teammate, or any movement away from the ball is invisible to xT because it touches no grid transition. This is fatal for a \"space\" narrative: the very off-ball movement we want to quantify is precisely the signal xT discards. (It also has no notion of defenders, pressure, or how the value was created.)",
+      "data_required": "Event-stream data only: a sequence of on-ball actions (passes, carries, shots) with start/end pitch coordinates and outcomes. No tracking, no defender positions, no velocities. The 12x8 transition/shot matrices are estimated once from a large event corpus (e.g. a season of Opta data) and then applied as a static lookup grid; the canonical Singh v1 grid can be used off-the-shelf with zero per-match fitting.",
+      "edges": [
+        {
+          "fixes": "Pitch control + OBSO (Spearman 2017/18)",
+          "how": "OBSO replaces xT's single ball-location lookup with a pitch-wide integral of Transition x Control(PPCF) x Score, valuing the off-ball positions xT cannot see by asking which teammates could actually receive and score, not just where the ball currently is."
+        },
+        {
+          "fixes": "Space Generation Gain (Fernandez & Bornn 2018)",
+          "how": "SOG/SGG values continuous off-ball space a player creates or occupies on a single frame, directly supplying the off-ball axis xT lacks (e.g. quantifying that 66.7% of Messi's space gain is passive walking that xT would score as zero)."
+        },
+        {
+          "fixes": "PFF createsSpace + betterOptionPlayerId human labels",
+          "how": "createsSpace (1,422 tags) marks off-ball space-creation moments and betterOptionPlayerId (518 tags) marks an ignored open man on an unmade pass, both of which produce zero xT, so they expose and repair exactly the off-ball and unexecuted-action blind spots in xT's successful-move-only credit."
+        }
+      ],
+      "validated_by": "PFF createsSpace tags (1,422 expert-graded off-ball space-creation moments) are the ground-truth test: a metric that fixes xT should light up on these frames where xT itself is flat/zero. Our own xT-regression head operationalizes this — adding tracking-based off-ball lift over the static lookup raises validation Spearman from 0.616 (xT-lookup baseline) to 0.714 (lift +0.098) on 64,993 held-out PFF frames (output/training_metrics_xt.json), and on the shot/goal target the lookup is worse than chance (xt_auc_shot 0.473, xt_auc_goal 0.423 in output/baseline_xt_comparison.json) — concrete empirical evidence that ball-location-only xT misses real threat and that off-ball/tracking signal recovers it. The canonical grid and Markov framing this node describes are implemented verbatim at src/wc2026_tracking_transformer/baselines/xt.py."
+    },
+    {
+      "id": "obso",
+      "name": "Pitch Control plus OBSO (Spearman)",
+      "family": "Pitch control / space",
+      "measures": "Off-Ball Scoring Opportunity: the probability that a given location/teammate yields a goal if the ball goes there, computed as a sum over the pitch of Transition (likelihood the ball reaches each cell) times Control (Probabilistic Pitch Control Field, PPCF, the share of the pitch a team would win control of from a physics-based time-to-arrive model) times Score (probability of scoring from that cell). It turns one tracking snapshot per on-ball event into a continuous map of where off-ball scoring value lives, attributing it to the teammate who controls each region.",
+      "assumption": "That off-ball scoring value factorizes cleanly into three independent, multiplicable surfaces (Transition x Control x Score) evaluated on a single frame; that pitch control is governed by physics-based time-to-arrive (player position + velocity + a max-speed/reaction kinematic model), so whoever can get to a location first effectively controls it; and that a distance-to-goal Score model with a hand-tuned scaling constant adequately captures finishing probability.",
+      "limitation": "Author-named: the Score model is distance-only with a fudge factor (no shot angle, no defender pressure on the shot, no body orientation); the Transition model has no toward-goal preference (it spreads ball-arrival probability symmetrically rather than favoring progressive/penetrative passes); and the framework IGNORES defensive pressure on the carrier and the carrier's own speed, so a player under heavy pressure and a player in acres of time produce identical OBSO surfaces. It is also single-frame (no run dynamics) and offers no ground truth for whether the highlighted off-ball value reflects genuine skill.",
+      "data_required": "One tracking snapshot per on-ball event (all 22 player positions plus velocities and ball location) to build PPCF; a Transition/pass-likelihood model; and a Score/finishing model. We have this from PFF broadcast tracking (30Hz, all 64 matches), but with the caveat that about 46% of off-camera positions are imputed, which directly degrades the time-to-arrive control surface for off-ball players who are most likely to be off-camera; StatsBomb real xG and the PFF human labels are needed only to repair/validate, not to compute, the base metric.",
+      "edges": [
+        {
+          "fixes": "C-OBSO ghosting (Teranishi)",
+          "how": "Teranishi's multi-defender, goal-angle Score model directly replaces Spearman's distance-only-plus-fudge-factor Score term and adds the angular finishing dependence OBSO omits."
+        },
+        {
+          "fixes": "PFF human label: pressureType (N/P/A/L)",
+          "how": "Multiplying or gating OBSO by the PFF-graded carrier pressure level supplies exactly the defensive-pressure-on-the-carrier signal Spearman flagged as ignored, discounting OBSO generated when the passer is actually under aggressive pressure."
+        },
+        {
+          "fixes": "Our tracking transformer xT-regression / motion-forecast heads",
+          "how": "The transformer's learned off-ball xT-lift and 2s motion forecast inject a toward-goal, dynamics-aware preference into the otherwise symmetric single-frame Transition term, so penetrative runs and carrier speed shape ball-arrival probability instead of being averaged out."
+        }
+      ],
+      "validated_by": "The PFF createsSpace label (1,422 expert-tagged space-creation moments) is the natural ground truth: frames at or just before a createsSpace tag should show a measurable OBSO spike at the tagged player's location, and OBSO peaks with no nearby createsSpace tag are candidate false positives. Concretely groundable against the empirical finding that Messi is the number 1 space creator (25, 23 under pressure) and tournament-leading 6.03 xG, so a credible OBSO must rank his off-ball/recipient value highly precisely on those pressured frames where Spearman's pressure-blind version would otherwise miss the difficulty; StatsBomb real xG also calibrates the Score term against actual finishing."
+    },
+    {
+      "id": "fb",
+      "name": "Pitch Control plus SOG/SGG (Fernandez and Bornn)",
+      "family": "Pitch control / space",
+      "measures": "Off-ball SPACE itself, as a continuous quantity, independent of the ball. Builds a continuous pitch-control surface by summing each player's bivariate-normal influence function, then derives Space Occupation Gain (SOG, space a player wins for himself by repositioning) and Space Generation Gain (SGG, space a player opens for teammates). Decomposes whether space is created actively (by moving) or passively (by opponents/teammates moving around a stationary player) — e.g. it quantified that 66.7% of Messi's space gain came while walking/passive.",
+      "assumption": "Player influence is a bivariate-normal kernel whose location, orientation and spread are a fixed parametric function of position and velocity; control of any pitch location is the (softmax-like) normalization of summed team influences. The parametric kernel is hand-specified, runs on a SINGLE frame, and is identical for every player (one average influence model), so \"space\" is a purely geometric construct read off positions and speeds with no learning and no link to outcomes.",
+      "limitation": "No ground truth: \"space\" is defined by the model's own geometry and was validated only by two analysts watching video, so there is no external signal confirming the surface tracks space a human or a coach would recognize. Compounding this, the influence kernel is a fixed single-frame average-player parametric form — it cannot learn how a specific player (e.g. Messi) actually moves, and SOG/SGG measure geometric area won without ever connecting that area to whether it produced a threatening receiving option or a shot.",
+      "data_required": "One tracking snapshot (positions plus velocities for all 22 players) per frame/event; no event labels and no training are required for the parametric surface. To compute SOG/SGG longitudinally it needs continuous frame-to-frame tracking (here PFF FC 30Hz broadcast tracking, with the standing caveat that ~46% of off-camera positions are imputed, degrading off-ball space estimates exactly where space creation happens).",
+      "edges": [
+        {
+          "fixes": "no ground truth — the space surface is validated only by expert video",
+          "how": "PFF createsSpace (1,422 expert-tagged space-creation moments) supplies the human ground-truth labels the model lacks: check whether frames/players the analysts flagged as creating space are precisely those with high SOG/SGG, grounding the geometric surface in human judgment."
+        },
+        {
+          "fixes": "no ground truth + space-not-linked-to-outcome — SOG/SGG measure geometric area, never threat",
+          "how": "Multiplying the space-occupation surface by StatsBomb REAL xG (the 'space-to-shot' bridge) turns abstract area-won into space that demonstrably produced shot quality, validating the surface against real outcomes instead of video review."
+        },
+        {
+          "fixes": "fixed single-frame average-player kernel that cannot learn a specific player's movement",
+          "how": "Martens/Dick/Brefeld (2021) replaces the hand-specified bivariate-normal with per-player LEARNED movement models, recovering the Messi-effect the average influence kernel erases; its SG_rec already correlates with xG at r=0.66, evidencing the upgrade pays off."
+        }
+      ],
+      "validated_by": "PFF createsSpace is the direct validator: with 1,422 expert-tagged space-creation moments paired with tracking (a pairing no one else has), one can test whether the players/frames analysts judged to create space coincide with high SOG/SGG, replacing two-analysts-watching-video with a 64-match human-labelled benchmark. The Messi empirical finding is the concrete anchor — he is the tournament's number 1 space creator (25 tagged creations, 23 under pressure) AND the player Fernandez-Bornn measured at 66.7% passive space gain, so his profile lets us check that the metric's active/passive split agrees with where humans actually tagged his space creation. betterOptionPlayerId (518 open-man-ignored tags) offers a secondary check that high-SGG teammates are the ones who got open but were missed."
+    },
+    {
+      "id": "epv",
+      "name": "EPV (Fernandez/Bornn/Cervone)",
+      "family": "Possession value",
+      "measures": "A continuous possession-value surface EPV in [-1,1] decomposed into pass/carry/shot components, yielding an off-ball expected-value contribution for all 10 teammates at every pass and every ~1s of carry — i.e., what each player's positioning is worth to the team's scoring/conceding balance regardless of whether they touch the ball.",
+      "assumption": "That a single AVERAGE-player model governs every player's value: each teammate's reception probability, passing/carrying success and shot value are predicted from position/velocity alone, assuming any player in that spot would convert the opportunity identically — and that on-ball trajectory and intent are fully captured without body orientation.",
+      "limitation": "Author-named: (1) the AVERAGE-player model erases the \"Messi effect\" — it cannot credit an elite player for the disproportionate value he extracts from the same coordinates, so it under-values stars and over-values their replacements; (2) NO body orientation (the Rakitic example) — a player facing his own goal and a player on the half-turn to play forward get the same value despite radically different real options.",
+      "data_required": "Full tracking plus events (originally 633 EPL matches @ 10Hz to train the component models); plenty for the parametric surfaces but data-hungry to learn per-player effects. Our substrate: PFF 30Hz broadcast tracking (44/64 matches cached, ~46% off-camera imputed) + event data + player IDs — enough to compute surfaces but a single 64-match tournament is thin for learning player-specific value.",
+      "edges": [
+        {
+          "fixes": "Average-player gap (the Messi effect)",
+          "how": "Add player-identity embeddings to the tracking transformer's value heads and measure how far the off-ball value surface shifts when a 'generic forward' token becomes Messi/Mbappe, replacing EPV's one-size-fits-all reception/conversion model with player-conditioned value."
+        },
+        {
+          "fixes": "Average-player gap (per-player movement, not just conversion)",
+          "how": "Martens individualized movement models rebuild the pitch-control/reception-probability term per player, so the value surface reflects that a specific player actually reaches and occupies that space rather than an average mover (SG_rec correlating with xG at r=0.66 shows the per-player term carries real value signal)."
+        },
+        {
+          "fixes": "No body orientation (the Rakitic example)",
+          "how": "PFF bodyMovementType (toward-goal / away / lateral / stationary) supplies the missing orientation channel on tagged events, letting the off-ball value surface up-weight a teammate receiving on the half-turn to play forward over one facing his own goal."
+        }
+      ],
+      "validated_by": "EPV's own (untested, KDE-only) claim that forwards generate as much or more off-ball value than midfielders despite lower reception probability is directly checkable against PFF createsSpace (Messi is the #1 space creator at 25 and the only forward in the line-break top 7, contrasting with the CB/No.6 line-break leaders Stones/Modric/Rodri); and the per-teammate off-ball value surface can be validated against betterOptionPlayerId (518 tags of an open man who was ignored) — the high-EPV off-ball teammate should coincide with the human-graded \"better option,\" grounding the surface in expert judgment rather than EPV's original two-analyst video review."
+    },
+    {
+      "id": "martens",
+      "name": "Space Generation / individualized movement (Martens)",
+      "family": "Pitch control / space",
+      "measures": "Rebuilds the pitch-control surface from per-player LEARNED movement models (each player's empirical acceleration/turning/top-speed distribution replaces a single generic motion kernel), then decomposes the space a player's run creates into SG_rec (space gained for himself as a potential receiver) and SG_pas (space he opens for teammates). It is the first space metric to ask \"whose run, with whose legs\" and to split self-serving movement from selfless, teammate-serving movement; SG_rec correlates with xG at r=0.66.",
+      "assumption": "That a player's reachable area can be estimated from his OWN historical motion statistics rather than a league-average kinematic model, and that this individualization is stable enough within a season to be predictive; also inherits pitch-control's assumptions (player influence as a function of position/velocity, control = team difference of reachability) and assumes enough repeated observations of each player to fit his personal movement model.",
+      "limitation": "Calibrated on only 54 Bundesliga matches from a SINGLE club's season, so the per-player movement models are fit on tens-to-low-hundreds of observations per player and have never been tested at tournament scale or across leagues/playing styles; like every pitch-control descendant it has NO ground truth for \"space\" (the xG correlation is the only external check, and SG_pas — the teammate-serving half — is never directly validated at all); the individualized motion fit also needs many clean frames per player, which broadcast tracking with ~46% off-camera imputed positions degrades.",
+      "data_required": "Full continuous tracking (positions + velocities for all 22 players) PLUS enough repeated, identity-resolved observations of each individual player to fit a personal movement model; player IDs throughout; and ideally a value signal (xG) to anchor SG_rec. In our setting: PFF 30Hz broadcast tracking across all 64 WC22 matches with player IDs, conditioned on the visibility/confidence flags.",
+      "edges": [
+        {
+          "fixes": "Our tracking transformer (motion-forecast + player-identity embeddings)",
+          "how": "The transformer's per-player 2s motion-forecast head IS a learned individualized movement model trained across all 64 matches at once, so it replaces Martens' tens-of-observations-per-player Bundesliga fit with a tournament-scale, identity-conditioned ghost — directly attacking the single-club small-sample limitation."
+        },
+        {
+          "fixes": "PFF human labels (createsSpace + betterOptionPlayerId + movementGrade)",
+          "how": "createsSpace gives the off-ball ground truth Martens lacks (validate SG_rec/SG_pas as precision/recall against expert space-creation tags instead of only r=0.66 vs xG), and betterOptionPlayerId specifically validates the never-checked SG_pas half by flagging teammates who got open but were ignored."
+        },
+        {
+          "fixes": "StatsBomb real xG",
+          "how": "Replaces the club-season xG proxy with independent, true-shot-quality xG on all 64 matches, letting the SG_rec--xG r=0.66 relationship be re-estimated at tournament scale and across many teams' styles rather than one Bundesliga club's."
+        }
+      ],
+      "validated_by": "PFF createsSpace (1,422 expert-tagged space-creation moments) is the natural ground truth: test whether high-SG_rec frames recover the on-ball actor's tags and high-SG_pas frames recover space opened for teammates, then cross-check SG_pas against the 518 betterOptionPlayerId \"open man ignored\" tags. As a concrete anchor, the empirical findings predict Messi (the No.1 space creator, 25 tags, tournament-leading 6.03 xG) should top SG_rec, and his SG_pas should surface the teammates he frees — replicating Martens' SG_rec--xG link at World Cup scale where the original n=54 club-season sample could not."
+    },
+    {
+      "id": "c-obso-ghosting",
+      "name": "C-OBSO (Counterfactual Off-Ball Scoring Opportunity) via GVRNN ghosting",
+      "family": "Possession value",
+      "measures": "The credit an off-ball player deserves for a scoring opportunity, computed as that player's actual OBSO minus the OBSO of a GVRNN-predicted \"reference\" (ghost) trajectory for the same player in the same game state; i.e., value ABOVE a counterfactual baseline of what a typical player would have done. Uses an improved OBSO score model that adds goal-angle and multi-defender terms on top of Spearman's pitch-control x transition x score decomposition.",
+      "assumption": "That a GVRNN trained on tracking data produces a faithful \"average/expected\" reference trajectory, so the difference between actual and ghost movement isolates an individual's off-ball decision quality; and that the OBSO surface (pitch control x transition x goal-angle score) correctly prices the scoring value of each pitch location at each frame.",
+      "limitation": "No ground truth for what makes a movement good or for whether the GVRNN ghost is the \"right\" counterfactual — it was validated only indirectly (salary correlation rho=0.45). The ghost model was trained on a single club season and only 3 players were predicted, so it neither scales to tournament breadth nor escapes an average-player baseline that washes out elite/idiosyncratic movers. It also inherits OBSO's frame-snapshot and orientation-blind pricing.",
+      "data_required": "Full continuous tracking of all 22 players (positions + velocities) for every off-ball frame, the ball state, a goal location for the angle term, a trained GVRNN trajectory-prediction model (the ghost), and an OBSO pricing surface (pitch-control field + transition + goal-angle/multi-defender score). Optional salary/wage data for the indirect validation used in the original paper.",
+      "edges": [
+        {
+          "fixes": "No ground truth for whether the ghost-relative movement was actually good",
+          "how": "PFF createsSpace tags (1,422 expert-labeled space-creation moments) give a frame-level positive label to test whether high actual-minus-ghost C-OBSO coincides with moments human analysts independently flagged as space creation, supplying the external ground truth Teranishi lacked."
+        },
+        {
+          "fixes": "Average-player GVRNN ghost washes out elite/idiosyncratic movers (the Messi-effect gap) and was built on only 3 players",
+          "how": "Our tracking transformer's motion-forecast head is itself an average-player 2s-displacement ghost trained across all 64 matches and every player, so it can serve as a tournament-scale, all-player drop-in replacement for the single-season GVRNN, with the counterfactual whiteboard head recomputing delta P(score) the same way C-OBSO differences OBSO."
+        },
+        {
+          "fixes": "OBSO score model ignores defensive pressure on the off-ball runner and prices locations with a snapshot",
+          "how": "PFF pressureType (N/P/A/L on ~62% of events) lets the score/transition surface be conditioned on whether the off-ball player is creating value while pressured, restoring the defensive-pressure axis that base OBSO drops and that even Teranishi's multi-defender term only partially captures."
+        }
+      ],
+      "validated_by": "PFF createsSpace (1,422 expert-tagged space-creation moments) is the direct frame-level validator: a sound C-OBSO should spike at or just before createsSpace tags. Concretely, Messi — the tournament's #1 space creator (25 tags, 23 under pressure) and #1 in actions-under-pressure (472) — should rank near the top in mean off-ball C-OBSO, mirroring how the original paper's rho=0.45 salary correlation singled out players whom OBSO and raw goals missed; betterOptionPlayerId (518 open-man tags) offers a complementary negative-space check that the ghost correctly prices the open teammate's location."
+    },
+    {
+      "id": "chase_gravity",
+      "name": "CHASE / gravity (convex-hull defensive deformation)",
+      "family": "Defensive geometry",
+      "measures": "An off-ball attacker's gravitational pull on the DEFENSE: how much that attacker deforms the defensive shape (e.g. shrinks/displaces the defenders' convex hull, drags markers out of position) as a geometric REACTION, independent of whether the attacker ever touches the ball. It indexes the defense-side axis of space — the area/structure conceded — complementary to attacker-side value surfaces (OBSO/SOG/EPV/C-OBSO) that measure the space an attacker occupies or generates.",
+      "assumption": "That defensive shape deformation is a faithful, sign-correct proxy for danger: that a collapsing/displaced convex hull (or defenders pulled toward an attacker) reflects a meaningful loss of defensive control. Inherits the basketball-gravity premise that drawing defenders is intrinsically valuable, and assumes the hull/displacement geometry transfers from the NFL spatial regime to soccer's larger pitch, lower density, and offside-shaped structure.",
+      "limitation": "It measures geometric REACTION, not VALUE or intent: the convex hull can deform with zero change in goal probability (defenders collapsing toward a decoy in a low-danger zone), and it is blind to WHY the defense moved (legitimate ball-side shift vs. being genuinely beaten), to the toward-goal direction of the conceded space, and to whether the freed space is ever exploitable by a teammate. As an NFL import it has no validated soccer ground truth, and on broadcast tracking the ~46% imputed off-camera positions corrupt the very defender coordinates the hull is built from.",
+      "data_required": "Full tracking of all defenders' positions per frame (to compute the convex hull / per-defender displacement) plus the attacker's position; ideally velocity for displacement-rate. Requires synchronized 10-defender tracking on-ball-independent frames — directly exposed to the broadcast-tracking off-camera imputation caveat (~7m error, ~46% of positions imputed).",
+      "edges": [
+        {
+          "fixes": "Converts geometric reaction into actual conceded VALUE: weighting each unit of hull deformation by the defending team's change in P(concede) tells you whether the defenders the attacker dragged out were actually guarding a dangerous zone, killing the decoy-in-a-dead-area false positive.",
+          "how": "Pair CHASE hull-deformation with the transformer's calibrated P(concede) head"
+        },
+        {
+          "fixes": "Supplies the missing ground truth and intent: PFF's createsSpace (1,422 expert tags) marks the moments a human judged an off-ball movement actually created space, so you can test whether large hull deformation coincides with expert-tagged space creation rather than incidental defensive drift.",
+          "how": "Validate/anchor CHASE against PFF createsSpace and positionGrade defensive-error labels"
+        },
+        {
+          "fixes": "Adds the directional/value frame CHASE lacks by pairing the defense-side reaction with the attacker-side surface: C-OBSO's goal-angle + multi-defender score model says whether the deformation opened toward goal, and its ghost reference distinguishes a defender's expected shift from genuinely being beaten.",
+          "how": "Couple CHASE with C-OBSO (Teranishi 2022) / EPV off-ball value surfaces"
+        }
+      ],
+      "validated_by": "PFF positionGrade (1,300 tags, ~99% negative deductions) is the natural defensive ground truth: a high-CHASE attacker should systematically co-occur with negative positionGrade deductions on the defenders whose displacement built the deformation (the defender graded out of position is the one the attacker's gravity pulled). Cross-checking with createsSpace (1,422 tags, e.g. Messi's 25 space-creations, 23 under pressure) tests whether the geometric pull aligns with expert-judged space creation — and whether teams that led space-creation/line-breaks (Croatia, Argentina) also produce the largest opponent hull deformations."
+    },
+    {
+      "id": "line_breaks",
+      "name": "Line breaks (3+ opponents bypassed)",
+      "family": "Defensive geometry",
+      "measures": "Counts completed open-play forward passes that bypass >=3 opponents lying inside the pass corridor (|dy - interpolated pass-line y| <= 6 m, with px < dx < rx) at the single event snapshot of the pass, attributed to the passer. It is a progression/penetration metric: how often a player plays the ball goalward through a defensive line rather than around it. Tournament leaderboard is dominated by ball-playing CBs and #6s (Stones 37, Modric 36, Rodri 35, Gvardiol 35, Brozovic 34, Maguire 33), with Messi (33) the only forward in the top 7; team-level Croatia (232) and Argentina (212) lead, and the 2022 final split 46-16 in Argentina's favour.",
+      "assumption": "That any >=3 opponents sitting between passer and receiver in the up-pitch (x) direction and within a fixed 6 m straight-line corridor constitute a meaningful \"defensive line\" that has been broken, evaluated frozen at the instant of the pass. It assumes the corridor is straight (ignores pass curvature), that defender position alone (not facing, closing speed, or whether they actually form a tactical line) determines whether they are beaten, and that value belongs entirely to the on-ball passer rather than the off-ball runner who created or attacked the gap.",
+      "limitation": "Purely on-ball and single-snapshot: it credits only the passer of a COMPLETED pass and is blind to the off-ball movement that opened the lane, to incomplete/attempted line breaks, and to the defenders' reaction. The straight-line corridor is a crude geometric proxy that treats any 3 players in the x-band as \"a line\" regardless of whether they are a real defensive unit, and ignores defender orientation and closing speed. It inherits broadcast-tracking occlusion (~37% of positions imputed, the distant off-ball defenders most affected, so corridor membership for the deepest line is noisy) and is therefore inflated for deep-buildup CBs/#6s who routinely thread balls past a high press. It also diverges sharply from PFF's own human line-break tag (only ~30% of geometric LB>=3 passes are PFF-tagged), confirming it measures a different, geometry-only construct than a graded tactical line break.",
+      "data_required": "PFF event snapshots (all 22 player x,y at the pass instant) with passer/receiver IDs, pass outcome (complete), setpiece flag (open play), period, and team-orientation metadata (homeTeamStartLeft / ...ExtraTime) to orient each team to attack +x. No 30Hz tracking is strictly needed for the base metric. Repairs additionally require: continuous 30Hz tracking for off-ball runner trajectories and defender closing speed; the next-receiver / motion-forecast transformer heads for off-ball attribution; and the PFF human-graded labels (linesBrokenType, createsSpace, bodyMovementType, betterOptionPlayerId) for grounding.",
+      "edges": [
+        {
+          "fixes": "On-ball-only attribution (ignores the off-ball runner who opened/attacked the broken line)",
+          "how": "The next-receiver head (P(receive) per teammate) plus PFF createsSpace tags reassign credit to the off-ball player whose run pulled a defender out of the corridor or attacked the gap, splitting the line break between passer and runner."
+        },
+        {
+          "fixes": "Frozen single-snapshot geometry that ignores defender facing and closing speed",
+          "how": "The motion-forecast head (2s displacement ghost) and 30Hz tracking let you check whether bypassed defenders were actually recovering toward the corridor, downgrading 'line breaks' past defenders who would have intercepted and upgrading genuine through-the-line balls."
+        },
+        {
+          "fixes": "Counts the geometric event but not whether breaking the line created danger",
+          "how": "C-OBSO / OBSO (Spearman; Teranishi) weight each bypassed-line pass by the goal-probability surface gained at the reception point, distinguishing a sideways CB ball past 3 retreating midfielders from a true penetrating pass into a high-value zone."
+        }
+      ],
+      "validated_by": "PFF's own human-graded linesBrokenType tag (D/M/A/AM) per pass is the direct ground-truth cross-check: it labels which named tactical line (defensive/midfield/attacking) a human analyst judged broken. The documented overlap is the validation signal itself (~30% of our geometric LB>=3 passes are PFF-tagged; ~21% of PFF-tagged passes reach LB>=3), quantifying how far the geometry-only proxy diverges from expert judgement and bounding which threshold/corridor settings best recover the human label. Empirically, the metric is also grounded by the final-match split (46-16 Argentina, mirroring the 2.76-2.27 xG edge) and by Messi being the only forward in the line-break top 7 alongside ball-playing CBs/#6s, matching expectation for a progression metric."
+    },
+    {
+      "id": "pfflabels",
+      "name": "PFF human labels (createsSpace / betterOption / grades / pressure / orientation)",
+      "family": "Data substrate",
+      "measures": "Expert-tagged ground-truth-by-proxy for off-ball space across all 64 WC22 matches, paired with 30Hz tracking: createsSpace (1,422 space-creating actions), betterOptionPlayerId (518 open-man-ignored tags), movementGrade (368) + positionGrade (1,300) off-ball run/positioning grades, pressureType N/P/A/L on ~62% of events, and a sparse bodyMovementType orientation signal. This is the field's only quantitative substitute for the missing ground truth of space.",
+      "assumption": "That trained PFF analysts watching broadcast video reliably and consistently identify the space-relevant moments — and that those discrete tags faithfully proxy the continuous, unobservable construct \"space.\" Crucially it assumes createsSpace can be read as a space label even though it is an attribute of the ON-BALL action (the pass/cross/shot that played the ball into space), attributed to the actor — NOT a dedicated off-ball tag (the intended csPlayerId is populated on only 2 of 1,422 events).",
+      "limitation": "Labels are sparse, discrete, and selection-biased — only ~27 createsSpace/match, logged on analyst-chosen high-leverage, on-camera moments (with ~46% of off-ball positions occluded/imputed), so they validate but cannot TRAIN a continuous metric. createsSpace credits the ball-player, not the mover who actually generated the space; movementGrade (~71% negative) and positionGrade (~99% negative) are deduction-only scales where \"best\" means \"least-bad,\" so they cannot directly rank positive space creation; bodyMovementType orientation is too sparse to use broadly. There is no per-frame, pitch-wide space surface here at all.",
+      "data_required": "PFF FC WC2022 event data (all 64 matches, ~144,541 events; human-graded possessionEvents + grades fields) joined to PFF 30Hz broadcast tracking via the Rosters playerId mapping; created with the actor-priority resolver in research/scripts/eda_space_leaderboards.py.",
+      "edges": [
+        {
+          "fixes": "Pitch Control plus SOG/SGG (Fernandez and Bornn)",
+          "how": "Their continuous single-frame space-occupation/generation surface supplies the per-frame, pitch-wide space measure the discrete labels lack, while the labels in turn give that surface the expert ground truth it never had (closing the no-ground-truth loop)."
+        },
+        {
+          "fixes": "Our tracking transformer motion-forecast (ghosting) and next-receiver heads",
+          "how": "The average-player ghost identifies WHO actually moved to create the space and the next-receiver head finds who got open continuously, repairing createsSpace's blind spot that it credits the ball-player not the off-ball mover and densifying the sparse betterOption tags into a continuous P(receive) signal."
+        },
+        {
+          "fixes": "Off-ball xT-lift over the static lookup (transformer)",
+          "how": "Its continuous, signed per-player value turns the deduction-only movementGrade/positionGrade into a rankable positive-and-negative scale, so 'least-bad' grades can be calibrated against a metric that credits good movement, not only penalizes bad."
+        }
+      ],
+      "validated_by": "Self-validating as the substrate, but its internal consistency is grounded by StatsBomb real xG and the empirical findings: the createsSpace leaderboard recovers known-elite movers (Messi No.1 with 25, 23 of them under pressure; Lozano 5.7/match) and team totals (Croatia and Argentina lead both space-creation and line breaks), and createsSpace-under-pressure aligns with pressureType, giving cross-field internal coherence that a noisy or arbitrary labeling would not produce."
+    },
+    {
+      "id": "our-transformer-heads",
+      "name": "Tracking transformer heads (ghosting forecast, next-receiver, P(score), xT-lift, counterfactual, attention)",
+      "family": "Our models",
+      "measures": "A permutation-equivariant transformer over a 23-token frame (22 players + ball, 7 features each: x, y, vx, vy, is_attacking_side, is_goalkeeper, has_possession) emits six off-ball quantities for every teammate, all ball-independent and computed every frame across 44 WC22 matches: (1) calibrated P(score)/P(concede) within the next 10s; (2) off-ball xT-LIFT — the model's predicted max-xT-in-next-K-seconds minus the static 12x8 xT lookup (val Spearman 0.71 vs 0.62 for the lookup, +0.10 lift); (3) next-receiver P(receive) per teammate (val top-1 0.70, top-3 0.95, vs 0.44 nearest-player baseline) — who gets open; (4) a 2s motion-forecast that is a built-in average-player GHOST; (5) whiteboard counterfactuals (perturb a player's position, recompute delta-P(score)); (6) ball-independent player-pair attention (the AW-JOI chemistry substrate). The ghost-vs-actual movement gap valued through delta-P or delta-pitch-control is the headline 'movement skill above expectation' (Space Above Replacement), a transformer-native answer to the C-OBSO ghosting idea but at tournament scale.",
+      "assumption": "That an AVERAGE-player, IDENTITY-BLIND model trained on a single 44-match tournament generalizes: the 7-feature token carries no player embedding, so the forecast ghost and the value heads model a generic player at a position, and the 2s ghost assumes average-player movement is the right counterfactual baseline. Also assumes the input frame is trustworthy (broadcast tracking with ~46% off-camera positions imputed at ~7m error) and that body orientation, absent from the feature set, is not needed to value position.",
+      "limitation": "Three coupled gaps, each inherited from the literature it descends from. (1) AVERAGE-PLAYER / no identity — the same 'Messi-effect' gap the EPV authors named: the ghost forecast and value surfaces are for a generic player, so 'movement above an average ghost' systematically under-credits stars whose average IS elite, and a single tournament (44 matches) is far too little to learn player-specific movement (the exact scale wall Martens et al. hit at 54 one-season matches). (2) NO BODY ORIENTATION as a feature (only x, y, vx, vy) — EPV's other named gap, so the model cannot tell a receiver facing goal from one facing his own keeper. (3) NO GROUND TRUTH for the space/xT-lift/ghost-gap surfaces it emits — the field-wide problem; the heads are internally validated (calibration, top-k, AUC) but their off-ball SPACE claims are unvalidated, and the underlying frames are ~46% imputed off-camera, so fine-grained 'getting open' off-camera is unreliable.",
+      "data_required": "23-token frames at ~5Hz with per-token (x_norm, y_norm, vx, vy, is_attacking_side, is_goalkeeper, has_possession); goal timestamps for forward-looking P(score)/P(concede) labels (10s lookahead); a static xT lookup grid as the lift baseline; a held-out match split for post-hoc Beta calibration (8 val matches / ~139k frames here). To repair limitations it additionally needs: player-identity labels for identity embeddings, PFF bodyMovementType/bodyType for orientation, and PFF human space labels for external validation.",
+      "edges": [
+        {
+          "fixes": "average-player / no-identity gap (the ghost and value heads can't capture the Messi-effect)",
+          "how": "C-OBSO (Teranishi 2022) supplies the validated actual-minus-ghost reference-trajectory template our motion-forecast head reimplements, AND its salary correlation (rho=0.45 where OBSO/goals fail) is the external check that a ghost-gap metric tracks player quality our identity-blind model otherwise misses."
+        },
+        {
+          "fixes": "average-player gap and the un-validated ghost-gap / space surfaces",
+          "how": "PFF createsSpace (1,422 tags) and movementGrade (368, mostly negative) ground the ghost-gap and xT-lift by precision/recall against expert space-creation and movement labels, converting 'movement above an average ghost' from an internally-defined number into a label-validated one and flagging where the identity-blind ghost mis-scores stars."
+        },
+        {
+          "fixes": "no body orientation as a model feature (the EPV/Rakitic gap)",
+          "how": "PFF bodyMovementType (toward-goal/away/lateral/stationary) and bodyType add the orientation channel the 7-feature token lacks, letting next-receiver and value heads distinguish a player facing goal from one facing away on the labeled event subset."
+        }
+      ],
+      "validated_by": "PFF betterOptionPlayerId (518 open-man-ignored tags) is the most direct validator: the next-receiver head's rising P(receive) trajectory for a teammate should coincide with the moments PFF analysts independently flagged an open man as the better option that was ignored — agreement turns 'who gets open' from a model artifact into a label-grounded skill measure. Reinforcing empirical grounding: the model should rank Messi (No.1 space creator, 25 tags, 23 under pressure; tournament-leading 6.03 xG) and the line-break leaders (Stones 37, Modric 36) highly on off-ball xT-lift / next-receiver despite the identity-blind ghost, and the 2022 final's lopsided line breaks (ARG 46-16 FRA) should surface as an attention/space-control asymmetry."
+    },
+    {
+      "id": "statsbomb_real_xg",
+      "name": "StatsBomb real xG",
+      "family": "Data substrate",
+      "measures": "Per-shot finishing quality: P(goal | shot) from StatsBomb's logistic shot model over location, angle/distance, body part, assist type, shot technique, and a defender/keeper-position proxy, summed to a team's expected-goals-for/against. In this project it is the independent outcome-truth signal (all 64 matches) against which the tracking transformer's accumulated possession value is grounded and the chemistry/space metrics are regressed.",
+      "assumption": "A shot's goal probability is fully captured by features observable at the shot instant, and finishing skill is league-average and unmodeled — so xG is a per-shot post-hoc quantity that, summed, is a noisy but unbiased estimator of \"deserved\" goals. Crucially it assumes the shot is the unit of analysis: value is only ever recorded the instant a shot occurs.",
+      "limitation": "xG is blind to everything off-ball and pre-shot — it exists only at the moment of a shot, so it cannot see or credit the space-creation, off-ball runs, and build-up that manufacture (or fail to manufacture) the chance, and it ignores threat that never becomes a shot. It is also per-match noisy at tournament scale: with ~10-25 shots/match, the project's Layer-0 grounding found per-team-match rho only 0.33 (out-of-fold 0.27), forcing all grounding/regression up to the team-tournament aggregate (rho 0.88 totals, 0.45 per-match-rate). So xG is the right outcome target but the wrong instrument for attributing the movement narrative.",
+      "data_required": "StatsBomb open-data event feeds for WC22 (competition 43 / season 106), converted to SPADL with a per-shot xG column; the project's build_statsbomb_spadl.py pulls and converts these to research/data/statsbomb/wc_2022_sb.parquet. To aggregate to the grounding unit it also needs match->team mapping, games-played, and (for the beyond-talent regressions) FIFA Overall + caps as talent controls. No tracking is needed for xG itself; the broadcast-tracking 46%-imputation caveat does NOT touch xG (it is event-derived), which is exactly why it is a clean cross-source truth.",
+      "edges": [
+        {
+          "fixes": "Off-ball, pre-shot blindness: xG only fires at the shot, so it cannot value the build-up.",
+          "how": "The tracking transformer's accumulated p_score (Layer-0: peak/sum/integral over possessions) extends a single shot-instant number into a continuous pre-shot possession-value surface that credits the whole build-up while still reconstructing team xG at rho 0.88."
+        },
+        {
+          "fixes": "Off-ball, pre-shot blindness, attacker-side: which player's positioning manufactured the chance.",
+          "how": "OBSO/EPV (Spearman 2017; Fernandez-Bornn-Cervone 2019) project a value surface onto every off-ball teammate per frame, distributing the eventual shot's xG back across the unshot space-occupation that created it."
+        },
+        {
+          "fixes": "No credit for chance creation that never becomes a shot, and no link from the move chain to the resulting xG.",
+          "how": "xT (Singh 2019) values the successful move chain leading into the shooting zone via its grid Markov chain, and the project's non-circular final-third combination-play metric explains team xG-for beyond talent (partial +0.43) — both attributing pre-shot process that xG itself records only at the trigger."
+        }
+      ],
+      "validated_by": "xG is itself the project's grounding truth, and the validation runs both ways. Layer-0 (research/notes/xg_grounding_findings.md): the transformer's accumulated possession value reconstructs StatsBomb team-tournament xG at spearman 0.885 (pearson 0.924), per-match-rate 0.45, while StatsBomb xG tracks actual goals at only 0.82 — so the model is as tight to xG as xG is to goals. Layer-1 (xg_chemistry_layer1_findings.md): defensive-pair chemistry (n_strong_def, from the concede head) predicts StatsBomb xGA beyond FIFA+caps+games+opponent strength (partial -0.38, 90% CI [-0.64,-0.08]) — a genuine cross-source check because the chemistry is tracking-derived and the xGA is StatsBomb-event-derived. PFF human labels (createsSpace, betterOptionPlayerId) are the complementary ground truth for the pre-shot space that xG cannot see."
+    }
+  ],
+  "composites": [
+    {
+      "combo": {
+        "name": "Ghost Delta (gΔ): Movement Skill Above Replacement",
+        "components": [
+          "Motion-forecast head (the built-in 'average-player ghost': per-player normalized 2s displacement prediction, MotionForecastHead in src/.../model/forecasting_head.py)",
+          "future_displacement (src/.../data/future_motion.py): the player's ACTUAL clean-window 2s displacement, the counterfactual the ghost is differenced against",
+          "Parametric pitch control / Space Generation Gain (Fernandez and Bornn single-frame, no-training) OR the transformer's xT-regression off-ball-lift head (output/space_attribution.json) to value each destination cell — run twice: once at the ACTUAL t+2s position, once at the GHOST position; gΔ = valued(actual) - valued(ghost)",
+          "Calibrated P(score) specialist (output/transformer_score_only.ckpt) as an alternate cash-out: ghosted whiteboard counterfactual delta-P(score)",
+          "PFF human labels for validation: movementGrade + movementPlayerId (off-ball-mover-attributed, the clean validator), createsSpace (on-ball-actor-attributed, used at the possession/sequence level), pressureType N/P/A/L (split skilled-under-pressure runs), bodyMovementType (toward-goal/away/lateral filter)",
+          "StatsBomb real xG and PFF visibility/confidence flags (gate every run on >=50% VISIBLE, ESTIMATED~46% caveat)"
+        ],
+        "measures": "gΔ isolates a player's MOVEMENT SKILL ABOVE EXPECTATION: how much MORE valuable space (pitch-control / off-ball xT / delta-P(score)) a player's actual off-ball run buys versus the space an average, ghosted player would have bought from the identical situation. It strips out luck and pre-positioning - the ghost already inherits the player's start point, velocity, and the full 22-player context - so gΔ credits ONLY the decision and execution of the next 2 seconds of movement. Positive gΔ = a run smarter than the average player would make; it explicitly rewards unrewarded, no-pass-arrived runs (decoys, pulling a marker, walking into a pocket) the same way it rewards runs that the ball finds.",
+        "novelty": "Closest prior art is C-OBSO (Teranishi 2022): actual off-ball OBSO minus the OBSO of a GVRNN-predicted REFERENCE trajectory. gΔ differs on three axes the literature leaves open. (1) GROUND TRUTH: every space metric in the canon - SOG/SGG (Fernandez-Bornn), EPV, C-OBSO - is validated only by expert video review ('no ground truth for space'); gΔ is the first ghosting-space metric scored for precision/recall against an INDEPENDENT expert label (movementGrade/movementPlayerId is off-ball-mover-attributed, so it directly grades the runner gΔ scores). (2) SCALE: C-OBSO and Martens-Dick-Brefeld Space Generation are one club season (J1 / 54 Bundesliga matches, 3 players ghosted); gΔ is tournament-scale, all 64 WC22 matches, every player. (3) ARCHITECTURE: the ghost is a single permutation-equivariant transformer forward pass over the live 23-token frame (no per-trajectory RNN rollout), so the average-player baseline is the same backbone that produces the value surface - one model, internally consistent, the newer transformer generation the verified 2017-2022 canon predates.",
+        "feasible": true,
+        "feasibility_note": "Fully feasible with assets in hand - the motion-forecast head (forecasting_head.py), the actual-displacement counterfactual (future_motion.future_displacement), the xT-lift/pitch-control cash-out (space_attribution.json pipeline), and the movementGrade validator all already exist; the one honest caveat is that broadcast tracking has ~46% off-camera ESTIMATED positions, so gΔ must be gated to >=50%-VISIBLE windows and reported as a visibility-conditioned estimate.",
+        "visual_type": "ghosting animation: a single play scrubber showing the player's real run as a solid sprite and the average-player ghost as a translucent overlay diverging from the same start, with a live pitch-control surface recoloring underneath and a gΔ counter ticking up where the real run opens more valuable space than the ghost - then a freeze-frame stamped with the matching PFF movementGrade tag.",
+        "youtube_segment": "\"The Ghost in the Machine: Messi vs his own average\" - we let the transformer ghost Messi 2 seconds into the future and show that his actual walks (66% of his space gain came at under 1.5 m/s) beat the average-player forecast more often than anyone in Qatar, the only number that explains how the tournament's #1 space-creator (25 createsSpace, 23 under pressure) led on 6.03 xG and 33 line breaks while barely running - movement skill above replacement, finally grounded in PFF's own expert grades."
+      },
+      "verdicts": [
+        {
+          "novel": false,
+          "feasible": false,
+          "survives": false,
+          "reason": "gΔ is a transformer-backbone reimplementation of C-OBSO's already-published actual-minus-ghosted-reference off-ball value, and its sole novelty claim (first ghosting-space metric validated against an independent expert label) is empirically dead: PFF movementGrade is only 368 tournament-wide events, ~71% negative / ~26% zero (a sparse off-ball DEDUCTION, not a positive grade for skillful runs), with only 5 players clearing min-sample, so there is no positive class to score precision/recall against — and it specifically fails to grade the unrewarded decoy/pocket runs gΔ is built to reward; the \"all 64 matches, every player\" scale claim is also false against the assets (motion-forecast head and frame cache cover 44 matches, and the named off-ball-xT cash-out output/space_attribution.json is a single match, NED-USA 10502)."
+        },
+        {
+          "novel": true,
+          "feasible": false,
+          "survives": false,
+          "reason": "gΔ is genuinely novel versus C-OBSO (one transformer pass yielding both the ghost and the value surface, tournament-scale, scored against an independent label), but it is not feasible: the motion-forecast head's own validation error (~3.27 m, from norm RMSE 0.076 in training_metrics_relational.json) equals or exceeds the median 2s displacement (~3.4 m, ~48% of windows move less than the error), so for the headline \"Messi walks under 1.5 m/s\" case the ghost noise swamps the measured movement; the validation label is unusable (movementGrade is only 368 events, ~71% negative as a deduction not a reward, with just 5 players clearing min-sample), so a precision/recall claim against it collapses; and future_motion.py has no visibility gate, so the ~46% off-camera-imputed t+2s positions corrupt the actual-vs-ghost difference for exactly the off-ball runs the metric targets (substrate is also 44 tracking-paired matches on disk, not the claimed 64)."
+        }
+      ]
+    },
+    {
+      "combo": {
+        "name": "PRY (Pull-Run Yield): Decoy-Deformation x Lane-Break Credit",
+        "components": [
+          "PFF event snapshots -> line-break geometry (eda_line_breaks.py): the completed forward pass, its receiver, and the EXACT bypassed-defender set + pass corridor (px<dx<rx, |dy - py_interp|<=6m) that defines the exploited lane",
+          "CHASE/gravity translated to soccer (defensive_tracking_metrics.py per-frame block geometry: back-line height, block WIDTH, team length, inter-line gap) measured in a 1-2s window BEFORE the pass, oriented per defending team-period",
+          "Motion-forecast head (forecasting_head.py): the 2s 'average-player ghost' supplies a counterfactual block shape -> deformation = ACTUAL minus GHOST defender reaction, isolating the run's causal pull from generic drift",
+          "Off-ball run attribution: the non-passing teammate whose movement (PFF bodyMovementType toward-goal + tracking displacement) drew the defender(s) bordering the lane that opened",
+          "Whiteboard ΔP(score) counterfactual head: cashes out the opened lane as marginal goal probability for the eventual receiver",
+          "PFF human labels for ground-truth validation: createsSpace (1,422), movementGrade (368), betterOptionPlayerId (518)",
+          "StatsBomb real xG to anchor the downstream value of lanes that became shots"
+        ],
+        "measures": "PRY scores a single causal chain: an off-ball DECOY RUN bends the defensive block (a CHASE-style deformation of line height / block width / inter-line gap, measured as actual-minus-ghost so generic drift is removed) and OPENS a specific lane that a teammate's line-breaking pass then drives through. For each line break it credits (a) the run that pulled the bordering defender(s) out of the corridor and (b) the resulting deformation magnitude, weighted by the ΔP(score) the opened lane delivered to the receiver. Aggregated, PRY is a player's tournament total of goal-weighted lanes their OFF-BALL movement pried open for line-breaking passes they never touched - quantifying the assist-to-the-assist of pure space.",
+        "novelty": "Each ingredient exists alone but the CAUSAL CHAIN is unbuilt. xT/EPV value the on-ball mover or an average off-ball surface; OBSO/C-OBSO value a player's own scoring-opportunity (and C-OBSO uses a ghost, but for the player's OWN OBSO, never to attribute one player's run to ANOTHER's line break). Fernandez-Bornn SGG measures space generated for teammates generically, not tied to a specific exploited lane. CHASE (Lauer 2025, NFL) measures defensive convex-hull deformation but stops at geometry and never links it to the pass that uses the opened space. Line-break counts credit only the passer. PRY is the first metric to (1) define the exploited lane geometrically from the line break, (2) attribute its opening to a NAMED off-ball decoy via ghost-subtracted block deformation, and (3) value it - then validate that attribution against PFF createsSpace/movementGrade, which no CHASE/OBSO/SGG work has ever had.",
+        "feasible": true,
+        "feasibility_note": "Feasible now: line-break corridors come from event snapshots (all 64 matches) and block deformation + ghost + ΔP(score) from the cached tracking (44 matches), but the decoy-to-defender attribution is the noisy step because the pulled defenders are often the off-ball ones most likely to be among the ~46% imputed positions, so PRY must be reported only on line breaks where both the run and the bordering defenders are VISIBLE (not ESTIMATED) and validated against createsSpace before any leaderboard ships.",
+        "visual_type": "interactive play scrubber: a single line-break clip with two synced overlays - the defensive block hull/lines deforming in real time (CHASE-style, actual shape vs faded ghost shape) as the decoy runs, and the opening lane corridor lighting up the instant the bordering defender vacates it, with the ΔP(score) tick climbing as the pass is played; a PRY leaderboard sits beside it",
+        "youtube_segment": "\"The run that wasn't the pass\": freeze the 2022 final, watch a Messi/Alvarez decoy run drag France's back line apart and PRY light up the exact lane Argentina's line-breaking pass exploited (ARG led line breaks 46-16) - the off-ball move that pried open the lane, credited at last."
+      },
+      "verdicts": [
+        {
+          "novel": true,
+          "feasible": false,
+          "survives": false,
+          "reason": "The causal-chain framing is conceptually novel, but PRY fails feasibility on two load-bearing mechanisms verified in this codebase: the motion-forecast \"ghost\" provably ignores teammate-specific structure (the project's own teammate-use gate returned uses_teammates=False across two objectives and a full lever sweep in /Users/nick/wc2026-tracking-transformer/docs/superpowers/plans/relchem-2-model-state.md), so ACTUAL-minus-GHOST cannot isolate a decoy's \"causal pull\"; and the headline validator createsSpace is an on-ball ATTRIBUTE attributed to the passer (csPlayerId only 2/1,422 populated, per /Users/nick/wc2026-tracking-transformer/research/scripts/eda_space_leaderboards.py), so it labels the very actor PRY is NOT crediting and cannot validate the off-ball decoy attribution — compounded by ~37-46% imputed positions concentrated on exactly the pulled off-ball defenders (eda_line_breaks.py caveats)."
+        },
+        {
+          "novel": true,
+          "feasible": false,
+          "survives": false,
+          "reason": "The causal chain is genuinely novel (no prior work ties a named off-ball decoy's ghost-subtracted defender pull to the specific lane another player's line-break exploits, with a human-label check), but it is not feasible as proposed: the two pieces that make PRY \"PRY\" both fail — (a) attribution requires the decoy AND the bordering defenders it pulls to be simultaneously VISIBLE across a 1-2s window, yet these are exactly the off-ball players that are ~39% VISIBLE (vs 83% on-ball; 64% of rows are ESTIMATED in match 10502), the forecast \"ghost\" is trained but never wired into any inference script and is a forward prediction from a frame already containing the decoy's motion (so actual-minus-ghost isolates forecast residual, not the decoy's causal pull, with no intervention), and the cache feeding the model heads stores no visibility flag at all; and (b) the headline validation collapses because PFF createsSpace is an ON-BALL action attribute whose off-ball csPlayerId is populated on ~2/1422 events and all 1,422 resolve to the passer — it credits the on-ball player PRY explicitly is NOT crediting — while movementGrade is n=368, ~71% negative deductions, max ~9 events/player, too sparse and wrong-signed to validate a positive causal attribution, so PRY cannot be validated against the very ground truth claimed as its unique asset."
+        }
+      ]
+    },
+    {
+      "combo": {
+        "name": "Graded Space (gSPACE): PFF-Calibrated Off-Ball xT-Lift",
+        "components": [
+          "Transformer xT-regression head: per-frame predicted max-future-xT over 10s (xt_regression.py) MINUS the static Singh 12x8 lookup at the current ball position (baselines/xt.py xt_now) = the off-ball xT-LIFT the static field cannot see",
+          "Counterfactual whiteboard head (whiteboard_moves.json / freestyle ONNX path): leave-one-out / move-the-mover-to-average to ATTRIBUTE the frame-level lift to one specific off-ball player on each analyst-tagged frame",
+          "Next-receiver head (next_receiver.py, possessor-conditioned P(receive) per teammate) to pick WHICH off-ball player the lift accrues to when the carrier still has the ball",
+          "PFF human movementGrade (368 events, movementPlayerId, ~71% negative deductions) and positionGrade (1,300 events, positionPlayerId, ~99% negative) as the per-event, per-player SUPERVISED anchor — the calibration target",
+          "PFF createsSpace (1,422) and betterOptionPlayerId (518) as positive-class anchors and a precision check",
+          "StatsBomb real xG as the external downstream validity check (does high gSPACE precede higher real xG)"
+        ],
+        "measures": "A signed, continuous per-player off-ball value for each tagged moment: the transformer's counterfactually-attributed xT-lift that one mover adds over the static field, then CALIBRATED so its sign and magnitude agree with PFF's human movement/position grade ledger. High positive gSPACE = a run the model values AND that PFF analysts did not penalise (and often tagged createsSpace/betterOption); negative gSPACE = model-apparent motion that PFF graded as a positioning/movement DEDUCTION. Aggregated to a per-player, per-team off-ball value leaderboard that is, for the first time, anchored to human space ground truth rather than to xG/salary proxies.",
+        "novelty": "Every off-ball space metric in the verified literature is validated only by expert VIDEO review (Fernandez and Bornn SOG/SGG; EPV) or proxied against salary (C-OBSO rho=0.45) or xG (Space Generation r=0.66) because the field has NO ground truth for space. gSPACE is the first to calibrate a continuous, learned off-ball value DIRECTLY against a per-event, per-player HUMAN grade (PFF movementGrade/positionGrade), which nobody else pairs with tracking. It also goes beyond the static SOG/SGG single-frame parametric surface and the average-player EPV ghost: the xT-lift is a trained, body-/speed-aware transformer signal, attributed per player via a counterfactual rather than C-OBSO's GVRNN reference, and the deduction-heavy grades let it produce a SIGNED metric (penalising bad positioning), which no prior pitch-control space metric does.",
+        "feasible": true,
+        "feasibility_note": "Feasible now: the xT-regression lift, counterfactual whiteboard, and next-receiver heads are all trained/wired and the PFF grade ledger (368 movement + 1,300 position tags, each with a player id and event timestamp) joins frame-to-frame to those heads on all 64 matches — the binding constraint is sample size and the ~46% off-camera-imputed broadcast positions, so calibration must be reported as exploratory with wide CIs and the movement-grade fit (n=368) treated as directional.",
+        "visual_type": "leaderboard (signed per-player off-ball gSPACE bars, green = model-valued runs PFF did not penalise vs red = model-apparent motion PFF graded as a deduction), with an interactive play scrubber drill-down showing the counterfactual ghost on each tagged frame",
+        "youtube_segment": "\"The field has no ruler for space, so we built one from the only human ground truth that exists: watch Messi's xT-lift runs light up GREEN (the model AND PFF's analysts agree he created space, 23 of them under pressure) while a flashy false run grades RED — the first space metric you can actually check against a human grade.\""
+      },
+      "verdicts": [
+        {
+          "novel": true,
+          "feasible": false,
+          "survives": false,
+          "reason": "The core idea—calibrating a learned off-ball value against PFF per-event human movement/position grades—is genuinely novel versus the verified literature (C-OBSO uses salary, Martens uses xG, SOG/EPV use only video), but as specified it is not feasible: the project's own EDA shows createsSpace is attributed to the ON-BALL passer (csPlayerId populated on 2/1,422), so it cannot anchor the off-ball mover; the supervised target movementGrade is only n=368, ~71% negative, on-camera-biased; tracking exists for 44 not the claimed 64 matches; and the proposed counterfactual attribution is wired to the ΔP(score) whiteboard head, not the xT-lift, while the working prototype actually attributes via ball→player attention—so the signed, human-grounded leaderboard collapses to a directional exploratory fit with CIs too wide to \"check against a human grade.\""
+        },
+        {
+          "novel": true,
+          "feasible": false,
+          "survives": false,
+          "reason": "The concept (calibrating a learned off-ball value directly against per-event human grades) is genuinely novel versus the video/salary/xG-proxy literature, but it is not feasible: the only off-ball-attributable grades are movementGrade n=368 (just 5 players survive a min-5 filter, per research/site/data/eda_space.json) and a ~99%-negative positionGrade n=1,300, while the 1,422 createsSpace tags resolve to the on-ball passer not the off-ball mover (eda_space_leaderboards.py), the \"off-ball xT-lift\" is measured against a ball-trajectory-derived max-future-xT target where the xt_now baseline is purely a function of ball position (baselines/xt.py) so the +0.098 Spearman lift is the model anticipating the ball, not validated space, the grade-to-tracking join the entire novelty rests on does not exist anywhere in the codebase (no file joins movement/positionGrade to frames or heads), and ~46% off-camera imputation degrades exactly the off-ball runners being scored — far too little, too biased, and too mis-attributed to fit or validate a signed, calibrated, per-player metric."
+        }
+      ]
+    },
+    {
+      "combo": {
+        "name": "P-OBSO (Pressure-Gated Off-Ball Scoring Opportunity)",
+        "components": [
+          "OBSO / C-OBSO framework (Spearman 2018; Teranishi et al. 2022) as the spatial scaffold: Opportunity = sum over the pitch of Transition x Control(PPCF) x Score",
+          "PFF human label pressureType {N=none, P=pressured, A=aggressive, L=lunge} on the ON-BALL CARRIER (~62% of possession events) -> a learned per-class delivery-gate multiplier g(pressure) that scales the Transition term, repairing the exact 'transition ignores defensive pressure on the carrier' gap Spearman named",
+          "PFF carrier `speed` from the event snapshot -> feeds the same gate, repairing Spearman's second named gap (transition ignores carrier speed)",
+          "Transformer calibrated P(score) head -> replaces OBSO's distance-only Score model with the multi-defender / goal-angle-aware probability the C-OBSO authors hand-built, but learned",
+          "Transformer next-receiver head P(receive) per teammate -> sharpens C-OBSO's Transition (who can actually be reached) conditioned on the gated carrier state",
+          "Transformer motion-forecast head (2s average-player ghost) -> the C-OBSO REFERENCE trajectory, so we report P-OBSO LIFT (actual minus ghost), crediting unrewarded off-ball runs",
+          "PFF createsSpace (1,422) + movementGrade (368) -> GROUND-TRUTH validation set (precision/recall of high-P-OBSO-lift frames vs expert tags) -- the validation nobody in the literature had",
+          "StatsBomb real xG -> external calibration of the Score head at the team-tournament level (rho~0.88)"
+        ],
+        "measures": "The pressure-adjusted off-ball scoring danger a player generates by getting open: for every teammate target location it computes OBSO's Transition x Control x Score, but multiplies the Transition (deliverability) term by a learned gate keyed to the BALL-CARRIER's pressureType and speed -- so an open run is only credited with the danger that is actually passable given how hard the carrier is being hassled. Reported as P-OBSO LIFT over the motion-forecast ghost, it isolates pressure-resilient off-ball movement skill: space that stays valuable precisely when the carrier is under a lunge.",
+        "novelty": "Spearman explicitly named that OBSO's transition model 'ignores defensive pressure and carrier speed'; C-OBSO fixed the Score model (goal angle, multi-defender blocking) and added a ghost reference but left the transition/pressure gap untouched and had NO ground truth. P-OBSO is the first to close Spearman's actual named gap by gating transition on a real, independently human-graded pressure annotation (pressureType) rather than re-deriving pressure from positions, then validate the result against expert createsSpace/movementGrade labels -- moving the field's validation from 'two analysts watched video' (Fernandez and Bornn) to quantitative label agreement. It is C-OBSO with the one term C-OBSO never repaired, learned end-to-end on the only tracking dataset paired with human pressure labels, at tournament scale (vs C-OBSO's one club season, 3 players).",
+        "feasible": true,
+        "feasibility_note": "Feasible now: OBSO/PPCF needs only the event-time tracking snapshots PFF provides, pressureType + carrier speed are present on ~62% of possession events, and the P(score)/next-receiver/motion-forecast heads are already trained -- the only honest caveat is the ~46% off-camera-imputed positions (so the pitch-control surface is conditioned on visibility) and that pressureType is attributed to the carrier not the receiver, which is exactly the term we gate.",
+        "visual_type": "interactive play scrubber: a pitch-control / P-OBSO surface heatmap under a live clip, with a pressure dial on the carrier (N->P->A->L) that the viewer can drag to watch the off-ball danger surface deflate or re-inflate, plus the ghost-vs-actual run overlaid so you see the LIFT",
+        "youtube_segment": "\"The run that only counts when you're getting kicked\" -- scrub Messi's pressured space-creations (23 of his 25 came under pressure, tournament-leading 472 actions under pressure): drag the pressure dial to a lunge and watch every other team's off-ball danger collapse while Messi's open men stay reachable -- pressure-resilient space, the danger Spearman said OBSO couldn't see."
+      },
+      "verdicts": [
+        {
+          "novel": false,
+          "feasible": true,
+          "survives": false,
+          "reason": "The project's own research synthesis already proposes this exact idea (docs/space-2026-research-and-ideas.md lines 63 and 85: \"Pressure-aware OBSO / B1 — condition the transition/control models on pressure state\" using pressureType + speed, tied to Spearman's named gap, validated against createsSpace/movementGrade, with C-OBSO cited as prior art), so P-OBSO is a more detailed engineering spec of an already-recorded idea rather than a new one; worse, its core mechanism is internally incoherent — pressureType is attributed to the on-ball CARRIER (confirmed in research/scripts/eda_space_leaderboards.py lines 42-44), so gating the spatial Transition surface by a single carrier-keyed scalar is really a global pass-completion discount, not the spatial repair Spearman's \"transition\" gap actually calls for, meaning it does not close the gap it claims to; it is feasible (all heads trained, fields present) but not novel and does not survive."
+        },
+        {
+          "novel": true,
+          "feasible": true,
+          "survives": false,
+          "reason": "The pressure-label-gated transition term is genuinely novel and the metric is computable, but the composite's headline validation collapses: the repo's own EDA (research/scripts/eda_space_leaderboards.py) documents that createsSpace is attributed to the ON-BALL passer (dedicated off-ball csPlayerId populated on 2/1,422 events, unusable), so it cannot validate off-ball-RUNNER P-OBSO-lift, and the only correctly off-ball-attributed label, movementGrade, is n=368 and ~71% negative (a deduction metric) — too sparse and wrong-polarity to deliver the claimed precision/recall, on 44 (not 64) tracking matches with PPCF/OBSO not yet implemented."
+        }
+      ]
+    },
+    {
+      "combo": {
+        "name": "Cost of the Closed Eye (CoCE) — \"The Ignored Open Man Index\"",
+        "components": [
+          "PFF betterOptionPlayerId/Type/Time tags — the 518 ground-truth 'an open man was ignored' moments (the unique label EPV and C-OBSO both lack)",
+          "EPV-style off-ball value surface, instantiated by the transformer's xT-regression head (off-ball xT LIFT over the static lookup, ball->player attention attribution) AND the calibrated P(score) head — the value of the ignored teammate's location",
+          "Whiteboard counterfactual machinery (compute_whiteboard_counterfactuals.py: d_score = P(score|ball-to-open-man) - P(score|pass-actually-made)) to turn the ignored option into a causal delta-P(score), not just a surface read",
+          "Next-receiver head (P(receive) per teammate, top-1 0.70 vs 0.44 nearest-baseline) to confirm the tagged man was the model-agreed most-open option and to extend the metric to UN-tagged frames (model-detected ignored open men beyond the 518 human tags)",
+          "StatsBomb real xG for the possession outcome, to cash the cost in real-goal-probability terms",
+          "PFF pressureType (N/P/A/L) on the passer to split 'ignored under pressure' (excusable) from 'ignored in space' (the damning cases)",
+          "Occlusion/visibility flag (~46% imputed) as a per-event confidence gate"
+        ],
+        "measures": "CoCE quantifies the cost of NOT finding created space: for every event where PFF tagged a betterOptionPlayerId (the open man the passer ignored), it values that ignored teammate's location through the off-ball value surface and recomputes P(score) as if the ball had gone to him, then subtracts the P(score) of the pass actually played. The per-event quantity is delta-P(score) forgone = V(open man) - V(actual choice); summed it gives a passer-side leaderboard (who leaves the most value on the table by missing open men) and, critically, a receiver-side 'Ignored Creator' leaderboard (who repeatedly got open into high-value space and was still not found — getting open as a skill even when the pass never comes). It separates passive cost (ignored under heavy pressure, hard to see) from active cost (ignored in clear space), and reports each value both in transformer delta-P(score) and in StatsBomb-xG-equivalent terms.",
+        "novelty": "Every prior method values the open man only in the abstract: EPV computes off-ball value surfaces for all 10 teammates but is an AVERAGE-player model with NO body orientation and, decisively, has NO label for which open man the passer actually overlooked — it cannot tell a found option from an ignored one. C-OBSO values a player's positioning vs a ghosted reference trajectory but likewise has no ground truth and never knows a pass was 'wrong'. xT only credits SUCCESSFUL on-ball moves, so an ignored open man is invisible to it by construction; OBSO ignores defensive pressure entirely. CoCE is the first metric to fuse an off-ball value surface with a HUMAN GROUND-TRUTH tag of the specific ignored option (betterOptionPlayerId) — turning EPV's 'value of every teammate' from an un-validated surface into a label-anchored counterfactual: the realized cost of a decision an expert flagged as wrong. It is the negative-space mirror of createsSpace: createsSpace credits making space; CoCE debits wasting it.",
+        "feasible": true,
+        "feasibility_note": "Fully feasible today — the 518 betterOptionPlayerId tags, the xT-regression and P(score) heads, the next-receiver head, the whiteboard delta-P(score) counterfactual machinery, and StatsBomb xG all already exist in-repo; the only build is joining the tag's open-man slot to its tensor slot and running the existing counterfactual at the tagged frame, with the ~46% off-camera imputation gating each event's confidence (cleanest where the ignored man was on-camera).",
+        "visual_type": "leaderboard — a dual 'Ignored Creator' (receiver-side: most value forgone by being unseen) and 'Closed Eye' (passer-side: most value left on the table) ranking, each row expandable into an interactive play scrubber that overlays the off-ball value surface + a ghost ball to the ignored open man with the live delta-P(score) readout",
+        "youtube_segment": "\"The most ignored man in Qatar: Youssef En-Nesyri got open and was overlooked 8 times — more than anyone at the World Cup — so we put a number on every pass Morocco never played to him, then turn the camera on Argentina (32 ignored open men, tournament-most) to ask whether even Messi's teammates were leaving free goals on the table on the way to the trophy.\""
+      },
+      "verdicts": [
+        {
+          "novel": false,
+          "feasible": true,
+          "survives": false,
+          "reason": "Feasible (the 518 betterOptionPlayerId tags resolve to player IDs that join to per-slot tensors carrying a movable ball token and has_possession flag, and the score/next-receiver/whiteboard/xG assets all exist in-repo), but not novel: the project's own docs/space-2026-research-and-ideas.md already proposes the constituent ideas as C2 (next-receiver + betterOptionPlayerId \"Most Ignored Open Man,\" same En-Nesyri framing), C3 (whiteboard ΔP(score) counterfactual), and C5 (occlusion gate), so CoCE is a recombination of catalogued in-house ideas plus a pressure split and xG units — and its incremental \"ball-to-open-man\" cost rests on a possession-team-level, out-of-distribution teleported-ball readout from the frame score head, not the per-teammate value surface its novelty pitch claims to deliver."
+        },
+        {
+          "novel": true,
+          "feasible": true,
+          "survives": true,
+          "reason": "Verified in-repo: 518 betterOption tags and the headline cases (En-Nesyri 8, Argentina 32) are real and come from event data alone, and nothing currently fuses these ground-truth \"ignored open man\" labels with a value surface, so CoCE is genuinely novel; it survives as a label-anchored descriptive metric, but the brief overstates feasibility on two counts I confirmed (the existing whiteboard counterfactual only drags player xy and recomputes frame P(score) — it has NO ball-to-open-man operation, so the core delta needs a new, off-distribution ball-reassignment step — and tracking covers 44 matches not 64, so only 335/518 tags (65%) have transformer support while ~36% of off-ball positions are imputed, hitting exactly the ignored-open-man the receiver-side leaderboard ranks), so it must be scoped to the in-coverage, visibility-gated tags with the value read treated as a soft signal rather than a calibrated probability."
+        }
+      ]
+    },
+    {
+      "combo": {
+        "name": "xG-Backed Space Ownership (xSOG-real, \"Space-to-Shot Credit\")",
+        "components": [
+          "Transformer off-ball xT-LIFT head as the per-frame space-ownership signal (ball-to-player attention x lift over the static xT lookup) -- the exact per-frame-per-player surface already produced in scripts/analyze_space_and_chemistry.py line 154 (ball_to_players * lift) and output/space_attribution.json",
+          "StatsBomb REAL statsbomb_xg on every shot, attributed back through the StatsBomb possession chain (each shot carries possession, possession_team, key_pass_id, freeze_frame -- verified present in research/data/raw_statsbomb/events/*.json) so a shot's realized xG is the OUTCOME label for the space owned during that build-up",
+          "Pitch-control / space-occupation framing (Fernandez and Bornn SOG, Spearman OBSO) as the interpretive layer: the transformer lift surface IS the trainable space-ownership term that OBSO/SOG compute parametrically",
+          "PFF createsSpace human tags (1,422) as GROUND-TRUTH validation that the high-credit moments are real space creation, plus betterOptionPlayerId (518) for the open-man-ignored counter-case and pressureType for the pressure split (Messi's 23-under-pressure space creations)",
+          "Existing Layer-0 grounding (research/notes/xg_grounding_findings.md): transformer accumulated value reconstructs StatsBomb team xG at rho=0.88 totals / 0.45 per-match-rate -- the calibration anchor that lets per-frame space credit be expressed on the real-xG scale at the team-tournament unit"
+        ],
+        "measures": "For each shot, it distributes the shot's REAL StatsBomb xG backward across the players who owned/created space during that possession's build-up, weighting each player-frame by its transformer off-ball xT-lift (space-ownership) share. Summed over the tournament it yields, per player, \"xG you generated by owning space off the ball\" -- expected shot quality CREATED, not taken. Unlike OBSO/SOG/EPV which output a modeled value with no ground truth, every credit here is anchored to a shot that actually happened with a real xG attached, and validated where the build-up frame carries a PFF createsSpace tag.",
+        "novelty": "Every space metric in the verified literature stops at MODELED value with no realized-outcome anchor: xT values only successful on-ball moves; OBSO multiplies Transition x Control x a distance-only Score model (Spearman's own fudge factor, no defensive pressure); SOG/SGG is a single-frame parametric surface validated only by two analysts watching video; EPV is an average-player surface with no body orientation; C-OBSO's strongest external anchor is salary (rho=0.45), not shot quality. NONE of them ties off-ball space ownership to the REAL xG of the shot it produced. This metric closes the field's named no-ground-truth gap from two directions at once -- realized shot quality (StatsBomb xG) as the outcome and PFF createsSpace as the human label -- which no public work pairs with tracking.",
+        "feasible": true,
+        "feasibility_note": "Every input exists and the hardest piece -- per-frame off-ball xT lift -- is already computed (output/space_attribution.json) and the StatsBomb-vs-model grounding is already established at rho=0.88 team / 0.45 per-match-rate; the one honest caveat is that ~46% of build-up frames have imputed (off-camera) positions, so credit must be reported as visibility-conditioned and the per-shot attribution aggregated to the player-tournament level (where the Layer-0 grounding is strong) rather than trusted shot-by-shot.",
+        "visual_type": "leaderboard (player-tournament xG-credited-from-space ranking) with a linked interactive play scrubber: click a leader's bar to replay one possession with the live pitch-control / xT-lift surface overlaid, the contributing space-creation frames lit up where a PFF createsSpace tag fires, and the shot's real StatsBomb xG flowing back to the space-owner",
+        "youtube_segment": "\"Messi barely ran -- and still made the most dangerous shots happen\": rank players by REAL xG generated purely from owning space off the ball, then scrub his 25 space-creations (23 under pressure) into Argentina's actual high-xG chances, and contrast with the final (ARG out-created FRA 46-16 in line breaks) -- the space nobody credited him for, now cashed out in goals that really happened."
+      },
+      "verdicts": [
+        {
+          "novel": false,
+          "feasible": false,
+          "survives": false,
+          "reason": "The composite fails on its two load-bearing claims: (1) PFF createsSpace cannot validate off-ball space ownership because the codebase's own eda_space_leaderboards.py documents it as an ON-BALL attribute attributed to the passer (csPlayerId is populated on ~2 of 1,422 events, \"effectively unusable\") and it has never been joined to any tracking frame, attention, or lift surface; (2) the rho=0.88/0.45 grounding anchors the accumulated P(score) head, NOT the off-ball xT-lift surface this metric uses, which has been grounded against nothing — and the per-frame credit is just ball-to-player attention-share times one scalar frame-wide lift (~0.012 xT), producing a leaderboard topped by Pulisic/Musah/Dumfries and two center-backs that contradicts the project's own \"Messi is #1 space creator\" premise, all on a single match (10502) at 44-match tracking scale, so the tournament-summed deliverable does not exist and would require building an unvalidated possession-chain xG back-attribution."
+        },
+        {
+          "novel": true,
+          "feasible": false,
+          "survives": false,
+          "reason": "The framing is genuinely novel (no cited work ties off-ball space ownership to a shot's realized StatsBomb xG plus human labels), but it fails feasibility on four repo-verified grounds: PFF tracking covers only 44 of 64 matches (research/data/frame_vaep_cache has 44 npz, CLAUDE.md confirms), so ~20 match-worth of shots have no build-up frames; PFF createsSpace is an ON-BALL actor tag (csPlayerId off-ball field populated ~2/1422 per research/scripts/eda_space_leaderboards.py), so it cannot validate the OFF-BALL space-owner the metric credits; the rho=0.88 anchor in research/notes/xg_grounding_findings.md is a team-tournament TOTAL (inflated by games-played; per-match rho=0.33 \"NO-GO\", per-match-rate 0.45) that explicitly does not support the proposed per-shot/per-player backward attribution; and no PFF-to-StatsBomb frame-level time alignment exists in the codebase (only a coarse team-match join)."
+        }
+      ]
+    },
+    {
+      "combo": {
+        "name": "Self-Made Space (SMS): Receiving-Space Self-Generation Index",
+        "components": [
+          "Next-receiver head (possessor-conditioned P(receive) per teammate — 'who gets open for THIS carrier', already trained, beats the ~40-44% nearest-teammate baseline at ~70% top-1) — the OPENNESS axis.",
+          "Fernandez & Bornn pitch-control / Space-Occupation surface (bivariate-normal player-influence field on a single frame, parametric, no training) — the SPACE axis: how much controllable receiving space the player occupies at the moment the carrier looks up.",
+          "Motion-forecast head as the built-in 2s average-player GHOST: SMS credits only the openness/space the player generated ABOVE what an average player at the same start state would have drifted into — isolating self-generated space from positional luck (C-OBSO-style reference, but reusing our trained ghost rather than a separate GVRNN).",
+          "PFF betterOptionPlayerId (518 'open-man-ignored' tags) as the PRIMARY ground-truth validator: a player flagged betterOption demonstrably manufactured receiving space the carrier failed to use — exactly the SMS construct.",
+          "PFF movementGrade (368, movementPlayerId) + positionGrade (1,300, positionPlayerId) as the secondary off-ball-quality validator (expert-graded run/positioning on the SAME off-ball mover).",
+          "PFF createsSpace (1,422) + StatsBomb real xG as TEAM/possession-level co-validation only (createsSpace attributes to the passer, so it checks the carrier-side completion of the SMS event, not the receiver)."
+        ],
+        "measures": "SMS scores each off-ball ATTACKER, per frame and aggregated, on how much of their OWN future-receiving space they manufacture: SMS_t = (next-receiver P(receive) for that player, given the current carrier) x (Fernandez-Bornn space-occupation gain that player controls in the danger-weighted receiving zone), with the motion-forecast ghost subtracted so only space generated ABOVE the average-player drift counts. It answers a question no prior metric isolates: not 'who creates space for teammates' (SOG/SGG, C-OBSO) and not 'who is found by a pass' (xT, createsSpace=passer), but 'who becomes the open, controllable receiving option for the player on the ball — through their own movement.' Aggregated to a player leaderboard it ranks self-service space generators; the gap between SMS and actual receptions surfaces players who repeatedly get open and are ignored (the betterOption population).",
+        "novelty": "Every verified method splits cleanly on one side of SMS. xT and createsSpace value the on-ball/passer side only. SOG/SGG and C-OBSO measure space a player creates FOR TEAMMATES or for the team surface, with no model of whether THAT player is the intended/likely receiver — they are carrier- or surface-centric. Martens et al. SG_rec ('space for self') is the nearest cousin but is a pure pitch-control reconstruction with NO openness/affinity term — it does not condition on the actual ball-carrier's passing tendencies, so it cannot distinguish 'space a defender lets you have in a useless zone' from 'space the carrier can and will exploit.' SMS is the first to MULTIPLY a learned possessor-conditioned P(receive) (who this carrier targets) BY a continuous space-occupation surface (how much receiving space you control), then ghost-subtract an average-player baseline — fusing the receiver-affinity axis with the space axis. And it is the only one with a true off-ball-RECEIVER ground truth (betterOption + movement/position grades on the mover), where the entire literature is validated only by expert video review (Fernandez-Bornn, C-OBSO) or has no ground truth at all.",
+        "feasible": true,
+        "feasibility_note": "Feasible: the next-receiver head (output/transformer + scripts/train_next_receiver.py), the motion-forecast/ghost (data/future_motion.py), and a single-frame Fernandez-Bornn influence surface are all in-repo, and betterOptionPlayerId/movementGrade/positionGrade resolve cleanly to the off-ball mover (per research/scripts/eda_space_leaderboards.py) — the one honest caveat to state on screen is that PFF createsSpace attributes to the PASSER, not the open receiver, so SMS must be validated against betterOption + movement/position grades (true receiver labels) with createsSpace used only as a team/possession-level co-check, and SMS is only trustworthy on-camera (~46% of off-ball positions are imputed, so off-camera runs are excluded).",
+        "visual_type": "leaderboard (SMS player ranking) with a linked interactive play scrubber: each top entry deep-links to a clip where the next-receiver P(receive) halo lights up on the off-ball mover AS their Fernandez-Bornn space-occupation surface inflates and the average-player ghost stays behind, with betterOption frames flagged as ground-truth confirmation.",
+        "youtube_segment": "\"The most open man you never noticed: Pedri keeps manufacturing his own receiving space — leading SMS while topping the league at 69.5 pressured actions/match — and the betterOption tags prove teammates kept missing him; SMS is how we'll spot the next one before 2026.\""
+      },
+      "verdicts": [
+        {
+          "novel": false,
+          "feasible": true,
+          "survives": false,
+          "reason": "SMS is feasible (next-receiver head in model/next_receiver.py, motion-forecast ghost in data/future_motion.py, and PFF betterOption/movement/position labels all resolve cleanly per eda_space_leaderboards.py), but it is not novel: it merely re-bundles three already-enumerated in-house ideas — C2 \"The Most Ignored Open Man\" (next-receiver x betterOptionPlayerId), C1 \"Space Above Replacement\" (the ghost-subtraction, which the doc itself calls C-OBSO redux), and B2/C4 (Fernandez-Bornn surface validated by labels) — while its one genuine delta over Martens SG_rec (multiplying by a learned receiver-affinity) leans on a next-receiver signal the repo already found is rho=0.885 redundant with the recorded passing network, and its \"primary ground truth\" (518 sparse passer-error betterOption tags plus near-entirely-negative deduction grades) is too thin and indirect to validate a per-frame self-generated-space index."
+        },
+        {
+          "novel": true,
+          "feasible": true,
+          "survives": true,
+          "reason": "SMS survives as a novel, buildable on-camera/44-match deliverable, but only after correcting three overstatements I verified against the repo: the Fernandez-Bornn surface is NOT in-repo (must be built; it's a standard parametric single-frame method, so still feasible), the metric engine covers 44 tracking matches not \"all 64\" (only 44 PFF tracking files exist and the cache/default_split confirm 36+8=44), and the primary betterOption validator yields only 335 usable tags inside the tracking subset (518 total; 183 are event-only), with movement 253/368 and position 928/1300 in-tracking. Novelty holds: the next-receiver head is genuinely trained (val_top1=0.701 vs 0.439 nearest baseline, exactly as claimed) and the literature splits cleanly — no verified method multiplies a learned possessor-conditioned P(receive) by a space-occupation surface then ghost-subtracts an average-player drift, and betterOption is a real receiver-side ground truth absent from the entire (video-validated) prior art. The most serious threat is off-camera censoring: I measured 50% of player-observations as ESTIMATED, and off-ball runners getting open are exactly the population most likely off-camera, so the (honestly disclosed, visibility-flag-enabled) on-camera restriction systematically excludes many of the moments SMS exists to detect — survivable but it caps this at an exploratory on-camera metric, not the tournament-complete claim the framing implies."
+        }
+      ]
+    },
+    {
+      "combo": {
+        "name": "TURN — Turned Under-line Reception Network (the half-turn-behind-lines metric)",
+        "components": [
+          "PFF human label receiverFacingType (G=facing goal / B=facing own goal / L=lateral) — the receiver-orientation-at-reception signal, populated on ~83% of passes (8,232 G of 21,005 over 19 matches), DENSER than the null bodyMovementType the theme named; it is the operational stand-in for bodyMovementType/orientation",
+          "PFF human label linesBrokenType (D=defensive line / M=midfield / A=attacking line + combos AM/MD/AMD) — the expert tag naming WHICH tactical line the pass broke, i.e. the 'behind-lines' / 'receptions-behind-lines' component",
+          "PFF passOutcomeType=='C' + open-play filter (setpieceType 'O') gating to genuine completed receptions; receiver attributed via receiverPlayerId",
+          "Transformer next-receiver head (val top-1 70.0%, top-3 94.6%, beats nearest-baseline 43.9%; output/training_metrics_nextrcvr_main.json) — to weight each reception by P(this player gets open) so unrewarded turns still credit the run",
+          "Transformer xT-regression head (off-ball xT LIFT over the static lookup; prototyped in scripts/analyze_space_and_chemistry.py, output/space_attribution.json) AND calibrated P(score) delta — to VALUE each turned-under-line reception rather than merely count it",
+          "StatsBomb REAL xG (all 64 matches; research/scripts/compute_xg_analytics.py joining statsbomb_xg per shot) — to cash the metric out into actual chance quality in the possession that follows the turn",
+          "Geometric line-break reconstruction from event snapshots (research/scripts/eda_line_breaks.py, >=3 opponents bypassed in a forward corridor) as an independent cross-check on the PFF linesBrokenType tag",
+          "PFF createsSpace tags (1,422) + movementGrade/positionGrade as the GROUND-TRUTH validation set: report precision/recall of high-TURN receptions against expert space tags"
+        ],
+        "measures": "TURN measures how often, and how valuably, a player RECEIVES the ball already turned toward goal on the far side of a defensive/midfield/attacking line — i.e. the on-the-half-turn forward reception that converts a line break into immediate forward threat instead of a sideways recycle. Each qualifying reception (completed, open-play, linesBrokenType populated, receiverFacingType=='G') is weighted by the transformer's off-ball xT-lift / ΔP(score) at that frame and credited downstream with the StatsBomb real xG generated in the ensuing possession; a next-receiver-head term also credits players who got turned-and-open even when the pass never came (fusing the betterOptionPlayerId 'ignored open man' idea). It is reported as a tournament leaderboard (count, value, and value-per-reception) and as a player pass-network of who-feeds-whom-on-the-turn. Empirically the signal is clean and sparse: of 1,490 completed line-break receptions over 19 matches only 265 (17.8%) arrive turned-to-goal — these are the high-value moments. Tournament leaders surface immediately (Bellingham, De Paul, Di Maria, Messi, plus the Croatia/Morocco/Argentina clusters), and in the 2022 final Di Maria alone produced 6+ turned-under-line receptions.",
+        "novelty": "Closes the single gap the EPV authors (Fernandez/Bornn/Cervone) named themselves — 'no body orientation' — but does it without inferring orientation from noisy broadcast tracking: it uses PFF's HUMAN-GRADED receiverFacingType, an orientation-at-reception label no public space metric has ever paired with tracking. xT (Singh) is on-ball and successful-only and explicitly ignores off-ball effects; OBSO (Spearman) ignores the toward-goal preference of the transition AND has no orientation; pitch-control/SOG-SGG (Fernandez-Bornn) and C-OBSO (Teranishi) are all position-only surfaces with NO facing term and no ground truth (validated by analysts watching video / by salary). Martens-Dick-Brefeld add per-player movement but no orientation and only 54 Bundesliga matches. TURN is the first metric to make 'received facing the right way' a first-class, expert-labelled, transformer-valued quantity, validated against independent PFF createsSpace/movement tags rather than two analysts eyeballing clips, at full tournament scale (all 64 matches).",
+        "feasible": true,
+        "feasibility_note": "Fully feasible today and largely event-snapshot-based (so robust to the ~46% off-camera imputation): receiverFacingType and linesBrokenType already exist and are densely populated in every PFF event file (verified: 8,232 'G' receptions and 2,040 line-breaking-tag passes across 19 matches), the next-receiver/xT-lift/P(score) heads are trained, and StatsBomb xG joins per shot — the only build work is the join script plus label-based validation, with the honest caveat that the transformer-valued (xT-lift/ΔP-score) layer inherits the broadcast-tracking occlusion while the count/leaderboard layer does not.",
+        "visual_type": "interactive play scrubber (the polished interactive-plays.js module): a turned-under-line reception clip with the broken line drawn across the pitch, a rotating receiver-orientation arrow flipping from lateral/back to GOAL at the moment of the touch, and the P(score) strip ticking up — backed by a tournament TURN leaderboard panel",
+        "youtube_segment": "\"The Half-Turn That Won the World Cup\": watch Angel Di Maria receive on the turn behind France's lines six times in the 2022 final (TURN leaderboard topper that night) — the orientation no other space metric can see, the move that bent Argentina's third star into existence."
+      },
+      "verdicts": [
+        {
+          "novel": false,
+          "feasible": true,
+          "survives": false,
+          "reason": "Feasibility fully verified (receiverFacingType 82.9% populated, linesBrokenType D/M/A present, createsSpace=1,422 and betterOptionPlayerId=518 exact, Di Maria=6 turned-under-line receptions in the final reproduced, next-receiver head trained), but TURN is not novel: it is the verbatim realization of a pre-specified brainstorm theme (grand_unifying_theory.mjs line 103, \"orientation × receptions-behind-lines... receiving on the half-turn to play forward; closes the EPV no-orientation gap\"), and its only deltas from that theme are swapping the denser receiverFacingType label for bodyMovementType plus the same transformer-valuation/StatsBomb-xG/createsSpace-validation machinery the sibling composites all reuse, so the core fusion was handed to it rather than discovered."
+        },
+        {
+          "novel": true,
+          "feasible": false,
+          "survives": false,
+          "reason": "The core premise is novel and its count layer is feasible (verified all 64 matches: receiverFacingType present on 99.3% of completed passes and linesBrokenType on 8.5%, with TURN-qualifying receptions = 812/18.1% of line breaks, corroborating the claim), but the composite as written overclaims on three load-bearing legs — the StatsBomb \"ensuing-possession xG\" credit is infeasible because the only PFF<->StatsBomb linkage (match_join.py) is match-level with no possession/temporal alignment; the geometric \"independent cross-check\" is contradicted by the project's own eda_line_breaks.py, which documents only ~21-30% overlap with linesBrokenType, attributes to the passer not the receiver, and states they \"measure different things\"; and the next-receiver phantom-turn term has no orientation signal since receiverFacingType only exists on completed passes."
+        }
+      ]
+    },
+    {
+      "combo": {
+        "name": "UNLOCK — Attention-Gated Space Generation (directed \"who frees whom\" off the ball)",
+        "components": [
+          "Attention chemistry: ball-independent, DIRECTED pair attention p->q from the score-specialist transformer (encode_with_attention), reusing the extract_aw_joi.py per-frame ball/player attention machinery but reading the player-token p->q row instead of only ball->player, so coupling is asymmetric (who p is mentally tied to).",
+          "Counterfactual SG_pas (learned, not parametric): the off-ball space teammate q GAINS because of p's movement, computed via the existing whiteboard counterfactual head (compute_whiteboard_counterfactuals.py) -- freeze/replace player p with the motion-forecast head's 2s 'average ghost' (forecasting_head.py), then recompute (a) q's next-receiver P(receive | possessor) from the possessor-conditioned next_receiver head and (b) q's xT-regression off-ball lift surface (xt_regression.py). SG_pas(p->q) = sum_t [ P(receive_q | p actual) - P(receive_q | p ghosted) ] * xT_lift_q(t). This is space-for-a-SPECIFIC-teammate, ball-independent.",
+          "Fusion: UNLOCK(p->q) = sum over off-ball frames of attn_pq(t) * max(SG_pas(p->q, t), 0), accumulated tournament-wide like AW-JOI; directed (p unlocks q != q unlocks p).",
+          "Ground-truth validation layer: PFF human labels createsSpace (1,422 tags) and betterOptionPlayerId (518 open-man-ignored tags), extracted via eda_space_leaderboards.py -- the 'space ground truth' the field lacks. Precision/recall of high-UNLOCK(p->q) frames against createsSpace on p and betterOptionPlayerId pointing at q.",
+          "Heads/assets fused: score-specialist attention + motion-forecast (ghost) head + next-receiver head + xT-regression head + PFF createsSpace/betterOptionPlayerId labels (StatsBomb xG used only as a downstream r-with-xG sanity check on receivers, a la Martens SG_rec~xG r=0.66)."
+        ],
+        "measures": "Per ordered pair (creator p, beneficiary q): the off-ball space p's movement generates SPECIFICALLY for q, gated by how strongly p and q are coupled in the model's ball-independent attention. High UNLOCK(p->q) = p habitually makes runs/occupies defenders that open q as a passing option even when neither touches the ball. Aggregated to a directed player-pair graph and to a per-player 'unlocker score' (out-strength) vs 'beneficiary score' (in-strength) -- separating the players who FREE others from the players who CASH IN the freedom, which xT and OBSO conflate.",
+        "novelty": "Martens/Dick/Brefeld SG_pas is UNDIRECTED (space for teammates collectively), PARAMETRIC (per-player pitch-control movement models), ball-coupled, and one Bundesliga club-season (54 matches, never tournament-scale). Fernandez & Bornn SGG is single-frame parametric with NO ground truth (two analysts on video). AW-JOI (our own prior art) is attention x on-ball Delta-P_score -- it scores the VALUE the ball moves through a pair, not the ball-INDEPENDENT space one player frees for another. C-OBSO ghosts a player's own OBSO, not the space they create for a named teammate. NONE produce a DIRECTED, ball-independent, learned (counterfactual-ghosted), tournament-scale 'who unlocks whom' surface, and none is validated against independent expert space labels. UNLOCK is the first: attention supplies direction, the counterfactual head supplies a learned SG_pas (no parametric pitch-control assumption), and PFF createsSpace/betterOptionPlayerId convert 'no ground truth for space' into a precision/recall number.",
+        "feasible": true,
+        "feasibility_note": "Every component already exists in-repo (score-specialist attention + motion-forecast, next-receiver, xT-regression heads, the whiteboard counterfactual loop, and the createsSpace/betterOptionPlayerId extractors), so UNLOCK is a new accumulation script reusing extract_aw_joi.py's frame loop -- the only real caveat is the ~46% off-camera-imputed broadcast positions, which must be flagged per-frame (reuse the occlusion audit) and the metric reported on camera-confident off-ball frames so a ghosted-vs-imputed run is not mistaken for created space.",
+        "visual_type": "Directed pass network / unlock graph: a team's players as nodes, arrows p->q weighted and colored by UNLOCK(p->q) (out-strength sizing the 'unlocker' nodes, in-strength the 'beneficiaries'), with a click-through to a ghosting animation that shows the play with p's run vs the average-ghost so the freed space for q is literally drawn on the pitch-control surface.",
+        "youtube_segment": "\"Who frees Messi -- and who does Messi free?\" Run UNLOCK on Argentina's title run: show that Messi is the tournament's top BENEFICIARY-unlocker hybrid but that a specific teammate (e.g. Mac Allister / Di Maria) has the highest UNLOCK->Messi arrow, with the ghosting clip proving Messi's 6.03 xG was partly manufactured by an off-ball runner the box score never credits, then validate the moment against a PFF createsSpace tag on screen."
+      },
+      "verdicts": [
+        {
+          "novel": true,
+          "feasible": false,
+          "survives": false,
+          "reason": "The directed, ball-independent, learned \"who-unlocks-whom\" concept is novel vs the literature (Martens SG_pas is undirected/parametric, C-OBSO ghosts a player's own value, CHASE is defense-side, AW-JOI is on-ball), but the composite is not feasible as specified and its load-bearing novelty pillar is false: per the repo's own eda_space_leaderboards.py header, createsSpace tags the ON-BALL actor (the dedicated csPlayerId is usable on ~2 of 1,422 events) so it cannot validate that off-ball p created space, and betterOptionPlayerId is a single-player \"open man missed\" tag, not a directed (p,q) pair — so the \"precision/recall against PFF space ground truth\" that is the whole premise's differentiator cannot validate a directed p→q edge; additionally the xt_regression head emits one pooled scalar per frame (encoded.mean(dim=1)), not the per-teammate xT_lift_q(t) surface SG_pas requires, each head sits on a separately-trained backbone (score-specialist vs transformer_nextrcvr_main vs xt vs relational) rather than one model, the whiteboard counterfactual only does dx/dy position shifts with no ghost-substitution mechanism, and the asset is 44 matches on disk, not the claimed 64."
+        },
+        {
+          "novel": true,
+          "feasible": false,
+          "survives": false,
+          "reason": "The directed ball-independent \"who unlocks whom\" concept is genuinely novel versus the cited prior art, but it fails on feasibility: its ground-truth validation is invalid (eda_space_leaderboards.py documents createsSpace as an ON-BALL passer attribute, not an off-ball-runner tag — the dedicated csPlayerId is populated 2/1422), the xT-regression head outputs one pooled scalar per frame and cannot produce the per-teammate xT_lift_q surface SG_pas requires, the whiteboard head only perturbs+reruns score/concede (it never ghosts via the motion-forecast head nor touches the next-receiver/xT heads, so the core pipeline is unbuilt and would require fusing 3+ separately-trained incompatible backbones), and the tracking substrate is 44 matches not the claimed 64 with ~46% off-camera imputation concentrated on exactly the off-ball runners the metric targets."
+        }
+      ]
+    }
+  ],
+  "survivors": [
+    "P-OBSO (Pressure-Gated Off-Ball Scoring Opportunity)",
+    "Cost of the Closed Eye (CoCE) — \"The Ignored Open Man Index\"",
+    "Self-Made Space (SMS): Receiving-Space Self-Generation Index",
+    "TURN — Turned Under-line Reception Network (the half-turn-behind-lines metric)"
+  ],
+  "theory": {
+    "thesis": "Every method in the literature is computing one slice of the same object — the value of space — and they only look incompatible because each fixes a different free variable. xT freezes the pitch into a static ball-location grid; OBSO/EPV freeze time into a single snapshot and the player into an average; SOG/SGG/Martens freeze value out of the picture and measure geometric area; C-OBSO and our transformer ghost introduce time and a counterfactual but freeze identity; CHASE and line-breaks measure only the defensive reaction or the on-ball completion. Read together they form one continuous quantity: the expected goal-probability mass a team controls across the whole pitch, decomposed along five orthogonal axes — WHERE (ball-location threat, xT), WHO controls it (pitch-control/PPCF), HOW MUCH is created above a counterfactual (ghost-relative lift, C-OBSO/our motion-forecast), WHO it is created for vs by (SG_rec/SG_pas, next-receiver affinity), and WHAT the defense concedes in reaction (CHASE). The unifying object is a per-frame, per-player off-ball value surface — Transition × Control × Score integrated over the pitch and differenced against an average-player ghost — and the seven prior methods are exactly the special cases you recover by collapsing one axis at a time. Our tracking transformer is the first instrument that holds all five axes open at once (calibrated P(score), off-ball xT-lift Spearman 0.714 vs 0.616 lookup, next-receiver top-1 0.70 vs 0.44, a built-in 2s ghost, counterfactual ΔP, and ball-independent attention), and it reconstructs StatsBomb team xG at rho 0.885 — tighter than xG tracks goals (0.82). The theory is therefore not a new metric but a coordinate system in which all space metrics are projections, plus the one dataset (PFF human labels) that finally gives those projections a ground truth.",
+    "shared_blind_spot": "No prior method has ground truth for space. Every single one is validated either by nothing (xT, OBSO, line-breaks are self-defining), by an outcome proxy that fires too late and too rarely to see the off-ball movement (xG, which only exists at the shot instant; SG_rec correlates at r=0.66 with it), or — most tellingly — by \"two analysts watched video\" (Fernandez & Bornn 2018) and salary correlation (C-OBSO, rho=0.45). The construct they all model — \"space\" — is unobservable, so they each substitute their own geometry for truth and then cannot tell a value-laden run from a decoy in a dead zone, an open man found from one ignored, or an elite mover from his average replacement. The blind spot is not a missing feature; it is the absence of any frame-level human label of WHEN space was actually created and WHO it was created for. PFF's 1,422 createsSpace tags, 518 betterOptionPlayerId tags, and the movement/position grades — paired with 30Hz tracking on all 64 matches — are the first frame-aligned space ground truth in the field, and no one else has it.",
+    "pff_substrate": "The PFF human labels are the keystone that turns five disconnected geometries into one validated theory, because each label is the missing external check for a specific axis. createsSpace (1,422 expert-tagged moments, attributed to the on-ball actor who played the ball into space) is the positive ground truth for the WHERE/HOW-MUCH axes: a credible OBSO/SOG/xT-lift surface must spike at or just before these frames and stay flat elsewhere — converting \"two analysts watched video\" into precision/recall on a 64-match benchmark. betterOptionPlayerId (518 open-man-ignored tags) is the unique validator for the WHO-it's-for axis: it is the only label in existence that names a teammate who demonstrably got open and was not found, so it grounds the next-receiver head and the entire EPV \"value of every teammate\" surface against a human-flagged correct answer. pressureType (N/P/A/L on ~62% of carriers) supplies the defensive-pressure-on-carrier signal Spearman explicitly named OBSO as ignoring, as an independently graded gate rather than a re-derived one. movementGrade (368, ~71% negative) and positionGrade (1,300, ~99% negative) are deduction-only off-ball-quality grades that calibrate the ghost-gap and let \"least-bad\" be ranked against a metric that credits good movement. receiverFacingType (G/B/L, ~83% of passes) / bodyMovementType supply the body-orientation channel EPV named as its other gap. Critically, these labels validate but cannot train a continuous surface (sparse, ~27 createsSpace/match, selection-biased to on-camera high-leverage moments) — so the transformer trains on dense tracking and is graded against the sparse labels. Internal coherence confirms they are real signal, not noise: the createsSpace leaderboard independently recovers known-elite movers (Messi #1 at 25, 23 under pressure; Lozano 5.67/match) and team totals (Croatia and Argentina lead) without being told who they are.",
+    "families": [
+      {
+        "family": "Event-only value (the WHERE axis)",
+        "nodes": [
+          "Expected Threat (xT)"
+        ],
+        "key_edges": [
+          {
+            "from": "Expected Threat (xT)",
+            "to": "Pitch Control + OBSO (Spearman)",
+            "fix": "OBSO replaces xT's single ball-location lookup with a pitch-wide integral of Transition x Control x Score, valuing off-ball positions xT cannot see."
+          },
+          {
+            "from": "Expected Threat (xT)",
+            "to": "Space Generation Gain (Fernandez & Bornn)",
+            "fix": "SOG/SGG supplies the continuous off-ball space axis xT lacks (e.g. Messi's 66.7%-passive space gain that xT scores as zero)."
+          },
+          {
+            "from": "Expected Threat (xT)",
+            "to": "PFF createsSpace + betterOptionPlayerId labels",
+            "fix": "Both off-ball/unexecuted moments produce zero xT, exposing and grounding exactly the successful-on-ball-only blind spot (our xT-lift head: Spearman 0.616 -> 0.714)."
+          }
+        ]
+      },
+      {
+        "family": "Pitch control / space surfaces (WHO controls it + HOW MUCH)",
+        "nodes": [
+          "Pitch Control + OBSO (Spearman)",
+          "Pitch Control + SOG/SGG (Fernandez & Bornn)",
+          "Space Generation / individualized movement (Martens)"
+        ],
+        "key_edges": [
+          {
+            "from": "Pitch Control + OBSO (Spearman)",
+            "to": "PFF pressureType (N/P/A/L)",
+            "fix": "Gating OBSO's Transition term by graded carrier pressure restores the defensive-pressure-on-carrier signal Spearman named as ignored."
+          },
+          {
+            "from": "Pitch Control + SOG/SGG (Fernandez & Bornn)",
+            "to": "PFF createsSpace + StatsBomb xG",
+            "fix": "createsSpace replaces 'two analysts watched video' with a 64-match label benchmark; multiplying the space surface by real xG turns area-won into space that produced shot quality."
+          },
+          {
+            "from": "Space Generation (Martens)",
+            "to": "Tracking transformer motion-forecast + PFF labels",
+            "fix": "The transformer's 2s ghost is a tournament-scale, all-player learned movement model replacing Martens' 54-match single-club fit, and betterOptionPlayerId validates his never-checked SG_pas teammate-serving half."
+          }
+        ]
+      },
+      {
+        "family": "Possession value with a counterfactual (HOW MUCH above a ghost + identity)",
+        "nodes": [
+          "EPV (Fernandez/Bornn/Cervone)",
+          "C-OBSO via GVRNN ghosting (Teranishi)"
+        ],
+        "key_edges": [
+          {
+            "from": "EPV (Fernandez/Bornn/Cervone)",
+            "to": "PFF bodyMovementType / receiverFacingType",
+            "fix": "Orientation labels add the body-facing channel EPV named missing (the Rakitic example), up-weighting a teammate on the half-turn to play forward."
+          },
+          {
+            "from": "EPV (Fernandez/Bornn/Cervone)",
+            "to": "PFF betterOptionPlayerId",
+            "fix": "Validates EPV's un-checked per-teammate off-ball value surface: the high-EPV off-ball teammate should be the human-flagged ignored 'better option'."
+          },
+          {
+            "from": "C-OBSO (Teranishi)",
+            "to": "Tracking transformer motion-forecast + counterfactual heads",
+            "fix": "The transformer's all-player 2s ghost replaces Teranishi's single-season 3-player GVRNN, recomputing ghost-relative ΔP(score) at tournament scale."
+          }
+        ]
+      },
+      {
+        "family": "Defensive geometry / penetration (WHAT the defense concedes)",
+        "nodes": [
+          "CHASE / gravity (convex-hull deformation)",
+          "Line breaks (3+ opponents bypassed)"
+        ],
+        "key_edges": [
+          {
+            "from": "CHASE / gravity (convex-hull deformation)",
+            "to": "Transformer P(concede) head + PFF positionGrade",
+            "fix": "Weighting each unit of hull deformation by ΔP(concede) converts geometric reaction into conceded value, killing the decoy-in-a-dead-zone false positive; positionGrade (~99% negative) is the defender ground truth."
+          },
+          {
+            "from": "Line breaks (3+ opponents bypassed)",
+            "to": "Next-receiver head + PFF createsSpace",
+            "fix": "Reassigns credit from the on-ball passer to the off-ball runner whose run opened the corridor, splitting the line break between passer and mover."
+          },
+          {
+            "from": "Line breaks (3+ opponents bypassed)",
+            "to": "PFF linesBrokenType (D/M/A)",
+            "fix": "The expert tactical-line tag cross-checks the geometry-only corridor proxy (~30% overlap quantifies divergence and bounds the best threshold)."
+          }
+        ]
+      },
+      {
+        "family": "The unifying instrument (all five axes held open)",
+        "nodes": [
+          "Tracking transformer heads (ghosting forecast, next-receiver, P(score), xT-lift, counterfactual, attention)"
+        ],
+        "key_edges": [
+          {
+            "from": "Tracking transformer heads",
+            "to": "PFF createsSpace + movementGrade",
+            "fix": "Convert the internally-validated xT-lift/ghost-gap surfaces into label-validated metrics via precision/recall against expert space-creation and movement tags."
+          },
+          {
+            "from": "Tracking transformer heads",
+            "to": "PFF betterOptionPlayerId",
+            "fix": "The next-receiver head's rising P(receive) for a teammate should coincide with the 518 frames analysts flagged an open man as the ignored better option — grounding 'who gets open' as a skill."
+          },
+          {
+            "from": "Tracking transformer heads",
+            "to": "StatsBomb real xG",
+            "fix": "Accumulated possession value reconstructs StatsBomb team-tournament xG at rho 0.885 (tighter than xG-to-goals 0.82); defensive chemistry predicts xGA beyond FIFA+games (partial -0.355, 90% CI excludes 0)."
+          }
+        ]
+      }
+    ],
+    "headline_metric": {
+      "name": "SAR — Space Above Replacement (pressure-gated, ghost-relative, label-grounded off-ball value)",
+      "recipe": "For every off-ball attacker, every frame: (1) compute the OBSO-style off-ball value of their location as Transition x Control(PPCF) x Score, but replace Spearman's distance-only Score with the transformer's calibrated P(score) head (multi-defender/goal-angle-aware, learned) and sharpen the Transition term with the next-receiver head's possessor-conditioned P(receive) (who THIS carrier can actually reach, top-1 0.70 vs 0.44 nearest baseline); (2) multiply the Transition (deliverability) term by a learned gate keyed to the PFF-graded carrier pressureType (N/P/A/L) and carrier speed — so a run is only credited with danger that is passable given how hard the carrier is hassled, closing the exact gap Spearman named; (3) subtract the SAME quantity computed for the transformer's 2s motion-forecast GHOST (the all-player, tournament-scale average-player counterfactual) so only space generated ABOVE an average mover counts — SAR is the lift. Report SAR per-90 as a leaderboard and as actual-minus-ghost ΔP(score) via the whiteboard counterfactual machinery, cashed into StatsBomb-xG-equivalent terms (team-tournament rho 0.885). VALIDATE, not train, against PFF createsSpace (1,422) for precision/recall, betterOptionPlayerId (518) for the ignored-receiver tail, and movement/positionGrade for run quality.",
+      "why_novel": "It is the first metric to hold all five axes of the space-value object open simultaneously and the first with frame-level human ground truth. C-OBSO added a ghost and goal-angle Score but left Spearman's pressure/carrier-speed Transition gap untouched, ran on one club season / 3 players, and had no ground truth (validated only by salary rho=0.45). SOG/SGG and EPV are average-player, single-frame, and unvalidated by anything but expert video. SAR closes Spearman's named transition-pressure gap using a real independently-human-graded pressure label rather than re-derived pressure, replaces the average Score model with a learned calibrated P(score), differences against an all-player tournament-scale ghost instead of a 3-player GVRNN, and — uniquely — grades the result against 1,422 createsSpace and 518 betterOption tags. It is C-OBSO with the one term C-OBSO never repaired, at 64-match scale, finally validated against humans instead of salary or video."
+    },
+    "youtube_segments": [
+      {
+        "title": "The metric that doesn't exist: nobody can measure space",
+        "metric": "The field-wide no-ground-truth problem (createsSpace 1,422 / betterOption 518 as the first frame-level space labels)",
+        "visual": "Split screen: Fernandez & Bornn's 2018 caption 'validated by two analysts watching video' next to PFF's 1,422 expert createsSpace tags overlaid on a pitch — the moment a soft concept gets a label.",
+        "star_example": "Messi: the #1 space creator in Qatar with 25 expert-tagged creations (23 of them under pressure) — yet xT scores most of that movement as exactly zero because he never touched the ball.",
+        "aha": "For 50 years 'space' was a thing pundits pointed at and analysts eyeballed; the entire analytics literature validated it with video and salaries. PFF's human labels are the first time space has a ground truth — and that one fact reorganizes every metric below it."
+      },
+      {
+        "title": "One object, five shadows: the unifying coordinate system",
+        "metric": "The space-value object = Transition x Control x Score, differenced against a ghost (xT, OBSO, SOG, EPV, C-OBSO are projections of it)",
+        "visual": "A rotating 3D value surface over the pitch; as it spins, each prior metric flickers in as the flat shadow you get by collapsing one axis (freeze the pitch -> xT; freeze time -> OBSO; drop value -> SOG; drop identity -> C-OBSO ghost).",
+        "star_example": "Our xT-lift head: a static ball-location grid scores 0.616 Spearman against real threat; add the off-ball tracking surface and it jumps to 0.714 — the +0.10 is literally the off-ball space xT was blind to.",
+        "aha": "These methods were never rivals. They are five photographs of the same statue from five angles — and once you see the statue, you know exactly which photo is missing which limb."
+      },
+      {
+        "title": "The run that only counts when you're getting kicked",
+        "metric": "Pressure-gated OBSO / SAR Transition term (gated by PFF pressureType N/P/A/L on ~62% of carriers)",
+        "visual": "Interactive play scrubber under a live clip with a pressure DIAL on the carrier; drag N->P->A->L and watch every team's off-ball danger surface deflate — except the resilient ones.",
+        "star_example": "Messi tops actions-under-pressure at 472 (67.4/match, #1) AND space-creations-under-pressure at 23 (#1); drag the dial to a lunge and his open men stay reachable while others' collapse.",
+        "aha": "Spearman himself wrote that OBSO 'ignores defensive pressure and carrier speed.' The space that survives a lunge is a different, rarer skill than space in acres of time — and it's the space that wins knockout games."
+      },
+      {
+        "title": "The most ignored man in Qatar",
+        "metric": "CoCE / Ignored-Open-Man cost (betterOptionPlayerId 518 tags x next-receiver P(receive) x whiteboard ΔP(score))",
+        "visual": "Dual leaderboard — 'Closed Eye' (passers who left value on the table) and 'Ignored Creator' (movers who got open and weren't found); each row expands to a clip with a ghost ball flying to the open man and a live ΔP(score) readout.",
+        "star_example": "Youssef En-Nesyri got open and was overlooked 8 times — most at the World Cup; Argentina ignored open men 32 times, tournament-most, even on the way to the trophy.",
+        "aha": "Every method values the open man only in the abstract. This is the first metric anchored to a human tag of WHICH open man was actually missed — putting a goal-probability price on a pass that was never played."
+      },
+      {
+        "title": "The half-turn that bent the third star into existence",
+        "metric": "TURN — turned-under-line receptions (receiverFacingType=G x linesBrokenType x xT-lift), the orientation EPV said it couldn't see",
+        "visual": "Scrubber with the broken defensive line drawn across the pitch and a receiver-orientation arrow that flips from lateral/back to GOAL at the touch, P(score) strip ticking up.",
+        "star_example": "In the 2022 final Angel Di Maria received on the turn behind France's lines 6+ times — that night Argentina broke France's lines 46 to 16, mirroring the 2.76-2.27 xG edge.",
+        "aha": "EPV's authors named 'no body orientation' as their gap and used the Rakitic example. PFF graded receiver facing on 83% of passes — so we can finally separate the sideways recycle from the spin that turns a line break into a shot."
+      },
+      {
+        "title": "Whose legs? Replacing the average player",
+        "metric": "SAR ghost-gap with player identity (motion-forecast 2s ghost vs actual; Martens SG_rec individualized movement, r=0.66 with xG)",
+        "visual": "Two trajectories over one clip: a translucent average-player GHOST drifting where a generic player would, and the real star pulling away into space the ghost never reaches — the gap shaded as SAR.",
+        "star_example": "Line-break leaders are ball-playing CBs and #6s — Stones 37, Modric 36, Rodri 35, Gvardiol 35, Brozovic 34, Maguire 33 — with Messi (33) the ONLY forward in the top 7; the ghost-gap is where his profile diverges from theirs.",
+        "aha": "An average-player model under-credits the players whose average IS elite — the Messi-effect EPV and C-OBSO both named. Subtracting a ghost isolates skill above replacement, the first honest answer to 'whose legs made that space?'"
+      },
+      {
+        "title": "Does the defense agree it lost? Gravity and the conceded hull",
+        "metric": "CHASE convex-hull deformation x transformer P(concede) x PFF positionGrade (~99% negative defender deductions)",
+        "visual": "The defensive convex hull collapsing/displacing as an attacker drifts, shaded by ΔP(concede) so you see whether the dragged defenders were guarding a dangerous zone or chasing a decoy.",
+        "star_example": "Croatia (232) and Argentina (212) led team line breaks AND space-creation; their opponents' hulls should deform most — and the defenders graded out of position (positionGrade) should be the ones the gravity pulled.",
+        "aha": "Attacker-side surfaces measure space taken; CHASE measures space conceded. Pair them and a decoy in a dead zone scores zero while a run that genuinely breaks the shape scores — the defense's own geometry becomes the second witness."
+      },
+      {
+        "title": "Proof it's real: from space to a goal you can count",
+        "metric": "Accumulated transformer value vs StatsBomb real xG (team-tournament rho 0.885; defensive chemistry partial -0.355 beyond FIFA+games)",
+        "visual": "Scatter of every team's accumulated model value vs StatsBomb xG hugging the diagonal at rho 0.885, annotated 'tighter than xG tracks goals (0.82)'; then 2026 nations sliding onto the same plot as a teaser.",
+        "star_example": "The 2022 final: ARG 2.76 - 2.27 FRA xG with a 46-16 line-break split — the space story and the outcome story are the same story, and the model reconstructs it from movement alone.",
+        "aha": "The whole framework grounds out in a number you can verify against goals — so when we point the same instrument at the 2026 World Cup, the space leaderboard isn't a vibe, it's a calibrated forecast of who is manufacturing chances before the ball ever arrives."
+      }
+    ],
+    "open_risks": [
+      "Broadcast-tracking occlusion is the dominant threat: ~46% of off-ball positions are imputed (~7m error, Penn et al. 2025), and they are imputed precisely for the off-camera off-ball players whose runs we most want to measure — so the pitch-control/PPCF surface, the ghost, and CHASE's defender hull are all degraded exactly where space creation happens. Every off-ball claim must carry a per-event visibility gate, and 'getting open off-camera' is fundamentally unreliable; the event-snapshot layers (line-breaks, TURN counts) are robust, the continuous/tracking-valued layers are not.",
+      "Identity blindness is unsolved, not solved: the transformer token has no player embedding and is trained on a single 44-match tournament, so the ghost is an average-player ghost. SAR's 'space above replacement' systematically under-credits stars whose average IS elite — the same Messi-effect/scale wall EPV named and Martens hit at 54 matches. We can name the gap but a single World Cup is far too little to learn player-specific movement models; identity embeddings are aspirational.",
+      "Label attribution is a known confound: createsSpace is attributed to the ON-BALL actor who played the ball into space, NOT the off-ball mover who created it (csPlayerId populated on only 2 of 1,422 events). So validating a receiver-side metric (SAR, SMS, TURN) against createsSpace is only a team/possession-level co-check; the true receiver labels are betterOptionPlayerId (n=518) and the movement/position grades (n=368/1,300) — small, sparse, and selection-biased to on-camera high-leverage moments.",
+      "Deduction-only grades cannot rank positive skill: movementGrade is ~71% negative and positionGrade ~99% negative, so 'best' means 'least-bad.' They validate that bad movement is penalized but cannot directly confirm that high SAR corresponds to GOOD movement — only that it avoids graded errors.",
+      "xG is noisy at the unit we'd most like to use: per-team-match grounding is weak (rho 0.33, out-of-fold 0.27) because of ~10-25 shots/match; grounding only holds at the team-tournament aggregate (rho 0.885 totals, but partly games-played-inflated; 0.45 per-match-rate is the cleaner, merely-moderate figure). Offensive chemistry beyond talent is directionally positive but underpowered and talent-entangled (mean_aw_joi90 partial +0.25, 90% CI [-0.13,+0.54] spans 0 at n=30); only the DEFENSIVE chemistry claim (n_strong_def partial -0.355, CI excludes 0) is firm. Do not overclaim the offensive side.",
+      "Geometric line-breaks diverge sharply from the human tag: only ~30% of geometric LB>=3 passes are PFF-tagged and ~21% of PFF-tagged passes reach LB>=3, and the metric is inflated for deep-buildup CBs/#6s threading past a high press — so the Stones/Modric/Rodri leaderboard partly measures a geometry-only construct, not graded tactical line breaks. Present it as progression-by-corridor, not as 'beating a defensive line.'",
+      "Many composites (SAR, CoCE, P-OBSO, SMS) are designed and feasibility-checked but not yet fully built/validated end-to-end in-repo; the validation runs (precision/recall vs createsSpace, the betterOption join, the pressure-gate fit) are the actual work, and the published numbers must distinguish what is computed (xT-lift 0.714, next-receiver 0.70, rho 0.885, defensive chemistry -0.355) from what is proposed.",
+      "Transfer/generalization to 2026 is an assumption: the model is calibrated on 2022 broadcast tracking and one tournament's styles; teasing a 2026 forecast on the same calibrated instrument assumes stability of playing styles, tracking pipeline, and the imputation regime that may not hold."
+    ]
+  }
+}
