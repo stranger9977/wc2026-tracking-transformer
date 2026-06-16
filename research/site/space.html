@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Space — Soccer's Dark Matter</title>
+<meta name="description" content="An analytically-driven look at off-ball movement — the open man teams ignored, the half-turn that bent the World Cup final, and the honest lens of what the camera actually filmed. Built on PFF FC World Cup 2022 human labels + tracking." />
+<meta property="og:title" content="Space — Soccer's Dark Matter" />
+<meta property="og:description" content="The open man teams ignored, the half-turn that bent the final, and how much of it was actually filmed. PFF WC2022 labels + tracking." />
+<style>
+  :root{
+    --bg:#0e1014; --bg-elev:#171a21; --bg-elev2:#1d212b; --border:#2a313d;
+    --ink:#e8edf4; --muted:#9aa6b6; --faint:#69748699;
+    --accent:#6cb4ee; --accent2:#9b8cff; --good:#6dd58c; --warn:#d4793a; --hot:#ff6b6b;
+    --arg:#6cb4ee; --fra:#1a3d8f; --mar:#c1272d;
+    --maxw:920px; --rail:46px;
+    font-synthesis:none; -webkit-text-size-adjust:100%;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; font-size:17px; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{line-height:1.12; letter-spacing:-0.02em; font-weight:780; margin:0}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+  .mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-variant-numeric:tabular-nums}
+  .big-num{font-variant-numeric:tabular-nums; font-weight:800; letter-spacing:-0.03em}
+
+  /* ---- hero ---- */
+  .hero{
+    min-height:96vh; display:flex; flex-direction:column; justify-content:center;
+    position:relative; padding:0 22px; overflow:hidden;
+    background:
+      radial-gradient(1200px 600px at 72% 18%, #1a2740 0%, rgba(26,39,64,0) 60%),
+      radial-gradient(900px 500px at 12% 88%, #241b3a 0%, rgba(36,27,58,0) 55%),
+      var(--bg);
+  }
+  .hero .grid-motif{position:absolute; inset:0; opacity:.10; pointer-events:none;
+    background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+    background-size:48px 32px; mask-image:radial-gradient(120% 90% at 50% 40%,#000 35%,transparent 80%);}
+  .hero .inner{max-width:var(--maxw); margin:0 auto; width:100%; position:relative}
+  .kicker{text-transform:uppercase; letter-spacing:.28em; font-size:12px; color:var(--accent2); font-weight:700; margin-bottom:18px}
+  .hero h1{font-size:clamp(40px,8.5vw,82px); margin-bottom:8px}
+  .hero h1 .dim{color:var(--muted)}
+  .hero .sub{font-size:clamp(18px,2.5vw,24px); color:var(--ink); max-width:660px; margin-top:18px; font-weight:500}
+  .hero .sub b{color:var(--accent)}
+  .hero .meta{margin-top:30px; color:var(--muted); font-size:14px; display:flex; gap:18px; flex-wrap:wrap}
+  .hero .meta span{display:inline-flex; align-items:center; gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .scrollcue{position:absolute; bottom:26px; left:50%; transform:translateX(-50%); color:var(--faint); font-size:12px; letter-spacing:.18em; text-transform:uppercase; animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+
+  /* ---- sections ---- */
+  section{padding:86px 0; position:relative}
+  .act-tag{font-size:13px; letter-spacing:.2em; text-transform:uppercase; font-weight:700; color:var(--muted); margin-bottom:14px; display:flex; align-items:center; gap:12px}
+  .act-tag .num{color:var(--bg); background:var(--accent); width:26px;height:26px;border-radius:7px; display:inline-grid; place-items:center; font-size:13px; font-weight:800}
+  section h2{font-size:clamp(28px,5vw,46px); margin-bottom:18px; max-width:760px}
+  .lede{font-size:clamp(18px,2.3vw,21px); color:var(--ink); max-width:680px; margin-bottom:8px; font-weight:480}
+  .lede b{color:var(--ink); font-weight:700}
+  p.body{color:var(--muted); max-width:680px; margin:14px 0}
+  p.body b{color:var(--ink)}
+
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1; transform:none}
+
+  /* divider */
+  .rule{height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); margin:0 auto; max-width:var(--maxw)}
+
+  /* stat band */
+  .stats{display:flex; gap:14px; flex-wrap:wrap; margin:26px 0 6px}
+  .stat{background:var(--bg-elev); border:1px solid var(--border); border-radius:13px; padding:16px 18px; min-width:150px; flex:1}
+  .stat .v{font-size:30px} .stat .l{color:var(--muted); font-size:13px; margin-top:4px}
+  .stat .v.good{color:var(--good)} .stat .v.warn{color:var(--warn)} .stat .v.hot{color:var(--hot)}
+
+  /* card */
+  .card{background:var(--bg-elev); border:1px solid var(--border); border-radius:16px; padding:22px; margin-top:26px}
+  .card h3{font-size:18px; margin-bottom:6px}
+  .caption{color:var(--muted); font-size:14px; margin-top:10px}
+  .caption b{color:var(--ink)}
+
+  /* soft-value caveat chip (copy-guard #2) */
+  .soft{display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--warn); border:1px solid #d4793a55; background:#d4793a14; border-radius:999px; padding:2px 9px; font-weight:600; vertical-align:middle}
+  .soft::before{content:"~"; font-weight:800}
+  .guardnote{font-size:13px; color:var(--muted); border-left:2px solid var(--accent2); padding:4px 0 4px 12px; margin:16px 0; max-width:660px}
+
+  /* tie-band leaderboard (copy-guard #1: no #1) */
+  .tieband{margin-top:8px}
+  .tieband .hd{display:flex; justify-content:space-between; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.12em; margin-bottom:10px}
+  .tier{position:relative; border:1px dashed var(--border); border-radius:12px; padding:14px 14px 10px; margin-bottom:12px}
+  .tier .tier-lab{font-size:12px; color:var(--accent2); font-weight:700; margin-bottom:10px; text-transform:uppercase; letter-spacing:.08em}
+  .chips{display:flex; flex-wrap:wrap; gap:8px}
+  .chip{display:inline-flex; align-items:center; gap:8px; background:var(--bg-elev2); border:1px solid var(--border); border-radius:999px; padding:6px 12px; font-size:14px}
+  .chip .ct{color:var(--muted); font-variant-numeric:tabular-nums}
+  .chip .fl{width:8px;height:8px;border-radius:2px}
+  .ciribbon{margin-top:12px; font-size:12px; color:var(--muted)}
+  .ciribbon .bar{height:6px;border-radius:3px;background:linear-gradient(90deg,#6cb4ee33,#6cb4ee,#6cb4ee33); margin:6px 0; position:relative}
+
+  /* team mini-bars */
+  .bars{margin-top:10px}
+  .barrow{display:grid; grid-template-columns:130px 1fr 64px; align-items:center; gap:10px; margin:7px 0; font-size:14px}
+  .barrow .track{height:18px; background:var(--bg-elev2); border-radius:6px; overflow:hidden; border:1px solid var(--border)}
+  .barrow .fill{height:100%; border-radius:6px 0 0 6px}
+  .barrow .val{text-align:right; color:var(--muted); font-variant-numeric:tabular-nums}
+
+  /* embedded clip scrubber */
+  .clip{margin-top:24px; background:#0a0c10; border:1px solid var(--border); border-radius:16px; overflow:hidden}
+  .clip .stage{position:relative; aspect-ratio:105/68; background:#0a0c10}
+  .clip .stage img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; image-rendering:auto}
+  .clip .overlay{position:absolute; inset:0; pointer-events:none}
+  .clip .ctrls{display:flex; align-items:center; gap:14px; padding:12px 16px; border-top:1px solid var(--border); background:var(--bg-elev)}
+  .clip .play{width:38px;height:38px;border-radius:50%;border:1px solid var(--border); background:var(--bg-elev2); color:var(--ink); cursor:pointer; font-size:15px; display:grid;place-items:center; flex:0 0 auto}
+  .clip .play:hover{border-color:var(--accent)}
+  .clip input[type=range]{flex:1; accent-color:var(--accent); cursor:pointer}
+  .clip .tlabel{font-size:12px; color:var(--muted); min-width:118px; text-align:right; font-variant-numeric:tabular-nums}
+  .clip .evt{padding:8px 16px 12px; font-size:13px; color:var(--muted); min-height:20px; border-top:1px solid var(--border)}
+  .clip .evt b{color:var(--ink)}
+  .clip .evt .hl{color:var(--accent)}
+
+  /* occlusion fog */
+  .fog-wrap{margin-top:24px}
+  .fog{position:relative; aspect-ratio:105/68; background:#0c2a16; border:1px solid var(--border); border-radius:14px; overflow:hidden}
+  .fog svg{position:absolute; inset:0; width:100%; height:100%}
+  .fog .pdot text{font-size:9px; fill:#04140a; font-weight:700}
+  .fogctrls{display:flex; align-items:center; gap:14px; margin-top:14px; flex-wrap:wrap}
+  .fogctrls label{font-size:13px; color:var(--muted)}
+  .fogctrls input[type=range]{accent-color:var(--warn); width:240px}
+  .keeptable{margin-top:18px; display:flex; gap:10px; flex-wrap:wrap}
+  .keeptable .kc{background:var(--bg-elev); border:1px solid var(--border); border-radius:10px; padding:10px 13px; font-size:13px; min-width:96px}
+  .keeptable .kc .kv{font-size:20px; font-weight:800; font-variant-numeric:tabular-nums} .keeptable .kc .kl{color:var(--muted)}
+
+  /* what's next chips */
+  .roadmap{display:flex; gap:10px; flex-wrap:wrap; margin-top:20px}
+  .rchip{border-radius:11px; padding:12px 16px; font-size:14px; font-weight:600}
+  .rchip.ship{background:#6dd58c18; border:1px solid #6dd58c66; color:var(--good)}
+  .rchip.soon{background:transparent; border:1px dashed var(--faint); color:var(--muted)}
+  .rchip small{display:block; font-weight:500; font-size:12px; opacity:.8; margin-top:2px}
+
+  /* confidence rail */
+  #rail{position:fixed; top:0; right:0; width:var(--rail); height:100vh; z-index:40; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; pointer-events:none; border-left:1px solid var(--border); background:linear-gradient(180deg,#0e1014cc,#0e1014ee)}
+  #rail .meter{width:8px; flex:0 0 46vh; max-height:340px; background:var(--bg-elev2); border-radius:5px; overflow:hidden; position:relative; border:1px solid var(--border)}
+  #rail .meter .fill{position:absolute; left:0; right:0; bottom:0; background:linear-gradient(180deg,var(--good),var(--warn)); transition:height .6s ease}
+  #rail .pct{font-size:11px; color:var(--muted); writing-mode:vertical-rl; transform:rotate(180deg); letter-spacing:.06em; font-variant-numeric:tabular-nums}
+  #rail .cap{font-size:9px; color:var(--faint); writing-mode:vertical-rl; transform:rotate(180deg); text-transform:uppercase; letter-spacing:.14em}
+  @media(max-width:760px){ :root{--rail:0px} #rail{display:none} }
+
+  footer{border-top:1px solid var(--border); padding:54px 0 80px; color:var(--muted); font-size:14px}
+  footer h3{font-size:16px; color:var(--ink); margin-bottom:14px}
+  footer .links{display:flex; gap:22px; flex-wrap:wrap; margin-bottom:22px}
+  footer .fine{color:var(--faint); font-size:12.5px; max-width:720px; line-height:1.6}
+
+  .pillrow{display:flex; gap:10px; flex-wrap:wrap; margin:18px 0}
+  .pill{font-size:12.5px; color:var(--muted); border:1px solid var(--border); border-radius:999px; padding:5px 12px; background:var(--bg-elev)}
+  .pill b{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="grid-motif"></div>
+  <div class="inner">
+    <div class="kicker">Off-ball movement · World Cup 2022 · teeing up 2026</div>
+    <h1>Space<span class="dim">.</span><br/><span class="dim">Soccer's dark matter.</span></h1>
+    <p class="sub">For fifty years, “space” was something pundits <i>pointed at</i>. PFF's human labels are the first frame-level ground truth that lets us actually <b>count it</b> — so here are three honest, countable lenses on the off-ball game.</p>
+    <div class="meta">
+      <span><span class="dot" style="background:var(--good)"></span> 64 matches · ~144k graded events</span>
+      <span><span class="dot" style="background:var(--accent)"></span> PFF FC tracking + human labels</span>
+      <span><span class="dot" style="background:var(--warn)"></span> no fake #1s · no soft value sold as xG</span>
+    </div>
+  </div>
+  <div class="scrollcue">scroll ↓</div>
+</header>
+
+<div class="rule"></div>
+
+<!-- ACT I — CoCE -->
+<section id="ignored">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">I</span> The open man nobody found</div>
+      <h2>The cost of the closed eye.</h2>
+      <p class="lede">Every so often a teammate gets <b>open</b> — and the player on the ball just… doesn't see him. PFF analysts tagged <b>518</b> of these moments at the 2022 World Cup. Strip out 8 where the player should've shot himself and 2 mis-attributed to the wrong team, and <b>508</b> are real ignored open men.</p>
+      <div class="stats">
+        <div class="stat"><div class="v big-num">508</div><div class="l">ignored open men (from 518 tags)</div></div>
+        <div class="stat"><div class="v big-num warn">6-way</div><div class="l">tie atop the "ignored creator" board</div></div>
+        <div class="stat"><div class="v big-num">32</div><div class="l">Argentina, the most ignored chances (raw)</div></div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>Belgium 0–2 Morocco — Ounahi shoots; En-Nesyri is open.</h3>
+      <div class="clip" data-clip="morocco-ennesyri-ignored" data-highlight="En-Nesyri" data-mode="ignored"></div>
+      <div class="caption">A real tagged moment: with <b>no pressure on the ball</b>, Azzedine Ounahi shoots while Youssef En-Nesyri is open for the pass. PFF graded En-Nesyri the better option. Scrub it. <span class="soft">soft xT, directional</span> the "value left on the table" is a static-grid estimate, not a goal probability.</div>
+    </div>
+
+    <div class="card reveal">
+      <h3>The "most ignored open man" — and why there's no #1</h3>
+      <div id="coce-board" class="tieband"></div>
+      <p class="caption">Six players were each ignored <b>7 times</b>, and their counts are statistically indistinguishable (same Poisson 95% interval). So this is a <b>tie tier</b>, not a ranking — naming a single "most ignored man" would be false precision. The clean fact: <b>nobody got open-and-overlooked more often than this group.</b></p>
+      <div id="coce-teams" class="bars" style="margin-top:18px"></div>
+      <p class="caption">Team totals are <b>exposure-driven</b> (teams played 3–7 matches): Argentina's 32 is the raw tournament-high on the way to the trophy; per game, Germany's rate leads over just 3 matches.</p>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ACT II — TURN -->
+<section id="turn">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">II</span> The half-turn that bent the final</div>
+      <h2>Receiving already pointed at goal.</h2>
+      <p class="lede">The most valuable reception in football is the one you take <b>already turned toward goal, behind a line that's just been broken</b> — it converts a line-break into instant threat instead of a sideways recycle. Across 64 matches there were <b>848</b> of them: only <b>18.2%</b> of all line-break receptions arrive facing goal.</p>
+      <div class="stats">
+        <div class="stat"><div class="v big-num">848</div><div class="l">turned-under-line receptions, all 64 matches</div></div>
+        <div class="stat"><div class="v big-num">18.2%</div><div class="l">of line-break receptions face goal</div></div>
+        <div class="stat"><div class="v big-num good">6</div><div class="l">Di María, in the final alone (ARG 17 · FRA 6)</div></div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>The final — Álvarez finds Di María, turned behind the line.</h3>
+      <div class="clip" data-clip="argentina-france-dimaria-turn" data-highlight="Di María" data-mode="turn"></div>
+      <div class="caption">A real tagged TURN: Julián Álvarez breaks France's line and Di María receives <b>already facing goal</b> (orientation flips to ↑GOAL on the touch). On the night Argentina out-turned France <b>17–6</b>; Di María had <b>6</b> — the one clean single-name fact this metric supports.</div>
+    </div>
+
+    <div class="card reveal">
+      <h3>Tournament leaders — a 36-player tie, no single #1</h3>
+      <div id="turn-board" class="tieband"></div>
+      <p class="caption">Thirty-six players land between <b>6 and 11</b> turned-under-line receptions, and every count sits inside the leader's 95% interval — so even the top of the cluster (Kramarić, 11) is <b>not a supportable #1</b>. The honest read: this is the leading cluster of half-turn receivers, not a ranked list.</p>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- honesty note (occlusion, demoted to a footnote) -->
+<section id="honesty">
+  <div class="wrap reveal">
+    <div class="act-tag">How we know what we know</div>
+    <p class="lede" style="max-width:740px">One honest caveat. Broadcast tracking only sees what's on camera, so <b>40.9% of player positions are estimated, not tracked</b> — and the blind spot skews toward forwards and wingers, the very players a space metric wants. That's why the few <span class="soft">soft xT</span> reads above are flagged <b>directional</b> rather than precise. But the <b>counts</b> that carry these stories — who got open and was ignored, who received on the turn — come from human labels and aren't affected.</p>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- EDA context -->
+<section id="context">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag">The tournament in context</div>
+      <h2>Who made — and broke through — the most space?</h2>
+      <p class="body">Two supporting cuts from the wider study, for context (full breakdowns in the <a href="space-eda.html">EDA deck</a>): the teams that created the most space, and the players who most broke opposition lines.</p>
+      <div class="pillrow" id="context-pills"></div>
+      <div class="card" style="margin-top:8px">
+        <h3>Team space creation (PFF <span class="mono">createsSpace</span>)</h3>
+        <div id="eda-space" class="bars"></div>
+      </div>
+      <div class="card">
+        <h3>Line-break leaders <span class="soft">progression by corridor</span></h3>
+        <div id="eda-lb" class="bars"></div>
+        <p class="caption">Read as “forward passes threaded through ≥3 opponents,” a geometry proxy — it diverges from PFF's graded line-break tag by design, so treat it as progression, not a verdict on beating a defensive line.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- WHAT'S NEXT -->
+<section id="next">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag">What's next · 2026</div>
+      <h2>These three are the countable shadows. The full surface is coming.</h2>
+      <p class="body">What you've scrubbed here are the parts of “space” we can <b>count and verify</b> today. The richer, continuous value surface — what a run is worth, above an average player, when the pass never comes — is <b>designed and feasibility-checked, not yet built end-to-end</b>. No numbers attached, on purpose.</p>
+      <div class="roadmap">
+        <div class="rchip ship">✓ Occlusion lens<small>shipped — the honesty bound</small></div>
+        <div class="rchip ship">✓ Ignored Open Man<small>shipped — CoCE</small></div>
+        <div class="rchip ship">✓ Turned-under-line<small>shipped — TURN</small></div>
+        <div class="rchip soon">SAR<small>space above replacement</small></div>
+        <div class="rchip soon">P-OBSO<small>pressure-gated scoring chance</small></div>
+        <div class="rchip soon">SMS<small>self-made space</small></div>
+        <div class="rchip soon">CHASE<small>defensive gravity</small></div>
+      </div>
+      <p class="body" style="margin-top:22px">Same three lenses, re-pointed at the host nations and the space-creators to watch. See the full framework in the <a href="space-research.html">research brief</a>.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>The full study</h3>
+    <div class="links">
+      <a href="space-research.html">Research brief &amp; the Grand Unifying Theory →</a>
+      <a href="space-eda.html">EDA deck →</a>
+      <a href="match-report-final.html">2022 final report →</a>
+      <a href="methodology.html">Methodology →</a>
+    </div>
+    <p class="fine">
+      Data: PFF FC Men's World Cup 2022 — 30 Hz broadcast tracking + human-graded events for all 64 matches; real xG from StatsBomb open data. Interactive clips are real tracking with model-rendered frames; narration overlays (broken-line, orientation arrow, “open/ignored” markers) annotate real footage. Leaderboards are presented as tie-grouped tiers with Poisson intervals — never a single ranked “#1,” because the underlying counts don't support one. Soft <span class="mono">xT</span> reads are static-grid estimates flagged “directional,” not goal probabilities, and they inherit the position-biased occlusion shown in Act III. Counts (ignored open men, turned-under-line receptions) are label-driven and occlusion-robust.
+    </p>
+  </div>
+</footer>
+
+<script type="module" src="assets/js/space.js?v=1"></script>
+</body>
+</html>

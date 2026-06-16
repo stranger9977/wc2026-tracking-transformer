@@ -1,0 +1,3678 @@
+{
+  "players_by_turn_receptions": [
+    {
+      "player": "Andrej Kramaric",
+      "team": "Croatia",
+      "turn_receptions": 11,
+      "turn_receptions_poisson95_ci": [
+        5.49,
+        19.68
+      ],
+      "line_break_receptions": 34,
+      "turned_to_goal_share": 0.324,
+      "appearances": 7,
+      "per_appearance": 1.571,
+      "matches_with_linebreak_reception": 7,
+      "turn_per_linebreak_match": 1.571,
+      "matches_with_turn": 5
+    },
+    {
+      "player": "Cody Gakpo",
+      "team": "Netherlands",
+      "turn_receptions": 9,
+      "turn_receptions_poisson95_ci": [
+        4.12,
+        17.08
+      ],
+      "line_break_receptions": 28,
+      "turned_to_goal_share": 0.321,
+      "appearances": 5,
+      "per_appearance": 1.8,
+      "matches_with_linebreak_reception": 5,
+      "turn_per_linebreak_match": 1.8,
+      "matches_with_turn": 5
+    },
+    {
+      "player": "Jude Bellingham",
+      "team": "England",
+      "turn_receptions": 9,
+      "turn_receptions_poisson95_ci": [
+        4.12,
+        17.08
+      ],
+      "line_break_receptions": 36,
+      "turned_to_goal_share": 0.25,
+      "appearances": 5,
+      "per_appearance": 1.8,
+      "matches_with_linebreak_reception": 5,
+      "turn_per_linebreak_match": 1.8,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Ángel Di María",
+      "team": "Argentina",
+      "turn_receptions": 9,
+      "turn_receptions_poisson95_ci": [
+        4.12,
+        17.08
+      ],
+      "line_break_receptions": 21,
+      "turned_to_goal_share": 0.429,
+      "appearances": 5,
+      "per_appearance": 1.8,
+      "matches_with_linebreak_reception": 5,
+      "turn_per_linebreak_match": 1.8,
+      "matches_with_turn": 2
+    },
+    {
+      "player": "Azzedine Ounahi",
+      "team": "Morocco",
+      "turn_receptions": 9,
+      "turn_receptions_poisson95_ci": [
+        4.12,
+        17.08
+      ],
+      "line_break_receptions": 36,
+      "turned_to_goal_share": 0.25,
+      "appearances": 7,
+      "per_appearance": 1.286,
+      "matches_with_linebreak_reception": 6,
+      "turn_per_linebreak_match": 1.5,
+      "matches_with_turn": 5
+    },
+    {
+      "player": "Hakim Ziyech",
+      "team": "Morocco",
+      "turn_receptions": 9,
+      "turn_receptions_poisson95_ci": [
+        4.12,
+        17.08
+      ],
+      "line_break_receptions": 41,
+      "turned_to_goal_share": 0.22,
+      "appearances": 7,
+      "per_appearance": 1.286,
+      "matches_with_linebreak_reception": 7,
+      "turn_per_linebreak_match": 1.286,
+      "matches_with_turn": 7
+    },
+    {
+      "player": "Rodrigo de Paul",
+      "team": "Argentina",
+      "turn_receptions": 9,
+      "turn_receptions_poisson95_ci": [
+        4.12,
+        17.08
+      ],
+      "line_break_receptions": 57,
+      "turned_to_goal_share": 0.158,
+      "appearances": 7,
+      "per_appearance": 1.286,
+      "matches_with_linebreak_reception": 7,
+      "turn_per_linebreak_match": 1.286,
+      "matches_with_turn": 5
+    },
+    {
+      "player": "Raphinha",
+      "team": "Brazil",
+      "turn_receptions": 8,
+      "turn_receptions_poisson95_ci": [
+        3.45,
+        15.76
+      ],
+      "line_break_receptions": 18,
+      "turned_to_goal_share": 0.444,
+      "appearances": 5,
+      "per_appearance": 1.6,
+      "matches_with_linebreak_reception": 5,
+      "turn_per_linebreak_match": 1.6,
+      "matches_with_turn": 2
+    },
+    {
+      "player": "Theo Hernandez",
+      "team": "France",
+      "turn_receptions": 8,
+      "turn_receptions_poisson95_ci": [
+        3.45,
+        15.76
+      ],
+      "line_break_receptions": 10,
+      "turned_to_goal_share": 0.8,
+      "appearances": 6,
+      "per_appearance": 1.333,
+      "matches_with_linebreak_reception": 4,
+      "turn_per_linebreak_match": 2.0,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Achraf Hakimi",
+      "team": "Morocco",
+      "turn_receptions": 8,
+      "turn_receptions_poisson95_ci": [
+        3.45,
+        15.76
+      ],
+      "line_break_receptions": 23,
+      "turned_to_goal_share": 0.348,
+      "appearances": 7,
+      "per_appearance": 1.143,
+      "matches_with_linebreak_reception": 7,
+      "turn_per_linebreak_match": 1.143,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Kylian Mbappé",
+      "team": "France",
+      "turn_receptions": 8,
+      "turn_receptions_poisson95_ci": [
+        3.45,
+        15.76
+      ],
+      "line_break_receptions": 48,
+      "turned_to_goal_share": 0.167,
+      "appearances": 7,
+      "per_appearance": 1.143,
+      "matches_with_linebreak_reception": 7,
+      "turn_per_linebreak_match": 1.143,
+      "matches_with_turn": 5
+    },
+    {
+      "player": "Lionel Messi",
+      "team": "Argentina",
+      "turn_receptions": 8,
+      "turn_receptions_poisson95_ci": [
+        3.45,
+        15.76
+      ],
+      "line_break_receptions": 74,
+      "turned_to_goal_share": 0.108,
+      "appearances": 7,
+      "per_appearance": 1.143,
+      "matches_with_linebreak_reception": 7,
+      "turn_per_linebreak_match": 1.143,
+      "matches_with_turn": 6
+    },
+    {
+      "player": "Andreas Skov Olsen",
+      "team": "Denmark",
+      "turn_receptions": 7,
+      "turn_receptions_poisson95_ci": [
+        2.81,
+        14.42
+      ],
+      "line_break_receptions": 10,
+      "turned_to_goal_share": 0.7,
+      "appearances": 2,
+      "per_appearance": 3.5,
+      "matches_with_linebreak_reception": 2,
+      "turn_per_linebreak_match": 3.5,
+      "matches_with_turn": 2
+    },
+    {
+      "player": "Serge Gnabry",
+      "team": "Germany",
+      "turn_receptions": 7,
+      "turn_receptions_poisson95_ci": [
+        2.81,
+        14.42
+      ],
+      "line_break_receptions": 15,
+      "turned_to_goal_share": 0.467,
+      "appearances": 3,
+      "per_appearance": 2.333,
+      "matches_with_linebreak_reception": 3,
+      "turn_per_linebreak_match": 2.333,
+      "matches_with_turn": 2
+    },
+    {
+      "player": "Antonee Robinson",
+      "team": "United States",
+      "turn_receptions": 7,
+      "turn_receptions_poisson95_ci": [
+        2.81,
+        14.42
+      ],
+      "line_break_receptions": 12,
+      "turned_to_goal_share": 0.583,
+      "appearances": 4,
+      "per_appearance": 1.75,
+      "matches_with_linebreak_reception": 4,
+      "turn_per_linebreak_match": 1.75,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Jordi Alba",
+      "team": "Spain",
+      "turn_receptions": 7,
+      "turn_receptions_poisson95_ci": [
+        2.81,
+        14.42
+      ],
+      "line_break_receptions": 13,
+      "turned_to_goal_share": 0.538,
+      "appearances": 4,
+      "per_appearance": 1.75,
+      "matches_with_linebreak_reception": 4,
+      "turn_per_linebreak_match": 1.75,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Álvaro Morata",
+      "team": "Spain",
+      "turn_receptions": 7,
+      "turn_receptions_poisson95_ci": [
+        2.81,
+        14.42
+      ],
+      "line_break_receptions": 29,
+      "turned_to_goal_share": 0.241,
+      "appearances": 4,
+      "per_appearance": 1.75,
+      "matches_with_linebreak_reception": 4,
+      "turn_per_linebreak_match": 1.75,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Marcelo Brozovic",
+      "team": "Croatia",
+      "turn_receptions": 7,
+      "turn_receptions_poisson95_ci": [
+        2.81,
+        14.42
+      ],
+      "line_break_receptions": 58,
+      "turned_to_goal_share": 0.121,
+      "appearances": 6,
+      "per_appearance": 1.167,
+      "matches_with_linebreak_reception": 6,
+      "turn_per_linebreak_match": 1.167,
+      "matches_with_turn": 5
+    },
+    {
+      "player": "Ivan Perisic",
+      "team": "Croatia",
+      "turn_receptions": 7,
+      "turn_receptions_poisson95_ci": [
+        2.81,
+        14.42
+      ],
+      "line_break_receptions": 26,
+      "turned_to_goal_share": 0.269,
+      "appearances": 7,
+      "per_appearance": 1.0,
+      "matches_with_linebreak_reception": 7,
+      "turn_per_linebreak_match": 1.0,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Julian Alvarez",
+      "team": "Argentina",
+      "turn_receptions": 7,
+      "turn_receptions_poisson95_ci": [
+        2.81,
+        14.42
+      ],
+      "line_break_receptions": 33,
+      "turned_to_goal_share": 0.212,
+      "appearances": 7,
+      "per_appearance": 1.0,
+      "matches_with_linebreak_reception": 7,
+      "turn_per_linebreak_match": 1.0,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Daniel James",
+      "team": "Wales",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 11,
+      "turned_to_goal_share": 0.545,
+      "appearances": 3,
+      "per_appearance": 2.0,
+      "matches_with_linebreak_reception": 3,
+      "turn_per_linebreak_match": 2.0,
+      "matches_with_turn": 3
+    },
+    {
+      "player": "Darwin Nunez",
+      "team": "Uruguay",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 21,
+      "turned_to_goal_share": 0.286,
+      "appearances": 3,
+      "per_appearance": 2.0,
+      "matches_with_linebreak_reception": 3,
+      "turn_per_linebreak_match": 2.0,
+      "matches_with_turn": 3
+    },
+    {
+      "player": "Homam Ahmed",
+      "team": "Qatar",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 6,
+      "turned_to_goal_share": 1.0,
+      "appearances": 3,
+      "per_appearance": 2.0,
+      "matches_with_linebreak_reception": 2,
+      "turn_per_linebreak_match": 3.0,
+      "matches_with_turn": 2
+    },
+    {
+      "player": "Kieffer Moore",
+      "team": "Wales",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 14,
+      "turned_to_goal_share": 0.429,
+      "appearances": 3,
+      "per_appearance": 2.0,
+      "matches_with_linebreak_reception": 3,
+      "turn_per_linebreak_match": 2.0,
+      "matches_with_turn": 2
+    },
+    {
+      "player": "Neymar",
+      "team": "Brazil",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 27,
+      "turned_to_goal_share": 0.222,
+      "appearances": 3,
+      "per_appearance": 2.0,
+      "matches_with_linebreak_reception": 3,
+      "turn_per_linebreak_match": 2.0,
+      "matches_with_turn": 3
+    },
+    {
+      "player": "Boulaye Dia",
+      "team": "Senegal",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 15,
+      "turned_to_goal_share": 0.4,
+      "appearances": 4,
+      "per_appearance": 1.5,
+      "matches_with_linebreak_reception": 4,
+      "turn_per_linebreak_match": 1.5,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Breel Embolo",
+      "team": "Switzerland",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 33,
+      "turned_to_goal_share": 0.182,
+      "appearances": 4,
+      "per_appearance": 1.5,
+      "matches_with_linebreak_reception": 4,
+      "turn_per_linebreak_match": 1.5,
+      "matches_with_turn": 3
+    },
+    {
+      "player": "Bukayo Saka",
+      "team": "England",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 23,
+      "turned_to_goal_share": 0.261,
+      "appearances": 4,
+      "per_appearance": 1.5,
+      "matches_with_linebreak_reception": 4,
+      "turn_per_linebreak_match": 1.5,
+      "matches_with_turn": 3
+    },
+    {
+      "player": "Marco Asensio",
+      "team": "Spain",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 39,
+      "turned_to_goal_share": 0.154,
+      "appearances": 4,
+      "per_appearance": 1.5,
+      "matches_with_linebreak_reception": 4,
+      "turn_per_linebreak_match": 1.5,
+      "matches_with_turn": 3
+    },
+    {
+      "player": "Timothy Weah",
+      "team": "United States",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 18,
+      "turned_to_goal_share": 0.333,
+      "appearances": 4,
+      "per_appearance": 1.5,
+      "matches_with_linebreak_reception": 4,
+      "turn_per_linebreak_match": 1.5,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Cristiano Ronaldo",
+      "team": "Portugal",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 28,
+      "turned_to_goal_share": 0.214,
+      "appearances": 5,
+      "per_appearance": 1.2,
+      "matches_with_linebreak_reception": 5,
+      "turn_per_linebreak_match": 1.2,
+      "matches_with_turn": 2
+    },
+    {
+      "player": "Alexis Mac Allister",
+      "team": "Argentina",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 50,
+      "turned_to_goal_share": 0.12,
+      "appearances": 6,
+      "per_appearance": 1.0,
+      "matches_with_linebreak_reception": 6,
+      "turn_per_linebreak_match": 1.0,
+      "matches_with_turn": 3
+    },
+    {
+      "player": "Josip Juranovic",
+      "team": "Croatia",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 10,
+      "turned_to_goal_share": 0.6,
+      "appearances": 6,
+      "per_appearance": 1.0,
+      "matches_with_linebreak_reception": 4,
+      "turn_per_linebreak_match": 1.5,
+      "matches_with_turn": 3
+    },
+    {
+      "player": "Lautaro Martinez",
+      "team": "Argentina",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 17,
+      "turned_to_goal_share": 0.353,
+      "appearances": 6,
+      "per_appearance": 1.0,
+      "matches_with_linebreak_reception": 6,
+      "turn_per_linebreak_match": 1.0,
+      "matches_with_turn": 4
+    },
+    {
+      "player": "Nicolas Tagliafico",
+      "team": "Argentina",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 6,
+      "turned_to_goal_share": 1.0,
+      "appearances": 6,
+      "per_appearance": 1.0,
+      "matches_with_linebreak_reception": 3,
+      "turn_per_linebreak_match": 2.0,
+      "matches_with_turn": 3
+    },
+    {
+      "player": "Antoine Griezmann",
+      "team": "France",
+      "turn_receptions": 6,
+      "turn_receptions_poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "line_break_receptions": 64,
+      "turned_to_goal_share": 0.094,
+      "appearances": 7,
+      "per_appearance": 0.857,
+      "matches_with_linebreak_reception": 7,
+      "turn_per_linebreak_match": 0.857,
+      "matches_with_turn": 4
+    }
+  ],
+  "leading_tier": {
+    "label": "6-11 TURN receptions over all 64 matches (36 players, statistically INDISTINGUISHABLE: each count falls inside the leader's exact Poisson 95% CI [5.5, 19.7]; there is NO supportable single #1 and NO supportable within-tier order)",
+    "count_range": [
+      6,
+      11
+    ],
+    "players": [
+      "Andrej Kramaric",
+      "Cody Gakpo",
+      "Jude Bellingham",
+      "Ángel Di María",
+      "Azzedine Ounahi",
+      "Hakim Ziyech",
+      "Rodrigo de Paul",
+      "Raphinha",
+      "Theo Hernandez",
+      "Achraf Hakimi",
+      "Kylian Mbappé",
+      "Lionel Messi",
+      "Andreas Skov Olsen",
+      "Serge Gnabry",
+      "Antonee Robinson",
+      "Jordi Alba",
+      "Álvaro Morata",
+      "Marcelo Brozovic",
+      "Ivan Perisic",
+      "Julian Alvarez",
+      "Daniel James",
+      "Darwin Nunez",
+      "Homam Ahmed",
+      "Kieffer Moore",
+      "Neymar",
+      "Boulaye Dia",
+      "Breel Embolo",
+      "Bukayo Saka",
+      "Marco Asensio",
+      "Timothy Weah",
+      "Cristiano Ronaldo",
+      "Alexis Mac Allister",
+      "Josip Juranovic",
+      "Lautaro Martinez",
+      "Nicolas Tagliafico",
+      "Antoine Griezmann"
+    ],
+    "named_top_cluster": [
+      {
+        "turn_receptions": 11,
+        "n_players": 1,
+        "poisson95_ci": [
+          5.49,
+          19.68
+        ],
+        "players": [
+          "Andrej Kramaric"
+        ]
+      },
+      {
+        "turn_receptions": 9,
+        "n_players": 6,
+        "poisson95_ci": [
+          4.12,
+          17.08
+        ],
+        "players": [
+          "Cody Gakpo",
+          "Jude Bellingham",
+          "Ángel Di María",
+          "Azzedine Ounahi",
+          "Hakim Ziyech",
+          "Rodrigo de Paul"
+        ]
+      }
+    ]
+  },
+  "tie_tiers": [
+    {
+      "turn_receptions": 11,
+      "n_players": 1,
+      "poisson95_ci": [
+        5.49,
+        19.68
+      ],
+      "players": [
+        "Andrej Kramaric"
+      ]
+    },
+    {
+      "turn_receptions": 9,
+      "n_players": 6,
+      "poisson95_ci": [
+        4.12,
+        17.08
+      ],
+      "players": [
+        "Cody Gakpo",
+        "Jude Bellingham",
+        "Ángel Di María",
+        "Azzedine Ounahi",
+        "Hakim Ziyech",
+        "Rodrigo de Paul"
+      ]
+    },
+    {
+      "turn_receptions": 8,
+      "n_players": 5,
+      "poisson95_ci": [
+        3.45,
+        15.76
+      ],
+      "players": [
+        "Raphinha",
+        "Theo Hernandez",
+        "Achraf Hakimi",
+        "Kylian Mbappé",
+        "Lionel Messi"
+      ]
+    },
+    {
+      "turn_receptions": 7,
+      "n_players": 8,
+      "poisson95_ci": [
+        2.81,
+        14.42
+      ],
+      "players": [
+        "Andreas Skov Olsen",
+        "Serge Gnabry",
+        "Antonee Robinson",
+        "Jordi Alba",
+        "Álvaro Morata",
+        "Marcelo Brozovic",
+        "Ivan Perisic",
+        "Julian Alvarez"
+      ]
+    },
+    {
+      "turn_receptions": 6,
+      "n_players": 16,
+      "poisson95_ci": [
+        2.2,
+        13.06
+      ],
+      "players": [
+        "Daniel James",
+        "Darwin Nunez",
+        "Homam Ahmed",
+        "Kieffer Moore",
+        "Neymar",
+        "Boulaye Dia",
+        "Breel Embolo",
+        "Bukayo Saka",
+        "Marco Asensio",
+        "Timothy Weah",
+        "Cristiano Ronaldo",
+        "Alexis Mac Allister",
+        "Josip Juranovic",
+        "Lautaro Martinez",
+        "Nicolas Tagliafico",
+        "Antoine Griezmann"
+      ]
+    },
+    {
+      "turn_receptions": 5,
+      "n_players": 12,
+      "poisson95_ci": [
+        1.62,
+        11.67
+      ],
+      "players": [
+        "Aleksandar Mitrovic",
+        "Alphonso Davies",
+        "André Zambo Anguissa",
+        "Sardar Azmoun",
+        "Christian Pulisic",
+        "Ferran Torres",
+        "Goncalo Ramos",
+        "Ismaïla Sarr",
+        "Richarlison",
+        "Vinícius Junior",
+        "Denzel Dumfries",
+        "Frenkie de Jong"
+      ]
+    },
+    {
+      "turn_receptions": 4,
+      "n_players": 25,
+      "poisson95_ci": [
+        1.09,
+        10.24
+      ],
+      "players": [
+        "André Silva",
+        "Filip Kostić",
+        "Papu Gómez",
+        "Youssef Msakni",
+        "Ali Gholizadeh",
+        "Dusan Tadic",
+        "Firas Al-Buraikan",
+        "Jamal Musiala",
+        "Joel Campbell",
+        "Jordan Ayew",
+        "Josh Sargent",
+        "Keysher Fuller",
+        "Leandro Trossard",
+        "Rasmus Kristensen",
+        "Gavi",
+        "Granit Xhaka",
+        "Heung-min Son",
+        "Joao Felix",
+        "Junya Ito",
+        "Sergiño Dest",
+        "Adrien Rabiot",
+        "Marko Livaja",
+        "Yahia Attiat-Allah",
+        "Nahuel Molina",
+        "Selim Amallah"
+      ]
+    },
+    {
+      "turn_receptions": 3,
+      "n_players": 42,
+      "poisson95_ci": [
+        0.62,
+        8.77
+      ],
+      "players": [
+        "Bruno Guimarães",
+        "Jhegson Méndez",
+        "Ramin Rezaeian",
+        "Walid Cheddira",
+        "Aaron Ramsey",
+        "Akram Afif",
+        "Ao Tanaka",
+        "Bryan Oviedo",
+        "Gabriel Martinelli",
+        "Guillermo Varela",
+        "Hirving Lozano",
+        "Inaki Williams",
+        "Jonathan Osorio",
+        "Junior Hoilett",
+        "Kasper Dolberg",
+        "Salem Al-Dawsari",
+        "Saud Abdulhamid",
+        "Takumi Minamino",
+        "Thomas Müller",
+        "Uriel Antuna",
+        "Aziz Behich",
+        "Bartosz Bereszynski",
+        "Daichi Kamada",
+        "Dani Olmo",
+        "Djibril Sow",
+        "Gonzalo Montiel",
+        "Gue-sung Cho",
+        "Jordan Henderson",
+        "Mathew Leckie",
+        "Moon-hwan Kim",
+        "Phil Foden",
+        "Robert Lewandowski",
+        "Weston McKennie",
+        "Youssouf Sabaly",
+        "Bernardo Silva",
+        "Daley Blind",
+        "Luke Shaw",
+        "Marcus Rashford",
+        "Rafael Leao",
+        "Mateo Kovacic",
+        "Sofiane Boufal",
+        "Youssef En-Nesyri"
+      ]
+    },
+    {
+      "turn_receptions": 2,
+      "n_players": 85,
+      "poisson95_ci": [
+        0.24,
+        7.22
+      ],
+      "players": [
+        "Chang-hoon Kwon",
+        "Fabinho",
+        "Luuk de Jong",
+        "Marko Grujić",
+        "Anis Slimane",
+        "Ansu Fati",
+        "Callum Wilson",
+        "Giorgian de Arrascaeta",
+        "Jorge Sánchez",
+        "Kai Havertz",
+        "Kamaldeen Sulemana",
+        "Michy Batshuayi",
+        "Mohamed Drager",
+        "Sang-ho Na",
+        "Yannick Carrasco",
+        "Abde Ezzalzouli",
+        "Abdulaziz Hatem",
+        "Aissa Laidouni",
+        "Alexis Vega",
+        "Ali Abdi",
+        "Almoez Ali",
+        "Axel Witsel",
+        "Brandon Aguilera",
+        "Christian Eriksen",
+        "Collins Fai",
+        "Cyle Larin",
+        "Danilo",
+        "Diogo Dalot",
+        "Ellyes Skhiri",
+        "Enner Valencia",
+        "Idrissa Gueye",
+        "Ilkay Gündogan",
+        "Ismael Kone",
+        "Issam Jebali",
+        "Jesper Lindström",
+        "Jesús Gallardo",
+        "Joakim Maehle",
+        "Jonathan David",
+        "Kevin De Bruyne",
+        "Michael Estrada",
+        "Otavio",
+        "Pervis Estupinan",
+        "Raheem Sterling",
+        "Saša Lukić",
+        "Sergej Milinković-Savić",
+        "Silvan Widmer",
+        "Sultan Al-Ghannam",
+        "Tajon Buchanan",
+        "Aaron Mooy",
+        "Abderrazak Hamdallah",
+        "Abdou Diallo",
+        "Alex Balde",
+        "Antony",
+        "Brenden Aaronson",
+        "Bruno Fernandes",
+        "Fred",
+        "Grzegorz Krychowiak",
+        "Haji Wright",
+        "In-beom Hwang",
+        "Jack Grealish",
+        "Jakub Kaminski",
+        "João Cancelo",
+        "Jurrien Timber",
+        "Matty Cash",
+        "Pedri",
+        "Ricardo Rodriguez",
+        "Riley McGree",
+        "Rubén Vargas",
+        "Sergio Busquets",
+        "Steven Berghuis",
+        "Steven Bergwijn",
+        "Walker Zimmerman",
+        "Yuto Nagatomo",
+        "Declan Rice",
+        "Rodrygo",
+        "Teun Koopmeiners",
+        "Jules Kounde",
+        "Marcos Acuña",
+        "Mislav Orsic",
+        "Nikola Vlasic",
+        "Youssouf Fofana",
+        "Lovro Majer",
+        "Luka Modric",
+        "Mario Pasalic",
+        "Ousmane Dembele"
+      ]
+    },
+    {
+      "turn_receptions": 1,
+      "n_players": 135,
+      "poisson95_ci": [
+        0.03,
+        5.57
+      ],
+      "players": [
+        "Ahmed Alaaeldin",
+        "Ali Asad",
+        "Ali Maaloul",
+        "Christian Bassogog",
+        "Darko Lazović",
+        "Everton Ribeiro",
+        "Jesús Ferreira",
+        "Kamil Grosicki",
+        "Luka Jovic",
+        "Mark-Anthony Kaye",
+        "Michal Skoras",
+        "Nuno Mendes",
+        "Orbelín Pineda",
+        "Robert Skov",
+        "Sadegh Moharrami",
+        "Abdulelah Al-Malki",
+        "Abdulrahman Al-Oboud",
+        "Alidu Seidu",
+        "Assim Madibo",
+        "Carlos Soler",
+        "César Azpilicueta",
+        "Dani Alves",
+        "Dries Mertens",
+        "Dušan Vlahović",
+        "Fabian Frei",
+        "Ferjani Sassi",
+        "Garang Kuol",
+        "Giovanni Reyna",
+        "Hee-chan Hwang",
+        "Henry Martín",
+        "Ismaeel Mohammed",
+        "Jean-Charles Castelletto",
+        "João Mário",
+        "Kalvin Phillips",
+        "Leroy Sané",
+        "Martin Hongla",
+        "Matheus Nunes",
+        "Naim Sliti",
+        "Nemanja Gudelj",
+        "Nico Elvedi",
+        "Nicolás de la Cruz",
+        "Romario Ibarra",
+        "Taha Yassine Khenissi",
+        "Tariq Lamptey",
+        "Wahbi Khazri",
+        "Abdelkarim Hassan",
+        "Ahmad Nourollahi",
+        "Alex Sandro",
+        "Andre Ayew",
+        "Andreas Cornelius",
+        "Andrija Zivkovic",
+        "Anthony Contreras",
+        "Arkadiusz Milik",
+        "Aymeric Laporte",
+        "Boualem Khoukhi",
+        "Brennan Johnson",
+        "Bryan Mbeumo",
+        "Celso Borges",
+        "Daniel Amartey",
+        "Daniel-Kofi Kyereh",
+        "David Raum",
+        "Eden Hazard",
+        "Edinson Cavani",
+        "Ehsan Hajsafi",
+        "Eric-Maxim Choupo-Moting",
+        "Ethan Ampadu",
+        "Facundo Pellistri",
+        "Federico Valverde",
+        "Gareth Bale",
+        "Haris Seferovic",
+        "Iliman Ndiaye",
+        "Jae-sung Lee",
+        "Jewison Bennette",
+        "Karl Toko Ekambi",
+        "Krépin Diatta",
+        "Leon Goretzka",
+        "Luis Chávez",
+        "Luis Suárez",
+        "Mehdi Taremi",
+        "Mehdi Torabi",
+        "Mikkel Damsgaard",
+        "Milan Borjan",
+        "Min Jae Kim",
+        "Mohamed Kanno",
+        "Mohammed Muntari",
+        "Moises Caicedo",
+        "Neco Williams",
+        "Niklas Süle",
+        "Noah Okafor",
+        "Nouhou",
+        "Pathe Ciss",
+        "Pedro Miguel",
+        "Pierre-Emile Höjbjerg",
+        "Randal Kolo Muani",
+        "Raúl Jiménez",
+        "Richie Laryea",
+        "Rodrigo Bentancur",
+        "Saeid Ezatolahi",
+        "Salis Abdul Samed",
+        "Thomas Meunier",
+        "Thomas Partey",
+        "Vincent Aboubakar",
+        "Xherdan Shaqiri",
+        "Casemiro",
+        "Davy Klaassen",
+        "Jackson Irvine",
+        "Jin-su Kim",
+        "Kaoru Mitoma",
+        "Keanu Baccus",
+        "Lucas Paquetá",
+        "Marcus Thuram",
+        "Milos Degenek",
+        "Mitchell Duke",
+        "Nampalys Mendy",
+        "Nico Williams",
+        "Piotr Zielinski",
+        "Raphaël Guerreiro",
+        "Remo Freuler",
+        "Shuichi Gonda",
+        "Takuma Asano",
+        "Woo-young Jung",
+        "Yunus Musah",
+        "Abdelhamid Sabiri",
+        "Borna Sosa",
+        "Lisandro Martinez",
+        "Memphis Depay",
+        "Noussair Mazraoui",
+        "Rúben Neves",
+        "Bruno Petkovic",
+        "Dejan Lovren",
+        "Kingsley Coman",
+        "Olivier Giroud",
+        "Aurélien Tchouaméni",
+        "Cristian Romero",
+        "Nicolás Otamendi"
+      ]
+    }
+  ],
+  "teams_by_turn_receptions": [
+    {
+      "team": "Argentina",
+      "turn_receptions": 67,
+      "turn_receptions_poisson95_ci": [
+        51.92,
+        85.09
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 3615,
+      "turn_per_match": 9.571,
+      "turn_per_match_poisson95_ci": [
+        7.417,
+        12.156
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.53,
+      "turn_per_1000_passes_poisson95_ci": [
+        14.36,
+        23.54
+      ]
+    },
+    {
+      "team": "Croatia",
+      "turn_receptions": 51,
+      "turn_receptions_poisson95_ci": [
+        37.97,
+        67.06
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 3464,
+      "turn_per_match": 7.286,
+      "turn_per_match_poisson95_ci": [
+        5.424,
+        9.58
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.72,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.96,
+        19.36
+      ]
+    },
+    {
+      "team": "Morocco",
+      "turn_receptions": 49,
+      "turn_receptions_poisson95_ci": [
+        36.25,
+        64.78
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 2041,
+      "turn_per_match": 7.0,
+      "turn_per_match_poisson95_ci": [
+        5.179,
+        9.254
+      ],
+      "turn_per_1000_completed_open_play_passes": 24.01,
+      "turn_per_1000_passes_poisson95_ci": [
+        17.76,
+        31.74
+      ]
+    },
+    {
+      "team": "Brazil",
+      "turn_receptions": 45,
+      "turn_receptions_poisson95_ci": [
+        32.82,
+        60.21
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2525,
+      "turn_per_match": 9.0,
+      "turn_per_match_poisson95_ci": [
+        6.564,
+        12.042
+      ],
+      "turn_per_1000_completed_open_play_passes": 17.82,
+      "turn_per_1000_passes_poisson95_ci": [
+        13.0,
+        23.85
+      ]
+    },
+    {
+      "team": "Spain",
+      "turn_receptions": 44,
+      "turn_receptions_poisson95_ci": [
+        31.97,
+        59.07
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 3310,
+      "turn_per_match": 11.0,
+      "turn_per_match_poisson95_ci": [
+        7.992,
+        14.768
+      ],
+      "turn_per_1000_completed_open_play_passes": 13.29,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.66,
+        17.85
+      ]
+    },
+    {
+      "team": "Portugal",
+      "turn_receptions": 38,
+      "turn_receptions_poisson95_ci": [
+        26.89,
+        52.16
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2440,
+      "turn_per_match": 7.6,
+      "turn_per_match_poisson95_ci": [
+        5.378,
+        10.432
+      ],
+      "turn_per_1000_completed_open_play_passes": 15.57,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.02,
+        21.38
+      ]
+    },
+    {
+      "team": "United States",
+      "turn_receptions": 38,
+      "turn_receptions_poisson95_ci": [
+        26.89,
+        52.16
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1694,
+      "turn_per_match": 9.5,
+      "turn_per_match_poisson95_ci": [
+        6.722,
+        13.04
+      ],
+      "turn_per_1000_completed_open_play_passes": 22.43,
+      "turn_per_1000_passes_poisson95_ci": [
+        15.87,
+        30.79
+      ]
+    },
+    {
+      "team": "France",
+      "turn_receptions": 37,
+      "turn_receptions_poisson95_ci": [
+        26.05,
+        51.0
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 2997,
+      "turn_per_match": 5.286,
+      "turn_per_match_poisson95_ci": [
+        3.721,
+        7.286
+      ],
+      "turn_per_1000_completed_open_play_passes": 12.35,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.69,
+        17.02
+      ]
+    },
+    {
+      "team": "England",
+      "turn_receptions": 36,
+      "turn_receptions_poisson95_ci": [
+        25.21,
+        49.84
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2593,
+      "turn_per_match": 7.2,
+      "turn_per_match_poisson95_ci": [
+        5.042,
+        9.968
+      ],
+      "turn_per_1000_completed_open_play_passes": 13.88,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.72,
+        19.22
+      ]
+    },
+    {
+      "team": "Netherlands",
+      "turn_receptions": 34,
+      "turn_receptions_poisson95_ci": [
+        23.55,
+        47.51
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2292,
+      "turn_per_match": 6.8,
+      "turn_per_match_poisson95_ci": [
+        4.71,
+        9.502
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.83,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.27,
+        20.73
+      ]
+    },
+    {
+      "team": "Switzerland",
+      "turn_receptions": 25,
+      "turn_receptions_poisson95_ci": [
+        16.18,
+        36.9
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1487,
+      "turn_per_match": 6.25,
+      "turn_per_match_poisson95_ci": [
+        4.045,
+        9.225
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.81,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.88,
+        24.82
+      ]
+    },
+    {
+      "team": "Denmark",
+      "turn_receptions": 24,
+      "turn_receptions_poisson95_ci": [
+        15.38,
+        35.71
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1482,
+      "turn_per_match": 8.0,
+      "turn_per_match_poisson95_ci": [
+        5.127,
+        11.903
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.19,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.38,
+        24.1
+      ]
+    },
+    {
+      "team": "Serbia",
+      "turn_receptions": 24,
+      "turn_receptions_poisson95_ci": [
+        15.38,
+        35.71
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1084,
+      "turn_per_match": 8.0,
+      "turn_per_match_poisson95_ci": [
+        5.127,
+        11.903
+      ],
+      "turn_per_1000_completed_open_play_passes": 22.14,
+      "turn_per_1000_passes_poisson95_ci": [
+        14.19,
+        32.94
+      ]
+    },
+    {
+      "team": "Canada",
+      "turn_receptions": 22,
+      "turn_receptions_poisson95_ci": [
+        13.79,
+        33.31
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1181,
+      "turn_per_match": 7.333,
+      "turn_per_match_poisson95_ci": [
+        4.597,
+        11.103
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.63,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.68,
+        28.2
+      ]
+    },
+    {
+      "team": "Germany",
+      "turn_receptions": 22,
+      "turn_receptions_poisson95_ci": [
+        13.79,
+        33.31
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1560,
+      "turn_per_match": 7.333,
+      "turn_per_match_poisson95_ci": [
+        4.597,
+        11.103
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.1,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.84,
+        21.35
+      ]
+    },
+    {
+      "team": "Senegal",
+      "turn_receptions": 22,
+      "turn_receptions_poisson95_ci": [
+        13.79,
+        33.31
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1163,
+      "turn_per_match": 5.5,
+      "turn_per_match_poisson95_ci": [
+        3.448,
+        8.328
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.92,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.86,
+        28.64
+      ]
+    },
+    {
+      "team": "Qatar",
+      "turn_receptions": 21,
+      "turn_receptions_poisson95_ci": [
+        13.0,
+        32.1
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 981,
+      "turn_per_match": 7.0,
+      "turn_per_match_poisson95_ci": [
+        4.333,
+        10.7
+      ],
+      "turn_per_1000_completed_open_play_passes": 21.41,
+      "turn_per_1000_passes_poisson95_ci": [
+        13.25,
+        32.72
+      ]
+    },
+    {
+      "team": "South Korea",
+      "turn_receptions": 21,
+      "turn_receptions_poisson95_ci": [
+        13.0,
+        32.1
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1498,
+      "turn_per_match": 5.25,
+      "turn_per_match_poisson95_ci": [
+        3.25,
+        8.025
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.02,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.68,
+        21.43
+      ]
+    },
+    {
+      "team": "Tunisia",
+      "turn_receptions": 21,
+      "turn_receptions_poisson95_ci": [
+        13.0,
+        32.1
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 880,
+      "turn_per_match": 7.0,
+      "turn_per_match_poisson95_ci": [
+        4.333,
+        10.7
+      ],
+      "turn_per_1000_completed_open_play_passes": 23.86,
+      "turn_per_1000_passes_poisson95_ci": [
+        14.77,
+        36.48
+      ]
+    },
+    {
+      "team": "Wales",
+      "turn_receptions": 19,
+      "turn_receptions_poisson95_ci": [
+        11.44,
+        29.67
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 920,
+      "turn_per_match": 6.333,
+      "turn_per_match_poisson95_ci": [
+        3.813,
+        9.89
+      ],
+      "turn_per_1000_completed_open_play_passes": 20.65,
+      "turn_per_1000_passes_poisson95_ci": [
+        12.43,
+        32.25
+      ]
+    },
+    {
+      "team": "Iran",
+      "turn_receptions": 18,
+      "turn_receptions_poisson95_ci": [
+        10.67,
+        28.45
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 697,
+      "turn_per_match": 6.0,
+      "turn_per_match_poisson95_ci": [
+        3.557,
+        9.483
+      ],
+      "turn_per_1000_completed_open_play_passes": 25.82,
+      "turn_per_1000_passes_poisson95_ci": [
+        15.31,
+        40.82
+      ]
+    },
+    {
+      "team": "Japan",
+      "turn_receptions": 18,
+      "turn_receptions_poisson95_ci": [
+        10.67,
+        28.45
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1214,
+      "turn_per_match": 4.5,
+      "turn_per_match_poisson95_ci": [
+        2.668,
+        7.112
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.83,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.79,
+        23.43
+      ]
+    },
+    {
+      "team": "Uruguay",
+      "turn_receptions": 17,
+      "turn_receptions_poisson95_ci": [
+        9.9,
+        27.22
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1036,
+      "turn_per_match": 5.667,
+      "turn_per_match_poisson95_ci": [
+        3.3,
+        9.073
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.41,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.56,
+        26.27
+      ]
+    },
+    {
+      "team": "Costa Rica",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 733,
+      "turn_per_match": 5.333,
+      "turn_per_match_poisson95_ci": [
+        3.05,
+        8.66
+      ],
+      "turn_per_1000_completed_open_play_passes": 21.83,
+      "turn_per_1000_passes_poisson95_ci": [
+        12.48,
+        35.44
+      ]
+    },
+    {
+      "team": "Ghana",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 862,
+      "turn_per_match": 5.333,
+      "turn_per_match_poisson95_ci": [
+        3.05,
+        8.66
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.56,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.61,
+        30.14
+      ]
+    },
+    {
+      "team": "Mexico",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 967,
+      "turn_per_match": 5.333,
+      "turn_per_match_poisson95_ci": [
+        3.05,
+        8.66
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.55,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.46,
+        26.87
+      ]
+    },
+    {
+      "team": "Poland",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1051,
+      "turn_per_match": 4.0,
+      "turn_per_match_poisson95_ci": [
+        2.288,
+        6.495
+      ],
+      "turn_per_1000_completed_open_play_passes": 15.22,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.71,
+        24.72
+      ]
+    },
+    {
+      "team": "Australia",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1122,
+      "turn_per_match": 3.75,
+      "turn_per_match_poisson95_ci": [
+        2.1,
+        6.185
+      ],
+      "turn_per_1000_completed_open_play_passes": 13.37,
+      "turn_per_1000_passes_poisson95_ci": [
+        7.49,
+        22.05
+      ]
+    },
+    {
+      "team": "Belgium",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1493,
+      "turn_per_match": 5.0,
+      "turn_per_match_poisson95_ci": [
+        2.8,
+        8.247
+      ],
+      "turn_per_1000_completed_open_play_passes": 10.05,
+      "turn_per_1000_passes_poisson95_ci": [
+        5.63,
+        16.57
+      ]
+    },
+    {
+      "team": "Cameroon",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 860,
+      "turn_per_match": 5.0,
+      "turn_per_match_poisson95_ci": [
+        2.8,
+        8.247
+      ],
+      "turn_per_1000_completed_open_play_passes": 17.44,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.77,
+        28.77
+      ]
+    },
+    {
+      "team": "Saudi Arabia",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 754,
+      "turn_per_match": 5.0,
+      "turn_per_match_poisson95_ci": [
+        2.8,
+        8.247
+      ],
+      "turn_per_1000_completed_open_play_passes": 19.89,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.14,
+        32.81
+      ]
+    },
+    {
+      "team": "Ecuador",
+      "turn_receptions": 11,
+      "turn_receptions_poisson95_ci": [
+        5.49,
+        19.68
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1046,
+      "turn_per_match": 3.667,
+      "turn_per_match_poisson95_ci": [
+        1.83,
+        6.56
+      ],
+      "turn_per_1000_completed_open_play_passes": 10.52,
+      "turn_per_1000_passes_poisson95_ci": [
+        5.25,
+        18.81
+      ]
+    }
+  ],
+  "teams_by_turn_per_match": [
+    {
+      "team": "Spain",
+      "turn_receptions": 44,
+      "turn_receptions_poisson95_ci": [
+        31.97,
+        59.07
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 3310,
+      "turn_per_match": 11.0,
+      "turn_per_match_poisson95_ci": [
+        7.992,
+        14.768
+      ],
+      "turn_per_1000_completed_open_play_passes": 13.29,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.66,
+        17.85
+      ]
+    },
+    {
+      "team": "Argentina",
+      "turn_receptions": 67,
+      "turn_receptions_poisson95_ci": [
+        51.92,
+        85.09
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 3615,
+      "turn_per_match": 9.571,
+      "turn_per_match_poisson95_ci": [
+        7.417,
+        12.156
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.53,
+      "turn_per_1000_passes_poisson95_ci": [
+        14.36,
+        23.54
+      ]
+    },
+    {
+      "team": "United States",
+      "turn_receptions": 38,
+      "turn_receptions_poisson95_ci": [
+        26.89,
+        52.16
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1694,
+      "turn_per_match": 9.5,
+      "turn_per_match_poisson95_ci": [
+        6.722,
+        13.04
+      ],
+      "turn_per_1000_completed_open_play_passes": 22.43,
+      "turn_per_1000_passes_poisson95_ci": [
+        15.87,
+        30.79
+      ]
+    },
+    {
+      "team": "Brazil",
+      "turn_receptions": 45,
+      "turn_receptions_poisson95_ci": [
+        32.82,
+        60.21
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2525,
+      "turn_per_match": 9.0,
+      "turn_per_match_poisson95_ci": [
+        6.564,
+        12.042
+      ],
+      "turn_per_1000_completed_open_play_passes": 17.82,
+      "turn_per_1000_passes_poisson95_ci": [
+        13.0,
+        23.85
+      ]
+    },
+    {
+      "team": "Denmark",
+      "turn_receptions": 24,
+      "turn_receptions_poisson95_ci": [
+        15.38,
+        35.71
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1482,
+      "turn_per_match": 8.0,
+      "turn_per_match_poisson95_ci": [
+        5.127,
+        11.903
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.19,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.38,
+        24.1
+      ]
+    },
+    {
+      "team": "Serbia",
+      "turn_receptions": 24,
+      "turn_receptions_poisson95_ci": [
+        15.38,
+        35.71
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1084,
+      "turn_per_match": 8.0,
+      "turn_per_match_poisson95_ci": [
+        5.127,
+        11.903
+      ],
+      "turn_per_1000_completed_open_play_passes": 22.14,
+      "turn_per_1000_passes_poisson95_ci": [
+        14.19,
+        32.94
+      ]
+    },
+    {
+      "team": "Portugal",
+      "turn_receptions": 38,
+      "turn_receptions_poisson95_ci": [
+        26.89,
+        52.16
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2440,
+      "turn_per_match": 7.6,
+      "turn_per_match_poisson95_ci": [
+        5.378,
+        10.432
+      ],
+      "turn_per_1000_completed_open_play_passes": 15.57,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.02,
+        21.38
+      ]
+    },
+    {
+      "team": "Canada",
+      "turn_receptions": 22,
+      "turn_receptions_poisson95_ci": [
+        13.79,
+        33.31
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1181,
+      "turn_per_match": 7.333,
+      "turn_per_match_poisson95_ci": [
+        4.597,
+        11.103
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.63,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.68,
+        28.2
+      ]
+    },
+    {
+      "team": "Germany",
+      "turn_receptions": 22,
+      "turn_receptions_poisson95_ci": [
+        13.79,
+        33.31
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1560,
+      "turn_per_match": 7.333,
+      "turn_per_match_poisson95_ci": [
+        4.597,
+        11.103
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.1,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.84,
+        21.35
+      ]
+    },
+    {
+      "team": "Croatia",
+      "turn_receptions": 51,
+      "turn_receptions_poisson95_ci": [
+        37.97,
+        67.06
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 3464,
+      "turn_per_match": 7.286,
+      "turn_per_match_poisson95_ci": [
+        5.424,
+        9.58
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.72,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.96,
+        19.36
+      ]
+    },
+    {
+      "team": "England",
+      "turn_receptions": 36,
+      "turn_receptions_poisson95_ci": [
+        25.21,
+        49.84
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2593,
+      "turn_per_match": 7.2,
+      "turn_per_match_poisson95_ci": [
+        5.042,
+        9.968
+      ],
+      "turn_per_1000_completed_open_play_passes": 13.88,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.72,
+        19.22
+      ]
+    },
+    {
+      "team": "Morocco",
+      "turn_receptions": 49,
+      "turn_receptions_poisson95_ci": [
+        36.25,
+        64.78
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 2041,
+      "turn_per_match": 7.0,
+      "turn_per_match_poisson95_ci": [
+        5.179,
+        9.254
+      ],
+      "turn_per_1000_completed_open_play_passes": 24.01,
+      "turn_per_1000_passes_poisson95_ci": [
+        17.76,
+        31.74
+      ]
+    },
+    {
+      "team": "Qatar",
+      "turn_receptions": 21,
+      "turn_receptions_poisson95_ci": [
+        13.0,
+        32.1
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 981,
+      "turn_per_match": 7.0,
+      "turn_per_match_poisson95_ci": [
+        4.333,
+        10.7
+      ],
+      "turn_per_1000_completed_open_play_passes": 21.41,
+      "turn_per_1000_passes_poisson95_ci": [
+        13.25,
+        32.72
+      ]
+    },
+    {
+      "team": "Tunisia",
+      "turn_receptions": 21,
+      "turn_receptions_poisson95_ci": [
+        13.0,
+        32.1
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 880,
+      "turn_per_match": 7.0,
+      "turn_per_match_poisson95_ci": [
+        4.333,
+        10.7
+      ],
+      "turn_per_1000_completed_open_play_passes": 23.86,
+      "turn_per_1000_passes_poisson95_ci": [
+        14.77,
+        36.48
+      ]
+    },
+    {
+      "team": "Netherlands",
+      "turn_receptions": 34,
+      "turn_receptions_poisson95_ci": [
+        23.55,
+        47.51
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2292,
+      "turn_per_match": 6.8,
+      "turn_per_match_poisson95_ci": [
+        4.71,
+        9.502
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.83,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.27,
+        20.73
+      ]
+    },
+    {
+      "team": "Wales",
+      "turn_receptions": 19,
+      "turn_receptions_poisson95_ci": [
+        11.44,
+        29.67
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 920,
+      "turn_per_match": 6.333,
+      "turn_per_match_poisson95_ci": [
+        3.813,
+        9.89
+      ],
+      "turn_per_1000_completed_open_play_passes": 20.65,
+      "turn_per_1000_passes_poisson95_ci": [
+        12.43,
+        32.25
+      ]
+    },
+    {
+      "team": "Switzerland",
+      "turn_receptions": 25,
+      "turn_receptions_poisson95_ci": [
+        16.18,
+        36.9
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1487,
+      "turn_per_match": 6.25,
+      "turn_per_match_poisson95_ci": [
+        4.045,
+        9.225
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.81,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.88,
+        24.82
+      ]
+    },
+    {
+      "team": "Iran",
+      "turn_receptions": 18,
+      "turn_receptions_poisson95_ci": [
+        10.67,
+        28.45
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 697,
+      "turn_per_match": 6.0,
+      "turn_per_match_poisson95_ci": [
+        3.557,
+        9.483
+      ],
+      "turn_per_1000_completed_open_play_passes": 25.82,
+      "turn_per_1000_passes_poisson95_ci": [
+        15.31,
+        40.82
+      ]
+    },
+    {
+      "team": "Uruguay",
+      "turn_receptions": 17,
+      "turn_receptions_poisson95_ci": [
+        9.9,
+        27.22
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1036,
+      "turn_per_match": 5.667,
+      "turn_per_match_poisson95_ci": [
+        3.3,
+        9.073
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.41,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.56,
+        26.27
+      ]
+    },
+    {
+      "team": "Senegal",
+      "turn_receptions": 22,
+      "turn_receptions_poisson95_ci": [
+        13.79,
+        33.31
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1163,
+      "turn_per_match": 5.5,
+      "turn_per_match_poisson95_ci": [
+        3.448,
+        8.328
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.92,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.86,
+        28.64
+      ]
+    },
+    {
+      "team": "Costa Rica",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 733,
+      "turn_per_match": 5.333,
+      "turn_per_match_poisson95_ci": [
+        3.05,
+        8.66
+      ],
+      "turn_per_1000_completed_open_play_passes": 21.83,
+      "turn_per_1000_passes_poisson95_ci": [
+        12.48,
+        35.44
+      ]
+    },
+    {
+      "team": "Ghana",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 862,
+      "turn_per_match": 5.333,
+      "turn_per_match_poisson95_ci": [
+        3.05,
+        8.66
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.56,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.61,
+        30.14
+      ]
+    },
+    {
+      "team": "Mexico",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 967,
+      "turn_per_match": 5.333,
+      "turn_per_match_poisson95_ci": [
+        3.05,
+        8.66
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.55,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.46,
+        26.87
+      ]
+    },
+    {
+      "team": "France",
+      "turn_receptions": 37,
+      "turn_receptions_poisson95_ci": [
+        26.05,
+        51.0
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 2997,
+      "turn_per_match": 5.286,
+      "turn_per_match_poisson95_ci": [
+        3.721,
+        7.286
+      ],
+      "turn_per_1000_completed_open_play_passes": 12.35,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.69,
+        17.02
+      ]
+    },
+    {
+      "team": "South Korea",
+      "turn_receptions": 21,
+      "turn_receptions_poisson95_ci": [
+        13.0,
+        32.1
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1498,
+      "turn_per_match": 5.25,
+      "turn_per_match_poisson95_ci": [
+        3.25,
+        8.025
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.02,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.68,
+        21.43
+      ]
+    },
+    {
+      "team": "Belgium",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1493,
+      "turn_per_match": 5.0,
+      "turn_per_match_poisson95_ci": [
+        2.8,
+        8.247
+      ],
+      "turn_per_1000_completed_open_play_passes": 10.05,
+      "turn_per_1000_passes_poisson95_ci": [
+        5.63,
+        16.57
+      ]
+    },
+    {
+      "team": "Cameroon",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 860,
+      "turn_per_match": 5.0,
+      "turn_per_match_poisson95_ci": [
+        2.8,
+        8.247
+      ],
+      "turn_per_1000_completed_open_play_passes": 17.44,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.77,
+        28.77
+      ]
+    },
+    {
+      "team": "Saudi Arabia",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 754,
+      "turn_per_match": 5.0,
+      "turn_per_match_poisson95_ci": [
+        2.8,
+        8.247
+      ],
+      "turn_per_1000_completed_open_play_passes": 19.89,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.14,
+        32.81
+      ]
+    },
+    {
+      "team": "Japan",
+      "turn_receptions": 18,
+      "turn_receptions_poisson95_ci": [
+        10.67,
+        28.45
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1214,
+      "turn_per_match": 4.5,
+      "turn_per_match_poisson95_ci": [
+        2.668,
+        7.112
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.83,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.79,
+        23.43
+      ]
+    },
+    {
+      "team": "Poland",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1051,
+      "turn_per_match": 4.0,
+      "turn_per_match_poisson95_ci": [
+        2.288,
+        6.495
+      ],
+      "turn_per_1000_completed_open_play_passes": 15.22,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.71,
+        24.72
+      ]
+    },
+    {
+      "team": "Australia",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1122,
+      "turn_per_match": 3.75,
+      "turn_per_match_poisson95_ci": [
+        2.1,
+        6.185
+      ],
+      "turn_per_1000_completed_open_play_passes": 13.37,
+      "turn_per_1000_passes_poisson95_ci": [
+        7.49,
+        22.05
+      ]
+    },
+    {
+      "team": "Ecuador",
+      "turn_receptions": 11,
+      "turn_receptions_poisson95_ci": [
+        5.49,
+        19.68
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1046,
+      "turn_per_match": 3.667,
+      "turn_per_match_poisson95_ci": [
+        1.83,
+        6.56
+      ],
+      "turn_per_1000_completed_open_play_passes": 10.52,
+      "turn_per_1000_passes_poisson95_ci": [
+        5.25,
+        18.81
+      ]
+    }
+  ],
+  "teams_by_turn_per_1000_passes": [
+    {
+      "team": "Iran",
+      "turn_receptions": 18,
+      "turn_receptions_poisson95_ci": [
+        10.67,
+        28.45
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 697,
+      "turn_per_match": 6.0,
+      "turn_per_match_poisson95_ci": [
+        3.557,
+        9.483
+      ],
+      "turn_per_1000_completed_open_play_passes": 25.82,
+      "turn_per_1000_passes_poisson95_ci": [
+        15.31,
+        40.82
+      ]
+    },
+    {
+      "team": "Morocco",
+      "turn_receptions": 49,
+      "turn_receptions_poisson95_ci": [
+        36.25,
+        64.78
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 2041,
+      "turn_per_match": 7.0,
+      "turn_per_match_poisson95_ci": [
+        5.179,
+        9.254
+      ],
+      "turn_per_1000_completed_open_play_passes": 24.01,
+      "turn_per_1000_passes_poisson95_ci": [
+        17.76,
+        31.74
+      ]
+    },
+    {
+      "team": "Tunisia",
+      "turn_receptions": 21,
+      "turn_receptions_poisson95_ci": [
+        13.0,
+        32.1
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 880,
+      "turn_per_match": 7.0,
+      "turn_per_match_poisson95_ci": [
+        4.333,
+        10.7
+      ],
+      "turn_per_1000_completed_open_play_passes": 23.86,
+      "turn_per_1000_passes_poisson95_ci": [
+        14.77,
+        36.48
+      ]
+    },
+    {
+      "team": "United States",
+      "turn_receptions": 38,
+      "turn_receptions_poisson95_ci": [
+        26.89,
+        52.16
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1694,
+      "turn_per_match": 9.5,
+      "turn_per_match_poisson95_ci": [
+        6.722,
+        13.04
+      ],
+      "turn_per_1000_completed_open_play_passes": 22.43,
+      "turn_per_1000_passes_poisson95_ci": [
+        15.87,
+        30.79
+      ]
+    },
+    {
+      "team": "Serbia",
+      "turn_receptions": 24,
+      "turn_receptions_poisson95_ci": [
+        15.38,
+        35.71
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1084,
+      "turn_per_match": 8.0,
+      "turn_per_match_poisson95_ci": [
+        5.127,
+        11.903
+      ],
+      "turn_per_1000_completed_open_play_passes": 22.14,
+      "turn_per_1000_passes_poisson95_ci": [
+        14.19,
+        32.94
+      ]
+    },
+    {
+      "team": "Costa Rica",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 733,
+      "turn_per_match": 5.333,
+      "turn_per_match_poisson95_ci": [
+        3.05,
+        8.66
+      ],
+      "turn_per_1000_completed_open_play_passes": 21.83,
+      "turn_per_1000_passes_poisson95_ci": [
+        12.48,
+        35.44
+      ]
+    },
+    {
+      "team": "Qatar",
+      "turn_receptions": 21,
+      "turn_receptions_poisson95_ci": [
+        13.0,
+        32.1
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 981,
+      "turn_per_match": 7.0,
+      "turn_per_match_poisson95_ci": [
+        4.333,
+        10.7
+      ],
+      "turn_per_1000_completed_open_play_passes": 21.41,
+      "turn_per_1000_passes_poisson95_ci": [
+        13.25,
+        32.72
+      ]
+    },
+    {
+      "team": "Wales",
+      "turn_receptions": 19,
+      "turn_receptions_poisson95_ci": [
+        11.44,
+        29.67
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 920,
+      "turn_per_match": 6.333,
+      "turn_per_match_poisson95_ci": [
+        3.813,
+        9.89
+      ],
+      "turn_per_1000_completed_open_play_passes": 20.65,
+      "turn_per_1000_passes_poisson95_ci": [
+        12.43,
+        32.25
+      ]
+    },
+    {
+      "team": "Saudi Arabia",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 754,
+      "turn_per_match": 5.0,
+      "turn_per_match_poisson95_ci": [
+        2.8,
+        8.247
+      ],
+      "turn_per_1000_completed_open_play_passes": 19.89,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.14,
+        32.81
+      ]
+    },
+    {
+      "team": "Senegal",
+      "turn_receptions": 22,
+      "turn_receptions_poisson95_ci": [
+        13.79,
+        33.31
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1163,
+      "turn_per_match": 5.5,
+      "turn_per_match_poisson95_ci": [
+        3.448,
+        8.328
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.92,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.86,
+        28.64
+      ]
+    },
+    {
+      "team": "Canada",
+      "turn_receptions": 22,
+      "turn_receptions_poisson95_ci": [
+        13.79,
+        33.31
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1181,
+      "turn_per_match": 7.333,
+      "turn_per_match_poisson95_ci": [
+        4.597,
+        11.103
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.63,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.68,
+        28.2
+      ]
+    },
+    {
+      "team": "Ghana",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 862,
+      "turn_per_match": 5.333,
+      "turn_per_match_poisson95_ci": [
+        3.05,
+        8.66
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.56,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.61,
+        30.14
+      ]
+    },
+    {
+      "team": "Argentina",
+      "turn_receptions": 67,
+      "turn_receptions_poisson95_ci": [
+        51.92,
+        85.09
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 3615,
+      "turn_per_match": 9.571,
+      "turn_per_match_poisson95_ci": [
+        7.417,
+        12.156
+      ],
+      "turn_per_1000_completed_open_play_passes": 18.53,
+      "turn_per_1000_passes_poisson95_ci": [
+        14.36,
+        23.54
+      ]
+    },
+    {
+      "team": "Brazil",
+      "turn_receptions": 45,
+      "turn_receptions_poisson95_ci": [
+        32.82,
+        60.21
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2525,
+      "turn_per_match": 9.0,
+      "turn_per_match_poisson95_ci": [
+        6.564,
+        12.042
+      ],
+      "turn_per_1000_completed_open_play_passes": 17.82,
+      "turn_per_1000_passes_poisson95_ci": [
+        13.0,
+        23.85
+      ]
+    },
+    {
+      "team": "Cameroon",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 860,
+      "turn_per_match": 5.0,
+      "turn_per_match_poisson95_ci": [
+        2.8,
+        8.247
+      ],
+      "turn_per_1000_completed_open_play_passes": 17.44,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.77,
+        28.77
+      ]
+    },
+    {
+      "team": "Switzerland",
+      "turn_receptions": 25,
+      "turn_receptions_poisson95_ci": [
+        16.18,
+        36.9
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1487,
+      "turn_per_match": 6.25,
+      "turn_per_match_poisson95_ci": [
+        4.045,
+        9.225
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.81,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.88,
+        24.82
+      ]
+    },
+    {
+      "team": "Mexico",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 967,
+      "turn_per_match": 5.333,
+      "turn_per_match_poisson95_ci": [
+        3.05,
+        8.66
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.55,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.46,
+        26.87
+      ]
+    },
+    {
+      "team": "Uruguay",
+      "turn_receptions": 17,
+      "turn_receptions_poisson95_ci": [
+        9.9,
+        27.22
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1036,
+      "turn_per_match": 5.667,
+      "turn_per_match_poisson95_ci": [
+        3.3,
+        9.073
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.41,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.56,
+        26.27
+      ]
+    },
+    {
+      "team": "Denmark",
+      "turn_receptions": 24,
+      "turn_receptions_poisson95_ci": [
+        15.38,
+        35.71
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1482,
+      "turn_per_match": 8.0,
+      "turn_per_match_poisson95_ci": [
+        5.127,
+        11.903
+      ],
+      "turn_per_1000_completed_open_play_passes": 16.19,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.38,
+        24.1
+      ]
+    },
+    {
+      "team": "Portugal",
+      "turn_receptions": 38,
+      "turn_receptions_poisson95_ci": [
+        26.89,
+        52.16
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2440,
+      "turn_per_match": 7.6,
+      "turn_per_match_poisson95_ci": [
+        5.378,
+        10.432
+      ],
+      "turn_per_1000_completed_open_play_passes": 15.57,
+      "turn_per_1000_passes_poisson95_ci": [
+        11.02,
+        21.38
+      ]
+    },
+    {
+      "team": "Poland",
+      "turn_receptions": 16,
+      "turn_receptions_poisson95_ci": [
+        9.15,
+        25.98
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1051,
+      "turn_per_match": 4.0,
+      "turn_per_match_poisson95_ci": [
+        2.288,
+        6.495
+      ],
+      "turn_per_1000_completed_open_play_passes": 15.22,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.71,
+        24.72
+      ]
+    },
+    {
+      "team": "Japan",
+      "turn_receptions": 18,
+      "turn_receptions_poisson95_ci": [
+        10.67,
+        28.45
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1214,
+      "turn_per_match": 4.5,
+      "turn_per_match_poisson95_ci": [
+        2.668,
+        7.112
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.83,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.79,
+        23.43
+      ]
+    },
+    {
+      "team": "Netherlands",
+      "turn_receptions": 34,
+      "turn_receptions_poisson95_ci": [
+        23.55,
+        47.51
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2292,
+      "turn_per_match": 6.8,
+      "turn_per_match_poisson95_ci": [
+        4.71,
+        9.502
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.83,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.27,
+        20.73
+      ]
+    },
+    {
+      "team": "Croatia",
+      "turn_receptions": 51,
+      "turn_receptions_poisson95_ci": [
+        37.97,
+        67.06
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 3464,
+      "turn_per_match": 7.286,
+      "turn_per_match_poisson95_ci": [
+        5.424,
+        9.58
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.72,
+      "turn_per_1000_passes_poisson95_ci": [
+        10.96,
+        19.36
+      ]
+    },
+    {
+      "team": "Germany",
+      "turn_receptions": 22,
+      "turn_receptions_poisson95_ci": [
+        13.79,
+        33.31
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1560,
+      "turn_per_match": 7.333,
+      "turn_per_match_poisson95_ci": [
+        4.597,
+        11.103
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.1,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.84,
+        21.35
+      ]
+    },
+    {
+      "team": "South Korea",
+      "turn_receptions": 21,
+      "turn_receptions_poisson95_ci": [
+        13.0,
+        32.1
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1498,
+      "turn_per_match": 5.25,
+      "turn_per_match_poisson95_ci": [
+        3.25,
+        8.025
+      ],
+      "turn_per_1000_completed_open_play_passes": 14.02,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.68,
+        21.43
+      ]
+    },
+    {
+      "team": "England",
+      "turn_receptions": 36,
+      "turn_receptions_poisson95_ci": [
+        25.21,
+        49.84
+      ],
+      "matches_played": 5,
+      "completed_open_play_passes": 2593,
+      "turn_per_match": 7.2,
+      "turn_per_match_poisson95_ci": [
+        5.042,
+        9.968
+      ],
+      "turn_per_1000_completed_open_play_passes": 13.88,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.72,
+        19.22
+      ]
+    },
+    {
+      "team": "Australia",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 1122,
+      "turn_per_match": 3.75,
+      "turn_per_match_poisson95_ci": [
+        2.1,
+        6.185
+      ],
+      "turn_per_1000_completed_open_play_passes": 13.37,
+      "turn_per_1000_passes_poisson95_ci": [
+        7.49,
+        22.05
+      ]
+    },
+    {
+      "team": "Spain",
+      "turn_receptions": 44,
+      "turn_receptions_poisson95_ci": [
+        31.97,
+        59.07
+      ],
+      "matches_played": 4,
+      "completed_open_play_passes": 3310,
+      "turn_per_match": 11.0,
+      "turn_per_match_poisson95_ci": [
+        7.992,
+        14.768
+      ],
+      "turn_per_1000_completed_open_play_passes": 13.29,
+      "turn_per_1000_passes_poisson95_ci": [
+        9.66,
+        17.85
+      ]
+    },
+    {
+      "team": "France",
+      "turn_receptions": 37,
+      "turn_receptions_poisson95_ci": [
+        26.05,
+        51.0
+      ],
+      "matches_played": 7,
+      "completed_open_play_passes": 2997,
+      "turn_per_match": 5.286,
+      "turn_per_match_poisson95_ci": [
+        3.721,
+        7.286
+      ],
+      "turn_per_1000_completed_open_play_passes": 12.35,
+      "turn_per_1000_passes_poisson95_ci": [
+        8.69,
+        17.02
+      ]
+    },
+    {
+      "team": "Ecuador",
+      "turn_receptions": 11,
+      "turn_receptions_poisson95_ci": [
+        5.49,
+        19.68
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1046,
+      "turn_per_match": 3.667,
+      "turn_per_match_poisson95_ci": [
+        1.83,
+        6.56
+      ],
+      "turn_per_1000_completed_open_play_passes": 10.52,
+      "turn_per_1000_passes_poisson95_ci": [
+        5.25,
+        18.81
+      ]
+    },
+    {
+      "team": "Belgium",
+      "turn_receptions": 15,
+      "turn_receptions_poisson95_ci": [
+        8.4,
+        24.74
+      ],
+      "matches_played": 3,
+      "completed_open_play_passes": 1493,
+      "turn_per_match": 5.0,
+      "turn_per_match_poisson95_ci": [
+        2.8,
+        8.247
+      ],
+      "turn_per_1000_completed_open_play_passes": 10.05,
+      "turn_per_1000_passes_poisson95_ci": [
+        5.63,
+        16.57
+      ]
+    }
+  ],
+  "team_exposure_note": "Raw team TURN count is exposure-driven (teams played 3-7 matches with different passing volumes). DO NOT read it as a turning-tendency ranking. Per match: Spain 11.0; Argentina 9.571; United States 9.5. Per 1000 completed open-play passes: Iran 25.82; Morocco 24.01; Tunisia 23.86. See meta.team_uncertainty.",
+  "turned_to_goal_share": 0.1822,
+  "geometric_overlap_share": 0.2144,
+  "final": {
+    "match_id": "10517",
+    "home": {
+      "team": "Argentina",
+      "id": 364,
+      "turn_receptions": 17,
+      "top_players": [
+        {
+          "player": "Ángel Di María",
+          "turn_receptions": 6
+        },
+        {
+          "player": "Alexis Mac Allister",
+          "turn_receptions": 3
+        },
+        {
+          "player": "Julian Alvarez",
+          "turn_receptions": 3
+        },
+        {
+          "player": "Lautaro Martinez",
+          "turn_receptions": 2
+        },
+        {
+          "player": "Rodrigo de Paul",
+          "turn_receptions": 1
+        },
+        {
+          "player": "Lionel Messi",
+          "turn_receptions": 1
+        },
+        {
+          "player": "Gonzalo Montiel",
+          "turn_receptions": 1
+        }
+      ]
+    },
+    "away": {
+      "team": "France",
+      "id": 363,
+      "turn_receptions": 6,
+      "top_players": [
+        {
+          "player": "Theo Hernandez",
+          "turn_receptions": 2
+        },
+        {
+          "player": "Ousmane Dembele",
+          "turn_receptions": 1
+        },
+        {
+          "player": "Randal Kolo Muani",
+          "turn_receptions": 1
+        },
+        {
+          "player": "Aurélien Tchouaméni",
+          "turn_receptions": 1
+        },
+        {
+          "player": "Youssouf Fofana",
+          "turn_receptions": 1
+        }
+      ]
+    },
+    "di_maria_turn_receptions": 6,
+    "di_maria_player_id": 3868
+  },
+  "meta": {
+    "metric": "TURN -- Turned Under-line Reception Network (count layer)",
+    "definition": "A TURN reception = a COMPLETED, OPEN-PLAY pass (passOutcomeType=='C', setpieceType=='O') with PFF linesBrokenType in {D,M,A,AM,MD,AMD} AND receiverFacingType=='G' (received facing goal). Attributed to the RECEIVER (receiverPlayerId). Read as: 'the receiver got on the ball on the half-turn behind a PFF-graded tactical line.' NOT a ground-truth geometric line-break; NOT a value model.",
+    "substrate": "PFF event snapshots (human labels). Covers all matches with event data.",
+    "n_matches_with_event_data": 64,
+    "n_complete_open_play_passes": 51042,
+    "n_line_break_receptions_populated": 4653,
+    "n_line_break_tagged_pre_attribution": 4653,
+    "filters": {
+      "possessionEventType": "PA",
+      "passOutcomeType": "C (complete)",
+      "setpieceType": "O (open play only)",
+      "linesBrokenType_in": [
+        "A",
+        "AM",
+        "AMD",
+        "D",
+        "M",
+        "MD"
+      ],
+      "receiverFacingType": "G (received facing goal)",
+      "periods_included": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "attributed_to": "receiverPlayerId"
+    },
+    "turned_to_goal": {
+      "turn_receptions": 848,
+      "line_break_receptions_populated": 4653,
+      "share": 0.1822,
+      "facing_breakdown_among_line_break_receptions": {
+        "B": 2802,
+        "L": 961,
+        "G": 848,
+        "null": 42
+      },
+      "note": "Share = fraction of populated line-break receptions whose receiverFacingType == 'G'. Prior anchor ~18%% over 19 matches (265/1490); this is over all matches with event data."
+    },
+    "soft_xt": {
+      "mean_static_singh_xt_at_reception_point": 0.02204,
+      "n_receptions_with_visible_position": 710,
+      "label": "SOFT positional value proxy: static Karun Singh xT lookup at the oriented reception (x,y). NOT calibrated P(score), NOT StatsBomb xG. Visibility-gated on the receiver position."
+    },
+    "geometric_cross_check": {
+      "definition": "INDEPENDENT geometric line-break (eda_line_breaks.py corridor): >=3 opponents inside a forward 6 m corridor between oriented passer and receiver at the pass instant. Computed only on TURN receptions where BOTH passer and receiver positions are visible (occlusion gate); defenders also visibility-gated.",
+      "n_turn_receptions_gateable_both_visible": 681,
+      "n_also_geometric_line_break_ge3": 146,
+      "overlap_share": 0.2144,
+      "forward_pass_share_of_turn_receptions": 0.8972,
+      "interpretation": "TURN is a PFF-label half-turn-behind-a-graded-line metric, NOT ground-truth geometric line-breaking. Low overlap is EXPECTED and consistent with the prior cross-check (~21-30%%): PFF flags breaking a NAMED tactical line (can be 1-2 players), while the geometric rule requires >=3 opponents in a forward corridor."
+    },
+    "visibility_gate": "TURN counts/leaderboards/turned-to-goal share are driven purely by PFF human event labels and do NOT depend on imputed player positions, so they are occlusion-robust. Player (x,y) only drives the soft-xT read and the geometric cross-check; both are visibility-gated per event (positions flagged ESTIMATED/LOW are excluded) and reported visibility-conditioned.",
+    "scope_boundary": "COUNT / LEADERBOARD layer only. Deliberately NOT built: StatsBomb ensuing-xG credit (no temporal/possession join in-repo) and a next-receiver phantom-turn term (receiverFacingType exists only on completed passes).",
+    "anchors": {
+      "receiverFacingType_populated_share_all_passes": "~83% (verified 82.9% over all PA events)",
+      "linesBrokenType_populated_share_completed_passes": "~8.5% (verified 8.43% over completed passes)"
+    },
+    "denominators": {
+      "note": "FIX for round-1 objection 1 (inconsistent denominator). The old `matches`/`per_match` paired the facing-G TURN numerator with a matches-with-ANY-line-break-reception denominator -- two different event populations -- which systematically understated the rate. The board now exposes THREE separately-labelled, internally-consistent denominators and no unqualified `per_match`.",
+      "appearances": "Primary per-appearance denominator: matches in which the player was actually involved on the ball (passer/receiver/shooter/ballCarrier in any possession event). Verified to equal the event-snapshot-row appearance set for the named players and for 664/683 players globally. Unlike the roster it does NOT count unused-bench appearances (e.g. Dybala: rostered 7, on the ball 2). `per_appearance` = facing-G TURN count / appearances.",
+      "matches_with_linebreak_reception": "The OLD denominator, kept for continuity but honestly named. `turn_per_linebreak_match` = TURN count / this. Do NOT read it as per-appearance: numerator and denominator are different populations.",
+      "roster_listed_excluded": "Roster squad-inclusion (incl. unused bench) was evaluated and REJECTED as the headline denominator because it inflates the appearance count with players who never touched the ball."
+    },
+    "player_uncertainty": {
+      "note": "FIX for round-1 objection 2 (no N/confidence on a tie-dominated board). Each row now carries an exact (Garwood) Poisson 95% CI on its expected count. Per-player Ns are tiny and the board is dominated by ties whose CIs all overlap -- so ONLY broad tiers are supportable, NOT a precise #1.",
+      "method": "Exact two-sided Poisson 95% CI via chi-square quantiles.",
+      "leading_tier_label": "6-11 TURN receptions over all 64 matches (36 players, statistically INDISTINGUISHABLE: each count falls inside the leader's exact Poisson 95% CI [5.5, 19.7]; there is NO supportable single #1 and NO supportable within-tier order)",
+      "leading_tier_count_range": [
+        6,
+        11
+      ],
+      "leading_tier_players": [
+        "Andrej Kramaric",
+        "Cody Gakpo",
+        "Jude Bellingham",
+        "Ángel Di María",
+        "Azzedine Ounahi",
+        "Hakim Ziyech",
+        "Rodrigo de Paul",
+        "Raphinha",
+        "Theo Hernandez",
+        "Achraf Hakimi",
+        "Kylian Mbappé",
+        "Lionel Messi",
+        "Andreas Skov Olsen",
+        "Serge Gnabry",
+        "Antonee Robinson",
+        "Jordi Alba",
+        "Álvaro Morata",
+        "Marcelo Brozovic",
+        "Ivan Perisic",
+        "Julian Alvarez",
+        "Daniel James",
+        "Darwin Nunez",
+        "Homam Ahmed",
+        "Kieffer Moore",
+        "Neymar",
+        "Boulaye Dia",
+        "Breel Embolo",
+        "Bukayo Saka",
+        "Marco Asensio",
+        "Timothy Weah",
+        "Cristiano Ronaldo",
+        "Alexis Mac Allister",
+        "Josip Juranovic",
+        "Lautaro Martinez",
+        "Nicolas Tagliafico",
+        "Antoine Griezmann"
+      ],
+      "named_top_cluster": [
+        {
+          "turn_receptions": 11,
+          "n_players": 1,
+          "poisson95_ci": [
+            5.49,
+            19.68
+          ],
+          "players": [
+            "Andrej Kramaric"
+          ]
+        },
+        {
+          "turn_receptions": 9,
+          "n_players": 6,
+          "poisson95_ci": [
+            4.12,
+            17.08
+          ],
+          "players": [
+            "Cody Gakpo",
+            "Jude Bellingham",
+            "Ángel Di María",
+            "Azzedine Ounahi",
+            "Hakim Ziyech",
+            "Rodrigo de Paul"
+          ]
+        }
+      ],
+      "tie_tiers": [
+        {
+          "turn_receptions": 11,
+          "n_players": 1,
+          "poisson95_ci": [
+            5.49,
+            19.68
+          ],
+          "players": [
+            "Andrej Kramaric"
+          ]
+        },
+        {
+          "turn_receptions": 9,
+          "n_players": 6,
+          "poisson95_ci": [
+            4.12,
+            17.08
+          ],
+          "players": [
+            "Cody Gakpo",
+            "Jude Bellingham",
+            "Ángel Di María",
+            "Azzedine Ounahi",
+            "Hakim Ziyech",
+            "Rodrigo de Paul"
+          ]
+        },
+        {
+          "turn_receptions": 8,
+          "n_players": 5,
+          "poisson95_ci": [
+            3.45,
+            15.76
+          ],
+          "players": [
+            "Raphinha",
+            "Theo Hernandez",
+            "Achraf Hakimi",
+            "Kylian Mbappé",
+            "Lionel Messi"
+          ]
+        },
+        {
+          "turn_receptions": 7,
+          "n_players": 8,
+          "poisson95_ci": [
+            2.81,
+            14.42
+          ],
+          "players": [
+            "Andreas Skov Olsen",
+            "Serge Gnabry",
+            "Antonee Robinson",
+            "Jordi Alba",
+            "Álvaro Morata",
+            "Marcelo Brozovic",
+            "Ivan Perisic",
+            "Julian Alvarez"
+          ]
+        },
+        {
+          "turn_receptions": 6,
+          "n_players": 16,
+          "poisson95_ci": [
+            2.2,
+            13.06
+          ],
+          "players": [
+            "Daniel James",
+            "Darwin Nunez",
+            "Homam Ahmed",
+            "Kieffer Moore",
+            "Neymar",
+            "Boulaye Dia",
+            "Breel Embolo",
+            "Bukayo Saka",
+            "Marco Asensio",
+            "Timothy Weah",
+            "Cristiano Ronaldo",
+            "Alexis Mac Allister",
+            "Josip Juranovic",
+            "Lautaro Martinez",
+            "Nicolas Tagliafico",
+            "Antoine Griezmann"
+          ]
+        },
+        {
+          "turn_receptions": 5,
+          "n_players": 12,
+          "poisson95_ci": [
+            1.62,
+            11.67
+          ],
+          "players": [
+            "Aleksandar Mitrovic",
+            "Alphonso Davies",
+            "André Zambo Anguissa",
+            "Sardar Azmoun",
+            "Christian Pulisic",
+            "Ferran Torres",
+            "Goncalo Ramos",
+            "Ismaïla Sarr",
+            "Richarlison",
+            "Vinícius Junior",
+            "Denzel Dumfries",
+            "Frenkie de Jong"
+          ]
+        },
+        {
+          "turn_receptions": 4,
+          "n_players": 25,
+          "poisson95_ci": [
+            1.09,
+            10.24
+          ],
+          "players": [
+            "André Silva",
+            "Filip Kostić",
+            "Papu Gómez",
+            "Youssef Msakni",
+            "Ali Gholizadeh",
+            "Dusan Tadic",
+            "Firas Al-Buraikan",
+            "Jamal Musiala",
+            "Joel Campbell",
+            "Jordan Ayew",
+            "Josh Sargent",
+            "Keysher Fuller",
+            "Leandro Trossard",
+            "Rasmus Kristensen",
+            "Gavi",
+            "Granit Xhaka",
+            "Heung-min Son",
+            "Joao Felix",
+            "Junya Ito",
+            "Sergiño Dest",
+            "Adrien Rabiot",
+            "Marko Livaja",
+            "Yahia Attiat-Allah",
+            "Nahuel Molina",
+            "Selim Amallah"
+          ]
+        },
+        {
+          "turn_receptions": 3,
+          "n_players": 42,
+          "poisson95_ci": [
+            0.62,
+            8.77
+          ],
+          "players": [
+            "Bruno Guimarães",
+            "Jhegson Méndez",
+            "Ramin Rezaeian",
+            "Walid Cheddira",
+            "Aaron Ramsey",
+            "Akram Afif",
+            "Ao Tanaka",
+            "Bryan Oviedo",
+            "Gabriel Martinelli",
+            "Guillermo Varela",
+            "Hirving Lozano",
+            "Inaki Williams",
+            "Jonathan Osorio",
+            "Junior Hoilett",
+            "Kasper Dolberg",
+            "Salem Al-Dawsari",
+            "Saud Abdulhamid",
+            "Takumi Minamino",
+            "Thomas Müller",
+            "Uriel Antuna",
+            "Aziz Behich",
+            "Bartosz Bereszynski",
+            "Daichi Kamada",
+            "Dani Olmo",
+            "Djibril Sow",
+            "Gonzalo Montiel",
+            "Gue-sung Cho",
+            "Jordan Henderson",
+            "Mathew Leckie",
+            "Moon-hwan Kim",
+            "Phil Foden",
+            "Robert Lewandowski",
+            "Weston McKennie",
+            "Youssouf Sabaly",
+            "Bernardo Silva",
+            "Daley Blind",
+            "Luke Shaw",
+            "Marcus Rashford",
+            "Rafael Leao",
+            "Mateo Kovacic",
+            "Sofiane Boufal",
+            "Youssef En-Nesyri"
+          ]
+        },
+        {
+          "turn_receptions": 2,
+          "n_players": 85,
+          "poisson95_ci": [
+            0.24,
+            7.22
+          ],
+          "players": [
+            "Chang-hoon Kwon",
+            "Fabinho",
+            "Luuk de Jong",
+            "Marko Grujić",
+            "Anis Slimane",
+            "Ansu Fati",
+            "Callum Wilson",
+            "Giorgian de Arrascaeta",
+            "Jorge Sánchez",
+            "Kai Havertz",
+            "Kamaldeen Sulemana",
+            "Michy Batshuayi",
+            "Mohamed Drager",
+            "Sang-ho Na",
+            "Yannick Carrasco",
+            "Abde Ezzalzouli",
+            "Abdulaziz Hatem",
+            "Aissa Laidouni",
+            "Alexis Vega",
+            "Ali Abdi",
+            "Almoez Ali",
+            "Axel Witsel",
+            "Brandon Aguilera",
+            "Christian Eriksen",
+            "Collins Fai",
+            "Cyle Larin",
+            "Danilo",
+            "Diogo Dalot",
+            "Ellyes Skhiri",
+            "Enner Valencia",
+            "Idrissa Gueye",
+            "Ilkay Gündogan",
+            "Ismael Kone",
+            "Issam Jebali",
+            "Jesper Lindström",
+            "Jesús Gallardo",
+            "Joakim Maehle",
+            "Jonathan David",
+            "Kevin De Bruyne",
+            "Michael Estrada",
+            "Otavio",
+            "Pervis Estupinan",
+            "Raheem Sterling",
+            "Saša Lukić",
+            "Sergej Milinković-Savić",
+            "Silvan Widmer",
+            "Sultan Al-Ghannam",
+            "Tajon Buchanan",
+            "Aaron Mooy",
+            "Abderrazak Hamdallah",
+            "Abdou Diallo",
+            "Alex Balde",
+            "Antony",
+            "Brenden Aaronson",
+            "Bruno Fernandes",
+            "Fred",
+            "Grzegorz Krychowiak",
+            "Haji Wright",
+            "In-beom Hwang",
+            "Jack Grealish",
+            "Jakub Kaminski",
+            "João Cancelo",
+            "Jurrien Timber",
+            "Matty Cash",
+            "Pedri",
+            "Ricardo Rodriguez",
+            "Riley McGree",
+            "Rubén Vargas",
+            "Sergio Busquets",
+            "Steven Berghuis",
+            "Steven Bergwijn",
+            "Walker Zimmerman",
+            "Yuto Nagatomo",
+            "Declan Rice",
+            "Rodrygo",
+            "Teun Koopmeiners",
+            "Jules Kounde",
+            "Marcos Acuña",
+            "Mislav Orsic",
+            "Nikola Vlasic",
+            "Youssouf Fofana",
+            "Lovro Majer",
+            "Luka Modric",
+            "Mario Pasalic",
+            "Ousmane Dembele"
+          ]
+        },
+        {
+          "turn_receptions": 1,
+          "n_players": 135,
+          "poisson95_ci": [
+            0.03,
+            5.57
+          ],
+          "players": [
+            "Ahmed Alaaeldin",
+            "Ali Asad",
+            "Ali Maaloul",
+            "Christian Bassogog",
+            "Darko Lazović",
+            "Everton Ribeiro",
+            "Jesús Ferreira",
+            "Kamil Grosicki",
+            "Luka Jovic",
+            "Mark-Anthony Kaye",
+            "Michal Skoras",
+            "Nuno Mendes",
+            "Orbelín Pineda",
+            "Robert Skov",
+            "Sadegh Moharrami",
+            "Abdulelah Al-Malki",
+            "Abdulrahman Al-Oboud",
+            "Alidu Seidu",
+            "Assim Madibo",
+            "Carlos Soler",
+            "César Azpilicueta",
+            "Dani Alves",
+            "Dries Mertens",
+            "Dušan Vlahović",
+            "Fabian Frei",
+            "Ferjani Sassi",
+            "Garang Kuol",
+            "Giovanni Reyna",
+            "Hee-chan Hwang",
+            "Henry Martín",
+            "Ismaeel Mohammed",
+            "Jean-Charles Castelletto",
+            "João Mário",
+            "Kalvin Phillips",
+            "Leroy Sané",
+            "Martin Hongla",
+            "Matheus Nunes",
+            "Naim Sliti",
+            "Nemanja Gudelj",
+            "Nico Elvedi",
+            "Nicolás de la Cruz",
+            "Romario Ibarra",
+            "Taha Yassine Khenissi",
+            "Tariq Lamptey",
+            "Wahbi Khazri",
+            "Abdelkarim Hassan",
+            "Ahmad Nourollahi",
+            "Alex Sandro",
+            "Andre Ayew",
+            "Andreas Cornelius",
+            "Andrija Zivkovic",
+            "Anthony Contreras",
+            "Arkadiusz Milik",
+            "Aymeric Laporte",
+            "Boualem Khoukhi",
+            "Brennan Johnson",
+            "Bryan Mbeumo",
+            "Celso Borges",
+            "Daniel Amartey",
+            "Daniel-Kofi Kyereh",
+            "David Raum",
+            "Eden Hazard",
+            "Edinson Cavani",
+            "Ehsan Hajsafi",
+            "Eric-Maxim Choupo-Moting",
+            "Ethan Ampadu",
+            "Facundo Pellistri",
+            "Federico Valverde",
+            "Gareth Bale",
+            "Haris Seferovic",
+            "Iliman Ndiaye",
+            "Jae-sung Lee",
+            "Jewison Bennette",
+            "Karl Toko Ekambi",
+            "Krépin Diatta",
+            "Leon Goretzka",
+            "Luis Chávez",
+            "Luis Suárez",
+            "Mehdi Taremi",
+            "Mehdi Torabi",
+            "Mikkel Damsgaard",
+            "Milan Borjan",
+            "Min Jae Kim",
+            "Mohamed Kanno",
+            "Mohammed Muntari",
+            "Moises Caicedo",
+            "Neco Williams",
+            "Niklas Süle",
+            "Noah Okafor",
+            "Nouhou",
+            "Pathe Ciss",
+            "Pedro Miguel",
+            "Pierre-Emile Höjbjerg",
+            "Randal Kolo Muani",
+            "Raúl Jiménez",
+            "Richie Laryea",
+            "Rodrigo Bentancur",
+            "Saeid Ezatolahi",
+            "Salis Abdul Samed",
+            "Thomas Meunier",
+            "Thomas Partey",
+            "Vincent Aboubakar",
+            "Xherdan Shaqiri",
+            "Casemiro",
+            "Davy Klaassen",
+            "Jackson Irvine",
+            "Jin-su Kim",
+            "Kaoru Mitoma",
+            "Keanu Baccus",
+            "Lucas Paquetá",
+            "Marcus Thuram",
+            "Milos Degenek",
+            "Mitchell Duke",
+            "Nampalys Mendy",
+            "Nico Williams",
+            "Piotr Zielinski",
+            "Raphaël Guerreiro",
+            "Remo Freuler",
+            "Shuichi Gonda",
+            "Takuma Asano",
+            "Woo-young Jung",
+            "Yunus Musah",
+            "Abdelhamid Sabiri",
+            "Borna Sosa",
+            "Lisandro Martinez",
+            "Memphis Depay",
+            "Noussair Mazraoui",
+            "Rúben Neves",
+            "Bruno Petkovic",
+            "Dejan Lovren",
+            "Kingsley Coman",
+            "Olivier Giroud",
+            "Aurélien Tchouaméni",
+            "Cristian Romero",
+            "Nicolás Otamendi"
+          ]
+        }
+      ],
+      "top_list_truncation": "The top list is tie-aware: it includes EVERY player at the boundary count (no arbitrary alpha-by-name cut mid-tie). It can therefore exceed the nominal 25 rows.",
+      "headline_framing": "There is NO statistically supportable single 'Top receiver'. The leading tier (see leading_tier_label) is a group of players with overlapping Poisson 95% CIs; the within-tier order is not distinguishable from noise."
+    },
+    "team_uncertainty": {
+      "note": "FIX for round-2 objection (team exposure confound). The raw team TURN count conflates a per-possession turning tendency with how many GAMES a team played (3 for group-stage exits, up to 7 for finalists) AND its passing VOLUME. The Poisson 95% CI on the raw count does NOT capture this: it treats 67-over-7-matches and 44-over-4-matches as directly comparable counts. We therefore add matches_played and the completed-open-play pass volume to every team row, plus two exposure-normalized rates (turn_per_match, turn_per_1000_completed_open_play_passes) each with a CI propagated through the same normalization. The raw-count team ordering is de-ranked: it is presented for continuity only, NOT as a ranking of turning tendency.",
+      "exposure_confound": "Three defensible normalizations give three different #1s, so the raw-count ordering is not a supportable ranking of per-possession turning. RAW count: Argentina 67; Croatia 51; Morocco 49. PER MATCH: Spain 11.0; Argentina 9.571; United States 9.5 (Spain leads on per-match yet exited the round of 16). PER 1000 completed open-play passes: Iran 25.82; Morocco 24.01; Tunisia 23.86 (lower-possession teams that turn a high SHARE of their completions lead; Argentina drops to ~18.5/1000 and Belgium/Ecuador sit at the bottom ~10/1000). Only the exposure-inflated raw count puts Argentina on top.",
+      "method": "Exact two-sided Poisson 95% CI on the count, then divided by the team's exposure (matches_played, or completed_open_play_passes/1000) to give a CI on each rate. Pass volume is attributed to the same receiver-side population as the TURN numerator.",
+      "headline_framing": "There is NO statistically supportable single 'Top team' on raw count -- that ordering is exposure-driven. Report teams as a rate-ranked / tiered list (per-match and per-1000-pass orderings are provided), and treat the raw count as a volume statistic, not a turning-tendency ranking.",
+      "raw_count_top3": "Argentina 67; Croatia 51; Morocco 49",
+      "per_match_top3": "Spain 11.0; Argentina 9.571; United States 9.5",
+      "per_1000_passes_top3": "Iran 25.82; Morocco 24.01; Tunisia 23.86"
+    }
+  }
+}
