@@ -863,6 +863,23 @@ async function buildSAR() {
    CLOSING ACT — live FIFA EFI 2026
    ================================================================= */
 // CLOSING — two lenses on the 2022 final (FIFA EFI vs our tracking), then the same metrics live in 2026.
+// ACT 3 — team pitch control: final-third control leaderboard + control-vs-xG scatter
+async function buildPitchControl() {
+  const bEl = $("#pc-board"); if (!bEl) return;
+  let d;
+  try { d = await loadJSON("data/space_pitch_control.json"); } catch (e) { return; }
+  const teams = [...d.teams].sort((a, b) => b.final_third_control_pct - a.final_third_control_pct);
+  bEl.appendChild(teamBars(teams.slice(0, 12), {
+    name: (r) => r.team, val: (r) => r.final_third_control_pct, fmt: (v) => v.toFixed(1) + "%",
+  }));
+  const pts = teams.filter((t) => t.sb_xg_per_match != null)
+    .map((t) => ({ team: t.team, x: t.final_third_control_pct, y: t.sb_xg_per_match }));
+  scatterPlot($("#pc-scatter"), pts, {
+    id: "pc", xLabel: "final-third pitch control (%)", yLabel: "StatsBomb xG / match",
+    annot: "above the line = plays above its control",
+  });
+}
+
 async function buildLive() {
   const lensEl = $("#final-2lens"), liveEl = $("#live-efi");
   if (!lensEl && !liveEl) return;
@@ -949,6 +966,36 @@ async function buildLive() {
         </div>`;
     } catch (e) {
       liveEl.innerHTML = `<p class="caption">Live WC2026 EFI feed unavailable right now (${e.message}). The 2022 lens above stands on its own.</p>`;
+    }
+  }
+
+  /* ---- 2026 threat created (team + player) — FIFA's live xT-cousin ---- */
+  const ttEl = $("#live-threat-teams"), tpEl = $("#live-threat-players");
+  if (ttEl || tpEl) {
+    try {
+      const d = await loadJSON("data/efi_2026.json");
+      if (ttEl) {
+        const rows = (d.team_threat_leaders || []).slice(0, 8);
+        const mx = Math.max(1, ...rows.map((r) => r.threat));
+        ttEl.innerHTML = `<div class="tbars">` + rows.map((r) => {
+          const nm = codeName(r.team);
+          return `<div class="tbrow"><span class="tbname">${nm} <span class="lteam">${r.team}</span></span>
+            <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.threat / mx * 100, 4, 100)}%;background:${teamColor(nm)}"></span></span>
+            <span class="tbval">${r.threat.toFixed(1)}</span></div>`;
+        }).join("") + `</div>`;
+      }
+      if (tpEl) {
+        const rows = (d.player_threat_leaders || []).slice(0, 8);
+        const mx = Math.max(1, ...rows.map((r) => r.threat));
+        tpEl.innerHTML = `<div class="tbars">` + rows.map((r) => {
+          const team = codeName(r.team);
+          return `<div class="tbrow"><span class="tbname">${r.player} <span class="lteam">${team}</span></span>
+            <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.threat / mx * 100, 4, 100)}%;background:${teamColor(team)}"></span></span>
+            <span class="tbval">${r.threat.toFixed(1)}</span></div>`;
+        }).join("") + `</div>`;
+      }
+    } catch (e) {
+      if (ttEl) ttEl.innerHTML = `<p class="caption">threat feed unavailable (${e.message})</p>`;
     }
   }
 }
@@ -1089,6 +1136,7 @@ if (!window.__spaceWIPPage) {
     await Promise.allSettled([buildCHASE(), buildPOBSO()]);
     buildChaseExplainer();
     buildDangerExplainer();
+    await buildPitchControl();
     await buildLive();
   })();
 }

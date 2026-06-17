@@ -484,6 +484,43 @@
 
 <div class="rule"></div>
 
+<!-- ACT 3 — Team pitch control -->
+<section id="pitchcontrol">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">3</span> Team control</div>
+      <h2>Who controls the dangerous space — and who plays above it.</h2>
+      <p class="lede">Zoom out from players to teams. Pitch control is who would reach each patch of grass first; here it is each side's share of the <b>attacking final third</b> while in possession. The twist: at this level <b>controlling space is table stakes</b> — the contenders cluster in a tight band. What separates them is whether they <b>convert</b> that control into chances.</p>
+      <div class="card">
+        <h3>Final-third pitch control — share owned in possession</h3>
+        <div id="pc-board" class="tbars"></div>
+        <p class="caption"><b>France</b> and <b>Argentina</b> own the most dangerous grass, but everyone sits in a 30–35% band. <b>Spain is the tell:</b> it controls the <i>most pitch overall</i> (51% — pure possession) yet the <i>least</i> final third — possession that never reaches the zone that matters.</p>
+      </div>
+      <div class="xgpanel">
+        <h3>So what? — control vs chances</h3>
+        <div id="pc-scatter" class="scatter"></div>
+        <p class="caption">Final-third control (x) vs StatsBomb xG per match (y). <b>Above the line = more xG than your control predicts</b> (clinical / counter): <b>Portugal</b> and <b>England</b> turn middling control into ~2.3 xG. Below = control without product (sterile): <b>Spain</b> (0.17) and <b>Croatia</b> (0.40). Owning space is necessary; cashing it in is the skill.</p>
+      </div>
+      <details class="notes reveal">
+        <summary>How this is measured</summary>
+        <ul>
+          <li>Pitch control is the Fernández–Bornn surface; "final-third control" is the in-possession team's mean share of control where x &gt; 17.5 m, over the sampled frames.</li>
+          <li>10 knockout matches at ~2 Hz; "plays above / below" is the residual of xG on final-third control (n=10 teams). Suggestive, not causal.</li>
+        </ul>
+      </details>
+      <div class="reading">
+        <div class="rlab">Further reading</div>
+        <ul>
+          <li><a href="https://www.researchgate.net/publication/324942294_Wide_Open_Spaces_A_statistical_technique_for_measuring_space_creation_in_professional_soccer" target="_blank" rel="noopener">Fernández &amp; Bornn — Wide Open Spaces (pitch control)</a></li>
+          <li><a href="https://www.getgoalsideanalytics.com/everything-you-need-to-know-about-pitch-control/" target="_blank" rel="noopener">Get Goalside — pitch control explained</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
 <!-- CLOSING — live 2026 -->
 <section id="live">
   <div class="wrap">
@@ -502,6 +539,16 @@
         <h3>The same space metrics, live — World Cup 2026 so far</h3>
         <div id="live-efi"></div>
         <p class="caption">Straight from FIFA's feed, no tracking required: <b>completed line breaks</b> and <b>offers to receive in behind</b> — the very metrics the 2022 final was measured on, above — now updating each matchday for the tournament in progress.</p>
+      </div>
+
+      <div class="card">
+        <h3>Threat created — FIFA's live xT-cousin, WC2026 so far</h3>
+        <p class="caption" style="margin-top:0">A true Karun-style xT needs pass-by-pass event data, which isn't public for 2026 yet — but FIFA's EFI <b>threat</b> is the same idea (how much each action raises the chance of a goal), and it's <b>live</b>. Here's who's generating it, by team and by player, through the opening matches.</p>
+        <div class="liveboards">
+          <div><div class="boardlab">Teams · threat created / match</div><div id="live-threat-teams" class="tbars"></div></div>
+          <div><div class="boardlab">Players · threat created</div><div id="live-threat-players" class="tbars"></div></div>
+        </div>
+        <p class="caption"><b>Belgium</b> lit up their opener — De Ketelaere, De Bruyne, Trossard and Lukaku all chipping in — to top the early team threat; <b>De Ketelaere</b> and Egypt's <b>Marmoush</b> lead the players. It's the live read of the same dangerous-space idea the 2022 acts reconstruct frame by frame.</p>
       </div>
 
       <p class="body"><b>The tracking half, for 2026:</b> we can't run pitch control across a whole tournament with no public 30 Hz feed — but <b>computer vision can pull a few example plays from broadcasts</b>, and we'll run <i>these</i> metrics — defensive gravity and dangerous space — on them, exactly as the acts above do for 2022. The acts you just scrubbed are the prototype; CV-tracked clips are the production line as the matches come.</p>
@@ -542,6 +589,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=15"></script>
+<script type="module" src="assets/js/space.js?v=16"></script>
 </body>
 </html>
