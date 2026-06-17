@@ -442,21 +442,48 @@ async function buildXT() {
   try {
     const d = await loadJSON("data/surfaces/xt_reference.json");
     const W = 640, H = Math.round(640 * 68 / 105);
-    el.innerHTML = `<div class="hstage"><canvas width="${W}" height="${H}" id="cv-xt"></canvas></div>`;
-    const ctx = $("#cv-xt").getContext("2d");
-    paintSurface(ctx, d.surface_norm, W, H, { ramp: rampHot, gamma: 0.85, threshold: 0, felt: "#0b160f", felt2: "#0b160f" });
-    // mark the peak
-    let pr = 0, pc = 0, mx = 0;
-    d.surface_norm.forEach((row, r) => row.forEach((v, c) => { if (v > mx) { mx = v; pr = r; pc = c; } }));
-    const nx = d.grid.nx, ny = d.grid.ny;
-    const px = (pc + 0.5) / nx * W, py = (pr + 0.5) / ny * H;
-    ctx.beginPath(); ctx.arc(px, py, 7, 0, Math.PI * 2);
-    ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.stroke();
-    ctx.fillStyle = "#fff"; ctx.font = "12px sans-serif"; ctx.textAlign = "left";
-    ctx.fillText(`peak xT ${d.max_xt.toFixed(3)}`, px + 11, py + 4);
-    // goal arrow
-    ctx.fillStyle = "rgba(255,255,255,.5)"; ctx.font = "11px sans-serif"; ctx.textAlign = "right";
-    ctx.fillText("opponent goal →", W - 8, 16);
+    el.innerHTML = `<div class="hstage"><canvas width="${W}" height="${H}" id="cv-xt" style="cursor:crosshair"></canvas></div>
+      <div class="hreadout" id="xt-read"><span class="hint">Hover anywhere on the pitch to read its xT (like Karun Singh's original).</span></div>`;
+    const cv = $("#cv-xt"), ctx = cv.getContext("2d"), readEl = $("#xt-read");
+    const S = d.surface_norm, mxv = d.max_xt, ny = S.length, nx = S[0].length;
+    function paintBase() {
+      paintSurface(ctx, S, W, H, { ramp: rampHot, gamma: 0.85, threshold: 0, felt: "#0b160f", felt2: "#0b160f" });
+      // peak marker
+      let pr = 0, pc = 0, m = 0;
+      S.forEach((row, r) => row.forEach((v, c) => { if (v > m) { m = v; pr = r; pc = c; } }));
+      const px = (pc + 0.5) / nx * W, py = (pr + 0.5) / ny * H;
+      ctx.beginPath(); ctx.arc(px, py, 7, 0, Math.PI * 2);
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.stroke();
+      ctx.fillStyle = "#fff"; ctx.font = "12px sans-serif"; ctx.textAlign = "left";
+      ctx.fillText(`peak ${mxv.toFixed(3)}`, px + 11, py + 4);
+      ctx.fillStyle = "rgba(255,255,255,.5)"; ctx.font = "11px sans-serif"; ctx.textAlign = "right";
+      ctx.fillText("opponent goal →", W - 8, 16);
+    }
+    paintBase();
+    const base = ctx.getImageData(0, 0, W, H);   // snapshot so hover redraws are cheap
+    const cellAt = (clientX, clientY) => {
+      const r = cv.getBoundingClientRect();
+      const px = (clientX - r.left) / r.width * W, py = (clientY - r.top) / r.height * H;
+      return { c: clamp(Math.floor(px / W * nx), 0, nx - 1), r: clamp(Math.floor(py / H * ny), 0, ny - 1) };
+    };
+    const showCell = (c, r) => {
+      const xt = S[r][c] * mxv;
+      ctx.putImageData(base, 0, 0);
+      const x0 = c / nx * W, y0 = r / ny * H, cw = W / nx, ch = H / ny;
+      ctx.fillStyle = "rgba(255,255,255,0.16)"; ctx.fillRect(x0, y0, cw, ch);
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.strokeRect(x0, y0, cw, ch);
+      readEl.innerHTML = `<b>xT = ${xt.toFixed(3)}</b> — with the ball in this zone, the team scores within the next ~5 actions about <b>${(xt * 100).toFixed(1)}%</b> of the time.`;
+    };
+    const clearHover = () => {
+      ctx.putImageData(base, 0, 0);
+      readEl.innerHTML = `<span class="hint">Hover anywhere on the pitch to read its xT (like Karun Singh's original).</span>`;
+    };
+    cv.addEventListener("mousemove", (e) => { const p = cellAt(e.clientX, e.clientY); showCell(p.c, p.r); });
+    cv.addEventListener("mouseleave", clearHover);
+    cv.addEventListener("touchmove", (e) => {
+      const t = e.touches[0]; if (!t) return; e.preventDefault();
+      const p = cellAt(t.clientX, t.clientY); showCell(p.c, p.r);
+    }, { passive: false });
   } catch (e) { el.innerHTML = `<p class="caption">xT surface unavailable: ${e.message}</p>`; }
 }
 
