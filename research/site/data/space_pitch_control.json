@@ -1,0 +1,113 @@
+{
+ "metric": "team pitch control (attacking final third) + over/under-performance vs xG",
+ "definition": "Mean share of Fernandez-Bornn pitch control the in-possession team holds in the attacking final third (x>17.5 m). 'Plays above' = positive xG residual (more xG than its control predicts: clinical/counter); 'below' = sterile.",
+ "sample": "10 knockout matches, stride 15 (~2 Hz), grid 30x20",
+ "teams": [
+  {
+   "team": "France",
+   "final_third_control_pct": 34.8,
+   "overall_control_pct": 49.8,
+   "n_frames": 13153,
+   "n_matches": 3,
+   "sb_xg_per_match": 1.333,
+   "xg_residual": -0.066
+  },
+  {
+   "team": "Argentina",
+   "final_third_control_pct": 33.9,
+   "overall_control_pct": 49.3,
+   "n_frames": 17155,
+   "n_matches": 4,
+   "sb_xg_per_match": 1.642,
+   "xg_residual": 0.318
+  },
+  {
+   "team": "Morocco",
+   "final_third_control_pct": 33.7,
+   "overall_control_pct": 46.9,
+   "n_frames": 7697,
+   "n_matches": 2,
+   "sb_xg_per_match": 0.833,
+   "xg_residual": -0.475
+  },
+  {
+   "team": "Switzerland",
+   "final_third_control_pct": 33.2,
+   "overall_control_pct": 49.7,
+   "n_frames": 4048,
+   "n_matches": 1,
+   "sb_xg_per_match": 1.272,
+   "xg_residual": 0.006
+  },
+  {
+   "team": "Brazil",
+   "final_third_control_pct": 32.7,
+   "overall_control_pct": 51.1,
+   "n_frames": 4346,
+   "n_matches": 1,
+   "sb_xg_per_match": 1.061,
+   "xg_residual": -0.163
+  },
+  {
+   "team": "England",
+   "final_third_control_pct": 32.2,
+   "overall_control_pct": 49.7,
+   "n_frames": 4575,
+   "n_matches": 1,
+   "sb_xg_per_match": 2.353,
+   "xg_residual": 1.17
+  },
+  {
+   "team": "Australia",
+   "final_third_control_pct": 31.9,
+   "overall_control_pct": 47.9,
+   "n_frames": 3748,
+   "n_matches": 1,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Croatia",
+   "final_third_control_pct": 31.4,
+   "overall_control_pct": 49.2,
+   "n_frames": 8974,
+   "n_matches": 2,
+   "sb_xg_per_match": 0.403,
+   "xg_residual": -0.713
+  },
+  {
+   "team": "Poland",
+   "final_third_control_pct": 31.0,
+   "overall_control_pct": 48.6,
+   "n_frames": 3852,
+   "n_matches": 1,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Netherlands",
+   "final_third_control_pct": 30.6,
+   "overall_control_pct": 49.7,
+   "n_frames": 4625,
+   "n_matches": 1,
+   "sb_xg_per_match": 0.517,
+   "xg_residual": -0.533
+  },
+  {
+   "team": "Portugal",
+   "final_third_control_pct": 30.0,
+   "overall_control_pct": 49.0,
+   "n_frames": 7754,
+   "n_matches": 2,
+   "sb_xg_per_match": 2.284,
+   "xg_residual": 1.284
+  },
+  {
+   "team": "Spain",
+   "final_third_control_pct": 30.0,
+   "overall_control_pct": 51.3,
+   "n_frames": 7107,
+   "n_matches": 1,
+   "sb_xg_per_match": 0.173,
+   "xg_residual": -0.827
+  }
+ ]
+}
