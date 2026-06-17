@@ -1,13 +1,11 @@
 // space.js — "Space — Soccer's Dark Matter" (rebuild).
-// Act 0: xT reference heatmap (where the danger lives — Singh model, its own story).
-// Acts 1-4: SMS, CHASE, P-OBSO, SAR — each a LIVE scrubbable canvas heatmap (pitch underneath,
-//   per-cell color), a tie-aware leaderboard (no false #1), and an xG-receipt "so what" panel.
-// Closing: live FIFA EFI 2026 (threat/xG leaders) + the space-not-distance note.
-//
-// Honesty contract:
-//   - boards render tie groups; a player is only a clean #1 when its CI clears every rival's.
-//   - occlusion-flagged players carry a visible badge.
-//   - xT is its own story; it meets space only at the P-OBSO bridge.
+// Intro: what is space / what is control (FIFA WC2026 data).
+// Act 0: xT reference heatmap (the value of space — Singh model).
+// Act 1 (CHASE): Defensive Gravity. Act 2 (P-OBSO): Dangerous Space — pitch control x Expected Threat.
+//   Each: a LIVE scrubbable canvas heatmap (pitch underneath, per-cell color), a leaderboard, a team
+//   scatter, and an xG-receipt "so what" panel.
+// Closing: live FIFA EFI 2026 (threat/xG leaders) + the space-not-distance note + a CV-tracking tie-in.
+// SMS + SAR are stashed to space-wip.html (function defs kept, exposed via window.__spaceWIP).
 // All paths relative to the document (site root). Pre-normalized 0..1 surfaces.
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -41,28 +39,6 @@ function initReveal() {
     for (const e of es) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
   }, { threshold: 0.1 });
   $$(".reveal").forEach((el) => io.observe(el));
-}
-
-/* ---------------- confidence rail ---------------- */
-function initRail() {
-  const fill = $("#rail-fill"), pctEl = $("#rail-pct");
-  if (!fill) return;
-  const states = {
-    xt:    { v: 1.0,  t: "model — xT reference" },
-    sms:   { v: 0.637, t: "64% off-ball filmed" },
-    chase: { v: 0.591, t: "59% filmed · 10 matches" },
-    pobso: { v: 0.613, t: "61% filmed · the bridge" },
-    sar:   { v: 0.612, t: "61% filmed · openness" },
-    live:  { v: 0.95, t: "live · FIFA EFI 2026" },
-  };
-  const io = new IntersectionObserver((es) => {
-    for (const e of es) if (e.isIntersecting) {
-      const s = states[e.target.id]; if (!s) continue;
-      fill.style.height = `${(s.v * 100).toFixed(0)}%`;
-      pctEl.textContent = s.t;
-    }
-  }, { threshold: 0.4 });
-  Object.keys(states).forEach((id) => { const el = $("#" + id); if (el) io.observe(el); });
 }
 
 /* =================================================================
@@ -119,12 +95,13 @@ function drawPitchLines(ctx, W, H) {
 }
 
 // Render a single normalized surface (2D array [ny][rows] of 0..1) onto ctx, with the pitch on top.
-// opts: ramp(fn), gamma(contrast), threshold(only cells>thr lit), alpha(max cell alpha)
+// opts: ramp(fn), gamma(contrast — lower = brighter), threshold(only cells>thr lit), alpha(max cell alpha)
+// A subtle additive bloom pass on the brightest cells makes hot pockets pop without washing the pitch.
 function paintSurface(ctx, surface, W, H, opts = {}) {
   const ramp = opts.ramp || rampHot;
-  const gamma = opts.gamma ?? 0.75;
+  const gamma = opts.gamma ?? 0.6;
   const thr = opts.threshold ?? 0;
-  const aMax = opts.alpha ?? 0.92;
+  const aMax = opts.alpha ?? 0.96;
   const ny = surface.length, nx = surface[0].length;
   // offscreen pixel buffer at grid resolution, then scale up smoothly
   const off = paintSurface._off || (paintSurface._off = document.createElement("canvas"));
@@ -139,7 +116,8 @@ function paintSurface(ctx, surface, W, H, opts = {}) {
       const t = Math.pow(clamp(v, 0, 1), gamma);
       const [rr, gg, bb] = ramp(t);
       img.data[i] = rr; img.data[i + 1] = gg; img.data[i + 2] = bb;
-      img.data[i + 3] = Math.round(255 * aMax * clamp(t * 1.15, 0, 1));
+      // clamp the alpha curve up so even mid-value cells are clearly lit
+      img.data[i + 3] = Math.round(255 * aMax * clamp(t * 1.35, 0.12, 1));
     }
   }
   octx.putImageData(img, 0, 0);
@@ -150,6 +128,12 @@ function paintSurface(ctx, surface, W, H, opts = {}) {
   // NOTE: source surface row 0 = top of pitch already in screen orientation (ny rows top->bottom),
   // and column 0 = -x (left). Source orientation is attacking +x to the right, so no flip needed.
   ctx.drawImage(off, 0, 0, nx, ny, 0, 0, W, H);
+  // additive bloom: redraw the surface lightly with 'lighter' compositing so hot cells glow
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  ctx.globalAlpha = 0.28;
+  ctx.drawImage(off, 0, 0, nx, ny, 0, 0, W, H);
+  ctx.restore();
   drawPitchLines(ctx, W, H);
 }
 
@@ -161,32 +145,60 @@ function drawBall(ctx, ball, W, H) {
   ctx.fill(); ctx.stroke();
 }
 
-// players: [{x,y,att,gk,name,est|vis}]; opts.dimEstimated toggles occlusion dimming;
-// opts.highlightName pins one (others greyed); opts.spokesFrom draws gravity spokes (CHASE)
+// players: [{x,y,att,gk,name}]; opts.highlightName pins one (kept full-opacity + white ring);
+// opts.labelName draws a persistent name pill above the matching player so the key figure is obvious.
 function drawPlayers(ctx, players, ball, W, H, opts = {}) {
   if (!players) return;
-  const r = Math.max(4, W / 150);
+  const r = Math.max(6, W / 120);           // bigger, clearly-visible dots
+  let labeled = null;                        // defer the label so it paints on top of every dot
   for (const p of players) {
-    const est = p.est === true || p.vis === "ESTIMATED";
     const [px, py] = m2px(p.x, p.y, W, H);
+    const isHi = opts.highlightName && p.name === opts.highlightName;
     let alpha = 1;
-    if (opts.dimEstimated && est) alpha = 0.35;
-    if (opts.highlightName && p.name !== opts.highlightName) alpha *= 0.3;
-    const col = p.att ? (opts.attColor || "#6cb4ee") : (opts.defColor || "#ff9a9a");
+    if (opts.highlightName && !isHi) alpha = 0.55;  // mild de-emphasis only; all dots stay visible
+    const col = p.att ? (opts.attColor || "#7ec8ff") : (opts.defColor || "#ff9a9a");
     ctx.globalAlpha = alpha;
     ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2);
     ctx.fillStyle = p.gk ? "#6dd58c" : col;
     ctx.fill();
-    ctx.lineWidth = 1.2; ctx.strokeStyle = est ? "#ffd27a" : "#0b0f14";
-    if (est) ctx.setLineDash([2, 1.5]);
-    ctx.stroke(); ctx.setLineDash([]);
-    if (opts.highlightName && p.name === opts.highlightName) {
+    // strong dark outline so dots read against the bright surface
+    ctx.lineWidth = Math.max(1.6, W / 320); ctx.strokeStyle = "#0a0c10";
+    ctx.stroke();
+    if (isHi) {
       ctx.globalAlpha = 1;
-      ctx.beginPath(); ctx.arc(px, py, r + 3, 0, Math.PI * 2);
-      ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.6; ctx.stroke();
+      ctx.beginPath(); ctx.arc(px, py, r + 3.5, 0, Math.PI * 2);
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.stroke();
     }
+    if (opts.labelName && p.name === opts.labelName) labeled = { px, py, name: p.name };
   }
   ctx.globalAlpha = 1;
+  if (labeled) drawNamePill(ctx, labeled.px, labeled.py - r - 4, labeled.name);
+}
+
+// a small filled name pill anchored above a player dot (always visible for the key figure).
+function drawNamePill(ctx, cx, baseY, name) {
+  ctx.save();
+  ctx.font = "600 13px Inter, system-ui, sans-serif";
+  const tw = ctx.measureText(name).width;
+  const padX = 7, padY = 4, w = tw + padX * 2, h = 18;
+  const x = cx - w / 2, y = baseY - h;
+  const rr = 6;
+  ctx.beginPath();
+  ctx.moveTo(x + rr, y);
+  ctx.arcTo(x + w, y, x + w, y + h, rr);
+  ctx.arcTo(x + w, y + h, x, y + h, rr);
+  ctx.arcTo(x, y + h, x, y, rr);
+  ctx.arcTo(x, y, x + w, y, rr);
+  ctx.closePath();
+  ctx.fillStyle = "rgba(10,12,16,0.85)"; ctx.fill();
+  ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.55)"; ctx.stroke();
+  // little pointer down to the dot
+  ctx.beginPath();
+  ctx.moveTo(cx - 4, y + h); ctx.lineTo(cx + 4, y + h); ctx.lineTo(cx, y + h + 5); ctx.closePath();
+  ctx.fillStyle = "rgba(10,12,16,0.85)"; ctx.fill();
+  ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText(name, cx, y + h / 2 + 0.5);
+  ctx.restore();
 }
 
 // CHASE: draw spokes from each defender within 12m of the gravity attacker, colored by inward speed.
@@ -213,6 +225,8 @@ function drawGravitySpokes(ctx, players, focus, W, H) {
 }
 
 // Generic scrubbable canvas player. `cfg` describes the metric.
+// SMOOTH SCRUB: a float playhead is tweened by requestAnimationFrame; renderAt(fFloat) LERPs player
+// positions (matched by .name), the ball, and the surface cell-by-cell between the two bracketing frames.
 function buildScrubber(el, surf, cfg) {
   const frames = surf.frames;
   const n = frames.length;
@@ -221,7 +235,7 @@ function buildScrubber(el, surf, cfg) {
     <div class="hstage"><canvas width="${W}" height="${H}" id="cv-${cfg.id}"></canvas></div>
     <div class="hctrls">
       <button class="play" id="pl-${cfg.id}" aria-label="play">&#9654;</button>
-      <input type="range" id="rg-${cfg.id}" min="0" max="${n - 1}" value="0" />
+      <input type="range" id="rg-${cfg.id}" min="0" max="${(n - 1) * 1000}" value="0" />
       <span class="tlabel" id="tl-${cfg.id}"></span>
     </div>
     <div class="htoggles" id="tg-${cfg.id}"></div>
@@ -231,75 +245,201 @@ function buildScrubber(el, surf, cfg) {
   const ctx = cv.getContext("2d");
 
   // toggle state
-  const state = { dimEstimated: false, highlight: null, mode: cfg.defaultMode || "surface" };
+  const state = { highlight: null, mode: cfg.defaultMode || "surface" };
 
   // build toggle buttons
   const toggles = cfg.toggles || [];
   tgEl.innerHTML = toggles.map((t) => `<button class="htog" data-k="${t.key}">${t.label}</button>`).join("");
   $$(".htog", tgEl).forEach((b) => b.addEventListener("click", () => {
     const k = b.dataset.k;
-    if (k === "occlusion") { state.dimEstimated = !state.dimEstimated; b.classList.toggle("on", state.dimEstimated); }
-    else { state.mode = state.mode === k ? (cfg.defaultMode || "surface") : k;
-           $$(".htog", tgEl).forEach((x) => { if (x.dataset.k !== "occlusion") x.classList.toggle("on", x.dataset.k === state.mode); }); }
-    show(+rg.value);
+    state.mode = state.mode === k ? (cfg.defaultMode || "surface") : k;
+    $$(".htog", tgEl).forEach((x) => x.classList.toggle("on", x.dataset.k === state.mode));
+    renderAt(playhead);
   }));
 
-  function frameSurface(fr) {
+  // total span in seconds — playback advances at ~real time from the frames' t_s timestamps
+  const spanSec = Math.max(0.5, frames[n - 1].t_s - frames[0].t_s);
+  const fracPerSec = (n - 1) / spanSec;
+
+  // apply the active "mode" transform to a (possibly interpolated) surface
+  function applyMode(surface) {
     // P-OBSO 'reveal danger' mode: multiply surface by xt_reference to keep only dangerous cells
     if (cfg.id === "pobso" && state.mode === "reveal" && surf.xt_reference) {
-      const xt = surf.xt_reference, out = fr.surface.map((row, r) => row.map((v, c) => v * (xt[r] ? xt[r][c] : 0)));
-      // renormalize for visibility
+      const xt = surf.xt_reference, out = surface.map((row, r) => row.map((v, c) => v * (xt[r] ? xt[r][c] : 0)));
       let mx = 0; out.forEach((row) => row.forEach((v) => { if (v > mx) mx = v; }));
       if (mx > 0) for (let r = 0; r < out.length; r++) for (let c = 0; c < out[r].length; c++) out[r][c] /= mx;
       return out;
     }
-    // SMS / SAR 'self-made / vs replacement' mode: subtract the baseline contour from the bright surface
+    // SAR 'vs replacement' mode: subtract the baseline contour from the bright surface
     if (cfg.id === "sar" && state.mode === "replacement" && surf.baseline_overlay) {
       const bl = surf.baseline_overlay;
-      return fr.surface.map((row, r) => row.map((v, c) => clamp(v - 0.55 * (bl[r] ? bl[r][c] : 0), 0, 1)));
+      return surface.map((row, r) => row.map((v, c) => clamp(v - 0.55 * (bl[r] ? bl[r][c] : 0), 0, 1)));
     }
-    return fr.surface;
+    return surface;
   }
 
-  function show(i) {
-    i = clamp(i, 0, n - 1);
-    rg.value = i;
-    const fr = frames[i];
-    const ramp = cfg.ramp || rampHot;
-    paintSurface(ctx, frameSurface(fr), W, H, { ramp, gamma: cfg.gamma ?? 0.7, threshold: cfg.threshold ?? 0.04 });
-    // SAR baseline contour underneath when not in replacement mode
-    if (cfg.id === "sar" && surf.baseline_overlay && state.mode !== "replacement") {
-      // faint translucent baseline as a second pass
-      paintSurface._noop;
+  // LERP the surface cell-by-cell between two frames at fraction f
+  function lerpSurface(a, b, f) {
+    if (f <= 0 || a === b || !b) return a;
+    const out = new Array(a.length);
+    for (let r = 0; r < a.length; r++) {
+      const ar = a[r], br = b[r] || ar, row = new Array(ar.length);
+      for (let c = 0; c < ar.length; c++) row[c] = ar[c] * (1 - f) + (br[c] ?? ar[c]) * f;
+      out[r] = row;
     }
-    drawBall(ctx, fr.ball_xy, W, H);
+    return out;
+  }
+
+  // LERP players by matching on .name across the two frames
+  function lerpPlayers(pa, pb, f) {
+    if (!pa) return null;
+    if (!pb || f <= 0) return pa;
+    const idx = new Map(pb.map((p) => [p.name, p]));
+    return pa.map((p) => {
+      const q = idx.get(p.name);
+      if (!q) return p;
+      return { ...p, x: p.x * (1 - f) + q.x * f, y: p.y * (1 - f) + q.y * f };
+    });
+  }
+  const lerpPt = (a, b, f) => (a && b) ? [a[0] * (1 - f) + b[0] * f, a[1] * (1 - f) + b[1] * f] : (a || b);
+
+  // render at a fractional frame index
+  function renderAt(fFloat) {
+    fFloat = clamp(fFloat, 0, n - 1);
+    const i0 = Math.floor(fFloat), i1 = Math.min(i0 + 1, n - 1), f = fFloat - i0;
+    const fr = frames[i0], frNext = frames[i1];
+    const ramp = cfg.ramp || rampHot;
+    const surface = applyMode(lerpSurface(fr.surface, frNext.surface, f));
+    paintSurface(ctx, surface, W, H, { ramp, gamma: cfg.gamma ?? 0.6, threshold: cfg.threshold ?? 0.04 });
+    const ball = lerpPt(fr.ball_xy, frNext.ball_xy, f);
+    drawBall(ctx, ball, W, H);
     if (fr.players) {
-      const opts = { dimEstimated: state.dimEstimated, highlightName: state.highlight,
+      const players = lerpPlayers(fr.players, frNext.players, f);
+      const opts = { highlightName: state.highlight || cfg.labelName, labelName: cfg.labelName,
                      attColor: "#7ec8ff", defColor: "#ff9a9a" };
-      if (cfg.id === "chase" && state.mode === "gravity") drawGravitySpokes(ctx, fr.players, cfg.gravityFocus, W, H);
-      drawPlayers(ctx, fr.players, fr.ball_xy, W, H, opts);
+      if (cfg.id === "chase" && state.mode === "gravity") drawGravitySpokes(ctx, players, cfg.gravityFocus, W, H);
+      drawPlayers(ctx, players, ball, W, H, opts);
     } else if (fr.hero_xy) {
-      // SAR / SMS hero dot
-      const [hx, hy] = m2px(fr.hero_xy[0], fr.hero_xy[1], W, H);
-      ctx.beginPath(); ctx.arc(hx, hy, Math.max(5, W / 120), 0, Math.PI * 2);
+      const hp = lerpPt(fr.hero_xy, frNext.hero_xy, f);
+      const [hx, hy] = m2px(hp[0], hp[1], W, H);
+      ctx.beginPath(); ctx.arc(hx, hy, Math.max(6, W / 120), 0, Math.PI * 2);
       ctx.fillStyle = "#fff"; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#6cb4ee"; ctx.stroke();
     }
-    tl.textContent = `${i + 1}/${n} · ${(fr.t_s).toFixed(1)}s`;
+    const ts = fr.t_s * (1 - f) + frNext.t_s * f;
+    tl.textContent = `${i0 + 1}/${n} · ${ts.toFixed(1)}s`;
     ro.innerHTML = cfg.readout ? cfg.readout(fr, state) : "";
   }
 
-  let timer = null, playing = false;
-  function stop() { playing = false; pl.innerHTML = "&#9654;"; if (timer) { clearInterval(timer); timer = null; } }
+  // float playhead (0..n-1) + rAF tween loop (~60fps)
+  let playhead = 0, playing = false, raf = null, lastTs = 0;
+  function syncSlider() { rg.value = Math.round(playhead * 1000); }
+  function loop(now) {
+    if (!playing) return;
+    if (!lastTs) lastTs = now;
+    const dt = Math.min(0.1, (now - lastTs) / 1000); lastTs = now;
+    playhead += dt * fracPerSec;
+    if (playhead >= n - 1) playhead = 0;        // loop at end
+    syncSlider();
+    renderAt(playhead);
+    raf = requestAnimationFrame(loop);
+  }
+  function stop() { playing = false; pl.innerHTML = "&#9654;"; if (raf) { cancelAnimationFrame(raf); raf = null; } lastTs = 0; }
   function play() {
     if (playing) return stop();
-    playing = true; pl.innerHTML = "&#10074;&#10074;";
-    timer = setInterval(() => { let i = +rg.value + 1; if (i >= n) i = 0; show(i); }, 130);
+    playing = true; pl.innerHTML = "&#10074;&#10074;"; lastTs = 0;
+    raf = requestAnimationFrame(loop);
   }
   pl.addEventListener("click", play);
-  rg.addEventListener("input", () => { stop(); show(+rg.value); });
+  rg.addEventListener("input", () => { stop(); playhead = (+rg.value) / 1000; renderAt(playhead); });
   // expose highlight setter so leaderboard hover can pin a player onto the surface
-  el._setHighlight = (name) => { state.highlight = name; show(+rg.value); };
-  show(0);
+  el._setHighlight = (name) => { state.highlight = name; renderAt(playhead); };
+  renderAt(0);
+}
+
+/* =================================================================
+   INTRO — "What is space? What is control?" (precursor to the xT act)
+   Two host divs:
+     #intro-shape — an SVG mini-pitch with BRA vs MAR build-up & final-third
+       blocks (width x length in metres = the pitch a team actually occupies).
+     #intro-efi  — a live 2026 "offers to receive in behind, per match" bar board.
+   Grounds the plain-English definitions in FIFA's own WC2026 numbers.
+   ================================================================= */
+async function buildIntro() {
+  const shapeEl = $("#intro-shape"), efiEl = $("#intro-efi");
+  if (!shapeEl && !efiEl) return;
+  let d;
+  try { d = await loadJSON("data/intro_efi.json"); }
+  catch (e) {
+    if (shapeEl) shapeEl.innerHTML = `<p class="caption">Intro data unavailable: ${e.message}</p>`;
+    return;
+  }
+
+  /* ---- team-SHAPE SVG: two phases per team on a mini-pitch ---- */
+  if (shapeEl) {
+    const PL = 105, PW = 68;                    // pitch metres (length x width)
+    const PAD = 18, W = 760, scale = (W - 2 * PAD) / PL, H = PW * scale + 2 * PAD;
+    // metres (own goal at x=0, opp goal at x=105) -> svg px; width centred
+    const sx = (m) => PAD + m * scale;
+    const sy = (m) => PAD + (PW / 2 - m) * scale; // width 0 = pitch centre
+    const shp = d.example_match.in_possession_shape;
+    const teams = ["Brazil", "Morocco"];
+    const phases = [
+      { key: "build_up_low", label: "build-up", dash: false },
+      { key: "final_third_phase", label: "final third", dash: true },
+    ];
+    // pitch frame + halfway + boxes
+    const boxL = 16.5 * scale, boxW = 40.3 * scale;
+    let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" class="ishape-svg" role="img" aria-label="Team shape: build-up vs final-third blocks for Brazil and Morocco">`;
+    svg += `<rect x="${PAD}" y="${PAD}" width="${W - 2 * PAD}" height="${PW * scale}" fill="#0b160f" stroke="#2a313d" stroke-width="1.4"/>`;
+    svg += `<line x1="${W / 2}" y1="${PAD}" x2="${W / 2}" y2="${PAD + PW * scale}" stroke="#2a313d" stroke-width="1"/>`;
+    svg += `<circle cx="${W / 2}" cy="${PAD + PW * scale / 2}" r="${9.15 * scale}" fill="none" stroke="#2a313d" stroke-width="1"/>`;
+    svg += `<rect x="${PAD}" y="${PAD + (PW * scale - boxW) / 2}" width="${boxL}" height="${boxW}" fill="none" stroke="#2a313d" stroke-width="1"/>`;
+    svg += `<rect x="${W - PAD - boxL}" y="${PAD + (PW * scale - boxW) / 2}" width="${boxL}" height="${boxW}" fill="none" stroke="#2a313d" stroke-width="1"/>`;
+    // attack-direction hint
+    svg += `<text x="${W - PAD}" y="${PAD - 5}" fill="#69748699" font-size="11" text-anchor="end">attacking →  opponent goal</text>`;
+    // shape rectangles
+    for (const t of teams) {
+      const col = teamColor(t);
+      for (const ph of phases) {
+        const b = shp[t][ph.key]; if (!b) continue;
+        const cx = b.d2g;                       // block centre, metres up the pitch
+        const x = sx(cx - b.l / 2), y = sy(b.w / 2);
+        const w = b.l * scale, h = b.w * scale;
+        const dash = ph.dash ? `stroke-dasharray="6 4"` : "";
+        const fillA = ph.dash ? 0.06 : 0.16;
+        svg += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="4"
+          fill="${col}" fill-opacity="${fillA}" stroke="${col}" stroke-width="${ph.dash ? 1.6 : 2}" ${dash}/>`;
+        // metre label at block centre
+        svg += `<text x="${sx(cx).toFixed(1)}" y="${(sy(0)).toFixed(1)}" fill="${col}" font-size="11.5"
+          text-anchor="middle" dominant-baseline="middle" class="ishape-dim">${b.w}×${b.l}m</text>`;
+      }
+    }
+    svg += `</svg>`;
+    const legend = `<div class="legend">
+      <span><span class="iswatch" style="background:${teamColor("Brazil")}"></span>Brazil</span>
+      <span><span class="iswatch" style="background:${teamColor("Morocco")}"></span>Morocco</span>
+      <span class="ileg-sep">·</span>
+      <span><span class="iswatch solid"></span>solid = build-up shape</span>
+      <span><span class="iswatch dash"></span>dashed = final-third shape</span>
+      <span class="ileg-sep">·</span>
+      <span>width × length, in metres</span></div>`;
+    shapeEl.innerHTML = svg + legend;
+  }
+
+  /* ---- live 2026 EFI: offers to receive IN BEHIND, per match ---- */
+  if (efiEl) {
+    const rows = (d.efi_2026.offers_in_behind || []).slice(0, 8);
+    const mx = Math.max(1, ...rows.map((r) => r.per_match));
+    const bars = rows.map((r) => {
+      const nm = (typeof r.team === "string" && r.team.length === 3) ? codeName(r.team) : r.team;
+      const w = clamp(r.per_match / mx * 100, 3, 100);
+      return `<div class="tbrow">
+        <span class="tbname">${nm} <span class="lteam">${r.team}</span></span>
+        <span class="tbtrack"><span class="tbfill" style="width:${w.toFixed(1)}%;background:${teamColor(nm)}"></span></span>
+        <span class="tbval">${r.per_match.toFixed(0)}/match</span></div>`;
+    }).join("");
+    efiEl.innerHTML = `<div class="tbars">${bars}</div>`;
+  }
 }
 
 /* =================================================================
@@ -329,13 +469,13 @@ async function buildXT() {
 }
 
 /* =================================================================
-   TIE-AWARE LEADERBOARD
-   Renders rank groups; rows whose CI overlaps the group leader share a tier.
-   Bars carry CI whiskers; occlusion-flagged rows carry a badge.
-   Hover pins the player onto the surface (if a scrubber exists for this act).
+   LEADERBOARD
+   Renders rank groups (tiers). Tier labels are plain ("clear leader: X" / "the
+   chasing group" / "tier N"). No interval whiskers, no per-row estimation badges.
+   Hover pins the player onto the surface (if a scrubber exists).
    ================================================================= */
 function leaderboard(rows, cfg) {
-  // rows already sorted; group by `tieKey` (rank or tie_group) into tiers
+  // rows already sorted; group by tier key into tiers
   const wrap = document.createElement("div"); wrap.className = "lboard";
   const mx = Math.max(...rows.map((r) => cfg.val(r)));
   const tiers = new Map();
@@ -350,24 +490,18 @@ function leaderboard(rows, cfg) {
     const tier = document.createElement("div"); tier.className = "ltier";
     const single = members.length === 1;
     const lab = cfg.tierLabel ? cfg.tierLabel(g, members, gi) :
-      (single ? (gi === 0 ? "clean leader — CI clears all rivals" : `rank ${gi + 1}`) : `${members.length}-way tie (CIs overlap) — no single #1`);
+      (gi === 0 ? `clear leader: ${members[0] ? cfg.name(members[0]) : ""}` : (single ? `tier ${gi + 1}` : "the chasing group"));
     tier.innerHTML = `<div class="ltier-lab">${lab}</div>`;
     for (const r of members) {
-      const v = cfg.val(r), ci = cfg.ci ? cfg.ci(r) : null;
+      const v = cfg.val(r);
       const row = document.createElement("div"); row.className = "lrow";
       row.dataset.name = cfg.name(r);
       const pctW = clamp(v / mx * 100, 3, 100);
-      const occ = cfg.occ && cfg.occ(r);
       const note = cfg.note ? cfg.note(r) : "";
-      let ciHtml = "";
-      if (ci) {
-        const lo = clamp(ci[0] / mx * 100, 0, 100), hi = clamp(ci[1] / mx * 100, 0, 100);
-        ciHtml = `<span class="ci" style="left:${lo}%;width:${Math.max(1, hi - lo)}%"></span>`;
-      }
       row.innerHTML = `
         <span class="lname"><span class="fl" style="background:${teamColor(cfg.team(r))}"></span>${cfg.name(r)}
-          <span class="lteam">${cfg.team(r)}</span>${occ ? `<span class="occ" title="majority ESTIMATED positions — occlusion-inflated">est</span>` : ""}</span>
-        <span class="ltrack"><span class="lfill" style="width:${pctW}%;background:${cfg.barColor || "#6cb4ee"}"></span>${ciHtml}</span>
+          <span class="lteam">${cfg.team(r)}</span></span>
+        <span class="ltrack"><span class="lfill" style="width:${pctW}%;background:${cfg.barColor || "#6cb4ee"}"></span></span>
         <span class="lval">${cfg.fmt(v)}</span>`;
       if (note) row.innerHTML += `<span class="lnote">${note}</span>`;
       tier.appendChild(row);
@@ -388,12 +522,17 @@ function leaderboard(rows, cfg) {
 function teamBars(rows, cfg) {
   const wrap = document.createElement("div"); wrap.className = "tbars";
   const vals = rows.map((r) => cfg.val(r));
-  const mn = Math.min(0, ...vals), mx = Math.max(...vals);
-  const span = mx - mn || 1;
+  const mxv = Math.max(...vals), mnv = Math.min(...vals);
+  const range = mxv - mnv;
+  // Rescale so the bars actually differentiate: start the floor below the min by a fraction of the
+  // data range (never below 0). With a near-flat metric this gives every row a visibly distinct bar.
+  let mn = mnv - 0.12 * range;
+  if (mnv >= 0) mn = Math.max(0, mn);
+  const span = (mxv - mn) || 1;
   for (const r of rows) {
     const v = cfg.val(r);
     const row = document.createElement("div"); row.className = "tbrow";
-    const w = clamp((v - mn) / span * 100, 2, 100);
+    const w = clamp((v - mn) / span * 100, 6, 100);
     const tied = cfg.tied && cfg.tied(r);
     row.innerHTML = `<span class="tbname">${cfg.name(r)}${tied ? ` <span class="tieflag">tied</span>` : ""}</span>
       <span class="tbtrack"><span class="tbfill" style="width:${w}%;background:${teamColor(cfg.name(r))}"></span></span>
@@ -403,16 +542,88 @@ function teamBars(rows, cfg) {
   return wrap;
 }
 
+/* =================================================================
+   TEAM SCATTER (R5)
+   Dark-style canvas scatter: points = [{team,x,y}], team-coloured dots + labels,
+   a least-squares trend line, labelled axes, and a corner annotation (cfg.annot).
+   ================================================================= */
+function scatterPlot(host, points, cfg) {
+  if (!host || !points || !points.length) return;
+  const W = 640, H = 380, PAD_L = 58, PAD_R = 18, PAD_T = 18, PAD_B = 46;
+  host.innerHTML = `<div class="hstage"><canvas width="${W}" height="${H}" id="sc-${cfg.id}"></canvas></div>`;
+  const ctx = $(`#sc-${cfg.id}`).getContext("2d");
+  const xs = points.map((p) => p.x), ys = points.map((p) => p.y);
+  let x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  const xpad = (x1 - x0) * 0.12 || 1, ypad = (y1 - y0) * 0.12 || 1;
+  x0 -= xpad; x1 += xpad; y0 -= ypad; y1 += ypad;
+  const sx = (x) => PAD_L + (x - x0) / (x1 - x0) * (W - PAD_L - PAD_R);
+  const sy = (y) => H - PAD_B - (y - y0) / (y1 - y0) * (H - PAD_T - PAD_B);
+
+  ctx.fillStyle = "#0a0c10"; ctx.fillRect(0, 0, W, H);
+  // grid + axes
+  ctx.strokeStyle = "rgba(190,210,230,0.10)"; ctx.lineWidth = 1;
+  ctx.fillStyle = "#69748699"; ctx.font = "11px Inter, system-ui, sans-serif";
+  ctx.textAlign = "right"; ctx.textBaseline = "middle";
+  for (let i = 0; i <= 4; i++) {
+    const yy = PAD_T + i / 4 * (H - PAD_T - PAD_B);
+    ctx.beginPath(); ctx.moveTo(PAD_L, yy); ctx.lineTo(W - PAD_R, yy); ctx.stroke();
+    const yval = y1 - i / 4 * (y1 - y0);
+    ctx.fillText(yval.toFixed(yval >= 10 ? 0 : 1), PAD_L - 6, yy);
+  }
+  ctx.textAlign = "center"; ctx.textBaseline = "top";
+  for (let i = 0; i <= 4; i++) {
+    const xx = PAD_L + i / 4 * (W - PAD_L - PAD_R);
+    const xval = x0 + i / 4 * (x1 - x0);
+    ctx.fillText(xval.toFixed(xval >= 10 ? 0 : (x1 - x0 < 1 ? 2 : 1)), xx, H - PAD_B + 6);
+  }
+  // axis labels
+  ctx.fillStyle = "#9aa6b6"; ctx.font = "600 12px Inter, system-ui, sans-serif";
+  ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+  ctx.fillText(cfg.xLabel || "x", PAD_L + (W - PAD_L - PAD_R) / 2, H - 6);
+  ctx.save();
+  ctx.translate(14, PAD_T + (H - PAD_T - PAD_B) / 2); ctx.rotate(-Math.PI / 2);
+  ctx.textBaseline = "top"; ctx.fillText(cfg.yLabel || "y", 0, 0);
+  ctx.restore();
+
+  // least-squares trend line
+  const nP = points.length;
+  const mxAvg = xs.reduce((a, b) => a + b, 0) / nP, myAvg = ys.reduce((a, b) => a + b, 0) / nP;
+  let num = 0, den = 0;
+  for (let i = 0; i < nP; i++) { num += (xs[i] - mxAvg) * (ys[i] - myAvg); den += (xs[i] - mxAvg) ** 2; }
+  if (den > 0) {
+    const slope = num / den, intercept = myAvg - slope * mxAvg;
+    const lx0 = x0, lx1 = x1;
+    ctx.strokeStyle = "rgba(124,200,255,0.55)"; ctx.lineWidth = 2; ctx.setLineDash([6, 4]);
+    ctx.beginPath(); ctx.moveTo(sx(lx0), sy(slope * lx0 + intercept)); ctx.lineTo(sx(lx1), sy(slope * lx1 + intercept)); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  // points + labels
+  ctx.font = "11px Inter, system-ui, sans-serif"; ctx.textBaseline = "middle";
+  for (const p of points) {
+    const px = sx(p.x), py = sy(p.y), col = teamColor(p.team);
+    ctx.beginPath(); ctx.arc(px, py, 5.5, 0, Math.PI * 2);
+    ctx.fillStyle = col; ctx.fill();
+    ctx.lineWidth = 1.4; ctx.strokeStyle = "#0a0c10"; ctx.stroke();
+    ctx.fillStyle = "#cdd6e2"; ctx.textAlign = px > W - 90 ? "right" : "left";
+    ctx.fillText(p.team, px > W - 90 ? px - 9 : px + 9, py);
+  }
+  // corner annotation
+  if (cfg.annot) {
+    ctx.fillStyle = "#e8edf4"; ctx.font = "600 13px Inter, system-ui, sans-serif";
+    ctx.textAlign = "right"; ctx.textBaseline = "top";
+    ctx.fillText(cfg.annot, W - PAD_R - 4, PAD_T + 2);
+  }
+}
+
 function xgPanel(host, rcpt, extra = "") {
   if (!host) return;
-  const rho = rcpt.rho, ci = typeof rcpt.ci === "string" ? rcpt.ci : (rcpt.ci95 ? `[${rcpt.ci95[0]}, ${rcpt.ci95[1]}]` : "");
+  const rho = rcpt.rho;
   const sig = rcpt.p_value != null ? ` · p=${rcpt.p_value}` : "";
   const reading = rcpt.reading || "";
   const sign = rho > 0.15 ? "good" : rho < -0.15 ? "warn" : "muted";
   host.innerHTML = `
     <div class="xgrow">
-      <div class="xgstat"><div class="xgv ${sign}">ρ = ${rho > 0 ? "+" : ""}${rho}</div><div class="xgl">Spearman vs StatsBomb 2022 xG</div></div>
-      <div class="xgstat"><div class="xgv">${ci}${sig}</div><div class="xgl">95% bootstrap CI · n=${rcpt.n} teams</div></div>
+      <div class="xgstat"><div class="xgv ${sign}">ρ = ${rho > 0 ? "+" : ""}${rho}${sig}</div><div class="xgl">Spearman vs StatsBomb 2022 xG · n=${rcpt.n} teams</div></div>
     </div>
     <p class="xgunit">${rcpt.unit || rcpt.unit_x || ""}</p>
     <p class="xgread">${reading}</p>${extra}`;
@@ -426,11 +637,8 @@ async function buildSMS() {
   const data = await loadJSON("data/space_sms.json");
   const scEl = $("#sms-canvas");
   buildScrubber(scEl, surf, {
-    id: "sms", ramp: rampHot, gamma: 0.7, threshold: 0.05,
+    id: "sms", ramp: rampHot, gamma: 0.6, threshold: 0.05,
     defaultMode: "surface",
-    toggles: [
-      { key: "occlusion", label: "occlusion: grey ESTIMATED" },
-    ],
     readout: (fr) => {
       const own = fr.in_possession_team === "Argentina";
       return `<b>${fr.in_possession_team}</b> in possession · top off-ball space-holder:
@@ -442,19 +650,19 @@ async function buildSMS() {
   const top = data.players.slice(0, 12);
   const lb = leaderboard(top, {
     name: (r) => r.name, team: (r) => r.team, val: (r) => r.sms_total_area_m2,
-    ci: (r) => r.sms_total_ci, fmt: (v) => `${v.toFixed(0)} m²`,
-    tier: (r) => r.tie_group, occ: (r) => r.occlusion_flag, barColor: "#6cb4ee",
+    fmt: (v) => `${v.toFixed(0)} m²`,
+    tier: (r) => r.tie_group, barColor: "#6cb4ee",
     scrubberEl: scEl,
-    tierLabel: (g, m) => g === 1 ? `tie tier 1 — ${m.length} players, CIs overlap (no single #1)` : `tier ${g} (${m.length})`,
+    tierLabel: (g, m) => g === 1 ? `top group — ${m.length} players close together` : `tier ${g} (${m.length})`,
   });
   $("#sms-board").appendChild(lb);
-  // self-made cut (resort) — top 6, all one tie-flagged tier (CIs broad/overlapping)
+  // self-made cut (resort) — top 6
   const sm = [...data.players].sort((a, b) => b.sms_self_made_m2 - a.sms_self_made_m2).slice(0, 6);
   const smlb = leaderboard(sm, {
     name: (r) => r.name, team: (r) => r.team, val: (r) => r.sms_self_made_m2,
-    ci: (r) => r.sms_self_made_ci, fmt: (v) => `${v.toFixed(0)} m²`,
-    tier: () => 1, occ: (r) => r.occlusion_flag, barColor: "#9b8cff", scrubberEl: scEl,
-    tierLabel: () => "self-made (movement) cut — CIs broadly overlap; Correa/Foyth/Ziyech share the top, not a clean #1",
+    fmt: (v) => `${v.toFixed(0)} m²`,
+    tier: () => 1, barColor: "#9b8cff", scrubberEl: scEl,
+    tierLabel: () => "self-made (movement) cut — Correa, Foyth and Ziyech share the top",
   });
   $("#sms-selfmade").appendChild(smlb);
   // teams
@@ -470,11 +678,10 @@ async function buildCHASE() {
   const data = await loadJSON("data/space_chase.json");
   const scEl = $("#chase-canvas");
   buildScrubber(scEl, surf, {
-    id: "chase", ramp: rampCool, gamma: 0.9, threshold: 0.0,
-    gravityFocus: "Lionel Messi", defaultMode: "surface",
+    id: "chase", ramp: rampCool, gamma: 0.6, threshold: 0.0,
+    gravityFocus: "Lionel Messi", labelName: "Lionel Messi", defaultMode: "surface",
     toggles: [
       { key: "gravity", label: "show gravity spokes" },
-      { key: "occlusion", label: "occlusion: grey ESTIMATED" },
     ],
     readout: (fr, st) => st.mode === "gravity"
       ? `Spokes link every defender within 12 m of <b>Messi</b> toward him — the deeper the colour, the closer the marker. Watch the violet block (defender control) collapse as he drifts.`
@@ -483,19 +690,29 @@ async function buildCHASE() {
   const top = data.players.slice(0, 12);
   const lb = leaderboard(top, {
     name: (r) => r.name, team: (r) => r.team, val: (r) => r.gravity,
-    ci: (r) => r.gravity_ci90, fmt: (v) => v.toFixed(2),
-    tier: (r) => r.rank, occ: (r) => r.occlusion_flag, barColor: "#9b8cff", scrubberEl: scEl,
+    fmt: (v) => v.toFixed(2),
+    tier: (r) => r.rank, barColor: "#9b8cff", scrubberEl: scEl,
     note: (r) => `<span class="comp">drawn ${r.drawn_markers.toFixed(2)} · pull ${r.chase_pull_ms.toFixed(2)} m/s</span>`,
     tierLabel: (g, m, gi) => gi === 0 && m.length === 1
-      ? `clean #1 — CI clears the field (Pedro)`
-      : `rank ${g} — ${m.length > 1 ? `${m.length}-way tier (CIs overlap)` : "single"}`,
+      ? `clear leader: Pedro`
+      : (m.length > 1 ? `the chasing group` : `tier ${g}`),
   });
   $("#chase-board").appendChild(lb);
   const tb = teamBars(data.teams.slice(0, 8), {
     name: (r) => r.team, val: (r) => r.team_gravity, fmt: (v) => v.toFixed(2),
   });
   $("#chase-teams").appendChild(tb);
-  xgPanel($("#chase-xg"), data.xg_receipt);
+  // team-level scatter: x = team gravity, y = team xG-for per match
+  const pts = data.teams
+    .filter((t) => data.team_xg_for_per_match[t.team] != null)
+    .map((t) => ({ team: t.team, x: t.team_gravity, y: data.team_xg_for_per_match[t.team] }));
+  scatterPlot($("#chase-scatter"), pts, {
+    id: "chase", xLabel: "team defensive gravity", yLabel: "StatsBomb xG / match",
+    annot: `ρ=${data.xg_receipt.rho > 0 ? "+" : ""}${data.xg_receipt.rho} · n=${pts.length}`,
+  });
+  xgPanel($("#chase-xg"), { ...data.xg_receipt,
+    reading: "A mild positive link (ρ=+0.38) — suggestive, not proof. The scatter above is the evidence: teams whose attackers exert more defensive gravity tend to generate a little more xG.",
+  });
 }
 
 async function buildPOBSO() {
@@ -503,45 +720,51 @@ async function buildPOBSO() {
   const data = await loadJSON("data/space_pobso.json");
   const scEl = $("#pobso-canvas");
   buildScrubber(scEl, surf, {
-    id: "pobso", ramp: rampHot, gamma: 0.7, threshold: 0.04,
-    defaultMode: "surface",
+    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.04,
+    labelName: surf.hero.name, defaultMode: "surface",
     toggles: [
       { key: "reveal", label: "reveal danger (× xT)" },
-      { key: "occlusion", label: "occlusion: grey ESTIMATED" },
     ],
     readout: (fr, st) => st.mode === "reveal"
-      ? `Only the cells off-ball attackers control <b>and</b> that carry threat (× xT) stay lit — the scoring opportunity forming before the pass exists.`
-      : `Control × xT for <b>${surf.hero.name}</b>'s run (${surf.hero.obso_owned.toFixed(1)} xT-weighted m² at ${surf.hero.speed_mps} m/s). The danger pocket blooms <b>ahead</b> of the run, not at the ball.`,
+      ? `Only the cells off-ball attackers control <b>and</b> that carry threat (× xT) stay lit — the dangerous space forming before the pass exists.`
+      : `Dangerous space — control × xT — for <b>${surf.hero.name}</b>'s run (${surf.hero.obso_owned.toFixed(1)} xT-weighted m² at ${surf.hero.speed_mps} m/s). The danger pocket blooms <b>ahead</b> of the run, not at the ball.`,
   });
-  // PLAYER board — substantial-minutes players LEAD; cameo-subs (<15 min, ~one match) are
-  // demoted to the flagged small-sample tier so they never headline (matches the caption's claim).
+  // PLAYER board — substantial-minutes players LEAD; cameo subs (<15 min, ~one match) are
+  // shown separately so they don't headline (matches the caption's claim).
   const QUALMIN = 15;
   const players = [...data.players].sort((a, b) => {
     const qa = a.minutes_sampled >= QUALMIN, qb = b.minutes_sampled >= QUALMIN;
     if (qa !== qb) return qa ? -1 : 1;   // qualified first
-    return b.pobso - a.pobso;            // then by P-OBSO desc within each tier
+    return b.pobso - a.pobso;            // then by dangerous-space desc within each tier
   }).slice(0, 14);
   const lb = leaderboard(players, {
     name: (r) => r.name, team: (r) => r.team, val: (r) => r.pobso,
-    ci: (r) => r.ci, fmt: (v) => `${v.toFixed(1)} m²`,
+    fmt: (v) => `${v.toFixed(1)} m²`,
     tier: (r) => (r.minutes_sampled < 15 ? "cameo" : "full"),
-    occ: (r) => r.occlusion_flag, barColor: "#ff6b6b", scrubberEl: scEl,
+    barColor: "#ff6b6b", scrubberEl: scEl,
     note: (r) => r.minutes_sampled < 15
-      ? `<span class="comp warn">${r.minutes_sampled.toFixed(1)} min — single-match basis</span>`
+      ? `<span class="comp warn">${r.minutes_sampled.toFixed(1)} min — single match</span>`
       : `<span class="comp">${r.minutes_sampled.toFixed(0)} min · ${r.n_frames} fr</span>`,
-    tierLabel: (g, m) => g === "cameo"
-      ? `small-sample / cameo-sub basis (&lt;15 min) — high-variance, read with caution`
-      : `substantial-minutes off-ball danger controllers (≥15 min sampled)`,
+    tierLabel: (g) => g === "cameo"
+      ? `cameo subs (&lt;15 min, one match) — shown separately`
+      : `substantial-minutes dangerous-space controllers (≥15 min sampled)`,
   });
   $("#pobso-board").appendChild(lb);
-  // TEAM flow board — the result that actually tracks xG
+  // TEAM flow board — the result that actually tracks chances
   const tb = teamBars(data.teams, {
     name: (r) => r.team, val: (r) => r.danger_moments_per_min, fmt: (v) => v.toFixed(1),
     tied: (r) => r.tied_with_leader,
   });
   $("#pobso-teams").appendChild(tb);
-  xgPanel($("#pobso-xg"), data.xg_receipt,
-    `<p class="xgnote"><b>The bug I caught:</b> the naïve all-periods version gives ρ = −0.20 (null) because penalty-shootout xG (~0.78/pen) pollutes knockout xG-for. Restricting StatsBomb xG to regulation (periods 1–2) to match the tracking sample fixes it. The time-<i>average</i> OBSO <i>stock</i> does NOT predict xG (ρ −0.2 to −0.4) — only the <i>flow</i> (danger-moment rate) does, because controlled space is necessary but not sufficient for a shot.</p>`);
+  // team-level scatter: x = danger moments / min, y = StatsBomb xG / match
+  const pts = (data.xg_receipt.detail || []).map((d) => ({ team: d.team, x: d.danger_moments_per_min, y: d.sb_xg_per_match }));
+  scatterPlot($("#pobso-scatter"), pts, {
+    id: "pobso", xLabel: "danger-moments / min", yLabel: "StatsBomb xG / match",
+    annot: `ρ=+${data.xg_receipt.rho} · p=${data.xg_receipt.p_value} · n=${data.xg_receipt.n}`,
+  });
+  xgPanel($("#pobso-xg"), { ...data.xg_receipt,
+    reading: `Owning dangerous space tracks chances: ρ=+${data.xg_receipt.rho}, p=${data.xg_receipt.p_value}, n=${data.xg_receipt.n}. The scatter above is the payoff.`,
+  });
 }
 
 async function buildSAR() {
@@ -549,8 +772,8 @@ async function buildSAR() {
   const data = await loadJSON("data/space_sar.json");
   const scEl = $("#sar-canvas");
   buildScrubber(scEl, surf, {
-    id: "sar", ramp: rampHot, gamma: 0.7, threshold: 0.04,
-    defaultMode: "surface",
+    id: "sar", ramp: rampHot, gamma: 0.6, threshold: 0.04,
+    labelName: surf.hero.name, defaultMode: "surface",
     toggles: [
       { key: "replacement", label: "vs replacement (dissolve to baseline)" },
     ],
@@ -561,12 +784,12 @@ async function buildSAR() {
   const top = data.leaderboard.slice(0, 12);
   const lb = leaderboard(top, {
     name: (r) => r.name, team: (r) => r.team, val: (r) => r.sar_m2,
-    ci: (r) => [r.ci_low, r.ci_high], fmt: (v) => `+${v.toFixed(0)} m²`,
+    fmt: (v) => `+${v.toFixed(0)} m²`,
     tier: (r) => (r.tied_with_leader ? "lead" : "rest"),
-    occ: (r) => r.est_share > 0.5, barColor: "#6dd58c", scrubberEl: scEl,
+    barColor: "#6dd58c", scrubberEl: scEl,
     tierLabel: (g, m) => g === "lead"
-      ? `leader — CI separates from #2 (clean single leader: ${m[0].name})`
-      : `the chasing pack (each below the leader's CI floor)`,
+      ? `clear leader: ${m[0].name}`
+      : `the chasing group`,
   });
   $("#sar-board").appendChild(lb);
   const tb = teamBars(data.teams.slice(0, 11), {
@@ -579,54 +802,224 @@ async function buildSAR() {
 /* =================================================================
    CLOSING ACT — live FIFA EFI 2026
    ================================================================= */
+// CLOSING — two lenses on the 2022 final (FIFA EFI vs our tracking), then the same metrics live in 2026.
 async function buildLive() {
-  const host = $("#live-body"); if (!host) return;
-  try {
-    const d = await loadJSON("data/efi_2026.json");
-    const teamThreat = d.team_threat_leaders.slice(0, 8);
-    const tmx = Math.max(...teamThreat.map((t) => t.threat));
-    const distLead = d.team_distance_leaders.slice(0, 8);
-    const dmx = Math.max(...distLead.map((t) => t.dist_km));
-    const players = d.player_threat_leaders.slice(0, 8);
-    const pmx = Math.max(...players.map((p) => p.threat));
-    const tRows = (arr, valK, mx, fmt, col) => arr.map((r) => {
-      const nm = r.team ? codeName(r.team) : r.player;
-      const v = r[valK];
-      return `<div class="tbrow"><span class="tbname">${r.team ? codeName(r.team) : r.player}${r.player ? ` <span class="lteam">${codeName(r.team)}</span>` : ""}</span>
-        <span class="tbtrack"><span class="tbfill" style="width:${clamp(v / mx * 100, 3, 100)}%;background:${teamColor(codeName(r.team))}"></span></span>
-        <span class="tbval">${fmt(v)}</span></div>`;
-    }).join("");
-    host.innerHTML = `
-      <div class="livestat">
-        <span class="dot live"></span> LIVE · ${d.n_matches} WC2026 matches played · ${d.n_teams} teams · FIFA EFI
-      </div>
-      <div class="livegrid">
-        <div class="card">
-          <h3>Team threat (FIFA EFI, summed)</h3>
-          <div class="tbars">${tRows(teamThreat, "threat", tmx, (v) => v.toFixed(1), "")}</div>
-          <p class="caption">EFI <span class="mono">threat</span> is FIFA's live off-ball-and-on danger model — the closest public cousin to the P-OBSO bridge above. <b>${codeName(teamThreat[0].team)}</b> lead it early.</p>
+  const lensEl = $("#final-2lens"), liveEl = $("#live-efi");
+  if (!lensEl && !liveEl) return;
+  const ARG = teamColor("Argentina"), FRA = teamColor("France");
+
+  /* ---- 2022 final: FIFA EFI lens vs our tracking lens ---- */
+  if (lensEl) {
+    try {
+      const f = await loadJSON("data/efi_2022_final.json");
+      const pob = await loadJSON("data/space_pobso.json");
+      const ks = f.key_stats || {};
+      const lb = {}; (f.line_breaks || []).forEach((r) => (lb[r.team] = r));
+      const mv = {}; (f.movement_to_receive || []).forEach((r) => (mv[r.team] = r));
+      const of = {}; (f.offers_to_receive || []).forEach((r) => (of[r.team] = r));
+      const danger = {}; (pob.teams || []).forEach((t) => (danger[t.team] = t.danger_moments_per_min));
+      const xg = f.real_xg_statsbomb || {};
+
+      // one metric = two bars (ARG, FRA), normalized to the larger of the pair
+      const cmp = (label, a, b, fmt) => {
+        const mx = Math.max(a, b, 1);
+        const bar = (name, v, col) => `<div class="cmprow"><span class="ck">${name}</span>
+          <span class="ctrack"><span class="cfill" style="width:${clamp(v / mx * 100, 4, 100)}%;background:${col}"></span></span>
+          <span class="cval">${fmt(v)}</span></div>`;
+        const winner = a > b ? "Argentina" : (b > a ? "France" : null);
+        return `<div class="cmp"><div class="clab">${label}</div>
+          ${bar("ARG", a, ARG)}${bar("FRA", b, FRA)}
+          ${winner ? `<div class="cmpwin">▲ ${winner} more</div>` : ""}</div>`;
+      };
+      const num = (v) => (v == null ? "—" : (Math.round(v * 10) / 10).toString());
+
+      lensEl.innerHTML = `<div class="lens">
+        <div class="lcol">
+          <h4>FIFA EFI<span class="src">official — read off the 2022 match-report PDF</span></h4>
+          ${cmp("Completed line breaks", lb.Argentina?.completed, lb.France?.completed, num)}
+          ${cmp("Receptions in the final third", ks["Receptions in the Final Third"]?.home, ks["Receptions in the Final Third"]?.away, num)}
+          ${cmp("Movements to receive in behind", mv.Argentina?.in_behind, mv.France?.in_behind, num)}
+          ${cmp("Offers to receive (made)", of.Argentina?.made, of.France?.made, num)}
         </div>
-        <div class="card">
-          <h3>Player threat leaders</h3>
-          <div class="tbars">${tRows(players, "threat", pmx, (v) => v.toFixed(1), "")}</div>
+        <div class="lcol">
+          <h4>Our tracking<span class="src">pitch-control reconstruction from raw PFF tracking</span></h4>
+          ${cmp("Dangerous space — danger-moments / min", danger.Argentina, danger.France, num)}
+          <div class="lcallout">France's danger ran through <b>one man</b>: <b>Mbappé</b>'s hat-trick — and the danger-pocket that bloomed ahead of his run in <b>Act 2</b>. The team rate favours Argentina; the single biggest danger-maker was French.</div>
+          <div class="lcallout" style="border-left-color:var(--accent2)">Both lenses agree on the shape of the game: <b>Argentina created more, more often</b>, off two completely independent measurement systems.</div>
         </div>
-      </div>
-      <div class="card">
-        <h3>Space ≠ distance — the 2022 thesis, live in 2026</h3>
-        <div class="tbars">${tRows(distLead, "dist_km", dmx, (v) => v.toFixed(0) + " km", "")}</div>
-        <p class="caption"><b>${codeName(distLead[0].team)}</b> covers the most ground (${distLead[0].dist_km} km), yet <b>${codeName(teamThreat[0].team)}</b> — the threat leader — sits mid-pack on distance. ${d.space_not_distance}</p>
-        <p class="caption faintnote">Source: ${d.source}, fetched ${d.fetched}. 2026 EFI is rich + live (threat, xG); 2022 EFI was physical-only (distance, sprints, top speed), which is why "space" had to be reconstructed from tracking + labels in the acts above.</p>
       </div>`;
-  } catch (e) {
-    host.innerHTML = `<p class="caption">Live FIFA EFI 2026 feed unavailable right now (${e.message}). The 2022 acts above stand on their own.</p>`;
+      // the outcome — real StatsBomb xG (the page's "so what", at match level)
+      if (xg.Argentina && xg.France) {
+        const a = xg.Argentina, b = xg.France, mx = Math.max(a.xg, b.xg, 1);
+        const xbar = (name, v, np, col) => `<div class="cmprow"><span class="ck">${name}</span>
+          <span class="ctrack"><span class="cfill" style="width:${clamp(v / mx * 100, 4, 100)}%;background:${col}"></span></span>
+          <span class="cval">${v.toFixed(2)}</span></div>
+          <div class="cmprow"><span class="ck"></span><span class="cmpsub">open-play (non-penalty) xG: <b>${np.toFixed(2)}</b></span></div>`;
+        lensEl.innerHTML += `<div class="card lxg">
+          <div class="clab"><b>The outcome — real expected goals</b> <span class="lteam">StatsBomb 2022, penalty shootout excluded</span></div>
+          ${xbar("ARG", a.xg, a.npxg, ARG)}${xbar("FRA", b.xg, b.npxg, FRA)}
+          <p class="caption">The space dominance showed up on the scoreboard of chances: Argentina out-created France on xG (2.76 vs 2.27) — and in <b>open play it isn't close</b> (1.97 vs 0.71). France's xG was penalty-driven; their open-play danger really did run through Mbappé. Three independent measurements — FIFA's counts, our tracking, StatsBomb's xG — all point the same way.</p>
+        </div>`;
+      }
+    } catch (e) {
+      lensEl.innerHTML = `<p class="caption">2022-final EFI comparison unavailable (${e.message}).</p>`;
+    }
+  }
+
+  /* ---- 2026 live: the same space metrics, straight from FIFA's feed ---- */
+  if (liveEl) {
+    try {
+      const d = await loadJSON("data/intro_efi.json");
+      const e26 = d.efi_2026 || {};
+      const board = (rows, fmt) => {
+        rows = (rows || []).slice(0, 6);
+        const mx = Math.max(1, ...rows.map((r) => r.per_match));
+        return `<div class="tbars">` + rows.map((r) => {
+          const nm = (typeof r.team === "string" && r.team.length === 3) ? codeName(r.team) : r.team;
+          return `<div class="tbrow"><span class="tbname">${nm} <span class="lteam">${r.team}</span></span>
+            <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.per_match / mx * 100, 4, 100)}%;background:${teamColor(nm)}"></span></span>
+            <span class="tbval">${fmt(r.per_match)}</span></div>`;
+        }).join("") + `</div>`;
+      };
+      liveEl.innerHTML = `
+        <div class="livechip"><span class="dot live"></span> LIVE · ${e26.n_matches_played || "—"} WC2026 matches played · FIFA EFI</div>
+        <div class="liveboards">
+          <div><h4>Completed line breaks · per match</h4>${board(e26.linebreaks_completed, (v) => v.toFixed(0))}</div>
+          <div><h4>Offers to receive in behind · per match</h4>${board(e26.offers_in_behind, (v) => v.toFixed(0))}</div>
+        </div>`;
+    } catch (e) {
+      liveEl.innerHTML = `<p class="caption">Live WC2026 EFI feed unavailable right now (${e.message}). The 2022 lens above stands on its own.</p>`;
+    }
   }
 }
 
-/* ---------------- boot ---------------- */
-(async function () {
-  initReveal();
-  initRail();
-  await buildXT();
-  await Promise.allSettled([buildSMS(), buildCHASE(), buildPOBSO(), buildSAR()]);
-  await buildLive();
-})();
+/* =====================================================================
+   HOW-IT'S-CALCULATED EXPLAINER WIDGETS  (inline SVG + light animation)
+   Self-contained; each early-returns if its host div is absent.
+   ===================================================================== */
+
+/* 1) xT — ball hops midfield -> half-space -> central pocket; threat ticks up. */
+function buildXtExplainer() {
+  const host = $("#xt-explainer"); if (!host) return;
+  const stops = [{ x: 96, y: 58, v: 0.02 }, { x: 150, y: 34, v: 0.08 }, { x: 196, y: 50, v: 0.26 }];
+  host.innerHTML = `
+    <div class="xpl-head">how it's built · <b>xT</b></div>
+    <svg class="xpl-svg" viewBox="0 0 240 110" role="img" aria-label="ball moving into higher-value zone">
+      <rect x="4" y="4" width="232" height="102" rx="6" fill="#0b160f" stroke="#2a313d"/>
+      <defs>
+        <radialGradient id="xtPocket" cx="82%" cy="50%" r="42%">
+          <stop offset="0%" stop-color="#ff6b6b" stop-opacity=".55"/>
+          <stop offset="45%" stop-color="#f0b429" stop-opacity=".30"/>
+          <stop offset="100%" stop-color="#1a8c8c" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect x="4" y="4" width="232" height="102" rx="6" fill="url(#xtPocket)"/>
+      <line x1="120" y1="4" x2="120" y2="106" stroke="#bcd2e6" stroke-opacity=".18"/>
+      <rect x="200" y="28" width="36" height="54" fill="none" stroke="#bcd2e6" stroke-opacity=".22"/>
+      ${stops.map(s => `<circle cx="${s.x}" cy="${s.y}" r="2.4" fill="#9aa6b6" fill-opacity=".5"/>`).join("")}
+      <circle id="xtBall" cx="${stops[0].x}" cy="${stops[0].y}" r="4.5" fill="#fff" stroke="#000" stroke-width="1"/>
+      <text x="226" y="16" text-anchor="end" font-size="8" fill="#9aa6b6">goal →</text>
+    </svg>
+    <div class="xpl-num">threat <span id="xtVal">0.02</span></div>
+    <p class="xpl-cap">The ball climbs from open grass to a central pocket outside the box. Same pass, far more <b>threat</b> — because the zone is worth more.</p>`;
+  const valEl = $("#xtVal", host);
+  const T = 3600, seg = T / 3;
+  let raf;
+  const tick = (now) => {
+    const i = Math.floor((now % T) / seg);
+    const v = stops[clamp(i, 0, 2)].v;
+    valEl.textContent = v.toFixed(2);
+    valEl.style.color = v > 0.2 ? "var(--hot)" : v > 0.05 ? "var(--warn)" : "var(--muted)";
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+  host._stop = () => cancelAnimationFrame(raf);
+}
+
+/* 2) CHASE — attacker dot with ~12m dashed radius; 3 defenders pulled inward. */
+function buildChaseExplainer() {
+  const host = $("#chase-explainer"); if (!host) return;
+  const cx = 120, cy = 55;
+  const defs = [{ x: 64, y: 30 }, { x: 188, y: 44 }, { x: 96, y: 92 }];
+  host.innerHTML = `
+    <div class="xpl-head">how it's built · <b>gravity</b></div>
+    <svg class="xpl-svg" viewBox="0 0 240 110" role="img" aria-label="defenders pulled toward an attacker">
+      <rect x="4" y="4" width="232" height="102" rx="6" fill="#0b0f14" stroke="#2a313d"/>
+      <circle cx="${cx}" cy="${cy}" r="44" fill="#ff6b6b" fill-opacity=".05"
+              stroke="#ff6b6b" stroke-opacity=".5" stroke-dasharray="5 4"/>
+      <text x="${cx}" y="${cy - 47}" text-anchor="middle" font-size="8" fill="#ff6b6b" fill-opacity=".8">~12 m</text>
+      ${defs.map((d, i) => `
+        <line class="chase-arrow" style="animation-delay:${i * 0.4}s"
+              x1="${d.x}" y1="${d.y}" x2="${cx}" y2="${cy}"
+              stroke="#ff9a3a" stroke-width="2" marker-end="url(#chaseHead)"/>`).join("")}
+      <defs>
+        <marker id="chaseHead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#ff9a3a"/>
+        </marker>
+      </defs>
+      ${defs.map(d => `<circle cx="${d.x}" cy="${d.y}" r="5" fill="#ff9a9a" stroke="#0b0f14"/>`).join("")}
+      <circle cx="${cx}" cy="${cy}" r="6" fill="#7ec8ff" stroke="#0b0f14" stroke-width="1.2"/>
+    </svg>
+    <p class="xpl-cap"><b>Gravity</b> = how many defenders you pull within ~12 m (<b>drawn</b>) × how hard they close on you (<b>chase-pull</b> m/s). Target men pin markers; roamers like Messi score lower.</p>`;
+}
+
+/* 3) DANGEROUS — control blob × xT gradient -> a bright danger pocket. */
+function buildDangerExplainer() {
+  const host = $("#pobso-explainer"); if (!host) return;
+  host.innerHTML = `
+    <div class="xpl-head">how it's built · <b>Dangerous Space</b></div>
+    <svg class="xpl-svg xpl-mult" viewBox="0 0 300 96" role="img" aria-label="control times value equals dangerous space">
+      <defs>
+        <radialGradient id="ctrlBlob" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#9b8cff" stop-opacity=".85"/>
+          <stop offset="70%" stop-color="#5848c0" stop-opacity=".25"/>
+          <stop offset="100%" stop-color="#5848c0" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="xtGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1a8c8c" stop-opacity=".1"/>
+          <stop offset="60%" stop-color="#f0b429" stop-opacity=".5"/>
+          <stop offset="100%" stop-color="#ff6b6b" stop-opacity=".85"/>
+        </linearGradient>
+        <radialGradient id="dangerPocket" cx="62%" cy="44%" r="42%">
+          <stop offset="0%" stop-color="#ff6b6b" stop-opacity="1"/>
+          <stop offset="55%" stop-color="#ff9a3a" stop-opacity=".55"/>
+          <stop offset="100%" stop-color="#ff9a3a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <g><rect x="6" y="14" width="72" height="58" rx="6" fill="#0e1014" stroke="#2a313d"/>
+         <ellipse cx="42" cy="43" rx="26" ry="20" fill="url(#ctrlBlob)"/>
+         <text x="42" y="86" text-anchor="middle" font-size="9" fill="#9aa6b6">control</text></g>
+      <text x="100" y="48" text-anchor="middle" font-size="20" fill="#e8edf4">×</text>
+      <g><rect x="120" y="14" width="72" height="58" rx="6" fill="#0e1014" stroke="#2a313d"/>
+         <rect x="122" y="16" width="68" height="54" rx="5" fill="url(#xtGrad)"/>
+         <text x="156" y="86" text-anchor="middle" font-size="9" fill="#9aa6b6">value (xT)</text></g>
+      <text x="214" y="48" text-anchor="middle" font-size="18" fill="#e8edf4">=</text>
+      <g><rect x="234" y="14" width="60" height="58" rx="6" fill="#0e1014" stroke="#2a313d"/>
+         <circle id="dangerBloom" cx="264" cy="40" r="20" fill="url(#dangerPocket)"/>
+         <text x="264" y="86" text-anchor="middle" font-size="9" fill="#ff6b6b">danger pocket</text></g>
+    </svg>
+    <p class="xpl-cap"><b>pitch control × xT = dangerous space.</b> Control over low-value grass = nothing; control over the danger pocket = everything.</p>`;
+}
+
+/* ---------------- WIP export ----------------
+   space-wip.html (the parked archive) imports this module and drives the two
+   stashed builders explicitly. Expose them on window so that page can call
+   them after the module loads. */
+window.__spaceWIP = { buildSMS, buildSAR, buildCHASE, buildPOBSO, buildXT, buildIntro, buildLive };
+
+/* ---------------- boot ----------------
+   Full narrative auto-boot. Skipped on the WIP archive page (which sets
+   window.__spaceWIPPage before loading this module) so SMS/SAR are built once,
+   on demand, against the archive's own host IDs — not twice. */
+if (!window.__spaceWIPPage) {
+  (async function () {
+    initReveal();
+    await buildIntro();
+    await buildXT();
+    buildXtExplainer();
+    await Promise.allSettled([buildCHASE(), buildPOBSO()]);
+    buildChaseExplainer();
+    buildDangerExplainer();
+    await buildLive();
+  })();
+}
