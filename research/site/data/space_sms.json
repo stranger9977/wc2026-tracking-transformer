@@ -1,0 +1,3892 @@
+{
+  "meta": {
+    "metric": "SMS",
+    "metric_full": "Self-Made Space",
+    "units": "m^2 (square metres of off-ball controllable receiving space)",
+    "definition": "Per attacking OFF-BALL outfield player, the controllable receiving space they hold (pitch-control area, team-control weighted), excluding the ball-carrier and goalkeepers. sms_self_made_m2 = total - static(velocity-zeroed) baseline, isolating space created by movement/positioning.",
+    "space_native": true,
+    "xt_weighted": false,
+    "stride": 15,
+    "approx_hz": 2.0,
+    "grid": {
+      "nx": 32,
+      "ny": 22
+    },
+    "periods": [
+      1,
+      2
+    ],
+    "matches_sampled": [
+      "10517",
+      "10514",
+      "10513",
+      "10508",
+      "10506",
+      "10509",
+      "10511",
+      "10503"
+    ],
+    "n_matches_sampled": 8,
+    "total_frames_sampled": 65386,
+    "min_visible_frames_to_rank": 40,
+    "occlusion": {
+      "gate": "per-frame space credited only when the player is VISIBLE",
+      "global_estimated_pct": 36.3,
+      "note": "~40.9% of PFF positions are ESTIMATED (biased toward forwards/wingers); gated claims use VISIBLE frames only and rows carry estimated_share + occlusion_flag."
+    },
+    "honesty": "tie_group clusters players whose total-area bootstrap CIs overlap the cluster leader \u2014 overlapping values are not falsely ranked.",
+    "generated": "2026-06-16 22:14:19"
+  },
+  "players": [
+    {
+      "name": "Sofiane Boufal",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 17,
+      "sms_total_area_m2": 475.23,
+      "sms_total_ci": [
+        451.82,
+        502.71
+      ],
+      "sms_self_made_m2": 41.64,
+      "sms_self_made_ci": [
+        36.3,
+        47.9
+      ],
+      "n_frames_visible": 857,
+      "n_frames_estimated": 1053,
+      "estimated_share": 0.551,
+      "occlusion_flag": true,
+      "rank": 1,
+      "tie_group": 1
+    },
+    {
+      "name": "Abde Ezzalzouli",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 16,
+      "sms_total_area_m2": 448.51,
+      "sms_total_ci": [
+        413.9,
+        483.22
+      ],
+      "sms_self_made_m2": 40.82,
+      "sms_self_made_ci": [
+        31.51,
+        52.0
+      ],
+      "n_frames_visible": 368,
+      "n_frames_estimated": 312,
+      "estimated_share": 0.459,
+      "occlusion_flag": false,
+      "rank": 2,
+      "tie_group": 1
+    },
+    {
+      "name": "Yuto Nagatomo",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 5,
+      "sms_total_area_m2": 442.2,
+      "sms_total_ci": [
+        425.73,
+        459.29
+      ],
+      "sms_self_made_m2": 36.96,
+      "sms_self_made_ci": [
+        33.3,
+        40.68
+      ],
+      "n_frames_visible": 1330,
+      "n_frames_estimated": 1000,
+      "estimated_share": 0.429,
+      "occlusion_flag": false,
+      "rank": 3,
+      "tie_group": 1
+    },
+    {
+      "name": "Diogo Dalot",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 2,
+      "sms_total_area_m2": 419.62,
+      "sms_total_ci": [
+        408.4,
+        431.0
+      ],
+      "sms_self_made_m2": 29.23,
+      "sms_self_made_ci": [
+        26.84,
+        31.96
+      ],
+      "n_frames_visible": 2439,
+      "n_frames_estimated": 879,
+      "estimated_share": 0.265,
+      "occlusion_flag": false,
+      "rank": 4,
+      "tie_group": 2
+    },
+    {
+      "name": "Kyle Walker",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 2,
+      "sms_total_area_m2": 411.97,
+      "sms_total_ci": [
+        404.24,
+        419.83
+      ],
+      "sms_self_made_m2": 11.91,
+      "sms_self_made_ci": [
+        10.92,
+        13.03
+      ],
+      "n_frames_visible": 2373,
+      "n_frames_estimated": 1829,
+      "estimated_share": 0.435,
+      "occlusion_flag": false,
+      "rank": 5,
+      "tie_group": 2
+    },
+    {
+      "name": "Fran Karacic",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 5,
+      "sms_total_area_m2": 403.64,
+      "sms_total_ci": [
+        379.93,
+        427.14
+      ],
+      "sms_self_made_m2": 30.88,
+      "sms_self_made_ci": [
+        26.02,
+        35.84
+      ],
+      "n_frames_visible": 501,
+      "n_frames_estimated": 354,
+      "estimated_share": 0.414,
+      "occlusion_flag": false,
+      "rank": 6,
+      "tie_group": 2
+    },
+    {
+      "name": "Hiroki Sakai",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 19,
+      "sms_total_area_m2": 403.21,
+      "sms_total_ci": [
+        376.72,
+        431.32
+      ],
+      "sms_self_made_m2": 26.89,
+      "sms_self_made_ci": [
+        21.66,
+        32.93
+      ],
+      "n_frames_visible": 343,
+      "n_frames_estimated": 391,
+      "estimated_share": 0.533,
+      "occlusion_flag": true,
+      "rank": 7,
+      "tie_group": 2
+    },
+    {
+      "name": "Kaoru Mitoma",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 9,
+      "sms_total_area_m2": 399.17,
+      "sms_total_ci": [
+        369.33,
+        430.76
+      ],
+      "sms_self_made_m2": 42.68,
+      "sms_self_made_ci": [
+        33.84,
+        53.04
+      ],
+      "n_frames_visible": 413,
+      "n_frames_estimated": 630,
+      "estimated_share": 0.604,
+      "occlusion_flag": true,
+      "rank": 8,
+      "tie_group": 2
+    },
+    {
+      "name": "Edimilson Fernandes",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 2,
+      "sms_total_area_m2": 390.5,
+      "sms_total_ci": [
+        381.94,
+        399.65
+      ],
+      "sms_self_made_m2": 38.7,
+      "sms_self_made_ci": [
+        36.3,
+        41.19
+      ],
+      "n_frames_visible": 2760,
+      "n_frames_estimated": 857,
+      "estimated_share": 0.237,
+      "occlusion_flag": false,
+      "rank": 9,
+      "tie_group": 3
+    },
+    {
+      "name": "Marcos Acu\u00f1a",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 8,
+      "sms_total_area_m2": 387.87,
+      "sms_total_ci": [
+        380.88,
+        395.25
+      ],
+      "sms_self_made_m2": 32.58,
+      "sms_self_made_ci": [
+        30.93,
+        34.24
+      ],
+      "n_frames_visible": 5348,
+      "n_frames_estimated": 2171,
+      "estimated_share": 0.289,
+      "occlusion_flag": false,
+      "rank": 10,
+      "tie_group": 3
+    },
+    {
+      "name": "Yahia Attiat-Allah",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 25,
+      "sms_total_area_m2": 379.93,
+      "sms_total_ci": [
+        344.04,
+        421.57
+      ],
+      "sms_self_made_m2": 40.32,
+      "sms_self_made_ci": [
+        29.91,
+        53.85
+      ],
+      "n_frames_visible": 183,
+      "n_frames_estimated": 117,
+      "estimated_share": 0.39,
+      "occlusion_flag": false,
+      "rank": 11,
+      "tie_group": 3
+    },
+    {
+      "name": "Aziz Behich",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 16,
+      "sms_total_area_m2": 376.41,
+      "sms_total_ci": [
+        366.74,
+        386.56
+      ],
+      "sms_self_made_m2": 22.57,
+      "sms_self_made_ci": [
+        20.62,
+        24.66
+      ],
+      "n_frames_visible": 2380,
+      "n_frames_estimated": 983,
+      "estimated_share": 0.292,
+      "occlusion_flag": false,
+      "rank": 12,
+      "tie_group": 3
+    },
+    {
+      "name": "Jurrien Timber",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 2,
+      "sms_total_area_m2": 376.05,
+      "sms_total_ci": [
+        367.48,
+        384.32
+      ],
+      "sms_self_made_m2": 12.54,
+      "sms_self_made_ci": [
+        11.54,
+        13.59
+      ],
+      "n_frames_visible": 2582,
+      "n_frames_estimated": 1379,
+      "estimated_share": 0.348,
+      "occlusion_flag": false,
+      "rank": 13,
+      "tie_group": 3
+    },
+    {
+      "name": "Josip Juranovic",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 22,
+      "sms_total_area_m2": 375.6,
+      "sms_total_ci": [
+        368.69,
+        382.58
+      ],
+      "sms_self_made_m2": 22.19,
+      "sms_self_made_ci": [
+        20.83,
+        23.47
+      ],
+      "n_frames_visible": 5272,
+      "n_frames_estimated": 3254,
+      "estimated_share": 0.382,
+      "occlusion_flag": false,
+      "rank": 14,
+      "tie_group": 3
+    },
+    {
+      "name": "Rub\u00e9n Vargas",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 17,
+      "sms_total_area_m2": 375.58,
+      "sms_total_ci": [
+        361.87,
+        386.83
+      ],
+      "sms_self_made_m2": 41.85,
+      "sms_self_made_ci": [
+        38.34,
+        45.31
+      ],
+      "n_frames_visible": 2036,
+      "n_frames_estimated": 664,
+      "estimated_share": 0.246,
+      "occlusion_flag": false,
+      "rank": 15,
+      "tie_group": 3
+    },
+    {
+      "name": "Hakim Ziyech",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 7,
+      "sms_total_area_m2": 368.04,
+      "sms_total_ci": [
+        350.49,
+        388.91
+      ],
+      "sms_self_made_m2": 50.34,
+      "sms_self_made_ci": [
+        44.81,
+        56.05
+      ],
+      "n_frames_visible": 1292,
+      "n_frames_estimated": 1251,
+      "estimated_share": 0.492,
+      "occlusion_flag": false,
+      "rank": 16,
+      "tie_group": 3
+    },
+    {
+      "name": "Nicolas Tagliafico",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 3,
+      "sms_total_area_m2": 365.28,
+      "sms_total_ci": [
+        357.34,
+        373.56
+      ],
+      "sms_self_made_m2": 26.61,
+      "sms_self_made_ci": [
+        24.92,
+        28.42
+      ],
+      "n_frames_visible": 4407,
+      "n_frames_estimated": 3580,
+      "estimated_share": 0.448,
+      "occlusion_flag": false,
+      "rank": 17,
+      "tie_group": 4
+    },
+    {
+      "name": "Ricardo Rodriguez",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 13,
+      "sms_total_area_m2": 364.67,
+      "sms_total_ci": [
+        355.12,
+        374.09
+      ],
+      "sms_self_made_m2": 20.55,
+      "sms_self_made_ci": [
+        18.88,
+        22.43
+      ],
+      "n_frames_visible": 2532,
+      "n_frames_estimated": 1048,
+      "estimated_share": 0.293,
+      "occlusion_flag": false,
+      "rank": 18,
+      "tie_group": 4
+    },
+    {
+      "name": "Nathan Ak\u00e9",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 5,
+      "sms_total_area_m2": 358.16,
+      "sms_total_ci": [
+        350.99,
+        365.72
+      ],
+      "sms_self_made_m2": 18.26,
+      "sms_self_made_ci": [
+        17.04,
+        19.45
+      ],
+      "n_frames_visible": 3066,
+      "n_frames_estimated": 1083,
+      "estimated_share": 0.261,
+      "occlusion_flag": false,
+      "rank": 19,
+      "tie_group": 4
+    },
+    {
+      "name": "\u00c1ngel Di Mar\u00eda",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 11,
+      "sms_total_area_m2": 354.75,
+      "sms_total_ci": [
+        343.85,
+        365.7
+      ],
+      "sms_self_made_m2": 31.67,
+      "sms_self_made_ci": [
+        28.92,
+        35.07
+      ],
+      "n_frames_visible": 1884,
+      "n_frames_estimated": 625,
+      "estimated_share": 0.249,
+      "occlusion_flag": false,
+      "rank": 20,
+      "tie_group": 4
+    },
+    {
+      "name": "Jules Kounde",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 5,
+      "sms_total_area_m2": 354.46,
+      "sms_total_ci": [
+        347.59,
+        361.23
+      ],
+      "sms_self_made_m2": 21.18,
+      "sms_self_made_ci": [
+        19.77,
+        22.88
+      ],
+      "n_frames_visible": 4539,
+      "n_frames_estimated": 2069,
+      "estimated_share": 0.313,
+      "occlusion_flag": false,
+      "rank": 21,
+      "tie_group": 4
+    },
+    {
+      "name": "Manuel Akanji",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 5,
+      "sms_total_area_m2": 350.78,
+      "sms_total_ci": [
+        340.89,
+        359.42
+      ],
+      "sms_self_made_m2": 15.49,
+      "sms_self_made_ci": [
+        14.08,
+        16.98
+      ],
+      "n_frames_visible": 2021,
+      "n_frames_estimated": 1434,
+      "estimated_share": 0.415,
+      "occlusion_flag": false,
+      "rank": 22,
+      "tie_group": 4
+    },
+    {
+      "name": "Daley Blind",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 17,
+      "sms_total_area_m2": 350.27,
+      "sms_total_ci": [
+        341.11,
+        360.14
+      ],
+      "sms_self_made_m2": 35.34,
+      "sms_self_made_ci": [
+        32.84,
+        38.15
+      ],
+      "n_frames_visible": 2320,
+      "n_frames_estimated": 694,
+      "estimated_share": 0.23,
+      "occlusion_flag": false,
+      "rank": 23,
+      "tie_group": 4
+    },
+    {
+      "name": "Nahuel Molina",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 26,
+      "sms_total_area_m2": 348.6,
+      "sms_total_ci": [
+        343.35,
+        354.02
+      ],
+      "sms_self_made_m2": 28.35,
+      "sms_self_made_ci": [
+        27.22,
+        29.74
+      ],
+      "n_frames_visible": 8368,
+      "n_frames_estimated": 5425,
+      "estimated_share": 0.393,
+      "occlusion_flag": false,
+      "rank": 24,
+      "tie_group": 5
+    },
+    {
+      "name": "Theo Hernandez",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 22,
+      "sms_total_area_m2": 343.15,
+      "sms_total_ci": [
+        336.64,
+        350.79
+      ],
+      "sms_self_made_m2": 24.23,
+      "sms_self_made_ci": [
+        22.18,
+        26.51
+      ],
+      "n_frames_visible": 3465,
+      "n_frames_estimated": 2227,
+      "estimated_share": 0.391,
+      "occlusion_flag": false,
+      "rank": 25,
+      "tie_group": 5
+    },
+    {
+      "name": "Junya Ito",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 14,
+      "sms_total_area_m2": 343.03,
+      "sms_total_ci": [
+        327.44,
+        358.77
+      ],
+      "sms_self_made_m2": 44.32,
+      "sms_self_made_ci": [
+        38.46,
+        50.0
+      ],
+      "n_frames_visible": 1510,
+      "n_frames_estimated": 1837,
+      "estimated_share": 0.549,
+      "occlusion_flag": true,
+      "rank": 26,
+      "tie_group": 5
+    },
+    {
+      "name": "Aymeric Laporte",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 24,
+      "sms_total_area_m2": 341.33,
+      "sms_total_ci": [
+        333.11,
+        349.4
+      ],
+      "sms_self_made_m2": 16.59,
+      "sms_self_made_ci": [
+        15.29,
+        18.16
+      ],
+      "n_frames_visible": 2457,
+      "n_frames_estimated": 1744,
+      "estimated_share": 0.415,
+      "occlusion_flag": false,
+      "rank": 27,
+      "tie_group": 5
+    },
+    {
+      "name": "Eduardo Camavinga",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 25,
+      "sms_total_area_m2": 341.07,
+      "sms_total_ci": [
+        325.65,
+        355.99
+      ],
+      "sms_self_made_m2": 19.48,
+      "sms_self_made_ci": [
+        16.93,
+        22.12
+      ],
+      "n_frames_visible": 719,
+      "n_frames_estimated": 209,
+      "estimated_share": 0.225,
+      "occlusion_flag": false,
+      "rank": 28,
+      "tie_group": 5
+    },
+    {
+      "name": "Denzel Dumfries",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 22,
+      "sms_total_area_m2": 340.31,
+      "sms_total_ci": [
+        331.1,
+        348.52
+      ],
+      "sms_self_made_m2": 35.14,
+      "sms_self_made_ci": [
+        33.14,
+        37.33
+      ],
+      "n_frames_visible": 3085,
+      "n_frames_estimated": 1243,
+      "estimated_share": 0.287,
+      "occlusion_flag": false,
+      "rank": 29,
+      "tie_group": 5
+    },
+    {
+      "name": "Borna Sosa",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 19,
+      "sms_total_area_m2": 338.72,
+      "sms_total_ci": [
+        326.09,
+        351.24
+      ],
+      "sms_self_made_m2": 24.33,
+      "sms_self_made_ci": [
+        21.89,
+        26.83
+      ],
+      "n_frames_visible": 1560,
+      "n_frames_estimated": 615,
+      "estimated_share": 0.283,
+      "occlusion_flag": false,
+      "rank": 30,
+      "tie_group": 5
+    },
+    {
+      "name": "Ousmane Dembele",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 11,
+      "sms_total_area_m2": 335.21,
+      "sms_total_ci": [
+        323.6,
+        346.78
+      ],
+      "sms_self_made_m2": 38.83,
+      "sms_self_made_ci": [
+        35.9,
+        41.37
+      ],
+      "n_frames_visible": 2422,
+      "n_frames_estimated": 1758,
+      "estimated_share": 0.421,
+      "occlusion_flag": false,
+      "rank": 31,
+      "tie_group": 5
+    },
+    {
+      "name": "Jordi Alba",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 18,
+      "sms_total_area_m2": 334.27,
+      "sms_total_ci": [
+        327.85,
+        341.37
+      ],
+      "sms_self_made_m2": 20.65,
+      "sms_self_made_ci": [
+        19.35,
+        22.12
+      ],
+      "n_frames_visible": 3225,
+      "n_frames_estimated": 1379,
+      "estimated_share": 0.3,
+      "occlusion_flag": false,
+      "rank": 32,
+      "tie_group": 6
+    },
+    {
+      "name": "Harry Maguire",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 6,
+      "sms_total_area_m2": 330.78,
+      "sms_total_ci": [
+        322.27,
+        339.88
+      ],
+      "sms_self_made_m2": 15.45,
+      "sms_self_made_ci": [
+        13.58,
+        17.29
+      ],
+      "n_frames_visible": 2027,
+      "n_frames_estimated": 1729,
+      "estimated_share": 0.46,
+      "occlusion_flag": false,
+      "rank": 33,
+      "tie_group": 6
+    },
+    {
+      "name": "Borna Barisic",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 3,
+      "sms_total_area_m2": 329.78,
+      "sms_total_ci": [
+        320.1,
+        338.92
+      ],
+      "sms_self_made_m2": 19.18,
+      "sms_self_made_ci": [
+        17.18,
+        21.28
+      ],
+      "n_frames_visible": 2199,
+      "n_frames_estimated": 2117,
+      "estimated_share": 0.491,
+      "occlusion_flag": false,
+      "rank": 34,
+      "tie_group": 6
+    },
+    {
+      "name": "Milos Degenek",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 2,
+      "sms_total_area_m2": 327.18,
+      "sms_total_ci": [
+        317.48,
+        337.71
+      ],
+      "sms_self_made_m2": 27.7,
+      "sms_self_made_ci": [
+        24.59,
+        31.04
+      ],
+      "n_frames_visible": 1804,
+      "n_frames_estimated": 652,
+      "estimated_share": 0.265,
+      "occlusion_flag": false,
+      "rank": 35,
+      "tie_group": 6
+    },
+    {
+      "name": "Noussair Mazraoui",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 3,
+      "sms_total_area_m2": 325.31,
+      "sms_total_ci": [
+        314.98,
+        336.18
+      ],
+      "sms_self_made_m2": 22.37,
+      "sms_self_made_ci": [
+        18.72,
+        26.64
+      ],
+      "n_frames_visible": 1294,
+      "n_frames_estimated": 947,
+      "estimated_share": 0.423,
+      "occlusion_flag": false,
+      "rank": 36,
+      "tie_group": 6
+    },
+    {
+      "name": "Rapha\u00ebl Guerreiro",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 5,
+      "sms_total_area_m2": 324.75,
+      "sms_total_ci": [
+        315.46,
+        333.78
+      ],
+      "sms_self_made_m2": 26.93,
+      "sms_self_made_ci": [
+        24.46,
+        29.27
+      ],
+      "n_frames_visible": 2577,
+      "n_frames_estimated": 781,
+      "estimated_share": 0.233,
+      "occlusion_flag": false,
+      "rank": 37,
+      "tie_group": 6
+    },
+    {
+      "name": "Rodri",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 16,
+      "sms_total_area_m2": 322.1,
+      "sms_total_ci": [
+        316.07,
+        328.65
+      ],
+      "sms_self_made_m2": 20.7,
+      "sms_self_made_ci": [
+        19.45,
+        22.04
+      ],
+      "n_frames_visible": 2754,
+      "n_frames_estimated": 1343,
+      "estimated_share": 0.328,
+      "occlusion_flag": false,
+      "rank": 38,
+      "tie_group": 6
+    },
+    {
+      "name": "Lisandro Martinez",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 25,
+      "sms_total_area_m2": 321.08,
+      "sms_total_ci": [
+        314.93,
+        328.1
+      ],
+      "sms_self_made_m2": 17.76,
+      "sms_self_made_ci": [
+        16.1,
+        19.39
+      ],
+      "n_frames_visible": 3731,
+      "n_frames_estimated": 2717,
+      "estimated_share": 0.421,
+      "occlusion_flag": false,
+      "rank": 39,
+      "tie_group": 6
+    },
+    {
+      "name": "Dejan Lovren",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 6,
+      "sms_total_area_m2": 319.9,
+      "sms_total_ci": [
+        314.05,
+        325.72
+      ],
+      "sms_self_made_m2": 21.04,
+      "sms_self_made_ci": [
+        19.49,
+        22.91
+      ],
+      "n_frames_visible": 4754,
+      "n_frames_estimated": 3471,
+      "estimated_share": 0.422,
+      "occlusion_flag": false,
+      "rank": 40,
+      "tie_group": 7
+    },
+    {
+      "name": "Kingsley Coman",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 20,
+      "sms_total_area_m2": 317.76,
+      "sms_total_ci": [
+        293.93,
+        343.67
+      ],
+      "sms_self_made_m2": 42.69,
+      "sms_self_made_ci": [
+        35.13,
+        51.46
+      ],
+      "n_frames_visible": 497,
+      "n_frames_estimated": 388,
+      "estimated_share": 0.438,
+      "occlusion_flag": false,
+      "rank": 41,
+      "tie_group": 7
+    },
+    {
+      "name": "Mislav Orsic",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 18,
+      "sms_total_area_m2": 315.02,
+      "sms_total_ci": [
+        296.88,
+        331.79
+      ],
+      "sms_self_made_m2": 24.65,
+      "sms_self_made_ci": [
+        21.18,
+        28.12
+      ],
+      "n_frames_visible": 951,
+      "n_frames_estimated": 1302,
+      "estimated_share": 0.578,
+      "occlusion_flag": true,
+      "rank": 42,
+      "tie_group": 7
+    },
+    {
+      "name": "Paulo Dybala",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 21,
+      "sms_total_area_m2": 313.79,
+      "sms_total_ci": [
+        274.31,
+        359.96
+      ],
+      "sms_self_made_m2": 38.8,
+      "sms_self_made_ci": [
+        28.04,
+        51.33
+      ],
+      "n_frames_visible": 241,
+      "n_frames_estimated": 262,
+      "estimated_share": 0.521,
+      "occlusion_flag": true,
+      "rank": 43,
+      "tie_group": 7
+    },
+    {
+      "name": "Papu G\u00f3mez",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 17,
+      "sms_total_area_m2": 312.7,
+      "sms_total_ci": [
+        302.23,
+        322.6
+      ],
+      "sms_self_made_m2": 29.11,
+      "sms_self_made_ci": [
+        26.91,
+        31.63
+      ],
+      "n_frames_visible": 1935,
+      "n_frames_estimated": 769,
+      "estimated_share": 0.284,
+      "occlusion_flag": false,
+      "rank": 44,
+      "tie_group": 7
+    },
+    {
+      "name": "Riley McGree",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 14,
+      "sms_total_area_m2": 312.24,
+      "sms_total_ci": [
+        297.73,
+        326.31
+      ],
+      "sms_self_made_m2": 41.81,
+      "sms_self_made_ci": [
+        37.47,
+        46.13
+      ],
+      "n_frames_visible": 1343,
+      "n_frames_estimated": 704,
+      "estimated_share": 0.344,
+      "occlusion_flag": false,
+      "rank": 45,
+      "tie_group": 7
+    },
+    {
+      "name": "Lautaro Martinez",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 22,
+      "sms_total_area_m2": 310.29,
+      "sms_total_ci": [
+        288.7,
+        335.96
+      ],
+      "sms_self_made_m2": 22.25,
+      "sms_self_made_ci": [
+        18.34,
+        26.59
+      ],
+      "n_frames_visible": 851,
+      "n_frames_estimated": 470,
+      "estimated_share": 0.356,
+      "occlusion_flag": false,
+      "rank": 46,
+      "tie_group": 7
+    },
+    {
+      "name": "Luke Shaw",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 3,
+      "sms_total_area_m2": 308.8,
+      "sms_total_ci": [
+        301.79,
+        316.99
+      ],
+      "sms_self_made_m2": 18.55,
+      "sms_self_made_ci": [
+        16.85,
+        20.32
+      ],
+      "n_frames_visible": 2417,
+      "n_frames_estimated": 1646,
+      "estimated_share": 0.405,
+      "occlusion_flag": false,
+      "rank": 47,
+      "tie_group": 7
+    },
+    {
+      "name": "Angel Correa",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 15,
+      "sms_total_area_m2": 307.83,
+      "sms_total_ci": [
+        246.48,
+        373.09
+      ],
+      "sms_self_made_m2": 55.05,
+      "sms_self_made_ci": [
+        36.31,
+        74.67
+      ],
+      "n_frames_visible": 85,
+      "n_frames_estimated": 124,
+      "estimated_share": 0.593,
+      "occlusion_flag": true,
+      "rank": 48,
+      "tie_group": 7
+    },
+    {
+      "name": "Rafael Leao",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 15,
+      "sms_total_area_m2": 307.72,
+      "sms_total_ci": [
+        272.01,
+        347.49
+      ],
+      "sms_self_made_m2": 36.47,
+      "sms_self_made_ci": [
+        24.89,
+        51.63
+      ],
+      "n_frames_visible": 160,
+      "n_frames_estimated": 107,
+      "estimated_share": 0.401,
+      "occlusion_flag": false,
+      "rank": 49,
+      "tie_group": 7
+    },
+    {
+      "name": "Jamie Maclaren",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 9,
+      "sms_total_area_m2": 305.83,
+      "sms_total_ci": [
+        273.12,
+        341.02
+      ],
+      "sms_self_made_m2": 21.71,
+      "sms_self_made_ci": [
+        16.07,
+        27.99
+      ],
+      "n_frames_visible": 195,
+      "n_frames_estimated": 783,
+      "estimated_share": 0.801,
+      "occlusion_flag": true,
+      "rank": 50,
+      "tie_group": 7
+    },
+    {
+      "name": "Josko Gvardiol",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 20,
+      "sms_total_area_m2": 305.17,
+      "sms_total_ci": [
+        299.58,
+        310.94
+      ],
+      "sms_self_made_m2": 18.71,
+      "sms_self_made_ci": [
+        17.46,
+        20.12
+      ],
+      "n_frames_visible": 5254,
+      "n_frames_estimated": 3119,
+      "estimated_share": 0.373,
+      "occlusion_flag": false,
+      "rank": 51,
+      "tie_group": 8
+    },
+    {
+      "name": "Ferran Torres",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 11,
+      "sms_total_area_m2": 300.6,
+      "sms_total_ci": [
+        291.17,
+        310.64
+      ],
+      "sms_self_made_m2": 23.34,
+      "sms_self_made_ci": [
+        20.95,
+        25.78
+      ],
+      "n_frames_visible": 1706,
+      "n_frames_estimated": 2483,
+      "estimated_share": 0.593,
+      "occlusion_flag": true,
+      "rank": 52,
+      "tie_group": 8
+    },
+    {
+      "name": "Marcos Llorente",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 6,
+      "sms_total_area_m2": 300.07,
+      "sms_total_ci": [
+        292.89,
+        307.11
+      ],
+      "sms_self_made_m2": 14.74,
+      "sms_self_made_ci": [
+        13.73,
+        15.98
+      ],
+      "n_frames_visible": 3491,
+      "n_frames_estimated": 1311,
+      "estimated_share": 0.273,
+      "occlusion_flag": false,
+      "rank": 53,
+      "tie_group": 8
+    },
+    {
+      "name": "Joao Felix",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 11,
+      "sms_total_area_m2": 298.22,
+      "sms_total_ci": [
+        283.84,
+        312.13
+      ],
+      "sms_self_made_m2": 36.73,
+      "sms_self_made_ci": [
+        33.54,
+        40.12
+      ],
+      "n_frames_visible": 1946,
+      "n_frames_estimated": 691,
+      "estimated_share": 0.262,
+      "occlusion_flag": false,
+      "rank": 54,
+      "tie_group": 8
+    },
+    {
+      "name": "Cristian Romero",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 13,
+      "sms_total_area_m2": 297.63,
+      "sms_total_ci": [
+        293.07,
+        302.51
+      ],
+      "sms_self_made_m2": 18.75,
+      "sms_self_made_ci": [
+        17.62,
+        19.83
+      ],
+      "n_frames_visible": 7711,
+      "n_frames_estimated": 5860,
+      "estimated_share": 0.432,
+      "occlusion_flag": false,
+      "rank": 55,
+      "tie_group": 8
+    },
+    {
+      "name": "Shogo Taniguchi",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 3,
+      "sms_total_area_m2": 294.89,
+      "sms_total_ci": [
+        285.18,
+        303.98
+      ],
+      "sms_self_made_m2": 19.83,
+      "sms_self_made_ci": [
+        17.12,
+        23.05
+      ],
+      "n_frames_visible": 1927,
+      "n_frames_estimated": 1587,
+      "estimated_share": 0.452,
+      "occlusion_flag": false,
+      "rank": 56,
+      "tie_group": 8
+    },
+    {
+      "name": "Nico Williams",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 12,
+      "sms_total_area_m2": 294.68,
+      "sms_total_ci": [
+        278.26,
+        312.37
+      ],
+      "sms_self_made_m2": 24.51,
+      "sms_self_made_ci": [
+        20.7,
+        28.45
+      ],
+      "n_frames_visible": 456,
+      "n_frames_estimated": 208,
+      "estimated_share": 0.313,
+      "occlusion_flag": false,
+      "rank": 57,
+      "tie_group": 8
+    },
+    {
+      "name": "Craig Goodwin",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 23,
+      "sms_total_area_m2": 291.75,
+      "sms_total_ci": [
+        275.21,
+        309.39
+      ],
+      "sms_self_made_m2": 31.39,
+      "sms_self_made_ci": [
+        26.75,
+        35.73
+      ],
+      "n_frames_visible": 771,
+      "n_frames_estimated": 627,
+      "estimated_share": 0.448,
+      "occlusion_flag": false,
+      "rank": 58,
+      "tie_group": 8
+    },
+    {
+      "name": "Achraf Hakimi",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 2,
+      "sms_total_area_m2": 291.19,
+      "sms_total_ci": [
+        278.94,
+        304.17
+      ],
+      "sms_self_made_m2": 19.0,
+      "sms_self_made_ci": [
+        16.31,
+        21.92
+      ],
+      "n_frames_visible": 1527,
+      "n_frames_estimated": 1008,
+      "estimated_share": 0.398,
+      "occlusion_flag": false,
+      "rank": 59,
+      "tie_group": 8
+    },
+    {
+      "name": "Fabian Sch\u00e4r",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 22,
+      "sms_total_area_m2": 290.53,
+      "sms_total_ci": [
+        278.62,
+        300.3
+      ],
+      "sms_self_made_m2": 14.51,
+      "sms_self_made_ci": [
+        12.72,
+        16.36
+      ],
+      "n_frames_visible": 952,
+      "n_frames_estimated": 753,
+      "estimated_share": 0.442,
+      "occlusion_flag": false,
+      "rank": 60,
+      "tie_group": 8
+    },
+    {
+      "name": "Kye Rowles",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 4,
+      "sms_total_area_m2": 289.26,
+      "sms_total_ci": [
+        280.49,
+        297.17
+      ],
+      "sms_self_made_m2": 15.92,
+      "sms_self_made_ci": [
+        14.28,
+        17.58
+      ],
+      "n_frames_visible": 1979,
+      "n_frames_estimated": 1189,
+      "estimated_share": 0.375,
+      "occlusion_flag": false,
+      "rank": 61,
+      "tie_group": 9
+    },
+    {
+      "name": "Ruben Dias",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 4,
+      "sms_total_area_m2": 288.47,
+      "sms_total_ci": [
+        279.44,
+        296.55
+      ],
+      "sms_self_made_m2": 18.63,
+      "sms_self_made_ci": [
+        16.51,
+        20.89
+      ],
+      "n_frames_visible": 1942,
+      "n_frames_estimated": 1316,
+      "estimated_share": 0.404,
+      "occlusion_flag": false,
+      "rank": 62,
+      "tie_group": 9
+    },
+    {
+      "name": "Pepe",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 3,
+      "sms_total_area_m2": 288.13,
+      "sms_total_ci": [
+        279.28,
+        297.53
+      ],
+      "sms_self_made_m2": 21.24,
+      "sms_self_made_ci": [
+        18.87,
+        24.14
+      ],
+      "n_frames_visible": 1268,
+      "n_frames_estimated": 2100,
+      "estimated_share": 0.624,
+      "occlusion_flag": true,
+      "rank": 63,
+      "tie_group": 9
+    },
+    {
+      "name": "Bukayo Saka",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 17,
+      "sms_total_area_m2": 287.81,
+      "sms_total_ci": [
+        272.22,
+        302.91
+      ],
+      "sms_self_made_m2": 30.57,
+      "sms_self_made_ci": [
+        26.88,
+        34.73
+      ],
+      "n_frames_visible": 1267,
+      "n_frames_estimated": 2407,
+      "estimated_share": 0.655,
+      "occlusion_flag": true,
+      "rank": 64,
+      "tie_group": 9
+    },
+    {
+      "name": "Harry Souttar",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 19,
+      "sms_total_area_m2": 283.85,
+      "sms_total_ci": [
+        275.49,
+        293.24
+      ],
+      "sms_self_made_m2": 19.31,
+      "sms_self_made_ci": [
+        17.17,
+        21.78
+      ],
+      "n_frames_visible": 1993,
+      "n_frames_estimated": 1220,
+      "estimated_share": 0.38,
+      "occlusion_flag": false,
+      "rank": 65,
+      "tie_group": 9
+    },
+    {
+      "name": "Bruno Fernandes",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 8,
+      "sms_total_area_m2": 283.83,
+      "sms_total_ci": [
+        273.64,
+        294.57
+      ],
+      "sms_self_made_m2": 38.72,
+      "sms_self_made_ci": [
+        35.25,
+        42.14
+      ],
+      "n_frames_visible": 2221,
+      "n_frames_estimated": 830,
+      "estimated_share": 0.272,
+      "occlusion_flag": false,
+      "rank": 66,
+      "tie_group": 9
+    },
+    {
+      "name": "Kylian Mbapp\u00e9",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 10,
+      "sms_total_area_m2": 283.2,
+      "sms_total_ci": [
+        272.78,
+        293.87
+      ],
+      "sms_self_made_m2": 26.19,
+      "sms_self_made_ci": [
+        24.31,
+        28.05
+      ],
+      "n_frames_visible": 3560,
+      "n_frames_estimated": 3097,
+      "estimated_share": 0.465,
+      "occlusion_flag": false,
+      "rank": 67,
+      "tie_group": 9
+    },
+    {
+      "name": "Mathew Leckie",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 7,
+      "sms_total_area_m2": 282.28,
+      "sms_total_ci": [
+        269.41,
+        295.25
+      ],
+      "sms_self_made_m2": 35.54,
+      "sms_self_made_ci": [
+        32.08,
+        39.19
+      ],
+      "n_frames_visible": 1663,
+      "n_frames_estimated": 889,
+      "estimated_share": 0.348,
+      "occlusion_flag": false,
+      "rank": 68,
+      "tie_group": 9
+    },
+    {
+      "name": "Mario Pasalic",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 15,
+      "sms_total_area_m2": 282.11,
+      "sms_total_ci": [
+        271.71,
+        294.18
+      ],
+      "sms_self_made_m2": 38.7,
+      "sms_self_made_ci": [
+        35.15,
+        42.82
+      ],
+      "n_frames_visible": 2107,
+      "n_frames_estimated": 1061,
+      "estimated_share": 0.335,
+      "occlusion_flag": false,
+      "rank": 69,
+      "tie_group": 9
+    },
+    {
+      "name": "Ivan Perisic",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 4,
+      "sms_total_area_m2": 278.76,
+      "sms_total_ci": [
+        272.38,
+        285.56
+      ],
+      "sms_self_made_m2": 27.19,
+      "sms_self_made_ci": [
+        25.54,
+        28.73
+      ],
+      "n_frames_visible": 4950,
+      "n_frames_estimated": 3658,
+      "estimated_share": 0.425,
+      "occlusion_flag": false,
+      "rank": 70,
+      "tie_group": 9
+    },
+    {
+      "name": "Raheem Sterling",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 10,
+      "sms_total_area_m2": 278.51,
+      "sms_total_ci": [
+        246.3,
+        314.56
+      ],
+      "sms_self_made_m2": 27.58,
+      "sms_self_made_ci": [
+        22.18,
+        32.99
+      ],
+      "n_frames_visible": 261,
+      "n_frames_estimated": 252,
+      "estimated_share": 0.491,
+      "occlusion_flag": false,
+      "rank": 71,
+      "tie_group": 9
+    },
+    {
+      "name": "Takehiro Tomiyasu",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 16,
+      "sms_total_area_m2": 276.27,
+      "sms_total_ci": [
+        266.4,
+        285.65
+      ],
+      "sms_self_made_m2": 19.99,
+      "sms_self_made_ci": [
+        17.24,
+        22.77
+      ],
+      "n_frames_visible": 1877,
+      "n_frames_estimated": 1404,
+      "estimated_share": 0.428,
+      "occlusion_flag": false,
+      "rank": 72,
+      "tie_group": 9
+    },
+    {
+      "name": "Eray Comert",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 18,
+      "sms_total_area_m2": 275.09,
+      "sms_total_ci": [
+        263.77,
+        286.9
+      ],
+      "sms_self_made_m2": 15.59,
+      "sms_self_made_ci": [
+        13.92,
+        17.48
+      ],
+      "n_frames_visible": 810,
+      "n_frames_estimated": 866,
+      "estimated_share": 0.517,
+      "occlusion_flag": true,
+      "rank": 73,
+      "tie_group": 9
+    },
+    {
+      "name": "Dayot Upamecano",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 18,
+      "sms_total_area_m2": 274.02,
+      "sms_total_ci": [
+        267.29,
+        280.25
+      ],
+      "sms_self_made_m2": 17.17,
+      "sms_self_made_ci": [
+        16.04,
+        18.37
+      ],
+      "n_frames_visible": 3564,
+      "n_frames_estimated": 2826,
+      "estimated_share": 0.442,
+      "occlusion_flag": false,
+      "rank": 74,
+      "tie_group": 10
+    },
+    {
+      "name": "Randal Kolo Muani",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 12,
+      "sms_total_area_m2": 265.14,
+      "sms_total_ci": [
+        252.63,
+        278.22
+      ],
+      "sms_self_made_m2": 24.69,
+      "sms_self_made_ci": [
+        22.15,
+        27.73
+      ],
+      "n_frames_visible": 1734,
+      "n_frames_estimated": 785,
+      "estimated_share": 0.312,
+      "occlusion_flag": false,
+      "rank": 75,
+      "tie_group": 10
+    },
+    {
+      "name": "Youssef En-Nesyri",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 19,
+      "sms_total_area_m2": 262.33,
+      "sms_total_ci": [
+        245.82,
+        278.74
+      ],
+      "sms_self_made_m2": 33.23,
+      "sms_self_made_ci": [
+        27.5,
+        38.48
+      ],
+      "n_frames_visible": 1021,
+      "n_frames_estimated": 1311,
+      "estimated_share": 0.562,
+      "occlusion_flag": true,
+      "rank": 76,
+      "tie_group": 10
+    },
+    {
+      "name": "Nicol\u00e1s Otamendi",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 19,
+      "sms_total_area_m2": 261.01,
+      "sms_total_ci": [
+        257.1,
+        265.0
+      ],
+      "sms_self_made_m2": 19.04,
+      "sms_self_made_ci": [
+        17.88,
+        20.17
+      ],
+      "n_frames_visible": 7938,
+      "n_frames_estimated": 6075,
+      "estimated_share": 0.434,
+      "occlusion_flag": false,
+      "rank": 77,
+      "tie_group": 11
+    },
+    {
+      "name": "German Pezzella",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 6,
+      "sms_total_area_m2": 258.36,
+      "sms_total_ci": [
+        240.88,
+        278.68
+      ],
+      "sms_self_made_m2": 22.28,
+      "sms_self_made_ci": [
+        17.22,
+        28.31
+      ],
+      "n_frames_visible": 399,
+      "n_frames_estimated": 181,
+      "estimated_share": 0.312,
+      "occlusion_flag": false,
+      "rank": 78,
+      "tie_group": 11
+    },
+    {
+      "name": "Raphael Varane",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 4,
+      "sms_total_area_m2": 251.18,
+      "sms_total_ci": [
+        246.05,
+        257.65
+      ],
+      "sms_self_made_m2": 17.7,
+      "sms_self_made_ci": [
+        16.38,
+        19.19
+      ],
+      "n_frames_visible": 3506,
+      "n_frames_estimated": 2884,
+      "estimated_share": 0.451,
+      "occlusion_flag": false,
+      "rank": 79,
+      "tie_group": 11
+    },
+    {
+      "name": "John Stones",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 5,
+      "sms_total_area_m2": 247.52,
+      "sms_total_ci": [
+        240.4,
+        254.76
+      ],
+      "sms_self_made_m2": 19.81,
+      "sms_self_made_ci": [
+        18.06,
+        21.53
+      ],
+      "n_frames_visible": 2008,
+      "n_frames_estimated": 1663,
+      "estimated_share": 0.453,
+      "occlusion_flag": false,
+      "rank": 80,
+      "tie_group": 12
+    },
+    {
+      "name": "Lionel Messi",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 10,
+      "sms_total_area_m2": 246.3,
+      "sms_total_ci": [
+        239.62,
+        253.02
+      ],
+      "sms_self_made_m2": 26.47,
+      "sms_self_made_ci": [
+        25.29,
+        27.81
+      ],
+      "n_frames_visible": 9345,
+      "n_frames_estimated": 4814,
+      "estimated_share": 0.34,
+      "occlusion_flag": false,
+      "rank": 81,
+      "tie_group": 12
+    },
+    {
+      "name": "Virgil van Dijk",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 4,
+      "sms_total_area_m2": 245.78,
+      "sms_total_ci": [
+        238.88,
+        252.14
+      ],
+      "sms_self_made_m2": 16.41,
+      "sms_self_made_ci": [
+        15.18,
+        17.65
+      ],
+      "n_frames_visible": 2458,
+      "n_frames_estimated": 1387,
+      "estimated_share": 0.361,
+      "occlusion_flag": false,
+      "rank": 82,
+      "tie_group": 12
+    },
+    {
+      "name": "Steven Berghuis",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 11,
+      "sms_total_area_m2": 244.62,
+      "sms_total_ci": [
+        232.81,
+        256.99
+      ],
+      "sms_self_made_m2": 25.29,
+      "sms_self_made_ci": [
+        22.87,
+        27.64
+      ],
+      "n_frames_visible": 1530,
+      "n_frames_estimated": 445,
+      "estimated_share": 0.225,
+      "occlusion_flag": false,
+      "rank": 83,
+      "tie_group": 12
+    },
+    {
+      "name": "Gonzalo Montiel",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 4,
+      "sms_total_area_m2": 242.89,
+      "sms_total_ci": [
+        214.62,
+        271.1
+      ],
+      "sms_self_made_m2": 23.43,
+      "sms_self_made_ci": [
+        18.47,
+        28.99
+      ],
+      "n_frames_visible": 352,
+      "n_frames_estimated": 255,
+      "estimated_share": 0.42,
+      "occlusion_flag": false,
+      "rank": 84,
+      "tie_group": 12
+    },
+    {
+      "name": "Xherdan Shaqiri",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 23,
+      "sms_total_area_m2": 241.34,
+      "sms_total_ci": [
+        232.01,
+        251.39
+      ],
+      "sms_self_made_m2": 28.24,
+      "sms_self_made_ci": [
+        25.91,
+        30.56
+      ],
+      "n_frames_visible": 2557,
+      "n_frames_estimated": 1129,
+      "estimated_share": 0.306,
+      "occlusion_flag": false,
+      "rank": 85,
+      "tie_group": 12
+    },
+    {
+      "name": "Ajdin Hrustic",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 10,
+      "sms_total_area_m2": 234.73,
+      "sms_total_ci": [
+        219.25,
+        249.48
+      ],
+      "sms_self_made_m2": 34.7,
+      "sms_self_made_ci": [
+        30.25,
+        40.06
+      ],
+      "n_frames_visible": 815,
+      "n_frames_estimated": 499,
+      "estimated_share": 0.38,
+      "occlusion_flag": false,
+      "rank": 86,
+      "tie_group": 12
+    },
+    {
+      "name": "Cristiano Ronaldo",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 7,
+      "sms_total_area_m2": 232.46,
+      "sms_total_ci": [
+        217.89,
+        248.3
+      ],
+      "sms_self_made_m2": 30.38,
+      "sms_self_made_ci": [
+        24.22,
+        37.23
+      ],
+      "n_frames_visible": 553,
+      "n_frames_estimated": 154,
+      "estimated_share": 0.218,
+      "occlusion_flag": false,
+      "rank": 87,
+      "tie_group": 12
+    },
+    {
+      "name": "Nikola Vlasic",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 13,
+      "sms_total_area_m2": 230.09,
+      "sms_total_ci": [
+        221.41,
+        239.59
+      ],
+      "sms_self_made_m2": 26.89,
+      "sms_self_made_ci": [
+        24.11,
+        29.91
+      ],
+      "n_frames_visible": 1727,
+      "n_frames_estimated": 562,
+      "estimated_share": 0.246,
+      "occlusion_flag": false,
+      "rank": 88,
+      "tie_group": 13
+    },
+    {
+      "name": "Juan Foyth",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 2,
+      "sms_total_area_m2": 229.16,
+      "sms_total_ci": [
+        184.25,
+        288.67
+      ],
+      "sms_self_made_m2": 52.99,
+      "sms_self_made_ci": [
+        23.51,
+        94.13
+      ],
+      "n_frames_visible": 69,
+      "n_frames_estimated": 125,
+      "estimated_share": 0.644,
+      "occlusion_flag": true,
+      "rank": 89,
+      "tie_group": 13
+    },
+    {
+      "name": "Marcus Thuram",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 26,
+      "sms_total_area_m2": 224.81,
+      "sms_total_ci": [
+        211.9,
+        238.16
+      ],
+      "sms_self_made_m2": 31.28,
+      "sms_self_made_ci": [
+        27.69,
+        34.73
+      ],
+      "n_frames_visible": 1636,
+      "n_frames_estimated": 853,
+      "estimated_share": 0.343,
+      "occlusion_flag": false,
+      "rank": 90,
+      "tie_group": 13
+    },
+    {
+      "name": "Julian Alvarez",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 9,
+      "sms_total_area_m2": 221.68,
+      "sms_total_ci": [
+        216.36,
+        226.99
+      ],
+      "sms_self_made_m2": 24.2,
+      "sms_self_made_ci": [
+        22.79,
+        25.63
+      ],
+      "n_frames_visible": 8756,
+      "n_frames_estimated": 4217,
+      "estimated_share": 0.325,
+      "occlusion_flag": false,
+      "rank": 91,
+      "tie_group": 13
+    },
+    {
+      "name": "Ritsu Doan",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 8,
+      "sms_total_area_m2": 219.32,
+      "sms_total_ci": [
+        205.83,
+        232.73
+      ],
+      "sms_self_made_m2": 29.4,
+      "sms_self_made_ci": [
+        26.01,
+        33.37
+      ],
+      "n_frames_visible": 1811,
+      "n_frames_estimated": 1298,
+      "estimated_share": 0.417,
+      "occlusion_flag": false,
+      "rank": 92,
+      "tie_group": 13
+    },
+    {
+      "name": "Nayef Aguerd",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 5,
+      "sms_total_area_m2": 217.53,
+      "sms_total_ci": [
+        208.73,
+        226.4
+      ],
+      "sms_self_made_m2": 22.71,
+      "sms_self_made_ci": [
+        19.46,
+        25.65
+      ],
+      "n_frames_visible": 1269,
+      "n_frames_estimated": 1022,
+      "estimated_share": 0.446,
+      "occlusion_flag": false,
+      "rank": 93,
+      "tie_group": 13
+    },
+    {
+      "name": "Andrej Kramaric",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 9,
+      "sms_total_area_m2": 216.87,
+      "sms_total_ci": [
+        208.87,
+        225.9
+      ],
+      "sms_self_made_m2": 23.73,
+      "sms_self_made_ci": [
+        22.02,
+        25.43
+      ],
+      "n_frames_visible": 4075,
+      "n_frames_estimated": 2726,
+      "estimated_share": 0.401,
+      "occlusion_flag": false,
+      "rank": 94,
+      "tie_group": 13
+    },
+    {
+      "name": "Ricardo Horta",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 21,
+      "sms_total_area_m2": 216.29,
+      "sms_total_ci": [
+        197.87,
+        234.14
+      ],
+      "sms_self_made_m2": 29.53,
+      "sms_self_made_ci": [
+        23.83,
+        35.09
+      ],
+      "n_frames_visible": 532,
+      "n_frames_estimated": 193,
+      "estimated_share": 0.266,
+      "occlusion_flag": false,
+      "rank": 95,
+      "tie_group": 13
+    },
+    {
+      "name": "Steven Bergwijn",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 7,
+      "sms_total_area_m2": 214.73,
+      "sms_total_ci": [
+        203.94,
+        226.17
+      ],
+      "sms_self_made_m2": 18.53,
+      "sms_self_made_ci": [
+        16.59,
+        20.68
+      ],
+      "n_frames_visible": 1544,
+      "n_frames_estimated": 692,
+      "estimated_share": 0.309,
+      "occlusion_flag": false,
+      "rank": 96,
+      "tie_group": 13
+    },
+    {
+      "name": "Goncalo Ramos",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 26,
+      "sms_total_area_m2": 214.12,
+      "sms_total_ci": [
+        204.06,
+        224.83
+      ],
+      "sms_self_made_m2": 29.57,
+      "sms_self_made_ci": [
+        26.45,
+        32.96
+      ],
+      "n_frames_visible": 1689,
+      "n_frames_estimated": 1062,
+      "estimated_share": 0.386,
+      "occlusion_flag": false,
+      "rank": 97,
+      "tie_group": 13
+    },
+    {
+      "name": "Dani Olmo",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 21,
+      "sms_total_area_m2": 212.9,
+      "sms_total_ci": [
+        203.87,
+        221.26
+      ],
+      "sms_self_made_m2": 19.47,
+      "sms_self_made_ci": [
+        18.04,
+        21.07
+      ],
+      "n_frames_visible": 2837,
+      "n_frames_estimated": 2025,
+      "estimated_share": 0.416,
+      "occlusion_flag": false,
+      "rank": 98,
+      "tie_group": 14
+    },
+    {
+      "name": "Marcus Rashford",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 11,
+      "sms_total_area_m2": 212.84,
+      "sms_total_ci": [
+        163.93,
+        269.97
+      ],
+      "sms_self_made_m2": 34.97,
+      "sms_self_made_ci": [
+        23.04,
+        48.69
+      ],
+      "n_frames_visible": 148,
+      "n_frames_estimated": 315,
+      "estimated_share": 0.68,
+      "occlusion_flag": true,
+      "rank": 99,
+      "tie_group": 14
+    },
+    {
+      "name": "Memphis Depay",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 10,
+      "sms_total_area_m2": 210.79,
+      "sms_total_ci": [
+        202.95,
+        218.93
+      ],
+      "sms_self_made_m2": 19.16,
+      "sms_self_made_ci": [
+        17.37,
+        21.05
+      ],
+      "n_frames_visible": 2316,
+      "n_frames_estimated": 1115,
+      "estimated_share": 0.325,
+      "occlusion_flag": false,
+      "rank": 100,
+      "tie_group": 14
+    },
+    {
+      "name": "Romain Sa\u00efss",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 6,
+      "sms_total_area_m2": 209.33,
+      "sms_total_ci": [
+        200.84,
+        219.58
+      ],
+      "sms_self_made_m2": 22.26,
+      "sms_self_made_ci": [
+        18.67,
+        26.1
+      ],
+      "n_frames_visible": 1221,
+      "n_frames_estimated": 1326,
+      "estimated_share": 0.521,
+      "occlusion_flag": true,
+      "rank": 101,
+      "tie_group": 14
+    },
+    {
+      "name": "Daichi Kamada",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 15,
+      "sms_total_area_m2": 206.89,
+      "sms_total_ci": [
+        194.3,
+        220.07
+      ],
+      "sms_self_made_m2": 28.25,
+      "sms_self_made_ci": [
+        24.7,
+        32.14
+      ],
+      "n_frames_visible": 1796,
+      "n_frames_estimated": 840,
+      "estimated_share": 0.319,
+      "occlusion_flag": false,
+      "rank": 102,
+      "tie_group": 14
+    },
+    {
+      "name": "Mitchell Duke",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 15,
+      "sms_total_area_m2": 198.33,
+      "sms_total_ci": [
+        186.98,
+        209.97
+      ],
+      "sms_self_made_m2": 27.21,
+      "sms_self_made_ci": [
+        23.89,
+        30.89
+      ],
+      "n_frames_visible": 1387,
+      "n_frames_estimated": 1208,
+      "estimated_share": 0.466,
+      "occlusion_flag": false,
+      "rank": 103,
+      "tie_group": 14
+    },
+    {
+      "name": "Phil Foden",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 20,
+      "sms_total_area_m2": 198.23,
+      "sms_total_ci": [
+        188.29,
+        207.6
+      ],
+      "sms_self_made_m2": 23.29,
+      "sms_self_made_ci": [
+        21.06,
+        25.72
+      ],
+      "n_frames_visible": 1830,
+      "n_frames_estimated": 1984,
+      "estimated_share": 0.52,
+      "occlusion_flag": true,
+      "rank": 104,
+      "tie_group": 14
+    },
+    {
+      "name": "Mason Mount",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 19,
+      "sms_total_area_m2": 197.25,
+      "sms_total_ci": [
+        164.48,
+        231.63
+      ],
+      "sms_self_made_m2": 19.74,
+      "sms_self_made_ci": [
+        13.32,
+        27.12
+      ],
+      "n_frames_visible": 192,
+      "n_frames_estimated": 363,
+      "estimated_share": 0.654,
+      "occlusion_flag": true,
+      "rank": 105,
+      "tie_group": 14
+    },
+    {
+      "name": "Jawad El Yamiq",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 18,
+      "sms_total_area_m2": 196.34,
+      "sms_total_ci": [
+        171.49,
+        225.15
+      ],
+      "sms_self_made_m2": 14.83,
+      "sms_self_made_ci": [
+        8.42,
+        23.55
+      ],
+      "n_frames_visible": 118,
+      "n_frames_estimated": 134,
+      "estimated_share": 0.532,
+      "occlusion_flag": true,
+      "rank": 106,
+      "tie_group": 14
+    },
+    {
+      "name": "Haris Seferovic",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 9,
+      "sms_total_area_m2": 190.97,
+      "sms_total_ci": [
+        178.0,
+        203.4
+      ],
+      "sms_self_made_m2": 18.04,
+      "sms_self_made_ci": [
+        15.45,
+        20.94
+      ],
+      "n_frames_visible": 917,
+      "n_frames_estimated": 600,
+      "estimated_share": 0.396,
+      "occlusion_flag": false,
+      "rank": 107,
+      "tie_group": 15
+    },
+    {
+      "name": "Walid Cheddira",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 21,
+      "sms_total_area_m2": 188.01,
+      "sms_total_ci": [
+        150.7,
+        230.83
+      ],
+      "sms_self_made_m2": 45.24,
+      "sms_self_made_ci": [
+        27.57,
+        67.57
+      ],
+      "n_frames_visible": 147,
+      "n_frames_estimated": 162,
+      "estimated_share": 0.524,
+      "occlusion_flag": true,
+      "rank": 108,
+      "tie_group": 15
+    },
+    {
+      "name": "Maya Yoshida",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 22,
+      "sms_total_area_m2": 181.3,
+      "sms_total_ci": [
+        174.6,
+        187.76
+      ],
+      "sms_self_made_m2": 15.87,
+      "sms_self_made_ci": [
+        13.41,
+        18.11
+      ],
+      "n_frames_visible": 1642,
+      "n_frames_estimated": 1675,
+      "estimated_share": 0.505,
+      "occlusion_flag": true,
+      "rank": 109,
+      "tie_group": 15
+    },
+    {
+      "name": "Breel Embolo",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 7,
+      "sms_total_area_m2": 177.78,
+      "sms_total_ci": [
+        169.88,
+        185.69
+      ],
+      "sms_self_made_m2": 26.24,
+      "sms_self_made_ci": [
+        23.75,
+        28.68
+      ],
+      "n_frames_visible": 2204,
+      "n_frames_estimated": 1422,
+      "estimated_share": 0.392,
+      "occlusion_flag": false,
+      "rank": 110,
+      "tie_group": 15
+    },
+    {
+      "name": "Bernardo Silva",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 10,
+      "sms_total_area_m2": 175.38,
+      "sms_total_ci": [
+        166.79,
+        183.31
+      ],
+      "sms_self_made_m2": 30.81,
+      "sms_self_made_ci": [
+        27.58,
+        33.99
+      ],
+      "n_frames_visible": 1990,
+      "n_frames_estimated": 786,
+      "estimated_share": 0.283,
+      "occlusion_flag": false,
+      "rank": 111,
+      "tie_group": 15
+    },
+    {
+      "name": "Rodrigo de Paul",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 7,
+      "sms_total_area_m2": 169.99,
+      "sms_total_ci": [
+        166.48,
+        173.81
+      ],
+      "sms_self_made_m2": 25.94,
+      "sms_self_made_ci": [
+        24.81,
+        27.15
+      ],
+      "n_frames_visible": 10114,
+      "n_frames_estimated": 2647,
+      "estimated_share": 0.207,
+      "occlusion_flag": false,
+      "rank": 112,
+      "tie_group": 16
+    },
+    {
+      "name": "Pedri",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 26,
+      "sms_total_area_m2": 169.43,
+      "sms_total_ci": [
+        163.86,
+        174.77
+      ],
+      "sms_self_made_m2": 15.02,
+      "sms_self_made_ci": [
+        13.89,
+        16.12
+      ],
+      "n_frames_visible": 3611,
+      "n_frames_estimated": 878,
+      "estimated_share": 0.196,
+      "occlusion_flag": false,
+      "rank": 113,
+      "tie_group": 16
+    },
+    {
+      "name": "Garang Kuol",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 21,
+      "sms_total_area_m2": 166.7,
+      "sms_total_ci": [
+        153.43,
+        181.69
+      ],
+      "sms_self_made_m2": 30.67,
+      "sms_self_made_ci": [
+        25.23,
+        36.24
+      ],
+      "n_frames_visible": 454,
+      "n_frames_estimated": 493,
+      "estimated_share": 0.521,
+      "occlusion_flag": true,
+      "rank": 114,
+      "tie_group": 16
+    },
+    {
+      "name": "Daizen Maeda",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 25,
+      "sms_total_area_m2": 162.59,
+      "sms_total_ci": [
+        149.17,
+        175.4
+      ],
+      "sms_self_made_m2": 18.21,
+      "sms_self_made_ci": [
+        15.54,
+        21.36
+      ],
+      "n_frames_visible": 1289,
+      "n_frames_estimated": 1143,
+      "estimated_share": 0.47,
+      "occlusion_flag": false,
+      "rank": 115,
+      "tie_group": 16
+    },
+    {
+      "name": "Exequiel Palacios",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 14,
+      "sms_total_area_m2": 161.84,
+      "sms_total_ci": [
+        143.58,
+        181.49
+      ],
+      "sms_self_made_m2": 23.44,
+      "sms_self_made_ci": [
+        18.47,
+        29.41
+      ],
+      "n_frames_visible": 450,
+      "n_frames_estimated": 715,
+      "estimated_share": 0.614,
+      "occlusion_flag": true,
+      "rank": 116,
+      "tie_group": 16
+    },
+    {
+      "name": "Azzedine Ounahi",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 8,
+      "sms_total_area_m2": 161.31,
+      "sms_total_ci": [
+        150.54,
+        173.23
+      ],
+      "sms_self_made_m2": 30.77,
+      "sms_self_made_ci": [
+        26.76,
+        35.1
+      ],
+      "n_frames_visible": 1705,
+      "n_frames_estimated": 850,
+      "estimated_share": 0.333,
+      "occlusion_flag": false,
+      "rank": 117,
+      "tie_group": 16
+    },
+    {
+      "name": "Ardon Jashari",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 26,
+      "sms_total_area_m2": 160.98,
+      "sms_total_ci": [
+        134.51,
+        186.18
+      ],
+      "sms_self_made_m2": 14.06,
+      "sms_self_made_ci": [
+        9.46,
+        18.84
+      ],
+      "n_frames_visible": 146,
+      "n_frames_estimated": 18,
+      "estimated_share": 0.11,
+      "occlusion_flag": false,
+      "rank": 118,
+      "tie_group": 16
+    },
+    {
+      "name": "Harry Kane",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 9,
+      "sms_total_area_m2": 159.15,
+      "sms_total_ci": [
+        147.57,
+        170.19
+      ],
+      "sms_self_made_m2": 19.29,
+      "sms_self_made_ci": [
+        15.83,
+        23.01
+      ],
+      "n_frames_visible": 894,
+      "n_frames_estimated": 3480,
+      "estimated_share": 0.796,
+      "occlusion_flag": true,
+      "rank": 119,
+      "tie_group": 16
+    },
+    {
+      "name": "Takumi Minamino",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 10,
+      "sms_total_area_m2": 158.94,
+      "sms_total_ci": [
+        136.23,
+        183.25
+      ],
+      "sms_self_made_m2": 18.87,
+      "sms_self_made_ci": [
+        14.12,
+        23.66
+      ],
+      "n_frames_visible": 166,
+      "n_frames_estimated": 122,
+      "estimated_share": 0.424,
+      "occlusion_flag": false,
+      "rank": 120,
+      "tie_group": 16
+    },
+    {
+      "name": "Aaron Mooy",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 13,
+      "sms_total_area_m2": 155.66,
+      "sms_total_ci": [
+        151.62,
+        160.39
+      ],
+      "sms_self_made_m2": 18.09,
+      "sms_self_made_ci": [
+        16.61,
+        19.59
+      ],
+      "n_frames_visible": 2551,
+      "n_frames_estimated": 734,
+      "estimated_share": 0.223,
+      "occlusion_flag": false,
+      "rank": 121,
+      "tie_group": 17
+    },
+    {
+      "name": "Cody Gakpo",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 8,
+      "sms_total_area_m2": 155.02,
+      "sms_total_ci": [
+        148.19,
+        161.62
+      ],
+      "sms_self_made_m2": 22.04,
+      "sms_self_made_ci": [
+        20.39,
+        23.83
+      ],
+      "n_frames_visible": 2851,
+      "n_frames_estimated": 1362,
+      "estimated_share": 0.323,
+      "occlusion_flag": false,
+      "rank": 122,
+      "tie_group": 17
+    },
+    {
+      "name": "William Carvalho",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 14,
+      "sms_total_area_m2": 151.03,
+      "sms_total_ci": [
+        145.37,
+        156.17
+      ],
+      "sms_self_made_m2": 20.68,
+      "sms_self_made_ci": [
+        18.71,
+        22.54
+      ],
+      "n_frames_visible": 2500,
+      "n_frames_estimated": 837,
+      "estimated_share": 0.251,
+      "occlusion_flag": false,
+      "rank": 123,
+      "tie_group": 17
+    },
+    {
+      "name": "Takuma Asano",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 18,
+      "sms_total_area_m2": 150.42,
+      "sms_total_ci": [
+        129.5,
+        175.26
+      ],
+      "sms_self_made_m2": 18.43,
+      "sms_self_made_ci": [
+        14.52,
+        22.46
+      ],
+      "n_frames_visible": 383,
+      "n_frames_estimated": 731,
+      "estimated_share": 0.656,
+      "occlusion_flag": true,
+      "rank": 124,
+      "tie_group": 17
+    },
+    {
+      "name": "Olivier Giroud",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 9,
+      "sms_total_area_m2": 145.97,
+      "sms_total_ci": [
+        137.62,
+        153.66
+      ],
+      "sms_self_made_m2": 16.53,
+      "sms_self_made_ci": [
+        14.77,
+        18.83
+      ],
+      "n_frames_visible": 2131,
+      "n_frames_estimated": 2334,
+      "estimated_share": 0.523,
+      "occlusion_flag": true,
+      "rank": 125,
+      "tie_group": 17
+    },
+    {
+      "name": "Carlos Soler",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 19,
+      "sms_total_area_m2": 145.68,
+      "sms_total_ci": [
+        136.6,
+        154.04
+      ],
+      "sms_self_made_m2": 14.27,
+      "sms_self_made_ci": [
+        12.62,
+        16.25
+      ],
+      "n_frames_visible": 1171,
+      "n_frames_estimated": 269,
+      "estimated_share": 0.187,
+      "occlusion_flag": false,
+      "rank": 126,
+      "tie_group": 17
+    },
+    {
+      "name": "Leandro Paredes",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 5,
+      "sms_total_area_m2": 144.7,
+      "sms_total_ci": [
+        138.35,
+        151.21
+      ],
+      "sms_self_made_m2": 20.25,
+      "sms_self_made_ci": [
+        17.95,
+        22.68
+      ],
+      "n_frames_visible": 1926,
+      "n_frames_estimated": 822,
+      "estimated_share": 0.299,
+      "occlusion_flag": false,
+      "rank": 127,
+      "tie_group": 18
+    },
+    {
+      "name": "Jordan Henderson",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 8,
+      "sms_total_area_m2": 142.08,
+      "sms_total_ci": [
+        135.68,
+        148.64
+      ],
+      "sms_self_made_m2": 18.05,
+      "sms_self_made_ci": [
+        16.31,
+        19.82
+      ],
+      "n_frames_visible": 2055,
+      "n_frames_estimated": 1607,
+      "estimated_share": 0.439,
+      "occlusion_flag": false,
+      "rank": 128,
+      "tie_group": 18
+    },
+    {
+      "name": "Vitinha",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 16,
+      "sms_total_area_m2": 141.31,
+      "sms_total_ci": [
+        125.11,
+        157.77
+      ],
+      "sms_self_made_m2": 39.94,
+      "sms_self_made_ci": [
+        31.48,
+        49.39
+      ],
+      "n_frames_visible": 463,
+      "n_frames_estimated": 275,
+      "estimated_share": 0.373,
+      "occlusion_flag": false,
+      "rank": 129,
+      "tie_group": 18
+    },
+    {
+      "name": "Enzo Fernandez",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 24,
+      "sms_total_area_m2": 137.72,
+      "sms_total_ci": [
+        135.39,
+        140.16
+      ],
+      "sms_self_made_m2": 20.53,
+      "sms_self_made_ci": [
+        19.43,
+        21.52
+      ],
+      "n_frames_visible": 10586,
+      "n_frames_estimated": 3612,
+      "estimated_share": 0.254,
+      "occlusion_flag": false,
+      "rank": 130,
+      "tie_group": 18
+    },
+    {
+      "name": "Teun Koopmeiners",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 20,
+      "sms_total_area_m2": 137.57,
+      "sms_total_ci": [
+        131.07,
+        143.95
+      ],
+      "sms_self_made_m2": 16.36,
+      "sms_self_made_ci": [
+        14.66,
+        18.04
+      ],
+      "n_frames_visible": 1537,
+      "n_frames_estimated": 442,
+      "estimated_share": 0.223,
+      "occlusion_flag": false,
+      "rank": 131,
+      "tie_group": 18
+    },
+    {
+      "name": "Selim Amallah",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 15,
+      "sms_total_area_m2": 136.05,
+      "sms_total_ci": [
+        128.05,
+        144.39
+      ],
+      "sms_self_made_m2": 32.7,
+      "sms_self_made_ci": [
+        28.39,
+        37.03
+      ],
+      "n_frames_visible": 1607,
+      "n_frames_estimated": 795,
+      "estimated_share": 0.331,
+      "occlusion_flag": false,
+      "rank": 132,
+      "tie_group": 18
+    },
+    {
+      "name": "Remo Freuler",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 8,
+      "sms_total_area_m2": 133.85,
+      "sms_total_ci": [
+        126.32,
+        141.47
+      ],
+      "sms_self_made_m2": 18.71,
+      "sms_self_made_ci": [
+        16.55,
+        20.97
+      ],
+      "n_frames_visible": 1638,
+      "n_frames_estimated": 638,
+      "estimated_share": 0.28,
+      "occlusion_flag": false,
+      "rank": 133,
+      "tie_group": 18
+    },
+    {
+      "name": "R\u00faben Neves",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 18,
+      "sms_total_area_m2": 133.56,
+      "sms_total_ci": [
+        121.4,
+        144.85
+      ],
+      "sms_self_made_m2": 21.52,
+      "sms_self_made_ci": [
+        15.84,
+        27.8
+      ],
+      "n_frames_visible": 289,
+      "n_frames_estimated": 170,
+      "estimated_share": 0.37,
+      "occlusion_flag": false,
+      "rank": 134,
+      "tie_group": 18
+    },
+    {
+      "name": "Jackson Irvine",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 22,
+      "sms_total_area_m2": 132.91,
+      "sms_total_ci": [
+        127.82,
+        138.21
+      ],
+      "sms_self_made_m2": 23.37,
+      "sms_self_made_ci": [
+        21.14,
+        25.49
+      ],
+      "n_frames_visible": 2711,
+      "n_frames_estimated": 781,
+      "estimated_share": 0.224,
+      "occlusion_flag": false,
+      "rank": 135,
+      "tie_group": 19
+    },
+    {
+      "name": "Luka Modric",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 10,
+      "sms_total_area_m2": 130.99,
+      "sms_total_ci": [
+        126.6,
+        135.6
+      ],
+      "sms_self_made_m2": 18.26,
+      "sms_self_made_ci": [
+        16.94,
+        19.56
+      ],
+      "n_frames_visible": 5190,
+      "n_frames_estimated": 2402,
+      "estimated_share": 0.316,
+      "occlusion_flag": false,
+      "rank": 136,
+      "tie_group": 19
+    },
+    {
+      "name": "Otavio",
+      "team": "Portugal",
+      "team_id": "365",
+      "jersey": 25,
+      "sms_total_area_m2": 129.96,
+      "sms_total_ci": [
+        124.22,
+        136.04
+      ],
+      "sms_self_made_m2": 18.17,
+      "sms_self_made_ci": [
+        16.47,
+        19.92
+      ],
+      "n_frames_visible": 2147,
+      "n_frames_estimated": 556,
+      "estimated_share": 0.206,
+      "occlusion_flag": false,
+      "rank": 137,
+      "tie_group": 19
+    },
+    {
+      "name": "Luuk de Jong",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 9,
+      "sms_total_area_m2": 129.3,
+      "sms_total_ci": [
+        118.81,
+        141.45
+      ],
+      "sms_self_made_m2": 20.58,
+      "sms_self_made_ci": [
+        18.15,
+        23.35
+      ],
+      "n_frames_visible": 735,
+      "n_frames_estimated": 632,
+      "estimated_share": 0.462,
+      "occlusion_flag": false,
+      "rank": 138,
+      "tie_group": 19
+    },
+    {
+      "name": "Denis Zakaria",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 6,
+      "sms_total_area_m2": 128.26,
+      "sms_total_ci": [
+        121.09,
+        136.46
+      ],
+      "sms_self_made_m2": 20.11,
+      "sms_self_made_ci": [
+        17.35,
+        23.21
+      ],
+      "n_frames_visible": 1159,
+      "n_frames_estimated": 326,
+      "estimated_share": 0.22,
+      "occlusion_flag": false,
+      "rank": 139,
+      "tie_group": 19
+    },
+    {
+      "name": "Alexis Mac Allister",
+      "team": "Argentina",
+      "team_id": "364",
+      "jersey": 20,
+      "sms_total_area_m2": 126.38,
+      "sms_total_ci": [
+        123.29,
+        129.46
+      ],
+      "sms_self_made_m2": 23.72,
+      "sms_self_made_ci": [
+        22.5,
+        24.82
+      ],
+      "n_frames_visible": 10877,
+      "n_frames_estimated": 3026,
+      "estimated_share": 0.218,
+      "occlusion_flag": false,
+      "rank": 140,
+      "tie_group": 19
+    },
+    {
+      "name": "Djibril Sow",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 15,
+      "sms_total_area_m2": 125.2,
+      "sms_total_ci": [
+        116.87,
+        134.35
+      ],
+      "sms_self_made_m2": 22.95,
+      "sms_self_made_ci": [
+        20.63,
+        25.08
+      ],
+      "n_frames_visible": 1739,
+      "n_frames_estimated": 536,
+      "estimated_share": 0.236,
+      "occlusion_flag": false,
+      "rank": 141,
+      "tie_group": 19
+    },
+    {
+      "name": "Antoine Griezmann",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 7,
+      "sms_total_area_m2": 121.69,
+      "sms_total_ci": [
+        116.73,
+        126.2
+      ],
+      "sms_self_made_m2": 24.23,
+      "sms_self_made_ci": [
+        21.91,
+        26.57
+      ],
+      "n_frames_visible": 3915,
+      "n_frames_estimated": 1843,
+      "estimated_share": 0.32,
+      "occlusion_flag": false,
+      "rank": 142,
+      "tie_group": 20
+    },
+    {
+      "name": "Frenkie de Jong",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 21,
+      "sms_total_area_m2": 120.37,
+      "sms_total_ci": [
+        115.92,
+        124.04
+      ],
+      "sms_self_made_m2": 15.16,
+      "sms_self_made_ci": [
+        14.16,
+        16.25
+      ],
+      "n_frames_visible": 3185,
+      "n_frames_estimated": 862,
+      "estimated_share": 0.213,
+      "occlusion_flag": false,
+      "rank": 143,
+      "tie_group": 20
+    },
+    {
+      "name": "Ante Budimir",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 17,
+      "sms_total_area_m2": 119.7,
+      "sms_total_ci": [
+        107.0,
+        133.69
+      ],
+      "sms_self_made_m2": 16.23,
+      "sms_self_made_ci": [
+        13.7,
+        19.32
+      ],
+      "n_frames_visible": 585,
+      "n_frames_estimated": 779,
+      "estimated_share": 0.571,
+      "occlusion_flag": true,
+      "rank": 144,
+      "tie_group": 20
+    },
+    {
+      "name": "Adrien Rabiot",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 14,
+      "sms_total_area_m2": 116.55,
+      "sms_total_ci": [
+        113.71,
+        119.56
+      ],
+      "sms_self_made_m2": 17.34,
+      "sms_self_made_ci": [
+        16.2,
+        18.52
+      ],
+      "n_frames_visible": 4730,
+      "n_frames_estimated": 1918,
+      "estimated_share": 0.289,
+      "occlusion_flag": false,
+      "rank": 145,
+      "tie_group": 20
+    },
+    {
+      "name": "Marten De Roon",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 15,
+      "sms_total_area_m2": 115.97,
+      "sms_total_ci": [
+        111.6,
+        120.84
+      ],
+      "sms_self_made_m2": 14.34,
+      "sms_self_made_ci": [
+        12.92,
+        15.93
+      ],
+      "n_frames_visible": 1749,
+      "n_frames_estimated": 435,
+      "estimated_share": 0.199,
+      "occlusion_flag": false,
+      "rank": 146,
+      "tie_group": 20
+    },
+    {
+      "name": "Keanu Baccus",
+      "team": "Australia",
+      "team_id": "386",
+      "jersey": 26,
+      "sms_total_area_m2": 115.85,
+      "sms_total_ci": [
+        111.26,
+        120.42
+      ],
+      "sms_self_made_m2": 20.48,
+      "sms_self_made_ci": [
+        18.54,
+        22.71
+      ],
+      "n_frames_visible": 1691,
+      "n_frames_estimated": 378,
+      "estimated_share": 0.183,
+      "occlusion_flag": false,
+      "rank": 147,
+      "tie_group": 20
+    },
+    {
+      "name": "Hidemasa Morita",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 13,
+      "sms_total_area_m2": 114.02,
+      "sms_total_ci": [
+        109.8,
+        117.93
+      ],
+      "sms_self_made_m2": 15.57,
+      "sms_self_made_ci": [
+        14.1,
+        17.19
+      ],
+      "n_frames_visible": 2352,
+      "n_frames_estimated": 1054,
+      "estimated_share": 0.309,
+      "occlusion_flag": false,
+      "rank": 148,
+      "tie_group": 20
+    },
+    {
+      "name": "Aur\u00e9lien Tchouam\u00e9ni",
+      "team": "France",
+      "team_id": "363",
+      "jersey": 8,
+      "sms_total_area_m2": 113.38,
+      "sms_total_ci": [
+        111.08,
+        115.87
+      ],
+      "sms_self_made_m2": 16.54,
+      "sms_self_made_ci": [
+        15.42,
+        17.77
+      ],
+      "n_frames_visible": 4874,
+      "n_frames_estimated": 1784,
+      "estimated_share": 0.268,
+      "occlusion_flag": false,
+      "rank": 149,
+      "tie_group": 21
+    },
+    {
+      "name": "Marcelo Brozovic",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 11,
+      "sms_total_area_m2": 110.89,
+      "sms_total_ci": [
+        108.22,
+        113.68
+      ],
+      "sms_self_made_m2": 16.93,
+      "sms_self_made_ci": [
+        15.91,
+        18.06
+      ],
+      "n_frames_visible": 4815,
+      "n_frames_estimated": 1442,
+      "estimated_share": 0.23,
+      "occlusion_flag": false,
+      "rank": 150,
+      "tie_group": 21
+    },
+    {
+      "name": "Granit Xhaka",
+      "team": "Switzerland",
+      "team_id": "370",
+      "jersey": 10,
+      "sms_total_area_m2": 110.88,
+      "sms_total_ci": [
+        107.37,
+        114.59
+      ],
+      "sms_self_made_m2": 18.38,
+      "sms_self_made_ci": [
+        16.92,
+        20.31
+      ],
+      "n_frames_visible": 2841,
+      "n_frames_estimated": 801,
+      "estimated_share": 0.22,
+      "occlusion_flag": false,
+      "rank": 151,
+      "tie_group": 21
+    },
+    {
+      "name": "Sofyan Amrabat",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 4,
+      "sms_total_area_m2": 110.64,
+      "sms_total_ci": [
+        106.0,
+        115.7
+      ],
+      "sms_self_made_m2": 19.42,
+      "sms_self_made_ci": [
+        17.15,
+        21.97
+      ],
+      "n_frames_visible": 1879,
+      "n_frames_estimated": 716,
+      "estimated_share": 0.276,
+      "occlusion_flag": false,
+      "rank": 152,
+      "tie_group": 21
+    },
+    {
+      "name": "Bruno Petkovic",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 16,
+      "sms_total_area_m2": 108.77,
+      "sms_total_ci": [
+        102.31,
+        115.6
+      ],
+      "sms_self_made_m2": 16.46,
+      "sms_self_made_ci": [
+        14.56,
+        18.41
+      ],
+      "n_frames_visible": 2499,
+      "n_frames_estimated": 2777,
+      "estimated_share": 0.526,
+      "occlusion_flag": true,
+      "rank": 153,
+      "tie_group": 21
+    },
+    {
+      "name": "Declan Rice",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 4,
+      "sms_total_area_m2": 108.62,
+      "sms_total_ci": [
+        104.09,
+        113.36
+      ],
+      "sms_self_made_m2": 13.77,
+      "sms_self_made_ci": [
+        12.63,
+        15.1
+      ],
+      "n_frames_visible": 2759,
+      "n_frames_estimated": 1373,
+      "estimated_share": 0.332,
+      "occlusion_flag": false,
+      "rank": 154,
+      "tie_group": 21
+    },
+    {
+      "name": "Marko Livaja",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 14,
+      "sms_total_area_m2": 105.68,
+      "sms_total_ci": [
+        95.8,
+        115.85
+      ],
+      "sms_self_made_m2": 18.6,
+      "sms_self_made_ci": [
+        14.73,
+        22.41
+      ],
+      "n_frames_visible": 559,
+      "n_frames_estimated": 508,
+      "estimated_share": 0.476,
+      "occlusion_flag": false,
+      "rank": 155,
+      "tie_group": 21
+    },
+    {
+      "name": "Wataru Endo",
+      "team": "Japan",
+      "team_id": "57",
+      "jersey": 6,
+      "sms_total_area_m2": 104.49,
+      "sms_total_ci": [
+        100.98,
+        108.14
+      ],
+      "sms_self_made_m2": 15.16,
+      "sms_self_made_ci": [
+        13.35,
+        17.13
+      ],
+      "n_frames_visible": 2534,
+      "n_frames_estimated": 980,
+      "estimated_share": 0.279,
+      "occlusion_flag": false,
+      "rank": 156,
+      "tie_group": 22
+    },
+    {
+      "name": "Mateo Kovacic",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 8,
+      "sms_total_area_m2": 102.57,
+      "sms_total_ci": [
+        99.95,
+        105.3
+      ],
+      "sms_self_made_m2": 14.63,
+      "sms_self_made_ci": [
+        13.56,
+        15.67
+      ],
+      "n_frames_visible": 6316,
+      "n_frames_estimated": 2223,
+      "estimated_share": 0.26,
+      "occlusion_flag": false,
+      "rank": 157,
+      "tie_group": 22
+    },
+    {
+      "name": "Abdelhamid Sabiri",
+      "team": "Morocco",
+      "team_id": "374",
+      "jersey": 11,
+      "sms_total_area_m2": 89.07,
+      "sms_total_ci": [
+        79.62,
+        98.03
+      ],
+      "sms_self_made_m2": 12.13,
+      "sms_self_made_ci": [
+        8.43,
+        17.36
+      ],
+      "n_frames_visible": 199,
+      "n_frames_estimated": 112,
+      "estimated_share": 0.36,
+      "occlusion_flag": false,
+      "rank": 158,
+      "tie_group": 23
+    },
+    {
+      "name": "Gavi",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 9,
+      "sms_total_area_m2": 88.26,
+      "sms_total_ci": [
+        83.81,
+        92.38
+      ],
+      "sms_self_made_m2": 12.04,
+      "sms_self_made_ci": [
+        10.88,
+        13.37
+      ],
+      "n_frames_visible": 2453,
+      "n_frames_estimated": 987,
+      "estimated_share": 0.287,
+      "occlusion_flag": false,
+      "rank": 159,
+      "tie_group": 23
+    },
+    {
+      "name": "Wout Weghorst",
+      "team": "Netherlands",
+      "team_id": "366",
+      "jersey": 19,
+      "sms_total_area_m2": 85.11,
+      "sms_total_ci": [
+        75.35,
+        96.1
+      ],
+      "sms_self_made_m2": 14.82,
+      "sms_self_made_ci": [
+        11.93,
+        17.72
+      ],
+      "n_frames_visible": 632,
+      "n_frames_estimated": 264,
+      "estimated_share": 0.295,
+      "occlusion_flag": false,
+      "rank": 160,
+      "tie_group": 23
+    },
+    {
+      "name": "Jude Bellingham",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 22,
+      "sms_total_area_m2": 81.64,
+      "sms_total_ci": [
+        76.69,
+        86.94
+      ],
+      "sms_self_made_m2": 16.1,
+      "sms_self_made_ci": [
+        14.45,
+        17.94
+      ],
+      "n_frames_visible": 2445,
+      "n_frames_estimated": 1774,
+      "estimated_share": 0.42,
+      "occlusion_flag": false,
+      "rank": 161,
+      "tie_group": 23
+    },
+    {
+      "name": "Lovro Majer",
+      "team": "Croatia",
+      "team_id": "371",
+      "jersey": 7,
+      "sms_total_area_m2": 81.36,
+      "sms_total_ci": [
+        75.53,
+        86.91
+      ],
+      "sms_self_made_m2": 12.51,
+      "sms_self_made_ci": [
+        10.1,
+        15.32
+      ],
+      "n_frames_visible": 448,
+      "n_frames_estimated": 151,
+      "estimated_share": 0.252,
+      "occlusion_flag": false,
+      "rank": 162,
+      "tie_group": 23
+    },
+    {
+      "name": "Marco Asensio",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 10,
+      "sms_total_area_m2": 75.61,
+      "sms_total_ci": [
+        71.19,
+        80.36
+      ],
+      "sms_self_made_m2": 9.01,
+      "sms_self_made_ci": [
+        8.11,
+        9.91
+      ],
+      "n_frames_visible": 1943,
+      "n_frames_estimated": 1476,
+      "estimated_share": 0.432,
+      "occlusion_flag": false,
+      "rank": 163,
+      "tie_group": 23
+    },
+    {
+      "name": "Alvaro Morata",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 7,
+      "sms_total_area_m2": 67.07,
+      "sms_total_ci": [
+        62.49,
+        72.34
+      ],
+      "sms_self_made_m2": 9.42,
+      "sms_self_made_ci": [
+        8.17,
+        11.04
+      ],
+      "n_frames_visible": 870,
+      "n_frames_estimated": 653,
+      "estimated_share": 0.429,
+      "occlusion_flag": false,
+      "rank": 164,
+      "tie_group": null
+    },
+    {
+      "name": "Sergio Busquets",
+      "team": "Spain",
+      "team_id": "52",
+      "jersey": 5,
+      "sms_total_area_m2": 52.64,
+      "sms_total_ci": [
+        50.99,
+        54.35
+      ],
+      "sms_self_made_m2": 9.18,
+      "sms_self_made_ci": [
+        8.63,
+        9.77
+      ],
+      "n_frames_visible": 4127,
+      "n_frames_estimated": 774,
+      "estimated_share": 0.158,
+      "occlusion_flag": false,
+      "rank": 165,
+      "tie_group": null
+    },
+    {
+      "name": "Jack Grealish",
+      "team": "England",
+      "team_id": "50",
+      "jersey": 7,
+      "sms_total_area_m2": 36.64,
+      "sms_total_ci": [
+        24.29,
+        50.55
+      ],
+      "sms_self_made_m2": 12.47,
+      "sms_self_made_ci": [
+        8.23,
+        17.16
+      ],
+      "n_frames_visible": 49,
+      "n_frames_estimated": 28,
+      "estimated_share": 0.364,
+      "occlusion_flag": false,
+      "rank": 166,
+      "tie_group": null
+    }
+  ],
+  "teams": [
+    {
+      "team": "Netherlands",
+      "team_id": "366",
+      "sms_team_offball_area_m2": 1789.4,
+      "ci": [
+        1771.3,
+        1808.1
+      ],
+      "n_frames": 3978,
+      "rank": 1
+    },
+    {
+      "team": "Portugal",
+      "team_id": "365",
+      "sms_team_offball_area_m2": 1785.7,
+      "ci": [
+        1763.3,
+        1808.8
+      ],
+      "n_frames": 3226,
+      "rank": 2
+    },
+    {
+      "team": "Switzerland",
+      "team_id": "370",
+      "sms_team_offball_area_m2": 1756.9,
+      "ci": [
+        1732.8,
+        1782.3
+      ],
+      "n_frames": 3464,
+      "rank": 3
+    },
+    {
+      "team": "Australia",
+      "team_id": "386",
+      "sms_team_offball_area_m2": 1740.6,
+      "ci": [
+        1716.5,
+        1763.9
+      ],
+      "n_frames": 3157,
+      "rank": 4
+    },
+    {
+      "team": "Argentina",
+      "team_id": "364",
+      "sms_team_offball_area_m2": 1686.5,
+      "ci": [
+        1675.3,
+        1698.9
+      ],
+      "n_frames": 13730,
+      "rank": 5
+    },
+    {
+      "team": "France",
+      "team_id": "363",
+      "sms_team_offball_area_m2": 1496.3,
+      "ci": [
+        1480.9,
+        1512.8
+      ],
+      "n_frames": 6414,
+      "rank": 6
+    },
+    {
+      "team": "Croatia",
+      "team_id": "371",
+      "sms_team_offball_area_m2": 1470.4,
+      "ci": [
+        1456.5,
+        1483.9
+      ],
+      "n_frames": 8305,
+      "rank": 7
+    },
+    {
+      "team": "Morocco",
+      "team_id": "374",
+      "sms_team_offball_area_m2": 1382.3,
+      "ci": [
+        1355.0,
+        1410.0
+      ],
+      "n_frames": 2570,
+      "rank": 8
+    },
+    {
+      "team": "Spain",
+      "team_id": "52",
+      "sms_team_offball_area_m2": 1347.4,
+      "ci": [
+        1332.5,
+        1362.0
+      ],
+      "n_frames": 4842,
+      "rank": 9
+    },
+    {
+      "team": "Japan",
+      "team_id": "57",
+      "sms_team_offball_area_m2": 1331.2,
+      "ci": [
+        1306.2,
+        1355.2
+      ],
+      "n_frames": 3297,
+      "rank": 10
+    },
+    {
+      "team": "England",
+      "team_id": "50",
+      "sms_team_offball_area_m2": 1170.6,
+      "ci": [
+        1154.8,
+        1186.7
+      ],
+      "n_frames": 4012,
+      "rank": 11
+    }
+  ],
+  "xg_receipt": {
+    "rho": -0.264,
+    "ci": "[-0.63, 0.44] (bootstrap 95%)",
+    "n": 11,
+    "unit": "team mean off-ball controllable space (m^2) vs StatsBomb xG-for per 90",
+    "reading": "More off-ball space did NOT translate to more xG in this sample (rho=-0.26); space-native volume is not the same as threat.",
+    "rows": [
+      {
+        "team": "Netherlands",
+        "sms": 1789.4,
+        "xg_per90": 1.5423,
+        "n_matches_sampled": 1
+      },
+      {
+        "team": "Portugal",
+        "sms": 1785.7,
+        "xg_per90": 1.335,
+        "n_matches_sampled": 1
+      },
+      {
+        "team": "Switzerland",
+        "sms": 1756.9,
+        "xg_per90": 1.4091,
+        "n_matches_sampled": 1
+      },
+      {
+        "team": "Australia",
+        "sms": 1740.6,
+        "xg_per90": 0.3642,
+        "n_matches_sampled": 1
+      },
+      {
+        "team": "Argentina",
+        "sms": 1686.0,
+        "xg_per90": 2.5321,
+        "n_matches_sampled": 4
+      },
+      {
+        "team": "France",
+        "sms": 1477.3,
+        "xg_per90": 1.8643,
+        "n_matches_sampled": 2
+      },
+      {
+        "team": "Croatia",
+        "sms": 1472.1,
+        "xg_per90": 1.6192,
+        "n_matches_sampled": 2
+      },
+      {
+        "team": "Morocco",
+        "sms": 1382.3,
+        "xg_per90": 1.1079,
+        "n_matches_sampled": 1
+      },
+      {
+        "team": "Spain",
+        "sms": 1347.4,
+        "xg_per90": 1.5261,
+        "n_matches_sampled": 1
+      },
+      {
+        "team": "Japan",
+        "sms": 1331.2,
+        "xg_per90": 1.586,
+        "n_matches_sampled": 1
+      },
+      {
+        "team": "England",
+        "sms": 1170.6,
+        "xg_per90": 1.6045,
+        "n_matches_sampled": 1
+      }
+    ]
+  }
+}

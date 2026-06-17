@@ -4,16 +4,15 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Space — Soccer's Dark Matter</title>
-<meta name="description" content="An analytically-driven look at off-ball movement — the open man teams ignored, the half-turn that bent the World Cup final, and the honest lens of what the camera actually filmed. Built on PFF FC World Cup 2022 human labels + tracking." />
+<meta name="description" content="Five honest, countable lenses on off-ball space at the 2022 World Cup — built on PFF FC tracking + real pitch control + StatsBomb xG. Where the danger lives (xT), who self-makes space (SMS), who bends the back line (CHASE), who owns the dangerous real estate off the ball (P-OBSO), who makes room nobody else would (SAR) — and the live 2026 hook." />
 <meta property="og:title" content="Space — Soccer's Dark Matter" />
-<meta property="og:description" content="The open man teams ignored, the half-turn that bent the final, and how much of it was actually filmed. PFF WC2022 labels + tracking." />
+<meta property="og:description" content="Scrubbable pitch-control heatmaps for five off-ball space metrics, tie-aware leaderboards (no fake #1), and real StatsBomb xG receipts. PFF WC2022 tracking, teeing up live WC2026." />
 <style>
   :root{
     --bg:#0e1014; --bg-elev:#171a21; --bg-elev2:#1d212b; --border:#2a313d;
     --ink:#e8edf4; --muted:#9aa6b6; --faint:#69748699;
     --accent:#6cb4ee; --accent2:#9b8cff; --good:#6dd58c; --warn:#d4793a; --hot:#ff6b6b;
-    --arg:#6cb4ee; --fra:#1a3d8f; --mar:#c1272d;
-    --maxw:920px; --rail:46px;
+    --maxw:960px; --rail:46px;
     font-synthesis:none; -webkit-text-size-adjust:100%;
   }
   *{box-sizing:border-box}
@@ -21,8 +20,7 @@
   body{
     margin:0; background:var(--bg); color:var(--ink);
     font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.55; font-size:17px; -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    line-height:1.55; font-size:17px; -webkit-font-smoothing:antialiased; overflow-x:hidden;
   }
   h1,h2,h3{line-height:1.12; letter-spacing:-0.02em; font-weight:780; margin:0}
   a{color:var(--accent); text-decoration:none}
@@ -33,7 +31,7 @@
 
   /* ---- hero ---- */
   .hero{
-    min-height:96vh; display:flex; flex-direction:column; justify-content:center;
+    min-height:94vh; display:flex; flex-direction:column; justify-content:center;
     position:relative; padding:0 22px; overflow:hidden;
     background:
       radial-gradient(1200px 600px at 72% 18%, #1a2740 0%, rgba(26,39,64,0) 60%),
@@ -47,28 +45,30 @@
   .kicker{text-transform:uppercase; letter-spacing:.28em; font-size:12px; color:var(--accent2); font-weight:700; margin-bottom:18px}
   .hero h1{font-size:clamp(40px,8.5vw,82px); margin-bottom:8px}
   .hero h1 .dim{color:var(--muted)}
-  .hero .sub{font-size:clamp(18px,2.5vw,24px); color:var(--ink); max-width:660px; margin-top:18px; font-weight:500}
+  .hero .sub{font-size:clamp(18px,2.5vw,24px); color:var(--ink); max-width:700px; margin-top:18px; font-weight:500}
   .hero .sub b{color:var(--accent)}
   .hero .meta{margin-top:30px; color:var(--muted); font-size:14px; display:flex; gap:18px; flex-wrap:wrap}
   .hero .meta span{display:inline-flex; align-items:center; gap:7px}
-  .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .dot.live{background:var(--hot); box-shadow:0 0 0 0 rgba(255,107,107,.6); animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.55)}70%{box-shadow:0 0 0 8px rgba(255,107,107,0)}100%{box-shadow:0 0 0 0 rgba(255,107,107,0)}}
   .scrollcue{position:absolute; bottom:26px; left:50%; transform:translateX(-50%); color:var(--faint); font-size:12px; letter-spacing:.18em; text-transform:uppercase; animation:bob 2.4s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
 
   /* ---- sections ---- */
-  section{padding:86px 0; position:relative}
+  section{padding:84px 0; position:relative}
   .act-tag{font-size:13px; letter-spacing:.2em; text-transform:uppercase; font-weight:700; color:var(--muted); margin-bottom:14px; display:flex; align-items:center; gap:12px}
   .act-tag .num{color:var(--bg); background:var(--accent); width:26px;height:26px;border-radius:7px; display:inline-grid; place-items:center; font-size:13px; font-weight:800}
-  section h2{font-size:clamp(28px,5vw,46px); margin-bottom:18px; max-width:760px}
-  .lede{font-size:clamp(18px,2.3vw,21px); color:var(--ink); max-width:680px; margin-bottom:8px; font-weight:480}
+  .act-tag.bridge .num{background:var(--hot)}
+  .act-tag.live .num{background:var(--good)}
+  section h2{font-size:clamp(28px,5vw,46px); margin-bottom:18px; max-width:780px}
+  .lede{font-size:clamp(18px,2.3vw,21px); color:var(--ink); max-width:720px; margin-bottom:8px; font-weight:480}
   .lede b{color:var(--ink); font-weight:700}
-  p.body{color:var(--muted); max-width:680px; margin:14px 0}
+  p.body{color:var(--muted); max-width:720px; margin:14px 0}
   p.body b{color:var(--ink)}
 
   .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease}
   .reveal.in{opacity:1; transform:none}
-
-  /* divider */
   .rule{height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); margin:0 auto; max-width:var(--maxw)}
 
   /* stat band */
@@ -78,99 +78,124 @@
   .stat .v.good{color:var(--good)} .stat .v.warn{color:var(--warn)} .stat .v.hot{color:var(--hot)}
 
   /* card */
-  .card{background:var(--bg-elev); border:1px solid var(--border); border-radius:16px; padding:22px; margin-top:26px}
+  .card{background:var(--bg-elev); border:1px solid var(--border); border-radius:16px; padding:22px; margin-top:22px}
   .card h3{font-size:18px; margin-bottom:6px}
   .caption{color:var(--muted); font-size:14px; margin-top:10px}
   .caption b{color:var(--ink)}
+  .caption.faintnote{color:var(--faint); font-size:12.5px}
 
-  /* soft-value caveat chip (copy-guard #2) */
-  .soft{display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--warn); border:1px solid #d4793a55; background:#d4793a14; border-radius:999px; padding:2px 9px; font-weight:600; vertical-align:middle}
-  .soft::before{content:"~"; font-weight:800}
-  .guardnote{font-size:13px; color:var(--muted); border-left:2px solid var(--accent2); padding:4px 0 4px 12px; margin:16px 0; max-width:660px}
+  /* ---- canvas heatmap stage ---- */
+  .heat{margin-top:22px; background:#0a0c10; border:1px solid var(--border); border-radius:16px; overflow:hidden}
+  .hstage{position:relative; width:100%; background:#0a0c10; line-height:0}
+  .hstage canvas{width:100%; height:auto; display:block; image-rendering:auto}
+  .hctrls{display:flex; align-items:center; gap:14px; padding:12px 16px; border-top:1px solid var(--border); background:var(--bg-elev)}
+  .heat .play{width:38px;height:38px;border-radius:50%;border:1px solid var(--border); background:var(--bg-elev2); color:var(--ink); cursor:pointer; font-size:14px; display:grid;place-items:center; flex:0 0 auto}
+  .heat .play:hover{border-color:var(--accent)}
+  .heat input[type=range]{flex:1; accent-color:var(--accent); cursor:pointer}
+  .heat .tlabel{font-size:12px; color:var(--muted); min-width:96px; text-align:right; font-variant-numeric:tabular-nums}
+  .htoggles{display:flex; gap:8px; flex-wrap:wrap; padding:0 16px 12px; background:var(--bg-elev)}
+  .htog{font-size:12.5px; color:var(--muted); background:var(--bg-elev2); border:1px solid var(--border); border-radius:999px; padding:5px 12px; cursor:pointer}
+  .htog:hover{border-color:var(--accent)}
+  .htog.on{color:var(--ink); border-color:var(--accent); background:#6cb4ee1f}
+  .hreadout{font-size:13.5px; color:var(--muted); padding:12px 16px; border-top:1px solid var(--border); min-height:22px}
+  .hreadout b{color:var(--ink)}
+  .hreadout .hint{color:var(--faint); font-size:12px}
+  .legend{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted); margin-top:12px; flex-wrap:wrap}
+  .legend .grad{height:9px; width:160px; border-radius:5px; background:linear-gradient(90deg,#1a2440,#3c7a8c,#3cb878,#bedc46,#ffc43c,#ff6b6b)}
+  .legend .grad.cool{background:linear-gradient(90deg,#1e2240,#3a3c96,#7860dc,#b496f5,#dccdff)}
 
-  /* tie-band leaderboard (copy-guard #1: no #1) */
-  .tieband{margin-top:8px}
-  .tieband .hd{display:flex; justify-content:space-between; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.12em; margin-bottom:10px}
-  .tier{position:relative; border:1px dashed var(--border); border-radius:12px; padding:14px 14px 10px; margin-bottom:12px}
-  .tier .tier-lab{font-size:12px; color:var(--accent2); font-weight:700; margin-bottom:10px; text-transform:uppercase; letter-spacing:.08em}
-  .chips{display:flex; flex-wrap:wrap; gap:8px}
-  .chip{display:inline-flex; align-items:center; gap:8px; background:var(--bg-elev2); border:1px solid var(--border); border-radius:999px; padding:6px 12px; font-size:14px}
-  .chip .ct{color:var(--muted); font-variant-numeric:tabular-nums}
-  .chip .fl{width:8px;height:8px;border-radius:2px}
-  .ciribbon{margin-top:12px; font-size:12px; color:var(--muted)}
-  .ciribbon .bar{height:6px;border-radius:3px;background:linear-gradient(90deg,#6cb4ee33,#6cb4ee,#6cb4ee33); margin:6px 0; position:relative}
+  /* ---- tie-aware leaderboard ---- */
+  .lboard{margin-top:6px}
+  .ltier{border:1px dashed var(--border); border-radius:12px; padding:12px 14px 8px; margin-bottom:12px}
+  .ltier-lab{font-size:12px; color:var(--accent2); font-weight:700; margin-bottom:10px; text-transform:uppercase; letter-spacing:.06em}
+  .lrow{display:grid; grid-template-columns:minmax(150px,230px) 1fr auto; align-items:center; gap:12px; margin:7px 0; font-size:14px}
+  .lname{display:inline-flex; align-items:center; gap:8px}
+  .lname .fl{width:9px;height:9px;border-radius:2px; flex:0 0 auto}
+  .lteam{color:var(--muted); font-size:12px}
+  .occ{font-size:10px; color:var(--warn); border:1px solid #d4793a66; background:#d4793a18; border-radius:4px; padding:1px 5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em}
+  .ltrack{position:relative; height:18px; background:var(--bg-elev2); border-radius:6px; overflow:hidden; border:1px solid var(--border)}
+  .lfill{position:absolute; left:0; top:0; height:100%; border-radius:6px 0 0 6px; opacity:.8}
+  .ci{position:absolute; top:50%; transform:translateY(-50%); height:8px; border-radius:3px; background:rgba(255,255,255,.5); box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+  .lval{text-align:right; color:var(--ink); font-variant-numeric:tabular-nums; font-weight:600; min-width:64px}
+  .lnote{grid-column:1/-1; font-size:12px; color:var(--faint); margin-top:-2px}
+  .comp{color:var(--muted)} .comp.warn{color:var(--warn)}
+  .lrow:hover{background:#6cb4ee0f; border-radius:8px}
 
   /* team mini-bars */
-  .bars{margin-top:10px}
-  .barrow{display:grid; grid-template-columns:130px 1fr 64px; align-items:center; gap:10px; margin:7px 0; font-size:14px}
-  .barrow .track{height:18px; background:var(--bg-elev2); border-radius:6px; overflow:hidden; border:1px solid var(--border)}
-  .barrow .fill{height:100%; border-radius:6px 0 0 6px}
-  .barrow .val{text-align:right; color:var(--muted); font-variant-numeric:tabular-nums}
+  .tbars{margin-top:10px}
+  .tbrow{display:grid; grid-template-columns:minmax(120px,160px) 1fr auto; align-items:center; gap:10px; margin:6px 0; font-size:14px}
+  .tbname{color:var(--ink)} .tbname .tieflag{font-size:10px; color:var(--warn); border:1px solid #d4793a55; border-radius:4px; padding:0 4px}
+  .tbtrack{height:16px; background:var(--bg-elev2); border-radius:6px; overflow:hidden; border:1px solid var(--border)}
+  .tbfill{height:100%; border-radius:6px 0 0 6px; opacity:.85}
+  .tbval{text-align:right; color:var(--muted); font-variant-numeric:tabular-nums; min-width:56px}
 
-  /* embedded clip scrubber */
-  .clip{margin-top:24px; background:#0a0c10; border:1px solid var(--border); border-radius:16px; overflow:hidden}
-  .clip .stage{position:relative; aspect-ratio:105/68; background:#0a0c10}
-  .clip .stage img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; image-rendering:auto}
-  .clip .overlay{position:absolute; inset:0; pointer-events:none}
-  .clip .ctrls{display:flex; align-items:center; gap:14px; padding:12px 16px; border-top:1px solid var(--border); background:var(--bg-elev)}
-  .clip .play{width:38px;height:38px;border-radius:50%;border:1px solid var(--border); background:var(--bg-elev2); color:var(--ink); cursor:pointer; font-size:15px; display:grid;place-items:center; flex:0 0 auto}
-  .clip .play:hover{border-color:var(--accent)}
-  .clip input[type=range]{flex:1; accent-color:var(--accent); cursor:pointer}
-  .clip .tlabel{font-size:12px; color:var(--muted); min-width:118px; text-align:right; font-variant-numeric:tabular-nums}
-  .clip .evt{padding:8px 16px 12px; font-size:13px; color:var(--muted); min-height:20px; border-top:1px solid var(--border)}
-  .clip .evt b{color:var(--ink)}
-  .clip .evt .hl{color:var(--accent)}
+  /* xG receipt panel */
+  .xgpanel{margin-top:22px; background:linear-gradient(180deg,#15212e,#131722); border:1px solid var(--border); border-radius:16px; padding:20px 22px}
+  .xgpanel h3{font-size:15px; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:14px}
+  .xgrow{display:flex; gap:16px; flex-wrap:wrap}
+  .xgstat{flex:1; min-width:180px}
+  .xgv{font-size:26px; font-weight:800; font-variant-numeric:tabular-nums}
+  .xgv.good{color:var(--good)} .xgv.warn{color:var(--warn)} .xgv.muted{color:var(--muted)}
+  .xgl{color:var(--muted); font-size:12.5px; margin-top:2px}
+  .xgunit{color:var(--accent); font-size:13px; margin:14px 0 6px; font-weight:600}
+  .xgread{color:var(--muted); font-size:14px; margin:6px 0 0}
+  .xgread b, .xgnote b{color:var(--ink)}
+  .xgnote{color:var(--muted); font-size:13px; margin-top:14px; border-left:2px solid var(--hot); padding-left:12px}
 
-  /* occlusion fog */
-  .fog-wrap{margin-top:24px}
-  .fog{position:relative; aspect-ratio:105/68; background:#0c2a16; border:1px solid var(--border); border-radius:14px; overflow:hidden}
-  .fog svg{position:absolute; inset:0; width:100%; height:100%}
-  .fog .pdot text{font-size:9px; fill:#04140a; font-weight:700}
-  .fogctrls{display:flex; align-items:center; gap:14px; margin-top:14px; flex-wrap:wrap}
-  .fogctrls label{font-size:13px; color:var(--muted)}
-  .fogctrls input[type=range]{accent-color:var(--warn); width:240px}
-  .keeptable{margin-top:18px; display:flex; gap:10px; flex-wrap:wrap}
-  .keeptable .kc{background:var(--bg-elev); border:1px solid var(--border); border-radius:10px; padding:10px 13px; font-size:13px; min-width:96px}
-  .keeptable .kc .kv{font-size:20px; font-weight:800; font-variant-numeric:tabular-nums} .keeptable .kc .kl{color:var(--muted)}
+  /* caveats */
+  .caveats{margin-top:18px}
+  .caveats summary{cursor:pointer; color:var(--muted); font-size:13.5px; font-weight:600}
+  .caveats ul{color:var(--faint); font-size:13px; margin:10px 0 0; padding-left:18px; line-height:1.6; max-width:760px}
+  .caveats li{margin:6px 0}
 
-  /* what's next chips */
-  .roadmap{display:flex; gap:10px; flex-wrap:wrap; margin-top:20px}
-  .rchip{border-radius:11px; padding:12px 16px; font-size:14px; font-weight:600}
-  .rchip.ship{background:#6dd58c18; border:1px solid #6dd58c66; color:var(--good)}
-  .rchip.soon{background:transparent; border:1px dashed var(--faint); color:var(--muted)}
-  .rchip small{display:block; font-weight:500; font-size:12px; opacity:.8; margin-top:2px}
+  /* two-up grid */
+  .twoup{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:6px}
+  @media(max-width:760px){ .twoup{grid-template-columns:1fr} }
+
+  /* live act */
+  .livestat{display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--hot); font-weight:700; letter-spacing:.06em; border:1px solid #ff6b6b40; background:#ff6b6b14; border-radius:999px; padding:5px 13px; margin-bottom:8px}
+  .livegrid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  @media(max-width:760px){ .livegrid{grid-template-columns:1fr} }
+
+  /* "in progress" honest chip */
+  .progress{margin-top:22px; border:1px dashed var(--faint); border-radius:12px; padding:16px 18px; color:var(--muted); font-size:14px}
+  .progress b{color:var(--ink)}
+  .progress .tag{font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--warn); border:1px solid #d4793a55; border-radius:5px; padding:2px 7px; font-weight:700; margin-right:8px}
 
   /* confidence rail */
   #rail{position:fixed; top:0; right:0; width:var(--rail); height:100vh; z-index:40; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; pointer-events:none; border-left:1px solid var(--border); background:linear-gradient(180deg,#0e1014cc,#0e1014ee)}
   #rail .meter{width:8px; flex:0 0 46vh; max-height:340px; background:var(--bg-elev2); border-radius:5px; overflow:hidden; position:relative; border:1px solid var(--border)}
   #rail .meter .fill{position:absolute; left:0; right:0; bottom:0; background:linear-gradient(180deg,var(--good),var(--warn)); transition:height .6s ease}
-  #rail .pct{font-size:11px; color:var(--muted); writing-mode:vertical-rl; transform:rotate(180deg); letter-spacing:.06em; font-variant-numeric:tabular-nums}
+  #rail .pct{font-size:11px; color:var(--muted); writing-mode:vertical-rl; transform:rotate(180deg); letter-spacing:.06em}
   #rail .cap{font-size:9px; color:var(--faint); writing-mode:vertical-rl; transform:rotate(180deg); text-transform:uppercase; letter-spacing:.14em}
   @media(max-width:760px){ :root{--rail:0px} #rail{display:none} }
 
   footer{border-top:1px solid var(--border); padding:54px 0 80px; color:var(--muted); font-size:14px}
   footer h3{font-size:16px; color:var(--ink); margin-bottom:14px}
   footer .links{display:flex; gap:22px; flex-wrap:wrap; margin-bottom:22px}
-  footer .fine{color:var(--faint); font-size:12.5px; max-width:720px; line-height:1.6}
-
-  .pillrow{display:flex; gap:10px; flex-wrap:wrap; margin:18px 0}
-  .pill{font-size:12.5px; color:var(--muted); border:1px solid var(--border); border-radius:999px; padding:5px 12px; background:var(--bg-elev)}
-  .pill b{color:var(--ink)}
+  footer .fine{color:var(--faint); font-size:12.5px; max-width:760px; line-height:1.6}
 </style>
 </head>
 <body>
+
+<!-- confidence rail -->
+<div id="rail" aria-hidden="true">
+  <div class="cap">how filmed</div>
+  <div class="meter"><div class="fill" id="rail-fill" style="height:64%"></div></div>
+  <div class="pct" id="rail-pct">PFF tracking</div>
+</div>
 
 <!-- HERO -->
 <header class="hero">
   <div class="grid-motif"></div>
   <div class="inner">
-    <div class="kicker">Off-ball movement · World Cup 2022 · teeing up 2026</div>
+    <div class="kicker">Off-ball space · World Cup 2022 · live into 2026</div>
     <h1>Space<span class="dim">.</span><br/><span class="dim">Soccer's dark matter.</span></h1>
-    <p class="sub">For fifty years, “space” was something pundits <i>pointed at</i>. PFF's human labels are the first frame-level ground truth that lets us actually <b>count it</b> — so here are three honest, countable lenses on the off-ball game.</p>
+    <p class="sub">For fifty years, “space” was something pundits <i>pointed at</i>. With PFF FC tracking and a real pitch-control engine, we can finally <b>draw it, scrub it, and check it against goals</b>. Five space-native lenses — each with a live heatmap, a tie-aware board, and an honest xG receipt.</p>
     <div class="meta">
-      <span><span class="dot" style="background:var(--good)"></span> 64 matches · ~144k graded events</span>
-      <span><span class="dot" style="background:var(--accent)"></span> PFF FC tracking + human labels</span>
-      <span><span class="dot" style="background:var(--warn)"></span> no fake #1s · no soft value sold as xG</span>
+      <span><span class="dot" style="background:var(--good)"></span> PFF FC WC2022 tracking + real pitch control</span>
+      <span><span class="dot" style="background:var(--accent)"></span> StatsBomb 2022 xG as the receipts</span>
+      <span><span class="dot live"></span> live FIFA EFI 2026 to close</span>
     </div>
   </div>
   <div class="scrollcue">scroll ↓</div>
@@ -178,118 +203,199 @@
 
 <div class="rule"></div>
 
-<!-- ACT I — CoCE -->
-<section id="ignored">
+<!-- ACT 0 — xT reference -->
+<section id="xt">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag"><span class="num">I</span> The open man nobody found</div>
-      <h2>The cost of the closed eye.</h2>
-      <p class="lede">Every so often a teammate gets <b>open</b> — and the player on the ball just… doesn't see him. PFF analysts tagged <b>518</b> of these moments at the 2022 World Cup. Strip out 8 where the player should've shot himself and 2 mis-attributed to the wrong team, and <b>508</b> are real ignored open men.</p>
-      <div class="stats">
-        <div class="stat"><div class="v big-num">508</div><div class="l">ignored open men (from 518 tags)</div></div>
-        <div class="stat"><div class="v big-num warn">6-way</div><div class="l">tie atop the "ignored creator" board</div></div>
-        <div class="stat"><div class="v big-num">32</div><div class="l">Argentina, the most ignored chances (raw)</div></div>
+      <div class="act-tag"><span class="num">0</span> Where the danger lives</div>
+      <h2>Before space, the value of space.</h2>
+      <p class="lede">Not all grass is worth the same. <b>Expected Threat (xT)</b> — Karun Singh's canonical model — asks a simple question of every spot on the pitch: if the ball arrived here, how much closer to a goal does the team get? It is the value layer the space metrics will be measured against — and it is <b>its own story</b>, not a multiplier woven into every number.</p>
+      <div class="card">
+        <h3>The xT surface — attacking left → right, opponent goal at the right</h3>
+        <div id="xt-canvas" class="heat"></div>
+        <div class="legend"><span>low value</span><span class="grad"></span><span>high value</span></div>
+        <p class="caption">The danger isn't at the goal line — it's the <b>central pocket just outside the box</b> (peak xT ≈ 0.257). That is where a received ball is worth the most. Everything wide and deep is low-value grass. Hold that picture: most of the “space” the next four metrics measure is, by design, <i>not</i> high-xT space — which is exactly why each one needs its own honesty test.</p>
       </div>
-    </div>
-
-    <div class="card reveal">
-      <h3>Belgium 0–2 Morocco — Ounahi shoots; En-Nesyri is open.</h3>
-      <div class="clip" data-clip="morocco-ennesyri-ignored" data-highlight="En-Nesyri" data-mode="ignored"></div>
-      <div class="caption">A real tagged moment: with <b>no pressure on the ball</b>, Azzedine Ounahi shoots while Youssef En-Nesyri is open for the pass. PFF graded En-Nesyri the better option. Scrub it. <span class="soft">soft xT, directional</span> the "value left on the table" is a static-grid estimate, not a goal probability.</div>
-    </div>
-
-    <div class="card reveal">
-      <h3>The "most ignored open man" — and why there's no #1</h3>
-      <div id="coce-board" class="tieband"></div>
-      <p class="caption">Six players were each ignored <b>7 times</b>, and their counts are statistically indistinguishable (same Poisson 95% interval). So this is a <b>tie tier</b>, not a ranking — naming a single "most ignored man" would be false precision. The clean fact: <b>nobody got open-and-overlooked more often than this group.</b></p>
-      <div id="coce-teams" class="bars" style="margin-top:18px"></div>
-      <p class="caption">Team totals are <b>exposure-driven</b> (teams played 3–7 matches): Argentina's 32 is the raw tournament-high on the way to the trophy; per game, Germany's rate leads over just 3 matches.</p>
+      <p class="body">xT meets space only once, deliberately, at the <b>P-OBSO bridge</b> (Act 3). Everywhere else the space metrics are <b>space-native</b> — square metres of controllable pitch, not threat in disguise.</p>
     </div>
   </div>
 </section>
 
 <div class="rule"></div>
 
-<!-- ACT II — TURN -->
-<section id="turn">
+<!-- ACT 1 — SMS -->
+<section id="sms">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag"><span class="num">II</span> The half-turn that bent the final</div>
-      <h2>Receiving already pointed at goal.</h2>
-      <p class="lede">The most valuable reception in football is the one you take <b>already turned toward goal, behind a line that's just been broken</b> — it converts a line-break into instant threat instead of a sideways recycle. Across 64 matches there were <b>848</b> of them: only <b>18.2%</b> of all line-break receptions arrive facing goal.</p>
-      <div class="stats">
-        <div class="stat"><div class="v big-num">848</div><div class="l">turned-under-line receptions, all 64 matches</div></div>
-        <div class="stat"><div class="v big-num">18.2%</div><div class="l">of line-break receptions face goal</div></div>
-        <div class="stat"><div class="v big-num good">6</div><div class="l">Di María, in the final alone (ARG 17 · FRA 6)</div></div>
-      </div>
-    </div>
-
-    <div class="card reveal">
-      <h3>The final — Álvarez finds Di María, turned behind the line.</h3>
-      <div class="clip" data-clip="argentina-france-dimaria-turn" data-highlight="Di María" data-mode="turn"></div>
-      <div class="caption">A real tagged TURN: Julián Álvarez breaks France's line and Di María receives <b>already facing goal</b> (orientation flips to ↑GOAL on the touch). On the night Argentina out-turned France <b>17–6</b>; Di María had <b>6</b> — the one clean single-name fact this metric supports.</div>
-    </div>
-
-    <div class="card reveal">
-      <h3>Tournament leaders — a 36-player tie, no single #1</h3>
-      <div id="turn-board" class="tieband"></div>
-      <p class="caption">Thirty-six players land between <b>6 and 11</b> turned-under-line receptions, and every count sits inside the leader's 95% interval — so even the top of the cluster (Kramarić, 11) is <b>not a supportable #1</b>. The honest read: this is the leading cluster of half-turn receivers, not a ranked list.</p>
-    </div>
-  </div>
-</section>
-
-<div class="rule"></div>
-
-<!-- honesty note (occlusion, demoted to a footnote) -->
-<section id="honesty">
-  <div class="wrap reveal">
-    <div class="act-tag">How we know what we know</div>
-    <p class="lede" style="max-width:740px">One honest caveat. Broadcast tracking only sees what's on camera, so <b>40.9% of player positions are estimated, not tracked</b> — and the blind spot skews toward forwards and wingers, the very players a space metric wants. That's why the few <span class="soft">soft xT</span> reads above are flagged <b>directional</b> rather than precise. But the <b>counts</b> that carry these stories — who got open and was ignored, who received on the turn — come from human labels and aren't affected.</p>
-  </div>
-</section>
-
-<div class="rule"></div>
-
-<!-- EDA context -->
-<section id="context">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="act-tag">The tournament in context</div>
-      <h2>Who made — and broke through — the most space?</h2>
-      <p class="body">Two supporting cuts from the wider study, for context (full breakdowns in the <a href="space-eda.html">EDA deck</a>): the teams that created the most space, and the players who most broke opposition lines.</p>
-      <div class="pillrow" id="context-pills"></div>
-      <div class="card" style="margin-top:8px">
-        <h3>Team space creation (PFF <span class="mono">createsSpace</span>)</h3>
-        <div id="eda-space" class="bars"></div>
+      <div class="act-tag"><span class="num">1</span> Self-Made Space</div>
+      <h2>Who turns movement into a passing lane.</h2>
+      <p class="lede">For every attacking player <b>without the ball</b>, how much receiving space do they hold open — and how much of it did their own run create? <b>Space-native square metres</b> of controllable pitch; ball-carrier and keepers excluded. Scrub Messi's 35′ build-up vs Australia: the bright cells are pitch an off-ball Argentine is actively owning for a pass to land into.</p>
+      <div class="card">
+        <h3>SMS surface — Messi's 35′ build-up (Argentina v Australia)</h3>
+        <div id="sms-canvas" class="heat"></div>
+        <div class="legend"><span>no control</span><span class="grad"></span><span>owns this pitch</span> · <span style="color:var(--warn)">dashed gold ring = ESTIMATED position (occlusion)</span></div>
+        <p class="caption">As Messi pins the central defenders, <b>Nahuel Molina</b>'s overlap lights up the right channel — he's the dominant Argentina off-ball space-holder on 34 of 36 Argentina-attacking frames. The window is ~50/50 possession, so non-Argentina frames correctly show Australian holders; the surface re-orients to whoever has the ball.</p>
       </div>
       <div class="card">
-        <h3>Line-break leaders <span class="soft">progression by corridor</span></h3>
-        <div id="eda-lb" class="bars"></div>
-        <p class="caption">Read as “forward passes threaded through ≥3 opponents,” a geometry proxy — it diverges from PFF's graded line-break tag by design, so treat it as progression, not a verdict on beating a defensive line.</p>
+        <h3>Tie-aware leaderboard — total off-ball controllable space</h3>
+        <div id="sms-board" class="lboard"></div>
+        <p class="caption">Raw SMS structurally rewards <b>width and depth</b> — fullbacks and wingers standing in open, low-value grass. Boufal, Ezzalzouli and Nagatomo share tie tier 1 (their bootstrap CIs overlap); naming one “#1” would be false precision. <b>Hover a row to pin that player onto the heatmap.</b></p>
+        <h3 style="margin-top:18px">The self-made (movement) cut</h3>
+        <div id="sms-selfmade" class="lboard"></div>
+        <p class="caption">Subtract a velocity-frozen baseline and you isolate space a player's <i>own run</i> created. The board reshuffles fullbacks-in-acres down and active runners — Correa, Ziyech, Mitoma — up. Their CIs broadly overlap, so this is a top cluster, not a single leader.</p>
+        <h3 style="margin-top:18px">Team off-ball space (one sampled telling)</h3>
+        <div id="sms-teams" class="tbars"></div>
       </div>
+      <div class="xgpanel">
+        <h3>So what? — the xG receipt</h3>
+        <div id="sms-xg"></div>
+      </div>
+      <details class="caveats reveal">
+        <summary>Caveats &amp; honesty (read me)</summary>
+        <ul>
+          <li>xG receipt is noisy and NOT significant: ρ=−0.26, bootstrap CI [−0.63, 0.44] spans zero (n=11 teams). 8 of 11 teams contribute only 1 sampled match each, so per-team SMS is high-variance — read it as “no relationship,” not anti-correlation.</li>
+          <li>Raw SMS rewards open, low-value grass; the leaderboard is fullback/winger-heavy by construction. This is a STYLE/volume signal, not a danger ranking. Turning space into danger is the P-OBSO bridge's job.</li>
+          <li>Occlusion: 36.3% of credited player-frames here were ESTIMATED (PFF, biased to forwards/wingers). The board gates every space claim to VISIBLE frames and flags players tracked majority-by-estimation (est badge).</li>
+          <li>Bounded sample: stride 15 (~2 Hz), coarse 32×22 control grid, regulation periods only, 8 knockout matches, 65,386 frames. Star-heavy, not the full tournament.</li>
+          <li>Possession + ball-carrier are heuristic (nearest-player-to-ball, no event join).</li>
+        </ul>
+      </details>
     </div>
   </div>
 </section>
 
 <div class="rule"></div>
 
-<!-- WHAT'S NEXT -->
-<section id="next">
+<!-- ACT 2 — CHASE -->
+<section id="chase">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag">What's next · 2026</div>
-      <h2>These three are the countable shadows. The full surface is coming.</h2>
-      <p class="body">What you've scrubbed here are the parts of “space” we can <b>count and verify</b> today. The richer, continuous value surface — what a run is worth, above an average player, when the pass never comes — is <b>designed and feasibility-checked, not yet built end-to-end</b>. No numbers attached, on purpose.</p>
-      <div class="roadmap">
-        <div class="rchip ship">✓ Occlusion lens<small>shipped — the honesty bound</small></div>
-        <div class="rchip ship">✓ Ignored Open Man<small>shipped — CoCE</small></div>
-        <div class="rchip ship">✓ Turned-under-line<small>shipped — TURN</small></div>
-        <div class="rchip soon">SAR<small>space above replacement</small></div>
-        <div class="rchip soon">P-OBSO<small>pressure-gated scoring chance</small></div>
-        <div class="rchip soon">SMS<small>self-made space</small></div>
-        <div class="rchip soon">CHASE<small>defensive gravity</small></div>
+      <div class="act-tag"><span class="num">2</span> Defensive Gravity</div>
+      <h2>Who bends the back line.</h2>
+      <p class="lede">Pure space, no goals: how many markers an attacker ties up (<b>drawn</b>), amplified by how hard those defenders sprint at him (<b>chase-pull</b>). Target men and focal attackers warp the most; roaming creators like Messi score lower because they slip <i>between</i> markers instead of pinning them. The surface is the <b>defender</b> pitch-control field — watch the block collapse toward the gravity attacker and a lane tear open.</p>
+      <div class="card">
+        <h3>CHASE surface — the defensive shell during Messi's build-up</h3>
+        <div id="chase-canvas" class="heat"></div>
+        <div class="legend"><span>open</span><span class="grad cool"></span><span>defence in control</span></div>
+        <p class="caption">Toggle <b>gravity spokes</b> to draw a 12 m pull radius around Messi: every defender inside it is linked to him, deeper colour = closer marker. The violet block is where the defence owns space — it visibly squeezes as he drifts.</p>
       </div>
-      <p class="body" style="margin-top:22px">Same three lenses, re-pointed at the host nations and the space-creators to watch. See the full framework in the <a href="space-research.html">research brief</a>.</p>
+      <div class="card">
+        <h3>Tie-aware leaderboard — defensive gravity</h3>
+        <div id="chase-board" class="lboard"></div>
+        <p class="caption"><b>Pedro</b> is a genuine clean #1 (his CI clears the field). Below him the rank-2 tier is a real cluster — Ronaldo (the most chase-pull, but 73% ESTIMATED), Weghorst, Amallah, En-Nesyri, El Yamiq. Each row shows its two components: <b>drawn</b> markers (“I occupy bodies”) vs <b>chase-pull</b> m/s (“I make them sprint”). <b>Hover to pin a player onto the surface.</b></p>
+        <h3 style="margin-top:18px">Team gravity</h3>
+        <div id="chase-teams" class="tbars"></div>
+      </div>
+      <div class="xgpanel">
+        <h3>So what? — the xG receipt</h3>
+        <div id="chase-xg"></div>
+      </div>
+      <details class="caveats reveal">
+        <summary>Caveats &amp; honesty</summary>
+        <ul>
+          <li>Space-native by construction: gravity is geometry (drawn markers × inward defender chase), never xT- or goal-weighted. The engine is used only for the hero <i>defender-control surface</i>.</li>
+          <li>xG correlation is team-level over n=12 teams with a 90% CI that crosses zero — directional, correlation not causation.</li>
+          <li>10 star-heavy/knockout matches at ~2 Hz; opponent and game-state shape every number.</li>
+          <li>~40.9% of PFF positions are ESTIMATED (biased to forwards/wingers); 45 of 182 rows are occlusion-flagged (est badge), including Ronaldo 73% and En-Nesyri 59%.</li>
+          <li>Velocity (hence chase-pull) is finite-differenced at ~2 Hz; sub-second closing bursts are averaged out.</li>
+          <li>Tie-aware: rows whose 90% CI overlaps the rank-group leader share a rank — no false single #1.</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ACT 3 — P-OBSO (the bridge) -->
+<section id="pobso">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag bridge"><span class="num">3</span> P-OBSO · the bridge</div>
+      <h2>Who owns the dangerous space when the ball isn't at their feet.</h2>
+      <p class="lede">This is the one metric that is <b>not</b> space-native — the deliberate bridge: <b>pitch control × Expected Threat</b>. It scores the off-ball runner who controls the most <i>valuable</i> real estate the ball could profitably reach. Scrub Mbappé's run in the Argentina–France final: a bright danger-pocket blooms <b>ahead</b> of the run, before the pass exists.</p>
+      <div class="card">
+        <h3>P-OBSO surface — Mbappé's off-ball run (ARG v FRA final, ~95′)</h3>
+        <div id="pobso-canvas" class="heat"></div>
+        <div class="legend"><span>controlled but low-value</span><span class="grad"></span><span>controlled danger</span></div>
+        <p class="caption">Toggle <b>reveal danger</b> to fade the ball-centric view and keep only cells that are both controlled <i>and</i> threatening (× xT) — you watch the scoring opportunity form before the pass. Mbappé controls 48.5 xT-weighted m² at 6.6 m/s here.</p>
+      </div>
+      <div class="card">
+        <h3>Off-ball danger controllers — with a small-sample flag</h3>
+        <div id="pobso-board" class="lboard"></div>
+        <p class="caption">Honest correction surfaced: several headline names (Lautaro, Dybala, Correa, Rashford) are <b>cameo substitutes with &lt;4 min sampled, effectively one match</b> — their CIs can't see between-match variance. We split them into a clearly-labelled small-sample tier so they don't pose as tournament-leading controllers; the substantial-minutes group (En-Nesyri, Mbappé, Petković, Messi) is the trustworthy read.</p>
+        <h3 style="margin-top:18px">Team danger-moment rate — the cut that actually tracks xG</h3>
+        <div id="pobso-teams" class="tbars"></div>
+        <p class="caption">Controlled-danger pockets per minute of possession. Argentina / France / Portugal / Morocco share the lead (overlapping CIs). Spain sits last: sterile possession — it holds controlled space but rarely spikes a danger pocket.</p>
+      </div>
+      <div class="xgpanel">
+        <h3>So what? — the xG receipt (the strong one)</h3>
+        <div id="pobso-xg"></div>
+      </div>
+      <details class="caveats reveal">
+        <summary>Caveats &amp; honesty</summary>
+        <ul>
+          <li>The team xG receipt depends on excluding StatsBomb penalty-shootout shots (period 5, ~0.78 xG each) and matching the tracking sample to regulation (periods 1–2). With shootout xG included the correlation flips to null (ρ=−0.20) — a real bug, caught and fixed. n=10 teams over 8 knockout matches; treat ρ=0.71 as suggestive.</li>
+          <li>P-OBSO <i>stock</i> (mean controlled-danger area/frame) barely discriminates teams (63.7–66.4) and is NOT correlated with xG — by design. The team board ranks the <i>flow</i> (danger-moment rate).</li>
+          <li>Player headline rests on present-frames-only averaging, which favours late-game attacking subs; the small-sample tier flag is the disclosure. 38.7% of positions ESTIMATED; En-Nesyri (72%), Correa (59%), Dybala (52%) flagged.</li>
+          <li>Possession + carrier identity are heuristic (nearest-player-to-ball), not event-joined. Velocity is finite-differenced at ~2 Hz. Extra time excluded from both tracking and xG.</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ACT 4 — SAR -->
+<section id="sar">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">4</span> Space Above Replacement</div>
+      <h2>Who makes room nobody else would.</h2>
+      <p class="lede">Off-ball controllable space <b>minus</b> what a replacement-level player wins in the same pitch zone (space-native m², NOT xT-weighted). It credits <b>openness</b> — and the most open space belongs to deep counter sides spreading into vacated grass, not the congested final thirds where high-xG teams actually work. Scrub Messi's run: his bright footprint over the flat replacement baseline; the excess is his SAR.</p>
+      <div class="card">
+        <h3>SAR surface — Messi's footprint vs the replacement baseline</h3>
+        <div id="sar-canvas" class="heat"></div>
+        <div class="legend"><span>baseline</span><span class="grad"></span><span>above replacement</span></div>
+        <p class="caption">Toggle <b>vs replacement</b> to dissolve his surface toward the flat positional baseline — you literally watch the extra space appear and vanish as he drifts off the ball. Messi's sample SAR is +51.1 m² (rank 58/167, well-tracked); Argentina's central engine (de Paul, Enzo, Mac Allister) runs negative — they work congested midfield while the wide players find the room.</p>
+      </div>
+      <div class="card">
+        <h3>Tie-aware leaderboard — space above replacement</h3>
+        <div id="sar-board" class="lboard"></div>
+        <p class="caption"><b>Abde Ezzalzouli</b> is a clean single leader (his CI separates from #2). The board is led by relentless off-ball movers — Morocco's wingers, Japan's fullbacks. <b>Hover to ghost a player's excess footprint onto the pitch.</b></p>
+        <h3 style="margin-top:18px">Team SAR (whole-pitch mean)</h3>
+        <div id="sar-teams" class="tbars"></div>
+        <p class="caption">Morocco and Japan — deep-block / counter sides — win the most open space and are mid-pack on xG. The high-xG possession teams (Spain, England) run negative SAR: they make their chances in tight space, not open grass. The orthogonality, in one table.</p>
+      </div>
+      <div class="xgpanel">
+        <h3>So what? — the xG receipt (orthogonal, on purpose)</h3>
+        <div id="sar-xg"></div>
+      </div>
+      <details class="caveats reveal">
+        <summary>Caveats &amp; honesty</summary>
+        <ul>
+          <li>Occlusion: 38.8% of sampled positions are ESTIMATED (biased to forwards/wingers). The board gates on ≥15 VISIBLE frames; high-SAR wingers (Boufal 56%, Mitoma 60%) carry heavy ESTIMATED shares (est badge).</li>
+          <li>Possession/orientation are heuristic (no event join); velocity finite-differenced at ~2 Hz.</li>
+          <li>8 regulation matches at 2 Hz, star/contender-heavy; the xG receipt has only n=11 teams, so the CI is wide ([−0.59, 0.62]).</li>
+          <li>The replacement baseline (30 zones, global mean 276.3 m²) is computed FROM this sample — SAR is relative to the sampled population, not an absolute league baseline.</li>
+          <li>SAR credits openness and deliberately is NOT a threat metric — the orthogonal-to-xG finding (ρ≈0) is the honest “so what.” The threat bridge is P-OBSO, not SAR.</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- CLOSING — live 2026 -->
+<section id="live">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag live"><span class="num">★</span> Live · World Cup 2026</div>
+      <h2>The thesis, live in the host-nation tournament.</h2>
+      <p class="lede">The 2022 study had to <b>reconstruct</b> space from tracking and labels because FIFA's 2022 Enhanced Football Intelligence was physical-only (distance, sprints, top speed). The <b>2026</b> EFI is rich and live — it publishes a <b>threat</b> number, the closest public cousin to the P-OBSO bridge above. Here are the early WC2026 leaders, pulled straight from the live feed.</p>
+      <div id="live-body"></div>
     </div>
   </div>
 </section>
@@ -298,17 +404,17 @@
   <div class="wrap">
     <h3>The full study</h3>
     <div class="links">
-      <a href="space-research.html">Research brief &amp; the Grand Unifying Theory →</a>
+      <a href="space-research.html">Research brief →</a>
       <a href="space-eda.html">EDA deck →</a>
       <a href="match-report-final.html">2022 final report →</a>
       <a href="methodology.html">Methodology →</a>
     </div>
     <p class="fine">
-      Data: PFF FC Men's World Cup 2022 — 30 Hz broadcast tracking + human-graded events for all 64 matches; real xG from StatsBomb open data. Interactive clips are real tracking with model-rendered frames; narration overlays (broken-line, orientation arrow, “open/ignored” markers) annotate real footage. Leaderboards are presented as tie-grouped tiers with Poisson intervals — never a single ranked “#1,” because the underlying counts don't support one. Soft <span class="mono">xT</span> reads are static-grid estimates flagged “directional,” not goal probabilities, and they inherit the position-biased occlusion shown in Act III. Counts (ignored open men, turned-under-line receptions) are label-driven and occlusion-robust.
+      Data: PFF FC Men's World Cup 2022 — 30 Hz broadcast tracking, sampled at ~2 Hz. Surfaces are real Fernández–Bornn pitch control (and Karun Singh's xT for the value layer), normalized 0–1 for display. Leaderboards are tie-grouped with bootstrap CIs — never a false single “#1” when values overlap. Every space claim is gated to VISIBLE frames; ~40.9% of PFF positions are ESTIMATED (biased toward forwards/wingers) and occlusion-flagged rows carry an “est” badge. xG receipts use StatsBomb 2022 open data on a defensible per-match-rate or per-90 unit; all correlation, not causation. Live 2026 figures: FIFA Enhanced Football Intelligence via the open Bustami/efi-fifa-data-wc-2026 dataset.
     </p>
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=1"></script>
+<script type="module" src="assets/js/space.js?v=4"></script>
 </body>
 </html>
