@@ -983,12 +983,19 @@ function buildXtExplainer() {
     </svg>
     <div class="xpl-num">threat <span id="xtVal">0.02</span></div>
     <p class="xpl-cap">The ball climbs from midfield, to the edge of the box, to <b>right in front of goal</b> — same move, far more <b>threat</b>, because the zone is worth more. xT peaks at the goal.</p>`;
-  const valEl = $("#xtVal", host);
-  const T = 3600, seg = T / 3;
-  let raf;
+  const valEl = $("#xtVal", host), ball = $("#xtBall", host);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const T = 4600, hold = 1100, travel = T - hold;   // travel the 2 legs, then hold at goal, loop
+  let raf, t0 = null;
   const tick = (now) => {
-    const i = Math.floor((now % T) / seg);
-    const v = stops[clamp(i, 0, 2)].v;
+    if (t0 === null) t0 = now;
+    const p = (now - t0) % T;
+    const prog = p < travel ? (p / travel) * 2 : 2;  // 0..2 across the two legs, then hold at 2
+    const i = Math.min(1, Math.floor(prog)), f = clamp(prog - i, 0, 1);
+    const a = stops[i], b = stops[i + 1];
+    const x = lerp(a.x, b.x, f), y = lerp(a.y, b.y, f), v = lerp(a.v, b.v, f);
+    ball.setAttribute("cx", x.toFixed(1));
+    ball.setAttribute("cy", y.toFixed(1));
     valEl.textContent = v.toFixed(2);
     valEl.style.color = v > 0.2 ? "var(--hot)" : v > 0.05 ? "var(--warn)" : "var(--muted)";
     raf = requestAnimationFrame(tick);
