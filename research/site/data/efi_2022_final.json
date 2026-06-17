@@ -1,0 +1,342 @@
+{
+ "source": "FIFA Post-Match Summary Report \u2014 Argentina v France, FIFA World Cup 2022 Final (fifatrainingcentre.com)",
+ "source_url": "https://www.fifatrainingcentre.com/media/native/world-cup-2022/report_128083.pdf",
+ "fetched": "2026-06-17",
+ "match": {
+  "home": "Argentina",
+  "away": "France",
+  "score": {
+   "home": 3,
+   "away": 3
+  },
+  "result": "Argentina won 4-2 on penalties",
+  "stage": "Final",
+  "date": "2022-12-18",
+  "venue": "Lusail Stadium"
+ },
+ "key_stats": {
+  "Goals": {
+   "home": 3,
+   "away": 3
+  },
+  "xG (Expected Goals)": {
+   "home": null,
+   "away": null
+  },
+  "Total Attempts": {
+   "home": 21,
+   "away": 10
+  },
+  "Attempts on Target": {
+   "home": 9,
+   "away": 5
+  },
+  "Possession": {
+   "home": 46.5,
+   "away": 40.6,
+   "contested": 12.9
+  },
+  "Total Passes": {
+   "home": 648,
+   "away": 516
+  },
+  "Completed Passes": {
+   "home": 544,
+   "away": 419
+  },
+  "Pass Completion %": {
+   "home": 84,
+   "away": 81
+  },
+  "Completed Line Breaks": {
+   "home": 146,
+   "away": 94
+  },
+  "Defensive Line Breaks": {
+   "home": 24,
+   "away": 9
+  },
+  "Receptions in the Final Third": {
+   "home": 163,
+   "away": 69
+  },
+  "Crosses": {
+   "home": 20,
+   "away": 24
+  },
+  "Ball Progressions": {
+   "home": 31,
+   "away": 44
+  },
+  "Defensive Pressures Applied": {
+   "home": 280,
+   "away": 409
+  },
+  "Direct Pressures": {
+   "home": 64,
+   "away": 88
+  },
+  "Forced Turnovers": {
+   "home": 87,
+   "away": 104
+  },
+  "Second Balls": {
+   "home": 105,
+   "away": 100
+  },
+  "Total Distance Covered (km)": {
+   "home": 145,
+   "away": 148.2
+  },
+  "High Speed (Zone 4) Distance Covered (km)": {
+   "home": 17.1,
+   "away": 18.1
+  }
+ },
+ "in_possession_shape": {
+  "Argentina": {
+   "team": "Argentina",
+   "build_up_low": {
+    "w": 54,
+    "l": 38,
+    "d2g": 19
+   },
+   "build_up_mid": {
+    "w": 55,
+    "l": 33,
+    "d2g": 38
+   },
+   "final_third_phase": {
+    "w": 41,
+    "l": 39,
+    "d2g": 52
+   }
+  },
+  "France": {
+   "team": "France",
+   "build_up_low": {
+    "w": 52,
+    "l": 39,
+    "d2g": 24
+   },
+   "build_up_mid": {
+    "w": 55,
+    "l": 33,
+    "d2g": 40
+   },
+   "final_third_phase": {
+    "w": 44,
+    "l": 34,
+    "d2g": 56
+   }
+  }
+ },
+ "defensive_shape": {
+  "Argentina": {
+   "team": "Argentina",
+   "high_block_press": {
+    "w": 40,
+    "l": 36,
+    "d2g": 45
+   },
+   "mid_block": {
+    "w": 40,
+    "l": 28,
+    "d2g": 33
+   },
+   "low_block": {
+    "w": 35,
+    "l": 23,
+    "d2g": 17
+   }
+  },
+  "France": {
+   "team": "France",
+   "high_block_press": {
+    "w": 38,
+    "l": 35,
+    "d2g": 49
+   },
+   "mid_block": {
+    "w": 37,
+    "l": 27,
+    "d2g": 38
+   },
+   "low_block": {
+    "w": 32,
+    "l": 30,
+    "d2g": 13
+   }
+  }
+ },
+ "line_breaks": [
+  {
+   "team": "Argentina",
+   "attempted": 203,
+   "completed": 146
+  },
+  {
+   "team": "France",
+   "attempted": 146,
+   "completed": 94
+  }
+ ],
+ "offers_to_receive": [
+  {
+   "team": "Argentina",
+   "made": 607,
+   "received": 235,
+   "in_behind": null,
+   "in_between": null,
+   "in_front": null,
+   "by_third": {
+    "final": 234,
+    "middle": 280,
+    "defensive": 93
+   }
+  },
+  {
+   "team": "France",
+   "made": 507,
+   "received": 164,
+   "in_behind": null,
+   "in_between": null,
+   "in_front": null,
+   "by_third": {
+    "final": 157,
+    "middle": 293,
+    "defensive": 57
+   }
+  }
+ ],
+ "movement_to_receive": [
+  {
+   "team": "Argentina",
+   "total": 434,
+   "in_front": 137,
+   "in_between": 117,
+   "in_behind": 128,
+   "out_to_in": 26,
+   "in_to_out": 26
+  },
+  {
+   "team": "France",
+   "total": 317,
+   "in_front": 120,
+   "in_between": 76,
+   "in_behind": 94,
+   "out_to_in": 11,
+   "in_to_out": 16
+  }
+ ],
+ "phases_of_play_in_possession": [
+  {
+   "phase": "Build Up Unopposed",
+   "Argentina": 24,
+   "France": 36
+  },
+  {
+   "phase": "Build Up Opposed",
+   "Argentina": 14,
+   "France": 14
+  },
+  {
+   "phase": "Progression",
+   "Argentina": 15,
+   "France": 10
+  },
+  {
+   "phase": "Final Third",
+   "Argentina": 26,
+   "France": 18
+  },
+  {
+   "phase": "Long Ball",
+   "Argentina": 3,
+   "France": 5
+  },
+  {
+   "phase": "Attacking Transition",
+   "Argentina": 17,
+   "France": 16
+  },
+  {
+   "phase": "Counter Attack",
+   "Argentina": 1,
+   "France": 2
+  },
+  {
+   "phase": "Set Piece",
+   "Argentina": 8,
+   "France": 8
+  }
+ ],
+ "phases_of_play_out_of_possession": [
+  {
+   "phase": "High Press",
+   "Argentina": 3,
+   "France": 6
+  },
+  {
+   "phase": "Mid Press",
+   "Argentina": 6,
+   "France": 8
+  },
+  {
+   "phase": "Low Press",
+   "Argentina": 1,
+   "France": 1
+  },
+  {
+   "phase": "High Block",
+   "Argentina": 1,
+   "France": 4
+  },
+  {
+   "phase": "Mid Block",
+   "Argentina": 35,
+   "France": 19
+  },
+  {
+   "phase": "Low Block",
+   "Argentina": 15,
+   "France": 15
+  },
+  {
+   "phase": "Recovery",
+   "Argentina": 3,
+   "France": 3
+  },
+  {
+   "phase": "Defensive Transition",
+   "Argentina": 16,
+   "France": 17
+  },
+  {
+   "phase": "Counter-press",
+   "Argentina": 11,
+   "France": 11
+  }
+ ],
+ "notes": [
+  "xG (Expected Goals) is NOT reported in the 2022 Post-Match Summary Report \u2014 set to null. (2022 EFI reported Attempts/On Target, not xG.)",
+  "offers_to_receive in_behind/in_between/in_front are null: the 2022 'Offering to Receive' page reports only Total Offers Made/Received, offers inside vs outside shape, and offers made by pitch third \u2014 it does NOT split offers by behind/between/front. The behind/between/front split exists only on the 'Movement to Receive' page (captured under movement_to_receive).",
+  "line_breaks: 'attempted'/'completed' are the totals from the dedicated Line Breaks page (ARG 203 attempted / 146 completed; FRA 146 attempted / 94 completed). These reconcile with Key Statistics 'Completed Line Breaks' (ARG 146, FRA 94).",
+  "Defensive shape w/l/d2g read off the 'Defensive Line Height & Team Length' page: w = width label (top of box), l = length label (left of box), d2g = distance-to-goal label (right, distance from box to own goal line). Same convention as in_possession_shape.",
+  "Possession includes a 12.9% contested share (ARG 46.5% / contested 12.9% / FRA 40.6%)."
+ ],
+ "real_xg_statsbomb": {
+  "source": "StatsBomb open data, match 3869685 (penalty shootout excluded)",
+  "Argentina": {
+   "xg": 2.76,
+   "npxg": 1.97,
+   "shots": 20
+  },
+  "France": {
+   "xg": 2.27,
+   "npxg": 0.71,
+   "shots": 10
+  },
+  "note": "France's xG was penalty-heavy (Mbapp\u00e9): open-play npxG 0.71 vs Argentina 1.97."
+ }
+}

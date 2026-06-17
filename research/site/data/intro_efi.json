@@ -1,0 +1,361 @@
+{
+ "fetched": "2026-06-17",
+ "sources": {
+  "pmsr": "FIFA Post-Match Summary Report, parsed via shufinskiy/sport_analytics_tools (fifa_wc)",
+  "pmsr_url": "https://github.com/shufinskiy/sport_analytics_tools/tree/main/fifa_wc",
+  "pmsr_hub": "https://www.fifatrainingcentre.com/en/fifa-world-cup-2026/match-report-hub.php",
+  "efi": "FIFA Enhanced Football Intelligence (WC2026), Bustami/efi-fifa-data-wc-2026",
+  "efi_url": "https://github.com/Bustami/efi-fifa-data-wc-2026"
+ },
+ "note_2022_vs_2026": "In 2022 FIFA's Enhanced Football Intelligence was physical-only (distance, sprints, top speed), so space had to be reconstructed from tracking + labels. For 2026 FIFA publishes team shape, line-breaks, offers-to-receive and a threat number directly in every Post-Match Summary Report \u2014 the same space ideas, now measured live.",
+ "example_match": {
+  "label": "Brazil 1\u20131 Morocco",
+  "stage": "Group C",
+  "date": "2026-06-13",
+  "home": "Brazil",
+  "away": "Morocco",
+  "in_possession_shape": {
+   "Brazil": {
+    "team": "Brazil",
+    "build_up_low": {
+     "w": 57,
+     "l": 39,
+     "d2g": 21
+    },
+    "build_up_mid": {
+     "w": 46,
+     "l": 27,
+     "d2g": 43
+    },
+    "final_third_phase": {
+     "w": 46,
+     "l": 35,
+     "d2g": 57
+    }
+   },
+   "Morocco": {
+    "team": "Morocco",
+    "build_up_low": {
+     "w": 52,
+     "l": 38,
+     "d2g": 19
+    },
+    "build_up_mid": {
+     "w": 56,
+     "l": 31,
+     "d2g": 44
+    },
+    "final_third_phase": {
+     "w": 45,
+     "l": 34,
+     "d2g": 56
+    }
+   }
+  },
+  "defensive_shape": {
+   "Brazil": {
+    "team": "Brazil",
+    "high_block_press": {
+     "w": 43,
+     "l": 35,
+     "d2g": 49
+    },
+    "mid_block": {
+     "w": 40,
+     "l": 28,
+     "d2g": 41
+    },
+    "low_block": {
+     "w": 35,
+     "l": 23,
+     "d2g": 17
+    }
+   },
+   "Morocco": {
+    "team": "Morocco",
+    "high_block_press": {
+     "w": 39,
+     "l": 38,
+     "d2g": 48
+    },
+    "mid_block": {
+     "w": 36,
+     "l": 21,
+     "d2g": 36
+    },
+    "low_block": {
+     "w": 36,
+     "l": 20,
+     "d2g": 19
+    }
+   }
+  },
+  "line_breaks": [
+   {
+    "team": "Brazil",
+    "attempted": 119
+   },
+   {
+    "team": "Morocco",
+    "attempted": 132
+   }
+  ],
+  "offers_to_receive": [
+   {
+    "team": "Brazil",
+    "made": 348,
+    "received": 155,
+    "by_third": {
+     "final": 126,
+     "middle": 178,
+     "defensive": 44
+    }
+   },
+   {
+    "team": "Morocco",
+    "made": 400,
+    "received": 148,
+    "by_third": {
+     "final": 181,
+     "middle": 159,
+     "defensive": 60
+    }
+   }
+  ],
+  "movement_to_receive": [
+   {
+    "team": "Brazil",
+    "total": 241,
+    "in_front": 84,
+    "in_between": 61
+   },
+   {
+    "team": "Morocco",
+    "total": 301,
+    "in_front": 64,
+    "in_between": 113
+   }
+  ],
+  "key_stats": {
+   "Goals": {
+    "home": 1,
+    "away": 1
+   },
+   "xG (Expected Goals)": {
+    "home": 0.99,
+    "away": 1.33
+   }
+  }
+ },
+ "efi_2026": {
+  "n_matches_played": 20,
+  "offers_in_behind": [
+   {
+    "team": "ESP",
+    "per_match": 194.0,
+    "matches": 1
+   },
+   {
+    "team": "URU",
+    "per_match": 186.0,
+    "matches": 1
+   },
+   {
+    "team": "TUR",
+    "per_match": 161.0,
+    "matches": 1
+   },
+   {
+    "team": "CAN",
+    "per_match": 128.0,
+    "matches": 1
+   },
+   {
+    "team": "USA",
+    "per_match": 127.0,
+    "matches": 1
+   },
+   {
+    "team": "GER",
+    "per_match": 124.0,
+    "matches": 1
+   },
+   {
+    "team": "SUI",
+    "per_match": 118.0,
+    "matches": 1
+   },
+   {
+    "team": "MAR",
+    "per_match": 115.0,
+    "matches": 1
+   },
+   {
+    "team": "AUT",
+    "per_match": 111.0,
+    "matches": 1
+   },
+   {
+    "team": "IRQ",
+    "per_match": 108.0,
+    "matches": 1
+   }
+  ],
+  "offers_in_between": [
+   {
+    "team": "ALG",
+    "per_match": 221.0,
+    "matches": 1
+   },
+   {
+    "team": "USA",
+    "per_match": 203.0,
+    "matches": 1
+   },
+   {
+    "team": "AUT",
+    "per_match": 201.0,
+    "matches": 1
+   },
+   {
+    "team": "TUN",
+    "per_match": 192.0,
+    "matches": 1
+   },
+   {
+    "team": "GER",
+    "per_match": 181.0,
+    "matches": 1
+   },
+   {
+    "team": "NZL",
+    "per_match": 180.0,
+    "matches": 1
+   },
+   {
+    "team": "MEX",
+    "per_match": 179.0,
+    "matches": 1
+   },
+   {
+    "team": "ARG",
+    "per_match": 175.0,
+    "matches": 1
+   },
+   {
+    "team": "CIV",
+    "per_match": 174.0,
+    "matches": 1
+   },
+   {
+    "team": "URU",
+    "per_match": 174.0,
+    "matches": 1
+   }
+  ],
+  "receptions_in_behind": [
+   {
+    "team": "ESP",
+    "per_match": 29.0,
+    "matches": 1
+   },
+   {
+    "team": "USA",
+    "per_match": 21.0,
+    "matches": 1
+   },
+   {
+    "team": "SUI",
+    "per_match": 20.0,
+    "matches": 1
+   },
+   {
+    "team": "GER",
+    "per_match": 17.0,
+    "matches": 1
+   },
+   {
+    "team": "IRN",
+    "per_match": 17.0,
+    "matches": 1
+   },
+   {
+    "team": "NOR",
+    "per_match": 17.0,
+    "matches": 1
+   },
+   {
+    "team": "CAN",
+    "per_match": 15.0,
+    "matches": 1
+   },
+   {
+    "team": "URU",
+    "per_match": 15.0,
+    "matches": 1
+   },
+   {
+    "team": "AUT",
+    "per_match": 15.0,
+    "matches": 1
+   },
+   {
+    "team": "KOR",
+    "per_match": 14.0,
+    "matches": 1
+   }
+  ],
+  "linebreaks_completed": [
+   {
+    "team": "USA",
+    "per_match": 10.0,
+    "matches": 1
+   },
+   {
+    "team": "ESP",
+    "per_match": 8.0,
+    "matches": 1
+   },
+   {
+    "team": "GER",
+    "per_match": 7.0,
+    "matches": 1
+   },
+   {
+    "team": "SWE",
+    "per_match": 7.0,
+    "matches": 1
+   },
+   {
+    "team": "SEN",
+    "per_match": 7.0,
+    "matches": 1
+   },
+   {
+    "team": "AUT",
+    "per_match": 7.0,
+    "matches": 1
+   },
+   {
+    "team": "CAN",
+    "per_match": 6.0,
+    "matches": 1
+   },
+   {
+    "team": "SUI",
+    "per_match": 6.0,
+    "matches": 1
+   },
+   {
+    "team": "JPN",
+    "per_match": 6.0,
+    "matches": 1
+   },
+   {
+    "team": "URU",
+    "per_match": 6.0,
+    "matches": 1
+   }
+  ]
+ }
+}
