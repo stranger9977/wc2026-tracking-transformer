@@ -122,8 +122,12 @@ function paintSurface(ctx, surface, W, H, opts = {}) {
   }
   octx.putImageData(img, 0, 0);
   ctx.clearRect(0, 0, W, H);
-  // base felt
-  ctx.fillStyle = "#0b160f"; ctx.fillRect(0, 0, W, H);
+  // base = a dim, uniform PITCH GREEN (not near-black) so areas the team doesn't
+  // control read as neutral grass, never a scary growing "dark void". Danger then
+  // glows brighter than the grass instead of holes opening in black.
+  const felt = ctx.createLinearGradient(0, 0, 0, H);
+  felt.addColorStop(0, opts.felt || "#16241b"); felt.addColorStop(1, opts.felt2 || "#101a14");
+  ctx.fillStyle = felt; ctx.fillRect(0, 0, W, H);
   ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
   // NOTE: source surface row 0 = top of pitch already in screen orientation (ny rows top->bottom),
   // and column 0 = -x (left). Source orientation is attacking +x to the right, so no flip needed.
@@ -440,7 +444,7 @@ async function buildXT() {
     const W = 640, H = Math.round(640 * 68 / 105);
     el.innerHTML = `<div class="hstage"><canvas width="${W}" height="${H}" id="cv-xt"></canvas></div>`;
     const ctx = $("#cv-xt").getContext("2d");
-    paintSurface(ctx, d.surface_norm, W, H, { ramp: rampHot, gamma: 0.85, threshold: 0 });
+    paintSurface(ctx, d.surface_norm, W, H, { ramp: rampHot, gamma: 0.85, threshold: 0, felt: "#0b160f", felt2: "#0b160f" });
     // mark the peak
     let pr = 0, pc = 0, mx = 0;
     d.surface_norm.forEach((row, r) => row.forEach((v, c) => { if (v > mx) { mx = v; pr = r; pc = c; } }));
@@ -454,6 +458,41 @@ async function buildXT() {
     ctx.fillStyle = "rgba(255,255,255,.5)"; ctx.font = "11px sans-serif"; ctx.textAlign = "right";
     ctx.fillText("opponent goal →", W - 8, 16);
   } catch (e) { el.innerHTML = `<p class="caption">xT surface unavailable: ${e.message}</p>`; }
+}
+
+// xT-created leaderboards (teams + players by threat added through open-play passing)
+async function buildXTcreated() {
+  const tEl = $("#xt-teams"), pEl = $("#xt-players");
+  if (!tEl && !pEl) return;
+  let d;
+  try { d = await loadJSON("data/xt_created.json"); } catch (e) { return; }
+  const NAMEFIX = {
+    "Lionel Andrés Messi Cuccittini": "Lionel Messi",
+    "Kylian Mbappé Lottin": "Kylian Mbappé",
+    "Pedro González López": "Pedri",
+    "Ángel Fabián Di María Hernández": "Ángel Di María",
+    "Theo Bernard François Hernández": "Theo Hernández",
+  };
+  const shortName = (n) => {
+    if (NAMEFIX[n]) return NAMEFIX[n];
+    const w = n.split(" ");
+    return w.length <= 2 ? n : `${w[0]} ${w[w.length - 1]}`;
+  };
+  const bars = (rows, valOf, labelOf, colOf, fmt) => {
+    const mx = Math.max(1e-6, ...rows.map(valOf));
+    return rows.map((r) => `<div class="tbrow"><span class="tbname">${labelOf(r)}</span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 4, 100)}%;background:${colOf(r)}"></span></span>
+      <span class="tbval">${fmt(valOf(r))}</span></div>`).join("");
+  };
+  if (tEl) {
+    tEl.innerHTML = bars(d.teams.slice(0, 8), (r) => r.xt_per_match,
+      (r) => r.team, (r) => teamColor(r.team), (v) => v.toFixed(2));
+  }
+  if (pEl) {
+    pEl.innerHTML = bars(d.players.slice(0, 10), (r) => r.xt_total,
+      (r) => `${shortName(r.name)} <span class="lteam">${r.team}</span>`,
+      (r) => teamColor(r.team), (v) => v.toFixed(1));
+  }
 }
 
 /* =================================================================
@@ -711,7 +750,7 @@ async function buildPOBSO() {
   const data = await loadJSON("data/space_pobso.json");
   const scEl = $("#pobso-canvas");
   buildScrubber(scEl, surf, {
-    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.04,
+    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02,
     labelName: surf.hero.name, defaultMode: "surface",
     toggles: [
       { key: "reveal", label: "reveal danger (× xT)" },
@@ -1011,6 +1050,7 @@ if (!window.__spaceWIPPage) {
     await buildIntro();
     await buildXT();
     buildXtExplainer();
+    buildXTcreated();
     await Promise.allSettled([buildCHASE(), buildPOBSO()]);
     buildChaseExplainer();
     buildDangerExplainer();

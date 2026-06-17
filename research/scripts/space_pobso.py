@@ -598,7 +598,7 @@ def find_and_export_hero(res, matches):
             if j - i < 6:
                 continue
             adv = xs[j - 1] - xs[i]              # forward advance over the window (m)
-            if adv < 6.0 or xs[j - 1] < 15.0:    # must advance >=6 m AND end in the attacking third
+            if adv < 6.0 or xs[j - 1] < 28.0:    # advance >=6 m AND END in/near the box (final third)
                 continue
             mean_ob = sum(ob[i:j]) / (j - i)
             score = mean_ob * (1.0 + min(adv, 25.0) / 25.0)

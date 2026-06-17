@@ -583,9 +583,10 @@ def main():
                 continue
             wmean = sum(gv[i:j]) / (j - i)
             win_bx = bx[i:j]
-            # whole window in the attacking half, OFF the byline: a build-up / final-third
-            # approach where gravity opens a lane — NOT a corner / goalmouth scramble.
-            if max(win_bx) > 44.0 or min(win_bx) < -2.0:
+            mean_bx = sum(win_bx) / len(win_bx)
+            # gravity in the FINAL THIRD, off the byline: a focal striker bending the
+            # back line near the box — the clearest "block collapses around him" example.
+            if not (25.0 <= mean_bx <= 46.0) or max(win_bx) > 50.0:
                 continue
             if best is None or wmean > best[0]:
                 best = (wmean, mid, period, key, ts[i], ts[j - 1])
