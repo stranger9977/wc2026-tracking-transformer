@@ -19,70 +19,70 @@
      "home": "Argentina",
      "away": "France",
      "frames": 10232,
-     "secs": 28.0
+     "secs": 27.8
     },
     {
      "match_id": "10503",
      "home": "Argentina",
      "away": "Australia",
      "frames": 8699,
-     "secs": 20.2
+     "secs": 20.1
     },
     {
      "match_id": "10514",
      "home": "Argentina",
      "away": "Croatia",
      "frames": 8044,
-     "secs": 18.5
+     "secs": 18.8
     },
     {
      "match_id": "10513",
      "home": "England",
      "away": "France",
      "frames": 7913,
-     "secs": 18.8
+     "secs": 19.5
     },
     {
      "match_id": "10504",
      "home": "France",
      "away": "Poland",
      "frames": 8478,
-     "secs": 18.6
+     "secs": 20.0
     },
     {
      "match_id": "10512",
      "home": "Morocco",
      "away": "Portugal",
      "frames": 8000,
-     "secs": 18.6
+     "secs": 19.9
     },
     {
      "match_id": "10509",
      "home": "Portugal",
      "away": "Switzerland",
      "frames": 7765,
-     "secs": 17.7
+     "secs": 19.6
     },
     {
      "match_id": "10508",
      "home": "Morocco",
      "away": "Spain",
      "frames": 10841,
-     "secs": 26.2
+     "secs": 29.7
     },
     {
      "match_id": "10511",
      "home": "Netherlands",
      "away": "Argentina",
      "frames": 8541,
-     "secs": 21.3
+     "secs": 23.9
     },
     {
      "match_id": "10510",
      "home": "Croatia",
      "away": "Brazil",
      "frames": 8521,
-     "secs": 19.2
+     "secs": 22.1
     }
    ],
    "min_frames_per_player": 150,
@@ -90,7 +90,7 @@
   },
   "occlusion": "~40.9% of PFF positions are ESTIMATED (biased to forwards/wingers). Each row reports estimated_frac; occlusion_flag=true if >50% of an attacker's contributing frames are ESTIMATED.",
   "honesty": "Tie-aware ranks: rows whose 90% bootstrap CI overlaps the rank-group leader share a rank (no false single #1). Correlation with xG is not causation.",
-  "elapsed_s": 226.8
+  "elapsed_s": 240.5
  },
  "xg_receipt": {
   "rho": 0.3846,

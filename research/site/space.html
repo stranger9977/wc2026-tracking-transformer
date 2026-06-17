@@ -172,7 +172,7 @@
   .cmprow{display:flex; align-items:center; gap:9px; margin:3px 0}
   .cmprow .ck{width:34px; font-size:11px; color:var(--muted); flex:0 0 auto}
   .cmprow .ctrack{flex:1; height:14px; background:var(--bg-elev2); border-radius:5px; overflow:hidden; border:1px solid var(--border)}
-  .cmprow .cfill{height:100%; border-radius:5px 0 0 5px; opacity:.9}
+  .cmprow .cfill{display:block; height:100%; border-radius:5px 0 0 5px; opacity:.9}
   .cmprow .cval{width:46px; text-align:right; font-size:12.5px; color:var(--ink); font-variant-numeric:tabular-nums; font-weight:600; flex:0 0 auto}
   .cmpwin{font-size:11.5px; color:var(--good); margin-top:2px}
   .cmpsub{font-size:11.5px; color:var(--muted)} .cmpsub b{color:var(--ink)}
@@ -200,6 +200,7 @@
   .lname .fl{width:9px;height:9px;border-radius:2px; flex:0 0 auto}
   .lteam{color:var(--muted); font-size:12px}
   .lpos{font-size:10px; font-weight:700; color:var(--accent2); border:1px solid #9b8cff55; background:#9b8cff14; border-radius:4px; padding:1px 5px; letter-spacing:.03em}
+  .boardlab{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin:0 0 8px; font-weight:700}
   .ltrack{position:relative; height:18px; background:var(--bg-elev2); border-radius:6px; overflow:hidden; border:1px solid var(--border)}
   .lfill{position:absolute; left:0; top:0; height:100%; border-radius:6px 0 0 6px; opacity:.8}
   .lval{text-align:right; color:var(--ink); font-variant-numeric:tabular-nums; font-weight:600; min-width:64px}
@@ -212,7 +213,7 @@
   .tbrow{display:grid; grid-template-columns:minmax(120px,160px) 1fr auto; align-items:center; gap:10px; margin:6px 0; font-size:14px}
   .tbname{color:var(--ink)}
   .tbtrack{height:16px; background:var(--bg-elev2); border-radius:6px; overflow:hidden; border:1px solid var(--border)}
-  .tbfill{height:100%; border-radius:6px 0 0 6px; opacity:1}
+  .tbfill{display:block; height:100%; border-radius:6px 0 0 6px; opacity:1}
   .tbval{text-align:right; color:var(--muted); font-variant-numeric:tabular-nums; min-width:56px}
 
   /* xG receipt panel */
@@ -281,7 +282,7 @@
     <div class="reveal">
       <div class="act-tag"><span class="num">·</span> Foundations</div>
       <h2>What is space? What is control?</h2>
-      <p class="lede">Two words get thrown around every broadcast. Here is what they actually mean — in plain language, then grounded in FIFA's own 2026 World Cup data so you can see them, not just hear them.</p>
+      <p class="lede">Almost every goal starts as <b>space</b> — a yard a defender didn't cover, a lane that opens for half a second. The sides that manufacture the most of it create the most chances and win the most games. Before we measure <i>who's best at it</i>, two words worth pinning down — in plain language, then in FIFA's own 2026 World Cup numbers so you can see them, not just hear them.</p>
 
       <p class="body"><b>Space</b> is the controllable pitch a team can actually use. Not the empty green between bodies — the grass a team can <i>get to and do something with</i>: the room they stretch open between an opponent's lines, or the gap they spring into behind the last defender. Good teams manufacture it; they pull markers apart and step into the seam.</p>
 
@@ -331,6 +332,16 @@
         <p class="caption">The danger isn't at the goal line — it's the <b>central pocket just outside the box</b> (peak xT ≈ 0.257). That is where a received ball is worth the most. Everything wide and deep is low-value grass.</p>
       </div>
       <div id="xt-explainer" class="xpl"></div>
+
+      <div class="card">
+        <h3>Who creates the most threat — xT added by open-play passing</h3>
+        <div class="twoup">
+          <div><div class="boardlab">Teams · xT added per match</div><div id="xt-teams" class="tbars"></div></div>
+          <div><div class="boardlab">Players · total xT added (WC2022)</div><div id="xt-players" class="tbars"></div></div>
+        </div>
+        <p class="caption">Every completed open-play pass scores the <b>xT it gains</b> — the rise in Expected Threat from where the ball started to where it ended. Sum it up and you get who repeatedly moves the ball into more dangerous space. <b>Germany</b> and <b>Spain</b> lead the teams; <b>Griezmann</b>, <b>Modrić</b> and <b>Messi</b> the players — the deep creators who feed the dangerous zones, not the finishers who arrive in them.</p>
+      </div>
+
       <p class="body">xT is the value surface the rest of the study leans on. We value space against it once, deliberately, in <b>Act 2 — Dangerous Space</b>; the gravity act in between is pure geometry, no threat weighting.</p>
 
       <div class="reading">
@@ -511,6 +522,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=7"></script>
+<script type="module" src="assets/js/space.js?v=8"></script>
 </body>
 </html>
