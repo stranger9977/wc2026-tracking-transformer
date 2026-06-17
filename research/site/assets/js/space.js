@@ -965,7 +965,7 @@ function buildXtExplainer() {
   const stops = [{ x: 80, y: 62, v: 0.02 }, { x: 176, y: 40, v: 0.11 }, { x: 224, y: 52, v: 0.26 }];
   host.innerHTML = `
     <div class="xpl-head">how it's built · <b>xT</b></div>
-    <svg class="xpl-svg" viewBox="0 0 240 110" role="img" aria-label="ball moving into higher-value zone">
+    <svg class="xpl-svg" viewBox="0 0 240 110" preserveAspectRatio="xMidYMid meet" overflow="hidden" role="img" aria-label="ball moving into higher-value zone">
       <rect x="4" y="4" width="232" height="102" rx="6" fill="#0b160f" stroke="#2a313d"/>
       <defs>
         <radialGradient id="xtPocket" cx="95%" cy="50%" r="40%">
