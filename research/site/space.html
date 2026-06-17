@@ -324,21 +324,22 @@
       <div class="act-tag"><span class="num">0</span> Where the danger lives</div>
       <h2>Before space, the value of space.</h2>
       <p class="lede"><b>Expected Threat (xT)</b> — Karun Singh's canonical model — scores every spot on the pitch by one question: <i>if your team has the ball here, how likely does it become a goal within the next few actions?</i> It is learned from millions of recorded possessions. Move the ball into a higher-xT zone and you have added threat — no shot required yet.</p>
-      <p class="body">A worked example: a player in a <b>midfield pocket</b> sits at roughly <b>0.02</b> threat — the ball there rarely becomes a goal soon. Slide it forward into the <b>central pocket at the top of the box</b> and that spot is worth about <b>0.26</b>. The pass itself added <b>+0.24</b> of threat, purely by moving the ball to more valuable grass.</p>
+      <p class="body">A worked example of the gradient: a <b>midfield pocket</b> is worth roughly <b>0.02</b> xT; the <b>edge of the box</b> about <b>0.11</b>; a central spot <b>right in front of goal</b> about <b>0.26</b> — the value climbs the closer the ball gets to the goal. A pass that carries it from midfield to the goal mouth adds about <b>+0.24</b> of threat, purely by moving it to more valuable grass.</p>
 
       <details class="notes reveal">
         <summary>What does an xT of 0.26 mean — and how is it different from xG?</summary>
         <ul>
-          <li><b>It's a 0–1 value like a probability, but it is not xG.</b> <b>xG</b> scores a single shot — "how likely is <i>this shot</i> to be a goal?" <b>xT</b> scores <i>possession at a place</i> — "if our team has the ball here, how likely is a goal within the next few actions?" xT exists for every spot on the pitch; xG only exists once someone shoots.</li>
-          <li><b>That's why 0.26 looks high.</b> A shot from the top of the box is only a few percent to score (its xG). But <i>possession</i> there is worth ~0.26 xT — far more — because xT counts everything that can still happen: the cutback, the second ball, the better shot two passes later. xG values the shot; xT values the situation.</li>
-          <li><b>Which box:</b> the peak is the central zone at the top of the <b>18-yard penalty box</b> (the “D”) — <i>not</i> the six-yard box. Straight in front of goal actually scores lower here, because in open play the ball rarely arrives and settles there; threat lives where teams reliably <i>build</i> a shot.</li>
+          <li><b>It's a 0–1 value like a probability, but it is not xG.</b> <b>xG</b> scores a single shot — “how likely is <i>this shot</i> a goal?” <b>xT</b> scores <i>possession at a place</i> — “if our team has the ball here, how likely is a goal within the next few actions?” xT exists for every spot on the pitch; xG only exists once someone shoots.</li>
+          <li><b>So 0.26 ≈ a 26% chance the possession ends in a goal</b> within the next few actions (Singh's model settles after ~5), starting from that spot. It values the whole short sequence, not one shot — which is why it reads higher than a single shot's xG.</li>
+          <li><b>Where it peaks:</b> right in front of goal — the central <b>six-yard box / goal mouth</b> — climbing the closer the ball gets to goal (midfield ~0.02 → edge of the box ~0.11 → front of goal ~0.26). The danger really is at the goal, steepest through the central channel.</li>
+          <li><b>These are Karun Singh's published values, not ours.</b> The surface is his canonical open 12×8 xT grid (peak 0.2574); we verified our copy matches his published file exactly — the scale isn't something we invented.</li>
         </ul>
       </details>
       <div class="card">
         <h3>The xT surface — attacking left → right, opponent goal at the right</h3>
         <div id="xt-canvas" class="heat"></div>
         <div class="legend"><span>low value</span><span class="grad"></span><span>high value</span></div>
-        <p class="caption">The danger isn't at the goal line — it's the <b>central pocket at the top of the 18-yard box</b> (the “D”, peak xT ≈ 0.257), not the six-yard box. That is where a received ball is worth the most. Everything wide and deep is low-value grass.</p>
+        <p class="caption">xT climbs the closer the ball gets to goal, peaking in the central zone <b>right in front of goal</b> — the six-yard box / goal mouth — at <b>≈ 0.257</b>. Everything wide and deep is low-value grass. (Karun Singh's published values, not ours.)</p>
       </div>
       <div id="xt-explainer" class="xpl"></div>
 
@@ -541,6 +542,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=9"></script>
+<script type="module" src="assets/js/space.js?v=10"></script>
 </body>
 </html>
