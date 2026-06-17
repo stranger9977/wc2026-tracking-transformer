@@ -1,0 +1,251 @@
+{
+ "source": "FIFA Enhanced Football Intelligence (EFI), WC2026 \u2014 Bustami/efi-fifa-data-wc-2026 (master)",
+ "fetched": "2026-06-16",
+ "note": "2026 EFI is RICH + LIVE (threat, xg) \u2014 unlike 2022 which was physical-only (distance/sprints/top speed). This is the live closing hook: the off-ball \"threat\" idea our space metrics chase, now measured in-tournament.",
+ "n_matches": 16,
+ "n_teams": 32,
+ "n_player_rows": 812,
+ "team_threat_leaders": [
+  {
+   "team": "BEL",
+   "threat": 61.19,
+   "xg": 0.0,
+   "dist_km": 115.2,
+   "matches": 1
+  },
+  {
+   "team": "EGY",
+   "threat": 38.82,
+   "xg": 0.0,
+   "dist_km": 114.0,
+   "matches": 1
+  },
+  {
+   "team": "TUR",
+   "threat": 24.82,
+   "xg": 1.66,
+   "dist_km": 112.5,
+   "matches": 1
+  },
+  {
+   "team": "ESP",
+   "threat": 24.42,
+   "xg": 2.26,
+   "dist_km": 115.5,
+   "matches": 1
+  },
+  {
+   "team": "URU",
+   "threat": 23.0,
+   "xg": 1.5,
+   "dist_km": 110.9,
+   "matches": 1
+  },
+  {
+   "team": "CAN",
+   "threat": 18.52,
+   "xg": 1.49,
+   "dist_km": 111.3,
+   "matches": 1
+  },
+  {
+   "team": "SUI",
+   "threat": 17.18,
+   "xg": 3.14,
+   "dist_km": 109.4,
+   "matches": 1
+  },
+  {
+   "team": "NED",
+   "threat": 17.03,
+   "xg": 0.63,
+   "dist_km": 102.9,
+   "matches": 1
+  },
+  {
+   "team": "USA",
+   "threat": 16.41,
+   "xg": 1.88,
+   "dist_km": 119.9,
+   "matches": 1
+  },
+  {
+   "team": "MEX",
+   "threat": 16.38,
+   "xg": 1.78,
+   "dist_km": 107.3,
+   "matches": 1
+  },
+  {
+   "team": "HAI",
+   "threat": 14.22,
+   "xg": 0.7,
+   "dist_km": 113.7,
+   "matches": 1
+  },
+  {
+   "team": "GER",
+   "threat": 13.9,
+   "xg": 4.17,
+   "dist_km": 116.2,
+   "matches": 1
+  }
+ ],
+ "team_distance_leaders": [
+  {
+   "team": "USA",
+   "threat": 16.41,
+   "xg": 1.88,
+   "dist_km": 119.9,
+   "matches": 1
+  },
+  {
+   "team": "CZE",
+   "threat": 10.63,
+   "xg": 0.64,
+   "dist_km": 117.6,
+   "matches": 1
+  },
+  {
+   "team": "SCO",
+   "threat": 7.91,
+   "xg": 0.91,
+   "dist_km": 117.6,
+   "matches": 1
+  },
+  {
+   "team": "AUS",
+   "threat": 4.32,
+   "xg": 0.99,
+   "dist_km": 116.6,
+   "matches": 1
+  },
+  {
+   "team": "GER",
+   "threat": 13.9,
+   "xg": 4.17,
+   "dist_km": 116.2,
+   "matches": 1
+  },
+  {
+   "team": "ESP",
+   "threat": 24.42,
+   "xg": 2.26,
+   "dist_km": 115.5,
+   "matches": 1
+  },
+  {
+   "team": "BEL",
+   "threat": 61.19,
+   "xg": 0.0,
+   "dist_km": 115.2,
+   "matches": 1
+  },
+  {
+   "team": "MAR",
+   "threat": 13.5,
+   "xg": 1.33,
+   "dist_km": 114.9,
+   "matches": 1
+  }
+ ],
+ "player_threat_leaders": [
+  {
+   "player": "Charles DE KETELAERE",
+   "team": "BEL",
+   "threat": 14.73,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Forward"
+  },
+  {
+   "player": "Omar Marmoush",
+   "team": "EGY",
+   "threat": 12.78,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Forward"
+  },
+  {
+   "player": "Kevin DE BRUYNE",
+   "team": "BEL",
+   "threat": 9.39,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Midfielder"
+  },
+  {
+   "player": "Deniz GUL",
+   "team": "TUR",
+   "threat": 7.97,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Forward"
+  },
+  {
+   "player": "Leandro TROSSARD",
+   "team": "BEL",
+   "threat": 7.59,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Forward"
+  },
+  {
+   "player": "Youri TIELEMANS",
+   "team": "BEL",
+   "threat": 7.2,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Midfielder"
+  },
+  {
+   "player": "Romelu LUKAKU",
+   "team": "BEL",
+   "threat": 7.01,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Forward"
+  },
+  {
+   "player": "Rodrigo AGUIRRE",
+   "team": "URU",
+   "threat": 6.79,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Forward"
+  },
+  {
+   "player": "Armando GONZALEZ",
+   "team": "MEX",
+   "threat": 6.57,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Forward"
+  },
+  {
+   "player": "Jeremy DOKU",
+   "team": "BEL",
+   "threat": 6.53,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Forward"
+  },
+  {
+   "player": "Hamza Abdelkarim",
+   "team": "EGY",
+   "threat": 6.44,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Forward"
+  },
+  {
+   "player": "Mostafa Zico",
+   "team": "EGY",
+   "threat": 6.15,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Midfielder"
+  }
+ ],
+ "space_not_distance": "Threat and distance are NOT the same axis: the team that runs the most is rarely the team that threatens the most. That is the whole 2022 thesis \u2014 space is positional value, not kilometres covered \u2014 carried into the live 2026 numbers."
+}
