@@ -114,6 +114,10 @@
   #intro-shape .iswatch.solid{background:var(--muted)}
   #intro-shape .iswatch.dash{background:transparent;border:1.5px dashed var(--muted)}
   #intro-shape .ileg-sep{color:var(--faint)}
+  .ishape-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  @media(max-width:640px){ .ishape-grid{grid-template-columns:1fr} }
+  .ishape-cell{min-width:0}
+  .ishape-team{font-size:13px; font-weight:700; color:var(--ink); margin-bottom:6px}
   #intro-efi{margin-top:6px}
 
   /* ---------------- explainer widgets (xt / chase / dangerous) ---------------- */
@@ -195,6 +199,7 @@
   .lname{display:inline-flex; align-items:center; gap:8px}
   .lname .fl{width:9px;height:9px;border-radius:2px; flex:0 0 auto}
   .lteam{color:var(--muted); font-size:12px}
+  .lpos{font-size:10px; font-weight:700; color:var(--accent2); border:1px solid #9b8cff55; background:#9b8cff14; border-radius:4px; padding:1px 5px; letter-spacing:.03em}
   .ltrack{position:relative; height:18px; background:var(--bg-elev2); border-radius:6px; overflow:hidden; border:1px solid var(--border)}
   .lfill{position:absolute; left:0; top:0; height:100%; border-radius:6px 0 0 6px; opacity:.8}
   .lval{text-align:right; color:var(--ink); font-variant-numeric:tabular-nums; font-weight:600; min-width:64px}
@@ -207,7 +212,7 @@
   .tbrow{display:grid; grid-template-columns:minmax(120px,160px) 1fr auto; align-items:center; gap:10px; margin:6px 0; font-size:14px}
   .tbname{color:var(--ink)}
   .tbtrack{height:16px; background:var(--bg-elev2); border-radius:6px; overflow:hidden; border:1px solid var(--border)}
-  .tbfill{height:100%; border-radius:6px 0 0 6px; opacity:.85}
+  .tbfill{height:100%; border-radius:6px 0 0 6px; opacity:1}
   .tbval{text-align:right; color:var(--muted); font-variant-numeric:tabular-nums; min-width:56px}
 
   /* xG receipt panel */
@@ -350,10 +355,10 @@
       <h2>Who bends the back line.</h2>
       <p class="lede">Pure space, no goals: how many markers an attacker ties up (<b>drawn</b>), amplified by how hard those defenders sprint at him (<b>chase-pull</b>). Target men and focal attackers warp the most; roaming creators like Messi score lower because they slip <i>between</i> markers instead of pinning them. The surface is the <b>defender</b> pitch-control field — watch the block collapse toward the gravity attacker and a lane tear open.</p>
       <div class="card">
-        <h3>Defensive gravity surface — the defensive shell during Messi's build-up</h3>
+        <h3>Defensive gravity surface — the block bending around <span id="chase-hero-title">the focal attacker</span></h3>
         <div id="chase-canvas" class="heat"></div>
         <div class="legend"><span>open</span><span class="grad cool"></span><span>defence in control</span></div>
-        <p class="caption">Messi is highlighted and labelled on the clip by default — ring plus name tag — so you can track the player doing the bending. Toggle <b>gravity spokes</b> to draw a 12 m pull radius around him: every defender inside it is linked to him, deeper colour = closer marker. The violet block is where the defence owns space — it visibly squeezes as he drifts.</p>
+        <p class="caption">This is the single most gravity-bending sustained moment in the sample — the attacker is highlighted and labelled (ring plus name tag) so you can track who's doing the bending. Toggle <b>gravity spokes</b> to draw a 12 m pull radius around him: every defender inside it is linked to him, deeper colour = closer marker. The violet block is where the defence owns space — it visibly squeezes as he drifts and a lane opens.</p>
       </div>
       <div id="chase-explainer" class="xpl"></div>
       <div class="card">
@@ -401,12 +406,12 @@
       <div class="act-tag bridge"><span class="num">2</span> Dangerous Space</div>
       <h2>Dangerous Space.</h2>
       <p class="subtitle">(pitch control × Expected Threat; academically, pressure-aware OBSO)</p>
-      <p class="lede">This is the strong one. It finds the off-ball player who controls the most <b>valuable</b> grass — space the ball could reach that's also close to a goal (high xT). Control over low-value grass is nothing; control over the danger pocket is everything. Scrub Mbappé's run in the Argentina–France final: a bright danger-pocket blooms <b>ahead</b> of the run, before the pass exists.</p>
+      <p class="lede">This is the strong one. It finds the off-ball player who controls the most <b>valuable</b> grass — space the ball could reach that's also close to a goal (high xT). Control over low-value grass is nothing; control over the danger pocket is everything. Scrub the auto-selected off-ball run from the Argentina–France final: a bright danger-pocket blooms <b>ahead</b> of the run, before the pass exists.</p>
       <div class="card">
-        <h3>Dangerous-space surface — Mbappé's off-ball run (ARG v FRA final, ~95′)</h3>
+        <h3>Dangerous-space surface — <span id="pobso-hero-title">an off-ball run into the danger zone</span> (ARG v FRA final)</h3>
         <div id="pobso-canvas" class="heat"></div>
         <div class="legend"><span>controlled but low-value</span><span class="grad"></span><span>controlled danger</span></div>
-        <p class="caption">Mbappé is highlighted and labelled on the clip by default — ring plus name tag — so the danger-maker is never lost in the dots. Toggle <b>reveal danger</b> to fade the ball-centric view and keep only cells that are both controlled <i>and</i> threatening (× xT) — you watch the scoring opportunity form before the pass. Mbappé controls 48.5 xT-weighted m² at 6.6 m/s here.</p>
+        <p class="caption">The runner is highlighted and labelled on the clip by default — ring plus name tag — so the danger-maker is never lost in the dots. Toggle <b>reveal danger</b> to fade the ball-centric view and keep only cells that are both controlled <i>and</i> threatening (× xT) — you watch the scoring opportunity form ahead of the run, before the pass.</p>
       </div>
       <div id="pobso-explainer" class="xpl"></div>
       <div class="card">
@@ -506,6 +511,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=6"></script>
+<script type="module" src="assets/js/space.js?v=7"></script>
 </body>
 </html>

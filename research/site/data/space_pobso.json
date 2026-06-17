@@ -100,7 +100,7 @@
    2
   ],
   "secs_per_frame": 0.5,
-  "compute_s": 168.8,
+  "compute_s": 174.2,
   "occlusion_estimated_pct": 38.7
  },
  "section_spec": {
@@ -209,7 +209,8 @@
    "pressured_share": 0.25,
    "estimated_share": 0.404,
    "occlusion_flag": false,
-   "tied_with_leader": true
+   "tied_with_leader": true,
+   "position": "CF"
   },
   {
    "name": "Paulo Dybala",
@@ -225,7 +226,8 @@
    "pressured_share": 0.006,
    "estimated_share": 0.521,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Youssef En-Nesyri",
@@ -241,7 +243,8 @@
    "pressured_share": 0.337,
    "estimated_share": 0.72,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Angel Correa",
@@ -257,7 +260,8 @@
    "pressured_share": 0.027,
    "estimated_share": 0.593,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Kylian Mbapp\u00e9",
@@ -273,7 +277,8 @@
    "pressured_share": 0.267,
    "estimated_share": 0.49,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Bruno Petkovic",
@@ -289,7 +294,8 @@
    "pressured_share": 0.031,
    "estimated_share": 0.483,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Lionel Messi",
@@ -305,7 +311,8 @@
    "pressured_share": 0.226,
    "estimated_share": 0.335,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Marcus Rashford",
@@ -321,7 +328,8 @@
    "pressured_share": 0.125,
    "estimated_share": 0.68,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Breel Embolo",
@@ -337,7 +345,8 @@
    "pressured_share": 0.231,
    "estimated_share": 0.392,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Goncalo Ramos",
@@ -353,7 +362,8 @@
    "pressured_share": 0.263,
    "estimated_share": 0.386,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Andrej Kramaric",
@@ -369,7 +379,8 @@
    "pressured_share": 0.277,
    "estimated_share": 0.494,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Julian Alvarez",
@@ -385,7 +396,8 @@
    "pressured_share": 0.23,
    "estimated_share": 0.324,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Olivier Giroud",
@@ -401,7 +413,8 @@
    "pressured_share": 0.304,
    "estimated_share": 0.528,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Randal Kolo Muani",
@@ -417,7 +430,8 @@
    "pressured_share": 0.139,
    "estimated_share": 0.324,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Bukayo Saka",
@@ -433,7 +447,8 @@
    "pressured_share": 0.289,
    "estimated_share": 0.655,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Harry Kane",
@@ -449,7 +464,8 @@
    "pressured_share": 0.261,
    "estimated_share": 0.796,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Rafael Leao",
@@ -465,7 +481,8 @@
    "pressured_share": 0.342,
    "estimated_share": 0.401,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Walid Cheddira",
@@ -481,7 +498,8 @@
    "pressured_share": 0.086,
    "estimated_share": 0.524,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Ferran Torres",
@@ -497,7 +515,8 @@
    "pressured_share": 0.278,
    "estimated_share": 0.593,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Abde Ezzalzouli",
@@ -513,7 +532,8 @@
    "pressured_share": 0.066,
    "estimated_share": 0.585,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Aymeric Laporte",
@@ -529,7 +549,8 @@
    "pressured_share": 0.28,
    "estimated_share": 0.415,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Ousmane Dembele",
@@ -545,7 +566,8 @@
    "pressured_share": 0.276,
    "estimated_share": 0.434,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Thiago Silva",
@@ -561,7 +583,8 @@
    "pressured_share": 0.197,
    "estimated_share": 0.548,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Raphinha",
@@ -577,7 +600,8 @@
    "pressured_share": 0.288,
    "estimated_share": 0.544,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Hakim Ziyech",
@@ -593,7 +617,8 @@
    "pressured_share": 0.27,
    "estimated_share": 0.497,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Antony",
@@ -609,7 +634,8 @@
    "pressured_share": 0.029,
    "estimated_share": 0.616,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Memphis Depay",
@@ -625,7 +651,8 @@
    "pressured_share": 0.21,
    "estimated_share": 0.325,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Rodri",
@@ -641,7 +668,8 @@
    "pressured_share": 0.24,
    "estimated_share": 0.328,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Haris Seferovic",
@@ -657,7 +685,8 @@
    "pressured_share": 0.031,
    "estimated_share": 0.396,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Nico Williams",
@@ -673,7 +702,8 @@
    "pressured_share": 0.101,
    "estimated_share": 0.313,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Steven Bergwijn",
@@ -689,7 +719,8 @@
    "pressured_share": 0.374,
    "estimated_share": 0.309,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Vin\u00edcius Junior",
@@ -705,7 +736,8 @@
    "pressured_share": 0.314,
    "estimated_share": 0.727,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Kingsley Coman",
@@ -721,7 +753,8 @@
    "pressured_share": 0.066,
    "estimated_share": 0.438,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Abderrazak Hamdallah",
@@ -737,7 +770,8 @@
    "pressured_share": 0.078,
    "estimated_share": 0.621,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Jurrien Timber",
@@ -753,7 +787,8 @@
    "pressured_share": 0.183,
    "estimated_share": 0.348,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Eray Comert",
@@ -769,7 +804,8 @@
    "pressured_share": 0.006,
    "estimated_share": 0.517,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Achraf Dari",
@@ -785,7 +821,8 @@
    "pressured_share": 0.211,
    "estimated_share": 0.422,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Bruno Fernandes",
@@ -801,7 +838,8 @@
    "pressured_share": 0.197,
    "estimated_share": 0.272,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Joao Felix",
@@ -817,7 +855,8 @@
    "pressured_share": 0.278,
    "estimated_share": 0.262,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Marquinhos",
@@ -833,7 +872,8 @@
    "pressured_share": 0.192,
    "estimated_share": 0.534,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Kyle Walker",
@@ -849,7 +889,8 @@
    "pressured_share": 0.248,
    "estimated_share": 0.435,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "Phil Foden",
@@ -865,7 +906,8 @@
    "pressured_share": 0.251,
    "estimated_share": 0.52,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Richarlison",
@@ -881,7 +923,8 @@
    "pressured_share": 0.227,
    "estimated_share": 0.68,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Rub\u00e9n Vargas",
@@ -897,7 +940,8 @@
    "pressured_share": 0.212,
    "estimated_share": 0.246,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Cristiano Ronaldo",
@@ -913,7 +957,8 @@
    "pressured_share": 0.088,
    "estimated_share": 0.218,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Pepe",
@@ -929,7 +974,8 @@
    "pressured_share": 0.16,
    "estimated_share": 0.624,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Mario Pasalic",
@@ -945,7 +991,8 @@
    "pressured_share": 0.357,
    "estimated_share": 0.446,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "\u00c1ngel Di Mar\u00eda",
@@ -961,7 +1008,8 @@
    "pressured_share": 0.246,
    "estimated_share": 0.249,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Mislav Orsic",
@@ -977,7 +1025,8 @@
    "pressured_share": 0.003,
    "estimated_share": 0.578,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Sofiane Boufal",
@@ -993,7 +1042,8 @@
    "pressured_share": 0.368,
    "estimated_share": 0.524,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Marcos Acu\u00f1a",
@@ -1009,7 +1059,8 @@
    "pressured_share": 0.216,
    "estimated_share": 0.303,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Fabian Sch\u00e4r",
@@ -1025,7 +1076,8 @@
    "pressured_share": 0.374,
    "estimated_share": 0.442,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "MCB"
   },
   {
    "name": "Ivan Perisic",
@@ -1041,7 +1093,8 @@
    "pressured_share": 0.244,
    "estimated_share": 0.458,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Xherdan Shaqiri",
@@ -1057,7 +1110,8 @@
    "pressured_share": 0.206,
    "estimated_share": 0.306,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Jawad El Yamiq",
@@ -1073,7 +1127,8 @@
    "pressured_share": 0.181,
    "estimated_share": 0.382,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Raheem Sterling",
@@ -1089,7 +1144,8 @@
    "pressured_share": 0.109,
    "estimated_share": 0.491,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Yahia Attiat-Allah",
@@ -1105,7 +1161,8 @@
    "pressured_share": 0.053,
    "estimated_share": 0.321,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Diogo Dalot",
@@ -1121,7 +1178,8 @@
    "pressured_share": 0.224,
    "estimated_share": 0.265,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "Denzel Dumfries",
@@ -1137,7 +1195,8 @@
    "pressured_share": 0.23,
    "estimated_share": 0.287,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "Dejan Lovren",
@@ -1153,7 +1212,8 @@
    "pressured_share": 0.219,
    "estimated_share": 0.444,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Manuel Akanji",
@@ -1169,7 +1229,8 @@
    "pressured_share": 0.196,
    "estimated_share": 0.415,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Harry Maguire",
@@ -1185,7 +1246,8 @@
    "pressured_share": 0.3,
    "estimated_share": 0.46,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Edimilson Fernandes",
@@ -1201,7 +1263,8 @@
    "pressured_share": 0.242,
    "estimated_share": 0.237,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "Jordi Alba",
@@ -1217,7 +1280,8 @@
    "pressured_share": 0.262,
    "estimated_share": 0.3,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Virgil van Dijk",
@@ -1233,7 +1297,8 @@
    "pressured_share": 0.209,
    "estimated_share": 0.361,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "MCB"
   },
   {
    "name": "Dani Olmo",
@@ -1249,7 +1314,8 @@
    "pressured_share": 0.253,
    "estimated_share": 0.416,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Josko Gvardiol",
@@ -1265,7 +1331,8 @@
    "pressured_share": 0.21,
    "estimated_share": 0.434,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Josip Juranovic",
@@ -1281,7 +1348,8 @@
    "pressured_share": 0.206,
    "estimated_share": 0.436,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "Ricardo Horta",
@@ -1297,7 +1365,8 @@
    "pressured_share": 0.13,
    "estimated_share": 0.266,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Ibrahima Konat\u00e9",
@@ -1313,7 +1382,8 @@
    "pressured_share": 0.276,
    "estimated_share": 0.448,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Noah Okafor",
@@ -1329,7 +1399,8 @@
    "pressured_share": 0.044,
    "estimated_share": 0.992,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Zakaria Aboukhlal",
@@ -1345,7 +1416,8 @@
    "pressured_share": 0.075,
    "estimated_share": 0.559,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Dayot Upamecano",
@@ -1361,7 +1433,8 @@
    "pressured_share": 0.245,
    "estimated_share": 0.442,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Nahuel Molina",
@@ -1377,7 +1450,8 @@
    "pressured_share": 0.25,
    "estimated_share": 0.426,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "Nikola Vlasic",
@@ -1393,7 +1467,8 @@
    "pressured_share": 0.019,
    "estimated_share": 0.343,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "AM"
   },
   {
    "name": "Marco Asensio",
@@ -1409,7 +1484,8 @@
    "pressured_share": 0.31,
    "estimated_share": 0.432,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "John Stones",
@@ -1425,7 +1501,8 @@
    "pressured_share": 0.325,
    "estimated_share": 0.453,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Marcos Llorente",
@@ -1441,7 +1518,8 @@
    "pressured_share": 0.252,
    "estimated_share": 0.273,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "Ruben Dias",
@@ -1457,7 +1535,8 @@
    "pressured_share": 0.237,
    "estimated_share": 0.404,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Raphael Varane",
@@ -1473,7 +1552,8 @@
    "pressured_share": 0.27,
    "estimated_share": 0.443,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Nicolas Tagliafico",
@@ -1489,7 +1569,8 @@
    "pressured_share": 0.249,
    "estimated_share": 0.452,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Steven Berghuis",
@@ -1505,7 +1586,8 @@
    "pressured_share": 0.077,
    "estimated_share": 0.225,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "AM"
   },
   {
    "name": "Lisandro Martinez",
@@ -1521,7 +1603,8 @@
    "pressured_share": 0.212,
    "estimated_share": 0.402,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Daley Blind",
@@ -1537,7 +1620,8 @@
    "pressured_share": 0.222,
    "estimated_share": 0.23,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Nathan Ak\u00e9",
@@ -1553,7 +1637,8 @@
    "pressured_share": 0.202,
    "estimated_share": 0.261,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Cristian Romero",
@@ -1569,7 +1654,8 @@
    "pressured_share": 0.26,
    "estimated_share": 0.42,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Jules Kounde",
@@ -1585,7 +1671,8 @@
    "pressured_share": 0.237,
    "estimated_share": 0.315,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "Marcus Thuram",
@@ -1601,7 +1688,8 @@
    "pressured_share": 0.139,
    "estimated_share": 0.38,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Eduardo Camavinga",
@@ -1617,7 +1705,8 @@
    "pressured_share": 0.06,
    "estimated_share": 0.225,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Ricardo Rodriguez",
@@ -1633,7 +1722,8 @@
    "pressured_share": 0.169,
    "estimated_share": 0.293,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Nicol\u00e1s Otamendi",
@@ -1649,7 +1739,8 @@
    "pressured_share": 0.281,
    "estimated_share": 0.432,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Theo Hernandez",
@@ -1665,7 +1756,8 @@
    "pressured_share": 0.295,
    "estimated_share": 0.376,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Danilo",
@@ -1681,7 +1773,8 @@
    "pressured_share": 0.164,
    "estimated_share": 0.416,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "Alvaro Morata",
@@ -1697,7 +1790,8 @@
    "pressured_share": 0.053,
    "estimated_share": 0.429,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Luuk de Jong",
@@ -1713,7 +1807,8 @@
    "pressured_share": 0.082,
    "estimated_share": 0.462,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Rapha\u00ebl Guerreiro",
@@ -1729,7 +1824,8 @@
    "pressured_share": 0.216,
    "estimated_share": 0.233,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Romain Sa\u00efss",
@@ -1745,7 +1841,8 @@
    "pressured_share": 0.382,
    "estimated_share": 0.516,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "MCB"
   },
   {
    "name": "Rodrygo",
@@ -1761,7 +1858,8 @@
    "pressured_share": 0.021,
    "estimated_share": 0.437,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RW"
   },
   {
    "name": "Luke Shaw",
@@ -1777,7 +1875,8 @@
    "pressured_share": 0.298,
    "estimated_share": 0.405,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Borna Sosa",
@@ -1793,7 +1892,8 @@
    "pressured_share": 0.3,
    "estimated_share": 0.453,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Neymar",
@@ -1809,7 +1909,8 @@
    "pressured_share": 0.225,
    "estimated_share": 0.578,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "AM"
   },
   {
    "name": "Eder Militao",
@@ -1825,7 +1926,8 @@
    "pressured_share": 0.203,
    "estimated_share": 0.408,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Noussair Mazraoui",
@@ -1841,7 +1943,8 @@
    "pressured_share": 0.395,
    "estimated_share": 0.4,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LB"
   },
   {
    "name": "Pedro",
@@ -1857,7 +1960,8 @@
    "pressured_share": 0.044,
    "estimated_share": 0.462,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Cody Gakpo",
@@ -1873,7 +1977,8 @@
    "pressured_share": 0.163,
    "estimated_share": 0.323,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Nayef Aguerd",
@@ -1889,7 +1994,8 @@
    "pressured_share": 0.36,
    "estimated_share": 0.446,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Achraf Hakimi",
@@ -1905,7 +2011,8 @@
    "pressured_share": 0.264,
    "estimated_share": 0.358,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "Juan Foyth",
@@ -1921,7 +2028,8 @@
    "pressured_share": 0.002,
    "estimated_share": 0.644,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "RB"
   },
   {
    "name": "German Pezzella",
@@ -1937,7 +2045,8 @@
    "pressured_share": 0.194,
    "estimated_share": 0.312,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CB"
   },
   {
    "name": "Wout Weghorst",
@@ -1953,7 +2062,8 @@
    "pressured_share": 0.145,
    "estimated_share": 0.295,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Mason Mount",
@@ -1969,7 +2079,8 @@
    "pressured_share": 0.137,
    "estimated_share": 0.654,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "AM"
   },
   {
    "name": "Bernardo Silva",
@@ -1985,7 +2096,8 @@
    "pressured_share": 0.256,
    "estimated_share": 0.283,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Rodrigo de Paul",
@@ -2001,7 +2113,8 @@
    "pressured_share": 0.275,
    "estimated_share": 0.214,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Vitinha",
@@ -2017,7 +2130,8 @@
    "pressured_share": 0.072,
    "estimated_share": 0.373,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Carlos Soler",
@@ -2033,7 +2147,8 @@
    "pressured_share": 0.052,
    "estimated_share": 0.187,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Alexis Mac Allister",
@@ -2049,7 +2164,8 @@
    "pressured_share": 0.275,
    "estimated_share": 0.233,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Pedri",
@@ -2065,7 +2181,8 @@
    "pressured_share": 0.218,
    "estimated_share": 0.196,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Antoine Griezmann",
@@ -2081,7 +2198,8 @@
    "pressured_share": 0.265,
    "estimated_share": 0.335,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "AM"
   },
   {
    "name": "Teun Koopmeiners",
@@ -2097,7 +2215,8 @@
    "pressured_share": 0.1,
    "estimated_share": 0.223,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "DM"
   },
   {
    "name": "Ardon Jashari",
@@ -2113,7 +2232,8 @@
    "pressured_share": 0.049,
    "estimated_share": 0.11,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "DM"
   },
   {
    "name": "Jordan Henderson",
@@ -2129,7 +2249,8 @@
    "pressured_share": 0.319,
    "estimated_share": 0.439,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Azzedine Ounahi",
@@ -2145,7 +2266,8 @@
    "pressured_share": 0.274,
    "estimated_share": 0.317,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Djibril Sow",
@@ -2161,7 +2283,8 @@
    "pressured_share": 0.241,
    "estimated_share": 0.236,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Remo Freuler",
@@ -2177,7 +2300,8 @@
    "pressured_share": 0.268,
    "estimated_share": 0.28,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Marko Livaja",
@@ -2193,7 +2317,8 @@
    "pressured_share": 0.003,
    "estimated_share": 0.476,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CF"
   },
   {
    "name": "Selim Amallah",
@@ -2209,7 +2334,8 @@
    "pressured_share": 0.281,
    "estimated_share": 0.322,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "AM"
   },
   {
    "name": "William Carvalho",
@@ -2225,7 +2351,8 @@
    "pressured_share": 0.206,
    "estimated_share": 0.251,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "DM"
   },
   {
    "name": "R\u00faben Neves",
@@ -2241,7 +2368,8 @@
    "pressured_share": 0.19,
    "estimated_share": 0.37,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Luka Modric",
@@ -2257,7 +2385,8 @@
    "pressured_share": 0.294,
    "estimated_share": 0.339,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Enzo Fernandez",
@@ -2273,7 +2402,8 @@
    "pressured_share": 0.284,
    "estimated_share": 0.252,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Leandro Paredes",
@@ -2289,7 +2419,8 @@
    "pressured_share": 0.289,
    "estimated_share": 0.299,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "DM"
   },
   {
    "name": "Otavio",
@@ -2305,7 +2436,8 @@
    "pressured_share": 0.262,
    "estimated_share": 0.206,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Frenkie de Jong",
@@ -2321,7 +2453,8 @@
    "pressured_share": 0.224,
    "estimated_share": 0.213,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Mateo Kovacic",
@@ -2337,7 +2470,8 @@
    "pressured_share": 0.202,
    "estimated_share": 0.318,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Sofyan Amrabat",
@@ -2353,7 +2487,8 @@
    "pressured_share": 0.247,
    "estimated_share": 0.281,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Lucas Paquet\u00e1",
@@ -2369,7 +2504,8 @@
    "pressured_share": 0.188,
    "estimated_share": 0.538,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Denis Zakaria",
@@ -2385,7 +2521,8 @@
    "pressured_share": 0.023,
    "estimated_share": 0.22,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "DM"
   },
   {
    "name": "Adrien Rabiot",
@@ -2401,7 +2538,8 @@
    "pressured_share": 0.241,
    "estimated_share": 0.289,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Gavi",
@@ -2417,7 +2555,8 @@
    "pressured_share": 0.393,
    "estimated_share": 0.287,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Marcelo Brozovic",
@@ -2433,7 +2572,8 @@
    "pressured_share": 0.278,
    "estimated_share": 0.287,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Declan Rice",
@@ -2449,7 +2589,8 @@
    "pressured_share": 0.308,
    "estimated_share": 0.332,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Abdelhamid Sabiri",
@@ -2465,7 +2606,8 @@
    "pressured_share": 0.118,
    "estimated_share": 0.36,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "AM"
   },
   {
    "name": "Granit Xhaka",
@@ -2481,7 +2623,8 @@
    "pressured_share": 0.185,
    "estimated_share": 0.22,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "DM"
   },
   {
    "name": "Casemiro",
@@ -2497,7 +2640,8 @@
    "pressured_share": 0.183,
    "estimated_share": 0.362,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Youssouf Fofana",
@@ -2513,7 +2657,8 @@
    "pressured_share": 0.262,
    "estimated_share": 0.304,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Marten De Roon",
@@ -2529,7 +2674,8 @@
    "pressured_share": 0.385,
    "estimated_share": 0.199,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Aur\u00e9lien Tchouam\u00e9ni",
@@ -2545,7 +2691,8 @@
    "pressured_share": 0.277,
    "estimated_share": 0.263,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Jude Bellingham",
@@ -2561,7 +2708,8 @@
    "pressured_share": 0.297,
    "estimated_share": 0.42,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Lovro Majer",
@@ -2577,7 +2725,8 @@
    "pressured_share": 0.027,
    "estimated_share": 0.252,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "AM"
   },
   {
    "name": "Jack Grealish",
@@ -2593,7 +2742,8 @@
    "pressured_share": 0.0,
    "estimated_share": 0.364,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "LW"
   },
   {
    "name": "Sergio Busquets",
@@ -2609,7 +2759,8 @@
    "pressured_share": 0.291,
    "estimated_share": 0.158,
    "occlusion_flag": false,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   },
   {
    "name": "Exequiel Palacios",
@@ -2625,7 +2776,8 @@
    "pressured_share": 0.002,
    "estimated_share": 1.0,
    "occlusion_flag": true,
-   "tied_with_leader": false
+   "tied_with_leader": false,
+   "position": "CM"
   }
  ],
  "teams": [

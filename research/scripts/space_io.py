@@ -175,6 +175,7 @@ def read_match(
     periods: tuple[int, ...] | None = None,
     require_ball: bool = True,
     root: str | Path | None = None,
+    lock_attack_team_id: str | int | None = None,
 ):
     """Yield :class:`SpaceFrame` per kept frame, oriented so possession -> +x.
 
@@ -263,20 +264,28 @@ def read_match(
             home_xy = _stack(home_players)
             away_xy = _stack(away_players)
             poss_side = _possession_team(home_xy, away_xy, ball_raw)
-            in_poss_team_id = home_id if poss_side == "home" else away_id
-            in_poss_team = home_name if poss_side == "home" else away_name
 
-            # Orientation: we want the IN-POSSESSION team to attack +x.
-            # `sign` makes HOME attack +x. If away is in possession, flip so the
-            # in-possession (away) team attacks +x.
-            orient_sign = sign if poss_side == "home" else -sign
+            # Orientation + attacker designation.
+            # Default: the IN-POSSESSION team attacks +x (`sign` makes HOME attack
+            # +x; flip if away has the ball). For a HERO CLIP we instead LOCK both
+            # to a chosen team for the whole window, so the noisy nearest-to-ball
+            # possession heuristic can't mirror the field or invert the surface.
+            if lock_attack_team_id is not None:
+                lock_home = str(lock_attack_team_id) == home_id
+                orient_sign = sign if lock_home else -sign
+                home_attacking = lock_home
+            else:
+                orient_sign = sign if poss_side == "home" else -sign
+                home_attacking = poss_side == "home"
+            in_poss_team_id = home_id if home_attacking else away_id
+            in_poss_team = home_name if home_attacking else away_name
 
             rows: list[np.ndarray] = []
             idents: list[PlayerIdentity] = []
 
             for plist, team_id, team_attacking in (
-                (home_players, home_id, poss_side == "home"),
-                (away_players, away_id, poss_side == "away"),
+                (home_players, home_id, home_attacking),
+                (away_players, away_id, not home_attacking),
             ):
                 for p in plist:
                     try:

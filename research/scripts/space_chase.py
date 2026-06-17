@@ -296,17 +296,21 @@ def _tie_aware_ranks(rows, key, lo_key, hi_key):
 # ---------------------------------------------------------------------------
 # Hero-play defensive surface export
 # ---------------------------------------------------------------------------
-def _export_hero_surface(match_id, period, start_s, end_s, *, title, description):
+def _export_hero_surface(match_id, period, start_s, end_s, *, lock_team_id,
+                         focus_name, focus_team, title, description):
     """Export a per-frame DEFENDER pitch-control surface (the block) + ball/players.
 
     The defensive surface shows where the DEFENCE owns space; as the gravity
-    attacker drags markers, watch the block deform and a lane open.
+    attacker drags markers, watch the block deform and a lane open. Orientation is
+    LOCKED to ``lock_team_id`` (attacking +x) for the whole window so the noisy
+    nearest-to-ball possession heuristic can't mirror or invert the clip.
     """
     g = make_grid(GRID_NX, GRID_NY)
     out_ny, out_nx = 20, 30
     frames_out = []
     raw_maxes = []
-    for fr in space_io.read_match(match_id, sampling_stride=6, periods=(period,)):
+    for fr in space_io.read_match(match_id, sampling_stride=6, periods=(period,),
+                                  lock_attack_team_id=lock_team_id):
         t_s = fr.timestamp_s
         if t_s < start_s or t_s > end_s:
             continue
@@ -349,6 +353,7 @@ def _export_hero_surface(match_id, period, start_s, end_s, *, title, description
         "grid": {"nx": out_nx, "ny": out_ny, "length_m": 105.0, "width_m": 68.0},
         "orientation": "attacking-left-to-right; opponent goal at +x (right)",
         "legend": "surface = DEFENDER pitch-control (where the block owns space); darker = defence in control",
+        "hero": {"name": focus_name, "team": focus_team},
         "frames": frames_out,
     }
     OUT_SURF.parent.mkdir(parents=True, exist_ok=True)
@@ -373,6 +378,10 @@ def main():
     pl_est = defaultdict(lambda: [0, 0])   # (team,name,jersey) -> [est_frames, total]
     pl_matches = defaultdict(set)
     pl_team = {}                       # key -> team name
+    key2teamid = {}                    # key -> team_id (for orientation lock)
+    # per-frame gravity time-series for auto-picking the best hero window:
+    # (mid, period, key) -> [(t_s, grav, ball_x_m), ...]
+    focal_track = defaultdict(list)
 
     # team-level local-hull baseline (median local-hull this team CONCEDES while defending)
     team_hull_samples = defaultdict(list)   # defending team -> [local hulls]
@@ -397,7 +406,11 @@ def main():
                 idn = fr.identities[pc["row"]]
                 key = (idn.team, idn.name, idn.jersey)
                 pl_team[key] = idn.team
+                key2teamid[key] = idn.team_id
                 grav = pc["drawn"] * (1.0 + pc["pull"])   # drawn markers amplified by chase
+                # track for hero-window auto-pick (ball x in metres, oriented +x)
+                focal_track[(mid, fr.period, key)].append(
+                    (fr.timestamp_s, grav, float(fr.ball_m[0])))
                 pl_gravity[key].append(grav)
                 pl_drawn[key].append(pc["drawn"])
                 pl_pull[key].append(pc["pull"])
@@ -544,13 +557,51 @@ def main():
         "reading": reading,
     }
 
-    # ---- hero play: pick the highest-gravity star's match window ----------
-    # Messi vs Australia build-up (match 10503, P1 ~2055-2078s) - the validated
-    # space showcase; an attacker dragging markers as a lane opens.
-    print(f"[hero] exporting defensive-shape surface (elapsed {time.time()-t_start:.1f}s)", flush=True)
+    # ---- hero play: AUTO-PICK the single best sustained gravity window -------
+    # Among qualified gravity players (>= MIN_FRAMES), find the ~6s window with the
+    # highest rolling-mean gravity, biased to open build-up (ball in the attacking
+    # half but not jammed at the byline, i.e. not a goalmouth scramble). Lock
+    # orientation to that attacker's team so the clip never flips. Messi is a POOR
+    # example (a roamer who scores low) — this surfaces a genuine focal attacker.
+    WIN_S = 6.0
+    qualified = {k for k, gv in pl_gravity.items() if len(gv) >= MIN_FRAMES}
+    # restrict to genuine FOCAL ATTACKERS: top-12 players by MEAN gravity. This
+    # excludes centre-backs who spike one set-piece window (e.g. Varane) — their
+    # season-mean gravity is low, so they never make the focal set.
+    focal_keys = set(sorted(qualified, key=lambda k: -float(np.mean(pl_gravity[k])))[:12])
+    best = None  # (winmean, mid, period, key, t0, t1)
+    for (mid, period, key), series in focal_track.items():
+        if key not in focal_keys:
+            continue
+        series = sorted(series)
+        ts = [s[0] for s in series]; gv = [s[1] for s in series]; bx = [s[2] for s in series]
+        for i in range(len(ts)):
+            j = i
+            while j < len(ts) and ts[j] - ts[i] <= WIN_S:
+                j += 1
+            if j - i < 8:                       # need a sustained window (~4s @ 2Hz)
+                continue
+            wmean = sum(gv[i:j]) / (j - i)
+            win_bx = bx[i:j]
+            # whole window in the attacking half, OFF the byline: a build-up / final-third
+            # approach where gravity opens a lane — NOT a corner / goalmouth scramble.
+            if max(win_bx) > 44.0 or min(win_bx) < -2.0:
+                continue
+            if best is None or wmean > best[0]:
+                best = (wmean, mid, period, key, ts[i], ts[j - 1])
+    if best is None:
+        best = (0.0, "10503", 1, None, 2055.0, 2078.0)
+    _, h_mid, h_period, h_key, h_t0, h_t1 = best
+    h_team = h_key[0] if h_key else "Argentina"
+    h_name = h_key[1] if h_key else "Lionel Messi"
+    h_team_id = key2teamid.get(h_key) if h_key else None
+    print(f"[hero] auto-picked {h_name} ({h_team}) match {h_mid} P{h_period} "
+          f"{h_t0:.1f}-{h_t1:.1f}s  winmean_gravity={best[0]:.2f} "
+          f"(elapsed {time.time()-t_start:.1f}s)", flush=True)
     hero = _export_hero_surface(
-        "10503", 1, 2055.0, 2078.0,
-        title="CHASE - defensive gravity: a star drags the block (Messi 35' build-up)",
+        h_mid, h_period, h_t0 - 0.6, h_t1 + 0.6,
+        lock_team_id=h_team_id, focus_name=h_name, focus_team=h_team,
+        title=f"CHASE - defensive gravity: {h_name} bends the block",
         description=("Defender pitch-control (where the block owns space) per frame. "
                      "Watch the defensive shell collapse toward the gravity attacker "
                      "as a lane tears open for a teammate."),

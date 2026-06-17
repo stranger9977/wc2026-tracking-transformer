@@ -568,39 +568,65 @@ def find_and_export_hero(res, matches):
     grid = res["grid"]
     xt_grid = res["xt_grid"]
 
-    # Use Argentina-France final (10517) — find the peak off-ball OBSO frame.
+    # Use Argentina-France final (10517). Pick the WINDOW where a single off-ball
+    # attacker ADVANCES into a high-OBSO pocket (a forward run into dangerous
+    # space) — not just a peak frame during a deep recycle — so the danger pocket
+    # visibly blooms AHEAD of the run rather than sitting static near goal.
     hero_mid = "10517"
-    best = None  # (obso_player_val, frame, attrib, carrier_row, period, t_s)
+    track = defaultdict(list)   # (period, name, team) -> [(t_s, obso, x_m, spd)]
     for fr in space_io.read_match(hero_mid, sampling_stride=SAMPLING_STRIDE,
                                   periods=PERIODS):
-        obso_total, surface, attrib, carrier_row, peak_cell = frame_obso(
-            fr, grid, xt_grid)
+        _, surface, attrib, carrier_row, peak_cell = frame_obso(fr, grid, xt_grid)
         if not attrib:
             continue
         top_row = max(attrib, key=attrib.get)
-        top_val = attrib[top_row]
-        # prefer a moving off-ball player (speed > 2 m/s) deep in attacking half
         spd = float(np.hypot(fr.players[top_row, 2], fr.players[top_row, 3]))
-        x_m = fr.players[top_row, 0] * HALF_LEN
-        score = top_val * (1.0 + min(spd, 8.0) / 8.0) * (1.0 if x_m > 10 else 0.5)
-        if best is None or score > best[0]:
-            best = (score, fr.period, fr.timestamp_s, top_row,
-                    fr.identities[top_row].name, fr.identities[top_row].team, top_val, spd)
+        x_m = float(fr.players[top_row, 0] * HALF_LEN)
+        track[(fr.period, fr.identities[top_row].name, fr.identities[top_row].team)].append(
+            (fr.timestamp_s, float(attrib[top_row]), x_m, spd))
+
+    WIN_S = 6.0
+    best = None   # (score, period, name, team, w0, w1, t_peak, peak_val, peak_spd)
+    for (period, nm, tm), series in track.items():
+        series.sort()
+        ts = [s[0] for s in series]; ob = [s[1] for s in series]
+        xs = [s[2] for s in series]; sp = [s[3] for s in series]
+        for i in range(len(ts)):
+            j = i
+            while j < len(ts) and ts[j] - ts[i] <= WIN_S:
+                j += 1
+            if j - i < 6:
+                continue
+            adv = xs[j - 1] - xs[i]              # forward advance over the window (m)
+            if adv < 6.0 or xs[j - 1] < 15.0:    # must advance >=6 m AND end in the attacking third
+                continue
+            mean_ob = sum(ob[i:j]) / (j - i)
+            score = mean_ob * (1.0 + min(adv, 25.0) / 25.0)
+            if best is None or score > best[0]:
+                kp = max(range(i, j), key=lambda k: ob[k])
+                best = (score, period, nm, tm, ts[i], ts[j - 1], ts[kp], ob[kp], sp[kp])
 
     if best is None:
         return None
-    _, period, t_s, top_row, hero_name, hero_team, hero_val, hero_spd = best
+    _, period, hero_name, hero_team, w0, w1, t_s, hero_val, hero_spd = best
 
-    # Export a +-6 s window around the peak as a scrubbable control x xT surface.
-    start_s = max(0.0, t_s - 6.0)
-    end_s = t_s + 6.0
+    # Lock orientation + attacker designation to the hero's team for the whole
+    # window, so the noisy nearest-to-ball possession heuristic can't mirror the
+    # field or invert the danger surface mid-clip (the "random flipping").
+    meta = space_io.load_metadata(hero_mid)
+    hero_team_id = (str(meta["homeTeam"]["id"]) if hero_team == meta["homeTeam"]["name"]
+                    else str(meta["awayTeam"]["id"]))
+
+    # Export the run window as a scrubbable control x xT surface (a little padding).
+    start_s = max(0.0, w0 - 0.5)
+    end_s = w1 + 0.5
     out_g = pc.make_grid(nx=40, ny=26)
     out_xt = pc.xt_surface(out_g)
 
     frames_out = []
     raw_maxes = []
     for fr in space_io.read_match(hero_mid, sampling_stride=SAMPLING_STRIDE,
-                                  periods=(period,)):
+                                  periods=(period,), lock_attack_team_id=hero_team_id):
         if fr.timestamp_s < start_s or fr.timestamp_s > end_s:
             continue
         ctrl = pc.control_surface(fr.players, fr.ball_m, out_g, include_gk=True)
@@ -633,7 +659,6 @@ def find_and_export_hero(res, matches):
         f["surface"] = [[round(float(v), 4) for v in row] for row in s]
     xt_ref_norm = out_xt / (out_xt.max() if out_xt.max() > 0 else 1.0)
 
-    meta = space_io.load_metadata(hero_mid)
     payload = {
         "metric": "pobso",
         "title": f"P-OBSO hero: {hero_name}'s off-ball run into dangerous space",
