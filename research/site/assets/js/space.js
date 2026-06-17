@@ -440,7 +440,7 @@ async function buildIntro() {
 async function buildXT() {
   const el = $("#xt-canvas"); if (!el) return;
   try {
-    const d = await loadJSON("data/surfaces/xt_reference.json");
+    const d = await loadJSON("data/surfaces/xt_reference.json?v=2");
     const W = 640, H = Math.round(640 * 68 / 105);
     el.innerHTML = `<div class="hstage"><canvas width="${W}" height="${H}" id="cv-xt" style="cursor:crosshair"></canvas></div>
       <div class="hreadout" id="xt-read"><span class="hint">Hover anywhere on the pitch to read its xT (like Karun Singh's original).</span></div>`;
