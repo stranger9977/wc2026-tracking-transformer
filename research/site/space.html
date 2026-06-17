@@ -324,12 +324,21 @@
       <div class="act-tag"><span class="num">0</span> Where the danger lives</div>
       <h2>Before space, the value of space.</h2>
       <p class="lede"><b>Expected Threat (xT)</b> — Karun Singh's canonical model — scores every spot on the pitch by one question: <i>if your team has the ball here, how likely does it become a goal within the next few actions?</i> It is learned from millions of recorded possessions. Move the ball into a higher-xT zone and you have added threat — no shot required yet.</p>
-      <p class="body">A worked example: a player in a <b>midfield pocket</b> sits at roughly <b>0.02</b> threat — the ball there rarely becomes a goal soon. Slide it forward into the <b>central pocket just outside the box</b> and that spot is worth about <b>0.26</b>. The pass itself added <b>+0.24</b> of threat, purely by moving the ball to more valuable grass.</p>
+      <p class="body">A worked example: a player in a <b>midfield pocket</b> sits at roughly <b>0.02</b> threat — the ball there rarely becomes a goal soon. Slide it forward into the <b>central pocket at the top of the box</b> and that spot is worth about <b>0.26</b>. The pass itself added <b>+0.24</b> of threat, purely by moving the ball to more valuable grass.</p>
+
+      <details class="notes reveal">
+        <summary>What does an xT of 0.26 mean — and how is it different from xG?</summary>
+        <ul>
+          <li><b>It's a 0–1 value like a probability, but it is not xG.</b> <b>xG</b> scores a single shot — "how likely is <i>this shot</i> to be a goal?" <b>xT</b> scores <i>possession at a place</i> — "if our team has the ball here, how likely is a goal within the next few actions?" xT exists for every spot on the pitch; xG only exists once someone shoots.</li>
+          <li><b>That's why 0.26 looks high.</b> A shot from the top of the box is only a few percent to score (its xG). But <i>possession</i> there is worth ~0.26 xT — far more — because xT counts everything that can still happen: the cutback, the second ball, the better shot two passes later. xG values the shot; xT values the situation.</li>
+          <li><b>Which box:</b> the peak is the central zone at the top of the <b>18-yard penalty box</b> (the “D”) — <i>not</i> the six-yard box. Straight in front of goal actually scores lower here, because in open play the ball rarely arrives and settles there; threat lives where teams reliably <i>build</i> a shot.</li>
+        </ul>
+      </details>
       <div class="card">
         <h3>The xT surface — attacking left → right, opponent goal at the right</h3>
         <div id="xt-canvas" class="heat"></div>
         <div class="legend"><span>low value</span><span class="grad"></span><span>high value</span></div>
-        <p class="caption">The danger isn't at the goal line — it's the <b>central pocket just outside the box</b> (peak xT ≈ 0.257). That is where a received ball is worth the most. Everything wide and deep is low-value grass.</p>
+        <p class="caption">The danger isn't at the goal line — it's the <b>central pocket at the top of the 18-yard box</b> (the “D”, peak xT ≈ 0.257), not the six-yard box. That is where a received ball is worth the most. Everything wide and deep is low-value grass.</p>
       </div>
       <div id="xt-explainer" class="xpl"></div>
 
@@ -425,6 +434,16 @@
         <p class="caption">The runner is highlighted and labelled on the clip by default — ring plus name tag — so the danger-maker is never lost in the dots. Toggle <b>reveal danger</b> to fade the ball-centric view and keep only cells that are both controlled <i>and</i> threatening (× xT) — you watch the scoring opportunity form ahead of the run, before the pass.</p>
       </div>
       <div id="pobso-explainer" class="xpl"></div>
+
+      <details class="notes reveal">
+        <summary>Can't a player just stand in valuable space and rack this up?</summary>
+        <ul>
+          <li><b>No — it measures pitch CONTROL, not presence.</b> Think hoops: standing under the basket is worth nothing if a big body is between you and the ball — he gets there first. Same here. Every cell is weighted by who would actually reach the ball there <i>first</i>, given everyone's position <i>and</i> momentum (Fernández–Bornn pitch control). If a defender is closer or goal-side, he owns that grass and the attacker's value there is ~0. You only score the space you'd genuinely win.</li>
+          <li><b>Marked = not yours.</b> A striker in the six-yard box with a centre-back goal-side of him controls almost none of it. Peel off into a lane nobody covers and the same spot lights up — that off-ball timing is exactly what the metric is built to catch.</li>
+          <li><b>It's also xT-weighted and pressure-aware:</b> controlling low-value grass is worth nothing, and control under heavy pressure is discounted.</li>
+          <li><b>The honest edge:</b> if a player really is unmarked in the danger zone, he <i>is</i> credited — and he should be. Being uncovered in dangerous space is the valuable thing; ghosting into it unmarked is the skill, not a loophole.</li>
+        </ul>
+      </details>
       <div class="card">
         <h3>Off-ball danger controllers</h3>
         <div id="pobso-board" class="lboard"></div>
@@ -522,6 +541,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=8"></script>
+<script type="module" src="assets/js/space.js?v=9"></script>
 </body>
 </html>
