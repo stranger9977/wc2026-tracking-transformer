@@ -374,56 +374,44 @@ async function buildIntro() {
     return;
   }
 
-  /* ---- team-SHAPE SVG: two phases per team on a mini-pitch ---- */
+  /* ---- team-SHAPE: TWO side-by-side mini-pitches (one per team) so the
+         build-up vs final-third blocks never overlap and labels stay legible ---- */
   if (shapeEl) {
-    const PL = 105, PW = 68;                    // pitch metres (length x width)
-    const PAD = 18, W = 760, scale = (W - 2 * PAD) / PL, H = PW * scale + 2 * PAD;
-    // metres (own goal at x=0, opp goal at x=105) -> svg px; width centred
-    const sx = (m) => PAD + m * scale;
-    const sy = (m) => PAD + (PW / 2 - m) * scale; // width 0 = pitch centre
     const shp = d.example_match.in_possession_shape;
     const teams = ["Brazil", "Morocco"];
     const phases = [
       { key: "build_up_low", label: "build-up", dash: false },
       { key: "final_third_phase", label: "final third", dash: true },
     ];
-    // pitch frame + halfway + boxes
+    const PL = 105, PW = 68, PAD = 12, W = 400, scale = (W - 2 * PAD) / PL, H = PW * scale + 2 * PAD;
+    const sx = (m) => PAD + m * scale;                  // own goal x=0 .. opp goal x=105
+    const sy = (m) => PAD + (PW / 2 - m) * scale;        // width 0 = centre
     const boxL = 16.5 * scale, boxW = 40.3 * scale;
-    let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" class="ishape-svg" role="img" aria-label="Team shape: build-up vs final-third blocks for Brazil and Morocco">`;
-    svg += `<rect x="${PAD}" y="${PAD}" width="${W - 2 * PAD}" height="${PW * scale}" fill="#0b160f" stroke="#2a313d" stroke-width="1.4"/>`;
-    svg += `<line x1="${W / 2}" y1="${PAD}" x2="${W / 2}" y2="${PAD + PW * scale}" stroke="#2a313d" stroke-width="1"/>`;
-    svg += `<circle cx="${W / 2}" cy="${PAD + PW * scale / 2}" r="${9.15 * scale}" fill="none" stroke="#2a313d" stroke-width="1"/>`;
-    svg += `<rect x="${PAD}" y="${PAD + (PW * scale - boxW) / 2}" width="${boxL}" height="${boxW}" fill="none" stroke="#2a313d" stroke-width="1"/>`;
-    svg += `<rect x="${W - PAD - boxL}" y="${PAD + (PW * scale - boxW) / 2}" width="${boxL}" height="${boxW}" fill="none" stroke="#2a313d" stroke-width="1"/>`;
-    // attack-direction hint
-    svg += `<text x="${W - PAD}" y="${PAD - 5}" fill="#69748699" font-size="11" text-anchor="end">attacking →  opponent goal</text>`;
-    // shape rectangles
-    for (const t of teams) {
-      const col = teamColor(t);
+    function pitch(team) {
+      const col = teamColor(team);
+      let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" class="ishape-svg" role="img" aria-label="${team} team shape, build-up vs final third">`;
+      s += `<rect x="${PAD}" y="${PAD}" width="${W - 2 * PAD}" height="${(PW * scale).toFixed(1)}" fill="#0b160f" stroke="#2a313d" stroke-width="1.2"/>`;
+      s += `<line x1="${W / 2}" y1="${PAD}" x2="${W / 2}" y2="${(PAD + PW * scale).toFixed(1)}" stroke="#2a313d" stroke-width="1"/>`;
+      s += `<circle cx="${W / 2}" cy="${(PAD + PW * scale / 2).toFixed(1)}" r="${(9.15 * scale).toFixed(1)}" fill="none" stroke="#2a313d" stroke-width="1"/>`;
+      s += `<rect x="${(W - PAD - boxL).toFixed(1)}" y="${(PAD + (PW * scale - boxW) / 2).toFixed(1)}" width="${boxL.toFixed(1)}" height="${boxW.toFixed(1)}" fill="none" stroke="#2a313d" stroke-width="1"/>`;
+      s += `<text x="${W - PAD - 4}" y="${PAD + 12}" fill="#6a7486" font-size="10" text-anchor="end">attack →</text>`;
       for (const ph of phases) {
-        const b = shp[t][ph.key]; if (!b) continue;
-        const cx = b.d2g;                       // block centre, metres up the pitch
-        const x = sx(cx - b.l / 2), y = sy(b.w / 2);
-        const w = b.l * scale, h = b.w * scale;
-        const dash = ph.dash ? `stroke-dasharray="6 4"` : "";
-        const fillA = ph.dash ? 0.06 : 0.16;
-        svg += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="4"
-          fill="${col}" fill-opacity="${fillA}" stroke="${col}" stroke-width="${ph.dash ? 1.6 : 2}" ${dash}/>`;
-        // metre label at block centre
-        svg += `<text x="${sx(cx).toFixed(1)}" y="${(sy(0)).toFixed(1)}" fill="${col}" font-size="11.5"
-          text-anchor="middle" dominant-baseline="middle" class="ishape-dim">${b.w}×${b.l}m</text>`;
+        const b = shp[team][ph.key]; if (!b) continue;
+        const x = sx(b.d2g - b.l / 2), y = sy(b.w / 2), w = b.l * scale, h = b.w * scale;
+        s += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="3"
+          fill="${col}" fill-opacity="${ph.dash ? 0.05 : 0.17}" stroke="${col}" stroke-width="${ph.dash ? 1.5 : 2.2}" ${ph.dash ? 'stroke-dasharray="5 4"' : ""}/>`;
+        // label just ABOVE the block top edge (never at centre -> no overlap)
+        s += `<text x="${sx(b.d2g).toFixed(1)}" y="${(y - 4).toFixed(1)}" fill="${col}" font-size="11" font-weight="600" text-anchor="middle" class="ishape-dim">${b.w}×${b.l} m</text>`;
       }
+      s += `</svg>`;
+      return `<div class="ishape-cell"><div class="ishape-team"><span class="iswatch" style="background:${col}"></span>${team}</div>${s}</div>`;
     }
-    svg += `</svg>`;
-    const legend = `<div class="legend">
-      <span><span class="iswatch" style="background:${teamColor("Brazil")}"></span>Brazil</span>
-      <span><span class="iswatch" style="background:${teamColor("Morocco")}"></span>Morocco</span>
-      <span class="ileg-sep">·</span>
-      <span><span class="iswatch solid"></span>solid = build-up shape</span>
-      <span><span class="iswatch dash"></span>dashed = final-third shape</span>
-      <span class="ileg-sep">·</span>
-      <span>width × length, in metres</span></div>`;
-    shapeEl.innerHTML = svg + legend;
+    shapeEl.innerHTML = `<div class="ishape-grid">${teams.map(pitch).join("")}</div>
+      <div class="legend">
+        <span><span class="iswatch solid"></span>solid = build-up shape</span>
+        <span><span class="iswatch dash"></span>dashed = final-third shape</span>
+        <span class="ileg-sep">·</span><span>each block = width × length the team occupies, in metres</span>
+      </div>`;
   }
 
   /* ---- live 2026 EFI: offers to receive IN BEHIND, per match ---- */
@@ -498,9 +486,10 @@ function leaderboard(rows, cfg) {
       row.dataset.name = cfg.name(r);
       const pctW = clamp(v / mx * 100, 3, 100);
       const note = cfg.note ? cfg.note(r) : "";
+      const pos = cfg.pos ? cfg.pos(r) : "";
       row.innerHTML = `
         <span class="lname"><span class="fl" style="background:${teamColor(cfg.team(r))}"></span>${cfg.name(r)}
-          <span class="lteam">${cfg.team(r)}</span></span>
+          <span class="lteam">${cfg.team(r)}</span>${pos ? `<span class="lpos">${pos}</span>` : ""}</span>
         <span class="ltrack"><span class="lfill" style="width:${pctW}%;background:${cfg.barColor || "#6cb4ee"}"></span></span>
         <span class="lval">${cfg.fmt(v)}</span>`;
       if (note) row.innerHTML += `<span class="lnote">${note}</span>`;
@@ -618,12 +607,11 @@ function scatterPlot(host, points, cfg) {
 function xgPanel(host, rcpt, extra = "") {
   if (!host) return;
   const rho = rcpt.rho;
-  const sig = rcpt.p_value != null ? ` · p=${rcpt.p_value}` : "";
   const reading = rcpt.reading || "";
   const sign = rho > 0.15 ? "good" : rho < -0.15 ? "warn" : "muted";
   host.innerHTML = `
     <div class="xgrow">
-      <div class="xgstat"><div class="xgv ${sign}">ρ = ${rho > 0 ? "+" : ""}${rho}${sig}</div><div class="xgl">Spearman vs StatsBomb 2022 xG · n=${rcpt.n} teams</div></div>
+      <div class="xgstat"><div class="xgv ${sign}">ρ = ${rho > 0 ? "+" : ""}${rho}</div><div class="xgl">rank correlation with StatsBomb 2022 xG (per match)</div></div>
     </div>
     <p class="xgunit">${rcpt.unit || rcpt.unit_x || ""}</p>
     <p class="xgread">${reading}</p>${extra}`;
@@ -677,19 +665,22 @@ async function buildCHASE() {
   const surf = await loadJSON("data/surfaces/chase.json");
   const data = await loadJSON("data/space_chase.json");
   const scEl = $("#chase-canvas");
+  const heroName = (surf.hero && surf.hero.name) || "the focal attacker";
   buildScrubber(scEl, surf, {
     id: "chase", ramp: rampCool, gamma: 0.6, threshold: 0.0,
-    gravityFocus: "Lionel Messi", labelName: "Lionel Messi", defaultMode: "surface",
+    gravityFocus: heroName, labelName: heroName, defaultMode: "surface",
     toggles: [
       { key: "gravity", label: "show gravity spokes" },
     ],
     readout: (fr, st) => st.mode === "gravity"
-      ? `Spokes link every defender within 12 m of <b>Messi</b> toward him — the deeper the colour, the closer the marker. Watch the violet block (defender control) collapse as he drifts.`
-      : `Surface = <b>defender</b> pitch-control (where the block owns space). Bright violet = defence in control.`,
+      ? `Spokes link every defender within 12 m of <b>${heroName}</b> toward him — the deeper the colour, the closer the marker. Watch the violet block (defender control) collapse as he drifts.`
+      : `Surface = <b>defender</b> pitch-control (where the block owns space). Bright violet = defence in control. Highlighted: <b>${heroName}</b>.`,
   });
+  // name the auto-picked gravity attacker in the card title + caption
+  const chTitle = $("#chase-hero-title"); if (chTitle && surf.hero) chTitle.textContent = `${surf.hero.name} (${surf.hero.team})`;
   const top = data.players.slice(0, 12);
   const lb = leaderboard(top, {
-    name: (r) => r.name, team: (r) => r.team, val: (r) => r.gravity,
+    name: (r) => r.name, team: (r) => r.team, pos: (r) => r.position, val: (r) => r.gravity,
     fmt: (v) => v.toFixed(2),
     tier: (r) => r.rank, barColor: "#9b8cff", scrubberEl: scEl,
     note: (r) => `<span class="comp">drawn ${r.drawn_markers.toFixed(2)} · pull ${r.chase_pull_ms.toFixed(2)} m/s</span>`,
@@ -708,7 +699,7 @@ async function buildCHASE() {
     .map((t) => ({ team: t.team, x: t.team_gravity, y: data.team_xg_for_per_match[t.team] }));
   scatterPlot($("#chase-scatter"), pts, {
     id: "chase", xLabel: "team defensive gravity", yLabel: "StatsBomb xG / match",
-    annot: `ρ=${data.xg_receipt.rho > 0 ? "+" : ""}${data.xg_receipt.rho} · n=${pts.length}`,
+    annot: `ρ=${data.xg_receipt.rho > 0 ? "+" : ""}${data.xg_receipt.rho}`,
   });
   xgPanel($("#chase-xg"), { ...data.xg_receipt,
     reading: "A mild positive link (ρ=+0.38) — suggestive, not proof. The scatter above is the evidence: teams whose attackers exert more defensive gravity tend to generate a little more xG.",
@@ -727,8 +718,11 @@ async function buildPOBSO() {
     ],
     readout: (fr, st) => st.mode === "reveal"
       ? `Only the cells off-ball attackers control <b>and</b> that carry threat (× xT) stay lit — the dangerous space forming before the pass exists.`
-      : `Dangerous space — control × xT — for <b>${surf.hero.name}</b>'s run (${surf.hero.obso_owned.toFixed(1)} xT-weighted m² at ${surf.hero.speed_mps} m/s). The danger pocket blooms <b>ahead</b> of the run, not at the ball.`,
+      : `Dangerous space — control × xT — for <b>${surf.hero.name}</b>'s run: he controls ${surf.hero.obso_owned.toFixed(1)} xT-weighted m² of dangerous space at the peak. The pocket blooms <b>ahead</b> of the run, not at the ball.`,
   });
+  // name the auto-picked runner in the card title
+  const pbTitle = $("#pobso-hero-title");
+  if (pbTitle && surf.hero) pbTitle.textContent = `${surf.hero.name} (${surf.hero.team})`;
   // PLAYER board — substantial-minutes players LEAD; cameo subs (<15 min, ~one match) are
   // shown separately so they don't headline (matches the caption's claim).
   const QUALMIN = 15;
@@ -738,7 +732,7 @@ async function buildPOBSO() {
     return b.pobso - a.pobso;            // then by dangerous-space desc within each tier
   }).slice(0, 14);
   const lb = leaderboard(players, {
-    name: (r) => r.name, team: (r) => r.team, val: (r) => r.pobso,
+    name: (r) => r.name, team: (r) => r.team, pos: (r) => r.position, val: (r) => r.pobso,
     fmt: (v) => `${v.toFixed(1)} m²`,
     tier: (r) => (r.minutes_sampled < 15 ? "cameo" : "full"),
     barColor: "#ff6b6b", scrubberEl: scEl,
@@ -760,10 +754,10 @@ async function buildPOBSO() {
   const pts = (data.xg_receipt.detail || []).map((d) => ({ team: d.team, x: d.danger_moments_per_min, y: d.sb_xg_per_match }));
   scatterPlot($("#pobso-scatter"), pts, {
     id: "pobso", xLabel: "danger-moments / min", yLabel: "StatsBomb xG / match",
-    annot: `ρ=+${data.xg_receipt.rho} · p=${data.xg_receipt.p_value} · n=${data.xg_receipt.n}`,
+    annot: `ρ=+${data.xg_receipt.rho}`,
   });
   xgPanel($("#pobso-xg"), { ...data.xg_receipt,
-    reading: `Owning dangerous space tracks chances: ρ=+${data.xg_receipt.rho}, p=${data.xg_receipt.p_value}, n=${data.xg_receipt.n}. The scatter above is the payoff.`,
+    reading: `Owning dangerous space tracks chances (ρ=+${data.xg_receipt.rho}). The scatter above is the payoff — every team that creates more controlled-danger pockets off the ball generates more xG.`,
   });
 }
 
@@ -844,7 +838,7 @@ async function buildLive() {
         <div class="lcol">
           <h4>Our tracking<span class="src">pitch-control reconstruction from raw PFF tracking</span></h4>
           ${cmp("Dangerous space — danger-moments / min", danger.Argentina, danger.France, num)}
-          <div class="lcallout">France's danger ran through <b>one man</b>: <b>Mbappé</b>'s hat-trick — and the danger-pocket that bloomed ahead of his run in <b>Act 2</b>. The team rate favours Argentina; the single biggest danger-maker was French.</div>
+          <div class="lcallout">France's danger was concentrated: <b>Mbappé</b>'s hat-trick, and France's late surges into dangerous space (the kind you scrubbed in <b>Act 2</b>). The team rate favours Argentina; France's biggest moments were a handful of individual runs.</div>
           <div class="lcallout" style="border-left-color:var(--accent2)">Both lenses agree on the shape of the game: <b>Argentina created more, more often</b>, off two completely independent measurement systems.</div>
         </div>
       </div>`;

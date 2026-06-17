@@ -1,3852 +1,4034 @@
 {
-  "meta": {
-    "metric": "CHASE - Defensive Gravity",
-    "what": "How much an attacker pulls/deforms the opponent's defensive shape - space-native: drawn markers (count) x chase (inward defender velocity, m/s), with local block-squeeze (m^2) as supporting deformation. NOT xT-multiplied.",
-    "units": {
-      "gravity": "drawn x (1 + chase_pull_ms): proximity-weighted markers amplified by inward chase (dimensionless x m/s)",
-      "drawn_markers": "sum of exp(-d/4m) over defenders within 10m (count)",
-      "chase_pull_ms": "sum of inward (toward-attacker) defender velocity within 12m (m/s)",
-      "block_squeeze_m2": "shrink of the K=4 nearest-defender hull vs the sample median local hull (m^2)"
-    },
-    "territory_gate": "attacker past halfway (x>0 m) AND ball in attacking two-thirds (x>-17.5 m): gravity WHERE it bends a defence.",
-    "sampling": {
-      "n_matches": 10,
-      "stride": 15,
-      "hz": 2.0,
-      "matches": [
-        {
-          "match_id": "10517",
-          "home": "Argentina",
-          "away": "France",
-          "frames": 10232,
-          "secs": 28.2
-        },
-        {
-          "match_id": "10503",
-          "home": "Argentina",
-          "away": "Australia",
-          "frames": 8699,
-          "secs": 20.3
-        },
-        {
-          "match_id": "10514",
-          "home": "Argentina",
-          "away": "Croatia",
-          "frames": 8044,
-          "secs": 20.3
-        },
-        {
-          "match_id": "10513",
-          "home": "England",
-          "away": "France",
-          "frames": 7913,
-          "secs": 21.1
-        },
-        {
-          "match_id": "10504",
-          "home": "France",
-          "away": "Poland",
-          "frames": 8478,
-          "secs": 20.5
-        },
-        {
-          "match_id": "10512",
-          "home": "Morocco",
-          "away": "Portugal",
-          "frames": 8000,
-          "secs": 18.7
-        },
-        {
-          "match_id": "10509",
-          "home": "Portugal",
-          "away": "Switzerland",
-          "frames": 7765,
-          "secs": 18.4
-        },
-        {
-          "match_id": "10508",
-          "home": "Morocco",
-          "away": "Spain",
-          "frames": 10841,
-          "secs": 28.0
-        },
-        {
-          "match_id": "10511",
-          "home": "Netherlands",
-          "away": "Argentina",
-          "frames": 8541,
-          "secs": 22.9
-        },
-        {
-          "match_id": "10510",
-          "home": "Croatia",
-          "away": "Brazil",
-          "frames": 8521,
-          "secs": 19.7
-        }
-      ],
-      "min_frames_per_player": 150,
-      "median_local_hull_m2": 91.2
-    },
-    "occlusion": "~40.9% of PFF positions are ESTIMATED (biased to forwards/wingers). Each row reports estimated_frac; occlusion_flag=true if >50% of an attacker's contributing frames are ESTIMATED.",
-    "honesty": "Tie-aware ranks: rows whose 90% bootstrap CI overlaps the rank-group leader share a rank (no false single #1). Correlation with xG is not causation.",
-    "elapsed_s": 238.7
+ "meta": {
+  "metric": "CHASE - Defensive Gravity",
+  "what": "How much an attacker pulls/deforms the opponent's defensive shape - space-native: drawn markers (count) x chase (inward defender velocity, m/s), with local block-squeeze (m^2) as supporting deformation. NOT xT-multiplied.",
+  "units": {
+   "gravity": "drawn x (1 + chase_pull_ms): proximity-weighted markers amplified by inward chase (dimensionless x m/s)",
+   "drawn_markers": "sum of exp(-d/4m) over defenders within 10m (count)",
+   "chase_pull_ms": "sum of inward (toward-attacker) defender velocity within 12m (m/s)",
+   "block_squeeze_m2": "shrink of the K=4 nearest-defender hull vs the sample median local hull (m^2)"
   },
-  "xg_receipt": {
-    "rho": 0.3846,
-    "ci": "[-0.16, 0.79]",
-    "n": 12,
-    "unit": "team mean CHASE gravity (drawn x chase) vs StatsBomb xG-for per match",
-    "reading": "Teams whose attackers exert more defensive gravity tend to generate more xG (Spearman rho=0.38); correlation, not causation."
-  },
-  "players": [
+  "territory_gate": "attacker past halfway (x>0 m) AND ball in attacking two-thirds (x>-17.5 m): gravity WHERE it bends a defence.",
+  "sampling": {
+   "n_matches": 10,
+   "stride": 15,
+   "hz": 2.0,
+   "matches": [
     {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Pedro",
-      "jersey": 25,
-      "gravity": 5.8613,
-      "gravity_ci90": [
-        5.3335,
-        6.4294
-      ],
-      "drawn_markers": 1.404,
-      "chase_pull_ms": 2.875,
-      "block_squeeze_m2": 44.0,
-      "n_frames": 372,
-      "n_matches": 1,
-      "estimated_frac": 0.419,
-      "occlusion_flag": false,
-      "rank": 1,
-      "tied": false
+     "match_id": "10517",
+     "home": "Argentina",
+     "away": "France",
+     "frames": 10232,
+     "secs": 28.0
     },
     {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Cristiano Ronaldo",
-      "jersey": 7,
-      "gravity": 4.7449,
-      "gravity_ci90": [
-        4.5129,
-        4.9743
-      ],
-      "drawn_markers": 1.048,
-      "chase_pull_ms": 3.269,
-      "block_squeeze_m2": 37.4,
-      "n_frames": 1465,
-      "n_matches": 2,
-      "estimated_frac": 0.732,
-      "occlusion_flag": true,
-      "rank": 2,
-      "tied": true
+     "match_id": "10503",
+     "home": "Argentina",
+     "away": "Australia",
+     "frames": 8699,
+     "secs": 20.2
     },
     {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Wout Weghorst",
-      "jersey": 19,
-      "gravity": 4.5762,
-      "gravity_ci90": [
-        4.3274,
-        4.8516
-      ],
-      "drawn_markers": 1.383,
-      "chase_pull_ms": 2.446,
-      "block_squeeze_m2": 47.0,
-      "n_frames": 707,
-      "n_matches": 1,
-      "estimated_frac": 0.211,
-      "occlusion_flag": false,
-      "rank": 2,
-      "tied": true
+     "match_id": "10514",
+     "home": "Argentina",
+     "away": "Croatia",
+     "frames": 8044,
+     "secs": 18.5
     },
     {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Selim Amallah",
-      "jersey": 15,
-      "gravity": 4.3717,
-      "gravity_ci90": [
-        4.1152,
-        4.6753
-      ],
-      "drawn_markers": 1.012,
-      "chase_pull_ms": 3.117,
-      "block_squeeze_m2": 32.6,
-      "n_frames": 1472,
-      "n_matches": 2,
-      "estimated_frac": 0.269,
-      "occlusion_flag": false,
-      "rank": 2,
-      "tied": true
+     "match_id": "10513",
+     "home": "England",
+     "away": "France",
+     "frames": 7913,
+     "secs": 18.8
     },
     {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Youssef En-Nesyri",
-      "jersey": 19,
-      "gravity": 4.3153,
-      "gravity_ci90": [
-        4.0947,
-        4.5505
-      ],
-      "drawn_markers": 1.087,
-      "chase_pull_ms": 2.827,
-      "block_squeeze_m2": 33.4,
-      "n_frames": 1870,
-      "n_matches": 2,
-      "estimated_frac": 0.594,
-      "occlusion_flag": true,
-      "rank": 2,
-      "tied": true
+     "match_id": "10504",
+     "home": "France",
+     "away": "Poland",
+     "frames": 8478,
+     "secs": 18.6
     },
     {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Jawad El Yamiq",
-      "jersey": 18,
-      "gravity": 4.3133,
-      "gravity_ci90": [
-        3.7193,
-        4.9621
-      ],
-      "drawn_markers": 1.068,
-      "chase_pull_ms": 2.449,
-      "block_squeeze_m2": 41.9,
-      "n_frames": 396,
-      "n_matches": 2,
-      "estimated_frac": 0.505,
-      "occlusion_flag": true,
-      "rank": 2,
-      "tied": true
+     "match_id": "10512",
+     "home": "Morocco",
+     "away": "Portugal",
+     "frames": 8000,
+     "secs": 18.6
     },
     {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Luuk de Jong",
-      "jersey": 9,
-      "gravity": 4.2544,
-      "gravity_ci90": [
-        4.0203,
-        4.4906
-      ],
-      "drawn_markers": 1.237,
-      "chase_pull_ms": 2.343,
-      "block_squeeze_m2": 41.7,
-      "n_frames": 1054,
-      "n_matches": 1,
-      "estimated_frac": 0.412,
-      "occlusion_flag": false,
-      "rank": 3,
-      "tied": true
+     "match_id": "10509",
+     "home": "Portugal",
+     "away": "Switzerland",
+     "frames": 7765,
+     "secs": 17.7
     },
     {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Harry Souttar",
-      "jersey": 19,
-      "gravity": 4.002,
-      "gravity_ci90": [
-        3.6536,
-        4.3178
-      ],
-      "drawn_markers": 1.087,
-      "chase_pull_ms": 2.189,
-      "block_squeeze_m2": 32.9,
-      "n_frames": 675,
-      "n_matches": 1,
-      "estimated_frac": 0.403,
-      "occlusion_flag": false,
-      "rank": 3,
-      "tied": true
+     "match_id": "10508",
+     "home": "Morocco",
+     "away": "Spain",
+     "frames": 10841,
+     "secs": 26.2
     },
     {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Bruno Petkovic",
-      "jersey": 16,
-      "gravity": 3.9653,
-      "gravity_ci90": [
-        3.7693,
-        4.1941
-      ],
-      "drawn_markers": 0.999,
-      "chase_pull_ms": 2.422,
-      "block_squeeze_m2": 32.3,
-      "n_frames": 2025,
-      "n_matches": 2,
-      "estimated_frac": 0.295,
-      "occlusion_flag": false,
-      "rank": 3,
-      "tied": true
+     "match_id": "10511",
+     "home": "Netherlands",
+     "away": "Argentina",
+     "frames": 8541,
+     "secs": 21.3
     },
     {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Marko Livaja",
-      "jersey": 14,
-      "gravity": 3.838,
-      "gravity_ci90": [
-        3.3682,
-        4.3471
-      ],
-      "drawn_markers": 0.946,
-      "chase_pull_ms": 2.669,
-      "block_squeeze_m2": 39.6,
-      "n_frames": 598,
-      "n_matches": 1,
-      "estimated_frac": 0.48,
-      "occlusion_flag": false,
-      "rank": 3,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Richarlison",
-      "jersey": 9,
-      "gravity": 3.8025,
-      "gravity_ci90": [
-        3.6481,
-        3.9503
-      ],
-      "drawn_markers": 0.971,
-      "chase_pull_ms": 2.592,
-      "block_squeeze_m2": 26.0,
-      "n_frames": 2724,
-      "n_matches": 1,
-      "estimated_frac": 0.597,
-      "occlusion_flag": true,
-      "rank": 4,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Ibrahima Konat\u00e9",
-      "jersey": 24,
-      "gravity": 3.7996,
-      "gravity_ci90": [
-        3.1042,
-        4.5838
-      ],
-      "drawn_markers": 0.889,
-      "chase_pull_ms": 3.192,
-      "block_squeeze_m2": 38.7,
-      "n_frames": 153,
-      "n_matches": 1,
-      "estimated_frac": 0.346,
-      "occlusion_flag": false,
-      "rank": 4,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Alvaro Morata",
-      "jersey": 7,
-      "gravity": 3.7749,
-      "gravity_ci90": [
-        3.6673,
-        3.8763
-      ],
-      "drawn_markers": 0.99,
-      "chase_pull_ms": 2.62,
-      "block_squeeze_m2": 31.1,
-      "n_frames": 3017,
-      "n_matches": 1,
-      "estimated_frac": 0.397,
-      "occlusion_flag": false,
-      "rank": 4,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Marcus Rashford",
-      "jersey": 11,
-      "gravity": 3.7404,
-      "gravity_ci90": [
-        3.2458,
-        4.3618
-      ],
-      "drawn_markers": 0.801,
-      "chase_pull_ms": 2.288,
-      "block_squeeze_m2": 40.8,
-      "n_frames": 318,
-      "n_matches": 1,
-      "estimated_frac": 0.575,
-      "occlusion_flag": true,
-      "rank": 4,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Jude Bellingham",
-      "jersey": 22,
-      "gravity": 3.6522,
-      "gravity_ci90": [
-        3.5077,
-        3.8076
-      ],
-      "drawn_markers": 0.876,
-      "chase_pull_ms": 2.826,
-      "block_squeeze_m2": 27.3,
-      "n_frames": 2731,
-      "n_matches": 1,
-      "estimated_frac": 0.289,
-      "occlusion_flag": false,
-      "rank": 4,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Olivier Giroud",
-      "jersey": 9,
-      "gravity": 3.6491,
-      "gravity_ci90": [
-        3.5658,
-        3.7421
-      ],
-      "drawn_markers": 0.96,
-      "chase_pull_ms": 2.548,
-      "block_squeeze_m2": 28.0,
-      "n_frames": 5413,
-      "n_matches": 3,
-      "estimated_frac": 0.36,
-      "occlusion_flag": false,
-      "rank": 4,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Haris Seferovic",
-      "jersey": 9,
-      "gravity": 3.4651,
-      "gravity_ci90": [
-        3.2171,
-        3.7363
-      ],
-      "drawn_markers": 0.832,
-      "chase_pull_ms": 2.682,
-      "block_squeeze_m2": 23.5,
-      "n_frames": 1079,
-      "n_matches": 1,
-      "estimated_frac": 0.247,
-      "occlusion_flag": false,
-      "rank": 4,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Marco Asensio",
-      "jersey": 10,
-      "gravity": 3.3851,
-      "gravity_ci90": [
-        3.2849,
-        3.4942
-      ],
-      "drawn_markers": 0.804,
-      "chase_pull_ms": 2.81,
-      "block_squeeze_m2": 17.7,
-      "n_frames": 3030,
-      "n_matches": 1,
-      "estimated_frac": 0.337,
-      "occlusion_flag": false,
-      "rank": 5,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Julian Alvarez",
-      "jersey": 9,
-      "gravity": 3.2853,
-      "gravity_ci90": [
-        3.2104,
-        3.3598
-      ],
-      "drawn_markers": 0.818,
-      "chase_pull_ms": 2.618,
-      "block_squeeze_m2": 21.3,
-      "n_frames": 9011,
-      "n_matches": 4,
-      "estimated_frac": 0.222,
-      "occlusion_flag": false,
-      "rank": 5,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Harry Kane",
-      "jersey": 9,
-      "gravity": 3.2697,
-      "gravity_ci90": [
-        3.1513,
-        3.393
-      ],
-      "drawn_markers": 0.895,
-      "chase_pull_ms": 2.361,
-      "block_squeeze_m2": 26.6,
-      "n_frames": 3037,
-      "n_matches": 1,
-      "estimated_frac": 0.73,
-      "occlusion_flag": true,
-      "rank": 5,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Walid Cheddira",
-      "jersey": 21,
-      "gravity": 3.2689,
-      "gravity_ci90": [
-        3.0502,
-        3.4966
-      ],
-      "drawn_markers": 0.829,
-      "chase_pull_ms": 2.752,
-      "block_squeeze_m2": 41.7,
-      "n_frames": 877,
-      "n_matches": 2,
-      "estimated_frac": 0.538,
-      "occlusion_flag": true,
-      "rank": 5,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Goncalo Ramos",
-      "jersey": 26,
-      "gravity": 3.2037,
-      "gravity_ci90": [
-        3.0841,
-        3.3171
-      ],
-      "drawn_markers": 0.869,
-      "chase_pull_ms": 2.41,
-      "block_squeeze_m2": 21.9,
-      "n_frames": 4012,
-      "n_matches": 2,
-      "estimated_frac": 0.423,
-      "occlusion_flag": false,
-      "rank": 5,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Robert Lewandowski",
-      "jersey": 9,
-      "gravity": 3.201,
-      "gravity_ci90": [
-        3.0863,
-        3.3256
-      ],
-      "drawn_markers": 0.815,
-      "chase_pull_ms": 2.6,
-      "block_squeeze_m2": 23.7,
-      "n_frames": 2294,
-      "n_matches": 1,
-      "estimated_frac": 0.293,
-      "occlusion_flag": false,
-      "rank": 5,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Virgil van Dijk",
-      "jersey": 4,
-      "gravity": 3.1159,
-      "gravity_ci90": [
-        2.8786,
-        3.3385
-      ],
-      "drawn_markers": 0.941,
-      "chase_pull_ms": 1.645,
-      "block_squeeze_m2": 33.3,
-      "n_frames": 1130,
-      "n_matches": 1,
-      "estimated_frac": 0.346,
-      "occlusion_flag": false,
-      "rank": 5,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Lucas Paquet\u00e1",
-      "jersey": 7,
-      "gravity": 2.9681,
-      "gravity_ci90": [
-        2.8521,
-        3.0998
-      ],
-      "drawn_markers": 0.778,
-      "chase_pull_ms": 2.407,
-      "block_squeeze_m2": 27.6,
-      "n_frames": 2797,
-      "n_matches": 1,
-      "estimated_frac": 0.494,
-      "occlusion_flag": false,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Nikola Vlasic",
-      "jersey": 13,
-      "gravity": 2.9479,
-      "gravity_ci90": [
-        2.7364,
-        3.2009
-      ],
-      "drawn_markers": 0.765,
-      "chase_pull_ms": 2.024,
-      "block_squeeze_m2": 21.3,
-      "n_frames": 1943,
-      "n_matches": 2,
-      "estimated_frac": 0.266,
-      "occlusion_flag": false,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Rodrygo",
-      "jersey": 21,
-      "gravity": 2.937,
-      "gravity_ci90": [
-        2.6846,
-        3.2403
-      ],
-      "drawn_markers": 0.624,
-      "chase_pull_ms": 2.304,
-      "block_squeeze_m2": 32.2,
-      "n_frames": 1058,
-      "n_matches": 1,
-      "estimated_frac": 0.329,
-      "occlusion_flag": false,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Pablo Sarabia",
-      "jersey": 22,
-      "gravity": 2.9247,
-      "gravity_ci90": [
-        2.3944,
-        3.4857
-      ],
-      "drawn_markers": 0.597,
-      "chase_pull_ms": 2.112,
-      "block_squeeze_m2": 30.5,
-      "n_frames": 240,
-      "n_matches": 1,
-      "estimated_frac": 0.696,
-      "occlusion_flag": true,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Alexis Mac Allister",
-      "jersey": 20,
-      "gravity": 2.9146,
-      "gravity_ci90": [
-        2.8465,
-        2.9746
-      ],
-      "drawn_markers": 0.694,
-      "chase_pull_ms": 2.745,
-      "block_squeeze_m2": 19.4,
-      "n_frames": 8389,
-      "n_matches": 4,
-      "estimated_frac": 0.18,
-      "occlusion_flag": false,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Remo Freuler",
-      "jersey": 8,
-      "gravity": 2.8397,
-      "gravity_ci90": [
-        2.6803,
-        3.012
-      ],
-      "drawn_markers": 0.662,
-      "chase_pull_ms": 2.706,
-      "block_squeeze_m2": 20.3,
-      "n_frames": 1214,
-      "n_matches": 1,
-      "estimated_frac": 0.202,
-      "occlusion_flag": false,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Randal Kolo Muani",
-      "jersey": 12,
-      "gravity": 2.8224,
-      "gravity_ci90": [
-        2.6853,
-        2.9738
-      ],
-      "drawn_markers": 0.729,
-      "chase_pull_ms": 2.356,
-      "block_squeeze_m2": 20.2,
-      "n_frames": 2369,
-      "n_matches": 1,
-      "estimated_frac": 0.243,
-      "occlusion_flag": false,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Sergio Busquets",
-      "jersey": 5,
-      "gravity": 2.7942,
-      "gravity_ci90": [
-        2.7254,
-        2.8662
-      ],
-      "drawn_markers": 0.716,
-      "chase_pull_ms": 2.592,
-      "block_squeeze_m2": 17.6,
-      "n_frames": 5263,
-      "n_matches": 1,
-      "estimated_frac": 0.116,
-      "occlusion_flag": false,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Romain Sa\u00efss",
-      "jersey": 6,
-      "gravity": 2.7829,
-      "gravity_ci90": [
-        2.2922,
-        3.3162
-      ],
-      "drawn_markers": 0.755,
-      "chase_pull_ms": 1.497,
-      "block_squeeze_m2": 33.5,
-      "n_frames": 537,
-      "n_matches": 2,
-      "estimated_frac": 0.702,
-      "occlusion_flag": true,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Lautaro Martinez",
-      "jersey": 22,
-      "gravity": 2.7438,
-      "gravity_ci90": [
-        2.6006,
-        2.897
-      ],
-      "drawn_markers": 0.688,
-      "chase_pull_ms": 2.513,
-      "block_squeeze_m2": 23.7,
-      "n_frames": 1285,
-      "n_matches": 3,
-      "estimated_frac": 0.196,
-      "occlusion_flag": false,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Breel Embolo",
-      "jersey": 7,
-      "gravity": 2.7359,
-      "gravity_ci90": [
-        2.6052,
-        2.8677
-      ],
-      "drawn_markers": 0.746,
-      "chase_pull_ms": 2.318,
-      "block_squeeze_m2": 19.3,
-      "n_frames": 2386,
-      "n_matches": 1,
-      "estimated_frac": 0.256,
-      "occlusion_flag": false,
-      "rank": 6,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Lionel Messi",
-      "jersey": 10,
-      "gravity": 2.7344,
-      "gravity_ci90": [
-        2.6734,
-        2.7972
-      ],
-      "drawn_markers": 0.651,
-      "chase_pull_ms": 2.507,
-      "block_squeeze_m2": 19.3,
-      "n_frames": 9842,
-      "n_matches": 4,
-      "estimated_frac": 0.231,
-      "occlusion_flag": false,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Mitchell Duke",
-      "jersey": 15,
-      "gravity": 2.7196,
-      "gravity_ci90": [
-        2.5689,
-        2.9019
-      ],
-      "drawn_markers": 0.85,
-      "chase_pull_ms": 1.968,
-      "block_squeeze_m2": 18.8,
-      "n_frames": 1341,
-      "n_matches": 1,
-      "estimated_frac": 0.298,
-      "occlusion_flag": false,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Neymar",
-      "jersey": 10,
-      "gravity": 2.7178,
-      "gravity_ci90": [
-        2.6044,
-        2.8285
-      ],
-      "drawn_markers": 0.691,
-      "chase_pull_ms": 2.42,
-      "block_squeeze_m2": 25.3,
-      "n_frames": 2985,
-      "n_matches": 1,
-      "estimated_frac": 0.444,
-      "occlusion_flag": false,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Mathew Leckie",
-      "jersey": 7,
-      "gravity": 2.7168,
-      "gravity_ci90": [
-        2.4968,
-        2.9302
-      ],
-      "drawn_markers": 0.714,
-      "chase_pull_ms": 2.099,
-      "block_squeeze_m2": 18.6,
-      "n_frames": 1209,
-      "n_matches": 1,
-      "estimated_frac": 0.289,
-      "occlusion_flag": false,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Andrej Kramaric",
-      "jersey": 9,
-      "gravity": 2.6936,
-      "gravity_ci90": [
-        2.5966,
-        2.789
-      ],
-      "drawn_markers": 0.672,
-      "chase_pull_ms": 2.526,
-      "block_squeeze_m2": 19.0,
-      "n_frames": 4549,
-      "n_matches": 2,
-      "estimated_frac": 0.347,
-      "occlusion_flag": false,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Zakaria Aboukhlal",
-      "jersey": 14,
-      "gravity": 2.6743,
-      "gravity_ci90": [
-        2.2478,
-        3.1034
-      ],
-      "drawn_markers": 0.837,
-      "chase_pull_ms": 2.021,
-      "block_squeeze_m2": 79.7,
-      "n_frames": 207,
-      "n_matches": 1,
-      "estimated_frac": 0.961,
-      "occlusion_flag": true,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Abdelhamid Sabiri",
-      "jersey": 11,
-      "gravity": 2.654,
-      "gravity_ci90": [
-        2.2471,
-        3.1363
-      ],
-      "drawn_markers": 0.664,
-      "chase_pull_ms": 2.263,
-      "block_squeeze_m2": 19.8,
-      "n_frames": 383,
-      "n_matches": 1,
-      "estimated_frac": 0.324,
-      "occlusion_flag": false,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Garang Kuol",
-      "jersey": 21,
-      "gravity": 2.6512,
-      "gravity_ci90": [
-        2.4625,
-        2.8806
-      ],
-      "drawn_markers": 0.708,
-      "chase_pull_ms": 2.503,
-      "block_squeeze_m2": 17.5,
-      "n_frames": 502,
-      "n_matches": 1,
-      "estimated_frac": 0.319,
-      "occlusion_flag": false,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Azzedine Ounahi",
-      "jersey": 8,
-      "gravity": 2.6382,
-      "gravity_ci90": [
-        2.5004,
-        2.7736
-      ],
-      "drawn_markers": 0.663,
-      "chase_pull_ms": 2.518,
-      "block_squeeze_m2": 28.0,
-      "n_frames": 1929,
-      "n_matches": 2,
-      "estimated_frac": 0.236,
-      "occlusion_flag": false,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Lovro Majer",
-      "jersey": 7,
-      "gravity": 2.6331,
-      "gravity_ci90": [
-        2.3084,
-        2.9893
-      ],
-      "drawn_markers": 0.596,
-      "chase_pull_ms": 2.709,
-      "block_squeeze_m2": 31.5,
-      "n_frames": 303,
-      "n_matches": 1,
-      "estimated_frac": 0.221,
-      "occlusion_flag": false,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Mason Mount",
-      "jersey": 19,
-      "gravity": 2.6299,
-      "gravity_ci90": [
-        2.3594,
-        2.9253
-      ],
-      "drawn_markers": 0.662,
-      "chase_pull_ms": 2.393,
-      "block_squeeze_m2": 28.9,
-      "n_frames": 378,
-      "n_matches": 1,
-      "estimated_frac": 0.672,
-      "occlusion_flag": true,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Djibril Sow",
-      "jersey": 15,
-      "gravity": 2.576,
-      "gravity_ci90": [
-        2.4384,
-        2.73
-      ],
-      "drawn_markers": 0.645,
-      "chase_pull_ms": 2.729,
-      "block_squeeze_m2": 18.3,
-      "n_frames": 1166,
-      "n_matches": 1,
-      "estimated_frac": 0.184,
-      "occlusion_flag": false,
-      "rank": 7,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Memphis Depay",
-      "jersey": 10,
-      "gravity": 2.5516,
-      "gravity_ci90": [
-        2.4425,
-        2.6691
-      ],
-      "drawn_markers": 0.688,
-      "chase_pull_ms": 2.351,
-      "block_squeeze_m2": 17.7,
-      "n_frames": 2439,
-      "n_matches": 1,
-      "estimated_frac": 0.225,
-      "occlusion_flag": false,
-      "rank": 8,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "John Stones",
-      "jersey": 5,
-      "gravity": 2.5456,
-      "gravity_ci90": [
-        2.2469,
-        2.8503
-      ],
-      "drawn_markers": 0.705,
-      "chase_pull_ms": 1.221,
-      "block_squeeze_m2": 24.6,
-      "n_frames": 996,
-      "n_matches": 1,
-      "estimated_frac": 0.637,
-      "occlusion_flag": true,
-      "rank": 8,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Mario Pasalic",
-      "jersey": 15,
-      "gravity": 2.5198,
-      "gravity_ci90": [
-        2.3969,
-        2.6414
-      ],
-      "drawn_markers": 0.701,
-      "chase_pull_ms": 2.1,
-      "block_squeeze_m2": 20.7,
-      "n_frames": 3190,
-      "n_matches": 2,
-      "estimated_frac": 0.404,
-      "occlusion_flag": false,
-      "rank": 8,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Jackson Irvine",
-      "jersey": 22,
-      "gravity": 2.5182,
-      "gravity_ci90": [
-        2.3525,
-        2.6719
-      ],
-      "drawn_markers": 0.69,
-      "chase_pull_ms": 2.264,
-      "block_squeeze_m2": 19.3,
-      "n_frames": 1411,
-      "n_matches": 1,
-      "estimated_frac": 0.217,
-      "occlusion_flag": false,
-      "rank": 8,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Noah Okafor",
-      "jersey": 19,
-      "gravity": 2.499,
-      "gravity_ci90": [
-        2.3351,
-        2.6565
-      ],
-      "drawn_markers": 0.636,
-      "chase_pull_ms": 2.56,
-      "block_squeeze_m2": 20.9,
-      "n_frames": 731,
-      "n_matches": 1,
-      "estimated_frac": 0.989,
-      "occlusion_flag": true,
-      "rank": 8,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Exequiel Palacios",
-      "jersey": 14,
-      "gravity": 2.4837,
-      "gravity_ci90": [
-        2.2297,
-        2.7477
-      ],
-      "drawn_markers": 0.587,
-      "chase_pull_ms": 2.604,
-      "block_squeeze_m2": 27.4,
-      "n_frames": 456,
-      "n_matches": 2,
-      "estimated_frac": 0.357,
-      "occlusion_flag": false,
-      "rank": 8,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Carlos Soler",
-      "jersey": 19,
-      "gravity": 2.411,
-      "gravity_ci90": [
-        2.3179,
-        2.499
-      ],
-      "drawn_markers": 0.595,
-      "chase_pull_ms": 2.347,
-      "block_squeeze_m2": 17.9,
-      "n_frames": 2809,
-      "n_matches": 1,
-      "estimated_frac": 0.147,
-      "occlusion_flag": false,
-      "rank": 8,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Phil Foden",
-      "jersey": 20,
-      "gravity": 2.3851,
-      "gravity_ci90": [
-        2.2916,
-        2.4755
-      ],
-      "drawn_markers": 0.628,
-      "chase_pull_ms": 2.062,
-      "block_squeeze_m2": 20.6,
-      "n_frames": 2647,
-      "n_matches": 1,
-      "estimated_frac": 0.377,
-      "occlusion_flag": false,
-      "rank": 8,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Sebastian Szymanski",
-      "jersey": 19,
-      "gravity": 2.3584,
-      "gravity_ci90": [
-        2.233,
-        2.4914
-      ],
-      "drawn_markers": 0.58,
-      "chase_pull_ms": 2.633,
-      "block_squeeze_m2": 16.5,
-      "n_frames": 1255,
-      "n_matches": 1,
-      "estimated_frac": 0.406,
-      "occlusion_flag": false,
-      "rank": 8,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Adrien Rabiot",
-      "jersey": 14,
-      "gravity": 2.3533,
-      "gravity_ci90": [
-        2.2865,
-        2.4194
-      ],
-      "drawn_markers": 0.619,
-      "chase_pull_ms": 2.215,
-      "block_squeeze_m2": 22.0,
-      "n_frames": 6206,
-      "n_matches": 3,
-      "estimated_frac": 0.219,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "R\u00faben Neves",
-      "jersey": 18,
-      "gravity": 2.3513,
-      "gravity_ci90": [
-        2.1987,
-        2.5071
-      ],
-      "drawn_markers": 0.625,
-      "chase_pull_ms": 2.119,
-      "block_squeeze_m2": 18.5,
-      "n_frames": 1175,
-      "n_matches": 2,
-      "estimated_frac": 0.49,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Steven Bergwijn",
-      "jersey": 7,
-      "gravity": 2.321,
-      "gravity_ci90": [
-        2.1845,
-        2.4392
-      ],
-      "drawn_markers": 0.657,
-      "chase_pull_ms": 2.105,
-      "block_squeeze_m2": 17.5,
-      "n_frames": 1446,
-      "n_matches": 1,
-      "estimated_frac": 0.238,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Gavi",
-      "jersey": 9,
-      "gravity": 2.3204,
-      "gravity_ci90": [
-        2.2392,
-        2.4031
-      ],
-      "drawn_markers": 0.619,
-      "chase_pull_ms": 2.317,
-      "block_squeeze_m2": 13.8,
-      "n_frames": 2844,
-      "n_matches": 1,
-      "estimated_frac": 0.21,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Otavio",
-      "jersey": 25,
-      "gravity": 2.2943,
-      "gravity_ci90": [
-        2.2153,
-        2.3745
-      ],
-      "drawn_markers": 0.593,
-      "chase_pull_ms": 2.433,
-      "block_squeeze_m2": 17.9,
-      "n_frames": 3372,
-      "n_matches": 2,
-      "estimated_frac": 0.318,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Bernardo Silva",
-      "jersey": 10,
-      "gravity": 2.2733,
-      "gravity_ci90": [
-        2.1933,
-        2.3495
-      ],
-      "drawn_markers": 0.572,
-      "chase_pull_ms": 2.434,
-      "block_squeeze_m2": 17.8,
-      "n_frames": 4101,
-      "n_matches": 2,
-      "estimated_frac": 0.438,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Casemiro",
-      "jersey": 5,
-      "gravity": 2.261,
-      "gravity_ci90": [
-        2.1352,
-        2.3877
-      ],
-      "drawn_markers": 0.584,
-      "chase_pull_ms": 2.101,
-      "block_squeeze_m2": 21.6,
-      "n_frames": 2419,
-      "n_matches": 1,
-      "estimated_frac": 0.348,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Antoine Griezmann",
-      "jersey": 7,
-      "gravity": 2.2455,
-      "gravity_ci90": [
-        2.183,
-        2.3134
-      ],
-      "drawn_markers": 0.566,
-      "chase_pull_ms": 2.281,
-      "block_squeeze_m2": 21.5,
-      "n_frames": 6294,
-      "n_matches": 3,
-      "estimated_frac": 0.257,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Ansu Fati",
-      "jersey": 25,
-      "gravity": 2.2381,
-      "gravity_ci90": [
-        2.0851,
-        2.4062
-      ],
-      "drawn_markers": 0.55,
-      "chase_pull_ms": 2.039,
-      "block_squeeze_m2": 18.4,
-      "n_frames": 1116,
-      "n_matches": 1,
-      "estimated_frac": 0.306,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Harry Maguire",
-      "jersey": 6,
-      "gravity": 2.2239,
-      "gravity_ci90": [
-        1.978,
-        2.4692
-      ],
-      "drawn_markers": 0.612,
-      "chase_pull_ms": 1.234,
-      "block_squeeze_m2": 27.3,
-      "n_frames": 1057,
-      "n_matches": 1,
-      "estimated_frac": 0.605,
-      "occlusion_flag": true,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Marten De Roon",
-      "jersey": 15,
-      "gravity": 2.2164,
-      "gravity_ci90": [
-        2.0389,
-        2.401
-      ],
-      "drawn_markers": 0.703,
-      "chase_pull_ms": 1.923,
-      "block_squeeze_m2": 19.7,
-      "n_frames": 767,
-      "n_matches": 1,
-      "estimated_frac": 0.226,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Denis Zakaria",
-      "jersey": 6,
-      "gravity": 2.1836,
-      "gravity_ci90": [
-        1.9837,
-        2.4105
-      ],
-      "drawn_markers": 0.543,
-      "chase_pull_ms": 2.306,
-      "block_squeeze_m2": 18.2,
-      "n_frames": 813,
-      "n_matches": 1,
-      "estimated_frac": 0.226,
-      "occlusion_flag": false,
-      "rank": 9,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Kylian Mbapp\u00e9",
-      "jersey": 10,
-      "gravity": 2.124,
-      "gravity_ci90": [
-        2.0678,
-        2.1818
-      ],
-      "drawn_markers": 0.582,
-      "chase_pull_ms": 2.059,
-      "block_squeeze_m2": 20.9,
-      "n_frames": 8371,
-      "n_matches": 3,
-      "estimated_frac": 0.316,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Bruno Fernandes",
-      "jersey": 8,
-      "gravity": 2.119,
-      "gravity_ci90": [
-        2.0433,
-        2.201
-      ],
-      "drawn_markers": 0.53,
-      "chase_pull_ms": 2.32,
-      "block_squeeze_m2": 15.1,
-      "n_frames": 4611,
-      "n_matches": 2,
-      "estimated_frac": 0.323,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Paulo Dybala",
-      "jersey": 21,
-      "gravity": 2.0995,
-      "gravity_ci90": [
-        1.781,
-        2.3921
-      ],
-      "drawn_markers": 0.493,
-      "chase_pull_ms": 2.388,
-      "block_squeeze_m2": 18.1,
-      "n_frames": 260,
-      "n_matches": 2,
-      "estimated_frac": 0.427,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Marcus Thuram",
-      "jersey": 26,
-      "gravity": 2.0971,
-      "gravity_ci90": [
-        1.991,
-        2.1904
-      ],
-      "drawn_markers": 0.587,
-      "chase_pull_ms": 1.892,
-      "block_squeeze_m2": 20.4,
-      "n_frames": 2983,
-      "n_matches": 2,
-      "estimated_frac": 0.349,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Cody Gakpo",
-      "jersey": 8,
-      "gravity": 2.0869,
-      "gravity_ci90": [
-        1.9973,
-        2.1784
-      ],
-      "drawn_markers": 0.567,
-      "chase_pull_ms": 1.913,
-      "block_squeeze_m2": 20.1,
-      "n_frames": 3080,
-      "n_matches": 1,
-      "estimated_frac": 0.267,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Vitinha",
-      "jersey": 16,
-      "gravity": 2.0848,
-      "gravity_ci90": [
-        1.8882,
-        2.3035
-      ],
-      "drawn_markers": 0.511,
-      "chase_pull_ms": 2.368,
-      "block_squeeze_m2": 14.7,
-      "n_frames": 866,
-      "n_matches": 2,
-      "estimated_frac": 0.784,
-      "occlusion_flag": true,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Luka Modric",
-      "jersey": 10,
-      "gravity": 2.047,
-      "gravity_ci90": [
-        1.9484,
-        2.1499
-      ],
-      "drawn_markers": 0.514,
-      "chase_pull_ms": 2.181,
-      "block_squeeze_m2": 17.3,
-      "n_frames": 3636,
-      "n_matches": 2,
-      "estimated_frac": 0.292,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Piotr Zielinski",
-      "jersey": 20,
-      "gravity": 2.033,
-      "gravity_ci90": [
-        1.917,
-        2.1585
-      ],
-      "drawn_markers": 0.57,
-      "chase_pull_ms": 2.013,
-      "block_squeeze_m2": 17.9,
-      "n_frames": 1794,
-      "n_matches": 1,
-      "estimated_frac": 0.247,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Sofiane Boufal",
-      "jersey": 17,
-      "gravity": 2.031,
-      "gravity_ci90": [
-        1.8683,
-        2.1966
-      ],
-      "drawn_markers": 0.479,
-      "chase_pull_ms": 1.845,
-      "block_squeeze_m2": 27.1,
-      "n_frames": 1556,
-      "n_matches": 2,
-      "estimated_frac": 0.422,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Teun Koopmeiners",
-      "jersey": 20,
-      "gravity": 2.0202,
-      "gravity_ci90": [
-        1.8804,
-        2.1728
-      ],
-      "drawn_markers": 0.498,
-      "chase_pull_ms": 2.044,
-      "block_squeeze_m2": 21.8,
-      "n_frames": 1327,
-      "n_matches": 1,
-      "estimated_frac": 0.205,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Joao Felix",
-      "jersey": 11,
-      "gravity": 2.0144,
-      "gravity_ci90": [
-        1.9231,
-        2.0916
-      ],
-      "drawn_markers": 0.538,
-      "chase_pull_ms": 2.049,
-      "block_squeeze_m2": 15.6,
-      "n_frames": 4373,
-      "n_matches": 2,
-      "estimated_frac": 0.392,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Jakub Kaminski",
-      "jersey": 13,
-      "gravity": 1.9916,
-      "gravity_ci90": [
-        1.8855,
-        2.1256
-      ],
-      "drawn_markers": 0.623,
-      "chase_pull_ms": 1.745,
-      "block_squeeze_m2": 17.5,
-      "n_frames": 1503,
-      "n_matches": 1,
-      "estimated_frac": 0.641,
-      "occlusion_flag": true,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Granit Xhaka",
-      "jersey": 10,
-      "gravity": 1.9888,
-      "gravity_ci90": [
-        1.8587,
-        2.1449
-      ],
-      "drawn_markers": 0.513,
-      "chase_pull_ms": 2.229,
-      "block_squeeze_m2": 16.8,
-      "n_frames": 1599,
-      "n_matches": 1,
-      "estimated_frac": 0.232,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Declan Rice",
-      "jersey": 4,
-      "gravity": 1.9798,
-      "gravity_ci90": [
-        1.8558,
-        2.0953
-      ],
-      "drawn_markers": 0.621,
-      "chase_pull_ms": 1.797,
-      "block_squeeze_m2": 16.6,
-      "n_frames": 1928,
-      "n_matches": 1,
-      "estimated_frac": 0.354,
-      "occlusion_flag": false,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Nayef Aguerd",
-      "jersey": 5,
-      "gravity": 1.9725,
-      "gravity_ci90": [
-        1.6387,
-        2.3254
-      ],
-      "drawn_markers": 0.552,
-      "chase_pull_ms": 1.573,
-      "block_squeeze_m2": 36.2,
-      "n_frames": 229,
-      "n_matches": 1,
-      "estimated_frac": 0.62,
-      "occlusion_flag": true,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "German Pezzella",
-      "jersey": 6,
-      "gravity": 1.9304,
-      "gravity_ci90": [
-        1.5893,
-        2.3423
-      ],
-      "drawn_markers": 0.464,
-      "chase_pull_ms": 1.937,
-      "block_squeeze_m2": 18.7,
-      "n_frames": 178,
-      "n_matches": 2,
-      "estimated_frac": 0.68,
-      "occlusion_flag": true,
-      "rank": 10,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Ajdin Hrustic",
-      "jersey": 10,
-      "gravity": 1.9087,
-      "gravity_ci90": [
-        1.7412,
-        2.0662
-      ],
-      "drawn_markers": 0.511,
-      "chase_pull_ms": 2.108,
-      "block_squeeze_m2": 21.1,
-      "n_frames": 707,
-      "n_matches": 1,
-      "estimated_frac": 0.287,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Raheem Sterling",
-      "jersey": 10,
-      "gravity": 1.907,
-      "gravity_ci90": [
-        1.4638,
-        2.3332
-      ],
-      "drawn_markers": 0.287,
-      "chase_pull_ms": 2.12,
-      "block_squeeze_m2": 28.3,
-      "n_frames": 355,
-      "n_matches": 1,
-      "estimated_frac": 0.358,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Frenkie de Jong",
-      "jersey": 21,
-      "gravity": 1.8432,
-      "gravity_ci90": [
-        1.7512,
-        1.9344
-      ],
-      "drawn_markers": 0.52,
-      "chase_pull_ms": 1.885,
-      "block_squeeze_m2": 21.4,
-      "n_frames": 2120,
-      "n_matches": 1,
-      "estimated_frac": 0.242,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Achraf Hakimi",
-      "jersey": 2,
-      "gravity": 1.8388,
-      "gravity_ci90": [
-        1.6176,
-        2.0584
-      ],
-      "drawn_markers": 0.43,
-      "chase_pull_ms": 1.727,
-      "block_squeeze_m2": 32.1,
-      "n_frames": 1244,
-      "n_matches": 2,
-      "estimated_frac": 0.36,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Xherdan Shaqiri",
-      "jersey": 23,
-      "gravity": 1.8312,
-      "gravity_ci90": [
-        1.7262,
-        1.9375
-      ],
-      "drawn_markers": 0.499,
-      "chase_pull_ms": 1.897,
-      "block_squeeze_m2": 16.4,
-      "n_frames": 2317,
-      "n_matches": 1,
-      "estimated_frac": 0.237,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Ricardo Horta",
-      "jersey": 21,
-      "gravity": 1.818,
-      "gravity_ci90": [
-        1.6184,
-        2.0491
-      ],
-      "drawn_markers": 0.45,
-      "chase_pull_ms": 2.007,
-      "block_squeeze_m2": 13.7,
-      "n_frames": 688,
-      "n_matches": 2,
-      "estimated_frac": 0.382,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Dani Olmo",
-      "jersey": 21,
-      "gravity": 1.7915,
-      "gravity_ci90": [
-        1.7187,
-        1.856
-      ],
-      "drawn_markers": 0.438,
-      "chase_pull_ms": 1.768,
-      "block_squeeze_m2": 15.0,
-      "n_frames": 4723,
-      "n_matches": 1,
-      "estimated_frac": 0.383,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Rodrigo de Paul",
-      "jersey": 7,
-      "gravity": 1.7859,
-      "gravity_ci90": [
-        1.7391,
-        1.8341
-      ],
-      "drawn_markers": 0.492,
-      "chase_pull_ms": 2.069,
-      "block_squeeze_m2": 17.2,
-      "n_frames": 7521,
-      "n_matches": 4,
-      "estimated_frac": 0.182,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Sofyan Amrabat",
-      "jersey": 4,
-      "gravity": 1.7798,
-      "gravity_ci90": [
-        1.6117,
-        1.9798
-      ],
-      "drawn_markers": 0.447,
-      "chase_pull_ms": 1.893,
-      "block_squeeze_m2": 27.6,
-      "n_frames": 1236,
-      "n_matches": 2,
-      "estimated_frac": 0.371,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Youssouf Fofana",
-      "jersey": 13,
-      "gravity": 1.7638,
-      "gravity_ci90": [
-        1.5889,
-        1.9359
-      ],
-      "drawn_markers": 0.453,
-      "chase_pull_ms": 2.122,
-      "block_squeeze_m2": 19.6,
-      "n_frames": 948,
-      "n_matches": 2,
-      "estimated_frac": 0.288,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Aur\u00e9lien Tchouam\u00e9ni",
-      "jersey": 8,
-      "gravity": 1.7557,
-      "gravity_ci90": [
-        1.6707,
-        1.8306
-      ],
-      "drawn_markers": 0.495,
-      "chase_pull_ms": 1.881,
-      "block_squeeze_m2": 18.8,
-      "n_frames": 5159,
-      "n_matches": 3,
-      "estimated_frac": 0.303,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Marcelo Brozovic",
-      "jersey": 11,
-      "gravity": 1.7266,
-      "gravity_ci90": [
-        1.6407,
-        1.8238
-      ],
-      "drawn_markers": 0.462,
-      "chase_pull_ms": 2.104,
-      "block_squeeze_m2": 17.1,
-      "n_frames": 2420,
-      "n_matches": 2,
-      "estimated_frac": 0.286,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Nathan Ak\u00e9",
-      "jersey": 5,
-      "gravity": 1.7198,
-      "gravity_ci90": [
-        1.5806,
-        1.8437
-      ],
-      "drawn_markers": 0.569,
-      "chase_pull_ms": 1.305,
-      "block_squeeze_m2": 26.3,
-      "n_frames": 1465,
-      "n_matches": 1,
-      "estimated_frac": 0.287,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Raphael Varane",
-      "jersey": 4,
-      "gravity": 1.6765,
-      "gravity_ci90": [
-        1.56,
-        1.7898
-      ],
-      "drawn_markers": 0.451,
-      "chase_pull_ms": 1.23,
-      "block_squeeze_m2": 20.5,
-      "n_frames": 3398,
-      "n_matches": 3,
-      "estimated_frac": 0.546,
-      "occlusion_flag": true,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Ruben Dias",
-      "jersey": 4,
-      "gravity": 1.665,
-      "gravity_ci90": [
-        1.5347,
-        1.7817
-      ],
-      "drawn_markers": 0.471,
-      "chase_pull_ms": 1.666,
-      "block_squeeze_m2": 20.7,
-      "n_frames": 1914,
-      "n_matches": 2,
-      "estimated_frac": 0.606,
-      "occlusion_flag": true,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Eder Militao",
-      "jersey": 14,
-      "gravity": 1.6547,
-      "gravity_ci90": [
-        1.5117,
-        1.8186
-      ],
-      "drawn_markers": 0.436,
-      "chase_pull_ms": 1.538,
-      "block_squeeze_m2": 24.6,
-      "n_frames": 2137,
-      "n_matches": 1,
-      "estimated_frac": 0.366,
-      "occlusion_flag": false,
-      "rank": 11,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Mateo Kovacic",
-      "jersey": 8,
-      "gravity": 1.6524,
-      "gravity_ci90": [
-        1.5879,
-        1.7182
-      ],
-      "drawn_markers": 0.455,
-      "chase_pull_ms": 1.932,
-      "block_squeeze_m2": 16.1,
-      "n_frames": 3973,
-      "n_matches": 2,
-      "estimated_frac": 0.272,
-      "occlusion_flag": false,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Riley McGree",
-      "jersey": 14,
-      "gravity": 1.6349,
-      "gravity_ci90": [
-        1.492,
-        1.7816
-      ],
-      "drawn_markers": 0.494,
-      "chase_pull_ms": 1.848,
-      "block_squeeze_m2": 15.5,
-      "n_frames": 914,
-      "n_matches": 1,
-      "estimated_frac": 0.348,
-      "occlusion_flag": false,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Przemyslaw Frankowski",
-      "jersey": 24,
-      "gravity": 1.6121,
-      "gravity_ci90": [
-        1.5254,
-        1.6988
-      ],
-      "drawn_markers": 0.469,
-      "chase_pull_ms": 1.684,
-      "block_squeeze_m2": 12.9,
-      "n_frames": 1903,
-      "n_matches": 1,
-      "estimated_frac": 0.724,
-      "occlusion_flag": true,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Krystian Bielik",
-      "jersey": 6,
-      "gravity": 1.6093,
-      "gravity_ci90": [
-        1.4454,
-        1.7966
-      ],
-      "drawn_markers": 0.507,
-      "chase_pull_ms": 1.615,
-      "block_squeeze_m2": 18.5,
-      "n_frames": 458,
-      "n_matches": 1,
-      "estimated_frac": 0.249,
-      "occlusion_flag": false,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Denzel Dumfries",
-      "jersey": 22,
-      "gravity": 1.5922,
-      "gravity_ci90": [
-        1.4861,
-        1.6999
-      ],
-      "drawn_markers": 0.513,
-      "chase_pull_ms": 1.195,
-      "block_squeeze_m2": 20.0,
-      "n_frames": 2531,
-      "n_matches": 1,
-      "estimated_frac": 0.266,
-      "occlusion_flag": false,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Keanu Baccus",
-      "jersey": 26,
-      "gravity": 1.5855,
-      "gravity_ci90": [
-        1.4566,
-        1.7199
-      ],
-      "drawn_markers": 0.437,
-      "chase_pull_ms": 1.955,
-      "block_squeeze_m2": 13.2,
-      "n_frames": 752,
-      "n_matches": 1,
-      "estimated_frac": 0.202,
-      "occlusion_flag": false,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Hakim Ziyech",
-      "jersey": 7,
-      "gravity": 1.5806,
-      "gravity_ci90": [
-        1.4774,
-        1.6821
-      ],
-      "drawn_markers": 0.425,
-      "chase_pull_ms": 1.597,
-      "block_squeeze_m2": 24.9,
-      "n_frames": 2123,
-      "n_matches": 2,
-      "estimated_frac": 0.429,
-      "occlusion_flag": false,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Jamie Maclaren",
-      "jersey": 9,
-      "gravity": 1.546,
-      "gravity_ci90": [
-        1.3701,
-        1.7282
-      ],
-      "drawn_markers": 0.483,
-      "chase_pull_ms": 1.731,
-      "block_squeeze_m2": 11.4,
-      "n_frames": 485,
-      "n_matches": 1,
-      "estimated_frac": 0.765,
-      "occlusion_flag": true,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Nico Williams",
-      "jersey": 12,
-      "gravity": 1.536,
-      "gravity_ci90": [
-        1.409,
-        1.6366
-      ],
-      "drawn_markers": 0.404,
-      "chase_pull_ms": 1.45,
-      "block_squeeze_m2": 18.3,
-      "n_frames": 1940,
-      "n_matches": 1,
-      "estimated_frac": 0.325,
-      "occlusion_flag": false,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Marquinhos",
-      "jersey": 4,
-      "gravity": 1.5325,
-      "gravity_ci90": [
-        1.3375,
-        1.7244
-      ],
-      "drawn_markers": 0.443,
-      "chase_pull_ms": 1.033,
-      "block_squeeze_m2": 21.6,
-      "n_frames": 1434,
-      "n_matches": 1,
-      "estimated_frac": 0.641,
-      "occlusion_flag": true,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "William Carvalho",
-      "jersey": 14,
-      "gravity": 1.5205,
-      "gravity_ci90": [
-        1.4256,
-        1.636
-      ],
-      "drawn_markers": 0.439,
-      "chase_pull_ms": 2.117,
-      "block_squeeze_m2": 13.1,
-      "n_frames": 1071,
-      "n_matches": 1,
-      "estimated_frac": 0.35,
-      "occlusion_flag": false,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Grzegorz Krychowiak",
-      "jersey": 10,
-      "gravity": 1.5142,
-      "gravity_ci90": [
-        1.4008,
-        1.652
-      ],
-      "drawn_markers": 0.483,
-      "chase_pull_ms": 1.645,
-      "block_squeeze_m2": 15.1,
-      "n_frames": 978,
-      "n_matches": 1,
-      "estimated_frac": 0.334,
-      "occlusion_flag": false,
-      "rank": 12,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Enzo Fernandez",
-      "jersey": 24,
-      "gravity": 1.5081,
-      "gravity_ci90": [
-        1.4569,
-        1.5567
-      ],
-      "drawn_markers": 0.432,
-      "chase_pull_ms": 1.897,
-      "block_squeeze_m2": 16.2,
-      "n_frames": 6423,
-      "n_matches": 4,
-      "estimated_frac": 0.288,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Abde Ezzalzouli",
-      "jersey": 16,
-      "gravity": 1.4895,
-      "gravity_ci90": [
-        1.2938,
-        1.6672
-      ],
-      "drawn_markers": 0.423,
-      "chase_pull_ms": 1.409,
-      "block_squeeze_m2": 14.0,
-      "n_frames": 579,
-      "n_matches": 1,
-      "estimated_frac": 0.389,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Rub\u00e9n Vargas",
-      "jersey": 17,
-      "gravity": 1.464,
-      "gravity_ci90": [
-        1.3701,
-        1.5778
-      ],
-      "drawn_markers": 0.418,
-      "chase_pull_ms": 1.625,
-      "block_squeeze_m2": 17.7,
-      "n_frames": 1390,
-      "n_matches": 1,
-      "estimated_frac": 0.224,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Pedri",
-      "jersey": 26,
-      "gravity": 1.464,
-      "gravity_ci90": [
-        1.4197,
-        1.5109
-      ],
-      "drawn_markers": 0.412,
-      "chase_pull_ms": 1.767,
-      "block_squeeze_m2": 12.2,
-      "n_frames": 5206,
-      "n_matches": 1,
-      "estimated_frac": 0.155,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Kye Rowles",
-      "jersey": 4,
-      "gravity": 1.4594,
-      "gravity_ci90": [
-        1.292,
-        1.6318
-      ],
-      "drawn_markers": 0.466,
-      "chase_pull_ms": 1.409,
-      "block_squeeze_m2": 23.4,
-      "n_frames": 530,
-      "n_matches": 1,
-      "estimated_frac": 0.472,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Vin\u00edcius Junior",
-      "jersey": 20,
-      "gravity": 1.4508,
-      "gravity_ci90": [
-        1.3294,
-        1.575
-      ],
-      "drawn_markers": 0.392,
-      "chase_pull_ms": 1.37,
-      "block_squeeze_m2": 19.0,
-      "n_frames": 1926,
-      "n_matches": 1,
-      "estimated_frac": 0.668,
-      "occlusion_flag": true,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Pepe",
-      "jersey": 3,
-      "gravity": 1.4412,
-      "gravity_ci90": [
-        1.3112,
-        1.5767
-      ],
-      "drawn_markers": 0.383,
-      "chase_pull_ms": 1.341,
-      "block_squeeze_m2": 17.3,
-      "n_frames": 2155,
-      "n_matches": 2,
-      "estimated_frac": 0.738,
-      "occlusion_flag": true,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Jordan Henderson",
-      "jersey": 8,
-      "gravity": 1.4331,
-      "gravity_ci90": [
-        1.3503,
-        1.5238
-      ],
-      "drawn_markers": 0.449,
-      "chase_pull_ms": 1.553,
-      "block_squeeze_m2": 16.4,
-      "n_frames": 2308,
-      "n_matches": 1,
-      "estimated_frac": 0.363,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Milos Degenek",
-      "jersey": 2,
-      "gravity": 1.4324,
-      "gravity_ci90": [
-        1.2571,
-        1.6504
-      ],
-      "drawn_markers": 0.395,
-      "chase_pull_ms": 1.115,
-      "block_squeeze_m2": 23.2,
-      "n_frames": 709,
-      "n_matches": 1,
-      "estimated_frac": 0.425,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Kingsley Coman",
-      "jersey": 20,
-      "gravity": 1.4322,
-      "gravity_ci90": [
-        1.3302,
-        1.5486
-      ],
-      "drawn_markers": 0.414,
-      "chase_pull_ms": 1.694,
-      "block_squeeze_m2": 19.1,
-      "n_frames": 1668,
-      "n_matches": 2,
-      "estimated_frac": 0.285,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Leandro Paredes",
-      "jersey": 5,
-      "gravity": 1.431,
-      "gravity_ci90": [
-        1.3062,
-        1.5337
-      ],
-      "drawn_markers": 0.38,
-      "chase_pull_ms": 1.892,
-      "block_squeeze_m2": 18.9,
-      "n_frames": 1382,
-      "n_matches": 3,
-      "estimated_frac": 0.333,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Eduardo Camavinga",
-      "jersey": 25,
-      "gravity": 1.395,
-      "gravity_ci90": [
-        1.2565,
-        1.5481
-      ],
-      "drawn_markers": 0.343,
-      "chase_pull_ms": 1.882,
-      "block_squeeze_m2": 18.2,
-      "n_frames": 1096,
-      "n_matches": 1,
-      "estimated_frac": 0.282,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Antony",
-      "jersey": 19,
-      "gravity": 1.3579,
-      "gravity_ci90": [
-        1.2384,
-        1.4661
-      ],
-      "drawn_markers": 0.37,
-      "chase_pull_ms": 1.548,
-      "block_squeeze_m2": 31.1,
-      "n_frames": 1306,
-      "n_matches": 1,
-      "estimated_frac": 0.593,
-      "occlusion_flag": true,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Kamil Glik",
-      "jersey": 15,
-      "gravity": 1.3317,
-      "gravity_ci90": [
-        1.1518,
-        1.522
-      ],
-      "drawn_markers": 0.435,
-      "chase_pull_ms": 0.923,
-      "block_squeeze_m2": 20.3,
-      "n_frames": 777,
-      "n_matches": 1,
-      "estimated_frac": 0.622,
-      "occlusion_flag": true,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Arkadiusz Milik",
-      "jersey": 7,
-      "gravity": 1.3248,
-      "gravity_ci90": [
-        1.183,
-        1.4615
-      ],
-      "drawn_markers": 0.394,
-      "chase_pull_ms": 1.501,
-      "block_squeeze_m2": 15.4,
-      "n_frames": 769,
-      "n_matches": 1,
-      "estimated_frac": 0.267,
-      "occlusion_flag": false,
-      "rank": 13,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Ivan Perisic",
-      "jersey": 4,
-      "gravity": 1.314,
-      "gravity_ci90": [
-        1.2451,
-        1.3959
-      ],
-      "drawn_markers": 0.379,
-      "chase_pull_ms": 1.355,
-      "block_squeeze_m2": 16.9,
-      "n_frames": 4862,
-      "n_matches": 2,
-      "estimated_frac": 0.435,
-      "occlusion_flag": false,
-      "rank": 14,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Steven Berghuis",
-      "jersey": 11,
-      "gravity": 1.3121,
-      "gravity_ci90": [
-        1.189,
-        1.4341
-      ],
-      "drawn_markers": 0.325,
-      "chase_pull_ms": 1.656,
-      "block_squeeze_m2": 18.4,
-      "n_frames": 1612,
-      "n_matches": 1,
-      "estimated_frac": 0.17,
-      "occlusion_flag": false,
-      "rank": 14,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Dayot Upamecano",
-      "jersey": 18,
-      "gravity": 1.2753,
-      "gravity_ci90": [
-        1.1795,
-        1.3781
-      ],
-      "drawn_markers": 0.39,
-      "chase_pull_ms": 1.126,
-      "block_squeeze_m2": 20.6,
-      "n_frames": 3704,
-      "n_matches": 3,
-      "estimated_frac": 0.552,
-      "occlusion_flag": true,
-      "rank": 14,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Bukayo Saka",
-      "jersey": 17,
-      "gravity": 1.2749,
-      "gravity_ci90": [
-        1.1932,
-        1.3685
-      ],
-      "drawn_markers": 0.414,
-      "chase_pull_ms": 1.219,
-      "block_squeeze_m2": 13.6,
-      "n_frames": 2539,
-      "n_matches": 1,
-      "estimated_frac": 0.578,
-      "occlusion_flag": true,
-      "rank": 14,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Mislav Orsic",
-      "jersey": 18,
-      "gravity": 1.2645,
-      "gravity_ci90": [
-        1.1386,
-        1.3772
-      ],
-      "drawn_markers": 0.362,
-      "chase_pull_ms": 1.349,
-      "block_squeeze_m2": 22.1,
-      "n_frames": 1597,
-      "n_matches": 1,
-      "estimated_frac": 0.539,
-      "occlusion_flag": true,
-      "rank": 14,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Marcos Llorente",
-      "jersey": 6,
-      "gravity": 1.2528,
-      "gravity_ci90": [
-        1.1974,
-        1.3097
-      ],
-      "drawn_markers": 0.343,
-      "chase_pull_ms": 1.387,
-      "block_squeeze_m2": 15.5,
-      "n_frames": 4484,
-      "n_matches": 1,
-      "estimated_frac": 0.272,
-      "occlusion_flag": false,
-      "rank": 14,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Nicolas Tagliafico",
-      "jersey": 3,
-      "gravity": 1.2235,
-      "gravity_ci90": [
-        1.1585,
-        1.2851
-      ],
-      "drawn_markers": 0.372,
-      "chase_pull_ms": 1.405,
-      "block_squeeze_m2": 19.4,
-      "n_frames": 3699,
-      "n_matches": 4,
-      "estimated_frac": 0.487,
-      "occlusion_flag": false,
-      "rank": 14,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Cristian Romero",
-      "jersey": 13,
-      "gravity": 1.211,
-      "gravity_ci90": [
-        1.14,
-        1.2961
-      ],
-      "drawn_markers": 0.343,
-      "chase_pull_ms": 1.287,
-      "block_squeeze_m2": 16.9,
-      "n_frames": 4230,
-      "n_matches": 4,
-      "estimated_frac": 0.491,
-      "occlusion_flag": false,
-      "rank": 14,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Bartosz Bereszynski",
-      "jersey": 18,
-      "gravity": 1.1998,
-      "gravity_ci90": [
-        1.1301,
-        1.2799
-      ],
-      "drawn_markers": 0.377,
-      "chase_pull_ms": 1.307,
-      "block_squeeze_m2": 17.8,
-      "n_frames": 1684,
-      "n_matches": 1,
-      "estimated_frac": 0.695,
-      "occlusion_flag": true,
-      "rank": 14,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Gonzalo Montiel",
-      "jersey": 4,
-      "gravity": 1.1742,
-      "gravity_ci90": [
-        1.0579,
-        1.2966
-      ],
-      "drawn_markers": 0.351,
-      "chase_pull_ms": 1.637,
-      "block_squeeze_m2": 19.5,
-      "n_frames": 1175,
-      "n_matches": 2,
-      "estimated_frac": 0.346,
-      "occlusion_flag": false,
-      "rank": 14,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Raphinha",
-      "jersey": 11,
-      "gravity": 1.1068,
-      "gravity_ci90": [
-        1.0153,
-        1.1931
-      ],
-      "drawn_markers": 0.319,
-      "chase_pull_ms": 1.304,
-      "block_squeeze_m2": 16.4,
-      "n_frames": 1624,
-      "n_matches": 1,
-      "estimated_frac": 0.416,
-      "occlusion_flag": false,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Thiago Silva",
-      "jersey": 3,
-      "gravity": 1.0804,
-      "gravity_ci90": [
-        0.8806,
-        1.2733
-      ],
-      "drawn_markers": 0.312,
-      "chase_pull_ms": 0.865,
-      "block_squeeze_m2": 18.6,
-      "n_frames": 1408,
-      "n_matches": 1,
-      "estimated_frac": 0.629,
-      "occlusion_flag": true,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Nicola Zalewski",
-      "jersey": 21,
-      "gravity": 1.0703,
-      "gravity_ci90": [
-        0.8861,
-        1.2956
-      ],
-      "drawn_markers": 0.345,
-      "chase_pull_ms": 0.861,
-      "block_squeeze_m2": 14.1,
-      "n_frames": 654,
-      "n_matches": 1,
-      "estimated_frac": 0.55,
-      "occlusion_flag": true,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Ousmane Dembele",
-      "jersey": 11,
-      "gravity": 1.0644,
-      "gravity_ci90": [
-        1.0189,
-        1.1157
-      ],
-      "drawn_markers": 0.321,
-      "chase_pull_ms": 1.329,
-      "block_squeeze_m2": 19.2,
-      "n_frames": 4996,
-      "n_matches": 3,
-      "estimated_frac": 0.379,
-      "occlusion_flag": false,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Papu G\u00f3mez",
-      "jersey": 17,
-      "gravity": 1.0611,
-      "gravity_ci90": [
-        0.9805,
-        1.149
-      ],
-      "drawn_markers": 0.305,
-      "chase_pull_ms": 1.272,
-      "block_squeeze_m2": 14.3,
-      "n_frames": 1855,
-      "n_matches": 1,
-      "estimated_frac": 0.206,
-      "occlusion_flag": false,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Rafael Leao",
-      "jersey": 15,
-      "gravity": 1.0601,
-      "gravity_ci90": [
-        0.8714,
-        1.2546
-      ],
-      "drawn_markers": 0.282,
-      "chase_pull_ms": 1.189,
-      "block_squeeze_m2": 11.6,
-      "n_frames": 703,
-      "n_matches": 2,
-      "estimated_frac": 0.817,
-      "occlusion_flag": true,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Josko Gvardiol",
-      "jersey": 20,
-      "gravity": 1.0517,
-      "gravity_ci90": [
-        0.9533,
-        1.1574
-      ],
-      "drawn_markers": 0.324,
-      "chase_pull_ms": 0.991,
-      "block_squeeze_m2": 18.1,
-      "n_frames": 2548,
-      "n_matches": 2,
-      "estimated_frac": 0.437,
-      "occlusion_flag": false,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Aziz Behich",
-      "jersey": 16,
-      "gravity": 1.0486,
-      "gravity_ci90": [
-        0.8966,
-        1.1807
-      ],
-      "drawn_markers": 0.273,
-      "chase_pull_ms": 1.122,
-      "block_squeeze_m2": 18.3,
-      "n_frames": 977,
-      "n_matches": 1,
-      "estimated_frac": 0.36,
-      "occlusion_flag": false,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "\u00c1ngel Di Mar\u00eda",
-      "jersey": 11,
-      "gravity": 1.0481,
-      "gravity_ci90": [
-        0.9643,
-        1.1342
-      ],
-      "drawn_markers": 0.303,
-      "chase_pull_ms": 1.306,
-      "block_squeeze_m2": 18.6,
-      "n_frames": 1262,
-      "n_matches": 1,
-      "estimated_frac": 0.261,
-      "occlusion_flag": false,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Aaron Mooy",
-      "jersey": 13,
-      "gravity": 1.0472,
-      "gravity_ci90": [
-        0.9364,
-        1.1708
-      ],
-      "drawn_markers": 0.298,
-      "chase_pull_ms": 1.403,
-      "block_squeeze_m2": 16.5,
-      "n_frames": 1070,
-      "n_matches": 1,
-      "estimated_frac": 0.315,
-      "occlusion_flag": false,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Jakub Kiwior",
-      "jersey": 14,
-      "gravity": 1.0459,
-      "gravity_ci90": [
-        0.8806,
-        1.2219
-      ],
-      "drawn_markers": 0.425,
-      "chase_pull_ms": 0.736,
-      "block_squeeze_m2": 19.8,
-      "n_frames": 488,
-      "n_matches": 1,
-      "estimated_frac": 0.74,
-      "occlusion_flag": true,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Jan Bednarek",
-      "jersey": 5,
-      "gravity": 1.0398,
-      "gravity_ci90": [
-        0.6049,
-        1.5522
-      ],
-      "drawn_markers": 0.261,
-      "chase_pull_ms": 0.546,
-      "block_squeeze_m2": 15.7,
-      "n_frames": 184,
-      "n_matches": 1,
-      "estimated_frac": 1.0,
-      "occlusion_flag": true,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Matty Cash",
-      "jersey": 2,
-      "gravity": 1.0305,
-      "gravity_ci90": [
-        0.9313,
-        1.1205
-      ],
-      "drawn_markers": 0.348,
-      "chase_pull_ms": 1.105,
-      "block_squeeze_m2": 16.9,
-      "n_frames": 1255,
-      "n_matches": 1,
-      "estimated_frac": 0.346,
-      "occlusion_flag": false,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Craig Goodwin",
-      "jersey": 23,
-      "gravity": 0.984,
-      "gravity_ci90": [
-        0.8868,
-        1.0812
-      ],
-      "drawn_markers": 0.339,
-      "chase_pull_ms": 1.264,
-      "block_squeeze_m2": 15.4,
-      "n_frames": 768,
-      "n_matches": 1,
-      "estimated_frac": 0.277,
-      "occlusion_flag": false,
-      "rank": 15,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Marcos Acu\u00f1a",
-      "jersey": 8,
-      "gravity": 0.9603,
-      "gravity_ci90": [
-        0.9041,
-        1.0117
-      ],
-      "drawn_markers": 0.27,
-      "chase_pull_ms": 1.27,
-      "block_squeeze_m2": 14.6,
-      "n_frames": 4534,
-      "n_matches": 3,
-      "estimated_frac": 0.267,
-      "occlusion_flag": false,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Aymeric Laporte",
-      "jersey": 24,
-      "gravity": 0.9421,
-      "gravity_ci90": [
-        0.8491,
-        1.0486
-      ],
-      "drawn_markers": 0.277,
-      "chase_pull_ms": 0.748,
-      "block_squeeze_m2": 23.5,
-      "n_frames": 2588,
-      "n_matches": 1,
-      "estimated_frac": 0.471,
-      "occlusion_flag": false,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "name": "Kamil Grosicki",
-      "jersey": 11,
-      "gravity": 0.9416,
-      "gravity_ci90": [
-        0.8063,
-        1.0767
-      ],
-      "drawn_markers": 0.344,
-      "chase_pull_ms": 1.276,
-      "block_squeeze_m2": 21.3,
-      "n_frames": 331,
-      "n_matches": 1,
-      "estimated_frac": 0.151,
-      "occlusion_flag": false,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Nicol\u00e1s Otamendi",
-      "jersey": 19,
-      "gravity": 0.9012,
-      "gravity_ci90": [
-        0.8372,
-        0.9726
-      ],
-      "drawn_markers": 0.276,
-      "chase_pull_ms": 1.048,
-      "block_squeeze_m2": 18.4,
-      "n_frames": 3452,
-      "n_matches": 4,
-      "estimated_frac": 0.567,
-      "occlusion_flag": true,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Rodri",
-      "jersey": 16,
-      "gravity": 0.9008,
-      "gravity_ci90": [
-        0.8171,
-        0.9971
-      ],
-      "drawn_markers": 0.248,
-      "chase_pull_ms": 1.089,
-      "block_squeeze_m2": 19.7,
-      "n_frames": 3198,
-      "n_matches": 1,
-      "estimated_frac": 0.309,
-      "occlusion_flag": false,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Rapha\u00ebl Guerreiro",
-      "jersey": 5,
-      "gravity": 0.8977,
-      "gravity_ci90": [
-        0.8444,
-        0.9509
-      ],
-      "drawn_markers": 0.253,
-      "chase_pull_ms": 1.208,
-      "block_squeeze_m2": 13.9,
-      "n_frames": 2876,
-      "n_matches": 2,
-      "estimated_frac": 0.292,
-      "occlusion_flag": false,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Yahia Attiat-Allah",
-      "jersey": 25,
-      "gravity": 0.8936,
-      "gravity_ci90": [
-        0.7539,
-        1.0612
-      ],
-      "drawn_markers": 0.248,
-      "chase_pull_ms": 1.093,
-      "block_squeeze_m2": 28.9,
-      "n_frames": 716,
-      "n_matches": 2,
-      "estimated_frac": 0.398,
-      "occlusion_flag": false,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Lisandro Martinez",
-      "jersey": 25,
-      "gravity": 0.8756,
-      "gravity_ci90": [
-        0.7781,
-        0.9755
-      ],
-      "drawn_markers": 0.283,
-      "chase_pull_ms": 1.001,
-      "block_squeeze_m2": 14.9,
-      "n_frames": 1159,
-      "n_matches": 3,
-      "estimated_frac": 0.584,
-      "occlusion_flag": true,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "name": "Nahuel Molina",
-      "jersey": 26,
-      "gravity": 0.8693,
-      "gravity_ci90": [
-        0.8318,
-        0.9095
-      ],
-      "drawn_markers": 0.267,
-      "chase_pull_ms": 1.1,
-      "block_squeeze_m2": 14.7,
-      "n_frames": 6170,
-      "n_matches": 4,
-      "estimated_frac": 0.344,
-      "occlusion_flag": false,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Dejan Lovren",
-      "jersey": 6,
-      "gravity": 0.8638,
-      "gravity_ci90": [
-        0.765,
-        0.9653
-      ],
-      "drawn_markers": 0.267,
-      "chase_pull_ms": 0.803,
-      "block_squeeze_m2": 20.2,
-      "n_frames": 1995,
-      "n_matches": 2,
-      "estimated_frac": 0.571,
-      "occlusion_flag": true,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Fabian Sch\u00e4r",
-      "jersey": 22,
-      "gravity": 0.8389,
-      "gravity_ci90": [
-        0.6096,
-        1.14
-      ],
-      "drawn_markers": 0.26,
-      "chase_pull_ms": 0.818,
-      "block_squeeze_m2": 16.5,
-      "n_frames": 324,
-      "n_matches": 1,
-      "estimated_frac": 0.762,
-      "occlusion_flag": true,
-      "rank": 16,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Ferran Torres",
-      "jersey": 11,
-      "gravity": 0.8347,
-      "gravity_ci90": [
-        0.7741,
-        0.886
-      ],
-      "drawn_markers": 0.242,
-      "chase_pull_ms": 1.101,
-      "block_squeeze_m2": 12.1,
-      "n_frames": 3738,
-      "n_matches": 1,
-      "estimated_frac": 0.562,
-      "occlusion_flag": true,
-      "rank": 17,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Eray Comert",
-      "jersey": 18,
-      "gravity": 0.8312,
-      "gravity_ci90": [
-        0.5961,
-        1.0782
-      ],
-      "drawn_markers": 0.227,
-      "chase_pull_ms": 0.713,
-      "block_squeeze_m2": 14.7,
-      "n_frames": 482,
-      "n_matches": 1,
-      "estimated_frac": 0.707,
-      "occlusion_flag": true,
-      "rank": 17,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Daley Blind",
-      "jersey": 17,
-      "gravity": 0.8247,
-      "gravity_ci90": [
-        0.7477,
-        0.8969
-      ],
-      "drawn_markers": 0.256,
-      "chase_pull_ms": 1.036,
-      "block_squeeze_m2": 13.5,
-      "n_frames": 1563,
-      "n_matches": 1,
-      "estimated_frac": 0.26,
-      "occlusion_flag": false,
-      "rank": 17,
-      "tied": true
-    },
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "name": "Noussair Mazraoui",
-      "jersey": 3,
-      "gravity": 0.7701,
-      "gravity_ci90": [
-        0.6426,
-        0.9102
-      ],
-      "drawn_markers": 0.224,
-      "chase_pull_ms": 1.183,
-      "block_squeeze_m2": 20.2,
-      "n_frames": 450,
-      "n_matches": 1,
-      "estimated_frac": 0.44,
-      "occlusion_flag": false,
-      "rank": 17,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Edimilson Fernandes",
-      "jersey": 2,
-      "gravity": 0.7526,
-      "gravity_ci90": [
-        0.6607,
-        0.8484
-      ],
-      "drawn_markers": 0.21,
-      "chase_pull_ms": 0.943,
-      "block_squeeze_m2": 12.0,
-      "n_frames": 1802,
-      "n_matches": 1,
-      "estimated_frac": 0.292,
-      "occlusion_flag": false,
-      "rank": 17,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Theo Hernandez",
-      "jersey": 22,
-      "gravity": 0.7027,
-      "gravity_ci90": [
-        0.662,
-        0.7419
-      ],
-      "drawn_markers": 0.211,
-      "chase_pull_ms": 1.069,
-      "block_squeeze_m2": 21.8,
-      "n_frames": 4460,
-      "n_matches": 3,
-      "estimated_frac": 0.352,
-      "occlusion_flag": false,
-      "rank": 18,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Luke Shaw",
-      "jersey": 3,
-      "gravity": 0.6979,
-      "gravity_ci90": [
-        0.6421,
-        0.7542
-      ],
-      "drawn_markers": 0.224,
-      "chase_pull_ms": 0.984,
-      "block_squeeze_m2": 20.8,
-      "n_frames": 2152,
-      "n_matches": 1,
-      "estimated_frac": 0.384,
-      "occlusion_flag": false,
-      "rank": 18,
-      "tied": true
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "name": "Jules Kounde",
-      "jersey": 5,
-      "gravity": 0.6801,
-      "gravity_ci90": [
-        0.6432,
-        0.7224
-      ],
-      "drawn_markers": 0.211,
-      "chase_pull_ms": 0.918,
-      "block_squeeze_m2": 20.5,
-      "n_frames": 4966,
-      "n_matches": 3,
-      "estimated_frac": 0.33,
-      "occlusion_flag": false,
-      "rank": 18,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Ricardo Rodriguez",
-      "jersey": 13,
-      "gravity": 0.6344,
-      "gravity_ci90": [
-        0.5783,
-        0.6997
-      ],
-      "drawn_markers": 0.208,
-      "chase_pull_ms": 1.084,
-      "block_squeeze_m2": 16.3,
-      "n_frames": 1327,
-      "n_matches": 1,
-      "estimated_frac": 0.381,
-      "occlusion_flag": false,
-      "rank": 18,
-      "tied": true
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "name": "Manuel Akanji",
-      "jersey": 5,
-      "gravity": 0.6303,
-      "gravity_ci90": [
-        0.5365,
-        0.7358
-      ],
-      "drawn_markers": 0.216,
-      "chase_pull_ms": 0.783,
-      "block_squeeze_m2": 14.6,
-      "n_frames": 940,
-      "n_matches": 1,
-      "estimated_frac": 0.571,
-      "occlusion_flag": true,
-      "rank": 18,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Borna Sosa",
-      "jersey": 19,
-      "gravity": 0.6186,
-      "gravity_ci90": [
-        0.561,
-        0.6724
-      ],
-      "drawn_markers": 0.186,
-      "chase_pull_ms": 0.887,
-      "block_squeeze_m2": 14.3,
-      "n_frames": 2681,
-      "n_matches": 2,
-      "estimated_frac": 0.45,
-      "occlusion_flag": false,
-      "rank": 18,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Diogo Dalot",
-      "jersey": 2,
-      "gravity": 0.6084,
-      "gravity_ci90": [
-        0.5607,
-        0.6517
-      ],
-      "drawn_markers": 0.192,
-      "chase_pull_ms": 0.992,
-      "block_squeeze_m2": 13.3,
-      "n_frames": 3155,
-      "n_matches": 2,
-      "estimated_frac": 0.29,
-      "occlusion_flag": false,
-      "rank": 19,
-      "tied": true
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "name": "Jurrien Timber",
-      "jersey": 2,
-      "gravity": 0.5916,
-      "gravity_ci90": [
-        0.5063,
-        0.6891
-      ],
-      "drawn_markers": 0.215,
-      "chase_pull_ms": 0.774,
-      "block_squeeze_m2": 21.0,
-      "n_frames": 1259,
-      "n_matches": 1,
-      "estimated_frac": 0.487,
-      "occlusion_flag": false,
-      "rank": 19,
-      "tied": true
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "name": "Danilo",
-      "jersey": 2,
-      "gravity": 0.582,
-      "gravity_ci90": [
-        0.5362,
-        0.6291
-      ],
-      "drawn_markers": 0.198,
-      "chase_pull_ms": 0.924,
-      "block_squeeze_m2": 20.3,
-      "n_frames": 2142,
-      "n_matches": 1,
-      "estimated_frac": 0.423,
-      "occlusion_flag": false,
-      "rank": 19,
-      "tied": true
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "name": "Jo\u00e3o Cancelo",
-      "jersey": 20,
-      "gravity": 0.568,
-      "gravity_ci90": [
-        0.4959,
-        0.6474
-      ],
-      "drawn_markers": 0.189,
-      "chase_pull_ms": 0.906,
-      "block_squeeze_m2": 14.0,
-      "n_frames": 771,
-      "n_matches": 1,
-      "estimated_frac": 0.968,
-      "occlusion_flag": true,
-      "rank": 19,
-      "tied": true
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "name": "Josip Juranovic",
-      "jersey": 22,
-      "gravity": 0.5393,
-      "gravity_ci90": [
-        0.4975,
-        0.5841
-      ],
-      "drawn_markers": 0.166,
-      "chase_pull_ms": 0.869,
-      "block_squeeze_m2": 15.3,
-      "n_frames": 3451,
-      "n_matches": 2,
-      "estimated_frac": 0.432,
-      "occlusion_flag": false,
-      "rank": 19,
-      "tied": true
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "name": "Fran Karacic",
-      "jersey": 5,
-      "gravity": 0.5069,
-      "gravity_ci90": [
-        0.3686,
-        0.6592
-      ],
-      "drawn_markers": 0.167,
-      "chase_pull_ms": 0.956,
-      "block_squeeze_m2": 10.4,
-      "n_frames": 256,
-      "n_matches": 1,
-      "estimated_frac": 0.418,
-      "occlusion_flag": false,
-      "rank": 19,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Jordi Alba",
-      "jersey": 18,
-      "gravity": 0.505,
-      "gravity_ci90": [
-        0.4762,
-        0.5363
-      ],
-      "drawn_markers": 0.202,
-      "chase_pull_ms": 0.907,
-      "block_squeeze_m2": 14.4,
-      "n_frames": 3547,
-      "n_matches": 1,
-      "estimated_frac": 0.296,
-      "occlusion_flag": false,
-      "rank": 20,
-      "tied": true
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "name": "Alex Balde",
-      "jersey": 14,
-      "gravity": 0.4903,
-      "gravity_ci90": [
-        0.4211,
-        0.5647
-      ],
-      "drawn_markers": 0.19,
-      "chase_pull_ms": 0.781,
-      "block_squeeze_m2": 12.3,
-      "n_frames": 941,
-      "n_matches": 1,
-      "estimated_frac": 0.373,
-      "occlusion_flag": false,
-      "rank": 20,
-      "tied": true
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "name": "Kyle Walker",
-      "jersey": 2,
-      "gravity": 0.4029,
-      "gravity_ci90": [
-        0.3518,
-        0.4551
-      ],
-      "drawn_markers": 0.198,
-      "chase_pull_ms": 0.52,
-      "block_squeeze_m2": 16.2,
-      "n_frames": 1328,
-      "n_matches": 1,
-      "estimated_frac": 0.633,
-      "occlusion_flag": true,
-      "rank": 21,
-      "tied": false
+     "match_id": "10510",
+     "home": "Croatia",
+     "away": "Brazil",
+     "frames": 8521,
+     "secs": 19.2
     }
-  ],
-  "teams": [
-    {
-      "team": "Morocco",
-      "team_id": "374",
-      "is_semifinalist": true,
-      "team_gravity": 2.4609,
-      "n_players": 16
-    },
-    {
-      "team": "Brazil",
-      "team_id": "361",
-      "is_semifinalist": false,
-      "team_gravity": 2.2548,
-      "n_players": 13
-    },
-    {
-      "team": "Netherlands",
-      "team_id": "366",
-      "is_semifinalist": false,
-      "team_gravity": 2.2162,
-      "n_players": 14
-    },
-    {
-      "team": "England",
-      "team_id": "50",
-      "is_semifinalist": false,
-      "team_gravity": 2.1648,
-      "n_players": 13
-    },
-    {
-      "team": "Croatia",
-      "team_id": "371",
-      "is_semifinalist": true,
-      "team_gravity": 1.9784,
-      "n_players": 15
-    },
-    {
-      "team": "France",
-      "team_id": "363",
-      "is_semifinalist": true,
-      "team_gravity": 1.9273,
-      "n_players": 16
-    },
-    {
-      "team": "Portugal",
-      "team_id": "365",
-      "is_semifinalist": false,
-      "team_gravity": 1.9165,
-      "n_players": 16
-    },
-    {
-      "team": "Australia",
-      "team_id": "386",
-      "is_semifinalist": false,
-      "team_gravity": 1.8508,
-      "n_players": 15
-    },
-    {
-      "team": "Spain",
-      "team_id": "52",
-      "is_semifinalist": false,
-      "team_gravity": 1.8478,
-      "n_players": 16
-    },
-    {
-      "team": "Switzerland",
-      "team_id": "370",
-      "is_semifinalist": false,
-      "team_gravity": 1.805,
-      "n_players": 14
-    },
-    {
-      "team": "Argentina",
-      "team_id": "364",
-      "is_semifinalist": true,
-      "team_gravity": 1.6969,
-      "n_players": 19
-    },
-    {
-      "team": "Poland",
-      "team_id": "376",
-      "is_semifinalist": false,
-      "team_gravity": 1.5536,
-      "n_players": 15
-    }
-  ],
-  "team_xg_for_per_match": {
-    "Argentina": 3.7737,
-    "Australia": 0.4261,
-    "Brazil": 4.9503,
-    "Croatia": 2.0885,
-    "England": 2.3526,
-    "France": 2.4575,
-    "Morocco": 2.3382,
-    "Netherlands": 4.487,
-    "Poland": 1.5935,
-    "Portugal": 1.5142,
-    "Spain": 2.8455,
-    "Switzerland": 1.2718
+   ],
+   "min_frames_per_player": 150,
+   "median_local_hull_m2": 91.2
   },
-  "caveats": [
-    "Space-native: gravity is geometry (drawn markers x inward defender chase), not xT or goals.",
-    "Sample is 10 star-heavy/knockout matches at ~2 Hz; not the full tournament.",
-    "Possession is a nearest-player-to-ball heuristic (no event join); transition frames are noisy.",
-    "~40.9% of PFF positions are ESTIMATED; rows >50% ESTIMATED are flagged (occlusion_flag).",
-    "xG correlation is team-level over a small N - directional evidence, not causation.",
-    "Velocity is finite-differenced at ~2 Hz; chase_pull is a smoothed approximation."
-  ]
+  "occlusion": "~40.9% of PFF positions are ESTIMATED (biased to forwards/wingers). Each row reports estimated_frac; occlusion_flag=true if >50% of an attacker's contributing frames are ESTIMATED.",
+  "honesty": "Tie-aware ranks: rows whose 90% bootstrap CI overlaps the rank-group leader share a rank (no false single #1). Correlation with xG is not causation.",
+  "elapsed_s": 226.8
+ },
+ "xg_receipt": {
+  "rho": 0.3846,
+  "ci": "[-0.16, 0.79]",
+  "n": 12,
+  "unit": "team mean CHASE gravity (drawn x chase) vs StatsBomb xG-for per match",
+  "reading": "Teams whose attackers exert more defensive gravity tend to generate more xG (Spearman rho=0.38); correlation, not causation."
+ },
+ "players": [
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Pedro",
+   "jersey": 25,
+   "gravity": 5.8613,
+   "gravity_ci90": [
+    5.3335,
+    6.4294
+   ],
+   "drawn_markers": 1.404,
+   "chase_pull_ms": 2.875,
+   "block_squeeze_m2": 44.0,
+   "n_frames": 372,
+   "n_matches": 1,
+   "estimated_frac": 0.419,
+   "occlusion_flag": false,
+   "rank": 1,
+   "tied": false,
+   "position": "CF"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Cristiano Ronaldo",
+   "jersey": 7,
+   "gravity": 4.7449,
+   "gravity_ci90": [
+    4.5129,
+    4.9743
+   ],
+   "drawn_markers": 1.048,
+   "chase_pull_ms": 3.269,
+   "block_squeeze_m2": 37.4,
+   "n_frames": 1465,
+   "n_matches": 2,
+   "estimated_frac": 0.732,
+   "occlusion_flag": true,
+   "rank": 2,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Wout Weghorst",
+   "jersey": 19,
+   "gravity": 4.5762,
+   "gravity_ci90": [
+    4.3274,
+    4.8516
+   ],
+   "drawn_markers": 1.383,
+   "chase_pull_ms": 2.446,
+   "block_squeeze_m2": 47.0,
+   "n_frames": 707,
+   "n_matches": 1,
+   "estimated_frac": 0.211,
+   "occlusion_flag": false,
+   "rank": 2,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Selim Amallah",
+   "jersey": 15,
+   "gravity": 4.3717,
+   "gravity_ci90": [
+    4.1152,
+    4.6753
+   ],
+   "drawn_markers": 1.012,
+   "chase_pull_ms": 3.117,
+   "block_squeeze_m2": 32.6,
+   "n_frames": 1472,
+   "n_matches": 2,
+   "estimated_frac": 0.269,
+   "occlusion_flag": false,
+   "rank": 2,
+   "tied": true,
+   "position": "AM"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Youssef En-Nesyri",
+   "jersey": 19,
+   "gravity": 4.3153,
+   "gravity_ci90": [
+    4.0947,
+    4.5505
+   ],
+   "drawn_markers": 1.087,
+   "chase_pull_ms": 2.827,
+   "block_squeeze_m2": 33.4,
+   "n_frames": 1870,
+   "n_matches": 2,
+   "estimated_frac": 0.594,
+   "occlusion_flag": true,
+   "rank": 2,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Jawad El Yamiq",
+   "jersey": 18,
+   "gravity": 4.3133,
+   "gravity_ci90": [
+    3.7193,
+    4.9621
+   ],
+   "drawn_markers": 1.068,
+   "chase_pull_ms": 2.449,
+   "block_squeeze_m2": 41.9,
+   "n_frames": 396,
+   "n_matches": 2,
+   "estimated_frac": 0.505,
+   "occlusion_flag": true,
+   "rank": 2,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Luuk de Jong",
+   "jersey": 9,
+   "gravity": 4.2544,
+   "gravity_ci90": [
+    4.0203,
+    4.4906
+   ],
+   "drawn_markers": 1.237,
+   "chase_pull_ms": 2.343,
+   "block_squeeze_m2": 41.7,
+   "n_frames": 1054,
+   "n_matches": 1,
+   "estimated_frac": 0.412,
+   "occlusion_flag": false,
+   "rank": 3,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Harry Souttar",
+   "jersey": 19,
+   "gravity": 4.002,
+   "gravity_ci90": [
+    3.6536,
+    4.3178
+   ],
+   "drawn_markers": 1.087,
+   "chase_pull_ms": 2.189,
+   "block_squeeze_m2": 32.9,
+   "n_frames": 675,
+   "n_matches": 1,
+   "estimated_frac": 0.403,
+   "occlusion_flag": false,
+   "rank": 3,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Bruno Petkovic",
+   "jersey": 16,
+   "gravity": 3.9653,
+   "gravity_ci90": [
+    3.7693,
+    4.1941
+   ],
+   "drawn_markers": 0.999,
+   "chase_pull_ms": 2.422,
+   "block_squeeze_m2": 32.3,
+   "n_frames": 2025,
+   "n_matches": 2,
+   "estimated_frac": 0.295,
+   "occlusion_flag": false,
+   "rank": 3,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Marko Livaja",
+   "jersey": 14,
+   "gravity": 3.838,
+   "gravity_ci90": [
+    3.3682,
+    4.3471
+   ],
+   "drawn_markers": 0.946,
+   "chase_pull_ms": 2.669,
+   "block_squeeze_m2": 39.6,
+   "n_frames": 598,
+   "n_matches": 1,
+   "estimated_frac": 0.48,
+   "occlusion_flag": false,
+   "rank": 3,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Richarlison",
+   "jersey": 9,
+   "gravity": 3.8025,
+   "gravity_ci90": [
+    3.6481,
+    3.9503
+   ],
+   "drawn_markers": 0.971,
+   "chase_pull_ms": 2.592,
+   "block_squeeze_m2": 26.0,
+   "n_frames": 2724,
+   "n_matches": 1,
+   "estimated_frac": 0.597,
+   "occlusion_flag": true,
+   "rank": 4,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Ibrahima Konat\u00e9",
+   "jersey": 24,
+   "gravity": 3.7996,
+   "gravity_ci90": [
+    3.1042,
+    4.5838
+   ],
+   "drawn_markers": 0.889,
+   "chase_pull_ms": 3.192,
+   "block_squeeze_m2": 38.7,
+   "n_frames": 153,
+   "n_matches": 1,
+   "estimated_frac": 0.346,
+   "occlusion_flag": false,
+   "rank": 4,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Alvaro Morata",
+   "jersey": 7,
+   "gravity": 3.7749,
+   "gravity_ci90": [
+    3.6673,
+    3.8763
+   ],
+   "drawn_markers": 0.99,
+   "chase_pull_ms": 2.62,
+   "block_squeeze_m2": 31.1,
+   "n_frames": 3017,
+   "n_matches": 1,
+   "estimated_frac": 0.397,
+   "occlusion_flag": false,
+   "rank": 4,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Marcus Rashford",
+   "jersey": 11,
+   "gravity": 3.7404,
+   "gravity_ci90": [
+    3.2458,
+    4.3618
+   ],
+   "drawn_markers": 0.801,
+   "chase_pull_ms": 2.288,
+   "block_squeeze_m2": 40.8,
+   "n_frames": 318,
+   "n_matches": 1,
+   "estimated_frac": 0.575,
+   "occlusion_flag": true,
+   "rank": 4,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Jude Bellingham",
+   "jersey": 22,
+   "gravity": 3.6522,
+   "gravity_ci90": [
+    3.5077,
+    3.8076
+   ],
+   "drawn_markers": 0.876,
+   "chase_pull_ms": 2.826,
+   "block_squeeze_m2": 27.3,
+   "n_frames": 2731,
+   "n_matches": 1,
+   "estimated_frac": 0.289,
+   "occlusion_flag": false,
+   "rank": 4,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Olivier Giroud",
+   "jersey": 9,
+   "gravity": 3.6491,
+   "gravity_ci90": [
+    3.5658,
+    3.7421
+   ],
+   "drawn_markers": 0.96,
+   "chase_pull_ms": 2.548,
+   "block_squeeze_m2": 28.0,
+   "n_frames": 5413,
+   "n_matches": 3,
+   "estimated_frac": 0.36,
+   "occlusion_flag": false,
+   "rank": 4,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Haris Seferovic",
+   "jersey": 9,
+   "gravity": 3.4651,
+   "gravity_ci90": [
+    3.2171,
+    3.7363
+   ],
+   "drawn_markers": 0.832,
+   "chase_pull_ms": 2.682,
+   "block_squeeze_m2": 23.5,
+   "n_frames": 1079,
+   "n_matches": 1,
+   "estimated_frac": 0.247,
+   "occlusion_flag": false,
+   "rank": 4,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Marco Asensio",
+   "jersey": 10,
+   "gravity": 3.3851,
+   "gravity_ci90": [
+    3.2849,
+    3.4942
+   ],
+   "drawn_markers": 0.804,
+   "chase_pull_ms": 2.81,
+   "block_squeeze_m2": 17.7,
+   "n_frames": 3030,
+   "n_matches": 1,
+   "estimated_frac": 0.337,
+   "occlusion_flag": false,
+   "rank": 5,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Julian Alvarez",
+   "jersey": 9,
+   "gravity": 3.2853,
+   "gravity_ci90": [
+    3.2104,
+    3.3598
+   ],
+   "drawn_markers": 0.818,
+   "chase_pull_ms": 2.618,
+   "block_squeeze_m2": 21.3,
+   "n_frames": 9011,
+   "n_matches": 4,
+   "estimated_frac": 0.222,
+   "occlusion_flag": false,
+   "rank": 5,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Harry Kane",
+   "jersey": 9,
+   "gravity": 3.2697,
+   "gravity_ci90": [
+    3.1513,
+    3.393
+   ],
+   "drawn_markers": 0.895,
+   "chase_pull_ms": 2.361,
+   "block_squeeze_m2": 26.6,
+   "n_frames": 3037,
+   "n_matches": 1,
+   "estimated_frac": 0.73,
+   "occlusion_flag": true,
+   "rank": 5,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Walid Cheddira",
+   "jersey": 21,
+   "gravity": 3.2689,
+   "gravity_ci90": [
+    3.0502,
+    3.4966
+   ],
+   "drawn_markers": 0.829,
+   "chase_pull_ms": 2.752,
+   "block_squeeze_m2": 41.7,
+   "n_frames": 877,
+   "n_matches": 2,
+   "estimated_frac": 0.538,
+   "occlusion_flag": true,
+   "rank": 5,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Goncalo Ramos",
+   "jersey": 26,
+   "gravity": 3.2037,
+   "gravity_ci90": [
+    3.0841,
+    3.3171
+   ],
+   "drawn_markers": 0.869,
+   "chase_pull_ms": 2.41,
+   "block_squeeze_m2": 21.9,
+   "n_frames": 4012,
+   "n_matches": 2,
+   "estimated_frac": 0.423,
+   "occlusion_flag": false,
+   "rank": 5,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Robert Lewandowski",
+   "jersey": 9,
+   "gravity": 3.201,
+   "gravity_ci90": [
+    3.0863,
+    3.3256
+   ],
+   "drawn_markers": 0.815,
+   "chase_pull_ms": 2.6,
+   "block_squeeze_m2": 23.7,
+   "n_frames": 2294,
+   "n_matches": 1,
+   "estimated_frac": 0.293,
+   "occlusion_flag": false,
+   "rank": 5,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Virgil van Dijk",
+   "jersey": 4,
+   "gravity": 3.1159,
+   "gravity_ci90": [
+    2.8786,
+    3.3385
+   ],
+   "drawn_markers": 0.941,
+   "chase_pull_ms": 1.645,
+   "block_squeeze_m2": 33.3,
+   "n_frames": 1130,
+   "n_matches": 1,
+   "estimated_frac": 0.346,
+   "occlusion_flag": false,
+   "rank": 5,
+   "tied": true,
+   "position": "MCB"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Lucas Paquet\u00e1",
+   "jersey": 7,
+   "gravity": 2.9681,
+   "gravity_ci90": [
+    2.8521,
+    3.0998
+   ],
+   "drawn_markers": 0.778,
+   "chase_pull_ms": 2.407,
+   "block_squeeze_m2": 27.6,
+   "n_frames": 2797,
+   "n_matches": 1,
+   "estimated_frac": 0.494,
+   "occlusion_flag": false,
+   "rank": 6,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Nikola Vlasic",
+   "jersey": 13,
+   "gravity": 2.9479,
+   "gravity_ci90": [
+    2.7364,
+    3.2009
+   ],
+   "drawn_markers": 0.765,
+   "chase_pull_ms": 2.024,
+   "block_squeeze_m2": 21.3,
+   "n_frames": 1943,
+   "n_matches": 2,
+   "estimated_frac": 0.266,
+   "occlusion_flag": false,
+   "rank": 6,
+   "tied": true,
+   "position": "AM"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Rodrygo",
+   "jersey": 21,
+   "gravity": 2.937,
+   "gravity_ci90": [
+    2.6846,
+    3.2403
+   ],
+   "drawn_markers": 0.624,
+   "chase_pull_ms": 2.304,
+   "block_squeeze_m2": 32.2,
+   "n_frames": 1058,
+   "n_matches": 1,
+   "estimated_frac": 0.329,
+   "occlusion_flag": false,
+   "rank": 6,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Pablo Sarabia",
+   "jersey": 22,
+   "gravity": 2.9247,
+   "gravity_ci90": [
+    2.3944,
+    3.4857
+   ],
+   "drawn_markers": 0.597,
+   "chase_pull_ms": 2.112,
+   "block_squeeze_m2": 30.5,
+   "n_frames": 240,
+   "n_matches": 1,
+   "estimated_frac": 0.696,
+   "occlusion_flag": true,
+   "rank": 6,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Alexis Mac Allister",
+   "jersey": 20,
+   "gravity": 2.9146,
+   "gravity_ci90": [
+    2.8465,
+    2.9746
+   ],
+   "drawn_markers": 0.694,
+   "chase_pull_ms": 2.745,
+   "block_squeeze_m2": 19.4,
+   "n_frames": 8389,
+   "n_matches": 4,
+   "estimated_frac": 0.18,
+   "occlusion_flag": false,
+   "rank": 6,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Remo Freuler",
+   "jersey": 8,
+   "gravity": 2.8397,
+   "gravity_ci90": [
+    2.6803,
+    3.012
+   ],
+   "drawn_markers": 0.662,
+   "chase_pull_ms": 2.706,
+   "block_squeeze_m2": 20.3,
+   "n_frames": 1214,
+   "n_matches": 1,
+   "estimated_frac": 0.202,
+   "occlusion_flag": false,
+   "rank": 6,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Randal Kolo Muani",
+   "jersey": 12,
+   "gravity": 2.8224,
+   "gravity_ci90": [
+    2.6853,
+    2.9738
+   ],
+   "drawn_markers": 0.729,
+   "chase_pull_ms": 2.356,
+   "block_squeeze_m2": 20.2,
+   "n_frames": 2369,
+   "n_matches": 1,
+   "estimated_frac": 0.243,
+   "occlusion_flag": false,
+   "rank": 6,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Sergio Busquets",
+   "jersey": 5,
+   "gravity": 2.7942,
+   "gravity_ci90": [
+    2.7254,
+    2.8662
+   ],
+   "drawn_markers": 0.716,
+   "chase_pull_ms": 2.592,
+   "block_squeeze_m2": 17.6,
+   "n_frames": 5263,
+   "n_matches": 1,
+   "estimated_frac": 0.116,
+   "occlusion_flag": false,
+   "rank": 6,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Romain Sa\u00efss",
+   "jersey": 6,
+   "gravity": 2.7829,
+   "gravity_ci90": [
+    2.2922,
+    3.3162
+   ],
+   "drawn_markers": 0.755,
+   "chase_pull_ms": 1.497,
+   "block_squeeze_m2": 33.5,
+   "n_frames": 537,
+   "n_matches": 2,
+   "estimated_frac": 0.702,
+   "occlusion_flag": true,
+   "rank": 6,
+   "tied": true,
+   "position": "MCB"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Lautaro Martinez",
+   "jersey": 22,
+   "gravity": 2.7438,
+   "gravity_ci90": [
+    2.6006,
+    2.897
+   ],
+   "drawn_markers": 0.688,
+   "chase_pull_ms": 2.513,
+   "block_squeeze_m2": 23.7,
+   "n_frames": 1285,
+   "n_matches": 3,
+   "estimated_frac": 0.196,
+   "occlusion_flag": false,
+   "rank": 6,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Breel Embolo",
+   "jersey": 7,
+   "gravity": 2.7359,
+   "gravity_ci90": [
+    2.6052,
+    2.8677
+   ],
+   "drawn_markers": 0.746,
+   "chase_pull_ms": 2.318,
+   "block_squeeze_m2": 19.3,
+   "n_frames": 2386,
+   "n_matches": 1,
+   "estimated_frac": 0.256,
+   "occlusion_flag": false,
+   "rank": 6,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Lionel Messi",
+   "jersey": 10,
+   "gravity": 2.7344,
+   "gravity_ci90": [
+    2.6734,
+    2.7972
+   ],
+   "drawn_markers": 0.651,
+   "chase_pull_ms": 2.507,
+   "block_squeeze_m2": 19.3,
+   "n_frames": 9842,
+   "n_matches": 4,
+   "estimated_frac": 0.231,
+   "occlusion_flag": false,
+   "rank": 7,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Mitchell Duke",
+   "jersey": 15,
+   "gravity": 2.7196,
+   "gravity_ci90": [
+    2.5689,
+    2.9019
+   ],
+   "drawn_markers": 0.85,
+   "chase_pull_ms": 1.968,
+   "block_squeeze_m2": 18.8,
+   "n_frames": 1341,
+   "n_matches": 1,
+   "estimated_frac": 0.298,
+   "occlusion_flag": false,
+   "rank": 7,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Neymar",
+   "jersey": 10,
+   "gravity": 2.7178,
+   "gravity_ci90": [
+    2.6044,
+    2.8285
+   ],
+   "drawn_markers": 0.691,
+   "chase_pull_ms": 2.42,
+   "block_squeeze_m2": 25.3,
+   "n_frames": 2985,
+   "n_matches": 1,
+   "estimated_frac": 0.444,
+   "occlusion_flag": false,
+   "rank": 7,
+   "tied": true,
+   "position": "AM"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Mathew Leckie",
+   "jersey": 7,
+   "gravity": 2.7168,
+   "gravity_ci90": [
+    2.4968,
+    2.9302
+   ],
+   "drawn_markers": 0.714,
+   "chase_pull_ms": 2.099,
+   "block_squeeze_m2": 18.6,
+   "n_frames": 1209,
+   "n_matches": 1,
+   "estimated_frac": 0.289,
+   "occlusion_flag": false,
+   "rank": 7,
+   "tied": true,
+   "position": "RM"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Andrej Kramaric",
+   "jersey": 9,
+   "gravity": 2.6936,
+   "gravity_ci90": [
+    2.5966,
+    2.789
+   ],
+   "drawn_markers": 0.672,
+   "chase_pull_ms": 2.526,
+   "block_squeeze_m2": 19.0,
+   "n_frames": 4549,
+   "n_matches": 2,
+   "estimated_frac": 0.347,
+   "occlusion_flag": false,
+   "rank": 7,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Zakaria Aboukhlal",
+   "jersey": 14,
+   "gravity": 2.6743,
+   "gravity_ci90": [
+    2.2478,
+    3.1034
+   ],
+   "drawn_markers": 0.837,
+   "chase_pull_ms": 2.021,
+   "block_squeeze_m2": 79.7,
+   "n_frames": 207,
+   "n_matches": 1,
+   "estimated_frac": 0.961,
+   "occlusion_flag": true,
+   "rank": 7,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Abdelhamid Sabiri",
+   "jersey": 11,
+   "gravity": 2.654,
+   "gravity_ci90": [
+    2.2471,
+    3.1363
+   ],
+   "drawn_markers": 0.664,
+   "chase_pull_ms": 2.263,
+   "block_squeeze_m2": 19.8,
+   "n_frames": 383,
+   "n_matches": 1,
+   "estimated_frac": 0.324,
+   "occlusion_flag": false,
+   "rank": 7,
+   "tied": true,
+   "position": "AM"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Garang Kuol",
+   "jersey": 21,
+   "gravity": 2.6512,
+   "gravity_ci90": [
+    2.4625,
+    2.8806
+   ],
+   "drawn_markers": 0.708,
+   "chase_pull_ms": 2.503,
+   "block_squeeze_m2": 17.5,
+   "n_frames": 502,
+   "n_matches": 1,
+   "estimated_frac": 0.319,
+   "occlusion_flag": false,
+   "rank": 7,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Azzedine Ounahi",
+   "jersey": 8,
+   "gravity": 2.6382,
+   "gravity_ci90": [
+    2.5004,
+    2.7736
+   ],
+   "drawn_markers": 0.663,
+   "chase_pull_ms": 2.518,
+   "block_squeeze_m2": 28.0,
+   "n_frames": 1929,
+   "n_matches": 2,
+   "estimated_frac": 0.236,
+   "occlusion_flag": false,
+   "rank": 7,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Lovro Majer",
+   "jersey": 7,
+   "gravity": 2.6331,
+   "gravity_ci90": [
+    2.3084,
+    2.9893
+   ],
+   "drawn_markers": 0.596,
+   "chase_pull_ms": 2.709,
+   "block_squeeze_m2": 31.5,
+   "n_frames": 303,
+   "n_matches": 1,
+   "estimated_frac": 0.221,
+   "occlusion_flag": false,
+   "rank": 7,
+   "tied": true,
+   "position": "AM"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Mason Mount",
+   "jersey": 19,
+   "gravity": 2.6299,
+   "gravity_ci90": [
+    2.3594,
+    2.9253
+   ],
+   "drawn_markers": 0.662,
+   "chase_pull_ms": 2.393,
+   "block_squeeze_m2": 28.9,
+   "n_frames": 378,
+   "n_matches": 1,
+   "estimated_frac": 0.672,
+   "occlusion_flag": true,
+   "rank": 7,
+   "tied": true,
+   "position": "AM"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Djibril Sow",
+   "jersey": 15,
+   "gravity": 2.576,
+   "gravity_ci90": [
+    2.4384,
+    2.73
+   ],
+   "drawn_markers": 0.645,
+   "chase_pull_ms": 2.729,
+   "block_squeeze_m2": 18.3,
+   "n_frames": 1166,
+   "n_matches": 1,
+   "estimated_frac": 0.184,
+   "occlusion_flag": false,
+   "rank": 7,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Memphis Depay",
+   "jersey": 10,
+   "gravity": 2.5516,
+   "gravity_ci90": [
+    2.4425,
+    2.6691
+   ],
+   "drawn_markers": 0.688,
+   "chase_pull_ms": 2.351,
+   "block_squeeze_m2": 17.7,
+   "n_frames": 2439,
+   "n_matches": 1,
+   "estimated_frac": 0.225,
+   "occlusion_flag": false,
+   "rank": 8,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "John Stones",
+   "jersey": 5,
+   "gravity": 2.5456,
+   "gravity_ci90": [
+    2.2469,
+    2.8503
+   ],
+   "drawn_markers": 0.705,
+   "chase_pull_ms": 1.221,
+   "block_squeeze_m2": 24.6,
+   "n_frames": 996,
+   "n_matches": 1,
+   "estimated_frac": 0.637,
+   "occlusion_flag": true,
+   "rank": 8,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Mario Pasalic",
+   "jersey": 15,
+   "gravity": 2.5198,
+   "gravity_ci90": [
+    2.3969,
+    2.6414
+   ],
+   "drawn_markers": 0.701,
+   "chase_pull_ms": 2.1,
+   "block_squeeze_m2": 20.7,
+   "n_frames": 3190,
+   "n_matches": 2,
+   "estimated_frac": 0.404,
+   "occlusion_flag": false,
+   "rank": 8,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Jackson Irvine",
+   "jersey": 22,
+   "gravity": 2.5182,
+   "gravity_ci90": [
+    2.3525,
+    2.6719
+   ],
+   "drawn_markers": 0.69,
+   "chase_pull_ms": 2.264,
+   "block_squeeze_m2": 19.3,
+   "n_frames": 1411,
+   "n_matches": 1,
+   "estimated_frac": 0.217,
+   "occlusion_flag": false,
+   "rank": 8,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Noah Okafor",
+   "jersey": 19,
+   "gravity": 2.499,
+   "gravity_ci90": [
+    2.3351,
+    2.6565
+   ],
+   "drawn_markers": 0.636,
+   "chase_pull_ms": 2.56,
+   "block_squeeze_m2": 20.9,
+   "n_frames": 731,
+   "n_matches": 1,
+   "estimated_frac": 0.989,
+   "occlusion_flag": true,
+   "rank": 8,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Exequiel Palacios",
+   "jersey": 14,
+   "gravity": 2.4837,
+   "gravity_ci90": [
+    2.2297,
+    2.7477
+   ],
+   "drawn_markers": 0.587,
+   "chase_pull_ms": 2.604,
+   "block_squeeze_m2": 27.4,
+   "n_frames": 456,
+   "n_matches": 2,
+   "estimated_frac": 0.357,
+   "occlusion_flag": false,
+   "rank": 8,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Carlos Soler",
+   "jersey": 19,
+   "gravity": 2.411,
+   "gravity_ci90": [
+    2.3179,
+    2.499
+   ],
+   "drawn_markers": 0.595,
+   "chase_pull_ms": 2.347,
+   "block_squeeze_m2": 17.9,
+   "n_frames": 2809,
+   "n_matches": 1,
+   "estimated_frac": 0.147,
+   "occlusion_flag": false,
+   "rank": 8,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Phil Foden",
+   "jersey": 20,
+   "gravity": 2.3851,
+   "gravity_ci90": [
+    2.2916,
+    2.4755
+   ],
+   "drawn_markers": 0.628,
+   "chase_pull_ms": 2.062,
+   "block_squeeze_m2": 20.6,
+   "n_frames": 2647,
+   "n_matches": 1,
+   "estimated_frac": 0.377,
+   "occlusion_flag": false,
+   "rank": 8,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Sebastian Szymanski",
+   "jersey": 19,
+   "gravity": 2.3584,
+   "gravity_ci90": [
+    2.233,
+    2.4914
+   ],
+   "drawn_markers": 0.58,
+   "chase_pull_ms": 2.633,
+   "block_squeeze_m2": 16.5,
+   "n_frames": 1255,
+   "n_matches": 1,
+   "estimated_frac": 0.406,
+   "occlusion_flag": false,
+   "rank": 8,
+   "tied": true,
+   "position": "AM"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Adrien Rabiot",
+   "jersey": 14,
+   "gravity": 2.3533,
+   "gravity_ci90": [
+    2.2865,
+    2.4194
+   ],
+   "drawn_markers": 0.619,
+   "chase_pull_ms": 2.215,
+   "block_squeeze_m2": 22.0,
+   "n_frames": 6206,
+   "n_matches": 3,
+   "estimated_frac": 0.219,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "R\u00faben Neves",
+   "jersey": 18,
+   "gravity": 2.3513,
+   "gravity_ci90": [
+    2.1987,
+    2.5071
+   ],
+   "drawn_markers": 0.625,
+   "chase_pull_ms": 2.119,
+   "block_squeeze_m2": 18.5,
+   "n_frames": 1175,
+   "n_matches": 2,
+   "estimated_frac": 0.49,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Steven Bergwijn",
+   "jersey": 7,
+   "gravity": 2.321,
+   "gravity_ci90": [
+    2.1845,
+    2.4392
+   ],
+   "drawn_markers": 0.657,
+   "chase_pull_ms": 2.105,
+   "block_squeeze_m2": 17.5,
+   "n_frames": 1446,
+   "n_matches": 1,
+   "estimated_frac": 0.238,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Gavi",
+   "jersey": 9,
+   "gravity": 2.3204,
+   "gravity_ci90": [
+    2.2392,
+    2.4031
+   ],
+   "drawn_markers": 0.619,
+   "chase_pull_ms": 2.317,
+   "block_squeeze_m2": 13.8,
+   "n_frames": 2844,
+   "n_matches": 1,
+   "estimated_frac": 0.21,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Otavio",
+   "jersey": 25,
+   "gravity": 2.2943,
+   "gravity_ci90": [
+    2.2153,
+    2.3745
+   ],
+   "drawn_markers": 0.593,
+   "chase_pull_ms": 2.433,
+   "block_squeeze_m2": 17.9,
+   "n_frames": 3372,
+   "n_matches": 2,
+   "estimated_frac": 0.318,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Bernardo Silva",
+   "jersey": 10,
+   "gravity": 2.2733,
+   "gravity_ci90": [
+    2.1933,
+    2.3495
+   ],
+   "drawn_markers": 0.572,
+   "chase_pull_ms": 2.434,
+   "block_squeeze_m2": 17.8,
+   "n_frames": 4101,
+   "n_matches": 2,
+   "estimated_frac": 0.438,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Casemiro",
+   "jersey": 5,
+   "gravity": 2.261,
+   "gravity_ci90": [
+    2.1352,
+    2.3877
+   ],
+   "drawn_markers": 0.584,
+   "chase_pull_ms": 2.101,
+   "block_squeeze_m2": 21.6,
+   "n_frames": 2419,
+   "n_matches": 1,
+   "estimated_frac": 0.348,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Antoine Griezmann",
+   "jersey": 7,
+   "gravity": 2.2455,
+   "gravity_ci90": [
+    2.183,
+    2.3134
+   ],
+   "drawn_markers": 0.566,
+   "chase_pull_ms": 2.281,
+   "block_squeeze_m2": 21.5,
+   "n_frames": 6294,
+   "n_matches": 3,
+   "estimated_frac": 0.257,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "AM"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Ansu Fati",
+   "jersey": 25,
+   "gravity": 2.2381,
+   "gravity_ci90": [
+    2.0851,
+    2.4062
+   ],
+   "drawn_markers": 0.55,
+   "chase_pull_ms": 2.039,
+   "block_squeeze_m2": 18.4,
+   "n_frames": 1116,
+   "n_matches": 1,
+   "estimated_frac": 0.306,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Harry Maguire",
+   "jersey": 6,
+   "gravity": 2.2239,
+   "gravity_ci90": [
+    1.978,
+    2.4692
+   ],
+   "drawn_markers": 0.612,
+   "chase_pull_ms": 1.234,
+   "block_squeeze_m2": 27.3,
+   "n_frames": 1057,
+   "n_matches": 1,
+   "estimated_frac": 0.605,
+   "occlusion_flag": true,
+   "rank": 9,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Marten De Roon",
+   "jersey": 15,
+   "gravity": 2.2164,
+   "gravity_ci90": [
+    2.0389,
+    2.401
+   ],
+   "drawn_markers": 0.703,
+   "chase_pull_ms": 1.923,
+   "block_squeeze_m2": 19.7,
+   "n_frames": 767,
+   "n_matches": 1,
+   "estimated_frac": 0.226,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Denis Zakaria",
+   "jersey": 6,
+   "gravity": 2.1836,
+   "gravity_ci90": [
+    1.9837,
+    2.4105
+   ],
+   "drawn_markers": 0.543,
+   "chase_pull_ms": 2.306,
+   "block_squeeze_m2": 18.2,
+   "n_frames": 813,
+   "n_matches": 1,
+   "estimated_frac": 0.226,
+   "occlusion_flag": false,
+   "rank": 9,
+   "tied": true,
+   "position": "DM"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Kylian Mbapp\u00e9",
+   "jersey": 10,
+   "gravity": 2.124,
+   "gravity_ci90": [
+    2.0678,
+    2.1818
+   ],
+   "drawn_markers": 0.582,
+   "chase_pull_ms": 2.059,
+   "block_squeeze_m2": 20.9,
+   "n_frames": 8371,
+   "n_matches": 3,
+   "estimated_frac": 0.316,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Bruno Fernandes",
+   "jersey": 8,
+   "gravity": 2.119,
+   "gravity_ci90": [
+    2.0433,
+    2.201
+   ],
+   "drawn_markers": 0.53,
+   "chase_pull_ms": 2.32,
+   "block_squeeze_m2": 15.1,
+   "n_frames": 4611,
+   "n_matches": 2,
+   "estimated_frac": 0.323,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Paulo Dybala",
+   "jersey": 21,
+   "gravity": 2.0995,
+   "gravity_ci90": [
+    1.781,
+    2.3921
+   ],
+   "drawn_markers": 0.493,
+   "chase_pull_ms": 2.388,
+   "block_squeeze_m2": 18.1,
+   "n_frames": 260,
+   "n_matches": 2,
+   "estimated_frac": 0.427,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Marcus Thuram",
+   "jersey": 26,
+   "gravity": 2.0971,
+   "gravity_ci90": [
+    1.991,
+    2.1904
+   ],
+   "drawn_markers": 0.587,
+   "chase_pull_ms": 1.892,
+   "block_squeeze_m2": 20.4,
+   "n_frames": 2983,
+   "n_matches": 2,
+   "estimated_frac": 0.349,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Cody Gakpo",
+   "jersey": 8,
+   "gravity": 2.0869,
+   "gravity_ci90": [
+    1.9973,
+    2.1784
+   ],
+   "drawn_markers": 0.567,
+   "chase_pull_ms": 1.913,
+   "block_squeeze_m2": 20.1,
+   "n_frames": 3080,
+   "n_matches": 1,
+   "estimated_frac": 0.267,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Vitinha",
+   "jersey": 16,
+   "gravity": 2.0848,
+   "gravity_ci90": [
+    1.8882,
+    2.3035
+   ],
+   "drawn_markers": 0.511,
+   "chase_pull_ms": 2.368,
+   "block_squeeze_m2": 14.7,
+   "n_frames": 866,
+   "n_matches": 2,
+   "estimated_frac": 0.784,
+   "occlusion_flag": true,
+   "rank": 10,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Luka Modric",
+   "jersey": 10,
+   "gravity": 2.047,
+   "gravity_ci90": [
+    1.9484,
+    2.1499
+   ],
+   "drawn_markers": 0.514,
+   "chase_pull_ms": 2.181,
+   "block_squeeze_m2": 17.3,
+   "n_frames": 3636,
+   "n_matches": 2,
+   "estimated_frac": 0.292,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Piotr Zielinski",
+   "jersey": 20,
+   "gravity": 2.033,
+   "gravity_ci90": [
+    1.917,
+    2.1585
+   ],
+   "drawn_markers": 0.57,
+   "chase_pull_ms": 2.013,
+   "block_squeeze_m2": 17.9,
+   "n_frames": 1794,
+   "n_matches": 1,
+   "estimated_frac": 0.247,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "RM"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Sofiane Boufal",
+   "jersey": 17,
+   "gravity": 2.031,
+   "gravity_ci90": [
+    1.8683,
+    2.1966
+   ],
+   "drawn_markers": 0.479,
+   "chase_pull_ms": 1.845,
+   "block_squeeze_m2": 27.1,
+   "n_frames": 1556,
+   "n_matches": 2,
+   "estimated_frac": 0.422,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Teun Koopmeiners",
+   "jersey": 20,
+   "gravity": 2.0202,
+   "gravity_ci90": [
+    1.8804,
+    2.1728
+   ],
+   "drawn_markers": 0.498,
+   "chase_pull_ms": 2.044,
+   "block_squeeze_m2": 21.8,
+   "n_frames": 1327,
+   "n_matches": 1,
+   "estimated_frac": 0.205,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "DM"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Joao Felix",
+   "jersey": 11,
+   "gravity": 2.0144,
+   "gravity_ci90": [
+    1.9231,
+    2.0916
+   ],
+   "drawn_markers": 0.538,
+   "chase_pull_ms": 2.049,
+   "block_squeeze_m2": 15.6,
+   "n_frames": 4373,
+   "n_matches": 2,
+   "estimated_frac": 0.392,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Jakub Kaminski",
+   "jersey": 13,
+   "gravity": 1.9916,
+   "gravity_ci90": [
+    1.8855,
+    2.1256
+   ],
+   "drawn_markers": 0.623,
+   "chase_pull_ms": 1.745,
+   "block_squeeze_m2": 17.5,
+   "n_frames": 1503,
+   "n_matches": 1,
+   "estimated_frac": 0.641,
+   "occlusion_flag": true,
+   "rank": 10,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Granit Xhaka",
+   "jersey": 10,
+   "gravity": 1.9888,
+   "gravity_ci90": [
+    1.8587,
+    2.1449
+   ],
+   "drawn_markers": 0.513,
+   "chase_pull_ms": 2.229,
+   "block_squeeze_m2": 16.8,
+   "n_frames": 1599,
+   "n_matches": 1,
+   "estimated_frac": 0.232,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "DM"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Declan Rice",
+   "jersey": 4,
+   "gravity": 1.9798,
+   "gravity_ci90": [
+    1.8558,
+    2.0953
+   ],
+   "drawn_markers": 0.621,
+   "chase_pull_ms": 1.797,
+   "block_squeeze_m2": 16.6,
+   "n_frames": 1928,
+   "n_matches": 1,
+   "estimated_frac": 0.354,
+   "occlusion_flag": false,
+   "rank": 10,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Nayef Aguerd",
+   "jersey": 5,
+   "gravity": 1.9725,
+   "gravity_ci90": [
+    1.6387,
+    2.3254
+   ],
+   "drawn_markers": 0.552,
+   "chase_pull_ms": 1.573,
+   "block_squeeze_m2": 36.2,
+   "n_frames": 229,
+   "n_matches": 1,
+   "estimated_frac": 0.62,
+   "occlusion_flag": true,
+   "rank": 10,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "German Pezzella",
+   "jersey": 6,
+   "gravity": 1.9304,
+   "gravity_ci90": [
+    1.5893,
+    2.3423
+   ],
+   "drawn_markers": 0.464,
+   "chase_pull_ms": 1.937,
+   "block_squeeze_m2": 18.7,
+   "n_frames": 178,
+   "n_matches": 2,
+   "estimated_frac": 0.68,
+   "occlusion_flag": true,
+   "rank": 10,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Ajdin Hrustic",
+   "jersey": 10,
+   "gravity": 1.9087,
+   "gravity_ci90": [
+    1.7412,
+    2.0662
+   ],
+   "drawn_markers": 0.511,
+   "chase_pull_ms": 2.108,
+   "block_squeeze_m2": 21.1,
+   "n_frames": 707,
+   "n_matches": 1,
+   "estimated_frac": 0.287,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Raheem Sterling",
+   "jersey": 10,
+   "gravity": 1.907,
+   "gravity_ci90": [
+    1.4638,
+    2.3332
+   ],
+   "drawn_markers": 0.287,
+   "chase_pull_ms": 2.12,
+   "block_squeeze_m2": 28.3,
+   "n_frames": 355,
+   "n_matches": 1,
+   "estimated_frac": 0.358,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Frenkie de Jong",
+   "jersey": 21,
+   "gravity": 1.8432,
+   "gravity_ci90": [
+    1.7512,
+    1.9344
+   ],
+   "drawn_markers": 0.52,
+   "chase_pull_ms": 1.885,
+   "block_squeeze_m2": 21.4,
+   "n_frames": 2120,
+   "n_matches": 1,
+   "estimated_frac": 0.242,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Achraf Hakimi",
+   "jersey": 2,
+   "gravity": 1.8388,
+   "gravity_ci90": [
+    1.6176,
+    2.0584
+   ],
+   "drawn_markers": 0.43,
+   "chase_pull_ms": 1.727,
+   "block_squeeze_m2": 32.1,
+   "n_frames": 1244,
+   "n_matches": 2,
+   "estimated_frac": 0.36,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Xherdan Shaqiri",
+   "jersey": 23,
+   "gravity": 1.8312,
+   "gravity_ci90": [
+    1.7262,
+    1.9375
+   ],
+   "drawn_markers": 0.499,
+   "chase_pull_ms": 1.897,
+   "block_squeeze_m2": 16.4,
+   "n_frames": 2317,
+   "n_matches": 1,
+   "estimated_frac": 0.237,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Ricardo Horta",
+   "jersey": 21,
+   "gravity": 1.818,
+   "gravity_ci90": [
+    1.6184,
+    2.0491
+   ],
+   "drawn_markers": 0.45,
+   "chase_pull_ms": 2.007,
+   "block_squeeze_m2": 13.7,
+   "n_frames": 688,
+   "n_matches": 2,
+   "estimated_frac": 0.382,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Dani Olmo",
+   "jersey": 21,
+   "gravity": 1.7915,
+   "gravity_ci90": [
+    1.7187,
+    1.856
+   ],
+   "drawn_markers": 0.438,
+   "chase_pull_ms": 1.768,
+   "block_squeeze_m2": 15.0,
+   "n_frames": 4723,
+   "n_matches": 1,
+   "estimated_frac": 0.383,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Rodrigo de Paul",
+   "jersey": 7,
+   "gravity": 1.7859,
+   "gravity_ci90": [
+    1.7391,
+    1.8341
+   ],
+   "drawn_markers": 0.492,
+   "chase_pull_ms": 2.069,
+   "block_squeeze_m2": 17.2,
+   "n_frames": 7521,
+   "n_matches": 4,
+   "estimated_frac": 0.182,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Sofyan Amrabat",
+   "jersey": 4,
+   "gravity": 1.7798,
+   "gravity_ci90": [
+    1.6117,
+    1.9798
+   ],
+   "drawn_markers": 0.447,
+   "chase_pull_ms": 1.893,
+   "block_squeeze_m2": 27.6,
+   "n_frames": 1236,
+   "n_matches": 2,
+   "estimated_frac": 0.371,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Youssouf Fofana",
+   "jersey": 13,
+   "gravity": 1.7638,
+   "gravity_ci90": [
+    1.5889,
+    1.9359
+   ],
+   "drawn_markers": 0.453,
+   "chase_pull_ms": 2.122,
+   "block_squeeze_m2": 19.6,
+   "n_frames": 948,
+   "n_matches": 2,
+   "estimated_frac": 0.288,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Aur\u00e9lien Tchouam\u00e9ni",
+   "jersey": 8,
+   "gravity": 1.7557,
+   "gravity_ci90": [
+    1.6707,
+    1.8306
+   ],
+   "drawn_markers": 0.495,
+   "chase_pull_ms": 1.881,
+   "block_squeeze_m2": 18.8,
+   "n_frames": 5159,
+   "n_matches": 3,
+   "estimated_frac": 0.303,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Marcelo Brozovic",
+   "jersey": 11,
+   "gravity": 1.7266,
+   "gravity_ci90": [
+    1.6407,
+    1.8238
+   ],
+   "drawn_markers": 0.462,
+   "chase_pull_ms": 2.104,
+   "block_squeeze_m2": 17.1,
+   "n_frames": 2420,
+   "n_matches": 2,
+   "estimated_frac": 0.286,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Nathan Ak\u00e9",
+   "jersey": 5,
+   "gravity": 1.7198,
+   "gravity_ci90": [
+    1.5806,
+    1.8437
+   ],
+   "drawn_markers": 0.569,
+   "chase_pull_ms": 1.305,
+   "block_squeeze_m2": 26.3,
+   "n_frames": 1465,
+   "n_matches": 1,
+   "estimated_frac": 0.287,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Raphael Varane",
+   "jersey": 4,
+   "gravity": 1.6765,
+   "gravity_ci90": [
+    1.56,
+    1.7898
+   ],
+   "drawn_markers": 0.451,
+   "chase_pull_ms": 1.23,
+   "block_squeeze_m2": 20.5,
+   "n_frames": 3398,
+   "n_matches": 3,
+   "estimated_frac": 0.546,
+   "occlusion_flag": true,
+   "rank": 11,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Ruben Dias",
+   "jersey": 4,
+   "gravity": 1.665,
+   "gravity_ci90": [
+    1.5347,
+    1.7817
+   ],
+   "drawn_markers": 0.471,
+   "chase_pull_ms": 1.666,
+   "block_squeeze_m2": 20.7,
+   "n_frames": 1914,
+   "n_matches": 2,
+   "estimated_frac": 0.606,
+   "occlusion_flag": true,
+   "rank": 11,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Eder Militao",
+   "jersey": 14,
+   "gravity": 1.6547,
+   "gravity_ci90": [
+    1.5117,
+    1.8186
+   ],
+   "drawn_markers": 0.436,
+   "chase_pull_ms": 1.538,
+   "block_squeeze_m2": 24.6,
+   "n_frames": 2137,
+   "n_matches": 1,
+   "estimated_frac": 0.366,
+   "occlusion_flag": false,
+   "rank": 11,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Mateo Kovacic",
+   "jersey": 8,
+   "gravity": 1.6524,
+   "gravity_ci90": [
+    1.5879,
+    1.7182
+   ],
+   "drawn_markers": 0.455,
+   "chase_pull_ms": 1.932,
+   "block_squeeze_m2": 16.1,
+   "n_frames": 3973,
+   "n_matches": 2,
+   "estimated_frac": 0.272,
+   "occlusion_flag": false,
+   "rank": 12,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Riley McGree",
+   "jersey": 14,
+   "gravity": 1.6349,
+   "gravity_ci90": [
+    1.492,
+    1.7816
+   ],
+   "drawn_markers": 0.494,
+   "chase_pull_ms": 1.848,
+   "block_squeeze_m2": 15.5,
+   "n_frames": 914,
+   "n_matches": 1,
+   "estimated_frac": 0.348,
+   "occlusion_flag": false,
+   "rank": 12,
+   "tied": true,
+   "position": "LM"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Przemyslaw Frankowski",
+   "jersey": 24,
+   "gravity": 1.6121,
+   "gravity_ci90": [
+    1.5254,
+    1.6988
+   ],
+   "drawn_markers": 0.469,
+   "chase_pull_ms": 1.684,
+   "block_squeeze_m2": 12.9,
+   "n_frames": 1903,
+   "n_matches": 1,
+   "estimated_frac": 0.724,
+   "occlusion_flag": true,
+   "rank": 12,
+   "tied": true,
+   "position": "LM"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Krystian Bielik",
+   "jersey": 6,
+   "gravity": 1.6093,
+   "gravity_ci90": [
+    1.4454,
+    1.7966
+   ],
+   "drawn_markers": 0.507,
+   "chase_pull_ms": 1.615,
+   "block_squeeze_m2": 18.5,
+   "n_frames": 458,
+   "n_matches": 1,
+   "estimated_frac": 0.249,
+   "occlusion_flag": false,
+   "rank": 12,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Denzel Dumfries",
+   "jersey": 22,
+   "gravity": 1.5922,
+   "gravity_ci90": [
+    1.4861,
+    1.6999
+   ],
+   "drawn_markers": 0.513,
+   "chase_pull_ms": 1.195,
+   "block_squeeze_m2": 20.0,
+   "n_frames": 2531,
+   "n_matches": 1,
+   "estimated_frac": 0.266,
+   "occlusion_flag": false,
+   "rank": 12,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Keanu Baccus",
+   "jersey": 26,
+   "gravity": 1.5855,
+   "gravity_ci90": [
+    1.4566,
+    1.7199
+   ],
+   "drawn_markers": 0.437,
+   "chase_pull_ms": 1.955,
+   "block_squeeze_m2": 13.2,
+   "n_frames": 752,
+   "n_matches": 1,
+   "estimated_frac": 0.202,
+   "occlusion_flag": false,
+   "rank": 12,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Hakim Ziyech",
+   "jersey": 7,
+   "gravity": 1.5806,
+   "gravity_ci90": [
+    1.4774,
+    1.6821
+   ],
+   "drawn_markers": 0.425,
+   "chase_pull_ms": 1.597,
+   "block_squeeze_m2": 24.9,
+   "n_frames": 2123,
+   "n_matches": 2,
+   "estimated_frac": 0.429,
+   "occlusion_flag": false,
+   "rank": 12,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Jamie Maclaren",
+   "jersey": 9,
+   "gravity": 1.546,
+   "gravity_ci90": [
+    1.3701,
+    1.7282
+   ],
+   "drawn_markers": 0.483,
+   "chase_pull_ms": 1.731,
+   "block_squeeze_m2": 11.4,
+   "n_frames": 485,
+   "n_matches": 1,
+   "estimated_frac": 0.765,
+   "occlusion_flag": true,
+   "rank": 12,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Nico Williams",
+   "jersey": 12,
+   "gravity": 1.536,
+   "gravity_ci90": [
+    1.409,
+    1.6366
+   ],
+   "drawn_markers": 0.404,
+   "chase_pull_ms": 1.45,
+   "block_squeeze_m2": 18.3,
+   "n_frames": 1940,
+   "n_matches": 1,
+   "estimated_frac": 0.325,
+   "occlusion_flag": false,
+   "rank": 12,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Marquinhos",
+   "jersey": 4,
+   "gravity": 1.5325,
+   "gravity_ci90": [
+    1.3375,
+    1.7244
+   ],
+   "drawn_markers": 0.443,
+   "chase_pull_ms": 1.033,
+   "block_squeeze_m2": 21.6,
+   "n_frames": 1434,
+   "n_matches": 1,
+   "estimated_frac": 0.641,
+   "occlusion_flag": true,
+   "rank": 12,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "William Carvalho",
+   "jersey": 14,
+   "gravity": 1.5205,
+   "gravity_ci90": [
+    1.4256,
+    1.636
+   ],
+   "drawn_markers": 0.439,
+   "chase_pull_ms": 2.117,
+   "block_squeeze_m2": 13.1,
+   "n_frames": 1071,
+   "n_matches": 1,
+   "estimated_frac": 0.35,
+   "occlusion_flag": false,
+   "rank": 12,
+   "tied": true,
+   "position": "DM"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Grzegorz Krychowiak",
+   "jersey": 10,
+   "gravity": 1.5142,
+   "gravity_ci90": [
+    1.4008,
+    1.652
+   ],
+   "drawn_markers": 0.483,
+   "chase_pull_ms": 1.645,
+   "block_squeeze_m2": 15.1,
+   "n_frames": 978,
+   "n_matches": 1,
+   "estimated_frac": 0.334,
+   "occlusion_flag": false,
+   "rank": 12,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Enzo Fernandez",
+   "jersey": 24,
+   "gravity": 1.5081,
+   "gravity_ci90": [
+    1.4569,
+    1.5567
+   ],
+   "drawn_markers": 0.432,
+   "chase_pull_ms": 1.897,
+   "block_squeeze_m2": 16.2,
+   "n_frames": 6423,
+   "n_matches": 4,
+   "estimated_frac": 0.288,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Abde Ezzalzouli",
+   "jersey": 16,
+   "gravity": 1.4895,
+   "gravity_ci90": [
+    1.2938,
+    1.6672
+   ],
+   "drawn_markers": 0.423,
+   "chase_pull_ms": 1.409,
+   "block_squeeze_m2": 14.0,
+   "n_frames": 579,
+   "n_matches": 1,
+   "estimated_frac": 0.389,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Rub\u00e9n Vargas",
+   "jersey": 17,
+   "gravity": 1.464,
+   "gravity_ci90": [
+    1.3701,
+    1.5778
+   ],
+   "drawn_markers": 0.418,
+   "chase_pull_ms": 1.625,
+   "block_squeeze_m2": 17.7,
+   "n_frames": 1390,
+   "n_matches": 1,
+   "estimated_frac": 0.224,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Pedri",
+   "jersey": 26,
+   "gravity": 1.464,
+   "gravity_ci90": [
+    1.4197,
+    1.5109
+   ],
+   "drawn_markers": 0.412,
+   "chase_pull_ms": 1.767,
+   "block_squeeze_m2": 12.2,
+   "n_frames": 5206,
+   "n_matches": 1,
+   "estimated_frac": 0.155,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Kye Rowles",
+   "jersey": 4,
+   "gravity": 1.4594,
+   "gravity_ci90": [
+    1.292,
+    1.6318
+   ],
+   "drawn_markers": 0.466,
+   "chase_pull_ms": 1.409,
+   "block_squeeze_m2": 23.4,
+   "n_frames": 530,
+   "n_matches": 1,
+   "estimated_frac": 0.472,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Vin\u00edcius Junior",
+   "jersey": 20,
+   "gravity": 1.4508,
+   "gravity_ci90": [
+    1.3294,
+    1.575
+   ],
+   "drawn_markers": 0.392,
+   "chase_pull_ms": 1.37,
+   "block_squeeze_m2": 19.0,
+   "n_frames": 1926,
+   "n_matches": 1,
+   "estimated_frac": 0.668,
+   "occlusion_flag": true,
+   "rank": 13,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Pepe",
+   "jersey": 3,
+   "gravity": 1.4412,
+   "gravity_ci90": [
+    1.3112,
+    1.5767
+   ],
+   "drawn_markers": 0.383,
+   "chase_pull_ms": 1.341,
+   "block_squeeze_m2": 17.3,
+   "n_frames": 2155,
+   "n_matches": 2,
+   "estimated_frac": 0.738,
+   "occlusion_flag": true,
+   "rank": 13,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Jordan Henderson",
+   "jersey": 8,
+   "gravity": 1.4331,
+   "gravity_ci90": [
+    1.3503,
+    1.5238
+   ],
+   "drawn_markers": 0.449,
+   "chase_pull_ms": 1.553,
+   "block_squeeze_m2": 16.4,
+   "n_frames": 2308,
+   "n_matches": 1,
+   "estimated_frac": 0.363,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Milos Degenek",
+   "jersey": 2,
+   "gravity": 1.4324,
+   "gravity_ci90": [
+    1.2571,
+    1.6504
+   ],
+   "drawn_markers": 0.395,
+   "chase_pull_ms": 1.115,
+   "block_squeeze_m2": 23.2,
+   "n_frames": 709,
+   "n_matches": 1,
+   "estimated_frac": 0.425,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Kingsley Coman",
+   "jersey": 20,
+   "gravity": 1.4322,
+   "gravity_ci90": [
+    1.3302,
+    1.5486
+   ],
+   "drawn_markers": 0.414,
+   "chase_pull_ms": 1.694,
+   "block_squeeze_m2": 19.1,
+   "n_frames": 1668,
+   "n_matches": 2,
+   "estimated_frac": 0.285,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Leandro Paredes",
+   "jersey": 5,
+   "gravity": 1.431,
+   "gravity_ci90": [
+    1.3062,
+    1.5337
+   ],
+   "drawn_markers": 0.38,
+   "chase_pull_ms": 1.892,
+   "block_squeeze_m2": 18.9,
+   "n_frames": 1382,
+   "n_matches": 3,
+   "estimated_frac": 0.333,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "DM"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Eduardo Camavinga",
+   "jersey": 25,
+   "gravity": 1.395,
+   "gravity_ci90": [
+    1.2565,
+    1.5481
+   ],
+   "drawn_markers": 0.343,
+   "chase_pull_ms": 1.882,
+   "block_squeeze_m2": 18.2,
+   "n_frames": 1096,
+   "n_matches": 1,
+   "estimated_frac": 0.282,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Antony",
+   "jersey": 19,
+   "gravity": 1.3579,
+   "gravity_ci90": [
+    1.2384,
+    1.4661
+   ],
+   "drawn_markers": 0.37,
+   "chase_pull_ms": 1.548,
+   "block_squeeze_m2": 31.1,
+   "n_frames": 1306,
+   "n_matches": 1,
+   "estimated_frac": 0.593,
+   "occlusion_flag": true,
+   "rank": 13,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Kamil Glik",
+   "jersey": 15,
+   "gravity": 1.3317,
+   "gravity_ci90": [
+    1.1518,
+    1.522
+   ],
+   "drawn_markers": 0.435,
+   "chase_pull_ms": 0.923,
+   "block_squeeze_m2": 20.3,
+   "n_frames": 777,
+   "n_matches": 1,
+   "estimated_frac": 0.622,
+   "occlusion_flag": true,
+   "rank": 13,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Arkadiusz Milik",
+   "jersey": 7,
+   "gravity": 1.3248,
+   "gravity_ci90": [
+    1.183,
+    1.4615
+   ],
+   "drawn_markers": 0.394,
+   "chase_pull_ms": 1.501,
+   "block_squeeze_m2": 15.4,
+   "n_frames": 769,
+   "n_matches": 1,
+   "estimated_frac": 0.267,
+   "occlusion_flag": false,
+   "rank": 13,
+   "tied": true,
+   "position": "CF"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Ivan Perisic",
+   "jersey": 4,
+   "gravity": 1.314,
+   "gravity_ci90": [
+    1.2451,
+    1.3959
+   ],
+   "drawn_markers": 0.379,
+   "chase_pull_ms": 1.355,
+   "block_squeeze_m2": 16.9,
+   "n_frames": 4862,
+   "n_matches": 2,
+   "estimated_frac": 0.435,
+   "occlusion_flag": false,
+   "rank": 14,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Steven Berghuis",
+   "jersey": 11,
+   "gravity": 1.3121,
+   "gravity_ci90": [
+    1.189,
+    1.4341
+   ],
+   "drawn_markers": 0.325,
+   "chase_pull_ms": 1.656,
+   "block_squeeze_m2": 18.4,
+   "n_frames": 1612,
+   "n_matches": 1,
+   "estimated_frac": 0.17,
+   "occlusion_flag": false,
+   "rank": 14,
+   "tied": true,
+   "position": "AM"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Dayot Upamecano",
+   "jersey": 18,
+   "gravity": 1.2753,
+   "gravity_ci90": [
+    1.1795,
+    1.3781
+   ],
+   "drawn_markers": 0.39,
+   "chase_pull_ms": 1.126,
+   "block_squeeze_m2": 20.6,
+   "n_frames": 3704,
+   "n_matches": 3,
+   "estimated_frac": 0.552,
+   "occlusion_flag": true,
+   "rank": 14,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Bukayo Saka",
+   "jersey": 17,
+   "gravity": 1.2749,
+   "gravity_ci90": [
+    1.1932,
+    1.3685
+   ],
+   "drawn_markers": 0.414,
+   "chase_pull_ms": 1.219,
+   "block_squeeze_m2": 13.6,
+   "n_frames": 2539,
+   "n_matches": 1,
+   "estimated_frac": 0.578,
+   "occlusion_flag": true,
+   "rank": 14,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Mislav Orsic",
+   "jersey": 18,
+   "gravity": 1.2645,
+   "gravity_ci90": [
+    1.1386,
+    1.3772
+   ],
+   "drawn_markers": 0.362,
+   "chase_pull_ms": 1.349,
+   "block_squeeze_m2": 22.1,
+   "n_frames": 1597,
+   "n_matches": 1,
+   "estimated_frac": 0.539,
+   "occlusion_flag": true,
+   "rank": 14,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Marcos Llorente",
+   "jersey": 6,
+   "gravity": 1.2528,
+   "gravity_ci90": [
+    1.1974,
+    1.3097
+   ],
+   "drawn_markers": 0.343,
+   "chase_pull_ms": 1.387,
+   "block_squeeze_m2": 15.5,
+   "n_frames": 4484,
+   "n_matches": 1,
+   "estimated_frac": 0.272,
+   "occlusion_flag": false,
+   "rank": 14,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Nicolas Tagliafico",
+   "jersey": 3,
+   "gravity": 1.2235,
+   "gravity_ci90": [
+    1.1585,
+    1.2851
+   ],
+   "drawn_markers": 0.372,
+   "chase_pull_ms": 1.405,
+   "block_squeeze_m2": 19.4,
+   "n_frames": 3699,
+   "n_matches": 4,
+   "estimated_frac": 0.487,
+   "occlusion_flag": false,
+   "rank": 14,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Cristian Romero",
+   "jersey": 13,
+   "gravity": 1.211,
+   "gravity_ci90": [
+    1.14,
+    1.2961
+   ],
+   "drawn_markers": 0.343,
+   "chase_pull_ms": 1.287,
+   "block_squeeze_m2": 16.9,
+   "n_frames": 4230,
+   "n_matches": 4,
+   "estimated_frac": 0.491,
+   "occlusion_flag": false,
+   "rank": 14,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Bartosz Bereszynski",
+   "jersey": 18,
+   "gravity": 1.1998,
+   "gravity_ci90": [
+    1.1301,
+    1.2799
+   ],
+   "drawn_markers": 0.377,
+   "chase_pull_ms": 1.307,
+   "block_squeeze_m2": 17.8,
+   "n_frames": 1684,
+   "n_matches": 1,
+   "estimated_frac": 0.695,
+   "occlusion_flag": true,
+   "rank": 14,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Gonzalo Montiel",
+   "jersey": 4,
+   "gravity": 1.1742,
+   "gravity_ci90": [
+    1.0579,
+    1.2966
+   ],
+   "drawn_markers": 0.351,
+   "chase_pull_ms": 1.637,
+   "block_squeeze_m2": 19.5,
+   "n_frames": 1175,
+   "n_matches": 2,
+   "estimated_frac": 0.346,
+   "occlusion_flag": false,
+   "rank": 14,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Raphinha",
+   "jersey": 11,
+   "gravity": 1.1068,
+   "gravity_ci90": [
+    1.0153,
+    1.1931
+   ],
+   "drawn_markers": 0.319,
+   "chase_pull_ms": 1.304,
+   "block_squeeze_m2": 16.4,
+   "n_frames": 1624,
+   "n_matches": 1,
+   "estimated_frac": 0.416,
+   "occlusion_flag": false,
+   "rank": 15,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Thiago Silva",
+   "jersey": 3,
+   "gravity": 1.0804,
+   "gravity_ci90": [
+    0.8806,
+    1.2733
+   ],
+   "drawn_markers": 0.312,
+   "chase_pull_ms": 0.865,
+   "block_squeeze_m2": 18.6,
+   "n_frames": 1408,
+   "n_matches": 1,
+   "estimated_frac": 0.629,
+   "occlusion_flag": true,
+   "rank": 15,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Nicola Zalewski",
+   "jersey": 21,
+   "gravity": 1.0703,
+   "gravity_ci90": [
+    0.8861,
+    1.2956
+   ],
+   "drawn_markers": 0.345,
+   "chase_pull_ms": 0.861,
+   "block_squeeze_m2": 14.1,
+   "n_frames": 654,
+   "n_matches": 1,
+   "estimated_frac": 0.55,
+   "occlusion_flag": true,
+   "rank": 15,
+   "tied": true,
+   "position": "LM"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Ousmane Dembele",
+   "jersey": 11,
+   "gravity": 1.0644,
+   "gravity_ci90": [
+    1.0189,
+    1.1157
+   ],
+   "drawn_markers": 0.321,
+   "chase_pull_ms": 1.329,
+   "block_squeeze_m2": 19.2,
+   "n_frames": 4996,
+   "n_matches": 3,
+   "estimated_frac": 0.379,
+   "occlusion_flag": false,
+   "rank": 15,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Papu G\u00f3mez",
+   "jersey": 17,
+   "gravity": 1.0611,
+   "gravity_ci90": [
+    0.9805,
+    1.149
+   ],
+   "drawn_markers": 0.305,
+   "chase_pull_ms": 1.272,
+   "block_squeeze_m2": 14.3,
+   "n_frames": 1855,
+   "n_matches": 1,
+   "estimated_frac": 0.206,
+   "occlusion_flag": false,
+   "rank": 15,
+   "tied": true,
+   "position": "AM"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Rafael Leao",
+   "jersey": 15,
+   "gravity": 1.0601,
+   "gravity_ci90": [
+    0.8714,
+    1.2546
+   ],
+   "drawn_markers": 0.282,
+   "chase_pull_ms": 1.189,
+   "block_squeeze_m2": 11.6,
+   "n_frames": 703,
+   "n_matches": 2,
+   "estimated_frac": 0.817,
+   "occlusion_flag": true,
+   "rank": 15,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Josko Gvardiol",
+   "jersey": 20,
+   "gravity": 1.0517,
+   "gravity_ci90": [
+    0.9533,
+    1.1574
+   ],
+   "drawn_markers": 0.324,
+   "chase_pull_ms": 0.991,
+   "block_squeeze_m2": 18.1,
+   "n_frames": 2548,
+   "n_matches": 2,
+   "estimated_frac": 0.437,
+   "occlusion_flag": false,
+   "rank": 15,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Aziz Behich",
+   "jersey": 16,
+   "gravity": 1.0486,
+   "gravity_ci90": [
+    0.8966,
+    1.1807
+   ],
+   "drawn_markers": 0.273,
+   "chase_pull_ms": 1.122,
+   "block_squeeze_m2": 18.3,
+   "n_frames": 977,
+   "n_matches": 1,
+   "estimated_frac": 0.36,
+   "occlusion_flag": false,
+   "rank": 15,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "\u00c1ngel Di Mar\u00eda",
+   "jersey": 11,
+   "gravity": 1.0481,
+   "gravity_ci90": [
+    0.9643,
+    1.1342
+   ],
+   "drawn_markers": 0.303,
+   "chase_pull_ms": 1.306,
+   "block_squeeze_m2": 18.6,
+   "n_frames": 1262,
+   "n_matches": 1,
+   "estimated_frac": 0.261,
+   "occlusion_flag": false,
+   "rank": 15,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Aaron Mooy",
+   "jersey": 13,
+   "gravity": 1.0472,
+   "gravity_ci90": [
+    0.9364,
+    1.1708
+   ],
+   "drawn_markers": 0.298,
+   "chase_pull_ms": 1.403,
+   "block_squeeze_m2": 16.5,
+   "n_frames": 1070,
+   "n_matches": 1,
+   "estimated_frac": 0.315,
+   "occlusion_flag": false,
+   "rank": 15,
+   "tied": true,
+   "position": "CM"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Jakub Kiwior",
+   "jersey": 14,
+   "gravity": 1.0459,
+   "gravity_ci90": [
+    0.8806,
+    1.2219
+   ],
+   "drawn_markers": 0.425,
+   "chase_pull_ms": 0.736,
+   "block_squeeze_m2": 19.8,
+   "n_frames": 488,
+   "n_matches": 1,
+   "estimated_frac": 0.74,
+   "occlusion_flag": true,
+   "rank": 15,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Jan Bednarek",
+   "jersey": 5,
+   "gravity": 1.0398,
+   "gravity_ci90": [
+    0.6049,
+    1.5522
+   ],
+   "drawn_markers": 0.261,
+   "chase_pull_ms": 0.546,
+   "block_squeeze_m2": 15.7,
+   "n_frames": 184,
+   "n_matches": 1,
+   "estimated_frac": 1.0,
+   "occlusion_flag": true,
+   "rank": 15,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Matty Cash",
+   "jersey": 2,
+   "gravity": 1.0305,
+   "gravity_ci90": [
+    0.9313,
+    1.1205
+   ],
+   "drawn_markers": 0.348,
+   "chase_pull_ms": 1.105,
+   "block_squeeze_m2": 16.9,
+   "n_frames": 1255,
+   "n_matches": 1,
+   "estimated_frac": 0.346,
+   "occlusion_flag": false,
+   "rank": 15,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Craig Goodwin",
+   "jersey": 23,
+   "gravity": 0.984,
+   "gravity_ci90": [
+    0.8868,
+    1.0812
+   ],
+   "drawn_markers": 0.339,
+   "chase_pull_ms": 1.264,
+   "block_squeeze_m2": 15.4,
+   "n_frames": 768,
+   "n_matches": 1,
+   "estimated_frac": 0.277,
+   "occlusion_flag": false,
+   "rank": 15,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Marcos Acu\u00f1a",
+   "jersey": 8,
+   "gravity": 0.9603,
+   "gravity_ci90": [
+    0.9041,
+    1.0117
+   ],
+   "drawn_markers": 0.27,
+   "chase_pull_ms": 1.27,
+   "block_squeeze_m2": 14.6,
+   "n_frames": 4534,
+   "n_matches": 3,
+   "estimated_frac": 0.267,
+   "occlusion_flag": false,
+   "rank": 16,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Aymeric Laporte",
+   "jersey": 24,
+   "gravity": 0.9421,
+   "gravity_ci90": [
+    0.8491,
+    1.0486
+   ],
+   "drawn_markers": 0.277,
+   "chase_pull_ms": 0.748,
+   "block_squeeze_m2": 23.5,
+   "n_frames": 2588,
+   "n_matches": 1,
+   "estimated_frac": 0.471,
+   "occlusion_flag": false,
+   "rank": 16,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "name": "Kamil Grosicki",
+   "jersey": 11,
+   "gravity": 0.9416,
+   "gravity_ci90": [
+    0.8063,
+    1.0767
+   ],
+   "drawn_markers": 0.344,
+   "chase_pull_ms": 1.276,
+   "block_squeeze_m2": 21.3,
+   "n_frames": 331,
+   "n_matches": 1,
+   "estimated_frac": 0.151,
+   "occlusion_flag": false,
+   "rank": 16,
+   "tied": true,
+   "position": "LW"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Nicol\u00e1s Otamendi",
+   "jersey": 19,
+   "gravity": 0.9012,
+   "gravity_ci90": [
+    0.8372,
+    0.9726
+   ],
+   "drawn_markers": 0.276,
+   "chase_pull_ms": 1.048,
+   "block_squeeze_m2": 18.4,
+   "n_frames": 3452,
+   "n_matches": 4,
+   "estimated_frac": 0.567,
+   "occlusion_flag": true,
+   "rank": 16,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Rodri",
+   "jersey": 16,
+   "gravity": 0.9008,
+   "gravity_ci90": [
+    0.8171,
+    0.9971
+   ],
+   "drawn_markers": 0.248,
+   "chase_pull_ms": 1.089,
+   "block_squeeze_m2": 19.7,
+   "n_frames": 3198,
+   "n_matches": 1,
+   "estimated_frac": 0.309,
+   "occlusion_flag": false,
+   "rank": 16,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Rapha\u00ebl Guerreiro",
+   "jersey": 5,
+   "gravity": 0.8977,
+   "gravity_ci90": [
+    0.8444,
+    0.9509
+   ],
+   "drawn_markers": 0.253,
+   "chase_pull_ms": 1.208,
+   "block_squeeze_m2": 13.9,
+   "n_frames": 2876,
+   "n_matches": 2,
+   "estimated_frac": 0.292,
+   "occlusion_flag": false,
+   "rank": 16,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Yahia Attiat-Allah",
+   "jersey": 25,
+   "gravity": 0.8936,
+   "gravity_ci90": [
+    0.7539,
+    1.0612
+   ],
+   "drawn_markers": 0.248,
+   "chase_pull_ms": 1.093,
+   "block_squeeze_m2": 28.9,
+   "n_frames": 716,
+   "n_matches": 2,
+   "estimated_frac": 0.398,
+   "occlusion_flag": false,
+   "rank": 16,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Lisandro Martinez",
+   "jersey": 25,
+   "gravity": 0.8756,
+   "gravity_ci90": [
+    0.7781,
+    0.9755
+   ],
+   "drawn_markers": 0.283,
+   "chase_pull_ms": 1.001,
+   "block_squeeze_m2": 14.9,
+   "n_frames": 1159,
+   "n_matches": 3,
+   "estimated_frac": 0.584,
+   "occlusion_flag": true,
+   "rank": 16,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "name": "Nahuel Molina",
+   "jersey": 26,
+   "gravity": 0.8693,
+   "gravity_ci90": [
+    0.8318,
+    0.9095
+   ],
+   "drawn_markers": 0.267,
+   "chase_pull_ms": 1.1,
+   "block_squeeze_m2": 14.7,
+   "n_frames": 6170,
+   "n_matches": 4,
+   "estimated_frac": 0.344,
+   "occlusion_flag": false,
+   "rank": 16,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Dejan Lovren",
+   "jersey": 6,
+   "gravity": 0.8638,
+   "gravity_ci90": [
+    0.765,
+    0.9653
+   ],
+   "drawn_markers": 0.267,
+   "chase_pull_ms": 0.803,
+   "block_squeeze_m2": 20.2,
+   "n_frames": 1995,
+   "n_matches": 2,
+   "estimated_frac": 0.571,
+   "occlusion_flag": true,
+   "rank": 16,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Fabian Sch\u00e4r",
+   "jersey": 22,
+   "gravity": 0.8389,
+   "gravity_ci90": [
+    0.6096,
+    1.14
+   ],
+   "drawn_markers": 0.26,
+   "chase_pull_ms": 0.818,
+   "block_squeeze_m2": 16.5,
+   "n_frames": 324,
+   "n_matches": 1,
+   "estimated_frac": 0.762,
+   "occlusion_flag": true,
+   "rank": 16,
+   "tied": true,
+   "position": "MCB"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Ferran Torres",
+   "jersey": 11,
+   "gravity": 0.8347,
+   "gravity_ci90": [
+    0.7741,
+    0.886
+   ],
+   "drawn_markers": 0.242,
+   "chase_pull_ms": 1.101,
+   "block_squeeze_m2": 12.1,
+   "n_frames": 3738,
+   "n_matches": 1,
+   "estimated_frac": 0.562,
+   "occlusion_flag": true,
+   "rank": 17,
+   "tied": true,
+   "position": "RW"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Eray Comert",
+   "jersey": 18,
+   "gravity": 0.8312,
+   "gravity_ci90": [
+    0.5961,
+    1.0782
+   ],
+   "drawn_markers": 0.227,
+   "chase_pull_ms": 0.713,
+   "block_squeeze_m2": 14.7,
+   "n_frames": 482,
+   "n_matches": 1,
+   "estimated_frac": 0.707,
+   "occlusion_flag": true,
+   "rank": 17,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Daley Blind",
+   "jersey": 17,
+   "gravity": 0.8247,
+   "gravity_ci90": [
+    0.7477,
+    0.8969
+   ],
+   "drawn_markers": 0.256,
+   "chase_pull_ms": 1.036,
+   "block_squeeze_m2": 13.5,
+   "n_frames": 1563,
+   "n_matches": 1,
+   "estimated_frac": 0.26,
+   "occlusion_flag": false,
+   "rank": 17,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "name": "Noussair Mazraoui",
+   "jersey": 3,
+   "gravity": 0.7701,
+   "gravity_ci90": [
+    0.6426,
+    0.9102
+   ],
+   "drawn_markers": 0.224,
+   "chase_pull_ms": 1.183,
+   "block_squeeze_m2": 20.2,
+   "n_frames": 450,
+   "n_matches": 1,
+   "estimated_frac": 0.44,
+   "occlusion_flag": false,
+   "rank": 17,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Edimilson Fernandes",
+   "jersey": 2,
+   "gravity": 0.7526,
+   "gravity_ci90": [
+    0.6607,
+    0.8484
+   ],
+   "drawn_markers": 0.21,
+   "chase_pull_ms": 0.943,
+   "block_squeeze_m2": 12.0,
+   "n_frames": 1802,
+   "n_matches": 1,
+   "estimated_frac": 0.292,
+   "occlusion_flag": false,
+   "rank": 17,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Theo Hernandez",
+   "jersey": 22,
+   "gravity": 0.7027,
+   "gravity_ci90": [
+    0.662,
+    0.7419
+   ],
+   "drawn_markers": 0.211,
+   "chase_pull_ms": 1.069,
+   "block_squeeze_m2": 21.8,
+   "n_frames": 4460,
+   "n_matches": 3,
+   "estimated_frac": 0.352,
+   "occlusion_flag": false,
+   "rank": 18,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Luke Shaw",
+   "jersey": 3,
+   "gravity": 0.6979,
+   "gravity_ci90": [
+    0.6421,
+    0.7542
+   ],
+   "drawn_markers": 0.224,
+   "chase_pull_ms": 0.984,
+   "block_squeeze_m2": 20.8,
+   "n_frames": 2152,
+   "n_matches": 1,
+   "estimated_frac": 0.384,
+   "occlusion_flag": false,
+   "rank": 18,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "name": "Jules Kounde",
+   "jersey": 5,
+   "gravity": 0.6801,
+   "gravity_ci90": [
+    0.6432,
+    0.7224
+   ],
+   "drawn_markers": 0.211,
+   "chase_pull_ms": 0.918,
+   "block_squeeze_m2": 20.5,
+   "n_frames": 4966,
+   "n_matches": 3,
+   "estimated_frac": 0.33,
+   "occlusion_flag": false,
+   "rank": 18,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Ricardo Rodriguez",
+   "jersey": 13,
+   "gravity": 0.6344,
+   "gravity_ci90": [
+    0.5783,
+    0.6997
+   ],
+   "drawn_markers": 0.208,
+   "chase_pull_ms": 1.084,
+   "block_squeeze_m2": 16.3,
+   "n_frames": 1327,
+   "n_matches": 1,
+   "estimated_frac": 0.381,
+   "occlusion_flag": false,
+   "rank": 18,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "name": "Manuel Akanji",
+   "jersey": 5,
+   "gravity": 0.6303,
+   "gravity_ci90": [
+    0.5365,
+    0.7358
+   ],
+   "drawn_markers": 0.216,
+   "chase_pull_ms": 0.783,
+   "block_squeeze_m2": 14.6,
+   "n_frames": 940,
+   "n_matches": 1,
+   "estimated_frac": 0.571,
+   "occlusion_flag": true,
+   "rank": 18,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Borna Sosa",
+   "jersey": 19,
+   "gravity": 0.6186,
+   "gravity_ci90": [
+    0.561,
+    0.6724
+   ],
+   "drawn_markers": 0.186,
+   "chase_pull_ms": 0.887,
+   "block_squeeze_m2": 14.3,
+   "n_frames": 2681,
+   "n_matches": 2,
+   "estimated_frac": 0.45,
+   "occlusion_flag": false,
+   "rank": 18,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Diogo Dalot",
+   "jersey": 2,
+   "gravity": 0.6084,
+   "gravity_ci90": [
+    0.5607,
+    0.6517
+   ],
+   "drawn_markers": 0.192,
+   "chase_pull_ms": 0.992,
+   "block_squeeze_m2": 13.3,
+   "n_frames": 3155,
+   "n_matches": 2,
+   "estimated_frac": 0.29,
+   "occlusion_flag": false,
+   "rank": 19,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "name": "Jurrien Timber",
+   "jersey": 2,
+   "gravity": 0.5916,
+   "gravity_ci90": [
+    0.5063,
+    0.6891
+   ],
+   "drawn_markers": 0.215,
+   "chase_pull_ms": 0.774,
+   "block_squeeze_m2": 21.0,
+   "n_frames": 1259,
+   "n_matches": 1,
+   "estimated_frac": 0.487,
+   "occlusion_flag": false,
+   "rank": 19,
+   "tied": true,
+   "position": "CB"
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "name": "Danilo",
+   "jersey": 2,
+   "gravity": 0.582,
+   "gravity_ci90": [
+    0.5362,
+    0.6291
+   ],
+   "drawn_markers": 0.198,
+   "chase_pull_ms": 0.924,
+   "block_squeeze_m2": 20.3,
+   "n_frames": 2142,
+   "n_matches": 1,
+   "estimated_frac": 0.423,
+   "occlusion_flag": false,
+   "rank": 19,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "name": "Jo\u00e3o Cancelo",
+   "jersey": 20,
+   "gravity": 0.568,
+   "gravity_ci90": [
+    0.4959,
+    0.6474
+   ],
+   "drawn_markers": 0.189,
+   "chase_pull_ms": 0.906,
+   "block_squeeze_m2": 14.0,
+   "n_frames": 771,
+   "n_matches": 1,
+   "estimated_frac": 0.968,
+   "occlusion_flag": true,
+   "rank": 19,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "name": "Josip Juranovic",
+   "jersey": 22,
+   "gravity": 0.5393,
+   "gravity_ci90": [
+    0.4975,
+    0.5841
+   ],
+   "drawn_markers": 0.166,
+   "chase_pull_ms": 0.869,
+   "block_squeeze_m2": 15.3,
+   "n_frames": 3451,
+   "n_matches": 2,
+   "estimated_frac": 0.432,
+   "occlusion_flag": false,
+   "rank": 19,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "name": "Fran Karacic",
+   "jersey": 5,
+   "gravity": 0.5069,
+   "gravity_ci90": [
+    0.3686,
+    0.6592
+   ],
+   "drawn_markers": 0.167,
+   "chase_pull_ms": 0.956,
+   "block_squeeze_m2": 10.4,
+   "n_frames": 256,
+   "n_matches": 1,
+   "estimated_frac": 0.418,
+   "occlusion_flag": false,
+   "rank": 19,
+   "tied": true,
+   "position": "RB"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Jordi Alba",
+   "jersey": 18,
+   "gravity": 0.505,
+   "gravity_ci90": [
+    0.4762,
+    0.5363
+   ],
+   "drawn_markers": 0.202,
+   "chase_pull_ms": 0.907,
+   "block_squeeze_m2": 14.4,
+   "n_frames": 3547,
+   "n_matches": 1,
+   "estimated_frac": 0.296,
+   "occlusion_flag": false,
+   "rank": 20,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "name": "Alex Balde",
+   "jersey": 14,
+   "gravity": 0.4903,
+   "gravity_ci90": [
+    0.4211,
+    0.5647
+   ],
+   "drawn_markers": 0.19,
+   "chase_pull_ms": 0.781,
+   "block_squeeze_m2": 12.3,
+   "n_frames": 941,
+   "n_matches": 1,
+   "estimated_frac": 0.373,
+   "occlusion_flag": false,
+   "rank": 20,
+   "tied": true,
+   "position": "LB"
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "name": "Kyle Walker",
+   "jersey": 2,
+   "gravity": 0.4029,
+   "gravity_ci90": [
+    0.3518,
+    0.4551
+   ],
+   "drawn_markers": 0.198,
+   "chase_pull_ms": 0.52,
+   "block_squeeze_m2": 16.2,
+   "n_frames": 1328,
+   "n_matches": 1,
+   "estimated_frac": 0.633,
+   "occlusion_flag": true,
+   "rank": 21,
+   "tied": false,
+   "position": "RB"
+  }
+ ],
+ "teams": [
+  {
+   "team": "Morocco",
+   "team_id": "374",
+   "is_semifinalist": true,
+   "team_gravity": 2.4609,
+   "n_players": 16
+  },
+  {
+   "team": "Brazil",
+   "team_id": "361",
+   "is_semifinalist": false,
+   "team_gravity": 2.2548,
+   "n_players": 13
+  },
+  {
+   "team": "Netherlands",
+   "team_id": "366",
+   "is_semifinalist": false,
+   "team_gravity": 2.2162,
+   "n_players": 14
+  },
+  {
+   "team": "England",
+   "team_id": "50",
+   "is_semifinalist": false,
+   "team_gravity": 2.1648,
+   "n_players": 13
+  },
+  {
+   "team": "Croatia",
+   "team_id": "371",
+   "is_semifinalist": true,
+   "team_gravity": 1.9784,
+   "n_players": 15
+  },
+  {
+   "team": "France",
+   "team_id": "363",
+   "is_semifinalist": true,
+   "team_gravity": 1.9273,
+   "n_players": 16
+  },
+  {
+   "team": "Portugal",
+   "team_id": "365",
+   "is_semifinalist": false,
+   "team_gravity": 1.9165,
+   "n_players": 16
+  },
+  {
+   "team": "Australia",
+   "team_id": "386",
+   "is_semifinalist": false,
+   "team_gravity": 1.8508,
+   "n_players": 15
+  },
+  {
+   "team": "Spain",
+   "team_id": "52",
+   "is_semifinalist": false,
+   "team_gravity": 1.8478,
+   "n_players": 16
+  },
+  {
+   "team": "Switzerland",
+   "team_id": "370",
+   "is_semifinalist": false,
+   "team_gravity": 1.805,
+   "n_players": 14
+  },
+  {
+   "team": "Argentina",
+   "team_id": "364",
+   "is_semifinalist": true,
+   "team_gravity": 1.6969,
+   "n_players": 19
+  },
+  {
+   "team": "Poland",
+   "team_id": "376",
+   "is_semifinalist": false,
+   "team_gravity": 1.5536,
+   "n_players": 15
+  }
+ ],
+ "team_xg_for_per_match": {
+  "Argentina": 3.7737,
+  "Australia": 0.4261,
+  "Brazil": 4.9503,
+  "Croatia": 2.0885,
+  "England": 2.3526,
+  "France": 2.4575,
+  "Morocco": 2.3382,
+  "Netherlands": 4.487,
+  "Poland": 1.5935,
+  "Portugal": 1.5142,
+  "Spain": 2.8455,
+  "Switzerland": 1.2718
+ },
+ "caveats": [
+  "Space-native: gravity is geometry (drawn markers x inward defender chase), not xT or goals.",
+  "Sample is 10 star-heavy/knockout matches at ~2 Hz; not the full tournament.",
+  "Possession is a nearest-player-to-ball heuristic (no event join); transition frames are noisy.",
+  "~40.9% of PFF positions are ESTIMATED; rows >50% ESTIMATED are flagged (occlusion_flag).",
+  "xG correlation is team-level over a small N - directional evidence, not causation.",
+  "Velocity is finite-differenced at ~2 Hz; chase_pull is a smoothed approximation."
+ ]
 }
