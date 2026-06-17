@@ -934,13 +934,14 @@ async function buildLive() {
 /* 1) xT — ball hops midfield -> half-space -> central pocket; threat ticks up. */
 function buildXtExplainer() {
   const host = $("#xt-explainer"); if (!host) return;
-  const stops = [{ x: 96, y: 58, v: 0.02 }, { x: 150, y: 34, v: 0.08 }, { x: 196, y: 50, v: 0.26 }];
+  // midfield (open grass) -> edge of the box -> right in front of goal (inside the box).
+  const stops = [{ x: 80, y: 62, v: 0.02 }, { x: 176, y: 40, v: 0.11 }, { x: 224, y: 52, v: 0.26 }];
   host.innerHTML = `
     <div class="xpl-head">how it's built · <b>xT</b></div>
     <svg class="xpl-svg" viewBox="0 0 240 110" role="img" aria-label="ball moving into higher-value zone">
       <rect x="4" y="4" width="232" height="102" rx="6" fill="#0b160f" stroke="#2a313d"/>
       <defs>
-        <radialGradient id="xtPocket" cx="82%" cy="50%" r="42%">
+        <radialGradient id="xtPocket" cx="95%" cy="50%" r="40%">
           <stop offset="0%" stop-color="#ff6b6b" stop-opacity=".55"/>
           <stop offset="45%" stop-color="#f0b429" stop-opacity=".30"/>
           <stop offset="100%" stop-color="#1a8c8c" stop-opacity="0"/>
@@ -954,7 +955,7 @@ function buildXtExplainer() {
       <text x="226" y="16" text-anchor="end" font-size="8" fill="#9aa6b6">goal →</text>
     </svg>
     <div class="xpl-num">threat <span id="xtVal">0.02</span></div>
-    <p class="xpl-cap">The ball climbs from open grass to a central pocket outside the box. Same pass, far more <b>threat</b> — because the zone is worth more.</p>`;
+    <p class="xpl-cap">The ball climbs from midfield, to the edge of the box, to <b>right in front of goal</b> — same move, far more <b>threat</b>, because the zone is worth more. xT peaks at the goal.</p>`;
   const valEl = $("#xtVal", host);
   const T = 3600, seg = T / 3;
   let raf;
