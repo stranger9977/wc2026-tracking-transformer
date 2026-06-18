@@ -32,6 +32,12 @@ const CODE = { BEL: "Belgium", EGY: "Egypt", TUR: "Turkey", ESP: "Spain", URU: "
   GER: "Germany", BRA: "Brazil", JPN: "Japan", KOR: "S.Korea", MAR: "Morocco",
   AUS: "Australia", SWE: "Sweden", IRN: "Iran", QAT: "Qatar", PAR: "Paraguay" };
 const codeName = (c) => CODE[c] || c;
+// "2026-06-18" -> "18 Jun 2026" (no Date() parsing — avoids TZ surprises)
+const fmtDate = (iso) => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); if (!m) return iso || "";
+  const mon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+m[2] - 1];
+  return `${+m[3]} ${mon} ${m[1]}`;
+};
 
 /* ---------------- reveal-on-scroll ---------------- */
 function initReveal() {
@@ -304,9 +310,10 @@ function buildScrubber(el, surf, cfg) {
     renderAt(playhead);
   }));
 
-  // total span in seconds — playback advances at ~real time from the frames' t_s timestamps
+  // total span in seconds — playback advances at ~real time from the frames' t_s timestamps,
+  // scaled by cfg.speed (<1 = slow-mo, e.g. for a fast sprint so it's watchable).
   const spanSec = Math.max(0.5, frames[n - 1].t_s - frames[0].t_s);
-  const fracPerSec = (n - 1) / spanSec;
+  const fracPerSec = (n - 1) / spanSec * (cfg.speed || 1);
 
   // apply the active "mode" transform to a (possibly interpolated) surface
   function applyMode(surface) {
@@ -425,7 +432,7 @@ async function buildIntro() {
   const shapeEl = $("#intro-shape"), efiEl = $("#intro-efi");
   if (!shapeEl && !efiEl) return;
   let d;
-  try { d = await loadJSON("data/intro_efi.json"); }
+  try { d = await loadJSON("data/intro_efi.json?v=2"); }
   catch (e) {
     if (shapeEl) shapeEl.innerHTML = `<p class="caption">Intro data unavailable: ${e.message}</p>`;
     return;
@@ -815,14 +822,14 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=2");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=3");
   const data = await loadJSON("data/space_pobso.json");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
   const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
   const from = h.assist ? ` from <b>${h.assist}</b>` : "";
   buildScrubber(scEl, surf, {
-    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02,
+    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: 0.6,
     labelName: h.name, defaultMode: "surface",
     toggles: [
       { key: "reveal", label: "reveal danger (× xT)" },
@@ -979,7 +986,7 @@ async function buildLive() {
   /* ---- 2026 live: the same space metrics, straight from FIFA's feed ---- */
   if (liveEl) {
     try {
-      const d = await loadJSON("data/intro_efi.json");
+      const d = await loadJSON("data/intro_efi.json?v=2");
       const e26 = d.efi_2026 || {};
       const board = (rows, fmt) => {
         rows = (rows || []).slice(0, 6);
@@ -992,7 +999,7 @@ async function buildLive() {
         }).join("") + `</div>`;
       };
       liveEl.innerHTML = `
-        <div class="livechip"><span class="dot live"></span> LIVE · ${e26.n_matches_played || "—"} WC2026 matches played · FIFA EFI</div>
+        <div class="livechip"><span class="dot live"></span> LIVE · ${e26.n_matches_played || "—"} WC2026 matches played · FIFA EFI${d.fetched ? ` · last updated <b>${fmtDate(d.fetched)}</b>` : ""}</div>
         <div class="liveboards">
           <div><h4>Completed line breaks · per match</h4>${board(e26.linebreaks_completed, (v) => v.toFixed(0))}</div>
           <div><h4>Offers to receive in behind · per match</h4>${board(e26.offers_in_behind, (v) => v.toFixed(0))}</div>
@@ -1010,7 +1017,10 @@ async function buildThreat() {
   const ttEl = $("#xt-threat-teams"), tpEl = $("#xt-threat-players");
   if (!ttEl && !tpEl) return;
   try {
-    const d = await loadJSON("data/efi_2026.json?v=2");
+    const d = await loadJSON("data/efi_2026.json?v=3");
+    const up = $("#xt-threat-updated");
+    if (up && d.fetched) up.innerHTML = `<span class="dot live"></span> LIVE · FIFA EFI`
+      + ` · last updated <b>${fmtDate(d.fetched)}</b> · ${d.n_matches || "—"} matches, ${d.n_teams || "—"} teams`;
     if (ttEl) {
       const rows = (d.team_threat_leaders || []).slice(0, 8);
       const mx = Math.max(1, ...rows.map((r) => r.threat));
@@ -1243,11 +1253,28 @@ function buildPitchControlExplainer() {
       ctx.strokeStyle = "#0a0c10"; ctx.lineWidth = 2; ctx.fill(); ctx.stroke();
     }
     const [bx, by] = m2p(ball.x, ball.y);
+    // LIVE control metric at the ball's spot — σ(attacker − defender influence) there
+    const cb = 1 / (1 + Math.exp(-3 * (influence(att, ball.x, ball.y) - influence(def, ball.x, ball.y))));
+    const cCol = cb > 0.5 ? "#7ec8ff" : "#ff9a9a";
+    // value chip above the ball
+    ctx.save();
+    ctx.font = "700 13px Inter, system-ui, sans-serif"; ctx.textAlign = "center";
+    const txt = cb.toFixed(2), cw = ctx.measureText(txt).width + 12;
+    const chipY = by - 26;
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(bx - cw / 2, chipY - 9, cw, 18, 5)
+      : ctx.rect(bx - cw / 2, chipY - 9, cw, 18);
+    ctx.fillStyle = "rgba(10,12,16,0.9)"; ctx.fill();
+    ctx.strokeStyle = cCol; ctx.lineWidth = 1.2; ctx.stroke();
+    ctx.fillStyle = cCol; ctx.textBaseline = "middle"; ctx.fillText(txt, bx, chipY + 0.5);
+    ctx.restore();
     ctx.beginPath(); ctx.arc(bx, by, 5, 0, Math.PI * 2);
     ctx.fillStyle = "#fff"; ctx.strokeStyle = "#000"; ctx.lineWidth = 1.4; ctx.fill(); ctx.stroke();
-    readEl.innerHTML = `attacker <b style="color:#7ec8ff">${Math.hypot(att.vx, att.vy).toFixed(1)} m/s</b>`
+    const owner = cb > 0.55 ? "attacker owns it" : cb < 0.45 ? "defender owns it" : "contested";
+    readEl.innerHTML = `<b>control at the ball</b> <b style="color:${cCol}">${cb.toFixed(2)}</b> (${owner})`
+      + ` · attacker <b style="color:#7ec8ff">${Math.hypot(att.vx, att.vy).toFixed(1)} m/s</b>`
       + ` · defender <b style="color:#ff9a9a">${Math.hypot(def.vx, def.vy).toFixed(1)} m/s</b>`
-      + ` <span class="hint">— drag a dot; flick it to add speed</span>`;
+      + ` <span class="hint">— drag a dot; flick to add speed</span>`;
   }
 
   // pointer drag with drag-derived velocity (EMA) + decay on release
@@ -1344,7 +1371,7 @@ async function buildBWAE() {
 /* Way 1 clip — a top creator's pass into controllable dangerous final-third space. */
 async function buildPassingClip() {
   const el = $("#passing-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=2"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=3"); } catch (e) { return; }
   const h = surf.hero || {};
   const shot = h.shot_outcome
     ? ` The move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` (${h.shot_shooter})` : ""}.`
@@ -1365,7 +1392,7 @@ async function buildPassingClip() {
 /* Way 2 clip — a ground duel won against the pitch-control expectation (a BWAE upset). */
 async function buildDuelClip() {
   const el = $("#duel-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=2"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=3"); } catch (e) { return; }
   const h = surf.hero || {};
   buildScrubber(el, surf, {
     id: "duel", ramp: rampHot, gamma: 0.95, threshold: 0.05, surfaceAlpha: 0.6,

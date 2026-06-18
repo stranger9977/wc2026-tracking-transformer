@@ -370,6 +370,7 @@
 
       <div class="card">
         <h3>The same idea, measured live — World Cup 2026 threat so far</h3>
+        <div class="livechip" id="xt-threat-updated"><span class="dot live"></span> LIVE · FIFA EFI</div>
         <p class="caption" style="margin-top:0">A true Karun-style xT needs pass-by-pass event data, which isn't public for 2026 yet — but FIFA's Enhanced Football Intelligence publishes a <b>threat</b> number that is the same idea (how much each action raises the chance of a goal), and it's <b>live</b>. Here's who's generating it through the opening round of matches — the xT story, already running in the tournament we're building toward.</p>
         <div class="liveboards">
           <div><div class="boardlab">Teams · threat created / match</div><div id="xt-threat-teams" class="tbars"></div></div>
@@ -513,8 +514,8 @@
         <h3>Finding dangerous space — <span id="passing-hero-title2">the pass</span></h3>
         <div id="passing-canvas" class="heat"></div>
         <div class="legend teamleg" id="passing-teamleg"></div>
-        <div class="legend"><span>controlled but low-value</span><span class="grad"></span><span>controlled danger</span></div>
-        <p class="caption">The passer is ringed and labelled. The surface is attacker pitch-control × xT, so the bright pocket is grass the receiving team both <b>owns</b> and can <b>score from</b> — watch it bloom at the receiver before the ball arrives.</p>
+        <div class="legend"><span>dark = opponent's, or low-value</span><span class="grad"></span><span>bright = controlled danger</span></div>
+        <p class="caption">The passer is ringed and labelled. The surface is attacker pitch-control × xT: a cell glows only where the team both <b>controls</b> it <i>and</i> it's <b>valuable</b> (near goal) — so the bright pocket is grass the receiver both owns and can score from. <b>Dark</b> = the opponent owns it, or it's controlled but low-value (midfield). Watch the pocket bloom at the receiver before the ball arrives.</p>
       </div>
       <div class="card">
         <h3>Finds dangerous space with his passing — final third</h3>
@@ -587,8 +588,8 @@
         <h3>Dangerous-space surface — <span id="pobso-hero-title">an off-ball run into the danger zone</span> (ARG v FRA final)</h3>
         <div id="pobso-canvas" class="heat"></div>
         <div class="legend teamleg" id="pobso-teamleg"></div>
-        <div class="legend"><span>controlled but low-value</span><span class="grad"></span><span>controlled danger</span></div>
-        <p class="caption">The runner is highlighted and labelled on the clip by default — ring plus name tag — so the danger-maker is never lost in the dots. Toggle <b>reveal danger</b> to fade the ball-centric view and keep only cells that are both controlled <i>and</i> threatening (× xT) — you watch the scoring opportunity form ahead of the run, before the pass.</p>
+        <div class="legend"><span>dark = opponent's, or low-value</span><span class="grad"></span><span>bright = controlled danger</span></div>
+        <p class="caption"><b>Reading the surface:</b> it's <b>control × xT</b>, so a cell only glows when it's <i>both</i> controlled by the attacking team <i>and</i> valuable (near goal). <b>Dark</b> means one of those is ~zero — either the opponent owns it, <i>or</i> it's controlled but far from goal (midfield is low-value, so it stays dark even when Argentina owns it). <b>Greenish</b> = controlled but only modest value; the <b>bright</b> bloom by the goal is controlled <i>and</i> dangerous. The runner is ringed and labelled so he's never lost in the dots. Toggle <b>reveal danger</b> to keep only the controlled-and-threatening cells — you watch the scoring chance form ahead of his run, before the pass.</p>
       </div>
       <div id="pobso-explainer" class="xpl"></div>
 
@@ -687,6 +688,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=25"></script>
+<script type="module" src="assets/js/space.js?v=26"></script>
 </body>
 </html>
