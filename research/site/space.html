@@ -442,7 +442,7 @@
         <div id="pobso-board" class="lboard"></div>
         <p class="caption">Substantial-minutes players lead; cameo subs (&lt;15 min, one match) are shown separately so they don't headline. The substantial-minutes group — En-Nesyri, Mbappé, Petković, Messi — is the trustworthy read.</p>
       </div>
-      <p class="body">At <i>team</i> level this same idea — danger-moments per minute of possession — tracked xG beautifully among the ten knockout contenders (ρ=+0.71), then <b>inverted across all 64 games</b> (ρ=−0.31): counter-attacking sides rack up unconverted transition space and float to the top. We cut that board rather than ship a number that flips with the sample — and that failure is the subject of <a href="#measuring">the next section</a>.</p>
+      <p class="body">At <i>team</i> level this same idea — danger-moments per minute of possession — tracked xG beautifully among the ten knockout contenders (ρ=+0.71), then <b>inverted across all 64 games</b> (ρ=−0.31): counter-attacking sides rack up unconverted transition space and float to the top. We cut that board rather than ship a number that flips with the sample.</p>
       <details class="notes reveal">
         <summary>How this is measured</summary>
         <ul>
@@ -492,30 +492,6 @@
           <li><a href="https://www.getgoalsideanalytics.com/everything-you-need-to-know-about-pitch-control/" target="_blank" rel="noopener">Get Goalside — pitch control explained</a></li>
         </ul>
       </div>
-    </div>
-  </div>
-</section>
-
-<div class="rule"></div>
-
-<!-- The honest beat — space is easy to measure wrong -->
-<section id="measuring">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="act-tag"><span class="num">✶</span> A detour: space is easy to measure wrong</div>
-      <h2>Three ways we measured space — and got it backwards.</h2>
-      <p class="lede">The honest core of this study: "space" is seductive and treacherous to quantify. Every time we ranked players or teams by <b>how much dangerous space they occupy or create</b>, the metric ended up measuring the <i>game state</i>, not the skill — and inverted toward weak, counter-attacking sides.</p>
-      <div class="card">
-        <details class="notes" open>
-          <summary>The three dead ends (and why each failed)</summary>
-          <ul>
-            <li><b>1 · Control × xT occupied.</b> Sum how much valuable grass a side owns — and counter teams get acres in transition while possession sides grind into packed blocks. It ranked <b>Costa Rica and Iran over Spain and Argentina</b>, and correlated <b>negatively</b> with xG (−0.31 across all 64).</li>
-            <li><b>2 · A learned "ghost" of space created.</b> We trained a transformer to predict where a <i>replacement</i> player would move, and scored the difference — space created above replacement. The model was accurate (3.3 m), but the <i>target</i> was the same trap, so it inverted just the same.</li>
-            <li><b>3 · Leave-one-out on a goal-value model.</b> Remove a defender, measure how much the opponent's scoring chance rises = his "space denied." But the value model pools all 23 players, so dropping one of several coverers barely moves it — the center-backs came out at <b>zero</b>.</li>
-          </ul>
-        </details>
-      </div>
-      <p class="body">The pattern is the lesson. <b>Free-floating "space occupied / created" measures the situation you're handed, not the player.</b> What survives is anchored to something concrete — a <b>discrete action</b> (a pass, a duel), a <b>relational effect</b> (defenders pulled out of shape), or an <b>outcome residual</b> (chances above what control predicts). That is exactly why the metrics that follow are <b>passing into dangerous space</b>, <b>winning duels above expectation</b>, and <b>defensive gravity</b> — not "who stood in the most valuable grass."</p>
     </div>
   </div>
 </section>
@@ -640,6 +616,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=20"></script>
+<script type="module" src="assets/js/space.js?v=21"></script>
 </body>
 </html>
