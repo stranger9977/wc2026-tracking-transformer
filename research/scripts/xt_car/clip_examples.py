@@ -197,10 +197,11 @@ def pick_passing():
 
 
 def pick_duel():
-    """Biggest BWAE upset: a recognizable player wins a ground duel the influence
-    model gave the OTHER player."""
-    best = None  # (upset, mid, period, gc, win_name, los_name, win_id, los_id, exp_win)
-    fallback = None
+    """Ranked ground-duel (CH) candidates with a recognizable winner. The event
+    snapshot's positions disagree with the 30 Hz tracking, so we do NOT trust the
+    snapshot geometry here — these are validated against the TRACKING downstream
+    (validate_export_duel) so the displayed contest matches the stated odds."""
+    cands = []
     for mid in MIDS:
         try:
             ev = json.load(open(ROOT / "Event Data" / f"{mid}.json"))
@@ -217,46 +218,91 @@ def pick_duel():
             ball = (e.get("ball") or [{}]); ball = ball[0] if ball else {}
             if ball.get("x") is None or (ball.get("z") is not None and ball["z"] >= 1.0):
                 continue
-            bx, by = float(ball["x"]), float(ball["y"])
             carrier = pe.get("ballCarrierPlayerId") or pe.get("carrierPlayerId")
             a = carrier or pe.get("homeDuelPlayerId")
             b = pe.get("challengerPlayerId") or pe.get("awayDuelPlayerId")
             if a is None or b is None or a == b:
                 continue
             a, b, win = int(a), int(b), int(win)
-            snap = _snapshot(e)
-            if a not in snap or b not in snap or win not in (a, b):
-                continue
-            # require a REAL contest: both contestants near the ball AND near each
-            # other (a genuine 50-50), not a loose ball one player ran onto from
-            # distance (which scores a degenerate ~0 expected win).
-            da = math.hypot(snap[a][0] - bx, snap[a][1] - by)
-            db = math.hypot(snap[b][0] - bx, snap[b][1] - by)
-            dab = math.hypot(snap[a][0] - snap[b][0], snap[a][1] - snap[b][1])
-            if da > 5.0 or db > 5.0 or dab > 5.0:
-                continue
-            # keep the contest away from the touchlines/corners so it renders clearly
-            # in-frame (PFF pitch ~105×68 → x∈[-52,52], y∈[-34,34])
-            if abs(bx) > 38.0 or abs(by) > 22.0:
-                continue
-            ia = _duel_infl(snap[a][0], snap[a][1], snap[a][2], bx, by)
-            ib = _duel_infl(snap[b][0], snap[b][1], snap[b][2], bx, by)
-            if ia + ib < 1e-9:
+            if win not in (a, b):
                 continue
             loser = b if win == a else a
-            exp_win = (ia / (ia + ib)) if win == a else (ib / (ia + ib))
-            if not (0.18 <= exp_win <= 0.42):          # believable underdog, not a fluke
-                continue
             names = {a: pe.get("ballCarrierPlayerName") or pe.get("carrierPlayerName") or "",
                      b: pe.get("challengerPlayerName") or ""}
-            upset = 1.0 - exp_win
-            cand = (upset, mid, int(period), float(gc), names.get(win, ""), names.get(loser, ""),
-                    win, loser, round(exp_win, 3))
-            if fallback is None or upset > fallback[0]:
-                fallback = cand
-            if _is_star(names.get(win, ""), DUEL_STARS) and (best is None or upset > best[0]):
-                best = cand
-    return best or fallback
+            wname, lname = names.get(win, ""), names.get(loser, "")
+            if not wname or not lname:
+                continue
+            score = 10 if _is_star(wname, DUEL_STARS) else 0
+            cands.append((score, mid, int(period), float(gc), win, wname, loser, lname))
+    cands.sort(key=lambda c: -c[0])
+    return cands
+
+
+def validate_export_duel(mid, period, gc, win_id, wname, los_id, lname):
+    """Read the TRACKING around the duel, find the genuine contest frame (both
+    contestants closest to the ball), compute the F&B win-probability THERE, and
+    export only if it's a real, in-frame 50-50 the WINNER was the underdog in —
+    so the clip's geometry matches the stated odds. Returns payload or None."""
+    meta = space_io.load_metadata(mid)
+    ev0 = json.load(open(ROOT / "Event Data" / f"{mid}.json"))
+    lock = None
+    for e in ev0:
+        tid = _team_id_for_player(meta, e, win_id)
+        if tid:
+            lock = tid; break
+    if lock is None:
+        return None
+    t_center = gc - 2700.0 * (period - 1)
+    found = []
+    for fr in space_io.read_match(mid, sampling_stride=SAMPLING_STRIDE,
+                                  periods=(period,), lock_attack_team_id=lock):
+        if abs(fr.timestamp_s - t_center) > 3.0:
+            continue
+        wi = li = None
+        for i, ident in enumerate(fr.identities):
+            if ident.name == wname:
+                wi = i
+            elif ident.name == lname:
+                li = i
+        if wi is None or li is None:
+            continue
+        bx, by = float(fr.ball_m[0]), float(fr.ball_m[1])
+        wx, wy = fr.players[wi, 0] * HALF_LEN, fr.players[wi, 1] * HALF_WID
+        lx, ly = fr.players[li, 0] * HALF_LEN, fr.players[li, 1] * HALF_WID
+        wsp = math.hypot(fr.players[wi, 2], fr.players[wi, 3])
+        lsp = math.hypot(fr.players[li, 2], fr.players[li, 3])
+        found.append({"t": fr.timestamp_s, "dw": math.hypot(wx - bx, wy - by),
+                      "dl": math.hypot(lx - bx, ly - by), "bx": bx, "by": by,
+                      "wx": wx, "wy": wy, "wsp": wsp, "lx": lx, "ly": ly, "lsp": lsp,
+                      "wvis": fr.identities[wi].visibility, "lvis": fr.identities[li].visibility})
+    if not found:
+        return None
+    c = min(found, key=lambda f: max(f["dw"], f["dl"]))   # the genuine contest moment
+    # must be a real, in-frame 50-50 both players actually contest, both VISIBLE
+    if c["dw"] > 3.5 or c["dl"] > 3.5 or c["wvis"] != "VISIBLE" or c["lvis"] != "VISIBLE":
+        return None
+    if abs(c["bx"]) > 38.0 or abs(c["by"]) > 22.0:
+        return None
+    iw = _duel_infl(c["wx"], c["wy"], c["wsp"], c["bx"], c["by"])
+    il = _duel_infl(c["lx"], c["ly"], c["lsp"], c["bx"], c["by"])
+    if iw + il < 1e-9:
+        return None
+    exp_win = iw / (iw + il)
+    if exp_win > 0.45:                  # the WINNER must be the underdog at the contest
+        return None
+    hero = {"name": wname, "loser": lname, "team": _teams_block(meta, lock)["attack"],
+            "expected_win": round(exp_win, 3), "expected_pct": round(exp_win * 100)}
+    payload = export_window(mid, period, c["t"] + 2700.0 * (period - 1), lock, "control", hero,
+                            teams=_teams_block(meta, lock), pre=3.5, post=0.8, anchor_name=wname)
+    if payload:
+        payload.update({
+            "metric": "duel",
+            "title": f"Winning the ball against the odds: {wname}",
+            "match": f"{meta['homeTeam']['name']} v {meta['awayTeam']['name']}",
+            "description": (f"A genuine 50-50: pitch control favoured {lname} ({round((1-exp_win)*100)}%), "
+                            f"but {wname} reached it first."),
+        })
+    return payload
 
 
 # ---------------------------------------------------------------------------
@@ -465,8 +511,10 @@ def main():
         print(f"[passing] {pname} -> {rname} ({mid} p{period} {gc:.1f}s) "
               f"control={ctrl} xt={xtv} value={score:.4f} | possession -> "
               f"{shot_out or 'no shot'}{(' by '+shot_shooter) if shot_shooter else ''}", flush=True)
+        # extend past the pass so the resulting shot is visible (Müller→Kimmich→shot lands
+        # ~2-3 s later); 5 Hz so the fast shot ball doesn't teleport between frames.
         payload = export_window(mid, period, gc, lock, "danger", hero,
-                                teams=_teams_block(meta, lock))
+                                teams=_teams_block(meta, lock), pre=2.5, post=3.5, stride=6)
         if payload:
             payload.update({
                 "metric": "passing",
@@ -480,42 +528,24 @@ def main():
             (SURF_DIR / "passing.json").write_text(json.dumps(payload))
             print(f"[passing] wrote surfaces/passing.json ({payload['n_frames']} frames)", flush=True)
 
-    # ---- DUEL ----
-    print("[duel] scanning Event Data for biggest BWAE upset...", flush=True)
-    dk = pick_duel()
-    if dk is None:
-        print("[duel] no candidate found", flush=True)
-    else:
-        upset, mid, period, gc, wname, lname, wid, lid, exp_win = dk
-        meta = space_io.load_metadata(mid)
-        ev0 = json.load(open(ROOT / "Event Data" / f"{mid}.json"))
-        lock = None
-        for e in ev0:
-            tid = _team_id_for_player(meta, e, wid)
-            if tid:
-                lock = tid; break
-        hero = {"name": wname, "loser": lname,
-                "team": meta["homeTeam"]["name"] if lock == str(meta["homeTeam"]["id"]) else meta["awayTeam"]["name"],
-                "expected_win": exp_win, "expected_pct": round(exp_win * 100)}
-        print(f"[duel] {wname} beat {lname} ({mid} p{period} {gc:.1f}s) "
-              f"expected_win={exp_win} (upset={upset:.3f})", flush=True)
-        # anchor on the true win frame (winner closest to ball) and END on the win, so the
-        # clip leads in on both converging and stops before the post-duel scramble.
-        payload = export_window(mid, period, gc, lock, "control", hero,
-                                teams=_teams_block(meta, lock),
-                                pre=3.5, post=0.8, anchor_name=wname)
-        if payload:
-            payload.update({
-                "metric": "duel",
-                "title": f"Winning the ball against the odds: {wname}",
-                "description": (f"Pitch control gave {lname} the edge on this ground duel "
-                                f"({round(exp_win*100)}% to win it), but {wname} got there first. "
-                                "The surface is pitch control locked to the winner's team — he "
-                                "reaches a contested ball his positioning said he should lose."),
-                "match": f"{meta['homeTeam']['name']} v {meta['awayTeam']['name']}",
-            })
-            (SURF_DIR / "duel.json").write_text(json.dumps(payload))
-            print(f"[duel] wrote surfaces/duel.json ({payload['n_frames']} frames)", flush=True)
+    # ---- DUEL ---- (validate each candidate against TRACKING; keep the first that's a
+    # genuine, in-frame 50-50 the WINNER was the underdog in, so the clip matches the odds)
+    print("[duel] scanning + tracking-validating ground-duel upsets...", flush=True)
+    n_tried = 0
+    for score, mid, period, gc, wid, wname, lid, lname in pick_duel():
+        n_tried += 1
+        if n_tried > 40:
+            print("[duel] no tracking-valid 50-50 found in 40 candidates", flush=True)
+            break
+        payload = validate_export_duel(mid, period, gc, wid, wname, lid, lname)
+        if not payload or payload["n_frames"] < 6:
+            continue
+        (SURF_DIR / "duel.json").write_text(json.dumps(payload))
+        print(f"[duel] wrote surfaces/duel.json — {wname} beats {lname} "
+              f"({payload['match']}, p{period} {gc:.0f}s), model gave winner "
+              f"{payload['hero']['expected_pct']}%, {payload['n_frames']} frames "
+              f"(tried {n_tried} candidates)", flush=True)
+        break
 
     # ---- DANGEROUS SPACE (Way 3): bloom -> receive -> score ----
     print("[danger] scanning for the best run-into-space-and-score goal...", flush=True)
@@ -536,7 +566,7 @@ def main():
         # the clip starts on his decisive forward run (skips the occluded forward-back-forward
         # build-up that read as "jumping around"), ending just after the finish.
         payload = export_window(mid, period, gc, lock, "danger", hero,
-                                teams=_teams_block(meta, lock), pre=2.8, post=1.0, stride=6)
+                                teams=_teams_block(meta, lock), pre=2.4, post=1.0, stride=6)
         if not payload or payload["n_frames"] < 8:
             continue
         # validate it's a real forward off-ball arrival: shooter visible + advances toward goal

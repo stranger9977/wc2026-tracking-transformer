@@ -576,9 +576,23 @@ async function buildXTcreated() {
       (r) => r.team, (r) => teamColor(r.team), (v) => v.toFixed(2));
   }
   if (pEl) {
-    pEl.innerHTML = bars(d.players.slice(0, 10), (r) => r.xt_total,
-      (r) => `${shortName(r.name)} <span class="lteam">${r.team}</span>`,
-      (r) => teamColor(r.team), (v) => v.toFixed(1));
+    const lab = $("#xt-pl-lab"), tg = $("#xt-pl-toggle");
+    const renderPlayers = (mode) => {
+      const permatch = mode === "permatch";
+      const rows = [...d.players].sort((a, b) =>
+        (permatch ? b.xt_per_match - a.xt_per_match : b.xt_total - a.xt_total)).slice(0, 10);
+      pEl.innerHTML = bars(rows, (r) => permatch ? r.xt_per_match : r.xt_total,
+        (r) => `${shortName(r.name)} <span class="lteam">${r.team}</span>${permatch ? ` <span class="lpos">${r.matches}m</span>` : ""}`,
+        (r) => teamColor(r.team), (v) => permatch ? v.toFixed(2) : v.toFixed(1));
+      if (lab) lab.innerHTML = permatch
+        ? "Players · xT added <b>per match</b> (WC2022 · games played shown)"
+        : "Players · <b>total</b> xT added (WC2022)";
+    };
+    renderPlayers("total");
+    if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => {
+      $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b));
+      renderPlayers(b.dataset.m);
+    }));
   }
 }
 
@@ -822,7 +836,7 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=4");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=5");
   const data = await loadJSON("data/space_pobso.json");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
@@ -1388,7 +1402,7 @@ async function buildBWAE() {
 /* Way 1 clip — a top creator's pass into controllable dangerous final-third space. */
 async function buildPassingClip() {
   const el = $("#passing-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=4"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=5"); } catch (e) { return; }
   const h = surf.hero || {};
   const shot = h.shot_outcome
     ? ` The move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` (${h.shot_shooter})` : ""}.`
@@ -1419,8 +1433,9 @@ async function buildDuelClip() {
     id: "duel", ramp: rampHot, gamma: 0.95, threshold: 0.05, surfaceAlpha: 0.6,
     labelName: h.name, defaultMode: "surface",
     duo: { winner: h.name, loser: h.loser }, focusBall: true, emphasizeBall: true,
-    readout: () => `Pitch control gave <b>${h.loser}</b> (red) the edge on this ball (~${h.expected_pct}% to win it), `
-      + `but <b>${h.name}</b> (gold ring) got there first — a duel won above what his positioning predicts.`,
+    readout: () => `Pitch control <b>favoured ${h.loser}</b> (red) here — by position + momentum at the ball it gave `
+      + `<b>${h.name}</b> only ~${h.expected_pct}% to win it — but ${h.name} (gold ring) got there first. `
+      + `(The model reads who's best placed to reach the ball <i>now</i>, not who had possession.)`,
   });
   renderTeamLegend("duel-teamleg", surf.teams);
   // a duel's value is the possession won against the odds, not xT — show the BWAE swing
