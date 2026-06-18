@@ -367,7 +367,7 @@
       <div id="xt-explainer" class="xpl"></div>
 
       <div class="card">
-        <h3>Who creates the most threat — xT added by open-play passing</h3>
+        <h3>Who creates the most threat — xT added by open-play ball progression (passes + carries)</h3>
         <div class="twoup">
           <div><div class="boardlab">Teams · xT added per match</div><div id="xt-teams" class="tbars"></div></div>
           <div>
@@ -376,7 +376,7 @@
             <div id="xt-players" class="tbars"></div>
           </div>
         </div>
-        <p class="caption">Every completed open-play pass scores the <b>xT it gains</b> — the rise in Expected Threat from where the ball started to where it ended. Sum it up and you get who repeatedly moves the ball into more dangerous space. <b>Germany</b> and <b>Spain</b> lead the teams; <b>Griezmann</b>, <b>Modrić</b> and <b>Messi</b> the players — the deep creators who feed the dangerous zones, not the finishers who arrive in them.</p>
+        <p class="caption">Every completed open-play <b>pass or carry</b> scores the <b>xT it gains</b> — the rise in Expected Threat from where the ball started to where it ended (Karun Singh's xT-created, which counts dribbles too, not just passes). Sum it up and you get who repeatedly moves the ball into more dangerous space. <b>Germany</b> and <b>Spain</b> lead the teams; <b>Mbappé</b> and <b>Messi</b> the players. <span class="faintnote">Note on scale: xT's absolute value is dataset-specific (this is Karun's released grid, peak ≈ 0.257; his blog grid peaks ≈ 0.413, ~1.6× larger) and these are 4–7 World Cup games, not a 38-game league season — so the numbers read smaller than season-long league xT totals. The <b>ranking</b> is the stable part.</span></p>
       </div>
 
       <div class="card">
@@ -556,13 +556,13 @@
     <div class="reveal">
       <div class="act-tag">Way two · Wins the ball against the odds</div>
       <h2>Winning balls the percentages say you shouldn't.</h2>
-      <p class="lede">Pitch control also says who <i>should</i> reach a contested ball first. A player who keeps winning 50-50s <b>above</b> that probability is beating his own positioning — anticipation, timing, strength. We call it <b>Balls Won Above Expected</b>. Scrub the biggest auto-picked upset: <span id="duel-hero-title">a duel won against the odds</span>.</p>
+      <p class="lede">Pitch control also says who <i>should</i> reach a contested ball first. A player who keeps winning 50-50s <b>above</b> that probability is beating his own positioning — anticipation, timing, strength. We call it <b>Balls Won Above Expected</b>. Scrub an auto-picked example: <span id="duel-hero-title">a genuine 50-50 won</span>.</p>
       <div class="card">
         <h3>Winning the ball against the odds — <span id="duel-hero-title2">the duel</span></h3>
         <div id="duel-canvas" class="heat"></div>
         <div class="legend teamleg" id="duel-teamleg"></div>
         <div class="legend"><span>opponent controls</span><span class="grad"></span><span>winner's team controls</span></div>
-        <p class="caption">Pitch control is locked to the duel <b>winner's</b> team and the winner is ringed and labelled. The model gave the <i>other</i> player the edge on this ball — watch the winner get there anyway. That residual, summed over a tournament, is the skill the board measures.</p>
+        <p class="caption">Pitch control is locked to the duel <b>winner's</b> team; both contestants are ringed (winner gold, the other red). The two arrive together and the model rated it a near-50-50 by position + momentum — watch the winner come away with it. Winning more of these than the percentage predicts, summed over a tournament, is the skill the board measures.</p>
       </div>
       <div class="card">
         <h3>Wins more ground duels than his positioning says he should</h3>
@@ -699,6 +699,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=28"></script>
+<script type="module" src="assets/js/space.js?v=29"></script>
 </body>
 </html>

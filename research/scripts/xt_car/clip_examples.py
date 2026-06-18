@@ -277,9 +277,11 @@ def validate_export_duel(mid, period, gc, win_id, wname, los_id, lname):
                       "wvis": fr.identities[wi].visibility, "lvis": fr.identities[li].visibility})
     if not found:
         return None
-    c = min(found, key=lambda f: max(f["dw"], f["dl"]))   # the genuine contest moment
-    # must be a real, in-frame 50-50 both players actually contest, both VISIBLE
-    if c["dw"] > 3.5 or c["dl"] > 3.5 or c["wvis"] != "VISIBLE" or c["lvis"] != "VISIBLE":
+    c = min(found, key=lambda f: f["dw"] + f["dl"])   # the genuine contest moment (both closest)
+    # a real, in-frame 50-50: BOTH on the ball together (tussle), both VISIBLE, central
+    if c["dw"] > 4.0 or c["dl"] > 4.0 or c["wvis"] != "VISIBLE" or c["lvis"] != "VISIBLE":
+        return None
+    if math.hypot(c["wx"] - c["lx"], c["wy"] - c["ly"]) > 4.0:   # same tussle, not two loose players
         return None
     if abs(c["bx"]) > 38.0 or abs(c["by"]) > 22.0:
         return None
@@ -288,7 +290,7 @@ def validate_export_duel(mid, period, gc, win_id, wname, los_id, lname):
     if iw + il < 1e-9:
         return None
     exp_win = iw / (iw + il)
-    if exp_win > 0.45:                  # the WINNER must be the underdog at the contest
+    if exp_win > 0.55:                  # winner even-or-underdog at the contest (a true 50-50)
         return None
     hero = {"name": wname, "loser": lname, "team": _teams_block(meta, lock)["attack"],
             "expected_win": round(exp_win, 3), "expected_pct": round(exp_win * 100)}
@@ -297,10 +299,11 @@ def validate_export_duel(mid, period, gc, win_id, wname, los_id, lname):
     if payload:
         payload.update({
             "metric": "duel",
-            "title": f"Winning the ball against the odds: {wname}",
+            "title": f"Winning a 50-50: {wname} vs {lname}",
             "match": f"{meta['homeTeam']['name']} v {meta['awayTeam']['name']}",
-            "description": (f"A genuine 50-50: pitch control favoured {lname} ({round((1-exp_win)*100)}%), "
-                            f"but {wname} reached it first."),
+            "description": (f"A genuine 50-50: both arrive together and pitch control rated it "
+                            f"~{round(exp_win*100)}% to {wname}. He won it — winning more of these "
+                            "than the % predicts is the skill the board measures."),
         })
     return payload
 

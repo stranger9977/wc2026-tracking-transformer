@@ -552,7 +552,7 @@ async function buildXTcreated() {
   const tEl = $("#xt-teams"), pEl = $("#xt-players");
   if (!tEl && !pEl) return;
   let d;
-  try { d = await loadJSON("data/xt_created.json"); } catch (e) { return; }
+  try { d = await loadJSON("data/xt_created.json?v=2"); } catch (e) { return; }
   const NAMEFIX = {
     "Lionel Andrés Messi Cuccittini": "Lionel Messi",
     "Kylian Mbappé Lottin": "Kylian Mbappé",
@@ -1427,25 +1427,25 @@ async function buildPassingClip() {
 /* Way 2 clip — a ground duel won against the pitch-control expectation (a BWAE upset). */
 async function buildDuelClip() {
   const el = $("#duel-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=4"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=5"); } catch (e) { return; }
   const h = surf.hero || {};
   buildScrubber(el, surf, {
     id: "duel", ramp: rampHot, gamma: 0.95, threshold: 0.05, surfaceAlpha: 0.6,
     labelName: h.name, defaultMode: "surface",
     duo: { winner: h.name, loser: h.loser }, focusBall: true, emphasizeBall: true,
-    readout: () => `Pitch control <b>favoured ${h.loser}</b> (red) here — by position + momentum at the ball it gave `
-      + `<b>${h.name}</b> only ~${h.expected_pct}% to win it — but ${h.name} (gold ring) got there first. `
-      + `(The model reads who's best placed to reach the ball <i>now</i>, not who had possession.)`,
+    readout: () => `A genuine 50-50: <b>${h.name}</b> (gold) and <b>${h.loser}</b> (red) arrive together. `
+      + `By position + momentum pitch control rated it ~<b>${h.expected_pct}%</b> to ${h.name} — he won it anyway. `
+      + `Winning more 50-50s than the % predicts, over a tournament, is the skill the board measures.`,
   });
   renderTeamLegend("duel-teamleg", surf.teams);
-  // a duel's value is the possession won against the odds, not xT — show the BWAE swing
+  // a duel's value is the possession won, not xT — show the BWAE swing vs the 50-50 odds
   const swing = (1 - (h.expected_win ?? 0)).toFixed(2);
-  renderImpact(el, `<span class="ico">📈</span><b>What it created</b> — <b>${h.name}</b> won a 50-50 the model`
-    + ` gave him only <b>${h.expected_pct}%</b>, a <span class="big">+${swing}</span> swing above expected:`
-    + ` a possession turned over where his positioning predicted a loss.`);
+  renderImpact(el, `<span class="ico">📈</span><b>What it created</b> — a 50-50 pitch control rated `
+    + `~<b>${h.expected_pct}%</b> his way, won: a <span class="big">+${swing}</span> swing above what his `
+    + `positioning predicted. Turning the ball over is the value; doing it more than the % says is the skill.`);
   const t1 = $("#duel-hero-title"), t2 = $("#duel-hero-title2");
   if (t1) t1.textContent = `${h.name} vs ${h.loser} (${surf.match})`;
-  if (t2) t2.textContent = `${h.name} beats ${h.loser}`;
+  if (t2) t2.textContent = `${h.name} vs ${h.loser}`;
 }
 
 if (!window.__spaceWIPPage) {
