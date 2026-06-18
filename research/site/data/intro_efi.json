@@ -148,7 +148,7 @@
   }
  },
  "efi_2026": {
-  "n_matches_played": 20,
+  "n_matches_played": 24,
   "offers_in_behind": [
    {
     "team": "ESP",
@@ -158,6 +158,11 @@
    {
     "team": "URU",
     "per_match": 186.0,
+    "matches": 1
+   },
+   {
+    "team": "POR",
+    "per_match": 167.0,
     "matches": 1
    },
    {
@@ -186,18 +191,13 @@
     "matches": 1
    },
    {
+    "team": "COL",
+    "per_match": 116.0,
+    "matches": 1
+   },
+   {
     "team": "MAR",
     "per_match": 115.0,
-    "matches": 1
-   },
-   {
-    "team": "AUT",
-    "per_match": 111.0,
-    "matches": 1
-   },
-   {
-    "team": "IRQ",
-    "per_match": 108.0,
     "matches": 1
    }
   ],
@@ -223,6 +223,11 @@
     "matches": 1
    },
    {
+    "team": "PAN",
+    "per_match": 182.0,
+    "matches": 1
+   },
+   {
     "team": "GER",
     "per_match": 181.0,
     "matches": 1
@@ -243,13 +248,8 @@
     "matches": 1
    },
    {
-    "team": "CIV",
-    "per_match": 174.0,
-    "matches": 1
-   },
-   {
-    "team": "URU",
-    "per_match": 174.0,
+    "team": "COL",
+    "per_match": 175.0,
     "matches": 1
    }
   ],
@@ -267,6 +267,11 @@
    {
     "team": "SUI",
     "per_match": 20.0,
+    "matches": 1
+   },
+   {
+    "team": "POR",
+    "per_match": 19.0,
     "matches": 1
    },
    {
@@ -298,11 +303,6 @@
     "team": "AUT",
     "per_match": 15.0,
     "matches": 1
-   },
-   {
-    "team": "KOR",
-    "per_match": 14.0,
-    "matches": 1
    }
   ],
   "linebreaks_completed": [
@@ -313,6 +313,11 @@
    },
    {
     "team": "ESP",
+    "per_match": 8.0,
+    "matches": 1
+   },
+   {
+    "team": "POR",
     "per_match": 8.0,
     "matches": 1
    },
@@ -337,22 +342,17 @@
     "matches": 1
    },
    {
+    "team": "GHA",
+    "per_match": 7.0,
+    "matches": 1
+   },
+   {
     "team": "CAN",
     "per_match": 6.0,
     "matches": 1
    },
    {
     "team": "SUI",
-    "per_match": 6.0,
-    "matches": 1
-   },
-   {
-    "team": "JPN",
-    "per_match": 6.0,
-    "matches": 1
-   },
-   {
-    "team": "URU",
     "per_match": 6.0,
     "matches": 1
    }
