@@ -258,14 +258,20 @@ def pick_duel():
 # ---------------------------------------------------------------------------
 # Tracking-window export (shared) — emits the buildScrubber surface schema.
 # ---------------------------------------------------------------------------
-def export_window(mid, period, t_center, lock_team_id, kind, hero):
+def export_window(mid, period, t_center, lock_team_id, kind, hero,
+                  teams=None, pre=PAD_S, post=PAD_S):
+    """Export a scrubbable surface window. `teams` = {attack, defend} team names for
+    the on-clip legend. pre/post = seconds before/after t_center (asymmetric so a
+    finishing clip can lead with the run). Also returns per-frame `obso_owned` for
+    the hero (peak control×xT cell he owns) when kind=='danger'."""
     grid = pc.make_grid(nx=40, ny=26)
     xt_grid = pc.xt_surface(grid)
     # PFF event gameClock is cumulative (period 2 starts at 2700 s = 45:00); tracking
     # periodElapsedTime resets to 0 each period. Convert to period-elapsed to align.
     t_center = t_center - 2700.0 * (period - 1)
-    start_s, end_s = max(0.0, t_center - PAD_S), t_center + PAD_S
+    start_s, end_s = max(0.0, t_center - pre), t_center + post
     frames_out, raw_maxes = [], []
+    hero_owned = 0.0
     for fr in space_io.read_match(mid, sampling_stride=SAMPLING_STRIDE,
                                   periods=(period,), lock_attack_team_id=lock_team_id):
         if fr.timestamp_s < start_s or fr.timestamp_s > end_s:
@@ -273,6 +279,15 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero):
         ctrl = pc.control_surface(fr.players, fr.ball_m, grid, include_gk=True)
         surf = ctrl["attack_control"] * xt_grid if kind == "danger" else ctrl["attack_control"]
         rmax = float(surf.max()); raw_maxes.append(rmax)
+        # peak control×xT the hero personally owns (for the readout)
+        if kind == "danger" and hero and hero.get("name"):
+            for i, ident in enumerate(fr.identities):
+                if ident.name == hero["name"]:
+                    hx, hy = float(fr.players[i, 0] * HALF_LEN), float(fr.players[i, 1] * HALF_WID)
+                    ci = int(np.clip((hy + HALF_WID) / (2 * HALF_WID) * grid.ny, 0, grid.ny - 1))
+                    cj = int(np.clip((hx + HALF_LEN) / (2 * HALF_LEN) * grid.nx, 0, grid.nx - 1))
+                    hero_owned = max(hero_owned, float(surf[ci, cj]))
+                    break
         markers = [{
             "x": round(float(fr.players[i, 0] * HALF_LEN), 1),
             "y": round(float(fr.players[i, 1] * HALF_WID), 1),
@@ -292,7 +307,9 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero):
         s = f.pop("surface_raw") / gmax
         f["surface"] = [[round(float(v), 4) for v in row] for row in s]
     xt_ref = xt_grid / (xt_grid.max() or 1.0)
-    return {
+    if kind == "danger" and hero is not None and "obso_owned" not in hero:
+        hero["obso_owned"] = round(hero_owned, 4)
+    payload = {
         "match_id": mid, "period": period,
         "start_s": round(start_s, 1), "end_s": round(end_s, 1),
         "peak_t_s": round(t_center, 2),
@@ -303,6 +320,99 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero):
         "orientation": "attacking-left-to-right; opponent goal at +x (right)",
         "hero": hero, "frames": frames_out,
     }
+    if teams:
+        payload["teams"] = teams
+    return payload
+
+
+SHOT_LABEL = {"G": "a goal", "S": "a saved shot", "O": "a shot off target",
+              "B": "a blocked shot", "C": "a charged-down shot"}
+KNOCKOUT_IDS = {str(m) for m in range(10502, 10518)}   # PFF knockout match ids
+DANGER_STARS = ["di maria", "di maría", "messi", "mbappe", "mbappé", "alvarez", "álvarez",
+                "giroud", "gakpo", "richarlison", "neymar", "saka", "rashford", "ramos",
+                "kramaric", "kramarić", "fullkrug", "füllkrug", "gnabry", "embolo", "valencia"]
+
+
+def _teams_block(meta, lock_id):
+    """{attack, defend} team names given the locked (attacking) team's PFF id."""
+    home, away = meta["homeTeam"], meta["awayTeam"]
+    if lock_id == str(home["id"]):
+        return {"attack": home["name"], "defend": away["name"]}
+    return {"attack": away["name"], "defend": home["name"]}
+
+
+def possession_shot(ev, period, gc):
+    """From the pass at (period, gc), forward-scan the same in-possession team's
+    events until possession changes; return (shooter_name, outcome_label) if the
+    possession produced a shot, else (None, None). gc is cumulative gameClock."""
+    # locate the event index nearest (period, gc)
+    idx = None
+    for i, e in enumerate(ev):
+        gge = e.get("gameEvents") or {}
+        pe = e.get("possessionEvents") or {}
+        if gge.get("period") == period and pe.get("gameClock") is not None \
+                and abs(float(pe["gameClock"]) - gc) < 0.6:
+            idx = i; break
+    if idx is None:
+        return None, None
+    team = (ev[idx].get("gameEvents") or {}).get("teamName")
+    for j in range(idx, min(idx + 14, len(ev))):
+        gge = ev[j].get("gameEvents") or {}
+        pe = ev[j].get("possessionEvents") or {}
+        if gge.get("teamName") and gge.get("teamName") != team:
+            break
+        if gge.get("gameEventType") in ("OUT", "END") and j > idx:
+            # ball out — include this event's shot if any, then stop
+            if pe.get("possessionEventType") == "SH":
+                return pe.get("shooterPlayerName"), SHOT_LABEL.get(pe.get("shotOutcomeType"), "a shot")
+            break
+        if pe.get("possessionEventType") == "SH":
+            return pe.get("shooterPlayerName"), SHOT_LABEL.get(pe.get("shotOutcomeType"), "a shot")
+    return None, None
+
+
+def pick_dangerous_run():
+    """A goal where the SHOOTER ran off the ball into dangerous space, received, and
+    scored — the bloom→receive→score arc. Ranks goals by knockout/final + star, so
+    Di María's run-and-finish in the final tops it. Returns the ranked candidate list."""
+    cands = []
+    for mid in MIDS:
+        try:
+            ev = json.load(open(ROOT / "Event Data" / f"{mid}.json"))
+        except Exception:
+            continue
+        for i, e in enumerate(ev):
+            pe = e.get("possessionEvents") or {}
+            ge = e.get("gameEvents") or {}
+            if pe.get("possessionEventType") != "SH" or pe.get("shotOutcomeType") != "G":
+                continue
+            if pe.get("nonEvent"):
+                continue
+            shooter = pe.get("shooterPlayerName"); sid = pe.get("shooterPlayerId")
+            period = ge.get("period"); gc = pe.get("gameClock")
+            if not shooter or sid is None or period not in (1, 2) or gc is None:
+                continue
+            # require the shooter RECEIVED a pass right before (an off-ball arrival, not a solo carry)
+            assist = None
+            for j in range(i - 1, max(i - 4, -1), -1):
+                q = ev[j].get("possessionEvents") or {}
+                if q.get("possessionEventType") in ("PA", "CR"):
+                    tgt = q.get("targetPlayerName") or q.get("receiverPlayerName")
+                    if tgt and tgt.split()[-1] == shooter.split()[-1]:
+                        assist = q.get("passerPlayerName") or q.get("crosserPlayerName")
+                    break
+            if not assist:
+                continue
+            score = 0.0
+            if mid == "10517":   # the final — keep the dangerous-space act in ARG v FRA
+                score += 100
+            elif mid in KNOCKOUT_IDS:
+                score += 30
+            if _is_star(shooter, DANGER_STARS):
+                score += 10
+            cands.append((score, mid, int(period), float(gc), int(sid), shooter, assist))
+    cands.sort(key=lambda c: -c[0])
+    return cands
 
 
 def main():
@@ -326,12 +436,16 @@ def main():
             tid = _team_id_for_player(meta, e, pid)
             if tid:
                 lock = tid; break
+        shot_shooter, shot_out = possession_shot(ev0, period, gc)
         hero = {"name": pname, "receiver": rname,
                 "team": meta["homeTeam"]["name"] if lock == str(meta["homeTeam"]["id"]) else meta["awayTeam"]["name"],
-                "control": ctrl, "xt": xtv, "value": round(score, 4)}
+                "control": ctrl, "xt": xtv, "value": round(score, 4),
+                "shot_shooter": shot_shooter, "shot_outcome": shot_out}
         print(f"[passing] {pname} -> {rname} ({mid} p{period} {gc:.1f}s) "
-              f"control={ctrl} xt={xtv} value={score:.4f}", flush=True)
-        payload = export_window(mid, period, gc, lock, "danger", hero)
+              f"control={ctrl} xt={xtv} value={score:.4f} | possession -> "
+              f"{shot_out or 'no shot'}{(' by '+shot_shooter) if shot_shooter else ''}", flush=True)
+        payload = export_window(mid, period, gc, lock, "danger", hero,
+                                teams=_teams_block(meta, lock))
         if payload:
             payload.update({
                 "metric": "passing",
@@ -364,7 +478,8 @@ def main():
                 "expected_win": exp_win, "expected_pct": round(exp_win * 100)}
         print(f"[duel] {wname} beat {lname} ({mid} p{period} {gc:.1f}s) "
               f"expected_win={exp_win} (upset={upset:.3f})", flush=True)
-        payload = export_window(mid, period, gc, lock, "control", hero)
+        payload = export_window(mid, period, gc, lock, "control", hero,
+                                teams=_teams_block(meta, lock))
         if payload:
             payload.update({
                 "metric": "duel",
@@ -377,6 +492,46 @@ def main():
             })
             (SURF_DIR / "duel.json").write_text(json.dumps(payload))
             print(f"[duel] wrote surfaces/duel.json ({payload['n_frames']} frames)", flush=True)
+
+    # ---- DANGEROUS SPACE (Way 3): bloom -> receive -> score ----
+    print("[danger] scanning for the best run-into-space-and-score goal...", flush=True)
+    ranked = pick_dangerous_run()
+    for score, mid, period, gc, sid, shooter, assist in ranked[:8]:
+        meta = space_io.load_metadata(mid)
+        ev0 = json.load(open(ROOT / "Event Data" / f"{mid}.json"))
+        lock = None
+        for e in ev0:
+            tid = _team_id_for_player(meta, e, sid)
+            if tid:
+                lock = tid; break
+        if lock is None:
+            continue
+        hero = {"name": shooter, "team": _teams_block(meta, lock)["attack"],
+                "assist": assist, "outcome": "goal"}
+        # window leads with the run, ends just after the finish
+        payload = export_window(mid, period, gc, lock, "danger", hero,
+                                teams=_teams_block(meta, lock), pre=6.0, post=1.0)
+        if not payload or payload["n_frames"] < 8:
+            continue
+        # validate it's a real forward off-ball arrival: shooter visible + advances toward goal
+        xs = [p["x"] for f in payload["frames"] for p in f["players"] if p["name"] == shooter]
+        if len(xs) < payload["n_frames"] * 0.6 or (max(xs) - xs[0]) < 3.0:
+            print(f"[danger] skip {shooter} ({mid}): weak/absent run", flush=True)
+            continue
+        payload.update({
+            "metric": "pobso",
+            "title": f"P-OBSO hero: {shooter}'s run into dangerous space — and the finish",
+            "description": (f"{shooter} ghosts off the ball into a high-danger pocket (attacker "
+                            "pitch-control × Expected Threat), receives "
+                            f"{('from '+assist+' ') if assist else ''}and scores. Watch the bright "
+                            "pocket bloom AHEAD of his run, before the ball arrives."),
+            "match": f"{meta['homeTeam']['name']} v {meta['awayTeam']['name']}",
+        })
+        (SURF_DIR / "pobso.json").write_text(json.dumps(payload))
+        print(f"[danger] wrote surfaces/pobso.json — {shooter} ({meta['homeTeam']['name']} v "
+              f"{meta['awayTeam']['name']}, p{period} {gc:.0f}s), assist {assist}, "
+              f"{payload['n_frames']} frames, obso_owned={hero.get('obso_owned')}", flush=True)
+        break
 
     print(f"\nEXIT_OK ({time.time()-t0:.0f}s)", flush=True)
 

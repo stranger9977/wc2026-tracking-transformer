@@ -104,6 +104,17 @@
   .legend{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted); margin-top:12px; flex-wrap:wrap}
   .legend .grad{height:9px; width:160px; border-radius:5px; background:linear-gradient(90deg,#1a2440,#3c7a8c,#3cb878,#bedc46,#ffc43c,#ff6b6b)}
   .legend .grad.cool{background:linear-gradient(90deg,#1e2240,#3a3c96,#7860dc,#b496f5,#dccdff)}
+  /* team legend (names both playing nations with their dot colors) */
+  .legend.teamleg{gap:16px; margin-top:12px; color:var(--ink); font-size:12.5px}
+  .legend.teamleg b{font-weight:700}
+  .legend .tswatch{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px;border:1px solid #0a0c10}
+  .legend .tswatch.gk{border-color:#7ec8ff}
+  /* interactive pitch-control explainer */
+  .pcx-stage{margin-top:4px; background:#0a0f14; border:1px solid var(--border); border-radius:12px; overflow:hidden; line-height:0; touch-action:none}
+  .pcx-stage canvas{width:100%; height:auto; display:block; cursor:grab}
+  .pcx-stage canvas:active{cursor:grabbing}
+  .pcx-read{font-size:13px; color:var(--muted); margin-top:8px; font-variant-numeric:tabular-nums}
+  .pcx-read b{color:var(--ink)} .pcx-read .hint{color:var(--faint)}
 
   /* ---- intro: team-shape SVG ---- */
   #intro-shape{margin-top:6px}
@@ -501,6 +512,7 @@
       <div class="card">
         <h3>Finding dangerous space — <span id="passing-hero-title2">the pass</span></h3>
         <div id="passing-canvas" class="heat"></div>
+        <div class="legend teamleg" id="passing-teamleg"></div>
         <div class="legend"><span>controlled but low-value</span><span class="grad"></span><span>controlled danger</span></div>
         <p class="caption">The passer is ringed and labelled. The surface is attacker pitch-control × xT, so the bright pocket is grass the receiving team both <b>owns</b> and can <b>score from</b> — watch it bloom at the receiver before the ball arrives.</p>
       </div>
@@ -536,6 +548,7 @@
       <div class="card">
         <h3>Winning the ball against the odds — <span id="duel-hero-title2">the duel</span></h3>
         <div id="duel-canvas" class="heat"></div>
+        <div class="legend teamleg" id="duel-teamleg"></div>
         <div class="legend"><span>opponent controls</span><span class="grad"></span><span>winner's team controls</span></div>
         <p class="caption">Pitch control is locked to the duel <b>winner's</b> team and the winner is ringed and labelled. The model gave the <i>other</i> player the edge on this ball — watch the winner get there anyway. That residual, summed over a tournament, is the skill the board measures.</p>
       </div>
@@ -569,10 +582,11 @@
       <div class="act-tag">Way three · Dangerous space — the two combined</div>
       <h2>Dangerous Space: control × xT.</h2>
       <p class="subtitle">This is Act 1 (xT) × Act 2 (pitch control) multiplied together — the synthesis. Academically it's Spearman's pressure-aware <b>OBSO</b>, computed on our Fernández–Bornn control surface.</p>
-      <p class="lede">The strongest read of the three. It finds the off-ball player who controls the most <b>valuable</b> grass — space the ball could reach that's also close to a goal (high xT). Control over low-value grass is nothing; control over the danger pocket is everything. Scrub the auto-selected off-ball run from the Argentina–France final: a bright danger-pocket blooms <b>ahead</b> of the run, before the pass exists.</p>
+      <p class="lede">The strongest read of the three. It finds the off-ball player who controls the most <b>valuable</b> grass — space the ball could reach that's also close to a goal (high xT). Control over low-value grass is nothing; control over the danger pocket is everything. Scrub the auto-selected run from the Argentina–France final: <b>Di María</b> ghosts into a danger-pocket that blooms <b>ahead</b> of his run, receives, and <b>scores</b> — the metric lighting up the exact space the goal came from, before the pass exists.</p>
       <div class="card">
         <h3>Dangerous-space surface — <span id="pobso-hero-title">an off-ball run into the danger zone</span> (ARG v FRA final)</h3>
         <div id="pobso-canvas" class="heat"></div>
+        <div class="legend teamleg" id="pobso-teamleg"></div>
         <div class="legend"><span>controlled but low-value</span><span class="grad"></span><span>controlled danger</span></div>
         <p class="caption">The runner is highlighted and labelled on the clip by default — ring plus name tag — so the danger-maker is never lost in the dots. Toggle <b>reveal danger</b> to fade the ball-centric view and keep only cells that are both controlled <i>and</i> threatening (× xT) — you watch the scoring opportunity form ahead of the run, before the pass.</p>
       </div>
@@ -673,6 +687,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=24"></script>
+<script type="module" src="assets/js/space.js?v=25"></script>
 </body>
 </html>

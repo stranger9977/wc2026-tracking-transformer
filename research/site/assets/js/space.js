@@ -141,9 +141,22 @@ function paintSurface(ctx, surface, W, H, opts = {}) {
   drawPitchLines(ctx, W, H);
 }
 
-function drawBall(ctx, ball, W, H) {
+function drawBall(ctx, ball, W, H, opts = {}) {
   if (!ball) return;
   const [bx, by] = m2px(ball[0], ball[1], W, H);
+  if (opts.emphasize) {
+    // a dashed "contest" ring (~3 m) so the 50-50 zone is explicit, plus a glow
+    ctx.save();
+    ctx.beginPath(); ctx.arc(bx, by, (3 / 105) * W, 0, Math.PI * 2);
+    ctx.setLineDash([4, 3]); ctx.strokeStyle = "rgba(255,255,255,0.6)"; ctx.lineWidth = 1.4;
+    ctx.stroke(); ctx.setLineDash([]);
+    ctx.shadowColor = "#fff"; ctx.shadowBlur = W / 36;
+    ctx.beginPath(); ctx.arc(bx, by, Math.max(5, W / 150), 0, Math.PI * 2);
+    ctx.fillStyle = "#fff"; ctx.strokeStyle = "#000"; ctx.lineWidth = 1.5;
+    ctx.fill(); ctx.stroke();
+    ctx.restore();
+    return;
+  }
   ctx.beginPath(); ctx.arc(bx, by, Math.max(3, W / 220), 0, Math.PI * 2);
   ctx.fillStyle = "#fff"; ctx.strokeStyle = "#000"; ctx.lineWidth = 1;
   ctx.fill(); ctx.stroke();
@@ -154,12 +167,15 @@ function drawBall(ctx, ball, W, H) {
 function drawPlayers(ctx, players, ball, W, H, opts = {}) {
   if (!players) return;
   const r = Math.max(6, W / 120);           // bigger, clearly-visible dots
-  let labeled = null;                        // defer the label so it paints on top of every dot
+  const duo = opts.duo;                      // {winner, loser} → ring + label BOTH contestants
+  const labels = [];                         // defer labels so they paint on top of every dot
   for (const p of players) {
     const [px, py] = m2px(p.x, p.y, W, H);
     const isHi = opts.highlightName && p.name === opts.highlightName;
+    const role = duo ? (p.name === duo.winner ? "win" : p.name === duo.loser ? "lose" : null) : null;
     let alpha = 1;
     if (opts.highlightName && !isHi) alpha = 0.55;  // mild de-emphasis only; all dots stay visible
+    if (duo && !role) alpha = 0.5;                  // duel: fade everyone but the two contestants
     const col = p.att ? (opts.attColor || "#7ec8ff") : (opts.defColor || "#ff9a9a");
     ctx.globalAlpha = alpha;
     ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2);
@@ -168,25 +184,50 @@ function drawPlayers(ctx, players, ball, W, H, opts = {}) {
     // strong dark outline so dots read against the bright surface
     ctx.lineWidth = Math.max(1.6, W / 320); ctx.strokeStyle = "#0a0c10";
     ctx.stroke();
+    // GKs are green for both teams → add a thin team-colored ring so the keeper's side still reads
+    if (p.gk) {
+      ctx.beginPath(); ctx.arc(px, py, r + 1.6, 0, Math.PI * 2);
+      ctx.strokeStyle = col; ctx.lineWidth = Math.max(1.4, W / 360); ctx.stroke();
+    }
     if (isHi) {
       ctx.globalAlpha = 1;
       ctx.beginPath(); ctx.arc(px, py, r + 3.5, 0, Math.PI * 2);
       ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.stroke();
     }
-    if (opts.labelName && p.name === opts.labelName) labeled = { px, py, name: p.name };
+    if (role) {                               // duel contestants: bold outcome-colored ring
+      ctx.globalAlpha = 1;
+      ctx.beginPath(); ctx.arc(px, py, r + 4.5, 0, Math.PI * 2);
+      ctx.strokeStyle = role === "win" ? "#ffd23c" : "#ff5d5d";
+      ctx.lineWidth = 3; if (role === "lose") ctx.setLineDash([4, 3]);
+      ctx.stroke(); ctx.setLineDash([]);
+      labels.push({ px, py, role, name: role === "win" ? `${p.name} — won` : p.name,
+                    accent: role === "win" ? "#ffd23c" : "#ff8a8a" });
+    }
+    if (!duo && opts.labelName && p.name === opts.labelName) labels.push({ px, py, name: p.name });
   }
   ctx.globalAlpha = 1;
-  if (labeled) drawNamePill(ctx, labeled.px, labeled.py - r - 4, labeled.name);
+  // two contestants close together (e.g. a corner duel) → stack the loser pill clear of the winner's
+  if (duo && labels.length === 2 && Math.abs(labels[0].px - labels[1].px) < 90
+      && Math.abs(labels[0].py - labels[1].py) < 46) {
+    const lose = labels.find((l) => l.role === "lose"); if (lose) lose.stack = 1;
+  }
+  for (const l of labels) drawNamePill(ctx, l.px, l.py, r, l.name, W, H, l.accent, l.stack || 0);
 }
 
-// a small filled name pill anchored above a player dot (always visible for the key figure).
-function drawNamePill(ctx, cx, baseY, name) {
+// a small filled name pill anchored at a player dot. Stays IN-FRAME: clamps horizontally
+// and flips BELOW the dot when there's no room above (edge-of-pitch heroes stay readable).
+function drawNamePill(ctx, cx, dotY, r, name, W, H, accent, stack = 0) {
   ctx.save();
   ctx.font = "600 13px Inter, system-ui, sans-serif";
   const tw = ctx.measureText(name).width;
-  const padX = 7, padY = 4, w = tw + padX * 2, h = 18;
-  const x = cx - w / 2, y = baseY - h;
-  const rr = 6;
+  const w = tw + 14, h = 18, rr = 6, pad = 4;
+  // place above by default; flip below if it would clip the top edge
+  const below = (dotY - r - 4 - h) < pad;
+  // `stack` pushes the pill further AWAY from the dot (down if below, up if above)
+  // so two contestants' pills don't paint on top of each other.
+  const y = (below ? (dotY + r + 9) : (dotY - r - 4 - h)) + stack * (h + 5) * (below ? 1 : -1);
+  const x = clamp(cx - w / 2, pad, Math.max(pad, W - w - pad));
+  const ptrX = clamp(cx, x + rr + 2, x + w - rr - 2);
   ctx.beginPath();
   ctx.moveTo(x + rr, y);
   ctx.arcTo(x + w, y, x + w, y + h, rr);
@@ -194,14 +235,16 @@ function drawNamePill(ctx, cx, baseY, name) {
   ctx.arcTo(x, y + h, x, y, rr);
   ctx.arcTo(x, y, x + w, y, rr);
   ctx.closePath();
-  ctx.fillStyle = "rgba(10,12,16,0.85)"; ctx.fill();
-  ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.55)"; ctx.stroke();
-  // little pointer down to the dot
+  ctx.fillStyle = "rgba(10,12,16,0.88)"; ctx.fill();
+  ctx.lineWidth = 1; ctx.strokeStyle = accent || "rgba(255,255,255,0.55)"; ctx.stroke();
+  // pointer toward the dot (down if pill is above, up if below)
   ctx.beginPath();
-  ctx.moveTo(cx - 4, y + h); ctx.lineTo(cx + 4, y + h); ctx.lineTo(cx, y + h + 5); ctx.closePath();
-  ctx.fillStyle = "rgba(10,12,16,0.85)"; ctx.fill();
-  ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.fillText(name, cx, y + h / 2 + 0.5);
+  if (below) { ctx.moveTo(ptrX - 4, y); ctx.lineTo(ptrX + 4, y); ctx.lineTo(ptrX, y - 5); }
+  else { ctx.moveTo(ptrX - 4, y + h); ctx.lineTo(ptrX + 4, y + h); ctx.lineTo(ptrX, y + h + 5); }
+  ctx.closePath();
+  ctx.fillStyle = "rgba(10,12,16,0.88)"; ctx.fill();
+  ctx.fillStyle = accent || "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText(name, x + w / 2, y + h / 2 + 0.5);
   ctx.restore();
 }
 
@@ -314,12 +357,22 @@ function buildScrubber(el, surf, cfg) {
     const fr = frames[i0], frNext = frames[i1];
     const ramp = cfg.ramp || rampHot;
     const surface = applyMode(lerpSurface(fr.surface, frNext.surface, f));
-    paintSurface(ctx, surface, W, H, { ramp, gamma: cfg.gamma ?? 0.6, threshold: cfg.threshold ?? 0.04 });
     const ball = lerpPt(fr.ball_xy, frNext.ball_xy, f);
-    drawBall(ctx, ball, W, H);
+    paintSurface(ctx, surface, W, H, { ramp, gamma: cfg.gamma ?? 0.6, threshold: cfg.threshold ?? 0.04,
+                                       alpha: cfg.surfaceAlpha });
+    // duel: radial focus-dim around the contest so the dominating control field recedes
+    // and the 50-50 pops. Drawn AFTER the surface+bloom, BEFORE the players (they stay bright).
+    if (cfg.focusBall && ball) {
+      const [bx, by] = m2px(ball[0], ball[1], W, H);
+      const g = ctx.createRadialGradient(bx, by, W * 0.07, bx, by, W * 0.42);
+      g.addColorStop(0, "rgba(8,10,14,0)"); g.addColorStop(1, "rgba(8,10,14,0.64)");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    }
+    drawBall(ctx, ball, W, H, { emphasize: cfg.emphasizeBall });
     if (fr.players) {
       const players = lerpPlayers(fr.players, frNext.players, f);
-      const opts = { highlightName: state.highlight || cfg.labelName, labelName: cfg.labelName,
+      const opts = { highlightName: cfg.duo ? null : (state.highlight || cfg.labelName),
+                     labelName: cfg.labelName, duo: cfg.duo,
                      attColor: "#7ec8ff", defColor: "#ff9a9a" };
       if (cfg.id === "chase" && state.mode === "gravity") drawGravitySpokes(ctx, players, cfg.gravityFocus, W, H);
       drawPlayers(ctx, players, ball, W, H, opts);
@@ -762,22 +815,26 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=2");
   const data = await loadJSON("data/space_pobso.json");
   const scEl = $("#pobso-canvas");
+  const h = surf.hero || {};
+  const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
+  const from = h.assist ? ` from <b>${h.assist}</b>` : "";
   buildScrubber(scEl, surf, {
     id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02,
-    labelName: surf.hero.name, defaultMode: "surface",
+    labelName: h.name, defaultMode: "surface",
     toggles: [
       { key: "reveal", label: "reveal danger (× xT)" },
     ],
     readout: (fr, st) => st.mode === "reveal"
-      ? `Only the cells off-ball attackers control <b>and</b> that carry threat (× xT) stay lit — the dangerous space forming before the pass exists.`
-      : `Dangerous space — control × xT — for <b>${surf.hero.name}</b>'s run: he controls ${surf.hero.obso_owned.toFixed(1)} xT-weighted m² of dangerous space at the peak. The pocket blooms <b>ahead</b> of the run, not at the ball.`,
+      ? `Only the cells the off-ball attacker controls <b>and</b> that carry threat (× xT) stay lit — the dangerous space forming before the ball arrives.`
+      : `<b>${h.name}</b> ghosts off the ball into the danger pocket — control × xT, the space he both <b>owns</b> and can finish from — receives${from} ${got}. The pocket blooms <b>ahead</b> of his run, before the pass exists.`,
   });
+  renderTeamLegend("pobso-teamleg", surf.teams);
   // name the auto-picked runner in the card title
   const pbTitle = $("#pobso-hero-title");
-  if (pbTitle && surf.hero) pbTitle.textContent = `${surf.hero.name} (${surf.hero.team})`;
+  if (pbTitle && h.name) pbTitle.textContent = `${h.name}'s run and finish`;
   // PLAYER board — substantial-minutes players LEAD; cameo subs (<15 min, ~one match) are
   // shown separately so they don't headline (matches the caption's claim).
   const QUALMIN = 15;
@@ -1095,54 +1152,152 @@ function buildDangerExplainer() {
     <p class="xpl-cap"><b>pitch control × xT = dangerous space.</b> Control over low-value grass = nothing; control over the danger pocket = everything.</p>`;
 }
 
-/* 4) PITCH CONTROL — a blue attacker closes on a spot a red defender holds; control = σ(att − def). */
+/* small DOM legend naming both playing teams with their dot colors (att=blue/def=red). */
+function renderTeamLegend(elId, teams, attColor = "#7ec8ff", defColor = "#ff9a9a") {
+  const el = document.getElementById(elId); if (!el || !teams) return;
+  el.innerHTML =
+    `<span><span class="tswatch" style="background:${attColor}"></span><b>${teams.attack}</b> attacking</span>` +
+    `<span><span class="tswatch" style="background:${defColor}"></span><b>${teams.defend}</b> defending</span>` +
+    `<span><span class="tswatch gk" style="background:#6dd58c"></span>goalkeepers (team-ringed)</span>`;
+}
+
+/* 4) PITCH CONTROL — fully INTERACTIVE. Drag the attacker, defender and ball; each
+   player's velocity is taken from how fast you drag (a quick flick = a sprint), and
+   the control surface recomputes live. Faithful port of pitch_control.py's
+   Fernández–Bornn influence (bivariate normal, velocity-shifted centre, speed-
+   elongated covariance, distance-to-ball radius scaling). */
 function buildPitchControlExplainer() {
   const host = $("#pc-explainer"); if (!host) return;
+  const W = 520, H = 322, REG_W = 64, REG_H = REG_W * H / W;   // ~64 m × 40 m of pitch
+  const SC = W / REG_W;                                        // px per metre
+  const GW = 64, GH = Math.round(GW * H / W);                  // control-grid resolution
   host.innerHTML = `
-    <div class="xpl-head">how it's built · <b>pitch control</b> (Fernández–Bornn)</div>
-    <svg class="xpl-svg" viewBox="0 0 240 120" preserveAspectRatio="xMidYMid meet" overflow="hidden" role="img" aria-label="attacker and defender influence deciding control of a spot">
-      <defs>
-        <radialGradient id="pcAttInf" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#6cb4ee" stop-opacity=".8"/>
-          <stop offset="68%" stop-color="#6cb4ee" stop-opacity=".16"/>
-          <stop offset="100%" stop-color="#6cb4ee" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="pcDefInf" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#ff9a9a" stop-opacity=".8"/>
-          <stop offset="68%" stop-color="#ff9a9a" stop-opacity=".16"/>
-          <stop offset="100%" stop-color="#ff9a9a" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <rect x="4" y="4" width="232" height="112" rx="6" fill="#0b0f14" stroke="#2a313d"/>
-      <ellipse cx="150" cy="62" rx="36" ry="27" fill="url(#pcDefInf)"/>
-      <ellipse id="pcAttBlob" cx="70" cy="62" rx="26" ry="20" fill="url(#pcAttInf)"/>
-      <circle cx="150" cy="62" r="5" fill="#ff9a9a" stroke="#0b0f14"/>
-      <circle id="pcAtt" cx="70" cy="62" r="5" fill="#6cb4ee" stroke="#0b0f14"/>
-      <circle cx="120" cy="62" r="4.2" fill="none" stroke="#fff" stroke-width="1.4"/>
-      <circle cx="120" cy="62" r="1.6" fill="#fff"/>
-      <text x="120" y="48" text-anchor="middle" font-size="8" fill="#9aa6b6">this spot</text>
-    </svg>
-    <div class="xpl-num">control of the spot <span id="pcVal">0.50</span></div>
-    <p class="xpl-cap"><b>Each player's influence</b> is a bivariate-normal blob (bigger when the ball is far, nudged the way they're moving). A spot's <b>control = σ(attacking influence − defending influence)</b>: as the blue attacker closes on the spot, blue influence overtakes red and control climbs past 0.5 toward 1.</p>`;
-  const att = $("#pcAtt", host), attBlob = $("#pcAttBlob", host), valEl = $("#pcVal", host);
-  const lerp = (a, b, t) => a + (b - a) * t;
-  const T = 4400; let raf, t0 = null;
-  const tick = (now) => {
-    if (t0 === null) t0 = now;
-    const p = ((now - t0) % T) / T;
-    const tri = p < 0.5 ? p * 2 : (1 - p) * 2;     // 0..1..0 there-and-back
-    const ax = lerp(70, 116, tri), arx = lerp(24, 40, tri);
-    att.setAttribute("cx", ax.toFixed(1));
-    attBlob.setAttribute("cx", ax.toFixed(1));
-    attBlob.setAttribute("rx", arx.toFixed(1));
-    const attInf = Math.exp(-0.5 * ((120 - ax) / 15) ** 2);   // attacker influence at the spot
-    const defInf = Math.exp(-0.5 * (30 / 27) ** 2);           // defender 30px away, fixed
-    const ctrl = 1 / (1 + Math.exp(-3 * (attInf - defInf)));
-    valEl.textContent = ctrl.toFixed(2);
-    valEl.style.color = ctrl > 0.62 ? "var(--accent)" : ctrl > 0.45 ? "var(--warn)" : "var(--hot)";
-    raf = requestAnimationFrame(tick);
+    <div class="xpl-head">how it's built · <b>pitch control</b> (Fernández–Bornn) — <span style="color:var(--accent)">drag the dots</span></div>
+    <div class="pcx-stage"><canvas id="pcx-cv" width="${W}" height="${H}"></canvas></div>
+    <div class="pcx-read" id="pcx-read"></div>
+    <p class="xpl-cap"><b>Drag the attacker, defender or ball.</b> Each player's influence is a bivariate-normal blob; a spot's <b>control = σ(attacker − defender influence)</b> (blue = attacker owns, red = defender owns). Drag a player <b>faster</b> and its influence <b>stretches forward</b> — a sprint reaches more grass ahead — and the field tilts. Move it onto the ball and its blob tightens; far from the ball it spreads.</p>`;
+  const cv = $("#pcx-cv", host), ctx = cv.getContext("2d"), readEl = $("#pcx-read", host);
+  const m2p = (x, y) => [x * SC, y * SC];
+  // state (metres). attacker attacks +x (right).
+  const att = { x: 20, y: REG_H / 2, vx: 0, vy: 0, kind: "att" };
+  const def = { x: 40, y: REG_H / 2 - 2, vx: 0, vy: 0, kind: "def" };
+  const ball = { x: 13, y: REG_H / 2, kind: "ball" };
+  const players = [att, def];
+
+  function influence(pl, gx, gy) {        // Fernández–Bornn influence of pl at (gx,gy) metres
+    const speed = Math.hypot(pl.vx, pl.vy);
+    const distBall = Math.hypot(pl.x - ball.x, pl.y - ball.y);
+    const frac = Math.min(distBall / 18, 1);
+    const radius = 4 + 6 * frac * frac;
+    const sr = Math.min(speed / 13, 1);
+    const sAlong = radius * (1 + sr);
+    const sPerp = Math.max(radius * (1 - sr), radius * 0.30);
+    const mux = pl.x + 0.5 * pl.vx * 0.5, muy = pl.y + 0.5 * pl.vy * 0.5;
+    let cos = 1, sin = 0;
+    if (speed > 1e-3) { cos = pl.vx / speed; sin = pl.vy / speed; }
+    const dx = gx - mux, dy = gy - muy;
+    const u = cos * dx + sin * dy, w = -sin * dx + cos * dy;
+    return Math.exp(-0.5 * ((u / sAlong) ** 2 + (w / sPerp) ** 2));
+  }
+  const off = document.createElement("canvas"); off.width = GW; off.height = GH;
+  const octx = off.getContext("2d");
+  function draw() {
+    // control grid → diverging blue/red field (alpha by decisiveness)
+    const img = octx.createImageData(GW, GH);
+    for (let r = 0; r < GH; r++) for (let c = 0; c < GW; c++) {
+      const gx = (c + 0.5) / GW * REG_W, gy = (r + 0.5) / GH * REG_H;
+      const a = influence(att, gx, gy), d = influence(def, gx, gy);
+      const ctrl = 1 / (1 + Math.exp(-3 * (a - d)));
+      const k = (ctrl - 0.5) * 2;                  // -1 (def) .. +1 (att)
+      const i = (r * GW + c) * 4;
+      if (k >= 0) { img.data[i] = 108; img.data[i + 1] = 180; img.data[i + 2] = 238; }
+      else { img.data[i] = 238; img.data[i + 1] = 120; img.data[i + 2] = 120; }
+      img.data[i + 3] = Math.round(200 * Math.min(Math.abs(k) * 1.2, 1));
+    }
+    octx.putImageData(img, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    const g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, "#0e141b"); g.addColorStop(1, "#0a0f14");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(off, 0, 0, GW, GH, 0, 0, W, H);
+    // halfway-ish guide + goal hint (right)
+    ctx.strokeStyle = "rgba(188,210,230,0.14)"; ctx.lineWidth = 1;
+    ctx.strokeRect(2, 2, W - 4, H - 4);
+    // players + velocity arrows
+    for (const pl of players) {
+      const [px, py] = m2p(pl.x, pl.y);
+      const sp = Math.hypot(pl.vx, pl.vy);
+      if (sp > 0.3) {                              // velocity arrow (1 m/s ≈ 3 px)
+        const ax2 = px + pl.vx * SC * 0.45, ay2 = py + pl.vy * SC * 0.45;
+        ctx.strokeStyle = "rgba(255,255,255,0.8)"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(ax2, ay2); ctx.stroke();
+        const ang = Math.atan2(ay2 - py, ax2 - px);
+        ctx.beginPath(); ctx.moveTo(ax2, ay2);
+        ctx.lineTo(ax2 - 6 * Math.cos(ang - 0.4), ay2 - 6 * Math.sin(ang - 0.4));
+        ctx.lineTo(ax2 - 6 * Math.cos(ang + 0.4), ay2 - 6 * Math.sin(ang + 0.4));
+        ctx.closePath(); ctx.fillStyle = "rgba(255,255,255,0.8)"; ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(px, py, 9, 0, Math.PI * 2);
+      ctx.fillStyle = pl.kind === "att" ? "#7ec8ff" : "#ff9a9a";
+      ctx.strokeStyle = "#0a0c10"; ctx.lineWidth = 2; ctx.fill(); ctx.stroke();
+    }
+    const [bx, by] = m2p(ball.x, ball.y);
+    ctx.beginPath(); ctx.arc(bx, by, 5, 0, Math.PI * 2);
+    ctx.fillStyle = "#fff"; ctx.strokeStyle = "#000"; ctx.lineWidth = 1.4; ctx.fill(); ctx.stroke();
+    readEl.innerHTML = `attacker <b style="color:#7ec8ff">${Math.hypot(att.vx, att.vy).toFixed(1)} m/s</b>`
+      + ` · defender <b style="color:#ff9a9a">${Math.hypot(def.vx, def.vy).toFixed(1)} m/s</b>`
+      + ` <span class="hint">— drag a dot; flick it to add speed</span>`;
+  }
+
+  // pointer drag with drag-derived velocity (EMA) + decay on release
+  let dragging = null, lastT = 0, lastX = 0, lastY = 0;
+  const pick = (mx, my) => {
+    let best = null, bd = 22;
+    for (const o of [...players, ball]) {
+      const [px, py] = m2p(o.x, o.y), d = Math.hypot(mx - px, my - py);
+      if (d < bd) { bd = d; best = o; }
+    }
+    return best;
   };
-  raf = requestAnimationFrame(tick);
+  const evtXY = (e) => {
+    const rect = cv.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    return [(t.clientX - rect.left) * (W / rect.width), (t.clientY - rect.top) * (H / rect.height)];
+  };
+  const onDown = (e) => {
+    const [mx, my] = evtXY(e); const o = pick(mx, my);
+    if (o) {
+      dragging = o; lastT = performance.now(); lastX = mx; lastY = my;
+      if (o.kind !== "ball") { o.vx = 0; o.vy = 0; }   // start fresh — no stale flick velocity
+      e.preventDefault();
+    }
+  };
+  const onMove = (e) => {
+    if (!dragging) return;
+    const [mx, my] = evtXY(e); const now = performance.now();
+    const dt = Math.max(0.016, (now - lastT) / 1000);
+    dragging.x = clamp(mx / SC, 0, REG_W); dragging.y = clamp(my / SC, 0, REG_H);
+    if (dragging.kind !== "ball") {            // velocity from drag speed (m/s), clamped + EMA
+      const vx = clamp((mx - lastX) / SC / dt, -13, 13), vy = clamp((my - lastY) / SC / dt, -13, 13);
+      dragging.vx = 0.5 * dragging.vx + 0.5 * vx; dragging.vy = 0.5 * dragging.vy + 0.5 * vy;
+    }
+    lastT = now; lastX = mx; lastY = my; e.preventDefault();
+  };
+  const onUp = () => { dragging = null; };
+  cv.addEventListener("mousedown", onDown); window.addEventListener("mousemove", onMove);
+  window.addEventListener("mouseup", onUp);
+  cv.addEventListener("touchstart", onDown, { passive: false });
+  cv.addEventListener("touchmove", onMove, { passive: false });
+  window.addEventListener("touchend", onUp);
+
+  let raf;
+  const loop = () => {
+    for (const pl of players) if (pl !== dragging) { pl.vx *= 0.9; pl.vy *= 0.9; }  // velocity relaxes
+    draw();
+    raf = requestAnimationFrame(loop);
+  };
+  raf = requestAnimationFrame(loop);
   host._stop = () => cancelAnimationFrame(raf);
 }
 
@@ -1189,15 +1344,19 @@ async function buildBWAE() {
 /* Way 1 clip — a top creator's pass into controllable dangerous final-third space. */
 async function buildPassingClip() {
   const el = $("#passing-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=1"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=2"); } catch (e) { return; }
   const h = surf.hero || {};
+  const shot = h.shot_outcome
+    ? ` The move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` (${h.shot_shooter})` : ""}.`
+    : "";
   buildScrubber(el, surf, {
     id: "passing", ramp: rampHot, gamma: 0.55, threshold: 0.02,
     labelName: h.name, defaultMode: "surface",
     readout: () => `<b>${h.name}</b> threads it to <b>${h.receiver}</b> into controllable, dangerous space — `
       + `control ${Math.round((h.control || 0) * 100)}% × xT ${Number(h.xt || 0).toFixed(2)} at the target. `
-      + `The bright pocket forms <b>before</b> the ball arrives.`,
+      + `The bright pocket forms <b>before</b> the ball arrives.${shot}`,
   });
+  renderTeamLegend("passing-teamleg", surf.teams);
   const t1 = $("#passing-hero-title"), t2 = $("#passing-hero-title2");
   if (t1) t1.textContent = `${h.name}'s pass to ${h.receiver} (${surf.match})`;
   if (t2) t2.textContent = `${h.name} → ${h.receiver}`;
@@ -1206,14 +1365,16 @@ async function buildPassingClip() {
 /* Way 2 clip — a ground duel won against the pitch-control expectation (a BWAE upset). */
 async function buildDuelClip() {
   const el = $("#duel-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=1"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=2"); } catch (e) { return; }
   const h = surf.hero || {};
   buildScrubber(el, surf, {
-    id: "duel", ramp: rampHot, gamma: 0.7, threshold: 0.05,
+    id: "duel", ramp: rampHot, gamma: 0.95, threshold: 0.05, surfaceAlpha: 0.6,
     labelName: h.name, defaultMode: "surface",
-    readout: () => `Pitch control gave <b>${h.loser}</b> the edge on this ball (~${h.expected_pct}% to win it), `
-      + `but <b>${h.name}</b> got there first — a duel won above what his positioning predicts.`,
+    duo: { winner: h.name, loser: h.loser }, focusBall: true, emphasizeBall: true,
+    readout: () => `Pitch control gave <b>${h.loser}</b> (red) the edge on this ball (~${h.expected_pct}% to win it), `
+      + `but <b>${h.name}</b> (gold ring) got there first — a duel won above what his positioning predicts.`,
   });
+  renderTeamLegend("duel-teamleg", surf.teams);
   const t1 = $("#duel-hero-title"), t2 = $("#duel-hero-title2");
   if (t1) t1.textContent = `${h.name} vs ${h.loser} (${surf.match})`;
   if (t2) t2.textContent = `${h.name} beats ${h.loser}`;
