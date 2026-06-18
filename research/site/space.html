@@ -386,22 +386,13 @@
       <div class="card">
         <h3>Tie-aware leaderboard — defensive gravity</h3>
         <div id="chase-board" class="lboard"></div>
-        <p class="caption"><b>Clear leader: Pedro.</b> Below him sits the chasing group — Ronaldo (the most chase-pull), Weghorst, Amallah, En-Nesyri, El Yamiq — bunched close enough that naming a single second place would be false precision. Each row shows its two components: <b>drawn</b> markers (“I occupy bodies”) vs <b>chase-pull</b> m/s (“I make them sprint”). <b>Hover to pin a player onto the surface.</b></p>
-        <h3 style="margin-top:18px">Team gravity</h3>
-        <div id="chase-teams" class="tbars"></div>
-      </div>
-      <div class="xgpanel">
-        <h3>So what? — the xG receipt</h3>
-        <div id="chase-xg"></div>
-        <div id="chase-scatter" class="scatter"></div>
-        <p class="caption">Team gravity (x) vs xG for, per match (y). A mild positive link (ρ=+0.38) — suggestive, not proof. The scatter is the evidence: teams that bend the block more tend to create a little more, but the spread is wide.</p>
+        <p class="caption">Across all 64 games it's the <b>center-forwards</b> who bend the block most — <b>Lukaku, Dolberg, Füllkrug</b> and the other strikers who occupy the back line. Each row shows its two components: <b>drawn</b> markers (“I occupy bodies”) vs <b>chase-pull</b> m/s (“I make them sprint”). <b>Hover to pin a player onto the surface.</b></p>
       </div>
       <details class="notes reveal">
         <summary>How this is measured</summary>
         <ul>
           <li>Space-native by construction: gravity is geometry (drawn markers × inward defender chase), never xT- or goal-weighted. The engine is used only for the hero defender-control surface.</li>
-          <li>The xG link is team-level over 12 teams — directional, correlation not causation.</li>
-          <li>10 star-heavy / knockout matches at ~2 Hz; opponent and game-state shape every number.</li>
+          <li>All 64 WC2022 matches at ~2 Hz; opponent and game-state shape every number — gravity is partly an opponent effect (a striker facing a deeper block gets chased more). Players whose gravity-frames fall in a single match are floored out.</li>
           <li>Velocity (hence chase-pull) is finite-differenced at ~2 Hz; sub-second closing bursts are averaged out.</li>
           <li>Tie-aware: when values overlap, players share a rank rather than forcing a single ordering.</li>
         </ul>
@@ -649,6 +640,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=19"></script>
+<script type="module" src="assets/js/space.js?v=20"></script>
 </body>
 </html>

@@ -729,7 +729,7 @@ async function buildSMS() {
 
 async function buildCHASE() {
   const surf = await loadJSON("data/surfaces/chase.json");
-  const data = await loadJSON("data/space_chase.json");
+  const data = await loadJSON("data/space_chase.json?v=64");
   const scEl = $("#chase-canvas");
   const heroName = (surf.hero && surf.hero.name) || "the focal attacker";
   buildScrubber(scEl, surf, {
@@ -744,32 +744,20 @@ async function buildCHASE() {
   });
   // name the auto-picked gravity attacker in the card title + caption
   const chTitle = $("#chase-hero-title"); if (chTitle && surf.hero) chTitle.textContent = `${surf.hero.name} (${surf.hero.team})`;
-  const top = data.players.slice(0, 12);
+  // floor cameo players (gravity-frames in only ONE match spike the top) on the 64 sample
+  const top = data.players.filter((r) => r.n_matches >= 2).slice(0, 12);
   const lb = leaderboard(top, {
     name: (r) => r.name, team: (r) => r.team, pos: (r) => r.position, val: (r) => r.gravity,
     fmt: (v) => v.toFixed(2),
     tier: (r) => r.rank, barColor: "#9b8cff", scrubberEl: scEl,
     note: (r) => `<span class="comp">drawn ${r.drawn_markers.toFixed(2)} · pull ${r.chase_pull_ms.toFixed(2)} m/s</span>`,
-    tierLabel: (g, m, gi) => gi === 0 && m.length === 1
-      ? `clear leader: Pedro`
-      : (m.length > 1 ? `the chasing group` : `tier ${g}`),
+    tierLabel: (g, m, gi) => gi === 0
+      ? `most gravity — the strikers who bend the block`
+      : (m.length > 1 ? `the chasing group` : `tier ${gi + 1}`),
   });
   $("#chase-board").appendChild(lb);
-  const tb = teamBars(data.teams.slice(0, 8), {
-    name: (r) => r.team, val: (r) => r.team_gravity, fmt: (v) => v.toFixed(2),
-  });
-  $("#chase-teams").appendChild(tb);
-  // team-level scatter: x = team gravity, y = team xG-for per match
-  const pts = data.teams
-    .filter((t) => data.team_xg_for_per_match[t.team] != null)
-    .map((t) => ({ team: t.team, x: t.team_gravity, y: data.team_xg_for_per_match[t.team] }));
-  scatterPlot($("#chase-scatter"), pts, {
-    id: "chase", xLabel: "team defensive gravity", yLabel: "StatsBomb xG / match",
-    annot: `ρ=${data.xg_receipt.rho > 0 ? "+" : ""}${data.xg_receipt.rho}`,
-  });
-  xgPanel($("#chase-xg"), { ...data.xg_receipt,
-    reading: "A mild positive link (ρ=+0.38) — suggestive, not proof. The scatter above is the evidence: teams whose attackers exert more defensive gravity tend to generate a little more xG.",
-  });
+  // team gravity board + its xG-receipt scatter removed in the sweep: team-aggregate
+  // gravity collapses on all 64 (ρ +0.38 -> +0.03). Gravity stays a player + clip story.
 }
 
 async function buildPOBSO() {
