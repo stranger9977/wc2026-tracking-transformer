@@ -1,5 +1,5 @@
 {
- "fetched": "2026-06-17",
+ "fetched": "2026-06-18",
  "sources": {
   "pmsr": "FIFA Post-Match Summary Report, parsed via shufinskiy/sport_analytics_tools (fifa_wc)",
   "pmsr_url": "https://github.com/shufinskiy/sport_analytics_tools/tree/main/fifa_wc",

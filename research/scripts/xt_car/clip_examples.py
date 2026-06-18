@@ -235,6 +235,10 @@ def pick_duel():
             dab = math.hypot(snap[a][0] - snap[b][0], snap[a][1] - snap[b][1])
             if da > 5.0 or db > 5.0 or dab > 5.0:
                 continue
+            # keep the contest away from the touchlines/corners so it renders clearly
+            # in-frame (PFF pitch ~105×68 → x∈[-52,52], y∈[-34,34])
+            if abs(bx) > 38.0 or abs(by) > 22.0:
+                continue
             ia = _duel_infl(snap[a][0], snap[a][1], snap[a][2], bx, by)
             ib = _duel_infl(snap[b][0], snap[b][1], snap[b][2], bx, by)
             if ia + ib < 1e-9:
@@ -259,61 +263,72 @@ def pick_duel():
 # Tracking-window export (shared) — emits the buildScrubber surface schema.
 # ---------------------------------------------------------------------------
 def export_window(mid, period, t_center, lock_team_id, kind, hero,
-                  teams=None, pre=PAD_S, post=PAD_S):
-    """Export a scrubbable surface window. `teams` = {attack, defend} team names for
-    the on-clip legend. pre/post = seconds before/after t_center (asymmetric so a
-    finishing clip can lead with the run). Also returns per-frame `obso_owned` for
-    the hero (peak control×xT cell he owns) when kind=='danger'."""
+                  teams=None, pre=PAD_S, post=PAD_S, stride=SAMPLING_STRIDE, anchor_name=None):
+    """Export a scrubbable surface window.
+
+    teams       {attack, defend} team names for the on-clip legend.
+    pre/post    seconds before/after the centre (asymmetric — lead in, end on the moment).
+    stride      tracking sampling stride; smaller = more frames = smoother motion
+                (used for fast runs so the hero doesn't jump between sparse frames).
+    anchor_name if set, re-centre the window on the frame where that player is CLOSEST
+                to the ball (the true contest/win moment), since the PFF event clock can
+                lag the tracking — so a duel clip ends on the win, not the aftermath.
+    Returns per-frame `obso_owned` for the hero (peak control×xT cell) when kind=='danger'."""
     grid = pc.make_grid(nx=40, ny=26)
     xt_grid = pc.xt_surface(grid)
-    # PFF event gameClock is cumulative (period 2 starts at 2700 s = 45:00); tracking
-    # periodElapsedTime resets to 0 each period. Convert to period-elapsed to align.
+    # PFF event gameClock is cumulative (period 2 starts at 2700 s); tracking
+    # periodElapsedTime resets per period. Convert to period-elapsed to align.
     t_center = t_center - 2700.0 * (period - 1)
-    start_s, end_s = max(0.0, t_center - pre), t_center + post
-    frames_out, raw_maxes = [], []
-    hero_owned = 0.0
-    for fr in space_io.read_match(mid, sampling_stride=SAMPLING_STRIDE,
+    margin = 3.0 if anchor_name else 0.0          # read wider so we can re-centre + trim
+    lo, hi = max(0.0, t_center - pre - margin), t_center + post + margin
+    raw = []
+    for fr in space_io.read_match(mid, sampling_stride=stride,
                                   periods=(period,), lock_attack_team_id=lock_team_id):
-        if fr.timestamp_s < start_s or fr.timestamp_s > end_s:
+        if fr.timestamp_s < lo or fr.timestamp_s > hi:
             continue
         ctrl = pc.control_surface(fr.players, fr.ball_m, grid, include_gk=True)
         surf = ctrl["attack_control"] * xt_grid if kind == "danger" else ctrl["attack_control"]
-        rmax = float(surf.max()); raw_maxes.append(rmax)
-        # peak control×xT the hero personally owns (for the readout)
-        if kind == "danger" and hero and hero.get("name"):
-            for i, ident in enumerate(fr.identities):
-                if ident.name == hero["name"]:
-                    hx, hy = float(fr.players[i, 0] * HALF_LEN), float(fr.players[i, 1] * HALF_WID)
-                    ci = int(np.clip((hy + HALF_WID) / (2 * HALF_WID) * grid.ny, 0, grid.ny - 1))
-                    cj = int(np.clip((hx + HALF_LEN) / (2 * HALF_LEN) * grid.nx, 0, grid.nx - 1))
-                    hero_owned = max(hero_owned, float(surf[ci, cj]))
-                    break
-        markers = [{
-            "x": round(float(fr.players[i, 0] * HALF_LEN), 1),
-            "y": round(float(fr.players[i, 1] * HALF_WID), 1),
-            "att": bool(fr.players[i, 4] > 0), "gk": bool(fr.players[i, 5] > 0.5),
-            "name": ident.name, "vis": ident.visibility,
-        } for i, ident in enumerate(fr.identities)]
-        frames_out.append({
-            "t_s": round(fr.timestamp_s, 2),
-            "ball_xy": [round(float(fr.ball_m[0]), 1), round(float(fr.ball_m[1]), 1)],
-            "in_possession_team": fr.in_possession_team,
-            "surface_raw": surf, "raw_max": round(rmax, 5), "players": markers,
-        })
-    if not frames_out:
+        bx, by = float(fr.ball_m[0]), float(fr.ball_m[1])
+        d_anchor, hero_cell = None, 0.0
+        markers = []
+        for i, ident in enumerate(fr.identities):
+            mx, my = float(fr.players[i, 0] * HALF_LEN), float(fr.players[i, 1] * HALF_WID)
+            if anchor_name and ident.name == anchor_name:
+                d_anchor = math.hypot(mx - bx, my - by)
+            if kind == "danger" and hero and ident.name == hero.get("name"):
+                ci = int(np.clip((my + HALF_WID) / (2 * HALF_WID) * grid.ny, 0, grid.ny - 1))
+                cj = int(np.clip((mx + HALF_LEN) / (2 * HALF_LEN) * grid.nx, 0, grid.nx - 1))
+                hero_cell = float(surf[ci, cj])
+            markers.append({"x": round(mx, 1), "y": round(my, 1),
+                            "att": bool(fr.players[i, 4] > 0), "gk": bool(fr.players[i, 5] > 0.5),
+                            "name": ident.name, "vis": ident.visibility})
+        raw.append({"t_s": round(fr.timestamp_s, 2), "ball_xy": [round(bx, 1), round(by, 1)],
+                    "in_possession_team": fr.in_possession_team, "surf": surf,
+                    "raw_max": float(surf.max()), "players": markers,
+                    "d_anchor": d_anchor, "hero_cell": hero_cell})
+    if not raw:
         return None
-    gmax = max(raw_maxes) or 1.0
-    for f in frames_out:
-        s = f.pop("surface_raw") / gmax
-        f["surface"] = [[round(float(v), 4) for v in row] for row in s]
+    # re-centre on the true contest frame, then trim to [centre-pre, centre+post]
+    if anchor_name:
+        anchored = [r for r in raw if r["d_anchor"] is not None]
+        if anchored:
+            t_center = min(anchored, key=lambda r: r["d_anchor"])["t_s"]
+    sel = [r for r in raw if t_center - pre <= r["t_s"] <= t_center + post] or raw
+    gmax = max(r["raw_max"] for r in sel) or 1.0
+    hero_owned = max((r["hero_cell"] for r in sel), default=0.0)
+    frames_out = [{"t_s": r["t_s"], "ball_xy": r["ball_xy"],
+                   "in_possession_team": r["in_possession_team"],
+                   "raw_max": round(r["raw_max"], 5), "players": r["players"],
+                   "surface": [[round(float(v), 4) for v in row] for row in (r["surf"] / gmax)]}
+                  for r in sel]
     xt_ref = xt_grid / (xt_grid.max() or 1.0)
     if kind == "danger" and hero is not None and "obso_owned" not in hero:
         hero["obso_owned"] = round(hero_owned, 4)
     payload = {
         "match_id": mid, "period": period,
-        "start_s": round(start_s, 1), "end_s": round(end_s, 1),
+        "start_s": round(sel[0]["t_s"], 1), "end_s": round(sel[-1]["t_s"], 1),
         "peak_t_s": round(t_center, 2),
-        "hz": round(RAW_HZ / SAMPLING_STRIDE, 2), "n_frames": len(frames_out),
+        "hz": round(RAW_HZ / stride, 2), "n_frames": len(frames_out),
         "grid": {"nx": grid.nx, "ny": grid.ny, "length_m": 105.0, "width_m": 68.0},
         "global_max": round(gmax, 5),
         "xt_reference": [[round(float(v), 4) for v in row] for row in xt_ref],
@@ -478,8 +493,11 @@ def main():
                 "expected_win": exp_win, "expected_pct": round(exp_win * 100)}
         print(f"[duel] {wname} beat {lname} ({mid} p{period} {gc:.1f}s) "
               f"expected_win={exp_win} (upset={upset:.3f})", flush=True)
+        # anchor on the true win frame (winner closest to ball) and END on the win, so the
+        # clip leads in on both converging and stops before the post-duel scramble.
         payload = export_window(mid, period, gc, lock, "control", hero,
-                                teams=_teams_block(meta, lock))
+                                teams=_teams_block(meta, lock),
+                                pre=3.5, post=0.8, anchor_name=wname)
         if payload:
             payload.update({
                 "metric": "duel",
@@ -508,9 +526,11 @@ def main():
             continue
         hero = {"name": shooter, "team": _teams_block(meta, lock)["attack"],
                 "assist": assist, "outcome": "goal"}
-        # window leads with the run, ends just after the finish
+        # finer sampling (5 Hz) so the sprint is smooth, not jumpy; pre trimmed to ~2.8 s so
+        # the clip starts on his decisive forward run (skips the occluded forward-back-forward
+        # build-up that read as "jumping around"), ending just after the finish.
         payload = export_window(mid, period, gc, lock, "danger", hero,
-                                teams=_teams_block(meta, lock), pre=6.0, post=1.0)
+                                teams=_teams_block(meta, lock), pre=2.8, post=1.0, stride=6)
         if not payload or payload["n_frames"] < 8:
             continue
         # validate it's a real forward off-ball arrival: shooter visible + advances toward goal
