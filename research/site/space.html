@@ -521,6 +521,56 @@
 
 <div class="rule"></div>
 
+<!-- WIP — Pitch control as a player skill (player-led metrics, all 64 games) -->
+<section id="playerskill">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">★</span> Pitch control as a player skill</div>
+      <h2>The same model, turned on individuals.</h2>
+      <p class="lede">Pitch control is normally a team heat-map for a single moment. Here we turn it into <b>player</b> metrics across all <b>64 World Cup 2022 games</b> — concrete ways one player bends control to their team's advantage. <i>(Work in progress: the leaderboards are live and the methods are fixed; the surrounding narrative is still being written.)</i></p>
+
+      <div class="card">
+        <h3>Finds dangerous space with his passing — final third</h3>
+        <div class="boardlab">Players · total controllable danger accessed by final-third passes (×1000)</div>
+        <div id="ps-board" class="tbars"></div>
+        <details class="notes">
+          <summary>How it's calculated</summary>
+          <ul>
+            <li><b>The question:</b> when a player passes into the attacking third, does the ball go into space that is both <i>dangerous</i> and <i>keepable</i> — not a hospital ball into traffic?</li>
+            <li><b>Pitch control at the target</b> (Fernández–Bornn model): every player projects a bivariate-normal "influence" zone — nudged ahead of them by their velocity, ~4–10m wide depending on distance to the ball. The receiving team's control of the target spot is a logistic of (sum of attackers' influence − sum of defenders' influence) there: ≈1 means the receiver is in clear space, ≈0.5 means tightly contested.</li>
+            <li><b>Expected Threat (xT) at the target</b> (Karun Singh's grid): how dangerous that spot is.</li>
+            <li><b>Per pass:</b> value = <b>control × xT</b> at the intended target, counted only for passes whose target sits in the attacking final third. <b>Per player:</b> the sum across all such passes — so it rewards doing it often <i>and</i> well. Goalkeepers excluded.</li>
+            <li><b>Reads as:</b> who repeatedly threads the ball into dangerous, uncontested final-third space — creators, not recyclers.</li>
+          </ul>
+        </details>
+        <p class="caption">All 64 WC2022 games. The final-third restriction is what surfaces the creators — <b id="ps-top">the top names</b> — rather than deep ball-playing defenders, who rack up "progression" simply by passing forward out of their own half.</p>
+      </div>
+
+      <div class="card">
+        <h3>Wins more ground duels than his positioning says he should</h3>
+        <div class="twoup">
+          <div><div class="boardlab">All ground duels · win rate above expected</div><div id="bwae-all" class="tbars"></div></div>
+          <div><div class="boardlab">Final-third ground duels · win rate above expected</div><div id="bwae-f3" class="tbars"></div></div>
+        </div>
+        <details class="notes">
+          <summary>How it's calculated</summary>
+          <ul>
+            <li><b>The idea:</b> pitch control says who <i>should</i> reach a contested ball first; a player who wins 50-50s <i>above</i> that probability is beating his positioning — anticipation, timing, technique.</li>
+            <li><b>Each ground duel</b> (PFF challenge events; headers excluded by requiring the ball below 1m): we take the two contestants' Fernández–Bornn influence at the ball — their position and speed pointed at it — and form an expected win probability: <b>P(A&nbsp;wins) = influence<sub>A</sub> ÷ (influence<sub>A</sub> + influence<sub>B</sub>)</b>. That's literally "the percentage says he should win it."</li>
+            <li><b>Then:</b> actual (1 if he won the duel, 0 if not) − expected, averaged over all his duels. <b>Positive = wins more than predicted.</b></li>
+            <li><b>Final-third version</b> restricts to duels in the attacking third (attacking direction inferred from each team's goalkeeper position). It pools winning the ball both as a carrier (shielding / dribbling out) and as a challenger (tackling).</li>
+          </ul>
+        </details>
+        <p class="caption">Per-duel residual — actual minus expected win rate — across all 64 games.</p>
+      </div>
+
+      <p class="body">A third player metric — <b>space created above replacement</b>, a counterfactual "ghost" of where a replacement-level player would have moved — is finishing computation and lands here next, alongside the existing <b>Defensive Gravity</b> act.</p>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
 <!-- CLOSING — live 2026 -->
 <section id="live">
   <div class="wrap">
@@ -589,6 +639,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=16"></script>
+<script type="module" src="assets/js/space.js?v=17"></script>
 </body>
 </html>
