@@ -1126,6 +1126,36 @@ window.__spaceWIP = { buildSMS, buildSAR, buildCHASE, buildPOBSO, buildXT, build
    Full narrative auto-boot. Skipped on the WIP archive page (which sets
    window.__spaceWIPPage before loading this module) so SMS/SAR are built once,
    on demand, against the archive's own host IDs — not twice. */
+/* ---------------- player-skill boards (pitch control turned on individuals, 64 games) */
+async function buildPassSelection() {
+  const el = $("#ps-board"); if (!el) return;
+  let d; try { d = await loadJSON("data/pass_selection.json?v=1"); } catch (e) { return; }
+  const rows = (d.players || []).filter((r) => !String(r.name).startsWith("#"))
+    .sort((a, b) => b.total - a.total).slice(0, 12);
+  if (!rows.length) return;
+  const mx = Math.max(1e-9, ...rows.map((r) => r.total));
+  el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name}</span>
+    <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.total / mx * 100, 5, 100)}%;background:#6cb4ee"></span></span>
+    <span class="tbval">${(r.total * 1000).toFixed(0)}</span></div>`).join("");
+  const top = $("#ps-top");
+  if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
+}
+
+async function buildBWAE() {
+  let d; try { d = await loadJSON("data/balls_won_above_expected.json?v=1"); } catch (e) { return; }
+  const render = (rows, sel, color) => {
+    const el = $(sel); if (!el || !rows) return;
+    const top = rows.filter((r) => !String(r.name).startsWith("#")).slice(0, 10);
+    if (!top.length) return;
+    const mx = Math.max(1e-9, ...top.map((r) => r.bwae_per_duel));
+    el.innerHTML = top.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span></span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.bwae_per_duel / mx * 100, 5, 100)}%;background:${color}"></span></span>
+      <span class="tbval">+${(r.bwae_per_duel * 100).toFixed(0)}%</span></div>`).join("");
+  };
+  render(d.all, "#bwae-all", "#9b8cff");
+  render(d.final_third, "#bwae-f3", "#c08cff");
+}
+
 if (!window.__spaceWIPPage) {
   (async function () {
     initReveal();
@@ -1137,6 +1167,8 @@ if (!window.__spaceWIPPage) {
     buildChaseExplainer();
     buildDangerExplainer();
     await buildPitchControl();
+    buildPassSelection();
+    buildBWAE();
     await buildLive();
   })();
 }
