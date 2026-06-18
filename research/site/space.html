@@ -532,7 +532,8 @@
       </div>
       <div class="card">
         <h3>Finds dangerous space with his passing — final third</h3>
-        <div class="boardlab">Players · total controllable threat (control × xT) accessed via final-third passes</div>
+        <div class="boardlab" id="ps-lab">Players · <b>total</b> controllable threat (control × xT) accessed via final-third passes</div>
+        <div class="htoggles" id="ps-toggle" style="padding:0;margin:0 0 8px"><button class="htog on" data-m="total">total</button><button class="htog" data-m="permatch">per match</button></div>
         <div id="ps-board" class="tbars"></div>
         <details class="notes">
           <summary>How it's calculated</summary>
@@ -618,9 +619,8 @@
       <div class="card">
         <h3>Off-ball danger controllers</h3>
         <div id="pobso-board" class="lboard"></div>
-        <p class="caption">Substantial-minutes players lead; cameo subs (&lt;15 min, one match) are shown separately so they don't headline. The substantial-minutes group — En-Nesyri, Mbappé, Petković, Messi — is the trustworthy read.</p>
+        <p class="caption"><b>Reading the numbers:</b> <b>m²</b> is the average <b>danger-weighted</b> area a player controls off the ball — the grass he'd actually win, with every square metre scaled by how dangerous it is (× xT), which is why it reads small (controlling midfield counts for almost nothing). It's a per-moment average, not a match total. <b>fr</b> = frames of tracking behind that average (one snapshot every 0.5 s, so ~120 ≈ a minute), and <b>min</b> is the same thing in minutes — more frames means a steadier number. That's why substantial-minutes players lead and cameo subs (&lt;15 min, one match) are split out; the trustworthy read is En-Nesyri, Mbappé, Petković, Messi.</p>
       </div>
-      <p class="body">At <i>team</i> level this same idea — danger-moments per minute of possession — tracked xG beautifully among the ten knockout contenders (ρ=+0.71), then <b>inverted across all 64 games</b> (ρ=−0.31): counter-attacking sides rack up unconverted transition space and float to the top. We cut that board rather than ship a number that flips with the sample.</p>
       <details class="notes reveal">
         <summary>How this is measured</summary>
         <ul>
@@ -701,6 +701,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=30"></script>
+<script type="module" src="assets/js/space.js?v=31"></script>
 </body>
 </html>
