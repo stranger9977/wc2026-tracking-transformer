@@ -1,606 +1,807 @@
 {
  "metric": "Pass selection: final-third controllable danger",
+ "unit": "sum of pitch-control x xT over final-third passes (xT units)",
  "n_ft_passes": 13441,
  "players": [
   {
-   "name": "Sergi\u00f1o Dest",
-   "total": 0.34882488855499044,
-   "per_pass": 0.0077516641901108985,
-   "n_ft_passes": 45
-  },
-  {
-   "name": "Antonee Robinson",
-   "total": 0.4383483644176094,
-   "per_pass": 0.00695791054631126,
-   "n_ft_passes": 63
-  },
-  {
-   "name": "Christian Pulisic",
-   "total": 0.4316825839104628,
-   "per_pass": 0.008993387164801308,
-   "n_ft_passes": 48
-  },
-  {
-   "name": "Weston McKennie",
-   "total": 0.35856027311541383,
-   "per_pass": 0.006290531107287962,
-   "n_ft_passes": 57
-  },
-  {
-   "name": "Tyler Adams",
-   "total": 0.4894929345693157,
-   "per_pass": 0.009597900677829719,
-   "n_ft_passes": 51
-  },
-  {
-   "name": "Timothy Weah",
-   "total": 0.4598766884337805,
-   "per_pass": 0.01094944496270906,
-   "n_ft_passes": 42
-  },
-  {
-   "name": "Cody Gakpo",
-   "total": 0.5804360405759502,
-   "per_pass": 0.00967393400959917,
-   "n_ft_passes": 60
-  },
-  {
-   "name": "Denzel Dumfries",
-   "total": 0.34525145316546674,
-   "per_pass": 0.00548018179627725,
-   "n_ft_passes": 63
-  },
-  {
-   "name": "Daley Blind",
-   "total": 0.4282310933385876,
-   "per_pass": 0.005352888666732345,
-   "n_ft_passes": 80
-  },
-  {
-   "name": "Yunus Musah",
-   "total": 0.5379192992894151,
-   "per_pass": 0.0107583859857883,
-   "n_ft_passes": 50
-  },
-  {
-   "name": "Frenkie de Jong",
-   "total": 0.7497411774746539,
-   "per_pass": 0.009736898408761739,
-   "n_ft_passes": 77
-  },
-  {
-   "name": "Alexis Mac Allister",
-   "total": 0.8030037121384137,
-   "per_pass": 0.011808878119682554,
-   "n_ft_passes": 68
-  },
-  {
-   "name": "Lionel Messi",
-   "total": 1.3119491620924164,
-   "per_pass": 0.009864279414228695,
-   "n_ft_passes": 133
-  },
-  {
-   "name": "Julian Alvarez",
-   "total": 0.31866093617569546,
-   "per_pass": 0.007242294003993079,
-   "n_ft_passes": 44
-  },
-  {
    "name": "Rodrigo de Paul",
+   "team": "Argentina",
+   "pos": "CM",
    "total": 1.5031804061132445,
    "per_pass": 0.010366761421470652,
    "n_ft_passes": 145
   },
   {
-   "name": "Marcos Acu\u00f1a",
-   "total": 0.21565160725837232,
-   "per_pass": 0.0047922579390749405,
-   "n_ft_passes": 45
-  },
-  {
-   "name": "Enzo Fernandez",
-   "total": 0.728948427209492,
-   "per_pass": 0.008378717554132092,
-   "n_ft_passes": 87
-  },
-  {
-   "name": "Nahuel Molina",
-   "total": 0.5145216191965265,
-   "per_pass": 0.00612525737138722,
-   "n_ft_passes": 84
-  },
-  {
-   "name": "Aziz Behich",
-   "total": 0.2757376209179435,
-   "per_pass": 0.0065651814504272266,
-   "n_ft_passes": 42
-  },
-  {
-   "name": "Nicolas Tagliafico",
-   "total": 0.33735221777349433,
-   "per_pass": 0.008228102872524252,
-   "n_ft_passes": 41
-  },
-  {
-   "name": "Adrien Rabiot",
-   "total": 0.8818776632417356,
-   "per_pass": 0.011452956665477085,
-   "n_ft_passes": 77
-  },
-  {
-   "name": "Theo Hernandez",
-   "total": 0.7050132101869345,
-   "per_pass": 0.009038630899832494,
-   "n_ft_passes": 78
-  },
-  {
-   "name": "Matty Cash",
-   "total": 0.3280339715495405,
-   "per_pass": 0.0071311732945552285,
-   "n_ft_passes": 46
-  },
-  {
-   "name": "Aur\u00e9lien Tchouam\u00e9ni",
-   "total": 0.9388042143506674,
-   "per_pass": 0.011176240647031755,
-   "n_ft_passes": 84
-  },
-  {
-   "name": "Ousmane Dembele",
-   "total": 0.7952287119779994,
-   "per_pass": 0.009817638419481474,
-   "n_ft_passes": 81
-  },
-  {
-   "name": "Kylian Mbapp\u00e9",
-   "total": 1.0251149054118767,
-   "per_pass": 0.01046035617767221,
-   "n_ft_passes": 98
-  },
-  {
-   "name": "Antoine Griezmann",
-   "total": 0.747921020299996,
-   "per_pass": 0.008596793336781563,
-   "n_ft_passes": 87
-  },
-  {
-   "name": "Jules Kounde",
-   "total": 0.34576331602451643,
-   "per_pass": 0.007056394204581968,
-   "n_ft_passes": 49
-  },
-  {
-   "name": "Youssouf Sabaly",
-   "total": 0.5735848120981142,
-   "per_pass": 0.008435070766148738,
-   "n_ft_passes": 68
-  },
-  {
-   "name": "Jordan Henderson",
-   "total": 0.2938294852660262,
-   "per_pass": 0.006251691175872898,
-   "n_ft_passes": 47
-  },
-  {
-   "name": "Luke Shaw",
-   "total": 0.5410458915927522,
-   "per_pass": 0.006441022518961335,
-   "n_ft_passes": 84
-  },
-  {
-   "name": "Harry Kane",
-   "total": 0.440173271587135,
-   "per_pass": 0.009365388757173085,
-   "n_ft_passes": 47
-  },
-  {
-   "name": "Harry Maguire",
-   "total": 0.4594481763342824,
-   "per_pass": 0.01068484131009959,
-   "n_ft_passes": 43
-  },
-  {
-   "name": "Jude Bellingham",
-   "total": 0.7715945141499544,
-   "per_pass": 0.011516336032088872,
-   "n_ft_passes": 67
-  },
-  {
-   "name": "Bukayo Saka",
-   "total": 0.5137744367526429,
-   "per_pass": 0.011417209705614287,
-   "n_ft_passes": 45
-  },
-  {
-   "name": "Declan Rice",
-   "total": 0.40023948280004085,
-   "per_pass": 0.009529511495239068,
-   "n_ft_passes": 42
-  },
-  {
-   "name": "Ivan Perisic",
-   "total": 0.8937263871774859,
-   "per_pass": 0.009609961152446085,
-   "n_ft_passes": 93
-  },
-  {
-   "name": "Luka Modric",
-   "total": 1.0355389640790156,
-   "per_pass": 0.009245883607848353,
-   "n_ft_passes": 112
-  },
-  {
-   "name": "Josip Juranovic",
-   "total": 0.5138805299254853,
-   "per_pass": 0.00597535499913355,
-   "n_ft_passes": 86
-  },
-  {
-   "name": "Marcelo Brozovic",
-   "total": 0.828002988141829,
-   "per_pass": 0.010615422924895245,
-   "n_ft_passes": 78
-  },
-  {
-   "name": "Andrej Kramaric",
-   "total": 0.8158156485872845,
-   "per_pass": 0.014065787044608353,
-   "n_ft_passes": 58
-  },
-  {
-   "name": "Mateo Kovacic",
-   "total": 1.2836919737833776,
-   "per_pass": 0.011564792556607006,
-   "n_ft_passes": 111
-  },
-  {
-   "name": "Wataru Endo",
-   "total": 0.31732609854258514,
-   "per_pass": 0.007739660940063052,
-   "n_ft_passes": 41
-  },
-  {
-   "name": "Raphinha",
-   "total": 0.6000452183775457,
-   "per_pass": 0.011111948488473068,
-   "n_ft_passes": 54
-  },
-  {
-   "name": "Marquinhos",
-   "total": 0.5692688447759298,
-   "per_pass": 0.011617731526039383,
-   "n_ft_passes": 49
-  },
-  {
-   "name": "Neymar",
-   "total": 0.5367010201741325,
-   "per_pass": 0.01095308204437005,
-   "n_ft_passes": 49
-  },
-  {
-   "name": "Eder Militao",
-   "total": 0.5607971812648209,
-   "per_pass": 0.010385132986385572,
-   "n_ft_passes": 54
-  },
-  {
-   "name": "Danilo",
-   "total": 0.3459892814401575,
-   "per_pass": 0.007361474073194841,
-   "n_ft_passes": 47
-  },
-  {
-   "name": "Casemiro",
-   "total": 0.6327058957024965,
-   "per_pass": 0.008911350643697134,
-   "n_ft_passes": 71
-  },
-  {
-   "name": "Lucas Paquet\u00e1",
-   "total": 0.7411998503098824,
-   "per_pass": 0.013003506145787411,
-   "n_ft_passes": 57
-  },
-  {
-   "name": "In-beom Hwang",
-   "total": 0.9372410998038923,
-   "per_pass": 0.010413789997821025,
-   "n_ft_passes": 90
-  },
-  {
-   "name": "Moon-hwan Kim",
-   "total": 0.6278775094650707,
-   "per_pass": 0.00860106177349412,
-   "n_ft_passes": 73
-  },
-  {
-   "name": "Woo-young Jung",
-   "total": 0.5987471158734816,
-   "per_pass": 0.010504335366201432,
-   "n_ft_passes": 57
-  },
-  {
-   "name": "Heung-min Son",
-   "total": 0.6719906416201348,
-   "per_pass": 0.013439812832402696,
-   "n_ft_passes": 50
-  },
-  {
-   "name": "Jin-su Kim",
-   "total": 0.3309758824114234,
-   "per_pass": 0.007880378152652938,
-   "n_ft_passes": 42
-  },
-  {
-   "name": "Rodrygo",
-   "total": 0.33657055077590664,
-   "per_pass": 0.008414263769397665,
-   "n_ft_passes": 40
-  },
-  {
-   "name": "Rodri",
-   "total": 1.0585114129155628,
-   "per_pass": 0.013927781748888984,
-   "n_ft_passes": 76
-  },
-  {
-   "name": "Jordi Alba",
-   "total": 0.795560262633111,
-   "per_pass": 0.008374318554032747,
-   "n_ft_passes": 95
-  },
-  {
    "name": "Pedri",
+   "team": "Spain",
+   "pos": "CM",
    "total": 1.441510916470705,
    "per_pass": 0.010521977492486897,
    "n_ft_passes": 137
   },
   {
-   "name": "Sergio Busquets",
-   "total": 0.5749622762346137,
-   "per_pass": 0.00898378556616584,
-   "n_ft_passes": 64
+   "name": "Lionel Messi",
+   "team": "Argentina",
+   "pos": "CF",
+   "total": 1.3119491620924164,
+   "per_pass": 0.009864279414228695,
+   "n_ft_passes": 133
   },
   {
-   "name": "Gavi",
-   "total": 0.4795006015859787,
-   "per_pass": 0.011695136624048261,
-   "n_ft_passes": 41
+   "name": "Mateo Kovacic",
+   "team": "Croatia",
+   "pos": "CM",
+   "total": 1.2836919737833776,
+   "per_pass": 0.011564792556607006,
+   "n_ft_passes": 111
+  },
+  {
+   "name": "Bernardo Silva",
+   "team": "Portugal",
+   "pos": "CM",
+   "total": 1.1125255330997537,
+   "per_pass": 0.012361394812219486,
+   "n_ft_passes": 90
+  },
+  {
+   "name": "Rodri",
+   "team": "Spain",
+   "pos": "CB",
+   "total": 1.0585114129155628,
+   "per_pass": 0.013927781748888984,
+   "n_ft_passes": 76
+  },
+  {
+   "name": "Luka Modric",
+   "team": "Croatia",
+   "pos": "CM",
+   "total": 1.0355389640790156,
+   "per_pass": 0.009245883607848353,
+   "n_ft_passes": 112
+  },
+  {
+   "name": "Kylian Mbapp\u00e9",
+   "team": "France",
+   "pos": "LW",
+   "total": 1.0251149054118767,
+   "per_pass": 0.01046035617767221,
+   "n_ft_passes": 98
+  },
+  {
+   "name": "Jamal Musiala",
+   "team": "Germany",
+   "pos": "LW",
+   "total": 1.0035832081497054,
+   "per_pass": 0.015929892192852468,
+   "n_ft_passes": 63
+  },
+  {
+   "name": "Joshua Kimmich",
+   "team": "Germany",
+   "pos": "RB",
+   "total": 0.9469665262224476,
+   "per_pass": 0.01297214419482805,
+   "n_ft_passes": 73
+  },
+  {
+   "name": "Aur\u00e9lien Tchouam\u00e9ni",
+   "team": "France",
+   "pos": "CM",
+   "total": 0.9388042143506674,
+   "per_pass": 0.011176240647031755,
+   "n_ft_passes": 84
+  },
+  {
+   "name": "In-beom Hwang",
+   "team": "South Korea",
+   "pos": "CM",
+   "total": 0.9372410998038923,
+   "per_pass": 0.010413789997821025,
+   "n_ft_passes": 90
+  },
+  {
+   "name": "Ivan Perisic",
+   "team": "Croatia",
+   "pos": "LW",
+   "total": 0.8937263871774859,
+   "per_pass": 0.009609961152446085,
+   "n_ft_passes": 93
+  },
+  {
+   "name": "Adrien Rabiot",
+   "team": "France",
+   "pos": "CM",
+   "total": 0.8818776632417356,
+   "per_pass": 0.011452956665477085,
+   "n_ft_passes": 77
+  },
+  {
+   "name": "Bruno Fernandes",
+   "team": "Portugal",
+   "pos": "RW",
+   "total": 0.8693695577666115,
+   "per_pass": 0.011909172024200158,
+   "n_ft_passes": 73
+  },
+  {
+   "name": "Marcelo Brozovic",
+   "team": "Croatia",
+   "pos": "CM",
+   "total": 0.828002988141829,
+   "per_pass": 0.010615422924895245,
+   "n_ft_passes": 78
+  },
+  {
+   "name": "Jo\u00e3o Cancelo",
+   "team": "Portugal",
+   "pos": "RB",
+   "total": 0.8266987789561475,
+   "per_pass": 0.011324640807618459,
+   "n_ft_passes": 73
+  },
+  {
+   "name": "Andrej Kramaric",
+   "team": "Croatia",
+   "pos": "RW",
+   "total": 0.8158156485872845,
+   "per_pass": 0.014065787044608353,
+   "n_ft_passes": 58
+  },
+  {
+   "name": "Alexis Mac Allister",
+   "team": "Argentina",
+   "pos": "CM",
+   "total": 0.8030037121384137,
+   "per_pass": 0.011808878119682554,
+   "n_ft_passes": 68
+  },
+  {
+   "name": "Jordi Alba",
+   "team": "Spain",
+   "pos": "LB",
+   "total": 0.795560262633111,
+   "per_pass": 0.008374318554032747,
+   "n_ft_passes": 95
+  },
+  {
+   "name": "Ousmane Dembele",
+   "team": "France",
+   "pos": "RW",
+   "total": 0.7952287119779994,
+   "per_pass": 0.009817638419481474,
+   "n_ft_passes": 81
   },
   {
    "name": "Hakim Ziyech",
+   "team": "Morocco",
+   "pos": "RW",
    "total": 0.772160327006035,
    "per_pass": 0.009084239141247471,
    "n_ft_passes": 85
   },
   {
+   "name": "Jude Bellingham",
+   "team": "England",
+   "pos": "CM",
+   "total": 0.7715945141499544,
+   "per_pass": 0.011516336032088872,
+   "n_ft_passes": 67
+  },
+  {
+   "name": "Frenkie de Jong",
+   "team": "Netherlands",
+   "pos": "CM",
+   "total": 0.7497411774746539,
+   "per_pass": 0.009736898408761739,
+   "n_ft_passes": 77
+  },
+  {
+   "name": "Antoine Griezmann",
+   "team": "France",
+   "pos": "AM",
+   "total": 0.747921020299996,
+   "per_pass": 0.008596793336781563,
+   "n_ft_passes": 87
+  },
+  {
+   "name": "Lucas Paquet\u00e1",
+   "team": "Brazil",
+   "pos": "CM",
+   "total": 0.7411998503098824,
+   "per_pass": 0.013003506145787411,
+   "n_ft_passes": 57
+  },
+  {
+   "name": "Enzo Fernandez",
+   "team": "Argentina",
+   "pos": "CM",
+   "total": 0.728948427209492,
+   "per_pass": 0.008378717554132092,
+   "n_ft_passes": 87
+  },
+  {
    "name": "Achraf Hakimi",
+   "team": "Morocco",
+   "pos": "RB",
    "total": 0.7231787847537777,
    "per_pass": 0.008312399824756065,
    "n_ft_passes": 87
   },
   {
    "name": "Azzedine Ounahi",
+   "team": "Morocco",
+   "pos": "CM",
    "total": 0.7089796054513533,
    "per_pass": 0.011816326757522555,
    "n_ft_passes": 60
   },
   {
-   "name": "Marco Asensio",
-   "total": 0.6017532312295248,
-   "per_pass": 0.012035064624590497,
-   "n_ft_passes": 50
+   "name": "Theo Hernandez",
+   "team": "France",
+   "pos": "LB",
+   "total": 0.7050132101869345,
+   "per_pass": 0.009038630899832494,
+   "n_ft_passes": 78
   },
   {
    "name": "Dani Olmo",
+   "team": "Spain",
+   "pos": "LW",
    "total": 0.6895069070424996,
    "per_pass": 0.010773545422539057,
    "n_ft_passes": 64
   },
   {
-   "name": "Bernardo Silva",
-   "total": 1.1125255330997537,
-   "per_pass": 0.012361394812219486,
-   "n_ft_passes": 90
+   "name": "Heung-min Son",
+   "team": "South Korea",
+   "pos": "LW",
+   "total": 0.6719906416201348,
+   "per_pass": 0.013439812832402696,
+   "n_ft_passes": 50
   },
   {
-   "name": "Rapha\u00ebl Guerreiro",
-   "total": 0.33356676661655443,
-   "per_pass": 0.006807485032990907,
-   "n_ft_passes": 49
+   "name": "Casemiro",
+   "team": "Brazil",
+   "pos": "CM",
+   "total": 0.6327058957024965,
+   "per_pass": 0.008911350643697134,
+   "n_ft_passes": 71
   },
   {
-   "name": "Bruno Fernandes",
-   "total": 0.8693695577666115,
-   "per_pass": 0.011909172024200158,
-   "n_ft_passes": 73
-  },
-  {
-   "name": "Joao Felix",
-   "total": 0.4451432259283762,
-   "per_pass": 0.00989207168729725,
-   "n_ft_passes": 45
-  },
-  {
-   "name": "Granit Xhaka",
-   "total": 0.4323040670981978,
-   "per_pass": 0.010544001636541409,
-   "n_ft_passes": 41
-  },
-  {
-   "name": "Rub\u00e9n Vargas",
-   "total": 0.4088083684717468,
-   "per_pass": 0.009507171359808065,
-   "n_ft_passes": 43
-  },
-  {
-   "name": "Xherdan Shaqiri",
-   "total": 0.42112581599657517,
-   "per_pass": 0.009154909043403808,
-   "n_ft_passes": 46
-  },
-  {
-   "name": "Ricardo Rodriguez",
-   "total": 0.4501636266887054,
-   "per_pass": 0.009577949504015009,
-   "n_ft_passes": 47
-  },
-  {
-   "name": "Borna Sosa",
-   "total": 0.5400481477714218,
-   "per_pass": 0.007941884526050321,
-   "n_ft_passes": 68
-  },
-  {
-   "name": "Antony",
-   "total": 0.3363604366886116,
-   "per_pass": 0.007644555379286627,
-   "n_ft_passes": 44
-  },
-  {
-   "name": "Nathan Ak\u00e9",
-   "total": 0.3009955119929623,
-   "per_pass": 0.0071665598093562455,
-   "n_ft_passes": 42
-  },
-  {
-   "name": "Steven Berghuis",
-   "total": 0.2794649435088583,
-   "per_pass": 0.0066539272264013885,
-   "n_ft_passes": 42
-  },
-  {
-   "name": "R\u00faben Neves",
-   "total": 0.40432961319735505,
-   "per_pass": 0.009861697882862319,
-   "n_ft_passes": 41
-  },
-  {
-   "name": "Jo\u00e3o Cancelo",
-   "total": 0.8266987789561475,
-   "per_pass": 0.011324640807618459,
+   "name": "Moon-hwan Kim",
+   "team": "South Korea",
+   "pos": "RB",
+   "total": 0.6278775094650707,
+   "per_pass": 0.00860106177349412,
    "n_ft_passes": 73
   },
   {
    "name": "\u00c1ngel Di Mar\u00eda",
+   "team": "Argentina",
+   "pos": "RW",
    "total": 0.6058500220320729,
    "per_pass": 0.008909559147530485,
    "n_ft_passes": 68
   },
   {
-   "name": "Pervis Estupinan",
-   "total": 0.35031762492930507,
-   "per_pass": 0.00814692150998384,
-   "n_ft_passes": 43
+   "name": "Marco Asensio",
+   "team": "Spain",
+   "pos": "CF",
+   "total": 0.6017532312295248,
+   "per_pass": 0.012035064624590497,
+   "n_ft_passes": 50
   },
   {
-   "name": "Salem Al-Dawsari",
-   "total": 0.4603178843726539,
-   "per_pass": 0.009025840870052038,
-   "n_ft_passes": 51
+   "name": "Raphinha",
+   "team": "Brazil",
+   "pos": "RW",
+   "total": 0.6000452183775457,
+   "per_pass": 0.011111948488473068,
+   "n_ft_passes": 54
   },
   {
-   "name": "Saud Abdulhamid",
-   "total": 0.3497917466723268,
-   "per_pass": 0.00874479366680817,
-   "n_ft_passes": 40
+   "name": "Woo-young Jung",
+   "team": "South Korea",
+   "pos": "CM",
+   "total": 0.5987471158734816,
+   "per_pass": 0.010504335366201432,
+   "n_ft_passes": 57
+  },
+  {
+   "name": "Cody Gakpo",
+   "team": "Netherlands",
+   "pos": "CF",
+   "total": 0.5804360405759502,
+   "per_pass": 0.00967393400959917,
+   "n_ft_passes": 60
+  },
+  {
+   "name": "Sergio Busquets",
+   "team": "Spain",
+   "pos": "CM",
+   "total": 0.5749622762346137,
+   "per_pass": 0.00898378556616584,
+   "n_ft_passes": 64
+  },
+  {
+   "name": "Youssouf Sabaly",
+   "team": "Senegal",
+   "pos": "RB",
+   "total": 0.5735848120981142,
+   "per_pass": 0.008435070766148738,
+   "n_ft_passes": 68
+  },
+  {
+   "name": "Marquinhos",
+   "team": "Brazil",
+   "pos": "CB",
+   "total": 0.5692688447759298,
+   "per_pass": 0.011617731526039383,
+   "n_ft_passes": 49
   },
   {
    "name": "Mohamed Kanno",
+   "team": "Saudi Arabia",
+   "pos": "CM",
    "total": 0.5650881145593754,
    "per_pass": 0.010274329355625006,
    "n_ft_passes": 55
   },
   {
-   "name": "Rasmus Kristensen",
-   "total": 0.4338260530024113,
-   "per_pass": 0.006674246969267866,
-   "n_ft_passes": 65
+   "name": "Dusan Tadic",
+   "team": "Serbia",
+   "pos": "RW",
+   "total": 0.5640613775328049,
+   "per_pass": 0.010445581065422314,
+   "n_ft_passes": 54
   },
   {
-   "name": "Joakim Maehle",
-   "total": 0.3573566482349523,
-   "per_pass": 0.007147132964699046,
-   "n_ft_passes": 50
-  },
-  {
-   "name": "Christian Eriksen",
-   "total": 0.41476213516148747,
-   "per_pass": 0.00942641216276108,
-   "n_ft_passes": 44
-  },
-  {
-   "name": "David Raum",
-   "total": 0.4596255233355113,
-   "per_pass": 0.008356827697009296,
-   "n_ft_passes": 55
-  },
-  {
-   "name": "Jamal Musiala",
-   "total": 1.0035832081497054,
-   "per_pass": 0.015929892192852468,
-   "n_ft_passes": 63
+   "name": "Eder Militao",
+   "team": "Brazil",
+   "pos": "RB",
+   "total": 0.5607971812648209,
+   "per_pass": 0.010385132986385572,
+   "n_ft_passes": 54
   },
   {
    "name": "Serge Gnabry",
+   "team": "Germany",
+   "pos": "LW",
    "total": 0.5484629847230486,
    "per_pass": 0.011426312181730179,
    "n_ft_passes": 48
   },
   {
-   "name": "Niklas S\u00fcle",
-   "total": 0.39781773539871246,
-   "per_pass": 0.008840394119971388,
+   "name": "Luke Shaw",
+   "team": "England",
+   "pos": "LB",
+   "total": 0.5410458915927522,
+   "per_pass": 0.006441022518961335,
+   "n_ft_passes": 84
+  },
+  {
+   "name": "Borna Sosa",
+   "team": "Croatia",
+   "pos": "LB",
+   "total": 0.5400481477714218,
+   "per_pass": 0.007941884526050321,
+   "n_ft_passes": 68
+  },
+  {
+   "name": "Yunus Musah",
+   "team": "United States",
+   "pos": "CM",
+   "total": 0.5379192992894151,
+   "per_pass": 0.0107583859857883,
+   "n_ft_passes": 50
+  },
+  {
+   "name": "Neymar",
+   "team": "Brazil",
+   "pos": "AM",
+   "total": 0.5367010201741325,
+   "per_pass": 0.01095308204437005,
+   "n_ft_passes": 49
+  },
+  {
+   "name": "Nahuel Molina",
+   "team": "Argentina",
+   "pos": "RB",
+   "total": 0.5145216191965265,
+   "per_pass": 0.00612525737138722,
+   "n_ft_passes": 84
+  },
+  {
+   "name": "Josip Juranovic",
+   "team": "Croatia",
+   "pos": "RB",
+   "total": 0.5138805299254853,
+   "per_pass": 0.00597535499913355,
+   "n_ft_passes": 86
+  },
+  {
+   "name": "Bukayo Saka",
+   "team": "England",
+   "pos": "RW",
+   "total": 0.5137744367526429,
+   "per_pass": 0.011417209705614287,
    "n_ft_passes": 45
   },
   {
-   "name": "Joshua Kimmich",
-   "total": 0.9469665262224476,
-   "per_pass": 0.01297214419482805,
-   "n_ft_passes": 73
-  },
-  {
    "name": "Ilkay G\u00fcndogan",
+   "team": "Germany",
+   "pos": "CM",
    "total": 0.5106639480770965,
    "per_pass": 0.010638832251606176,
    "n_ft_passes": 48
   },
   {
    "name": "Alphonso Davies",
+   "team": "Canada",
+   "pos": "LB",
    "total": 0.5016631558772148,
    "per_pass": 0.010905720779939452,
    "n_ft_passes": 46
   },
   {
-   "name": "Alistair Johnston",
-   "total": 0.2785934236084932,
-   "per_pass": 0.006633176752583171,
+   "name": "Tyler Adams",
+   "team": "United States",
+   "pos": "CM",
+   "total": 0.4894929345693157,
+   "per_pass": 0.009597900677829719,
+   "n_ft_passes": 51
+  },
+  {
+   "name": "Gavi",
+   "team": "Spain",
+   "pos": "CM",
+   "total": 0.4795006015859787,
+   "per_pass": 0.011695136624048261,
+   "n_ft_passes": 41
+  },
+  {
+   "name": "Salem Al-Dawsari",
+   "team": "Saudi Arabia",
+   "pos": "LM",
+   "total": 0.4603178843726539,
+   "per_pass": 0.009025840870052038,
+   "n_ft_passes": 51
+  },
+  {
+   "name": "Timothy Weah",
+   "team": "United States",
+   "pos": "RW",
+   "total": 0.4598766884337805,
+   "per_pass": 0.01094944496270906,
    "n_ft_passes": 42
   },
   {
-   "name": "Kevin De Bruyne",
-   "total": 0.310104018463898,
-   "per_pass": 0.006597957839657404,
+   "name": "David Raum",
+   "team": "Germany",
+   "pos": "LB",
+   "total": 0.4596255233355113,
+   "per_pass": 0.008356827697009296,
+   "n_ft_passes": 55
+  },
+  {
+   "name": "Harry Maguire",
+   "team": "England",
+   "pos": "CB",
+   "total": 0.4594481763342824,
+   "per_pass": 0.01068484131009959,
+   "n_ft_passes": 43
+  },
+  {
+   "name": "Ricardo Rodriguez",
+   "team": "Switzerland",
+   "pos": "LB",
+   "total": 0.4501636266887054,
+   "per_pass": 0.009577949504015009,
    "n_ft_passes": 47
   },
   {
-   "name": "Math\u00ed\u00adas Olivera",
-   "total": 0.2800679566332578,
-   "per_pass": 0.006668284681744233,
+   "name": "Joao Felix",
+   "team": "Portugal",
+   "pos": "LW",
+   "total": 0.4451432259283762,
+   "per_pass": 0.00989207168729725,
+   "n_ft_passes": 45
+  },
+  {
+   "name": "Harry Kane",
+   "team": "England",
+   "pos": "CF",
+   "total": 0.440173271587135,
+   "per_pass": 0.009365388757173085,
+   "n_ft_passes": 47
+  },
+  {
+   "name": "Antonee Robinson",
+   "team": "United States",
+   "pos": "LB",
+   "total": 0.4383483644176094,
+   "per_pass": 0.00695791054631126,
+   "n_ft_passes": 63
+  },
+  {
+   "name": "Rasmus Kristensen",
+   "team": "Denmark",
+   "pos": "RB",
+   "total": 0.4338260530024113,
+   "per_pass": 0.006674246969267866,
+   "n_ft_passes": 65
+  },
+  {
+   "name": "Granit Xhaka",
+   "team": "Switzerland",
+   "pos": "CM",
+   "total": 0.4323040670981978,
+   "per_pass": 0.010544001636541409,
+   "n_ft_passes": 41
+  },
+  {
+   "name": "Christian Pulisic",
+   "team": "United States",
+   "pos": "LW",
+   "total": 0.4316825839104628,
+   "per_pass": 0.008993387164801308,
+   "n_ft_passes": 48
+  },
+  {
+   "name": "Daley Blind",
+   "team": "Netherlands",
+   "pos": "LB",
+   "total": 0.4282310933385876,
+   "per_pass": 0.005352888666732345,
+   "n_ft_passes": 80
+  },
+  {
+   "name": "Xherdan Shaqiri",
+   "team": "Switzerland",
+   "pos": "RW",
+   "total": 0.42112581599657517,
+   "per_pass": 0.009154909043403808,
+   "n_ft_passes": 46
+  },
+  {
+   "name": "Christian Eriksen",
+   "team": "Denmark",
+   "pos": "CM",
+   "total": 0.41476213516148747,
+   "per_pass": 0.00942641216276108,
+   "n_ft_passes": 44
+  },
+  {
+   "name": "Rub\u00e9n Vargas",
+   "team": "Switzerland",
+   "pos": "LW",
+   "total": 0.4088083684717468,
+   "per_pass": 0.009507171359808065,
+   "n_ft_passes": 43
+  },
+  {
+   "name": "R\u00faben Neves",
+   "team": "Portugal",
+   "pos": "CM",
+   "total": 0.40432961319735505,
+   "per_pass": 0.009861697882862319,
+   "n_ft_passes": 41
+  },
+  {
+   "name": "Declan Rice",
+   "team": "England",
+   "pos": "CM",
+   "total": 0.40023948280004085,
+   "per_pass": 0.009529511495239068,
    "n_ft_passes": 42
   },
   {
+   "name": "Niklas S\u00fcle",
+   "team": "Germany",
+   "pos": "CB",
+   "total": 0.39781773539871246,
+   "per_pass": 0.008840394119971388,
+   "n_ft_passes": 45
+  },
+  {
    "name": "Federico Valverde",
+   "team": "Uruguay",
+   "pos": "CM",
    "total": 0.3868757879512571,
    "per_pass": 0.009435994828079441,
    "n_ft_passes": 41
   },
   {
-   "name": "Dusan Tadic",
-   "total": 0.5640613775328049,
-   "per_pass": 0.010445581065422314,
-   "n_ft_passes": 54
+   "name": "Weston McKennie",
+   "team": "United States",
+   "pos": "CM",
+   "total": 0.35856027311541383,
+   "per_pass": 0.006290531107287962,
+   "n_ft_passes": 57
+  },
+  {
+   "name": "Joakim Maehle",
+   "team": "Denmark",
+   "pos": "LB",
+   "total": 0.3573566482349523,
+   "per_pass": 0.007147132964699046,
+   "n_ft_passes": 50
+  },
+  {
+   "name": "Pervis Estupinan",
+   "team": "Ecuador",
+   "pos": "LB",
+   "total": 0.35031762492930507,
+   "per_pass": 0.00814692150998384,
+   "n_ft_passes": 43
+  },
+  {
+   "name": "Saud Abdulhamid",
+   "team": "Saudi Arabia",
+   "pos": "RB",
+   "total": 0.3497917466723268,
+   "per_pass": 0.00874479366680817,
+   "n_ft_passes": 40
+  },
+  {
+   "name": "Sergi\u00f1o Dest",
+   "team": "United States",
+   "pos": "RB",
+   "total": 0.34882488855499044,
+   "per_pass": 0.0077516641901108985,
+   "n_ft_passes": 45
+  },
+  {
+   "name": "Danilo",
+   "team": "Brazil",
+   "pos": "LB",
+   "total": 0.3459892814401575,
+   "per_pass": 0.007361474073194841,
+   "n_ft_passes": 47
+  },
+  {
+   "name": "Jules Kounde",
+   "team": "France",
+   "pos": "RB",
+   "total": 0.34576331602451643,
+   "per_pass": 0.007056394204581968,
+   "n_ft_passes": 49
+  },
+  {
+   "name": "Denzel Dumfries",
+   "team": "Netherlands",
+   "pos": "RB",
+   "total": 0.34525145316546674,
+   "per_pass": 0.00548018179627725,
+   "n_ft_passes": 63
+  },
+  {
+   "name": "Nicolas Tagliafico",
+   "team": "Argentina",
+   "pos": "LB",
+   "total": 0.33735221777349433,
+   "per_pass": 0.008228102872524252,
+   "n_ft_passes": 41
+  },
+  {
+   "name": "Rodrygo",
+   "team": "Brazil",
+   "pos": "RW",
+   "total": 0.33657055077590664,
+   "per_pass": 0.008414263769397665,
+   "n_ft_passes": 40
+  },
+  {
+   "name": "Antony",
+   "team": "Brazil",
+   "pos": "RW",
+   "total": 0.3363604366886116,
+   "per_pass": 0.007644555379286627,
+   "n_ft_passes": 44
+  },
+  {
+   "name": "Rapha\u00ebl Guerreiro",
+   "team": "Portugal",
+   "pos": "LB",
+   "total": 0.33356676661655443,
+   "per_pass": 0.006807485032990907,
+   "n_ft_passes": 49
+  },
+  {
+   "name": "Jin-su Kim",
+   "team": "South Korea",
+   "pos": "LB",
+   "total": 0.3309758824114234,
+   "per_pass": 0.007880378152652938,
+   "n_ft_passes": 42
+  },
+  {
+   "name": "Matty Cash",
+   "team": "Poland",
+   "pos": "RB",
+   "total": 0.3280339715495405,
+   "per_pass": 0.0071311732945552285,
+   "n_ft_passes": 46
+  },
+  {
+   "name": "Julian Alvarez",
+   "team": "Argentina",
+   "pos": "CF",
+   "total": 0.31866093617569546,
+   "per_pass": 0.007242294003993079,
+   "n_ft_passes": 44
+  },
+  {
+   "name": "Wataru Endo",
+   "team": "Japan",
+   "pos": "CM",
+   "total": 0.31732609854258514,
+   "per_pass": 0.007739660940063052,
+   "n_ft_passes": 41
+  },
+  {
+   "name": "Kevin De Bruyne",
+   "team": "Belgium",
+   "pos": "RW",
+   "total": 0.310104018463898,
+   "per_pass": 0.006597957839657404,
+   "n_ft_passes": 47
+  },
+  {
+   "name": "Nathan Ak\u00e9",
+   "team": "Netherlands",
+   "pos": "CB",
+   "total": 0.3009955119929623,
+   "per_pass": 0.0071665598093562455,
+   "n_ft_passes": 42
+  },
+  {
+   "name": "Jordan Henderson",
+   "team": "England",
+   "pos": "CM",
+   "total": 0.2938294852660262,
+   "per_pass": 0.006251691175872898,
+   "n_ft_passes": 47
+  },
+  {
+   "name": "Math\u00ed\u00adas Olivera",
+   "team": "Uruguay",
+   "pos": "LB",
+   "total": 0.2800679566332578,
+   "per_pass": 0.006668284681744233,
+   "n_ft_passes": 42
+  },
+  {
+   "name": "Steven Berghuis",
+   "team": "Netherlands",
+   "pos": "AM",
+   "total": 0.2794649435088583,
+   "per_pass": 0.0066539272264013885,
+   "n_ft_passes": 42
+  },
+  {
+   "name": "Alistair Johnston",
+   "team": "Canada",
+   "pos": "RB",
+   "total": 0.2785934236084932,
+   "per_pass": 0.006633176752583171,
+   "n_ft_passes": 42
+  },
+  {
+   "name": "Aziz Behich",
+   "team": "Australia",
+   "pos": "LB",
+   "total": 0.2757376209179435,
+   "per_pass": 0.0065651814504272266,
+   "n_ft_passes": 42
+  },
+  {
+   "name": "Marcos Acu\u00f1a",
+   "team": "Argentina",
+   "pos": "LB",
+   "total": 0.21565160725837232,
+   "per_pass": 0.0047922579390749405,
+   "n_ft_passes": 45
   }
  ]
 }

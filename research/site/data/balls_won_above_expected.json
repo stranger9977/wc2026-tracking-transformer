@@ -6,588 +6,686 @@
   {
    "name": "Hirving Lozano",
    "team": "Mexico",
+   "pos": "RW",
    "bwae_per_duel": 0.2039940233196824,
    "n_duels": 55
   },
   {
    "name": "Isma\u00efla Sarr",
    "team": "Senegal",
+   "pos": "LW",
    "bwae_per_duel": 0.17304403260239393,
    "n_duels": 63
   },
   {
    "name": "Nikola Vlasic",
    "team": "Croatia",
+   "pos": "AM",
    "bwae_per_duel": 0.1686191807833481,
    "n_duels": 45
   },
   {
    "name": "Dayot Upamecano",
    "team": "France",
+   "pos": "CB",
    "bwae_per_duel": 0.16522949740795137,
    "n_duels": 47
   },
   {
    "name": "Eder Militao",
    "team": "Brazil",
+   "pos": "RB",
    "bwae_per_duel": 0.15866683278811625,
    "n_duels": 48
   },
   {
    "name": "Harry Kane",
    "team": "England",
+   "pos": "CF",
    "bwae_per_duel": 0.13121880258852972,
    "n_duels": 51
   },
   {
    "name": "#4758",
    "team": "Tunisia",
+   "pos": "CM",
    "bwae_per_duel": 0.12956700276494204,
    "n_duels": 41
   },
   {
    "name": "Theo Hernandez",
    "team": "France",
+   "pos": "LB",
    "bwae_per_duel": 0.12475976479688193,
    "n_duels": 62
   },
   {
    "name": "Mateo Kovacic",
    "team": "Croatia",
+   "pos": "CM",
    "bwae_per_duel": 0.118987497903734,
    "n_duels": 144
   },
   {
    "name": "\u00c1ngel Di Mar\u00eda",
    "team": "Argentina",
+   "pos": "RW",
    "bwae_per_duel": 0.10878659626680641,
    "n_duels": 63
   },
   {
    "name": "#3888",
    "team": "France",
+   "pos": "CM",
    "bwae_per_duel": 0.10668274919591492,
    "n_duels": 80
   },
   {
    "name": "Josko Gvardiol",
    "team": "Croatia",
+   "pos": "CB",
    "bwae_per_duel": 0.10158372498257055,
    "n_duels": 75
   },
   {
    "name": "Lionel Messi",
    "team": "Argentina",
+   "pos": "CF",
    "bwae_per_duel": 0.10007546846124205,
    "n_duels": 181
   },
   {
    "name": "David Raum",
    "team": "Germany",
+   "pos": "LB",
    "bwae_per_duel": 0.09817352897145365,
    "n_duels": 42
   },
   {
    "name": "Bruno Fernandes",
    "team": "Portugal",
+   "pos": "RW",
    "bwae_per_duel": 0.09646596262902986,
    "n_duels": 43
   },
   {
    "name": "Jamal Musiala",
    "team": "Germany",
+   "pos": "LW",
    "bwae_per_duel": 0.08435475186933662,
    "n_duels": 84
   },
   {
    "name": "#1973",
    "team": "United States",
+   "pos": "LB",
    "bwae_per_duel": 0.0794042589421423,
    "n_duels": 44
   },
   {
    "name": "Youssouf Sabaly",
    "team": "Senegal",
+   "pos": "RB",
    "bwae_per_duel": 0.07681138549313399,
    "n_duels": 40
   },
   {
    "name": "Alexis Mac Allister",
    "team": "Argentina",
+   "pos": "CM",
    "bwae_per_duel": 0.07647778539688165,
    "n_duels": 83
   },
   {
    "name": "Andrej Kramaric",
    "team": "Croatia",
+   "pos": "RW",
    "bwae_per_duel": 0.0728058548217294,
    "n_duels": 49
   },
   {
    "name": "Jurrien Timber",
    "team": "Netherlands",
+   "pos": "CB",
    "bwae_per_duel": 0.07033095930481657,
    "n_duels": 68
   },
   {
    "name": "#1339",
    "team": "United States",
+   "pos": "CM",
    "bwae_per_duel": 0.06561158594633186,
    "n_duels": 58
   },
   {
    "name": "#3865",
    "team": "Brazil",
+   "pos": "AM",
    "bwae_per_duel": 0.0642917081788404,
    "n_duels": 70
   },
   {
    "name": "Ritsu Doan",
    "team": "Japan",
+   "pos": "RW",
    "bwae_per_duel": 0.06341369972328156,
    "n_duels": 43
   },
   {
    "name": "#3930",
    "team": "Brazil",
+   "pos": "CM",
    "bwae_per_duel": 0.06337139574017228,
    "n_duels": 43
   },
   {
    "name": "Josip Juranovic",
    "team": "Croatia",
+   "pos": "RB",
    "bwae_per_duel": 0.05999085295710569,
    "n_duels": 46
   },
   {
    "name": "Nicolas Tagliafico",
    "team": "Argentina",
+   "pos": "LB",
    "bwae_per_duel": 0.059674914015621944,
    "n_duels": 45
   },
   {
    "name": "Alphonso Davies",
    "team": "Canada",
+   "pos": "LB",
    "bwae_per_duel": 0.052519183043158404,
    "n_duels": 62
   },
   {
    "name": "Cody Gakpo",
    "team": "Netherlands",
+   "pos": "CF",
    "bwae_per_duel": 0.052363683361750374,
    "n_duels": 77
   },
   {
    "name": "Gavi",
    "team": "Spain",
+   "pos": "CM",
    "bwae_per_duel": 0.05196133003984324,
    "n_duels": 67
   },
   {
    "name": "Mohammed Kudus",
    "team": "Ghana",
+   "pos": "CM",
    "bwae_per_duel": 0.05149076639011004,
    "n_duels": 52
   },
   {
    "name": "Casemiro",
    "team": "Brazil",
+   "pos": "CM",
    "bwae_per_duel": 0.04846743710689973,
    "n_duels": 53
   },
   {
    "name": "Jude Bellingham",
    "team": "England",
+   "pos": "CM",
    "bwae_per_duel": 0.04764024309062661,
    "n_duels": 71
   },
   {
    "name": "Azzedine Ounahi",
    "team": "Morocco",
+   "pos": "CM",
    "bwae_per_duel": 0.046318756891589714,
    "n_duels": 94
   },
   {
    "name": "Rodrigo de Paul",
    "team": "Argentina",
+   "pos": "CM",
    "bwae_per_duel": 0.045268616781926174,
    "n_duels": 87
   },
   {
    "name": "Breel Embolo",
    "team": "Switzerland",
+   "pos": "CF",
    "bwae_per_duel": 0.042810705158204655,
    "n_duels": 59
   },
   {
    "name": "Nahuel Molina",
    "team": "Argentina",
+   "pos": "RB",
    "bwae_per_duel": 0.03602241896193288,
    "n_duels": 50
   },
   {
    "name": "Frenkie de Jong",
    "team": "Netherlands",
+   "pos": "CM",
    "bwae_per_duel": 0.028826689100036232,
    "n_duels": 63
   },
   {
    "name": "Pedri",
    "team": "Spain",
+   "pos": "CM",
    "bwae_per_duel": 0.0261631350048285,
    "n_duels": 61
   },
   {
    "name": "Mehdi Taremi",
    "team": "Iran",
+   "pos": "CF",
    "bwae_per_duel": 0.02589786739150664,
    "n_duels": 58
   },
   {
    "name": "Achraf Hakimi",
    "team": "Morocco",
+   "pos": "RB",
    "bwae_per_duel": 0.02558124534576433,
    "n_duels": 117
   },
   {
    "name": "Krystian Bielik",
    "team": "Poland",
+   "pos": "CM",
    "bwae_per_duel": 0.024974444673279653,
    "n_duels": 40
   },
   {
    "name": "Mohamed Kanno",
    "team": "Saudi Arabia",
+   "pos": "CM",
    "bwae_per_duel": 0.024064254685048244,
    "n_duels": 44
   },
   {
    "name": "Luka Modric",
    "team": "Croatia",
+   "pos": "CM",
    "bwae_per_duel": 0.02381815344651263,
    "n_duels": 125
   },
   {
    "name": "Dusan Tadic",
    "team": "Serbia",
+   "pos": "RW",
    "bwae_per_duel": 0.021693007098286927,
    "n_duels": 40
   },
   {
    "name": "Aziz Behich",
    "team": "Australia",
+   "pos": "LB",
    "bwae_per_duel": 0.01701931018691748,
    "n_duels": 47
   },
   {
    "name": "Joao Felix",
    "team": "Portugal",
+   "pos": "LW",
    "bwae_per_duel": 0.012117553256145388,
    "n_duels": 43
   },
   {
    "name": "Nicol\u00e1s Otamendi",
    "team": "Argentina",
+   "pos": "CB",
    "bwae_per_duel": 0.010028014554187606,
    "n_duels": 43
   },
   {
    "name": "Bartosz Bereszynski",
    "team": "Poland",
+   "pos": "LB",
    "bwae_per_duel": 0.008652662855371683,
    "n_duels": 60
   },
   {
    "name": "Borna Sosa",
    "team": "Croatia",
+   "pos": "LB",
    "bwae_per_duel": 0.007528723422680006,
    "n_duels": 48
   },
   {
    "name": "Raphinha",
    "team": "Brazil",
+   "pos": "RW",
    "bwae_per_duel": 0.00722475682867972,
    "n_duels": 54
   },
   {
    "name": "Bruno Petkovic",
    "team": "Croatia",
+   "pos": "CF",
    "bwae_per_duel": 0.006708018517226307,
    "n_duels": 51
   },
   {
    "name": "Salem Al-Dawsari",
    "team": "Saudi Arabia",
+   "pos": "LM",
    "bwae_per_duel": 0.005350174667460334,
    "n_duels": 48
   },
   {
    "name": "Kylian Mbapp\u00e9",
    "team": "France",
+   "pos": "LW",
    "bwae_per_duel": 0.0005039698032881455,
    "n_duels": 115
   },
   {
    "name": "#401",
    "team": "Morocco",
+   "pos": "LW",
    "bwae_per_duel": -0.0014780487011822696,
    "n_duels": 112
   },
   {
    "name": "#13850",
    "team": "Poland",
+   "pos": "DM",
    "bwae_per_duel": -0.001917927320152239,
    "n_duels": 52
   },
   {
    "name": "Joel Campbell",
    "team": "Costa Rica",
+   "pos": "CF",
    "bwae_per_duel": -0.002715154521102114,
    "n_duels": 77
   },
   {
    "name": "Heung-min Son",
    "team": "South Korea",
+   "pos": "CF",
    "bwae_per_duel": -0.005958597251086376,
    "n_duels": 54
   },
   {
    "name": "#8129",
    "team": "Croatia",
+   "pos": "CM",
    "bwae_per_duel": -0.0062498344553566865,
    "n_duels": 94
   },
   {
    "name": "Vin\u00edcius Junior",
    "team": "Brazil",
+   "pos": "LW",
    "bwae_per_duel": -0.013424256179186246,
    "n_duels": 62
   },
   {
    "name": "Randal Kolo Muani",
    "team": "France",
+   "pos": "CF",
    "bwae_per_duel": -0.023051712374490715,
    "n_duels": 52
   },
   {
    "name": "#11856",
    "team": "Argentina",
+   "pos": "CM",
    "bwae_per_duel": -0.02397261712325288,
    "n_duels": 92
   },
   {
    "name": "Robert Lewandowski",
    "team": "Poland",
+   "pos": "CF",
    "bwae_per_duel": -0.024635020489201034,
    "n_duels": 57
   },
   {
    "name": "Bukayo Saka",
    "team": "England",
+   "pos": "RW",
    "bwae_per_duel": -0.025941918238662993,
    "n_duels": 57
   },
   {
    "name": "Sofyan Amrabat",
    "team": "Morocco",
+   "pos": "CM",
    "bwae_per_duel": -0.03088314037328282,
    "n_duels": 92
   },
   {
    "name": "#8054",
    "team": "France",
+   "pos": "CM",
    "bwae_per_duel": -0.03308454195785362,
    "n_duels": 73
   },
   {
    "name": "#8026",
    "team": "Netherlands",
+   "pos": "LB",
    "bwae_per_duel": -0.039344426238971476,
    "n_duels": 40
   },
   {
    "name": "Jes\u00fas Gallardo",
    "team": "Mexico",
+   "pos": "LB",
    "bwae_per_duel": -0.043493283428630236,
    "n_duels": 40
   },
   {
    "name": "#1950",
    "team": "Spain",
+   "pos": "RW",
    "bwae_per_duel": -0.04637765898255712,
    "n_duels": 46
   },
   {
    "name": "Ousmane Dembele",
    "team": "France",
+   "pos": "RW",
    "bwae_per_duel": -0.04892617229430753,
    "n_duels": 67
   },
   {
    "name": "Christian Pulisic",
    "team": "United States",
+   "pos": "LW",
    "bwae_per_duel": -0.05384376892718303,
    "n_duels": 68
   },
   {
    "name": "Antony",
    "team": "Brazil",
+   "pos": "RW",
    "bwae_per_duel": -0.05872991384940713,
    "n_duels": 42
   },
   {
    "name": "Selim Amallah",
    "team": "Morocco",
+   "pos": "CM",
    "bwae_per_duel": -0.06010325158316425,
    "n_duels": 71
   },
   {
    "name": "Pervis Estupinan",
    "team": "Ecuador",
+   "pos": "LB",
    "bwae_per_duel": -0.0625530279254849,
    "n_duels": 50
   },
   {
    "name": "Richarlison",
    "team": "Brazil",
+   "pos": "CF",
    "bwae_per_duel": -0.06452984817975771,
    "n_duels": 49
   },
   {
    "name": "#1534",
    "team": "France",
+   "pos": "AM",
    "bwae_per_duel": -0.07053666271161206,
    "n_duels": 72
   },
   {
    "name": "Jackson Irvine",
    "team": "Australia",
+   "pos": "CF",
    "bwae_per_duel": -0.07662994898183428,
    "n_duels": 45
   },
   {
    "name": "Saleh Al-Shehri",
    "team": "Saudi Arabia",
+   "pos": "CF",
    "bwae_per_duel": -0.07699109116071264,
    "n_duels": 44
   },
   {
    "name": "Sergi\u00f1o Dest",
    "team": "United States",
+   "pos": "RB",
    "bwae_per_duel": -0.07801916866207283,
    "n_duels": 50
   },
   {
    "name": "Mario Pasalic",
    "team": "Croatia",
+   "pos": "AM",
    "bwae_per_duel": -0.07844650620344606,
    "n_duels": 42
   },
   {
    "name": "Wataru Endo",
    "team": "Japan",
+   "pos": "CM",
    "bwae_per_duel": -0.0823599961072472,
    "n_duels": 52
   },
   {
    "name": "Jakub Kaminski",
    "team": "Poland",
+   "pos": "RM",
    "bwae_per_duel": -0.08306768270910483,
    "n_duels": 40
   },
   {
    "name": "Junya Ito",
    "team": "Japan",
+   "pos": "RB",
    "bwae_per_duel": -0.08459885473800163,
    "n_duels": 40
   },
   {
    "name": "Tajon Buchanan",
    "team": "Canada",
+   "pos": "RW",
    "bwae_per_duel": -0.0932297949216086,
    "n_duels": 58
   },
   {
    "name": "Mathew Leckie",
    "team": "Australia",
+   "pos": "RM",
    "bwae_per_duel": -0.09449002404085928,
    "n_duels": 58
   },
   {
    "name": "Marcos Acu\u00f1a",
    "team": "Argentina",
+   "pos": "LB",
    "bwae_per_duel": -0.095327102420074,
    "n_duels": 55
   },
   {
    "name": "Memphis Depay",
    "team": "Netherlands",
+   "pos": "CF",
    "bwae_per_duel": -0.095772937856587,
    "n_duels": 54
   },
   {
    "name": "Dani Olmo",
    "team": "Spain",
+   "pos": "LW",
    "bwae_per_duel": -0.10032854665333502,
    "n_duels": 71
   },
   {
    "name": "#13121",
    "team": "United States",
+   "pos": "CM",
    "bwae_per_duel": -0.10193468602254313,
    "n_duels": 46
   },
   {
    "name": "Jules Kounde",
    "team": "France",
+   "pos": "RB",
    "bwae_per_duel": -0.1061758702895531,
    "n_duels": 48
   },
   {
    "name": "Hakim Ziyech",
    "team": "Morocco",
+   "pos": "RW",
    "bwae_per_duel": -0.1266590078791034,
    "n_duels": 119
   },
   {
    "name": "#8136",
    "team": "Croatia",
+   "pos": "LW",
    "bwae_per_duel": -0.1341664059991106,
    "n_duels": 71
   },
   {
    "name": "Denzel Dumfries",
    "team": "Netherlands",
+   "pos": "RB",
    "bwae_per_duel": -0.13813521582686875,
    "n_duels": 66
   },
   {
    "name": "Aaron Ramsey",
    "team": "Wales",
+   "pos": "CM",
    "bwae_per_duel": -0.1458767495671931,
    "n_duels": 44
   },
   {
    "name": "Cristian Romero",
    "team": "Argentina",
+   "pos": "CB",
    "bwae_per_duel": -0.16510606217468946,
    "n_duels": 51
   },
   {
    "name": "#13049",
    "team": "Ecuador",
+   "pos": "RM",
    "bwae_per_duel": -0.1930668631034382,
    "n_duels": 52
   },
   {
    "name": "Julian Alvarez",
    "team": "Argentina",
+   "pos": "RW",
    "bwae_per_duel": -0.2072883842959514,
    "n_duels": 62
   },
   {
    "name": "Enner Valencia",
    "team": "Ecuador",
+   "pos": "CF",
    "bwae_per_duel": -0.21291939848689953,
    "n_duels": 42
   }
@@ -596,528 +694,616 @@
   {
    "name": "Hirving Lozano",
    "team": "Mexico",
+   "pos": "RW",
    "bwae_per_duel": 0.2610775924079112,
    "n_duels": 23
   },
   {
    "name": "Rasmus Kristensen",
    "team": "Denmark",
+   "pos": "RB",
    "bwae_per_duel": 0.2327078526755947,
    "n_duels": 15
   },
   {
    "name": "#1339",
    "team": "United States",
+   "pos": "CM",
    "bwae_per_duel": 0.21673027776388362,
    "n_duels": 15
   },
   {
    "name": "Math\u00ed\u00adas Olivera",
    "team": "Uruguay",
+   "pos": "LB",
    "bwae_per_duel": 0.19935392349660863,
    "n_duels": 16
   },
   {
    "name": "Isma\u00efla Sarr",
    "team": "Senegal",
+   "pos": "LW",
    "bwae_per_duel": 0.1886519601536866,
    "n_duels": 27
   },
   {
    "name": "Josip Juranovic",
    "team": "Croatia",
+   "pos": "RB",
    "bwae_per_duel": 0.1814088133367657,
    "n_duels": 18
   },
   {
    "name": "Eder Militao",
    "team": "Brazil",
+   "pos": "RB",
    "bwae_per_duel": 0.17682377557536055,
    "n_duels": 16
   },
   {
    "name": "Andrej Kramaric",
    "team": "Croatia",
+   "pos": "RW",
    "bwae_per_duel": 0.1706473065005356,
    "n_duels": 19
   },
   {
    "name": "Harry Kane",
    "team": "England",
+   "pos": "CF",
    "bwae_per_duel": 0.15033065977534038,
    "n_duels": 20
   },
   {
    "name": "Salem Al-Dawsari",
    "team": "Saudi Arabia",
+   "pos": "LM",
    "bwae_per_duel": 0.14993873821635828,
    "n_duels": 26
   },
   {
    "name": "Mohammed Kudus",
    "team": "Ghana",
+   "pos": "CM",
    "bwae_per_duel": 0.14102227272411239,
    "n_duels": 17
   },
   {
    "name": "Nikola Vlasic",
    "team": "Croatia",
+   "pos": "AM",
    "bwae_per_duel": 0.137997152075988,
    "n_duels": 20
   },
   {
    "name": "#3865",
    "team": "Brazil",
+   "pos": "AM",
    "bwae_per_duel": 0.13700583730997246,
    "n_duels": 23
   },
   {
    "name": "Lionel Messi",
    "team": "Argentina",
+   "pos": "CF",
    "bwae_per_duel": 0.1349253444331928,
    "n_duels": 65
   },
   {
    "name": "Jamal Musiala",
    "team": "Germany",
+   "pos": "LW",
    "bwae_per_duel": 0.13406531895873103,
    "n_duels": 50
   },
   {
    "name": "Raphinha",
    "team": "Brazil",
+   "pos": "RW",
    "bwae_per_duel": 0.13236123772531228,
    "n_duels": 22
   },
   {
    "name": "#1973",
    "team": "United States",
+   "pos": "LB",
    "bwae_per_duel": 0.12586640839346117,
    "n_duels": 21
   },
   {
    "name": "Theo Hernandez",
    "team": "France",
+   "pos": "LB",
    "bwae_per_duel": 0.12267936194130517,
    "n_duels": 23
   },
   {
    "name": "Mateo Kovacic",
    "team": "Croatia",
+   "pos": "CM",
    "bwae_per_duel": 0.11570213067381475,
    "n_duels": 36
   },
   {
    "name": "#11856",
    "team": "Argentina",
+   "pos": "CM",
    "bwae_per_duel": 0.10828790734326994,
    "n_duels": 24
   },
   {
    "name": "Boulaye Dia",
    "team": "Senegal",
+   "pos": "CF",
    "bwae_per_duel": 0.10514310282663494,
    "n_duels": 15
   },
   {
    "name": "Cody Gakpo",
    "team": "Netherlands",
+   "pos": "CF",
    "bwae_per_duel": 0.10362937849080579,
    "n_duels": 28
   },
   {
    "name": "Rafael Leao",
    "team": "Portugal",
+   "pos": "LW",
    "bwae_per_duel": 0.10130909310920976,
    "n_duels": 17
   },
   {
    "name": "Marcus Thuram",
    "team": "France",
+   "pos": "LW",
    "bwae_per_duel": 0.09924898174389891,
    "n_duels": 17
   },
   {
    "name": "Breel Embolo",
    "team": "Switzerland",
+   "pos": "CF",
    "bwae_per_duel": 0.09847964629929813,
    "n_duels": 20
   },
   {
    "name": "\u00c1ngel Di Mar\u00eda",
    "team": "Argentina",
+   "pos": "RW",
    "bwae_per_duel": 0.08850649876663842,
    "n_duels": 28
   },
   {
    "name": "Richarlison",
    "team": "Brazil",
+   "pos": "CF",
    "bwae_per_duel": 0.08517271765445651,
    "n_duels": 15
   },
   {
    "name": "Frenkie de Jong",
    "team": "Netherlands",
+   "pos": "CM",
    "bwae_per_duel": 0.07827441469309065,
    "n_duels": 18
   },
   {
    "name": "Alexis Mac Allister",
    "team": "Argentina",
+   "pos": "CM",
    "bwae_per_duel": 0.07540599371853099,
    "n_duels": 18
   },
   {
    "name": "Rodrigo de Paul",
    "team": "Argentina",
+   "pos": "CM",
    "bwae_per_duel": 0.07384680092403376,
    "n_duels": 21
   },
   {
    "name": "Gavi",
    "team": "Spain",
+   "pos": "CM",
    "bwae_per_duel": 0.06286791437060847,
    "n_duels": 20
   },
   {
    "name": "Nicol\u00e1s Otamendi",
    "team": "Argentina",
+   "pos": "CB",
    "bwae_per_duel": 0.06206873996216178,
    "n_duels": 18
   },
   {
    "name": "Robert Lewandowski",
    "team": "Poland",
+   "pos": "CF",
    "bwae_per_duel": 0.049864685962593566,
    "n_duels": 22
   },
   {
    "name": "#401",
    "team": "Morocco",
+   "pos": "LW",
    "bwae_per_duel": 0.04837954761783448,
    "n_duels": 38
   },
   {
    "name": "Achraf Hakimi",
    "team": "Morocco",
+   "pos": "RB",
    "bwae_per_duel": 0.04804975903861819,
    "n_duels": 44
   },
   {
    "name": "Dayot Upamecano",
    "team": "France",
+   "pos": "CB",
    "bwae_per_duel": 0.046899201430870965,
    "n_duels": 20
   },
   {
    "name": "Milad Mohammadi",
    "team": "Iran",
+   "pos": "LB",
    "bwae_per_duel": 0.04002499215698281,
    "n_duels": 20
   },
   {
    "name": "Borna Sosa",
    "team": "Croatia",
+   "pos": "LB",
    "bwae_per_duel": 0.03954250655908551,
    "n_duels": 17
   },
   {
    "name": "Mehdi Taremi",
    "team": "Iran",
+   "pos": "CF",
    "bwae_per_duel": 0.03678469192420807,
    "n_duels": 19
   },
   {
    "name": "#1950",
    "team": "Spain",
+   "pos": "RW",
    "bwae_per_duel": 0.029134364746479003,
    "n_duels": 21
   },
   {
    "name": "Nahuel Molina",
    "team": "Argentina",
+   "pos": "RB",
    "bwae_per_duel": 0.027963297600858313,
    "n_duels": 18
   },
   {
    "name": "Sofyan Amrabat",
    "team": "Morocco",
+   "pos": "CM",
    "bwae_per_duel": 0.022658183066624454,
    "n_duels": 36
   },
   {
    "name": "Tajon Buchanan",
    "team": "Canada",
+   "pos": "RW",
    "bwae_per_duel": 0.022371214602174012,
    "n_duels": 29
   },
   {
    "name": "Thomas Partey",
    "team": "Ghana",
+   "pos": "CM",
    "bwae_per_duel": 0.006628838809183546,
    "n_duels": 15
   },
   {
    "name": "Joel Campbell",
    "team": "Costa Rica",
+   "pos": "CF",
    "bwae_per_duel": 0.004432508181371501,
    "n_duels": 19
   },
   {
    "name": "Heung-min Son",
    "team": "South Korea",
+   "pos": "CF",
    "bwae_per_duel": 0.004411242318814719,
    "n_duels": 29
   },
   {
    "name": "Kaoru Mitoma",
    "team": "Japan",
+   "pos": "LW",
    "bwae_per_duel": 0.0008506069478295947,
    "n_duels": 17
   },
   {
    "name": "Kylian Mbapp\u00e9",
    "team": "France",
+   "pos": "LW",
    "bwae_per_duel": -0.009427251933085818,
    "n_duels": 61
   },
   {
    "name": "Bukayo Saka",
    "team": "England",
+   "pos": "RW",
    "bwae_per_duel": -0.014343488766195218,
    "n_duels": 22
   },
   {
    "name": "Alphonso Davies",
    "team": "Canada",
+   "pos": "LB",
    "bwae_per_duel": -0.01471221735072015,
    "n_duels": 21
   },
   {
    "name": "Bruno Petkovic",
    "team": "Croatia",
+   "pos": "CF",
    "bwae_per_duel": -0.01990481350471103,
    "n_duels": 16
   },
   {
    "name": "Jes\u00fas Gallardo",
    "team": "Mexico",
+   "pos": "LB",
    "bwae_per_duel": -0.02216432644088465,
    "n_duels": 15
   },
   {
    "name": "Jules Kounde",
    "team": "France",
+   "pos": "RB",
    "bwae_per_duel": -0.02878156003412253,
    "n_duels": 16
   },
   {
    "name": "Junya Ito",
    "team": "Japan",
+   "pos": "RB",
    "bwae_per_duel": -0.03375125397822515,
    "n_duels": 19
   },
   {
    "name": "Aziz Behich",
    "team": "Australia",
+   "pos": "LB",
    "bwae_per_duel": -0.04059670942947128,
    "n_duels": 24
   },
   {
    "name": "Mathew Leckie",
    "team": "Australia",
+   "pos": "RM",
    "bwae_per_duel": -0.049566079881749193,
    "n_duels": 22
   },
   {
    "name": "Ousmane Dembele",
    "team": "France",
+   "pos": "RW",
    "bwae_per_duel": -0.050361673636414056,
    "n_duels": 25
   },
   {
    "name": "Sergi\u00f1o Dest",
    "team": "United States",
+   "pos": "RB",
    "bwae_per_duel": -0.060979868247476095,
    "n_duels": 22
   },
   {
    "name": "Josko Gvardiol",
    "team": "Croatia",
+   "pos": "CB",
    "bwae_per_duel": -0.06916758267133301,
    "n_duels": 30
   },
   {
    "name": "Jesper Lindstr\u00f6m",
    "team": "Denmark",
+   "pos": "AM",
    "bwae_per_duel": -0.07687221809709935,
    "n_duels": 16
   },
   {
    "name": "Vin\u00edcius Junior",
    "team": "Brazil",
+   "pos": "LW",
    "bwae_per_duel": -0.08798707502962033,
    "n_duels": 29
   },
   {
    "name": "Hakim Ziyech",
    "team": "Morocco",
+   "pos": "RW",
    "bwae_per_duel": -0.09250233067795124,
    "n_duels": 33
   },
   {
    "name": "#1534",
    "team": "France",
+   "pos": "AM",
    "bwae_per_duel": -0.09398507269771646,
    "n_duels": 18
   },
   {
    "name": "Darwin Nunez",
    "team": "Uruguay",
+   "pos": "LW",
    "bwae_per_duel": -0.09402305762796669,
    "n_duels": 19
   },
   {
    "name": "#8136",
    "team": "Croatia",
+   "pos": "LW",
    "bwae_per_duel": -0.0963711943212207,
    "n_duels": 30
   },
   {
    "name": "Randal Kolo Muani",
    "team": "France",
+   "pos": "CF",
    "bwae_per_duel": -0.10166875496478264,
    "n_duels": 20
   },
   {
    "name": "Denzel Dumfries",
    "team": "Netherlands",
+   "pos": "RB",
    "bwae_per_duel": -0.10213612899388219,
    "n_duels": 26
   },
   {
    "name": "Azzedine Ounahi",
    "team": "Morocco",
+   "pos": "CM",
    "bwae_per_duel": -0.10494243986671109,
    "n_duels": 21
   },
   {
    "name": "Cristian Romero",
    "team": "Argentina",
+   "pos": "CB",
    "bwae_per_duel": -0.10824503323554541,
    "n_duels": 19
   },
   {
    "name": "Bartosz Bereszynski",
    "team": "Poland",
+   "pos": "LB",
    "bwae_per_duel": -0.10868859065587837,
    "n_duels": 31
   },
   {
    "name": "Aaron Ramsey",
    "team": "Wales",
+   "pos": "CM",
    "bwae_per_duel": -0.10893573640909554,
    "n_duels": 16
   },
   {
    "name": "#8054",
    "team": "France",
+   "pos": "CM",
    "bwae_per_duel": -0.11181257463865713,
    "n_duels": 19
   },
   {
    "name": "Silvan Widmer",
    "team": "Switzerland",
+   "pos": "RB",
    "bwae_per_duel": -0.11240059757310426,
    "n_duels": 15
   },
   {
    "name": "Joakim Maehle",
    "team": "Denmark",
+   "pos": "LB",
    "bwae_per_duel": -0.11704901848468945,
    "n_duels": 16
   },
   {
    "name": "Pervis Estupinan",
    "team": "Ecuador",
+   "pos": "LB",
    "bwae_per_duel": -0.12454680968596465,
    "n_duels": 19
   },
   {
    "name": "Christian Pulisic",
    "team": "United States",
+   "pos": "LW",
    "bwae_per_duel": -0.12735442404257535,
    "n_duels": 26
   },
   {
    "name": "Marcos Acu\u00f1a",
    "team": "Argentina",
+   "pos": "LB",
    "bwae_per_duel": -0.14075591821565117,
    "n_duels": 18
   },
   {
    "name": "Jude Bellingham",
    "team": "England",
+   "pos": "CM",
    "bwae_per_duel": -0.1431943281453379,
    "n_duels": 27
   },
   {
    "name": "Luka Modric",
    "team": "Croatia",
+   "pos": "CM",
    "bwae_per_duel": -0.1524515620741177,
    "n_duels": 27
   },
   {
    "name": "#3888",
    "team": "France",
+   "pos": "CM",
    "bwae_per_duel": -0.15709393455091222,
    "n_duels": 18
   },
   {
    "name": "#8129",
    "team": "Croatia",
+   "pos": "CM",
    "bwae_per_duel": -0.16838648286968294,
    "n_duels": 22
   },
   {
    "name": "Pedri",
    "team": "Spain",
+   "pos": "CM",
    "bwae_per_duel": -0.17645446863825703,
    "n_duels": 20
   },
   {
    "name": "Dani Olmo",
    "team": "Spain",
+   "pos": "LW",
    "bwae_per_duel": -0.19434118220153535,
    "n_duels": 33
   },
   {
    "name": "Memphis Depay",
    "team": "Netherlands",
+   "pos": "CF",
    "bwae_per_duel": -0.19604890177443224,
    "n_duels": 28
   },
   {
    "name": "Selim Amallah",
    "team": "Morocco",
+   "pos": "CM",
    "bwae_per_duel": -0.20578137526354925,
    "n_duels": 16
   },
   {
    "name": "Enner Valencia",
    "team": "Ecuador",
+   "pos": "CF",
    "bwae_per_duel": -0.24080965437197463,
    "n_duels": 15
   },
   {
    "name": "Matty Cash",
    "team": "Poland",
+   "pos": "RB",
    "bwae_per_duel": -0.25049799890805424,
    "n_duels": 17
   },
   {
    "name": "Wataru Endo",
    "team": "Japan",
+   "pos": "CM",
    "bwae_per_duel": -0.29551124396846223,
    "n_duels": 18
   }

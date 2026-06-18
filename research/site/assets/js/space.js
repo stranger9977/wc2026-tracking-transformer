@@ -1134,9 +1134,9 @@ async function buildPassSelection() {
     .sort((a, b) => b.total - a.total).slice(0, 12);
   if (!rows.length) return;
   const mx = Math.max(1e-9, ...rows.map((r) => r.total));
-  el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name}</span>
+  el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""}</span>
     <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.total / mx * 100, 5, 100)}%;background:#6cb4ee"></span></span>
-    <span class="tbval">${(r.total * 1000).toFixed(0)}</span></div>`).join("");
+    <span class="tbval">${r.total.toFixed(2)}</span></div>`).join("");
   const top = $("#ps-top");
   if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
 }
@@ -1148,7 +1148,7 @@ async function buildBWAE() {
     const top = rows.filter((r) => !String(r.name).startsWith("#")).slice(0, 10);
     if (!top.length) return;
     const mx = Math.max(1e-9, ...top.map((r) => r.bwae_per_duel));
-    el.innerHTML = top.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span></span>
+    el.innerHTML = top.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""}</span>
       <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.bwae_per_duel / mx * 100, 5, 100)}%;background:${color}"></span></span>
       <span class="tbval">+${(r.bwae_per_duel * 100).toFixed(0)}%</span></div>`).join("");
   };
