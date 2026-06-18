@@ -810,21 +810,10 @@ async function buildPOBSO() {
       : `substantial-minutes dangerous-space controllers (≥15 min sampled)`,
   });
   $("#pobso-board").appendChild(lb);
-  // TEAM flow board — the result that actually tracks chances
-  const tb = teamBars(data.teams, {
-    name: (r) => r.team, val: (r) => r.danger_moments_per_min, fmt: (v) => v.toFixed(1),
-    tied: (r) => r.tied_with_leader,
-  });
-  $("#pobso-teams").appendChild(tb);
-  // team-level scatter: x = danger moments / min, y = StatsBomb xG / match
-  const pts = (data.xg_receipt.detail || []).map((d) => ({ team: d.team, x: d.danger_moments_per_min, y: d.sb_xg_per_match }));
-  scatterPlot($("#pobso-scatter"), pts, {
-    id: "pobso", xLabel: "danger-moments / min", yLabel: "StatsBomb xG / match",
-    annot: `ρ=+${data.xg_receipt.rho}`,
-  });
-  xgPanel($("#pobso-xg"), { ...data.xg_receipt,
-    reading: `Owning dangerous space tracks chances (ρ=+${data.xg_receipt.rho}). The scatter above is the payoff — every team that creates more controlled-danger pockets off the ball generates more xG.`,
-  });
+  // NOTE: the team danger-RATE board + its xG-receipt were removed in the consolidation
+  // sweep — that metric tracked xG only on the 10 knockout contenders and INVERTS across
+  // all 64 (counter teams get acres of unconverted transition space). See the "measuring
+  // space wrong" beat. Act 2 now keeps the dangerous-space clip + the player board only.
 }
 
 async function buildSAR() {
@@ -865,16 +854,14 @@ async function buildSAR() {
 // CLOSING — two lenses on the 2022 final (FIFA EFI vs our tracking), then the same metrics live in 2026.
 // ACT 3 — team pitch control: final-third control leaderboard + control-vs-xG scatter
 async function buildPitchControl() {
-  const bEl = $("#pc-board"); if (!bEl) return;
+  // raw final-third-control SHARE board removed in the sweep (tight band, redundant with
+  // dangerous space). Act 3 keeps ONLY the control-vs-xG residual — "who CONVERTS control".
+  const sEl = $("#pc-scatter"); if (!sEl) return;
   let d;
-  try { d = await loadJSON("data/space_pitch_control.json"); } catch (e) { return; }
-  const teams = [...d.teams].sort((a, b) => b.final_third_control_pct - a.final_third_control_pct);
-  bEl.appendChild(teamBars(teams.slice(0, 12), {
-    name: (r) => r.team, val: (r) => r.final_third_control_pct, fmt: (v) => v.toFixed(1) + "%",
-  }));
-  const pts = teams.filter((t) => t.sb_xg_per_match != null)
+  try { d = await loadJSON("data/space_pitch_control.json?v=64"); } catch (e) { return; }
+  const pts = d.teams.filter((t) => t.sb_xg_per_match != null)
     .map((t) => ({ team: t.team, x: t.final_third_control_pct, y: t.sb_xg_per_match }));
-  scatterPlot($("#pc-scatter"), pts, {
+  scatterPlot(sEl, pts, {
     id: "pc", xLabel: "final-third pitch control (%)", yLabel: "StatsBomb xG / match",
     annot: "above the line = plays above its control",
   });

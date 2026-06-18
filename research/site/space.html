@@ -450,21 +450,11 @@
         <h3>Off-ball danger controllers</h3>
         <div id="pobso-board" class="lboard"></div>
         <p class="caption">Substantial-minutes players lead; cameo subs (&lt;15 min, one match) are shown separately so they don't headline. The substantial-minutes group — En-Nesyri, Mbappé, Petković, Messi — is the trustworthy read.</p>
-        <h3 style="margin-top:18px">Team danger-moment rate — the cut that tracks xG</h3>
-        <div id="pobso-teams" class="tbars"></div>
-        <p class="caption">Controlled-danger pockets per minute of possession. Argentina / France / Portugal / Morocco share the lead. Spain sits last: sterile possession — it holds controlled space but rarely spikes a danger pocket.</p>
       </div>
-      <div class="xgpanel">
-        <h3>So what? — the xG receipt (the strong one)</h3>
-        <div id="pobso-xg"></div>
-        <div id="pobso-scatter" class="scatter"></div>
-        <p class="caption">Team danger-moments per minute (x) vs StatsBomb xG per match (y). The trend is real: ρ=+0.71, p=0.022, n=10. <b>Owning dangerous space tracks chances.</b></p>
-      </div>
+      <p class="body">At <i>team</i> level this same idea — danger-moments per minute of possession — tracked xG beautifully among the ten knockout contenders (ρ=+0.71), then <b>inverted across all 64 games</b> (ρ=−0.31): counter-attacking sides rack up unconverted transition space and float to the top. We cut that board rather than ship a number that flips with the sample — and that failure is the subject of <a href="#measuring">the next section</a>.</p>
       <details class="notes reveal">
         <summary>How this is measured</summary>
         <ul>
-          <li>Team xG uses regulation time (penalty-shootout goals excluded); the <i>flow</i> (danger-moments per minute) tracks xG, while the static stock does not.</li>
-          <li>Dangerous-space <i>stock</i> (mean controlled-danger area per frame) barely separates teams (63.7–66.4) — the team board ranks the flow (danger-moment rate) instead.</li>
           <li>The player headline rests on present-frames-only averaging, which favours late-game attacking subs; that is why cameo subs are split into their own tier and the qualified-minutes group leads.</li>
           <li>Possession and carrier identity are heuristic (nearest-player-to-ball), not event-joined. Velocity is finite-differenced at ~2 Hz. Extra time is excluded from both tracking and xG.</li>
         </ul>
@@ -491,12 +481,7 @@
     <div class="reveal">
       <div class="act-tag"><span class="num">3</span> Team control</div>
       <h2>Who controls the dangerous space — and who plays above it.</h2>
-      <p class="lede">Zoom out from players to teams. Pitch control is who would reach each patch of grass first; here it is each side's share of the <b>attacking final third</b> while in possession. The twist: at this level <b>controlling space is table stakes</b> — the contenders cluster in a tight band. What separates them is whether they <b>convert</b> that control into chances.</p>
-      <div class="card">
-        <h3>Final-third pitch control — share owned in possession</h3>
-        <div id="pc-board" class="tbars"></div>
-        <p class="caption"><b>France</b> and <b>Argentina</b> own the most dangerous grass, but everyone sits in a 30–35% band. <b>Spain is the tell:</b> it controls the <i>most pitch overall</i> (51% — pure possession) yet the <i>least</i> final third — possession that never reaches the zone that matters.</p>
-      </div>
+      <p class="lede">Zoom out from players to teams. Pitch control is who would reach each patch of grass first; here it is each side's share of the <b>attacking final third</b> while in possession. The twist: at this level <b>controlling space is table stakes</b> — across all 64 games the contenders cluster in a tight 30–35% band, so the raw ranking barely separates anyone (we cut it). What actually separates teams is whether they <b>convert</b> that control into chances.</p>
       <div class="xgpanel">
         <h3>So what? — control vs chances</h3>
         <div id="pc-scatter" class="scatter"></div>
@@ -506,7 +491,7 @@
         <summary>How this is measured</summary>
         <ul>
           <li>Pitch control is the Fernández–Bornn surface; "final-third control" is the in-possession team's mean share of control where x &gt; 17.5 m, over the sampled frames.</li>
-          <li>10 knockout matches at ~2 Hz; "plays above / below" is the residual of xG on final-third control (n=10 teams). Suggestive, not causal.</li>
+          <li>All 64 WC2022 matches at ~2 Hz; "plays above / below" is the residual of xG on final-third control (n=32 teams). Suggestive, not causal.</li>
         </ul>
       </details>
       <div class="reading">
@@ -516,6 +501,30 @@
           <li><a href="https://www.getgoalsideanalytics.com/everything-you-need-to-know-about-pitch-control/" target="_blank" rel="noopener">Get Goalside — pitch control explained</a></li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- The honest beat — space is easy to measure wrong -->
+<section id="measuring">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">✶</span> A detour: space is easy to measure wrong</div>
+      <h2>Three ways we measured space — and got it backwards.</h2>
+      <p class="lede">The honest core of this study: "space" is seductive and treacherous to quantify. Every time we ranked players or teams by <b>how much dangerous space they occupy or create</b>, the metric ended up measuring the <i>game state</i>, not the skill — and inverted toward weak, counter-attacking sides.</p>
+      <div class="card">
+        <details class="notes" open>
+          <summary>The three dead ends (and why each failed)</summary>
+          <ul>
+            <li><b>1 · Control × xT occupied.</b> Sum how much valuable grass a side owns — and counter teams get acres in transition while possession sides grind into packed blocks. It ranked <b>Costa Rica and Iran over Spain and Argentina</b>, and correlated <b>negatively</b> with xG (−0.31 across all 64).</li>
+            <li><b>2 · A learned "ghost" of space created.</b> We trained a transformer to predict where a <i>replacement</i> player would move, and scored the difference — space created above replacement. The model was accurate (3.3 m), but the <i>target</i> was the same trap, so it inverted just the same.</li>
+            <li><b>3 · Leave-one-out on a goal-value model.</b> Remove a defender, measure how much the opponent's scoring chance rises = his "space denied." But the value model pools all 23 players, so dropping one of several coverers barely moves it — the center-backs came out at <b>zero</b>.</li>
+          </ul>
+        </details>
+      </div>
+      <p class="body">The pattern is the lesson. <b>Free-floating "space occupied / created" measures the situation you're handed, not the player.</b> What survives is anchored to something concrete — a <b>discrete action</b> (a pass, a duel), a <b>relational effect</b> (defenders pulled out of shape), or an <b>outcome residual</b> (chances above what control predicts). That is exactly why the metrics that follow are <b>passing into dangerous space</b>, <b>winning duels above expectation</b>, and <b>defensive gravity</b> — not "who stood in the most valuable grass."</p>
     </div>
   </div>
 </section>
@@ -640,6 +649,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=18"></script>
+<script type="module" src="assets/js/space.js?v=19"></script>
 </body>
 </html>
