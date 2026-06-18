@@ -1,10 +1,10 @@
 {
  "source": "FIFA Enhanced Football Intelligence (EFI), WC2026 \u2014 Bustami/efi-fifa-data-wc-2026 (master)",
- "fetched": "2026-06-16",
- "note": "2026 EFI is RICH + LIVE (threat, xg) \u2014 unlike 2022 which was physical-only (distance/sprints/top speed). This is the live closing hook: the off-ball \"threat\" idea our space metrics chase, now measured in-tournament.",
- "n_matches": 16,
- "n_teams": 32,
- "n_player_rows": 812,
+ "fetched": "2026-06-18",
+ "note": "2026 EFI is RICH + LIVE (threat, xg) \u2014 unlike 2022 which was physical-only (distance/sprints/top speed). This is the live closing hook: the off-ball \"threat\" idea our space metrics chase, now measured in-tournament. Values are per-match averages.",
+ "n_matches": 24,
+ "n_teams": 48,
+ "n_player_rows": 1226,
  "team_threat_leaders": [
   {
    "team": "BEL",
@@ -77,26 +77,54 @@
    "matches": 1
   },
   {
-   "team": "HAI",
-   "threat": 14.22,
-   "xg": 0.7,
-   "dist_km": 113.7,
+   "team": "POR",
+   "threat": 16.13,
+   "xg": 0.57,
+   "dist_km": 109.8,
    "matches": 1
   },
   {
-   "team": "GER",
-   "threat": 13.9,
-   "xg": 4.17,
-   "dist_km": 116.2,
+   "team": "AUT",
+   "threat": 15.32,
+   "xg": 1.93,
+   "dist_km": 120.4,
    "matches": 1
   }
  ],
  "team_distance_leaders": [
   {
+   "team": "AUT",
+   "threat": 15.32,
+   "xg": 1.93,
+   "dist_km": 120.4,
+   "matches": 1
+  },
+  {
+   "team": "FRA",
+   "threat": 7.23,
+   "xg": 1.62,
+   "dist_km": 120.2,
+   "matches": 1
+  },
+  {
    "team": "USA",
    "threat": 16.41,
    "xg": 1.88,
    "dist_km": 119.9,
+   "matches": 1
+  },
+  {
+   "team": "JOR",
+   "threat": 7.22,
+   "xg": 0.53,
+   "dist_km": 119.2,
+   "matches": 1
+  },
+  {
+   "team": "GHA",
+   "threat": 8.04,
+   "xg": 1.07,
+   "dist_km": 119.0,
    "matches": 1
   },
   {
@@ -114,6 +142,27 @@
    "matches": 1
   },
   {
+   "team": "PAN",
+   "threat": 12.8,
+   "xg": 0.77,
+   "dist_km": 117.3,
+   "matches": 1
+  },
+  {
+   "team": "ENG",
+   "threat": 8.59,
+   "xg": 3.33,
+   "dist_km": 117.0,
+   "matches": 1
+  },
+  {
+   "team": "SEN",
+   "threat": 11.11,
+   "xg": 0.39,
+   "dist_km": 116.7,
+   "matches": 1
+  },
+  {
    "team": "AUS",
    "threat": 4.32,
    "xg": 0.99,
@@ -121,31 +170,10 @@
    "matches": 1
   },
   {
-   "team": "GER",
-   "threat": 13.9,
-   "xg": 4.17,
-   "dist_km": 116.2,
-   "matches": 1
-  },
-  {
-   "team": "ESP",
-   "threat": 24.42,
-   "xg": 2.26,
-   "dist_km": 115.5,
-   "matches": 1
-  },
-  {
-   "team": "BEL",
-   "threat": 61.19,
-   "xg": 0.0,
-   "dist_km": 115.2,
-   "matches": 1
-  },
-  {
-   "team": "MAR",
-   "threat": 13.5,
-   "xg": 1.33,
-   "dist_km": 114.9,
+   "team": "NOR",
+   "threat": 9.93,
+   "xg": 2.41,
+   "dist_km": 116.3,
    "matches": 1
   }
  ],
@@ -159,7 +187,7 @@
    "pos": "Forward"
   },
   {
-   "player": "Omar Marmoush",
+   "player": "OMAR MARMOUSH",
    "team": "EGY",
    "threat": 12.78,
    "xg": 0.0,
@@ -178,6 +206,14 @@
    "player": "Deniz GUL",
    "team": "TUR",
    "threat": 7.97,
+   "xg": 0.0,
+   "matches": 1,
+   "pos": "Forward"
+  },
+  {
+   "player": "Igor Sergeev",
+   "team": "UZB",
+   "threat": 7.73,
    "xg": 0.0,
    "matches": 1,
    "pos": "Forward"
@@ -231,20 +267,12 @@
    "pos": "Forward"
   },
   {
-   "player": "Hamza Abdelkarim",
+   "player": "HAMZA ABDELKARIM",
    "team": "EGY",
    "threat": 6.44,
    "xg": 0.0,
    "matches": 1,
    "pos": "Forward"
-  },
-  {
-   "player": "Mostafa Zico",
-   "team": "EGY",
-   "threat": 6.15,
-   "xg": 0.0,
-   "matches": 1,
-   "pos": "Midfielder"
   }
  ],
  "space_not_distance": "Threat and distance are NOT the same axis: the team that runs the most is rarely the team that threatens the most. That is the whole 2022 thesis \u2014 space is positional value, not kilometres covered \u2014 carried into the live 2026 numbers."

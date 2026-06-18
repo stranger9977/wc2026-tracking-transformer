@@ -945,34 +945,37 @@ async function buildLive() {
     }
   }
 
-  /* ---- 2026 threat created (team + player) — FIFA's live xT-cousin ---- */
-  const ttEl = $("#live-threat-teams"), tpEl = $("#live-threat-players");
-  if (ttEl || tpEl) {
-    try {
-      const d = await loadJSON("data/efi_2026.json");
-      if (ttEl) {
-        const rows = (d.team_threat_leaders || []).slice(0, 8);
-        const mx = Math.max(1, ...rows.map((r) => r.threat));
-        ttEl.innerHTML = `<div class="tbars">` + rows.map((r) => {
-          const nm = codeName(r.team);
-          return `<div class="tbrow"><span class="tbname">${nm} <span class="lteam">${r.team}</span></span>
-            <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.threat / mx * 100, 4, 100)}%;background:${teamColor(nm)}"></span></span>
-            <span class="tbval">${r.threat.toFixed(1)}</span></div>`;
-        }).join("") + `</div>`;
-      }
-      if (tpEl) {
-        const rows = (d.player_threat_leaders || []).slice(0, 8);
-        const mx = Math.max(1, ...rows.map((r) => r.threat));
-        tpEl.innerHTML = `<div class="tbars">` + rows.map((r) => {
-          const team = codeName(r.team);
-          return `<div class="tbrow"><span class="tbname">${r.player} <span class="lteam">${team}</span></span>
-            <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.threat / mx * 100, 4, 100)}%;background:${teamColor(team)}"></span></span>
-            <span class="tbval">${r.threat.toFixed(1)}</span></div>`;
-        }).join("") + `</div>`;
-      }
-    } catch (e) {
-      if (ttEl) ttEl.innerHTML = `<p class="caption">threat feed unavailable (${e.message})</p>`;
+}
+
+/* ---- 2026 threat created (team + player) — FIFA's live xT-cousin.
+   Lives in the xT act (Act 1) as "the same idea, measured live in 2026". ---- */
+async function buildThreat() {
+  const ttEl = $("#xt-threat-teams"), tpEl = $("#xt-threat-players");
+  if (!ttEl && !tpEl) return;
+  try {
+    const d = await loadJSON("data/efi_2026.json?v=2");
+    if (ttEl) {
+      const rows = (d.team_threat_leaders || []).slice(0, 8);
+      const mx = Math.max(1, ...rows.map((r) => r.threat));
+      ttEl.innerHTML = rows.map((r) => {
+        const nm = codeName(r.team);
+        return `<div class="tbrow"><span class="tbname">${nm} <span class="lteam">${r.team}</span></span>
+          <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.threat / mx * 100, 4, 100)}%;background:${teamColor(nm)}"></span></span>
+          <span class="tbval">${r.threat.toFixed(1)}</span></div>`;
+      }).join("");
     }
+    if (tpEl) {
+      const rows = (d.player_threat_leaders || []).slice(0, 8);
+      const mx = Math.max(1, ...rows.map((r) => r.threat));
+      tpEl.innerHTML = rows.map((r) => {
+        const team = codeName(r.team);
+        return `<div class="tbrow"><span class="tbname">${r.player} <span class="lteam">${team}</span></span>
+          <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.threat / mx * 100, 4, 100)}%;background:${teamColor(team)}"></span></span>
+          <span class="tbval">${r.threat.toFixed(1)}</span></div>`;
+      }).join("");
+    }
+  } catch (e) {
+    if (ttEl) ttEl.innerHTML = `<p class="caption">threat feed unavailable (${e.message})</p>`;
   }
 }
 
@@ -1092,6 +1095,57 @@ function buildDangerExplainer() {
     <p class="xpl-cap"><b>pitch control × xT = dangerous space.</b> Control over low-value grass = nothing; control over the danger pocket = everything.</p>`;
 }
 
+/* 4) PITCH CONTROL — a blue attacker closes on a spot a red defender holds; control = σ(att − def). */
+function buildPitchControlExplainer() {
+  const host = $("#pc-explainer"); if (!host) return;
+  host.innerHTML = `
+    <div class="xpl-head">how it's built · <b>pitch control</b> (Fernández–Bornn)</div>
+    <svg class="xpl-svg" viewBox="0 0 240 120" preserveAspectRatio="xMidYMid meet" overflow="hidden" role="img" aria-label="attacker and defender influence deciding control of a spot">
+      <defs>
+        <radialGradient id="pcAttInf" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#6cb4ee" stop-opacity=".8"/>
+          <stop offset="68%" stop-color="#6cb4ee" stop-opacity=".16"/>
+          <stop offset="100%" stop-color="#6cb4ee" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="pcDefInf" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ff9a9a" stop-opacity=".8"/>
+          <stop offset="68%" stop-color="#ff9a9a" stop-opacity=".16"/>
+          <stop offset="100%" stop-color="#ff9a9a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect x="4" y="4" width="232" height="112" rx="6" fill="#0b0f14" stroke="#2a313d"/>
+      <ellipse cx="150" cy="62" rx="36" ry="27" fill="url(#pcDefInf)"/>
+      <ellipse id="pcAttBlob" cx="70" cy="62" rx="26" ry="20" fill="url(#pcAttInf)"/>
+      <circle cx="150" cy="62" r="5" fill="#ff9a9a" stroke="#0b0f14"/>
+      <circle id="pcAtt" cx="70" cy="62" r="5" fill="#6cb4ee" stroke="#0b0f14"/>
+      <circle cx="120" cy="62" r="4.2" fill="none" stroke="#fff" stroke-width="1.4"/>
+      <circle cx="120" cy="62" r="1.6" fill="#fff"/>
+      <text x="120" y="48" text-anchor="middle" font-size="8" fill="#9aa6b6">this spot</text>
+    </svg>
+    <div class="xpl-num">control of the spot <span id="pcVal">0.50</span></div>
+    <p class="xpl-cap"><b>Each player's influence</b> is a bivariate-normal blob (bigger when the ball is far, nudged the way they're moving). A spot's <b>control = σ(attacking influence − defending influence)</b>: as the blue attacker closes on the spot, blue influence overtakes red and control climbs past 0.5 toward 1.</p>`;
+  const att = $("#pcAtt", host), attBlob = $("#pcAttBlob", host), valEl = $("#pcVal", host);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const T = 4400; let raf, t0 = null;
+  const tick = (now) => {
+    if (t0 === null) t0 = now;
+    const p = ((now - t0) % T) / T;
+    const tri = p < 0.5 ? p * 2 : (1 - p) * 2;     // 0..1..0 there-and-back
+    const ax = lerp(70, 116, tri), arx = lerp(24, 40, tri);
+    att.setAttribute("cx", ax.toFixed(1));
+    attBlob.setAttribute("cx", ax.toFixed(1));
+    attBlob.setAttribute("rx", arx.toFixed(1));
+    const attInf = Math.exp(-0.5 * ((120 - ax) / 15) ** 2);   // attacker influence at the spot
+    const defInf = Math.exp(-0.5 * (30 / 27) ** 2);           // defender 30px away, fixed
+    const ctrl = 1 / (1 + Math.exp(-3 * (attInf - defInf)));
+    valEl.textContent = ctrl.toFixed(2);
+    valEl.style.color = ctrl > 0.62 ? "var(--accent)" : ctrl > 0.45 ? "var(--warn)" : "var(--hot)";
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+  host._stop = () => cancelAnimationFrame(raf);
+}
+
 /* ---------------- WIP export ----------------
    space-wip.html (the parked archive) imports this module and drives the two
    stashed builders explicitly. Expose them on window so that page can call
@@ -1132,19 +1186,57 @@ async function buildBWAE() {
   render(d.final_third, "#bwae-f3", "#c08cff");
 }
 
+/* Way 1 clip — a top creator's pass into controllable dangerous final-third space. */
+async function buildPassingClip() {
+  const el = $("#passing-canvas"); if (!el) return;
+  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=1"); } catch (e) { return; }
+  const h = surf.hero || {};
+  buildScrubber(el, surf, {
+    id: "passing", ramp: rampHot, gamma: 0.55, threshold: 0.02,
+    labelName: h.name, defaultMode: "surface",
+    readout: () => `<b>${h.name}</b> threads it to <b>${h.receiver}</b> into controllable, dangerous space — `
+      + `control ${Math.round((h.control || 0) * 100)}% × xT ${Number(h.xt || 0).toFixed(2)} at the target. `
+      + `The bright pocket forms <b>before</b> the ball arrives.`,
+  });
+  const t1 = $("#passing-hero-title"), t2 = $("#passing-hero-title2");
+  if (t1) t1.textContent = `${h.name}'s pass to ${h.receiver} (${surf.match})`;
+  if (t2) t2.textContent = `${h.name} → ${h.receiver}`;
+}
+
+/* Way 2 clip — a ground duel won against the pitch-control expectation (a BWAE upset). */
+async function buildDuelClip() {
+  const el = $("#duel-canvas"); if (!el) return;
+  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=1"); } catch (e) { return; }
+  const h = surf.hero || {};
+  buildScrubber(el, surf, {
+    id: "duel", ramp: rampHot, gamma: 0.7, threshold: 0.05,
+    labelName: h.name, defaultMode: "surface",
+    readout: () => `Pitch control gave <b>${h.loser}</b> the edge on this ball (~${h.expected_pct}% to win it), `
+      + `but <b>${h.name}</b> got there first — a duel won above what his positioning predicts.`,
+  });
+  const t1 = $("#duel-hero-title"), t2 = $("#duel-hero-title2");
+  if (t1) t1.textContent = `${h.name} vs ${h.loser} (${surf.match})`;
+  if (t2) t2.textContent = `${h.name} beats ${h.loser}`;
+}
+
 if (!window.__spaceWIPPage) {
   (async function () {
     initReveal();
     await buildIntro();
+    // Act 1 — xT: value surface + leaderboard + live 2026 threat (the xT-cousin)
     await buildXT();
     buildXtExplainer();
     buildXTcreated();
-    await Promise.allSettled([buildCHASE(), buildPOBSO()]);
-    buildChaseExplainer();
-    buildDangerExplainer();
+    buildThreat();
+    // Act 2 — Pitch control (Fernández–Bornn): interactive explainer + team control-vs-xG
     await buildPitchControl();
+    buildPitchControlExplainer();
+    // Act 3 — three ways: passing, duels, dangerous space (each clip + leaderboard)
     buildPassSelection();
     buildBWAE();
+    await Promise.allSettled([buildPassingClip(), buildDuelClip(), buildPOBSO()]);
+    buildDangerExplainer();
+    // Closing — live 2026 (2022-final two-lens validation + CV outlook)
     await buildLive();
   })();
 }
