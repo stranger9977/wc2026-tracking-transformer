@@ -295,7 +295,7 @@ def validate_export_duel(mid, period, gc, win_id, wname, los_id, lname):
     hero = {"name": wname, "loser": lname, "team": _teams_block(meta, lock)["attack"],
             "expected_win": round(exp_win, 3), "expected_pct": round(exp_win * 100)}
     payload = export_window(mid, period, c["t"] + 2700.0 * (period - 1), lock, "control", hero,
-                            teams=_teams_block(meta, lock), pre=3.5, post=0.8, anchor_name=wname)
+                            teams=_teams_block(meta, lock), pre=3.5, post=2.2, anchor_name=wname)
     if payload:
         payload.update({
             "metric": "duel",

@@ -147,6 +147,27 @@ function paintSurface(ctx, surface, W, H, opts = {}) {
   drawPitchLines(ctx, W, H);
 }
 
+// label the two goal ends so it's obvious which way the attacking team is going.
+// Surfaces are locked so the attacking team always attacks +x (toward the RIGHT goal).
+function drawGoalLabels(ctx, W, H, teams) {
+  if (!teams || (!teams.attack && !teams.defend)) return;
+  ctx.save();
+  ctx.font = "700 12px Inter, system-ui, sans-serif";
+  ctx.textBaseline = "middle";
+  const chip = (txt, cx, cy, align) => {
+    const tw = ctx.measureText(txt).width, w = tw + 12, h = 20;
+    const x = align === "left" ? cx : align === "right" ? cx - w : cx - w / 2;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, cy - h / 2, w, h, 5); else ctx.rect(x, cy - h / 2, w, h);
+    ctx.fillStyle = "rgba(8,10,14,0.74)"; ctx.fill();
+    ctx.fillStyle = "#cdd6e2"; ctx.textAlign = "left"; ctx.fillText(txt, x + 6, cy);
+  };
+  if (teams.attack) chip(`${teams.attack} attacking →`, W / 2, 16, "center");
+  if (teams.attack) chip(`◂ ${teams.attack}'s goal`, 6, H / 2, "left");       // own goal (left)
+  if (teams.defend) chip(`${teams.defend}'s goal ▸`, W - 6, H / 2, "right");  // target goal (right)
+  ctx.restore();
+}
+
 function drawBall(ctx, ball, W, H, opts = {}) {
   if (!ball) return;
   const [bx, by] = m2px(ball[0], ball[1], W, H);
@@ -389,6 +410,7 @@ function buildScrubber(el, surf, cfg) {
       ctx.beginPath(); ctx.arc(hx, hy, Math.max(6, W / 120), 0, Math.PI * 2);
       ctx.fillStyle = "#fff"; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#6cb4ee"; ctx.stroke();
     }
+    if (surf.teams) drawGoalLabels(ctx, W, H, surf.teams);
     const ts = fr.t_s * (1 - f) + frNext.t_s * f;
     tl.textContent = `${i0 + 1}/${n} · ${ts.toFixed(1)}s`;
     ro.innerHTML = cfg.readout ? cfg.readout(fr, state) : "";
@@ -594,6 +616,22 @@ async function buildXTcreated() {
       renderPlayers(b.dataset.m);
     }));
   }
+}
+
+/* "where the xT comes from" — per-player bucket breakdown (tiny/small/moderate/big) */
+async function buildXtBreakdown() {
+  const el = $("#xt-breakdown"); if (!el) return;
+  let d; try { d = await loadJSON("data/xt_breakdown.json?v=1"); } catch (e) { return; }
+  const RANGE = { tiny: "0–0.01", small: "0.01–0.03", moderate: "0.03–0.07", big: ">0.07 (box entries)" };
+  el.innerHTML = (d.players || []).map((p) => {
+    const mx = Math.max(1e-9, ...p.buckets.map((b) => b.sum));
+    const rows = p.buckets.map((b) => `<div class="tbrow"><span class="tbname">${b.label} <span class="lteam">${RANGE[b.label] || ""}</span> <span class="lpos">${b.count}×</span></span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(b.sum / mx * 100, 5, 100)}%;background:${teamColor(p.team)}"></span></span>
+      <span class="tbval">${b.sum.toFixed(2)}</span></div>`).join("");
+    return `<div><div class="boardlab">${p.name} <span class="lteam">${p.team}</span> · <b style="color:var(--ink)">${p.total} total</b> · ${p.per_match}/match</div>
+      ${rows}
+      <p class="caption faintnote">${p.actions} passes+carries · ${p.backward_pct}% backward/sideways (count as 0) · biggest single +${p.biggest}</p></div>`;
+  }).join("");
 }
 
 /* =================================================================
@@ -836,7 +874,7 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=5");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=6");
   const data = await loadJSON("data/space_pobso.json");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
@@ -1402,7 +1440,7 @@ async function buildBWAE() {
 /* Way 1 clip — a top creator's pass into controllable dangerous final-third space. */
 async function buildPassingClip() {
   const el = $("#passing-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=5"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=6"); } catch (e) { return; }
   const h = surf.hero || {};
   const shot = h.shot_outcome
     ? ` The move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` (${h.shot_shooter})` : ""}.`
@@ -1427,7 +1465,7 @@ async function buildPassingClip() {
 /* Way 2 clip — a ground duel won against the pitch-control expectation (a BWAE upset). */
 async function buildDuelClip() {
   const el = $("#duel-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=5"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=6"); } catch (e) { return; }
   const h = surf.hero || {};
   buildScrubber(el, surf, {
     id: "duel", ramp: rampHot, gamma: 0.95, threshold: 0.05, surfaceAlpha: 0.6,
@@ -1456,6 +1494,7 @@ if (!window.__spaceWIPPage) {
     await buildXT();
     buildXtExplainer();
     buildXTcreated();
+    buildXtBreakdown();
     buildThreat();
     // Act 2 — Pitch control (Fernández–Bornn): interactive explainer + team control-vs-xG
     await buildPitchControl();

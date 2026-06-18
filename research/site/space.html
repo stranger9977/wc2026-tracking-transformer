@@ -151,14 +151,9 @@
   .xpl-num span{font-size:20px; font-weight:800; color:var(--hot); margin-left:6px;
                 transition:color .3s ease}
 
-  /* xT — ball hops across the three zones (3.6s loop, brief hold at each) */
-  #xtBall{animation:xtHop 3.6s steps(1,end) infinite}
-  @keyframes xtHop{
-    0%,30%   {transform:translate(0,0)}                /* midfield  */
-    33%,63%  {transform:translate(54px,-24px)}         /* half-space */
-    66%,100% {transform:translate(100px,-8px)}         /* central pocket */
-  }
-  @media (prefers-reduced-motion:reduce){ #xtBall{animation:none} }
+  /* xT explainer ball is animated entirely in JS (buildXtExplainer sets cx/cy +
+     the threat value in sync). NO CSS keyframe here — a transform-based one used
+     to stack on top and push the ball off its JS position (value/position desync). */
 
   /* CHASE — arrows pulse inward (length/opacity breathe toward the attacker) */
   .chase-arrow{transform-origin:center; transform-box:fill-box;
@@ -377,6 +372,13 @@
           </div>
         </div>
         <p class="caption">Every completed open-play <b>pass or carry</b> scores the <b>xT it gains</b> — the rise in Expected Threat from where the ball started to where it ended (Karun Singh's xT-created, which counts dribbles too, not just passes). Sum it up and you get who repeatedly moves the ball into more dangerous space. <b>Germany</b> and <b>Spain</b> lead the teams; <b>Mbappé</b> and <b>Messi</b> the players. <span class="faintnote">Note on scale: xT's absolute value is dataset-specific (this is Karun's released grid, peak ≈ 0.257; his blog grid peaks ≈ 0.413, ~1.6× larger) and these are 4–7 World Cup games, not a 38-game league season — so the numbers read smaller than season-long league xT totals. The <b>ranking</b> is the stable part.</span></p>
+      </div>
+
+      <div class="card">
+        <h3>Where that number comes from — Mbappé vs Messi</h3>
+        <p class="caption" style="margin-top:0">A player's total isn't a few Hollywood balls — it's a <b>long tail of small progressions</b>, and <b>~40% of passes go backward/sideways</b> (which add no threat, so they count as 0). Each completed pass/carry adds its xT gain (a box entry ≈ +0.10; a square ball ≈ +0.005); the season-style total is just those bumps summed. Two routes to the same ~2.8:</p>
+        <div id="xt-breakdown" class="twoup"></div>
+        <p class="caption">Both land at ≈ <b>0.40 xT/match</b> (total ÷ games) but with opposite fingerprints: <b>Mbappé</b> via fewer, sharper vertical balls (most of his value in the moderate/big buckets); <b>Messi</b> via sheer involvement — a huge pile of small progressions. xT-created rewards both the rare line-breaker and the relentless progressor. <span class="faintnote">It's a cumulative volume measure (every progressive action in a move gets credited), not a literal goal count — read it as "who moved the ball into danger most," not "+280% to score."</span></p>
       </div>
 
       <div class="card">
@@ -699,6 +701,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=29"></script>
+<script type="module" src="assets/js/space.js?v=30"></script>
 </body>
 </html>
