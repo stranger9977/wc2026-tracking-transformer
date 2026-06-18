@@ -57,14 +57,22 @@ def main():
             continue
         n_files += 1
         for e in ev:
-            if e.get("type", {}).get("name") != "Pass":
+            typ = e.get("type", {}).get("name")
+            loc = e.get("location")
+            # Ball-progression actions in open play = completed PASSES + CARRIES (dribbles).
+            # Karun's xT-created counts both; carries are ~35% of all open-play xT creation,
+            # so passes-only undercounts (a winger who dribbles into danger gets missed).
+            if typ == "Pass":
+                p = e.get("pass", {})
+                if p.get("outcome"):         # only completed passes (no outcome = complete)
+                    continue
+                if p.get("type", {}).get("name") in ("Corner", "Free Kick", "Throw-in", "Kick Off", "Goal Kick"):
+                    continue                 # open play only
+                end = p.get("end_location")
+            elif typ == "Carry":
+                end = e.get("carry", {}).get("end_location")
+            else:
                 continue
-            p = e.get("pass", {})
-            if p.get("outcome"):            # only completed passes (no outcome = complete)
-                continue
-            if p.get("type", {}).get("name") in ("Corner", "Free Kick", "Throw-in", "Kick Off", "Goal Kick"):
-                continue                     # open play only
-            loc = e.get("location"); end = p.get("end_location")
             if not loc or not end:
                 continue
             d = xt_at(end[0], end[1]) - xt_at(loc[0], loc[1])
@@ -89,9 +97,11 @@ def main():
         key=lambda r: -r["xt_total"])
 
     out = {
-        "metric": "xT created (threat added by open-play passing)",
-        "definition": ("Sum of Expected Threat gained — xT(pass end) − xT(pass start), positive moves only — "
-                       "over completed open-play passes. Same Karun Singh xT grid shown above; StatsBomb 2022 open data."),
+        "metric": "xT created (threat added by open-play ball progression — passes + carries)",
+        "definition": ("Sum of Expected Threat gained — xT(end) − xT(start), positive moves only — over "
+                       "completed open-play PASSES and CARRIES (dribbles), as in Karun Singh's xT-created. "
+                       "Same Singh xT grid shown above (peak ≈ 0.257 — the absolute scale is dataset-specific; "
+                       "ranking is what's stable). StatsBomb 2022 open data."),
         "source": "StatsBomb WC2022 open data; xT grid = research/site/data/surfaces/xt_reference.json",
         "n_matches": n_files,
         "teams": teams,
