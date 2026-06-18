@@ -728,6 +728,7 @@ async function buildSMS() {
 }
 
 async function buildCHASE() {
+  if (!$("#chase-canvas")) return;   // gravity act stashed (no-gravity restructure)
   const surf = await loadJSON("data/surfaces/chase.json");
   const data = await loadJSON("data/space_chase.json?v=64");
   const scEl = $("#chase-canvas");
