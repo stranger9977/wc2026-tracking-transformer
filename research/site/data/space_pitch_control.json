@@ -1,113 +1,273 @@
 {
  "metric": "team pitch control (attacking final third) + over/under-performance vs xG",
  "definition": "Mean share of Fernandez-Bornn pitch control the in-possession team holds in the attacking final third (x>17.5 m). 'Plays above' = positive xG residual (more xG than its control predicts: clinical/counter); 'below' = sterile.",
- "sample": "10 knockout matches, stride 15 (~2 Hz), grid 30x20",
+ "sample": "64 knockout matches, stride 15 (~2 Hz), grid 30x20",
  "teams": [
   {
-   "team": "France",
-   "final_third_control_pct": 34.8,
-   "overall_control_pct": 49.8,
-   "n_frames": 13153,
-   "n_matches": 3,
-   "sb_xg_per_match": 1.333,
-   "xg_residual": -0.066
+   "team": "Japan",
+   "final_third_control_pct": 36.6,
+   "overall_control_pct": 49.6,
+   "n_frames": 15326,
+   "n_matches": 4,
+   "sb_xg_per_match": null
   },
   {
    "team": "Argentina",
-   "final_third_control_pct": 33.9,
-   "overall_control_pct": 49.3,
-   "n_frames": 17155,
-   "n_matches": 4,
+   "final_third_control_pct": 33.3,
+   "overall_control_pct": 50.1,
+   "n_frames": 31918,
+   "n_matches": 7,
    "sb_xg_per_match": 1.642,
-   "xg_residual": 0.318
-  },
-  {
-   "team": "Morocco",
-   "final_third_control_pct": 33.7,
-   "overall_control_pct": 46.9,
-   "n_frames": 7697,
-   "n_matches": 2,
-   "sb_xg_per_match": 0.833,
-   "xg_residual": -0.475
-  },
-  {
-   "team": "Switzerland",
-   "final_third_control_pct": 33.2,
-   "overall_control_pct": 49.7,
-   "n_frames": 4048,
-   "n_matches": 1,
-   "sb_xg_per_match": 1.272,
-   "xg_residual": 0.006
+   "xg_residual": 0.361
   },
   {
    "team": "Brazil",
-   "final_third_control_pct": 32.7,
-   "overall_control_pct": 51.1,
-   "n_frames": 4346,
-   "n_matches": 1,
+   "final_third_control_pct": 33.3,
+   "overall_control_pct": 50.5,
+   "n_frames": 22052,
+   "n_matches": 5,
    "sb_xg_per_match": 1.061,
-   "xg_residual": -0.163
+   "xg_residual": -0.22
   },
   {
-   "team": "England",
-   "final_third_control_pct": 32.2,
-   "overall_control_pct": 49.7,
-   "n_frames": 4575,
-   "n_matches": 1,
-   "sb_xg_per_match": 2.353,
-   "xg_residual": 1.17
+   "team": "Iran",
+   "final_third_control_pct": 33.3,
+   "overall_control_pct": 48.5,
+   "n_frames": 10648,
+   "n_matches": 3,
+   "sb_xg_per_match": null
   },
   {
-   "team": "Australia",
-   "final_third_control_pct": 31.9,
-   "overall_control_pct": 47.9,
-   "n_frames": 3748,
-   "n_matches": 1,
+   "team": "Cameroon",
+   "final_third_control_pct": 33.3,
+   "overall_control_pct": 49.1,
+   "n_frames": 11464,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Wales",
+   "final_third_control_pct": 33.1,
+   "overall_control_pct": 49.1,
+   "n_frames": 11758,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Mexico",
+   "final_third_control_pct": 33.1,
+   "overall_control_pct": 50.1,
+   "n_frames": 12561,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "France",
+   "final_third_control_pct": 33.0,
+   "overall_control_pct": 49.9,
+   "n_frames": 30431,
+   "n_matches": 7,
+   "sb_xg_per_match": 1.333,
+   "xg_residual": 0.078
+  },
+  {
+   "team": "Germany",
+   "final_third_control_pct": 33.0,
+   "overall_control_pct": 50.9,
+   "n_frames": 14156,
+   "n_matches": 3,
    "sb_xg_per_match": null
   },
   {
    "team": "Croatia",
-   "final_third_control_pct": 31.4,
+   "final_third_control_pct": 32.8,
    "overall_control_pct": 49.2,
-   "n_frames": 8974,
-   "n_matches": 2,
+   "n_frames": 30945,
+   "n_matches": 7,
    "sb_xg_per_match": 0.403,
-   "xg_residual": -0.713
+   "xg_residual": -0.834
+  },
+  {
+   "team": "Switzerland",
+   "final_third_control_pct": 32.8,
+   "overall_control_pct": 48.9,
+   "n_frames": 16235,
+   "n_matches": 4,
+   "sb_xg_per_match": 1.272,
+   "xg_residual": 0.035
+  },
+  {
+   "team": "Ghana",
+   "final_third_control_pct": 32.8,
+   "overall_control_pct": 48.6,
+   "n_frames": 12705,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Morocco",
+   "final_third_control_pct": 32.7,
+   "overall_control_pct": 48.3,
+   "n_frames": 27228,
+   "n_matches": 7,
+   "sb_xg_per_match": 0.833,
+   "xg_residual": -0.395
+  },
+  {
+   "team": "Qatar",
+   "final_third_control_pct": 32.7,
+   "overall_control_pct": 49.2,
+   "n_frames": 12969,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Saudi Arabia",
+   "final_third_control_pct": 32.7,
+   "overall_control_pct": 49.0,
+   "n_frames": 11700,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Belgium",
+   "final_third_control_pct": 32.7,
+   "overall_control_pct": 49.0,
+   "n_frames": 15061,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Costa Rica",
+   "final_third_control_pct": 32.6,
+   "overall_control_pct": 47.3,
+   "n_frames": 9989,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "South Korea",
+   "final_third_control_pct": 32.5,
+   "overall_control_pct": 49.8,
+   "n_frames": 14969,
+   "n_matches": 4,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "England",
+   "final_third_control_pct": 32.4,
+   "overall_control_pct": 50.0,
+   "n_frames": 23561,
+   "n_matches": 5,
+   "sb_xg_per_match": 2.353,
+   "xg_residual": 1.152
+  },
+  {
+   "team": "Australia",
+   "final_third_control_pct": 32.3,
+   "overall_control_pct": 48.2,
+   "n_frames": 14460,
+   "n_matches": 4,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Serbia",
+   "final_third_control_pct": 32.3,
+   "overall_control_pct": 49.1,
+   "n_frames": 11667,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Canada",
+   "final_third_control_pct": 32.2,
+   "overall_control_pct": 49.9,
+   "n_frames": 12896,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Uruguay",
+   "final_third_control_pct": 32.0,
+   "overall_control_pct": 49.4,
+   "n_frames": 11277,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Senegal",
+   "final_third_control_pct": 31.9,
+   "overall_control_pct": 49.1,
+   "n_frames": 14269,
+   "n_matches": 4,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Ecuador",
+   "final_third_control_pct": 31.9,
+   "overall_control_pct": 49.5,
+   "n_frames": 12017,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Tunisia",
+   "final_third_control_pct": 31.8,
+   "overall_control_pct": 48.5,
+   "n_frames": 11037,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "United States",
+   "final_third_control_pct": 31.7,
+   "overall_control_pct": 49.9,
+   "n_frames": 20021,
+   "n_matches": 4,
+   "sb_xg_per_match": null
   },
   {
    "team": "Poland",
-   "final_third_control_pct": 31.0,
-   "overall_control_pct": 48.6,
-   "n_frames": 3852,
-   "n_matches": 1,
+   "final_third_control_pct": 31.7,
+   "overall_control_pct": 48.2,
+   "n_frames": 13849,
+   "n_matches": 4,
    "sb_xg_per_match": null
+  },
+  {
+   "team": "Denmark",
+   "final_third_control_pct": 31.6,
+   "overall_control_pct": 49.9,
+   "n_frames": 14167,
+   "n_matches": 3,
+   "sb_xg_per_match": null
+  },
+  {
+   "team": "Spain",
+   "final_third_control_pct": 30.8,
+   "overall_control_pct": 50.7,
+   "n_frames": 24510,
+   "n_matches": 4,
+   "sb_xg_per_match": 0.173,
+   "xg_residual": -0.886
+  },
+  {
+   "team": "Portugal",
+   "final_third_control_pct": 30.7,
+   "overall_control_pct": 49.5,
+   "n_frames": 20867,
+   "n_matches": 5,
+   "sb_xg_per_match": 2.284,
+   "xg_residual": 1.234
   },
   {
    "team": "Netherlands",
    "final_third_control_pct": 30.6,
-   "overall_control_pct": 49.7,
-   "n_frames": 4625,
-   "n_matches": 1,
+   "overall_control_pct": 48.8,
+   "n_frames": 19118,
+   "n_matches": 5,
    "sb_xg_per_match": 0.517,
-   "xg_residual": -0.533
-  },
-  {
-   "team": "Portugal",
-   "final_third_control_pct": 30.0,
-   "overall_control_pct": 49.0,
-   "n_frames": 7754,
-   "n_matches": 2,
-   "sb_xg_per_match": 2.284,
-   "xg_residual": 1.284
-  },
-  {
-   "team": "Spain",
-   "final_third_control_pct": 30.0,
-   "overall_control_pct": 51.3,
-   "n_frames": 7107,
-   "n_matches": 1,
-   "sb_xg_per_match": 0.173,
-   "xg_residual": -0.827
+   "xg_residual": -0.524
   }
  ]
 }
