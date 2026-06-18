@@ -115,6 +115,13 @@
   .pcx-stage canvas:active{cursor:grabbing}
   .pcx-read{font-size:13px; color:var(--muted); margin-top:8px; font-variant-numeric:tabular-nums}
   .pcx-read b{color:var(--ink)} .pcx-read .hint{color:var(--faint)}
+  /* per-clip "what it created" impact receipt */
+  .impact{margin-top:14px; padding:12px 15px; border:1px solid var(--border); border-left:3px solid var(--good);
+          border-radius:10px; background:linear-gradient(180deg,#16241b,#121a16); font-size:14px; color:var(--muted)}
+  .impact b{color:var(--ink)}
+  .impact .big{color:var(--good); font-weight:800; font-size:19px; font-variant-numeric:tabular-nums; margin:0 2px}
+  .impact .big.goal{color:var(--hot)}
+  .impact .ico{margin-right:5px}
 
   /* ---- intro: team-shape SVG ---- */
   #intro-shape{margin-top:6px}
@@ -688,6 +695,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=26"></script>
+<script type="module" src="assets/js/space.js?v=27"></script>
 </body>
 </html>

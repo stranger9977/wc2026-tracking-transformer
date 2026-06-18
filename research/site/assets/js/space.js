@@ -822,7 +822,7 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=3");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=4");
   const data = await loadJSON("data/space_pobso.json");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
@@ -839,6 +839,15 @@ async function buildPOBSO() {
       : `<b>${h.name}</b> ghosts off the ball into the danger pocket — control × xT, the space he both <b>owns</b> and can finish from — receives${from} ${got}. The pocket blooms <b>ahead</b> of his run, before the pass exists.`,
   });
   renderTeamLegend("pobso-teamleg", surf.teams);
+  const im = surf.impact;
+  if (im) {
+    const goal = h.outcome === "goal";
+    renderImpact(scEl, `<span class="ico">📈</span><b>What it created</b> — over ${im.window_s}s the ball`
+      + ` climbed from ${im.xt_start.toFixed(2)} to <b>${im.xt_peak.toFixed(2)} xT</b>`
+      + ` (a <span class="big${goal ? " goal" : ""}">+${im.xt_added.toFixed(2)} xT</span> rise in threat)`
+      + `${goal ? " — and it ended in a <b>GOAL ⚽</b>" : (h.outcome ? ` — and ended in a <b>${h.outcome}</b>` : "")}.`
+      + ` That's the dangerous space turned into the highest-value spot on the pitch.`);
+  }
   // name the auto-picked runner in the card title
   const pbTitle = $("#pobso-hero-title");
   if (pbTitle && h.name) pbTitle.textContent = `${h.name}'s run and finish`;
@@ -1171,6 +1180,14 @@ function renderTeamLegend(elId, teams, attColor = "#7ec8ff", defColor = "#ff9a9a
     `<span><span class="tswatch gk" style="background:#6dd58c"></span>goalkeepers (team-ringed)</span>`;
 }
 
+/* per-clip "what it created" receipt — appended to the clip card, after the caption. */
+function renderImpact(canvasEl, html) {
+  if (!canvasEl || !canvasEl.parentElement) return;
+  let box = canvasEl.parentElement.querySelector(".impact");
+  if (!box) { box = document.createElement("div"); box.className = "impact"; canvasEl.parentElement.appendChild(box); }
+  box.innerHTML = html;
+}
+
 /* 4) PITCH CONTROL — fully INTERACTIVE. Drag the attacker, defender and ball; each
    player's velocity is taken from how fast you drag (a quick flick = a sprint), and
    the control surface recomputes live. Faithful port of pitch_control.py's
@@ -1371,7 +1388,7 @@ async function buildBWAE() {
 /* Way 1 clip — a top creator's pass into controllable dangerous final-third space. */
 async function buildPassingClip() {
   const el = $("#passing-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=3"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=4"); } catch (e) { return; }
   const h = surf.hero || {};
   const shot = h.shot_outcome
     ? ` The move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` (${h.shot_shooter})` : ""}.`
@@ -1384,6 +1401,10 @@ async function buildPassingClip() {
       + `The bright pocket forms <b>before</b> the ball arrives.${shot}`,
   });
   renderTeamLegend("passing-teamleg", surf.teams);
+  const im = surf.impact;
+  if (im) renderImpact(el, `<span class="ico">📈</span><b>What it created</b> — over ${im.window_s}s the ball`
+    + ` gained <span class="big">+${im.xt_added.toFixed(2)} xT</span> of threat (into the final third)`
+    + `${h.shot_outcome ? `, and the move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` by ${h.shot_shooter}` : ""}` : ""}.`);
   const t1 = $("#passing-hero-title"), t2 = $("#passing-hero-title2");
   if (t1) t1.textContent = `${h.name}'s pass to ${h.receiver} (${surf.match})`;
   if (t2) t2.textContent = `${h.name} → ${h.receiver}`;
@@ -1392,7 +1413,7 @@ async function buildPassingClip() {
 /* Way 2 clip — a ground duel won against the pitch-control expectation (a BWAE upset). */
 async function buildDuelClip() {
   const el = $("#duel-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=3"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=4"); } catch (e) { return; }
   const h = surf.hero || {};
   buildScrubber(el, surf, {
     id: "duel", ramp: rampHot, gamma: 0.95, threshold: 0.05, surfaceAlpha: 0.6,
@@ -1402,6 +1423,11 @@ async function buildDuelClip() {
       + `but <b>${h.name}</b> (gold ring) got there first — a duel won above what his positioning predicts.`,
   });
   renderTeamLegend("duel-teamleg", surf.teams);
+  // a duel's value is the possession won against the odds, not xT — show the BWAE swing
+  const swing = (1 - (h.expected_win ?? 0)).toFixed(2);
+  renderImpact(el, `<span class="ico">📈</span><b>What it created</b> — <b>${h.name}</b> won a 50-50 the model`
+    + ` gave him only <b>${h.expected_pct}%</b>, a <span class="big">+${swing}</span> swing above expected:`
+    + ` a possession turned over where his positioning predicted a loss.`);
   const t1 = $("#duel-hero-title"), t2 = $("#duel-hero-title2");
   if (t1) t1.textContent = `${h.name} vs ${h.loser} (${surf.match})`;
   if (t2) t2.textContent = `${h.name} beats ${h.loser}`;

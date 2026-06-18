@@ -324,6 +324,12 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
     xt_ref = xt_grid / (xt_grid.max() or 1.0)
     if kind == "danger" and hero is not None and "obso_owned" not in hero:
         hero["obso_owned"] = round(hero_owned, 4)
+    # "this helped" receipt — how much THREAT (xT) the ball gained over the clip:
+    # xT of the ball's spot (Karun Singh grid) at the start vs its peak in the window.
+    ball_xt = [float(pc.xt_value_m(r["ball_xy"][0], r["ball_xy"][1])) for r in sel]
+    impact = {"xt_start": round(ball_xt[0], 3), "xt_peak": round(max(ball_xt), 3),
+              "xt_added": round(max(ball_xt) - ball_xt[0], 3),
+              "window_s": round(sel[-1]["t_s"] - sel[0]["t_s"], 1)}
     payload = {
         "match_id": mid, "period": period,
         "start_s": round(sel[0]["t_s"], 1), "end_s": round(sel[-1]["t_s"], 1),
@@ -333,7 +339,7 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
         "global_max": round(gmax, 5),
         "xt_reference": [[round(float(v), 4) for v in row] for row in xt_ref],
         "orientation": "attacking-left-to-right; opponent goal at +x (right)",
-        "hero": hero, "frames": frames_out,
+        "hero": hero, "impact": impact, "frames": frames_out,
     }
     if teams:
         payload["teams"] = teams
