@@ -370,7 +370,11 @@
         <h3>Who creates the most threat — xT added by open-play passing</h3>
         <div class="twoup">
           <div><div class="boardlab">Teams · xT added per match</div><div id="xt-teams" class="tbars"></div></div>
-          <div><div class="boardlab">Players · total xT added (WC2022)</div><div id="xt-players" class="tbars"></div></div>
+          <div>
+            <div class="boardlab" id="xt-pl-lab">Players · total xT added (WC2022)</div>
+            <div class="htoggles" id="xt-pl-toggle" style="padding:0;margin:0 0 8px"><button class="htog on" data-m="total">total</button><button class="htog" data-m="permatch">per match</button></div>
+            <div id="xt-players" class="tbars"></div>
+          </div>
         </div>
         <p class="caption">Every completed open-play pass scores the <b>xT it gains</b> — the rise in Expected Threat from where the ball started to where it ended. Sum it up and you get who repeatedly moves the ball into more dangerous space. <b>Germany</b> and <b>Spain</b> lead the teams; <b>Griezmann</b>, <b>Modrić</b> and <b>Messi</b> the players — the deep creators who feed the dangerous zones, not the finishers who arrive in them.</p>
       </div>
@@ -695,6 +699,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=27"></script>
+<script type="module" src="assets/js/space.js?v=28"></script>
 </body>
 </html>
