@@ -1,0 +1,69 @@
+{
+ "metric": "xT-created breakdown (where the total comes from)",
+ "players": [
+  {
+   "name": "Kylian Mbapp\u00e9",
+   "team": "France",
+   "actions": 470,
+   "backward_pct": 43,
+   "total": 2.81,
+   "per_match": 0.4,
+   "matches": 7,
+   "biggest": 0.12,
+   "buckets": [
+    {
+     "label": "tiny",
+     "count": 195,
+     "sum": 0.62
+    },
+    {
+     "label": "small",
+     "count": 45,
+     "sum": 0.8
+    },
+    {
+     "label": "moderate",
+     "count": 25,
+     "sum": 1.11
+    },
+    {
+     "label": "big",
+     "count": 3,
+     "sum": 0.28
+    }
+   ]
+  },
+  {
+   "name": "Lionel Messi",
+   "team": "Argentina",
+   "actions": 671,
+   "backward_pct": 41,
+   "total": 2.75,
+   "per_match": 0.39,
+   "matches": 7,
+   "biggest": 0.08,
+   "buckets": [
+    {
+     "label": "tiny",
+     "count": 318,
+     "sum": 0.86
+    },
+    {
+     "label": "small",
+     "count": 59,
+     "sum": 1.03
+    },
+    {
+     "label": "moderate",
+     "count": 17,
+     "sum": 0.78
+    },
+    {
+     "label": "big",
+     "count": 1,
+     "sum": 0.08
+    }
+   ]
+  }
+ ]
+}
