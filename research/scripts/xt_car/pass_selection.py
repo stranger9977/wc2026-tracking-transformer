@@ -124,7 +124,8 @@ def process_match(root, mid, meta, opp):
         w = opp.weight(oteam) if oteam else 1.0
         att_xy = [(x, y) for i, x, y, _ in att]; dfn_xy = [(x, y) for i, x, y, _ in dfn]
         val = control_at(tx, ty, att_xy, dfn_xy, bx, by) * xt(tx, ty)
-        m["by_stage"][stage]["val"] += val * w
+        m["by_stage"][stage]["valw"] += val * w   # opponent-weighted
+        m["by_stage"][stage]["valr"] += val       # raw
         m["n"] += 1
         if not m["name"]:
             m["name"] = pe.get("passerPlayerName") or f"#{passer}"
@@ -137,7 +138,8 @@ def process_match(root, mid, meta, opp):
 
 def _new_meta():
     return {"name": "", "team": "", "pos": Counter(), "n": 0,
-            "by_stage": {"group": {"val": 0.0, "mids": set()}, "ko": {"val": 0.0, "mids": set()}}}
+            "by_stage": {"group": {"valw": 0.0, "valr": 0.0, "mids": set()},
+                         "ko": {"valw": 0.0, "valr": 0.0, "mids": set()}}}
 
 
 def main():

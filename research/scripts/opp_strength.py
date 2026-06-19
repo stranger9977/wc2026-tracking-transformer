@@ -71,17 +71,20 @@ class OppStrength:
         return self.rating(team) / self.ref
 
 
-def per_stage_block(by_stage: dict, opp_adjust: bool = True) -> dict:
-    """Given {stage: {"val": float, "mids": set}} (val already opponent-weighted if
-    opp_adjust), return the board-ready {matches, total, per_match} per stage incl. 'all'."""
+def per_stage_block(by_stage: dict) -> dict:
+    """Given {stage: {"valw": opp-weighted sum, "valr": raw sum, "mids": set}}, return the
+    board-ready per-stage block (incl. 'all') carrying BOTH the opponent-weighted and the raw
+    total + per-match, so the board can toggle weighted vs not."""
     out = {}
     g, k = by_stage.get("group", {}), by_stage.get("ko", {})
     combos = {"group": g, "ko": k,
-              "all": {"val": g.get("val", 0.0) + k.get("val", 0.0),
+              "all": {"valw": g.get("valw", 0.0) + k.get("valw", 0.0),
+                      "valr": g.get("valr", 0.0) + k.get("valr", 0.0),
                       "mids": (g.get("mids", set()) | k.get("mids", set()))}}
     for st, d in combos.items():
         m = len(d.get("mids", ()))
-        tot = d.get("val", 0.0)
-        out[st] = {"matches": m, "total": round(tot, 4),
-                   "per_match": round(tot / m, 4) if m else 0.0}
+        w, r = d.get("valw", 0.0), d.get("valr", 0.0)
+        out[st] = {"matches": m,
+                   "total": round(w, 4), "per_match": round(w / m, 4) if m else 0.0,
+                   "total_raw": round(r, 4), "per_match_raw": round(r / m, 4) if m else 0.0}
     return out
