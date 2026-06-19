@@ -74,18 +74,13 @@ SECS_PER_FRAME = SAMPLING_STRIDE / RAW_HZ  # 0.5 s per kept frame
 # uses (a stock/time-average of OBSO does not predict a flow like xG).
 DANGER_MOMENT_THRESH = 0.12
 
-# 8 star-heavy matches (Argentina/France/Croatia/Spain/Portugal/Brazil/England/
-# Netherlands), each maps cleanly to a StatsBomb events file.
-SAMPLE_MATCHES = [
-    "10517",  # Argentina vs France (final)
-    "10514",  # Argentina vs Croatia (semi)
-    "10508",  # Morocco vs Spain
-    "10509",  # Portugal vs Switzerland
-    "10513",  # England vs France
-    "10510",  # Croatia vs Brazil
-    "10515",  # France vs Morocco (semi)
-    "10511",  # Netherlands vs Argentina
-]
+# Full WC2022 tournament: every PFF tracking game in the local cache (now 64/64).
+# Auto-tracks whatever is present in $PFF_ROOT/Tracking Data.
+SAMPLE_MATCHES = sorted(
+    p.name.replace(".jsonl.bz2", "")
+    for p in (Path(__import__("os").environ.get("PFF_ROOT", str(Path.home() / "pff_wc22_local")))
+              / "Tracking Data").glob("*.jsonl.bz2")
+)
 
 SURF_DIR = _REPO / "research" / "site" / "data" / "surfaces"
 DATA_DIR = _REPO / "research" / "site" / "data"
@@ -223,6 +218,11 @@ def compute(matches=SAMPLE_MATCHES):
     pl_frames: dict[tuple, list[float]] = defaultdict(list)
     pl_frames_pressured: dict[tuple, list[float]] = defaultdict(list)
     pl_vis: dict[tuple, list[int]] = defaultdict(lambda: [0, 0])  # [visible, estimated]
+    # OBSO-weighted speed split (Fernandez-Bornn "active vs passive" space occupation +
+    # the 538 "Messi walks" replication): how fast a player is moving while he owns the
+    # dangerous space. pl_obso_walk = OBSO accrued at walking pace (<2 m/s, "passive").
+    pl_obso_walk: dict[tuple, float] = defaultdict(float)
+    pl_obso_wspeed: dict[tuple, float] = defaultdict(float)
     # team -> list of per-frame team-OBSO (one team is "attacking" each frame)
     team_obso_frames: dict[str, list[float]] = defaultdict(list)
     team_obso_pressured: dict[str, list[float]] = defaultdict(list)
@@ -277,6 +277,10 @@ def compute(matches=SAMPLE_MATCHES):
                                     "team_id": ident.team_id, "jersey": ident.jersey,
                                     "is_gk": ident.is_gk}
                 pl_frames[key].append(val)
+                spd = float(np.hypot(fr.players[row, 2], fr.players[row, 3]))
+                pl_obso_wspeed[key] += val * spd
+                if spd < 2.0:
+                    pl_obso_walk[key] += val
                 if pressured:
                     pl_frames_pressured[key].append(val)
                 if str(ident.visibility) == "ESTIMATED":
@@ -304,6 +308,7 @@ def compute(matches=SAMPLE_MATCHES):
         "grid": grid, "xt_grid": xt_grid,
         "pl_meta": pl_meta, "pl_frames": pl_frames,
         "pl_frames_pressured": pl_frames_pressured, "pl_vis": pl_vis,
+        "pl_obso_walk": dict(pl_obso_walk), "pl_obso_wspeed": dict(pl_obso_wspeed),
         "team_obso_frames": team_obso_frames,
         "team_obso_pressured": team_obso_pressured,
         "team_frames_count": team_frames_count,
@@ -339,6 +344,8 @@ def build_leaderboard(res):
     pl_frames = res["pl_frames"]
     pl_frames_pressured = res["pl_frames_pressured"]
     pl_vis = res["pl_vis"]
+    pl_obso_walk = res.get("pl_obso_walk", {})
+    pl_obso_wspeed = res.get("pl_obso_wspeed", {})
 
     # HEADLINE player unit = mean P-OBSO an off-ball attacker CONTROLS per frame
     # they are on the pitch while their team attacks (xT-weighted m^2 of
@@ -357,9 +364,18 @@ def build_leaderboard(res):
         pressured_share = (sum(pframes) / arr.sum()) if arr.sum() > 0 else 0.0
         vis = pl_vis[key]
         est_share = vis[1] / max(vis[0] + vis[1], 1)
+        osum = float(arr.sum())
+        walk = pl_obso_walk.get(key, 0.0)
+        wspeed = pl_obso_wspeed.get(key, 0.0)
+        passive_share = (walk / osum) if osum > 0 else 0.0
+        control_speed = (wspeed / osum) if osum > 0 else 0.0
         players.append({
             "name": meta["name"], "team": meta["team"], "jersey": meta["jersey"],
             "pobso": round(float(arr.mean()), 3),       # headline (xT-wtd m^2 / frame)
+            "occupation_total": round(osum, 2),         # sum over sampled frames (F&B Sum-SOG style)
+            "passive_pct": round(100.0 * passive_share),   # % of owned danger at walking pace (<2 m/s)
+            "active_pct": round(100.0 * (1.0 - passive_share)),
+            "control_speed": round(control_speed, 2),   # OBSO-weighted speed (m/s) while owning danger
             "ci": [round(lo, 3), round(hi, 3)],
             "n_frames": len(frames),
             "minutes_sampled": round(len(frames) * SECS_PER_FRAME / 60.0, 1),
@@ -791,7 +807,7 @@ def main():
               f"press={t['pressured_share']:.2f}"
               f"{' [tie]' if t.get('tied_with_leader') else ''}")
 
-    hero = find_and_export_hero(res, SAMPLE_MATCHES)
+    hero = None if os.environ.get("POBSO_SKIP_HERO") else find_and_export_hero(res, SAMPLE_MATCHES)
     if hero:
         pay, hpath = hero
         print(f"\n[export] hero surface -> {hpath} "
