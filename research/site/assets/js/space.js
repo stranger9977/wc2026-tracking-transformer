@@ -122,8 +122,8 @@ function paintSurface(ctx, surface, W, H, opts = {}) {
       const t = Math.pow(clamp(v, 0, 1), gamma);
       const [rr, gg, bb] = ramp(t);
       img.data[i] = rr; img.data[i + 1] = gg; img.data[i + 2] = bb;
-      // clamp the alpha curve up so even mid-value cells are clearly lit
-      img.data[i + 3] = Math.round(255 * aMax * clamp(t * 1.35, 0.12, 1));
+      // linear alpha: a cell's opacity tracks the value it encodes (no decorative lift)
+      img.data[i + 3] = Math.round(255 * aMax * t);
     }
   }
   octx.putImageData(img, 0, 0);
@@ -131,19 +131,11 @@ function paintSurface(ctx, surface, W, H, opts = {}) {
   // base = a dim, uniform PITCH GREEN (not near-black) so areas the team doesn't
   // control read as neutral grass, never a scary growing "dark void". Danger then
   // glows brighter than the grass instead of holes opening in black.
-  const felt = ctx.createLinearGradient(0, 0, 0, H);
-  felt.addColorStop(0, opts.felt || "#16241b"); felt.addColorStop(1, opts.felt2 || "#101a14");
-  ctx.fillStyle = felt; ctx.fillRect(0, 0, W, H);
+  // flat dark base: areas the team doesn't control read as neutral low-value grass.
+  // (Source row 0 = top of pitch, col 0 = -x/left; attacking +x to the right, no flip.)
+  ctx.fillStyle = opts.felt || "#101a14"; ctx.fillRect(0, 0, W, H);
   ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
-  // NOTE: source surface row 0 = top of pitch already in screen orientation (ny rows top->bottom),
-  // and column 0 = -x (left). Source orientation is attacking +x to the right, so no flip needed.
   ctx.drawImage(off, 0, 0, nx, ny, 0, 0, W, H);
-  // additive bloom: redraw the surface lightly with 'lighter' compositing so hot cells glow
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  ctx.globalAlpha = 0.28;
-  ctx.drawImage(off, 0, 0, nx, ny, 0, 0, W, H);
-  ctx.restore();
   drawPitchLines(ctx, W, H);
 }
 
@@ -155,16 +147,16 @@ function drawGoalLabels(ctx, W, H, teams) {
   ctx.font = "700 12px Inter, system-ui, sans-serif";
   ctx.textBaseline = "middle";
   const chip = (txt, cx, cy, align) => {
-    const tw = ctx.measureText(txt).width, w = tw + 12, h = 20;
-    const x = align === "left" ? cx : align === "right" ? cx - w : cx - w / 2;
-    ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(x, cy - h / 2, w, h, 5); else ctx.rect(x, cy - h / 2, w, h);
-    ctx.fillStyle = "rgba(8,10,14,0.74)"; ctx.fill();
-    ctx.fillStyle = "#cdd6e2"; ctx.textAlign = "left"; ctx.fillText(txt, x + 6, cy);
+    const tw = ctx.measureText(txt).width;
+    const x = align === "left" ? cx + 6 : align === "right" ? cx - tw : cx - tw / 2;
+    ctx.lineWidth = 3; ctx.strokeStyle = "rgba(8,10,14,0.7)";
+    ctx.fillStyle = "#cdd6e2"; ctx.textAlign = "left";
+    ctx.strokeText(txt, x, cy); ctx.fillText(txt, x, cy);
   };
-  if (teams.attack) chip(`${teams.attack} attacking →`, W / 2, 16, "center");
-  if (teams.attack) chip(`◂ ${teams.attack}'s goal`, 6, H / 2, "left");       // own goal (left)
-  if (teams.defend) chip(`${teams.defend}'s goal ▸`, W - 6, H / 2, "right");  // target goal (right)
+  // own goal (left) and target goal (right); the byline labels carry the direction,
+  // so the central "attacking ->" chip (which overlapped players) is dropped.
+  if (teams.attack) chip(`◂ ${teams.attack}'s goal`, 6, H / 2, "left");
+  if (teams.defend) chip(`${teams.defend}'s goal ▸`, W - 6, H / 2, "right");
   ctx.restore();
 }
 
@@ -590,7 +582,7 @@ async function buildXTcreated() {
   const bars = (rows, valOf, labelOf, colOf, fmt) => {
     const mx = Math.max(1e-6, ...rows.map(valOf));
     return rows.map((r) => `<div class="tbrow"><span class="tbname">${labelOf(r)}</span>
-      <span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 4, 100)}%;background:${colOf(r)}"></span></span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 0, 100)}%;background:${colOf(r)}"></span></span>
       <span class="tbval">${fmt(valOf(r))}</span></div>`).join("");
   };
   if (tEl) {
@@ -623,10 +615,10 @@ async function buildXtBreakdown() {
   const el = $("#xt-breakdown"); if (!el) return;
   let d; try { d = await loadJSON("data/xt_breakdown.json?v=1"); } catch (e) { return; }
   const RANGE = { tiny: "0–0.01", small: "0.01–0.03", moderate: "0.03–0.07", big: ">0.07 (box entries)" };
+  const gmx = Math.max(1e-9, ...(d.players || []).flatMap((p) => p.buckets.map((b) => b.sum)));
   el.innerHTML = (d.players || []).map((p) => {
-    const mx = Math.max(1e-9, ...p.buckets.map((b) => b.sum));
-    const rows = p.buckets.map((b) => `<div class="tbrow"><span class="tbname">${b.label} <span class="lteam">${RANGE[b.label] || ""}</span> <span class="lpos">${b.count}×</span></span>
-      <span class="tbtrack"><span class="tbfill" style="width:${clamp(b.sum / mx * 100, 5, 100)}%;background:${teamColor(p.team)}"></span></span>
+    const rows = p.buckets.map((b) => `<div class="tbrow"><span class="tbname">${b.label} <span class="lteam">${RANGE[b.label] || ""}</span> <span class="lteam">${b.count}×</span></span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(b.sum / gmx * 100, 0, 100)}%;background:${teamColor(p.team)}"></span></span>
       <span class="tbval">${b.sum.toFixed(2)}</span></div>`).join("");
     return `<div><div class="boardlab">${p.name} <span class="lteam">${p.team}</span> · <b style="color:var(--ink)">${p.total} total</b> · ${p.per_match}/match</div>
       ${rows}
@@ -662,7 +654,7 @@ function leaderboard(rows, cfg) {
       const v = cfg.val(r);
       const row = document.createElement("div"); row.className = "lrow";
       row.dataset.name = cfg.name(r);
-      const pctW = clamp(v / mx * 100, 3, 100);
+      const pctW = clamp(v / mx * 100, 0, 100);
       const note = cfg.note ? cfg.note(r) : "";
       const pos = cfg.pos ? cfg.pos(r) : "";
       row.innerHTML = `
@@ -887,18 +879,18 @@ async function buildPOBSO() {
       { key: "reveal", label: "reveal danger (× xT)" },
     ],
     readout: (fr, st) => st.mode === "reveal"
-      ? `Only the cells the off-ball attacker controls <b>and</b> that carry threat (× xT) stay lit — the dangerous space forming before the ball arrives.`
-      : `<b>${h.name}</b> ghosts off the ball into the danger pocket — control × xT, the space he both <b>owns</b> and can finish from — receives${from} ${got}. The pocket blooms <b>ahead</b> of his run, before the pass exists.`,
+      ? `Only the cells the attacker controls <b>and</b> that carry threat stay lit. That is the dangerous space forming before the ball arrives.`
+      : `<b>${h.name}</b> drifts off the ball into the space he both <b>owns</b> and can finish from, then receives${from} ${got}. The pocket opens in front of his run, before the pass exists.`,
   });
   renderTeamLegend("pobso-teamleg", surf.teams);
   const im = surf.impact;
   if (im) {
     const goal = h.outcome === "goal";
-    renderImpact(scEl, `<span class="ico">📈</span><b>What it created</b> — over ${im.window_s}s the ball`
-      + ` climbed from ${im.xt_start.toFixed(2)} to <b>${im.xt_peak.toFixed(2)} xT</b>`
-      + ` (a <span class="big${goal ? " goal" : ""}">+${im.xt_added.toFixed(2)} xT</span> rise in threat)`
-      + `${goal ? " — and it ended in a <b>GOAL ⚽</b>" : (h.outcome ? ` — and ended in a <b>${h.outcome}</b>` : "")}.`
-      + ` That's the dangerous space turned into the highest-value spot on the pitch.`);
+    renderImpact(scEl, `<b>What it created.</b> Over ${im.window_s}s the ball`
+      + ` climbed from ${im.xt_start.toFixed(2)} to <b>${im.xt_peak.toFixed(2)} xT</b>,`
+      + ` a <span class="big">+${im.xt_added.toFixed(2)} xT</span> rise in threat`
+      + `${goal ? ", and it ended in a <b>goal</b>" : (h.outcome ? `, and ended in a <b>${h.outcome}</b>` : "")}.`
+      + ` That is dangerous space turned into the highest-value spot on the pitch.`);
   }
   // name the auto-picked runner in the card title
   const pbTitle = $("#pobso-hero-title");
@@ -915,13 +907,10 @@ async function buildPOBSO() {
     name: (r) => r.name, team: (r) => r.team, pos: (r) => r.position, val: (r) => r.pobso,
     fmt: (v) => `${v.toFixed(1)} m²`,
     tier: (r) => (r.minutes_sampled < 15 ? "cameo" : "full"),
-    barColor: "#ff6b6b", scrubberEl: scEl,
-    note: (r) => r.minutes_sampled < 15
-      ? `<span class="comp warn">${r.minutes_sampled.toFixed(1)} min — single match</span>`
-      : `<span class="comp">${r.minutes_sampled.toFixed(0)} min · ${r.n_frames} fr</span>`,
+    barColor: null, scrubberEl: scEl,
     tierLabel: (g) => g === "cameo"
-      ? `cameo subs (&lt;15 min, one match) — shown separately`
-      : `substantial-minutes dangerous-space controllers (≥15 min sampled)`,
+      ? `cameo subs (under 15 min, one match) shown separately`
+      : `substantial-minutes dangerous-space controllers (15+ min sampled)`,
   });
   $("#pobso-board").appendChild(lb);
   // NOTE: the team danger-RATE board + its xG-receipt were removed in the consolidation
@@ -966,20 +955,7 @@ async function buildSAR() {
    CLOSING ACT — live FIFA EFI 2026
    ================================================================= */
 // CLOSING — two lenses on the 2022 final (FIFA EFI vs our tracking), then the same metrics live in 2026.
-// ACT 3 — team pitch control: final-third control leaderboard + control-vs-xG scatter
-async function buildPitchControl() {
-  // raw final-third-control SHARE board removed in the sweep (tight band, redundant with
-  // dangerous space). Act 3 keeps ONLY the control-vs-xG residual — "who CONVERTS control".
-  const sEl = $("#pc-scatter"); if (!sEl) return;
-  let d;
-  try { d = await loadJSON("data/space_pitch_control.json?v=64"); } catch (e) { return; }
-  const pts = d.teams.filter((t) => t.sb_xg_per_match != null)
-    .map((t) => ({ team: t.team, x: t.final_third_control_pct, y: t.sb_xg_per_match }));
-  scatterPlot(sEl, pts, {
-    id: "pc", xLabel: "final-third pitch control (%)", yLabel: "StatsBomb xG / match",
-    annot: "above the line = plays above its control",
-  });
-}
+// (team pitch-control scatter removed in the Pass 1 restructure)
 
 async function buildLive() {
   const lensEl = $("#final-2lens"), liveEl = $("#live-efi");
@@ -1002,7 +978,7 @@ async function buildLive() {
       const cmp = (label, a, b, fmt) => {
         const mx = Math.max(a, b, 1);
         const bar = (name, v, col) => `<div class="cmprow"><span class="ck">${name}</span>
-          <span class="ctrack"><span class="cfill" style="width:${clamp(v / mx * 100, 4, 100)}%;background:${col}"></span></span>
+          <span class="ctrack"><span class="cfill" style="width:${clamp(v / mx * 100, 0, 100)}%;background:${col}"></span></span>
           <span class="cval">${fmt(v)}</span></div>`;
         const winner = a > b ? "Argentina" : (b > a ? "France" : null);
         return `<div class="cmp"><div class="clab">${label}</div>
@@ -1023,14 +999,14 @@ async function buildLive() {
           <h4>Our tracking<span class="src">pitch-control reconstruction from raw PFF tracking</span></h4>
           ${cmp("Dangerous space — danger-moments / min", danger.Argentina, danger.France, num)}
           <div class="lcallout">France's danger was concentrated: <b>Mbappé</b>'s hat-trick, and France's late surges into dangerous space (the kind you scrubbed in <b>Act 2</b>). The team rate favours Argentina; France's biggest moments were a handful of individual runs.</div>
-          <div class="lcallout" style="border-left-color:var(--accent2)">Both lenses agree on the shape of the game: <b>Argentina created more, more often</b>, off two completely independent measurement systems.</div>
+          <div class="lcallout">Both lenses agree on the shape of the game: <b>Argentina created more, more often</b>, off two completely independent measurement systems.</div>
         </div>
       </div>`;
       // the outcome — real StatsBomb xG (the page's "so what", at match level)
       if (xg.Argentina && xg.France) {
         const a = xg.Argentina, b = xg.France, mx = Math.max(a.xg, b.xg, 1);
         const xbar = (name, v, np, col) => `<div class="cmprow"><span class="ck">${name}</span>
-          <span class="ctrack"><span class="cfill" style="width:${clamp(v / mx * 100, 4, 100)}%;background:${col}"></span></span>
+          <span class="ctrack"><span class="cfill" style="width:${clamp(v / mx * 100, 0, 100)}%;background:${col}"></span></span>
           <span class="cval">${v.toFixed(2)}</span></div>
           <div class="cmprow"><span class="ck"></span><span class="cmpsub">open-play (non-penalty) xG: <b>${np.toFixed(2)}</b></span></div>`;
         lensEl.innerHTML += `<div class="card lxg">
@@ -1044,26 +1020,28 @@ async function buildLive() {
     }
   }
 
-  /* ---- 2026 live: the same space metrics, straight from FIFA's feed ---- */
+  /* ---- 2026 live: threat (value) paired with receptions in behind (access) ---- */
   if (liveEl) {
     try {
-      const d = await loadJSON("data/intro_efi.json?v=2");
-      const e26 = d.efi_2026 || {};
-      const board = (rows, fmt) => {
-        rows = (rows || []).slice(0, 6);
-        const mx = Math.max(1, ...rows.map((r) => r.per_match));
+      const dThreat = await loadJSON("data/efi_2026.json?v=3");
+      const dAccess = await loadJSON("data/intro_efi.json?v=2");
+      const tRows = (dThreat.team_threat_leaders || []).slice(0, 6);
+      const aRows = ((dAccess.efi_2026 || {}).receptions_in_behind || []).slice(0, 6);
+      const board = (rows, valKey, fmt) => {
+        const mx = Math.max(1, ...rows.map((r) => r[valKey]));
         return `<div class="tbars">` + rows.map((r) => {
-          const nm = (typeof r.team === "string" && r.team.length === 3) ? codeName(r.team) : r.team;
+          const nm = codeName(r.team);
           return `<div class="tbrow"><span class="tbname">${nm} <span class="lteam">${r.team}</span></span>
-            <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.per_match / mx * 100, 4, 100)}%;background:${teamColor(nm)}"></span></span>
-            <span class="tbval">${fmt(r.per_match)}</span></div>`;
+            <span class="tbtrack"><span class="tbfill" style="width:${clamp(r[valKey] / mx * 100, 0, 100)}%;background:${teamColor(nm)}"></span></span>
+            <span class="tbval">${fmt(r[valKey])}</span></div>`;
         }).join("") + `</div>`;
       };
+      const n = dThreat.n_matches || (dAccess.efi_2026 || {}).n_matches_played || "—";
       liveEl.innerHTML = `
-        <div class="livechip"><span class="dot live"></span> LIVE · ${e26.n_matches_played || "—"} WC2026 matches played · FIFA EFI${d.fetched ? ` · last updated <b>${fmtDate(d.fetched)}</b>` : ""}</div>
+        <div class="liveupd">Updated ${fmtDate(dThreat.fetched)} · ${n} WC2026 matches · FIFA EFI</div>
         <div class="liveboards">
-          <div><h4>Completed line breaks · per match</h4>${board(e26.linebreaks_completed, (v) => v.toFixed(0))}</div>
-          <div><h4>Offers to receive in behind · per match</h4>${board(e26.offers_in_behind, (v) => v.toFixed(0))}</div>
+          <div><h4>Threat created · per match <span class="unit">FIFA's xT-cousin (value)</span></h4>${board(tRows, "threat", (v) => v.toFixed(1))}</div>
+          <div><h4>Receptions in behind · per match <span class="unit">space access</span></h4>${board(aRows, "per_match", (v) => v.toFixed(0))}</div>
         </div>`;
     } catch (e) {
       liveEl.innerHTML = `<p class="caption">Live WC2026 EFI feed unavailable right now (${e.message}). The 2022 lens above stands on its own.</p>`;
@@ -1080,15 +1058,15 @@ async function buildThreat() {
   try {
     const d = await loadJSON("data/efi_2026.json?v=3");
     const up = $("#xt-threat-updated");
-    if (up && d.fetched) up.innerHTML = `<span class="dot live"></span> LIVE · FIFA EFI`
-      + ` · last updated <b>${fmtDate(d.fetched)}</b> · ${d.n_matches || "—"} matches, ${d.n_teams || "—"} teams`;
+    if (up && d.fetched) up.textContent =
+      `FIFA EFI · live · updated ${fmtDate(d.fetched)} · ${d.n_matches || "—"} matches, ${d.n_teams || "—"} teams`;
     if (ttEl) {
       const rows = (d.team_threat_leaders || []).slice(0, 8);
       const mx = Math.max(1, ...rows.map((r) => r.threat));
       ttEl.innerHTML = rows.map((r) => {
         const nm = codeName(r.team);
         return `<div class="tbrow"><span class="tbname">${nm} <span class="lteam">${r.team}</span></span>
-          <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.threat / mx * 100, 4, 100)}%;background:${teamColor(nm)}"></span></span>
+          <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.threat / mx * 100, 0, 100)}%;background:${teamColor(nm)}"></span></span>
           <span class="tbval">${r.threat.toFixed(1)}</span></div>`;
       }).join("");
     }
@@ -1098,7 +1076,7 @@ async function buildThreat() {
       tpEl.innerHTML = rows.map((r) => {
         const team = codeName(r.team);
         return `<div class="tbrow"><span class="tbname">${r.player} <span class="lteam">${team}</span></span>
-          <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.threat / mx * 100, 4, 100)}%;background:${teamColor(team)}"></span></span>
+          <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.threat / mx * 100, 0, 100)}%;background:${teamColor(team)}"></span></span>
           <span class="tbval">${r.threat.toFixed(1)}</span></div>`;
       }).join("");
     }
@@ -1120,23 +1098,17 @@ function buildXtExplainer() {
   host.innerHTML = `
     <div class="xpl-head">how it's built · <b>xT</b></div>
     <svg class="xpl-svg" viewBox="0 0 240 110" preserveAspectRatio="xMidYMid meet" overflow="hidden" role="img" aria-label="ball moving into higher-value zone">
-      <rect x="4" y="4" width="232" height="102" rx="6" fill="#0b160f" stroke="#2a313d"/>
-      <defs>
-        <radialGradient id="xtPocket" cx="95%" cy="50%" r="40%">
-          <stop offset="0%" stop-color="#ff6b6b" stop-opacity=".55"/>
-          <stop offset="45%" stop-color="#f0b429" stop-opacity=".30"/>
-          <stop offset="100%" stop-color="#1a8c8c" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <rect x="4" y="4" width="232" height="102" rx="6" fill="url(#xtPocket)"/>
+      <rect x="4" y="4" width="232" height="102" fill="#0b160f"/>
       <line x1="120" y1="4" x2="120" y2="106" stroke="#bcd2e6" stroke-opacity=".18"/>
       <rect x="200" y="28" width="36" height="54" fill="none" stroke="#bcd2e6" stroke-opacity=".22"/>
+      <path d="M80,60 Q150,16 224,50" fill="none" stroke="#9aa6b6" stroke-opacity=".35" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="150" y="20" text-anchor="middle" font-size="8" fill="#9aa6b6">+0.24 threat added</text>
       ${stops.map(s => `<circle cx="${s.x}" cy="${s.y}" r="2.4" fill="#9aa6b6" fill-opacity=".5"/>`).join("")}
       <circle id="xtBall" cx="${stops[0].x}" cy="${stops[0].y}" r="4.5" fill="#fff" stroke="#000" stroke-width="1"/>
       <text x="226" y="16" text-anchor="end" font-size="8" fill="#9aa6b6">goal →</text>
     </svg>
     <div class="xpl-num">threat <span id="xtVal">0.02</span></div>
-    <p class="xpl-cap">The ball climbs from midfield, to the edge of the box, to <b>right in front of goal</b> — same move, far more <b>threat</b>, because the zone is worth more. xT peaks at the goal.</p>`;
+    <p class="xpl-cap">The ball climbs from midfield, to the edge of the box, to <b>right in front of goal</b>. Same move, far more <b>threat</b>, because the zone is worth more. xT peaks at the goal.</p>`;
   const valEl = $("#xtVal", host), ball = $("#xtBall", host);
   const lerp = (a, b, t) => a + (b - a) * t;
   const T = 4600, hold = 1100, travel = T - hold;   // travel the 2 legs, then hold at goal, loop
@@ -1186,8 +1158,8 @@ function buildChaseExplainer() {
 }
 
 /* 3) DANGEROUS — control blob × xT gradient -> a bright danger pocket. */
-function buildDangerExplainer() {
-  const host = $("#pobso-explainer"); if (!host) return;
+function buildDangerExplainer(sel = "#pobso-explainer", capHtml) {
+  const host = $(sel); if (!host) return;
   host.innerHTML = `
     <div class="xpl-head">how it's built · <b>Dangerous Space</b></div>
     <svg class="xpl-svg xpl-mult" viewBox="0 0 300 96" role="img" aria-label="control times value equals dangerous space">
@@ -1198,9 +1170,8 @@ function buildDangerExplainer() {
           <stop offset="100%" stop-color="#5848c0" stop-opacity="0"/>
         </radialGradient>
         <linearGradient id="xtGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#1a8c8c" stop-opacity=".1"/>
-          <stop offset="60%" stop-color="#f0b429" stop-opacity=".5"/>
-          <stop offset="100%" stop-color="#ff6b6b" stop-opacity=".85"/>
+          <stop offset="0%" stop-color="#1a2440"/><stop offset="40%" stop-color="#3cb878"/>
+          <stop offset="75%" stop-color="#ffc43c"/><stop offset="100%" stop-color="#ff6b6b"/>
         </linearGradient>
         <radialGradient id="dangerPocket" cx="62%" cy="44%" r="42%">
           <stop offset="0%" stop-color="#ff6b6b" stop-opacity="1"/>
@@ -1208,19 +1179,19 @@ function buildDangerExplainer() {
           <stop offset="100%" stop-color="#ff9a3a" stop-opacity="0"/>
         </radialGradient>
       </defs>
-      <g><rect x="6" y="14" width="72" height="58" rx="6" fill="#0e1014" stroke="#2a313d"/>
+      <g><rect x="6" y="14" width="72" height="58" fill="#0e1014"/>
          <ellipse cx="42" cy="43" rx="26" ry="20" fill="url(#ctrlBlob)"/>
          <text x="42" y="86" text-anchor="middle" font-size="9" fill="#9aa6b6">control</text></g>
       <text x="100" y="48" text-anchor="middle" font-size="20" fill="#e8edf4">×</text>
-      <g><rect x="120" y="14" width="72" height="58" rx="6" fill="#0e1014" stroke="#2a313d"/>
-         <rect x="122" y="16" width="68" height="54" rx="5" fill="url(#xtGrad)"/>
+      <g><rect x="120" y="14" width="72" height="58" fill="#0e1014"/>
+         <rect x="122" y="16" width="68" height="54" fill="url(#xtGrad)"/>
          <text x="156" y="86" text-anchor="middle" font-size="9" fill="#9aa6b6">value (xT)</text></g>
       <text x="214" y="48" text-anchor="middle" font-size="18" fill="#e8edf4">=</text>
-      <g><rect x="234" y="14" width="60" height="58" rx="6" fill="#0e1014" stroke="#2a313d"/>
-         <circle id="dangerBloom" cx="264" cy="40" r="20" fill="url(#dangerPocket)"/>
+      <g><rect x="234" y="14" width="60" height="58" fill="#0e1014"/>
+         <circle cx="264" cy="40" r="20" fill="url(#dangerPocket)"/>
          <text x="264" y="86" text-anchor="middle" font-size="9" fill="#ff6b6b">danger pocket</text></g>
     </svg>
-    <p class="xpl-cap"><b>pitch control × xT = dangerous space.</b> Control over low-value grass = nothing; control over the danger pocket = everything.</p>`;
+    <p class="xpl-cap">${capHtml || "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. Only the grass a player both owns and that sits near goal lights up."}</p>`;
 }
 
 /* small DOM legend naming both playing teams with their dot colors (att=blue/def=red). */
@@ -1251,10 +1222,10 @@ function buildPitchControlExplainer() {
   const SC = W / REG_W;                                        // px per metre
   const GW = 64, GH = Math.round(GW * H / W);                  // control-grid resolution
   host.innerHTML = `
-    <div class="xpl-head">how it's built · <b>pitch control</b> (Fernández–Bornn) — <span style="color:var(--accent)">drag the dots</span></div>
+    <div class="xpl-head">how it's built · <b>pitch control</b> (Fernández &amp; Bornn). <span style="color:var(--accent)">drag the dots</span></div>
     <div class="pcx-stage"><canvas id="pcx-cv" width="${W}" height="${H}"></canvas></div>
     <div class="pcx-read" id="pcx-read"></div>
-    <p class="xpl-cap"><b>Drag the attacker, defender or ball.</b> Each player's influence is a bivariate-normal blob; a spot's <b>control = σ(attacker − defender influence)</b> (blue = attacker owns, red = defender owns). Drag a player <b>faster</b> and its influence <b>stretches forward</b> — a sprint reaches more grass ahead — and the field tilts. Move it onto the ball and its blob tightens; far from the ball it spreads.</p>`;
+    <p class="xpl-cap"><b>Drag the attacker, defender or ball.</b> Each player's influence is a bivariate-normal blob; a spot's <b>control = σ(attacker − defender influence)</b> (blue = attacker owns, red = defender owns). Drag a player <b>faster</b> and its influence <b>stretches forward</b>, because a sprint reaches more grass ahead, and the field tilts. Move it onto the ball and its blob tightens; far from the ball it spreads.</p>`;
   const cv = $("#pcx-cv", host), ctx = cv.getContext("2d"), readEl = $("#pcx-read", host);
   const m2p = (x, y) => [x * SC, y * SC];
   // state (metres). attacker attacks +x (right).
@@ -1295,14 +1266,9 @@ function buildPitchControlExplainer() {
     }
     octx.putImageData(img, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    const g = ctx.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, "#0e141b"); g.addColorStop(1, "#0a0f14");
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#0c1116"; ctx.fillRect(0, 0, W, H);
     ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
     ctx.drawImage(off, 0, 0, GW, GH, 0, 0, W, H);
-    // halfway-ish guide + goal hint (right)
-    ctx.strokeStyle = "rgba(188,210,230,0.14)"; ctx.lineWidth = 1;
-    ctx.strokeRect(2, 2, W - 4, H - 4);
     // players + velocity arrows
     for (const pl of players) {
       const [px, py] = m2p(pl.x, pl.y);
@@ -1343,7 +1309,7 @@ function buildPitchControlExplainer() {
     readEl.innerHTML = `<b>control at the ball</b> <b style="color:${cCol}">${cb.toFixed(2)}</b> (${owner})`
       + ` · attacker <b style="color:#7ec8ff">${Math.hypot(att.vx, att.vy).toFixed(1)} m/s</b>`
       + ` · defender <b style="color:#ff9a9a">${Math.hypot(def.vx, def.vy).toFixed(1)} m/s</b>`
-      + ` <span class="hint">— drag a dot; flick to add speed</span>`;
+      + ` <span class="hint">drag a dot; flick to add speed</span>`;
   }
 
   // pointer drag with drag-derived velocity (EMA) + decay on release
@@ -1423,7 +1389,7 @@ async function buildPassSelection() {
     const rows = [...all].sort((a, b) => valOf(b) - valOf(a)).slice(0, 12);
     const mx = Math.max(1e-9, ...rows.map(valOf));
     el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""}${permatch ? ` <span class="lpos">${r.matches}m</span>` : ""}</span>
-      <span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 5, 100)}%;background:#6cb4ee"></span></span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 0, 100)}%;background:#6cb4ee"></span></span>
       <span class="tbval">${valOf(r).toFixed(2)}</span></div>`).join("");
     if (lab) lab.innerHTML = permatch
       ? "Players · controllable threat (control × xT) via final-third passes, <b>per match</b> (games played shown)"
@@ -1444,7 +1410,7 @@ async function buildBWAE() {
     if (!top.length) return;
     const mx = Math.max(1e-9, ...top.map((r) => r.bwae_per_duel));
     el.innerHTML = top.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""}</span>
-      <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.bwae_per_duel / mx * 100, 5, 100)}%;background:${color}"></span></span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.bwae_per_duel / mx * 100, 0, 100)}%;background:${color}"></span></span>
       <span class="tbval">+${(r.bwae_per_duel * 100).toFixed(0)}%</span></div>`).join("");
   };
   render(d.all, "#bwae-all", "#9b8cff");
@@ -1468,7 +1434,7 @@ async function buildPassingClip() {
   });
   renderTeamLegend("passing-teamleg", surf.teams);
   const im = surf.impact;
-  if (im) renderImpact(el, `<span class="ico">📈</span><b>What it created</b> — over ${im.window_s}s the ball`
+  if (im) renderImpact(el, `<b>What it created.</b> Over ${im.window_s}s the ball`
     + ` gained <span class="big">+${im.xt_added.toFixed(2)} xT</span> of threat (into the final third)`
     + `${h.shot_outcome ? `, and the move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` by ${h.shot_shooter}` : ""}` : ""}.`);
   const t1 = $("#passing-hero-title"), t2 = $("#passing-hero-title2");
@@ -1492,7 +1458,7 @@ async function buildDuelClip() {
   renderTeamLegend("duel-teamleg", surf.teams);
   // a duel's value is the possession won, not xT — show the BWAE swing vs the 50-50 odds
   const swing = (1 - (h.expected_win ?? 0)).toFixed(2);
-  renderImpact(el, `<span class="ico">📈</span><b>What it created</b> — a 50-50 pitch control rated `
+  renderImpact(el, `<b>What it created.</b> A 50-50 pitch control rated `
     + `~<b>${h.expected_pct}%</b> his way, won: a <span class="big">+${swing}</span> swing above what his `
     + `positioning predicted. Turning the ball over is the value; doing it more than the % says is the skill.`);
   const t1 = $("#duel-hero-title"), t2 = $("#duel-hero-title2");
@@ -1510,15 +1476,15 @@ if (!window.__spaceWIPPage) {
     buildXTcreated();
     buildXtBreakdown();
     buildThreat();
-    // Act 2 — Pitch control (Fernández–Bornn): interactive explainer + team control-vs-xG
-    await buildPitchControl();
+    // Act 2 — Pitch control (Fernández & Bornn): interactive explainer
     buildPitchControlExplainer();
-    // Act 3 — three ways: passing, duels, dangerous space (each clip + leaderboard)
+    // Act 3 — three applications: off-ball OBSO, passing, duels (each clip + leaderboard)
     buildPassSelection();
     buildBWAE();
     await Promise.allSettled([buildPassingClip(), buildDuelClip(), buildPOBSO()]);
-    buildDangerExplainer();
-    // Closing — live 2026 (2022-final two-lens validation + CV outlook)
+    buildDangerExplainer("#pobso-explainer");
+    buildDangerExplainer("#ps-explainer", "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. The board below sums this product over each player's final-third passes, so a big number means repeated balls into controlled, high-value space.");
+    // Closing — live 2026 (2022-final two-lens validation + live EFI)
     await buildLive();
   })();
 }
