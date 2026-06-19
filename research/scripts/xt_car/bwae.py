@@ -41,6 +41,7 @@ try:
     from wc2026_tracking_transformer.baselines.xt import xt_for_ball
 except Exception:
     xt_for_ball = None
+from opp_strength import OppStrength, stage_of, per_stage_block  # noqa: E402
 HALF_LEN, HALF_WID = 52.5, 34.0
 
 
@@ -116,12 +117,13 @@ def attack_dir(snap, carrier_id):
     return 1.0 if gk_x[0] < 0 else -1.0
 
 
-def process_match(root, mid, acc_all, acc_f3, names, pmatches):
+def process_match(root, mid, acc_all, acc_f3, names, pmatches, acc_xt, opp):
     try:
         ev = json.load(open(root / "Event Data" / f"{mid}.json"))
     except Exception:
         return (0, 0)
     roster = load_roster(root, mid)
+    stage = stage_of(mid)
     n_all = n_f3 = 0
     for e in ev:
         pe = e.get("possessionEvents") or {}
@@ -155,16 +157,23 @@ def process_match(root, mid, acc_all, acc_f3, names, pmatches):
         # winning it is FOR THE WINNER.
         wa = xt_dir(bx, by, d)
         wb = xt_dir(bx, by, (-d) if d is not None else None)
-        for pid, nm, res, wt in ((a, pe.get("ballCarrierPlayerName") or pe.get("carrierPlayerName"),
-                                  (1.0 if win == a else 0.0) - exp_a, wa),
-                                 (b, pe.get("challengerPlayerName"),
-                                  (1.0 if win == b else 0.0) - (1.0 - exp_a), wb)):
+        for pid, opp_pid, nm, res, wt in ((a, b, pe.get("ballCarrierPlayerName") or pe.get("carrierPlayerName"),
+                                           (1.0 if win == a else 0.0) - exp_a, wa),
+                                          (b, a, pe.get("challengerPlayerName"),
+                                           (1.0 if win == b else 0.0) - (1.0 - exp_a), wb)):
             if pid not in names:
                 g = snap[pid][4]
                 names[pid] = {"name": nm or f"#{pid}", "team": roster.get(pid, {}).get("team", ""),
                               "pos": (COLLAPSE.get(g, g) if g else "")}
             acc_all[pid]["res"] += res; acc_all[pid]["n"] += 1
             acc_all[pid]["xtw"] += wt * res; pmatches[pid].add(mid)
+            # per-stage, opponent-weighted xT-BWAE — weight by the OTHER contestant's team strength
+            contrib = wt * res
+            ot = roster.get(opp_pid, {}).get("team", "")
+            ow = opp.weight(ot) if ot else 1.0
+            sx = acc_xt[pid]["by_stage"][stage]
+            sx["valw"] += contrib * ow; sx["valr"] += contrib; sx["mids"].add(mid)
+            acc_xt[pid]["n"] += 1
             if in_f3:
                 acc_f3[pid]["res"] += res; acc_f3[pid]["n"] += 1
         n_all += 1; n_f3 += 1 if in_f3 else 0
@@ -179,20 +188,23 @@ def board(acc, names, min_n):
     return rows
 
 
-def board_xt(acc, names, min_n, pmatches):
+def board_xt(acc_xt, names, min_n):
     """xT-weighted Balls Won Above Expected: sum over a player's ground duels of
-    xT(contest) x (won - expected). Wins in dangerous areas above the odds dominate;
-    own-half clearances barely register. Per-match = the sum / matches with a duel."""
+    xT(contest) x (won - expected), split group/knockout and per-match, weighted by the
+    opponent's strength (both weighted + raw carried). Same stages schema as the other boards."""
     rows = []
-    for p in acc:
-        if acc[p]["n"] < min_n:
+    for p in acc_xt:
+        if acc_xt[p]["n"] < min_n:
             continue
-        m = len(pmatches.get(p, ()))
         rows.append({"name": names[p]["name"], "team": names[p]["team"], "pos": names[p].get("pos", ""),
-                     "bwae_xt": acc[p]["xtw"], "bwae_xt_per_match": acc[p]["xtw"] / max(1, m),
-                     "bwae_per_duel": acc[p]["res"] / acc[p]["n"], "n_duels": acc[p]["n"], "matches": m})
-    rows.sort(key=lambda r: -r["bwae_xt"])
+                     "stages": per_stage_block(acc_xt[p]["by_stage"]), "n_duels": acc_xt[p]["n"]})
+    rows.sort(key=lambda r: -r["stages"]["all"]["total"])
     return rows
+
+
+def _new_xt():
+    return {"n": 0, "by_stage": {"group": {"valw": 0.0, "valr": 0.0, "mids": set()},
+                                 "ko": {"valw": 0.0, "valr": 0.0, "mids": set()}}}
 
 
 def main():
@@ -204,21 +216,26 @@ def main():
     mids = (a.matches.split(",") if a.matches
             else sorted(p.name.replace(".jsonl.bz2", "")
                         for p in (root / "Tracking Data").glob("*.jsonl.bz2")))
+    opp = OppStrength()
     acc_all = defaultdict(lambda: {"res": 0.0, "n": 0, "xtw": 0.0})
     acc_f3 = defaultdict(lambda: {"res": 0.0, "n": 0}); names = {}
     pmatches = defaultdict(set)
+    acc_xt = defaultdict(_new_xt)
     t_all = t_f3 = 0
     for mid in mids:
-        na, nf = process_match(root, mid, acc_all, acc_f3, names, pmatches); t_all += na; t_f3 += nf
+        na, nf = process_match(root, mid, acc_all, acc_f3, names, pmatches, acc_xt, opp); t_all += na; t_f3 += nf
     all_b = board(acc_all, names, a.min_n); f3_b = board(acc_f3, names, a.min_n_f3)
-    xt_b = board_xt(acc_all, names, a.min_n_xt, pmatches)
+    xt_b = board_xt(acc_xt, names, a.min_n_xt)
     OUT.write_text(json.dumps({"metric": "Balls Won Above Expected (ground duels), xT-weighted",
+                               "stages": ["all", "group", "ko"], "opponent_weighted": True,
                                "n_ground_duels": t_all, "n_final_third": t_f3,
                                "players": xt_b, "all": all_b, "final_third": f3_b}, indent=1))
     print(f"[BWAE] {t_all} ground duels ({t_f3} in final third)", flush=True)
-    print(f"\nTOP 12 — xT-WEIGHTED (sum of xT x above-expected):", flush=True)
+    print(f"\nTOP 12 — xT-WEIGHTED, group-stage per-match (opp-weighted):", flush=True)
     for r in xt_b[:12]:
-        print(f"  {r['bwae_xt']:+.3f}  {r['name']:<24} {r['team']:<12} (n={r['n_duels']}, raw {r['bwae_per_duel']*100:+.0f}%)", flush=True)
+        g = r["stages"]["group"]
+        print(f"  all {r['stages']['all']['total']:+.2f}  grp/match {g['per_match']:+.3f}  "
+              f"{r['name']:<24} {r['team']:<12} (n={r['n_duels']})", flush=True)
 
 
 if __name__ == "__main__":

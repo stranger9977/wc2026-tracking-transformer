@@ -570,10 +570,11 @@
       </div>
       <div class="card">
         <h3>Wins his duels where it counts</h3>
-        <div class="boardlab" id="bwae-lab">Players · <b>total</b> xT-weighted balls won above expected (ground duels)</div>
-        <div class="htoggles" id="bwae-toggle" style="padding:0;margin:0 0 8px"><button class="htog on" data-m="total">total</button><button class="htog" data-m="permatch">per match</button></div>
+        <div class="boardlab" id="bwae-lab"></div>
+        <div class="htoggles" id="bwae-toggle" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
+        <div class="htoggles" id="bwae-weight" style="padding:0;margin:0 0 8px"><button class="htog on" data-w="weighted">opponent-weighted</button><button class="htog" data-w="raw">raw</button></div>
         <div id="bwae-xt" class="tbars"></div>
-        <p class="caption">Each ground duel is scored <b>xT(where it happens) × (won − expected)</b>, then summed. Pitch control sets the expectation from both players' position and momentum; the xT weight means winning a 50-50 near goal counts and a clearance in your own half barely does. So it surfaces the players who win the ball in dangerous areas more than their positioning predicts: <b id="bwae-top">the leaders</b>. All 64 WC2022 games.</p>
+        <p class="caption">Each ground duel is scored <b>xT(where it happens) × (won − expected)</b> — pitch control sets the expectation from both players' position and momentum, and the xT weight means winning a 50-50 near goal counts while a clearance in your own half barely does. <b>Per match, weighted by opponent strength</b>; group stage is the level field, knockout is who did it against the best. Leaders: <b id="bwae-top">the leaders</b>.</p>
       </div>
     </div>
   </div>
@@ -628,6 +629,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=46"></script>
+<script type="module" src="assets/js/space.js?v=47"></script>
 </body>
 </html>
