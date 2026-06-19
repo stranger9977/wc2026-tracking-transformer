@@ -343,21 +343,25 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
         if fr.timestamp_s < lo or fr.timestamp_s > hi:
             continue
         ctrl = pc.control_surface(fr.players, fr.ball_m, grid, include_gk=True)
-        surf = ctrl["attack_control"] * xt_grid if kind == "danger" else ctrl["attack_control"]
+        actrl = ctrl["attack_control"]                  # raw attacker control (pre × xT)
+        surf = actrl * xt_grid if kind == "danger" else actrl
         bx, by = float(fr.ball_m[0]), float(fr.ball_m[1])
         d_anchor, hero_cell = None, 0.0
         markers = []
         for i, ident in enumerate(fr.identities):
             mx, my = float(fr.players[i, 0] * HALF_LEN), float(fr.players[i, 1] * HALF_WID)
+            ci = int(np.clip((my + HALF_WID) / (2 * HALF_WID) * grid.ny, 0, grid.ny - 1))
+            cj = int(np.clip((mx + HALF_LEN) / (2 * HALF_LEN) * grid.nx, 0, grid.nx - 1))
             if anchor_name and ident.name == anchor_name:
                 d_anchor = math.hypot(mx - bx, my - by)
             if kind == "danger" and hero and ident.name == hero.get("name"):
-                ci = int(np.clip((my + HALF_WID) / (2 * HALF_WID) * grid.ny, 0, grid.ny - 1))
-                cj = int(np.clip((mx + HALF_LEN) / (2 * HALF_LEN) * grid.nx, 0, grid.nx - 1))
                 hero_cell = float(surf[ci, cj])
+            # `ctrl` = the attacking team's pitch-control share at the player's own cell
+            # (0..1). >0.5 = his team owns the grass he is in (winning the space).
             markers.append({"x": round(mx, 1), "y": round(my, 1),
                             "att": bool(fr.players[i, 4] > 0), "gk": bool(fr.players[i, 5] > 0.5),
-                            "name": ident.name, "vis": ident.visibility})
+                            "name": ident.name, "vis": ident.visibility,
+                            "ctrl": round(float(actrl[ci, cj]), 3)})
         raw.append({"t_s": round(fr.timestamp_s, 2), "ball_xy": [round(bx, 1), round(by, 1)],
                     "in_possession_team": fr.in_possession_team, "surf": surf,
                     "raw_max": float(surf.max()), "players": markers,
@@ -379,17 +383,18 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
             r["ball_xy"] = [round(_sm(_bx, i), 1), round(_sm(_by, i), 1)]
     gmax = max(r["raw_max"] for r in sel) or 1.0
     hero_owned = max((r["hero_cell"] for r in sel), default=0.0)
-    frames_out = [{"t_s": r["t_s"], "ball_xy": r["ball_xy"],
+    # per-frame ball xT (Karun Singh grid, attack-+x) — rendered as a live tag on the ball.
+    ball_xt = [float(pc.xt_value_m(r["ball_xy"][0], r["ball_xy"][1])) for r in sel]
+    frames_out = [{"t_s": r["t_s"], "ball_xy": r["ball_xy"], "xt": round(ball_xt[i], 3),
                    "in_possession_team": r["in_possession_team"],
                    "raw_max": round(r["raw_max"], 5), "players": r["players"],
                    "surface": [[round(float(v), 4) for v in row] for row in (r["surf"] / gmax)]}
-                  for r in sel]
+                  for i, r in enumerate(sel)]
     xt_ref = xt_grid / (xt_grid.max() or 1.0)
     if kind == "danger" and hero is not None and "obso_owned" not in hero:
         hero["obso_owned"] = round(hero_owned, 4)
     # "this helped" receipt — how much THREAT (xT) the ball gained over the clip:
     # xT of the ball's spot (Karun Singh grid) at the start vs its peak in the window.
-    ball_xt = [float(pc.xt_value_m(r["ball_xy"][0], r["ball_xy"][1])) for r in sel]
     impact = {"xt_start": round(ball_xt[0], 3), "xt_peak": round(max(ball_xt), 3),
               "xt_added": round(max(ball_xt) - ball_xt[0], 3),
               "window_s": round(sel[-1]["t_s"] - sel[0]["t_s"], 1)}
@@ -423,6 +428,65 @@ def _teams_block(meta, lock_id):
     if lock_id == str(home["id"]):
         return {"attack": home["name"], "defend": away["name"]}
     return {"attack": away["name"], "defend": home["name"]}
+
+
+def passes_in_window(ev_list, period, t_lo, t_hi, orient_sign, attack_name, pad=0.5):
+    """Attacking-team passes (PA/CR) whose gameClock lands in [t_lo, t_hi] period-elapsed
+    seconds — the same clock the exported frames use. Coords are oriented to attack +x
+    (× orient_sign on BOTH axes, matching space_io's frame orientation) so the on-clip
+    arrows fall on the players. Each pass carries the xT it ADDED: xT at the receiver's
+    spot minus xT at the ball's origin (Karun Singh grid, attack-+x). Ordered by time."""
+    def _ball_xy(e):
+        b = (e.get("ball") or [{}]); b = b[0] if b else {}
+        return (float(b["x"]), float(b["y"])) if b.get("x") is not None else None
+
+    out = []
+    for i, e in enumerate(ev_list):
+        ge = e.get("gameEvents") or {}
+        pe = e.get("possessionEvents") or {}
+        if ge.get("period") != period or pe.get("possessionEventType") not in ("PA", "CR"):
+            continue
+        gc = pe.get("gameClock")
+        if gc is None:
+            continue
+        t_s = float(gc) - 2700.0 * (period - 1)
+        if not (t_lo - pad <= t_s <= t_hi + pad):
+            continue
+        if attack_name and ge.get("teamName") and ge.get("teamName") != attack_name:
+            continue
+        recv = pe.get("targetPlayerName") or pe.get("receiverPlayerName")
+        tgt_id = pe.get("targetPlayerId") or pe.get("receiverPlayerId")
+        origin = _ball_xy(e)
+        if origin is None or not recv:
+            continue
+        # destination = where the ball ENDS UP (the next event with a ball position) — for a
+        # through-ball the receiver runs onto it, so his standing spot at pass time undersells
+        # it; the ball's landing spot is the true value gained. Fall back to the receiver's
+        # position if no later ball is recorded.
+        dest = None
+        for j in range(i + 1, min(i + 6, len(ev_list))):
+            dest = _ball_xy(ev_list[j])
+            if dest is not None:
+                break
+        if dest is None and tgt_id is not None:
+            snap = _snapshot(e)
+            if int(tgt_id) in snap:
+                dest = (snap[int(tgt_id)][0], snap[int(tgt_id)][1])
+        if dest is None:
+            continue
+        x0, y0 = origin[0] * orient_sign, origin[1] * orient_sign
+        x1, y1 = dest[0] * orient_sign, dest[1] * orient_sign
+        xt0 = float(xt_for_ball(x0 / HALF_LEN, y0 / HALF_WID))
+        xt1 = float(xt_for_ball(x1 / HALF_LEN, y1 / HALF_WID))
+        out.append({"t_s": round(t_s, 2),
+                    "passer": pe.get("passerPlayerName") or pe.get("crosserPlayerName") or "",
+                    "receiver": recv,
+                    "x0": round(x0, 1), "y0": round(y0, 1), "x1": round(x1, 1), "y1": round(y1, 1),
+                    "xt_before": round(xt0, 3), "xt_after": round(xt1, 3),
+                    "xt_added": round(xt1 - xt0, 3),
+                    "complete": pe.get("passOutcomeType") in (None, "C")})
+    out.sort(key=lambda p: p["t_s"])
+    return out
 
 
 def possession_shot(ev, period, gc):
@@ -500,15 +564,25 @@ def pick_dangerous_run():
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--only", default="all", choices=["all", "passing", "duel", "danger"],
+                    help="export just one clip (fast iteration)")
+    ap.add_argument("--pre", type=float, default=10.5, help="danger clip: seconds before the finish")
+    ap.add_argument("--post", type=float, default=0.7, help="danger clip: seconds after the finish "
+                    "(short — end on the ball in the net, before the noisy post-goal celebration)")
+    ap.add_argument("--stride", type=int, default=3, help="danger clip: tracking stride (3 = 10 Hz)")
+    a = ap.parse_args()
     SURF_DIR.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
 
     # ---- PASSING ----
-    print("[passing] scanning Event Data for best penetrating final-third pass...", flush=True)
-    pk = pick_passing()
-    if pk is None:
+    if a.only in ("all", "passing"):
+      print("[passing] scanning Event Data for best penetrating final-third pass...", flush=True)
+      pk = pick_passing()
+      if pk is None:
         print("[passing] no candidate found", flush=True)
-    else:
+      else:
         score, mid, period, gc, pname, rname, pid, rid, ctrl, xtv = pk
         meta = space_io.load_metadata(mid)
         lock = _team_id_for_player(meta, json.load(open(ROOT / "Event Data" / f"{mid}.json"))[0], pid) \
@@ -547,9 +621,10 @@ def main():
 
     # ---- DUEL ---- (validate each candidate against TRACKING; keep the first that's a
     # genuine, in-frame 50-50 the WINNER was the underdog in, so the clip matches the odds)
-    print("[duel] scanning + tracking-validating ground-duel upsets...", flush=True)
-    n_tried = 0
-    for score, mid, period, gc, wid, wname, lid, lname in pick_duel():
+    if a.only in ("all", "duel"):
+      print("[duel] scanning + tracking-validating ground-duel upsets...", flush=True)
+      n_tried = 0
+      for score, mid, period, gc, wid, wname, lid, lname in pick_duel():
         n_tried += 1
         if n_tried > 40:
             print("[duel] no tracking-valid 50-50 found in 40 candidates", flush=True)
@@ -565,9 +640,10 @@ def main():
         break
 
     # ---- DANGEROUS SPACE (Way 3): bloom -> receive -> score ----
-    print("[danger] scanning for the best run-into-space-and-score goal...", flush=True)
-    ranked = pick_dangerous_run()
-    for score, mid, period, gc, sid, shooter, assist in ranked[:8]:
+    if a.only in ("all", "danger"):
+      print("[danger] scanning for the best run-into-space-and-score goal...", flush=True)
+      ranked = pick_dangerous_run()
+      for score, mid, period, gc, sid, shooter, assist in ranked[:8]:
         meta = space_io.load_metadata(mid)
         ev0 = json.load(open(ROOT / "Event Data" / f"{mid}.json"))
         lock = None
@@ -579,11 +655,12 @@ def main():
             continue
         hero = {"name": shooter, "team": _teams_block(meta, lock)["attack"],
                 "assist": assist, "outcome": "goal"}
-        # 5 Hz for smooth scrubbing; pre ~5.5 s = the final build-up (the last passes into
-        # Di María's run + finish) in the attacking half, where broadcast tracking holds up.
-        # The full 11 s build-up floated/wiggled (occluded ball over a long midfield move).
+        # 10 Hz (stride 3) so the fast counter's control field tracks the dots instead of
+        # cross-dissolving between sparse keyframes; pre ~10.5 s = the WHOLE build-up (every
+        # pass of the move into the finish). 3-tap ball smoothing tames the occluded ball.
         payload = export_window(mid, period, gc, lock, "danger", hero,
-                                teams=_teams_block(meta, lock), pre=5.5, post=1.5, stride=6)
+                                teams=_teams_block(meta, lock),
+                                pre=a.pre, post=a.post, stride=a.stride)
         if not payload or payload["n_frames"] < 8:
             continue
         # validate it's a real forward off-ball arrival: shooter visible + advances toward goal
@@ -600,6 +677,17 @@ def main():
                             "pocket bloom AHEAD of his run, before the ball arrives."),
             "match": f"{meta['homeTeam']['name']} v {meta['awayTeam']['name']}",
         })
+        # every pass of the move + the xT each one added (oriented to the frames so the
+        # arrows fall on the players); `receivers` rings the players who get a pass.
+        sign = space_io.attacking_sign_for_home(meta, period)
+        orient_sign = sign if str(lock) == str(meta["homeTeam"]["id"]) else -sign
+        pss = passes_in_window(ev0, period, payload["start_s"], payload["end_s"],
+                               orient_sign, _teams_block(meta, lock)["attack"])
+        payload["passes"] = pss
+        payload["receivers"] = sorted({p["receiver"] for p in pss if p.get("receiver")})
+        print(f"[danger] {len(pss)} passes in window: "
+              + ", ".join(f"{p['passer'].split()[-1] if p['passer'] else '?'}->"
+                          f"{p['receiver'].split()[-1]} ({p['xt_added']:+.2f})" for p in pss), flush=True)
         (SURF_DIR / "pobso.json").write_text(json.dumps(payload))
         print(f"[danger] wrote surfaces/pobso.json — {shooter} ({meta['homeTeam']['name']} v "
               f"{meta['awayTeam']['name']}, p{period} {gc:.0f}s), assist {assist}, "
