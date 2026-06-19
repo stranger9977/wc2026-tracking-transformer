@@ -554,15 +554,44 @@ def passes_in_window(ev_list, period, t_lo, t_hi, orient_sign, attack_name, pad=
         x1, y1 = dest[0] * orient_sign, dest[1] * orient_sign
         xt0 = float(xt_for_ball(x0 / HALF_LEN, y0 / HALF_WID))
         xt1 = float(xt_for_ball(x1 / HALF_LEN, y1 / HALF_WID))
+        psr_id = pe.get("passerPlayerId") or pe.get("crosserPlayerId")
         out.append({"t_s": round(t_s, 2),
                     "passer": pe.get("passerPlayerName") or pe.get("crosserPlayerName") or "",
                     "receiver": recv,
+                    "passer_id": int(psr_id) if psr_id is not None else None,
+                    "receiver_id": int(tgt_id) if tgt_id is not None else None,
                     "x0": round(x0, 1), "y0": round(y0, 1), "x1": round(x1, 1), "y1": round(y1, 1),
                     "xt_before": round(xt0, 3), "xt_after": round(xt1, 3),
                     "xt_added": round(xt1 - xt0, 3),
                     "complete": pe.get("passOutcomeType") in (None, "C")})
     out.sort(key=lambda p: p["t_s"])
     return out
+
+
+def event_player_tracks(ev_list, period, orient_sign, ids, t_lo, t_hi, pad=0.6):
+    """For the given player ids, their event-SNAPSHOT positions (oriented to the frames) at each
+    pass/shot event in the window — keyframes that pin a passer/receiver to where he actually was
+    at the moments he touches the ball, so the dots stay synced to the ball + arrows (which are
+    event-driven). Returns {pid: sorted [(t_s, x, y)]}."""
+    ids = set(i for i in ids if i is not None)
+    tracks = defaultdict(list)
+    for e in ev_list:
+        ge = e.get("gameEvents") or {}; pe = e.get("possessionEvents") or {}
+        if ge.get("period") != period or pe.get("possessionEventType") not in ("PA", "CR", "SH"):
+            continue
+        gc = pe.get("gameClock")
+        if gc is None:
+            continue
+        t = float(gc) - 2700.0 * (period - 1)
+        if not (t_lo - pad <= t <= t_hi + pad):
+            continue
+        snap = _snapshot(e)
+        for pid in ids:
+            if pid in snap:
+                tracks[pid].append((t, snap[pid][0] * orient_sign, snap[pid][1] * orient_sign))
+    for pid in tracks:
+        tracks[pid].sort()
+    return dict(tracks)
 
 
 def possession_shot(ev, period, gc):
@@ -810,6 +839,35 @@ def main():
             payload["impact"] = {"xt_start": round(_bxt[0], 3), "xt_peak": round(max(_bxt), 3),
                                  "xt_added": round(max(_bxt) - _bxt[0], 3),
                                  "window_s": payload["impact"]["window_s"]}
+            # SYNC the move: pin each passer/receiver to the event-snapshot position at the moments
+            # he touches the ball (same timeline the ball + arrows use), interpolated between, so
+            # the dots line up with the ball instead of lagging on the noisy/ smoothed tracking.
+            id2name = {}
+            for p in pss:
+                if p.get("passer_id"):
+                    id2name[p["passer_id"]] = p["passer"]
+                if p.get("receiver_id"):
+                    id2name[p["receiver_id"]] = p["receiver"]
+            tracks = event_player_tracks(ev0, period, orient_sign, id2name.keys(),
+                                         payload["start_s"], payload["end_s"])
+            name2kf = {id2name[pid]: kf for pid, kf in tracks.items() if pid in id2name and kf}
+
+            def _kf_at(kf, t):
+                if t <= kf[0][0]:
+                    return kf[0][1], kf[0][2]
+                for k in range(1, len(kf)):
+                    if t <= kf[k][0]:
+                        t0, x0, y0 = kf[k - 1]; t1, x1, y1 = kf[k]
+                        f = (t - t0) / (t1 - t0) if t1 > t0 else 0.0
+                        return x0 + (x1 - x0) * f, y0 + (y1 - y0) * f
+                return kf[-1][1], kf[-1][2]
+
+            for f in payload["frames"]:
+                for pl in f["players"]:
+                    kf = name2kf.get(pl["name"])
+                    if kf:
+                        px, py = _kf_at(kf, f["t_s"])
+                        pl["x"], pl["y"] = round(px, 1), round(py, 1)
         print(f"[danger] {len(pss)} passes in window: "
               + ", ".join(f"{p['passer'].split()[-1] if p['passer'] else '?'}->"
                           f"{p['receiver'].split()[-1]} ({p['xt_added']:+.2f})" for p in pss), flush=True)
