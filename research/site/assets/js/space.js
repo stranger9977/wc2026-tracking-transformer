@@ -1484,28 +1484,29 @@ window.__spaceWIP = { buildSMS, buildSAR, buildCHASE, buildPOBSO, buildXT, build
    window.__spaceWIPPage before loading this module) so SMS/SAR are built once,
    on demand, against the archive's own host IDs — not twice. */
 /* ---------------- player-skill boards (pitch control turned on individuals, 64 games) */
+// Stage filter (group / knockout / all), always PER MATCH and opponent-strength weighted —
+// the fair way to compare players from teams that played different numbers of (different-
+// strength) games. Group stage is the level field; knockout = vs elite defences.
+const STAGE_LABEL = { group: "group stage", ko: "knockout", all: "all 64 games" };
+const STAGE_MIN = { group: 2, ko: 1, all: 2 };
 async function buildPassSelection() {
   const el = $("#ps-board"); if (!el) return;
-  let d; try { d = await loadJSON("data/pass_selection.json?v=2"); } catch (e) { return; }
-  const all = (d.players || []).filter((r) => !String(r.name).startsWith("#"));
-  if (!all.length) return;
+  let d; try { d = await loadJSON("data/pass_selection.json?v=3"); } catch (e) { return; }
+  const players = (d.players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
+  if (!players.length) return;
   const lab = $("#ps-lab"), tg = $("#ps-toggle"), top = $("#ps-top");
-  // caption names stay pinned to the TOTAL (volume) leaders — the "creators not deep
-  // defenders" point is about who racks up the most final-third danger overall.
-  if (top) top.textContent = [...all].sort((a, b) => b.total - a.total).slice(0, 3).map((r) => r.name).join(", ");
-  const render = (mode) => {
-    const permatch = mode === "permatch";
-    const valOf = (r) => permatch ? r.per_match : r.total;
-    const rows = [...all].sort((a, b) => valOf(b) - valOf(a)).slice(0, 12);
-    const mx = Math.max(1e-9, ...rows.map(valOf));
-    el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""}${permatch ? ` <span class="lpos">${r.matches}m</span>` : ""}</span>
-      <span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 0, 100)}%;background:#6cb4ee"></span></span>
-      <span class="tbval">${valOf(r).toFixed(2)}</span></div>`).join("");
-    if (lab) lab.innerHTML = permatch
-      ? "Players · controllable threat (control × xT) via final-third passes, <b>per match</b> (games played shown)"
-      : "Players · <b>total</b> controllable threat (control × xT) accessed via final-third passes";
+  const render = (stage) => {
+    const min = STAGE_MIN[stage] || 2;
+    const sv = (r) => (r.stages[stage] && r.stages[stage].matches >= min) ? r.stages[stage].per_match : null;
+    const rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
+    const mx = Math.max(1e-9, ...rows.map(sv));
+    el.innerHTML = rows.map((r) => { const s = r.stages[stage]; return `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""} <span class="lpos">${s.matches}m</span></span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(sv(r) / mx * 100, 0, 100)}%;background:#6cb4ee"></span></span>
+      <span class="tbval">${sv(r).toFixed(2)}</span></div>`; }).join("");
+    if (lab) lab.innerHTML = `Players · control × xT into the final third, <b>per match</b>, opponent-strength weighted · <b>${STAGE_LABEL[stage]}</b>`;
+    if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
-  render("total");
+  render("group");
   if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => {
     $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b));
     render(b.dataset.m);

@@ -542,10 +542,10 @@
       <div id="ps-explainer" class="xpl"></div>
       <div class="card">
         <h3>Who repeatedly threads it into dangerous, controlled space</h3>
-        <div class="boardlab" id="ps-lab">Players · <b>total</b> controllable threat (control × xT) summed over final-third passes</div>
-        <div class="htoggles" id="ps-toggle" style="padding:0;margin:0 0 8px"><button class="htog on" data-m="total">total</button><button class="htog" data-m="permatch">per match</button></div>
+        <div class="boardlab" id="ps-lab"></div>
+        <div class="htoggles" id="ps-toggle" style="padding:0;margin:0 0 8px"><button class="htog on" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
         <div id="ps-board" class="tbars"></div>
-        <p class="caption">All 64 WC2022 games. The final-third restriction is what surfaces the creators rather than deep ball-playing defenders. Defenders rack up progression just by passing forward out of their own half. The leaders here are <b id="ps-top">the top names</b>.</p>
+        <p class="caption"><b>Per match, weighted by opponent strength</b> (a FIFA-index proxy), so racking up numbers against minnows is discounted. The <b>group stage</b> is the level field — every team plays three games — so it is the fairest comparison; <b>knockout</b> is who did it against elite defences. Leaders: <b id="ps-top">the top names</b>. Kept to passes into the final third on purpose: summed over <i>all</i> passes the metric just rewards deep defenders for passing volume (xT alone does not fix it), so the final-third gate is what surfaces the creators.</p>
       </div>
     </div>
   </div>
@@ -627,6 +627,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=44"></script>
+<script type="module" src="assets/js/space.js?v=45"></script>
 </body>
 </html>

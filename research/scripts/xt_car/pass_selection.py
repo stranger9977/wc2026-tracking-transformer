@@ -24,6 +24,7 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parents[3]
 sys.path[:0] = [str(_REPO / "research" / "scripts"), str(_REPO / "src")]
 from wc2026_tracking_transformer.baselines.xt import xt_for_ball  # noqa: E402
+from opp_strength import OppStrength, stage_of, per_stage_block  # noqa: E402
 
 R_MIN, R_MAX, BALL_SAT = 4.0, 10.0, 18.0
 HALF_LEN, HALF_WID = 52.5, 34.0
@@ -84,12 +85,14 @@ def sides(ev, passer_id):
     return att, dfn, pos, grp, direction
 
 
-def process_match(root, mid, meta):
+def process_match(root, mid, meta, opp):
     try:
         ev = json.load(open(root / "Event Data" / f"{mid}.json"))
     except Exception:
         return 0
     roster = load_roster(root, mid)
+    teams = sorted({t for t in roster.values() if t})
+    stage = stage_of(mid)
     n = 0
     for e in ev:
         pe = e.get("possessionEvents") or {}
@@ -106,24 +109,35 @@ def process_match(root, mid, meta):
         att, dfn, pos, grp, d = sides(e, passer)
         if not att or target not in pos or grp.get(passer) == "GK" or d is None:
             continue
-        # games-played denominator: any valid (non-GK) pass counts the passer as
-        # having appeared in this match, so per-match divides by games played, not
-        # games-with-a-final-third-pass (consistent with build_xt_created.py).
-        meta[passer]["mids"].add(mid)
+        m = meta[passer]
+        # games-played denominator (per stage): any valid (non-GK) pass = the passer appeared.
+        m["by_stage"][stage]["mids"].add(mid)
         tx, ty = pos[target]
+        # KEEP the final-third gate: it is NOT redundant with xT. Summing control x xT over ALL
+        # passes is volume-dominated (a CB's ~80 low-xT build-up balls/game out-total a creator's
+        # few killer passes — even with xT^2). The final-third restriction is what removes that
+        # build-up volume and surfaces the creators. Weight the kept passes by OPPONENT strength.
         if tx * d <= FINAL_THIRD_X:
             continue
+        pteam = roster.get(passer, "")
+        oteam = next((t for t in teams if t != pteam), "")
+        w = opp.weight(oteam) if oteam else 1.0
         att_xy = [(x, y) for i, x, y, _ in att]; dfn_xy = [(x, y) for i, x, y, _ in dfn]
         val = control_at(tx, ty, att_xy, dfn_xy, bx, by) * xt(tx, ty)
-        m = meta[passer]
-        m["val"] += val; m["n"] += 1
+        m["by_stage"][stage]["val"] += val * w
+        m["n"] += 1
         if not m["name"]:
             m["name"] = pe.get("passerPlayerName") or f"#{passer}"
-            m["team"] = roster.get(passer, "")
+            m["team"] = pteam
         if grp.get(passer):
             m["pos"][COLLAPSE.get(grp[passer], grp[passer])] += 1
         n += 1
     return n
+
+
+def _new_meta():
+    return {"name": "", "team": "", "pos": Counter(), "n": 0,
+            "by_stage": {"group": {"val": 0.0, "mids": set()}, "ko": {"val": 0.0, "mids": set()}}}
 
 
 def main():
@@ -131,27 +145,27 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--matches", default="")
     ap.add_argument("--min-n", type=int, default=40)
     a = ap.parse_args()
+    opp = OppStrength()
     mids = (a.matches.split(",") if a.matches
             else sorted(p.name.replace(".jsonl.bz2", "")
                         for p in (root / "Tracking Data").glob("*.jsonl.bz2")))
-    meta = defaultdict(lambda: {"val": 0.0, "n": 0, "name": "", "team": "", "pos": Counter(),
-                                "mids": set()})
+    meta = defaultdict(_new_meta)
     tot = 0
     for mid in mids:
-        tot += process_match(root, mid, meta)
+        tot += process_match(root, mid, meta, opp)
     rows = [{"name": m["name"], "team": m["team"],
              "pos": (m["pos"].most_common(1)[0][0] if m["pos"] else ""),
-             "total": m["val"], "per_pass": m["val"] / m["n"],
-             "per_match": m["val"] / max(1, len(m["mids"])),
-             "matches": len(m["mids"]), "n_ft_passes": m["n"]}
+             "stages": per_stage_block(m["by_stage"]), "n_passes": m["n"]}
             for m in meta.values() if m["n"] >= a.min_n]
-    rows.sort(key=lambda r: -r["total"])
-    OUT.write_text(json.dumps({"metric": "Pass selection: final-third controllable danger",
-                               "unit": "sum of pitch-control x xT over final-third passes (xT units)",
-                               "n_ft_passes": tot, "players": rows}, indent=1))
-    print(f"[pass-selection v3] {tot} FT passes, {len(rows)} passers", flush=True)
+    rows.sort(key=lambda r: -r["stages"]["all"]["total"])
+    OUT.write_text(json.dumps({"metric": "Pass selection: controllable danger created (control x xT)",
+                               "unit": "sum of pitch-control x xT over a player's passes, opponent-strength weighted",
+                               "stages": ["all", "group", "ko"], "opponent_weighted": True,
+                               "n_passes": tot, "players": rows}, indent=1))
+    print(f"[pass-selection v4] {tot} passes, {len(rows)} passers (stage + opp-weighted)", flush=True)
     for r in rows[:15]:
-        print(f"  {r['total']:.2f}  {r['name']:<22} {r['team']:<12} {r['pos']:<4} (n={r['n_ft_passes']})", flush=True)
+        g = r["stages"]["group"]; print(f"  all {r['stages']['all']['total']:.2f}  "
+              f"grp/match {g['per_match']:.3f}  {r['name']:<22} {r['team']:<12} {r['pos']}", flush=True)
 
 
 if __name__ == "__main__":

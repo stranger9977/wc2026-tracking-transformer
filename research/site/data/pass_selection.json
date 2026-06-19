@@ -1,1007 +1,2313 @@
 {
- "metric": "Pass selection: final-third controllable danger",
- "unit": "sum of pitch-control x xT over final-third passes (xT units)",
- "n_ft_passes": 13441,
+ "metric": "Pass selection: controllable danger created (control x xT)",
+ "unit": "sum of pitch-control x xT over a player's passes, opponent-strength weighted",
+ "stages": [
+  "all",
+  "group",
+  "ko"
+ ],
+ "opponent_weighted": true,
+ "n_passes": 13441,
  "players": [
   {
    "name": "Rodrigo de Paul",
    "team": "Argentina",
    "pos": "CM",
-   "total": 1.5031804061132445,
-   "per_pass": 0.010366761421470652,
-   "per_match": 0.2147400580161778,
-   "matches": 7,
-   "n_ft_passes": 145
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.9385,
+     "per_match": 0.3128
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.515,
+     "per_match": 0.1288
+    },
+    "all": {
+     "matches": 7,
+     "total": 1.4535,
+     "per_match": 0.2076
+    }
+   },
+   "n_passes": 145
   },
   {
    "name": "Pedri",
    "team": "Spain",
    "pos": "CM",
-   "total": 1.441510916470705,
-   "per_pass": 0.010521977492486897,
-   "per_match": 0.36037772911767624,
-   "matches": 4,
-   "n_ft_passes": 137
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.9288,
+     "per_match": 0.3096
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.3952,
+     "per_match": 0.3952
+    },
+    "all": {
+     "matches": 4,
+     "total": 1.324,
+     "per_match": 0.331
+    }
+   },
+   "n_passes": 137
   },
   {
    "name": "Lionel Messi",
    "team": "Argentina",
    "pos": "CF",
-   "total": 1.3119491620924164,
-   "per_pass": 0.009864279414228695,
-   "per_match": 0.1874213088703452,
-   "matches": 7,
-   "n_ft_passes": 133
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5954,
+     "per_match": 0.1985
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.6849,
+     "per_match": 0.1712
+    },
+    "all": {
+     "matches": 7,
+     "total": 1.2804,
+     "per_match": 0.1829
+    }
+   },
+   "n_passes": 133
   },
   {
    "name": "Mateo Kovacic",
    "team": "Croatia",
    "pos": "CM",
-   "total": 1.2836919737833776,
-   "per_pass": 0.011564792556607006,
-   "per_match": 0.18338456768333966,
-   "matches": 7,
-   "n_ft_passes": 111
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5926,
+     "per_match": 0.1975
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.6577,
+     "per_match": 0.1644
+    },
+    "all": {
+     "matches": 7,
+     "total": 1.2503,
+     "per_match": 0.1786
+    }
+   },
+   "n_passes": 111
   },
   {
    "name": "Bernardo Silva",
    "team": "Portugal",
    "pos": "CM",
-   "total": 1.1125255330997537,
-   "per_pass": 0.012361394812219486,
-   "per_match": 0.22250510661995074,
-   "matches": 5,
-   "n_ft_passes": 90
-  },
-  {
-   "name": "Rodri",
-   "team": "Spain",
-   "pos": "CB",
-   "total": 1.0585114129155628,
-   "per_pass": 0.013927781748888984,
-   "per_match": 0.2646278532288907,
-   "matches": 4,
-   "n_ft_passes": 76
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5698,
+     "per_match": 0.1899
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.4609,
+     "per_match": 0.2305
+    },
+    "all": {
+     "matches": 5,
+     "total": 1.0307,
+     "per_match": 0.2061
+    }
+   },
+   "n_passes": 90
   },
   {
    "name": "Luka Modric",
    "team": "Croatia",
    "pos": "CM",
-   "total": 1.0355389640790156,
-   "per_pass": 0.009245883607848353,
-   "per_match": 0.14793413772557365,
-   "matches": 7,
-   "n_ft_passes": 112
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5163,
+     "per_match": 0.1721
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.4969,
+     "per_match": 0.1242
+    },
+    "all": {
+     "matches": 7,
+     "total": 1.0132,
+     "per_match": 0.1447
+    }
+   },
+   "n_passes": 112
   },
   {
    "name": "Kylian Mbapp\u00e9",
    "team": "France",
    "pos": "LW",
-   "total": 1.0251149054118767,
-   "per_pass": 0.01046035617767221,
-   "per_match": 0.14644498648741094,
-   "matches": 7,
-   "n_ft_passes": 98
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.482,
+     "per_match": 0.1607
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.5092,
+     "per_match": 0.1273
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.9912,
+     "per_match": 0.1416
+    }
+   },
+   "n_passes": 98
   },
   {
-   "name": "Jamal Musiala",
-   "team": "Germany",
-   "pos": "LW",
-   "total": 1.0035832081497054,
-   "per_pass": 0.015929892192852468,
-   "per_match": 0.33452773604990177,
-   "matches": 3,
-   "n_ft_passes": 63
-  },
-  {
-   "name": "Joshua Kimmich",
-   "team": "Germany",
-   "pos": "RB",
-   "total": 0.9469665262224476,
-   "per_pass": 0.01297214419482805,
-   "per_match": 0.3156555087408159,
-   "matches": 3,
-   "n_ft_passes": 73
+   "name": "Rodri",
+   "team": "Spain",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.7394,
+     "per_match": 0.2465
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.2274,
+     "per_match": 0.2274
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.9668,
+     "per_match": 0.2417
+    }
+   },
+   "n_passes": 76
   },
   {
    "name": "Aur\u00e9lien Tchouam\u00e9ni",
    "team": "France",
    "pos": "CM",
-   "total": 0.9388042143506674,
-   "per_pass": 0.011176240647031755,
-   "per_match": 0.13411488776438105,
-   "matches": 7,
-   "n_ft_passes": 84
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.403,
+     "per_match": 0.1343
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.5154,
+     "per_match": 0.1288
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.9184,
+     "per_match": 0.1312
+    }
+   },
+   "n_passes": 84
   },
   {
    "name": "In-beom Hwang",
    "team": "South Korea",
    "pos": "CM",
-   "total": 0.9372410998038923,
-   "per_pass": 0.010413789997821025,
-   "per_match": 0.23431027495097306,
-   "matches": 4,
-   "n_ft_passes": 90
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.7105,
+     "per_match": 0.2368
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1884,
+     "per_match": 0.1884
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.8989,
+     "per_match": 0.2247
+    }
+   },
+   "n_passes": 90
   },
   {
    "name": "Ivan Perisic",
    "team": "Croatia",
    "pos": "LW",
-   "total": 0.8937263871774859,
-   "per_pass": 0.009609961152446085,
-   "per_match": 0.12767519816821227,
-   "matches": 7,
-   "n_ft_passes": 93
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.46,
+     "per_match": 0.1533
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.4264,
+     "per_match": 0.1066
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.8863,
+     "per_match": 0.1266
+    }
+   },
+   "n_passes": 93
+  },
+  {
+   "name": "Jamal Musiala",
+   "team": "Germany",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.8729,
+     "per_match": 0.291
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.8729,
+     "per_match": 0.291
+    }
+   },
+   "n_passes": 63
   },
   {
    "name": "Adrien Rabiot",
    "team": "France",
    "pos": "CM",
-   "total": 0.8818776632417356,
-   "per_pass": 0.011452956665477085,
-   "per_match": 0.14697961054028927,
-   "matches": 6,
-   "n_ft_passes": 77
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.322,
+     "per_match": 0.1073
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.5488,
+     "per_match": 0.1829
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.8708,
+     "per_match": 0.1451
+    }
+   },
+   "n_passes": 77
   },
   {
    "name": "Bruno Fernandes",
    "team": "Portugal",
    "pos": "RW",
-   "total": 0.8693695577666115,
-   "per_pass": 0.011909172024200158,
-   "per_match": 0.21734238944165288,
-   "matches": 4,
-   "n_ft_passes": 73
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.3881,
+     "per_match": 0.194
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.4245,
+     "per_match": 0.2123
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.8126,
+     "per_match": 0.2031
+    }
+   },
+   "n_passes": 73
   },
   {
-   "name": "Marcelo Brozovic",
-   "team": "Croatia",
-   "pos": "CM",
-   "total": 0.828002988141829,
-   "per_pass": 0.010615422924895245,
-   "per_match": 0.13800049802363817,
-   "matches": 6,
-   "n_ft_passes": 78
-  },
-  {
-   "name": "Jo\u00e3o Cancelo",
-   "team": "Portugal",
+   "name": "Joshua Kimmich",
+   "team": "Germany",
    "pos": "RB",
-   "total": 0.8266987789561475,
-   "per_pass": 0.011324640807618459,
-   "per_match": 0.20667469473903688,
-   "matches": 4,
-   "n_ft_passes": 73
-  },
-  {
-   "name": "Andrej Kramaric",
-   "team": "Croatia",
-   "pos": "RW",
-   "total": 0.8158156485872845,
-   "per_pass": 0.014065787044608353,
-   "per_match": 0.11654509265532635,
-   "matches": 7,
-   "n_ft_passes": 58
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.8065,
+     "per_match": 0.2688
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.8065,
+     "per_match": 0.2688
+    }
+   },
+   "n_passes": 73
   },
   {
    "name": "Alexis Mac Allister",
    "team": "Argentina",
    "pos": "CM",
-   "total": 0.8030037121384137,
-   "per_pass": 0.011808878119682554,
-   "per_match": 0.13383395202306894,
-   "matches": 6,
-   "n_ft_passes": 68
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.3276,
+     "per_match": 0.1638
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.4757,
+     "per_match": 0.1189
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.8033,
+     "per_match": 0.1339
+    }
+   },
+   "n_passes": 68
   },
   {
-   "name": "Jordi Alba",
-   "team": "Spain",
-   "pos": "LB",
-   "total": 0.795560262633111,
-   "per_pass": 0.008374318554032747,
-   "per_match": 0.19889006565827774,
-   "matches": 4,
-   "n_ft_passes": 95
-  },
-  {
-   "name": "Ousmane Dembele",
-   "team": "France",
+   "name": "Andrej Kramaric",
+   "team": "Croatia",
    "pos": "RW",
-   "total": 0.7952287119779994,
-   "per_pass": 0.009817638419481474,
-   "per_match": 0.11360410171114277,
-   "matches": 7,
-   "n_ft_passes": 81
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4884,
+     "per_match": 0.1628
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.3141,
+     "per_match": 0.0785
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.8024,
+     "per_match": 0.1146
+    }
+   },
+   "n_passes": 58
+  },
+  {
+   "name": "Marcelo Brozovic",
+   "team": "Croatia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5126,
+     "per_match": 0.1709
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.2869,
+     "per_match": 0.0956
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.7995,
+     "per_match": 0.1333
+    }
+   },
+   "n_passes": 78
   },
   {
    "name": "Hakim Ziyech",
    "team": "Morocco",
    "pos": "RW",
-   "total": 0.772160327006035,
-   "per_pass": 0.009084239141247471,
-   "per_match": 0.11030861814371928,
-   "matches": 7,
-   "n_ft_passes": 85
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3981,
+     "per_match": 0.1327
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.3915,
+     "per_match": 0.0979
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.7896,
+     "per_match": 0.1128
+    }
+   },
+   "n_passes": 85
   },
   {
-   "name": "Jude Bellingham",
-   "team": "England",
-   "pos": "CM",
-   "total": 0.7715945141499544,
-   "per_pass": 0.011516336032088872,
-   "per_match": 0.1543189028299909,
-   "matches": 5,
-   "n_ft_passes": 67
-  },
-  {
-   "name": "Frenkie de Jong",
-   "team": "Netherlands",
-   "pos": "CM",
-   "total": 0.7497411774746539,
-   "per_pass": 0.009736898408761739,
-   "per_match": 0.14994823549493078,
-   "matches": 5,
-   "n_ft_passes": 77
-  },
-  {
-   "name": "Antoine Griezmann",
+   "name": "Ousmane Dembele",
    "team": "France",
-   "pos": "AM",
-   "total": 0.747921020299996,
-   "per_pass": 0.008596793336781563,
-   "per_match": 0.10684586004285657,
-   "matches": 7,
-   "n_ft_passes": 87
-  },
-  {
-   "name": "Lucas Paquet\u00e1",
-   "team": "Brazil",
-   "pos": "CM",
-   "total": 0.7411998503098824,
-   "per_pass": 0.013003506145787411,
-   "per_match": 0.1852999625774706,
-   "matches": 4,
-   "n_ft_passes": 57
-  },
-  {
-   "name": "Enzo Fernandez",
-   "team": "Argentina",
-   "pos": "CM",
-   "total": 0.728948427209492,
-   "per_pass": 0.008378717554132092,
-   "per_match": 0.104135489601356,
-   "matches": 7,
-   "n_ft_passes": 87
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.405,
+     "per_match": 0.135
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.361,
+     "per_match": 0.0902
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.7659,
+     "per_match": 0.1094
+    }
+   },
+   "n_passes": 81
   },
   {
    "name": "Achraf Hakimi",
    "team": "Morocco",
    "pos": "RB",
-   "total": 0.7231787847537777,
-   "per_pass": 0.008312399824756065,
-   "per_match": 0.10331125496482539,
-   "matches": 7,
-   "n_ft_passes": 87
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1815,
+     "per_match": 0.0605
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.5636,
+     "per_match": 0.1409
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.7451,
+     "per_match": 0.1064
+    }
+   },
+   "n_passes": 87
+  },
+  {
+   "name": "Jo\u00e3o Cancelo",
+   "team": "Portugal",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5398,
+     "per_match": 0.1799
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.2022,
+     "per_match": 0.2022
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.742,
+     "per_match": 0.1855
+    }
+   },
+   "n_passes": 73
+  },
+  {
+   "name": "Jordi Alba",
+   "team": "Spain",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5455,
+     "per_match": 0.1818
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1875,
+     "per_match": 0.1875
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.733,
+     "per_match": 0.1833
+    }
+   },
+   "n_passes": 95
   },
   {
    "name": "Azzedine Ounahi",
    "team": "Morocco",
    "pos": "CM",
-   "total": 0.7089796054513533,
-   "per_pass": 0.011816326757522555,
-   "per_match": 0.10128280077876475,
-   "matches": 7,
-   "n_ft_passes": 60
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2753,
+     "per_match": 0.0918
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.4493,
+     "per_match": 0.1123
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.7246,
+     "per_match": 0.1035
+    }
+   },
+   "n_passes": 60
+  },
+  {
+   "name": "Antoine Griezmann",
+   "team": "France",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3165,
+     "per_match": 0.1055
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.4027,
+     "per_match": 0.1007
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.7192,
+     "per_match": 0.1027
+    }
+   },
+   "n_passes": 87
+  },
+  {
+   "name": "Enzo Fernandez",
+   "team": "Argentina",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2535,
+     "per_match": 0.0845
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.4599,
+     "per_match": 0.115
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.7135,
+     "per_match": 0.1019
+    }
+   },
+   "n_passes": 87
+  },
+  {
+   "name": "Jude Bellingham",
+   "team": "England",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4287,
+     "per_match": 0.1429
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.2839,
+     "per_match": 0.142
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.7126,
+     "per_match": 0.1425
+    }
+   },
+   "n_passes": 67
   },
   {
    "name": "Theo Hernandez",
    "team": "France",
    "pos": "LB",
-   "total": 0.7050132101869345,
-   "per_pass": 0.009038630899832494,
-   "per_match": 0.11750220169782243,
-   "matches": 6,
-   "n_ft_passes": 78
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.2818,
+     "per_match": 0.1409
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.4137,
+     "per_match": 0.1034
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.6955,
+     "per_match": 0.1159
+    }
+   },
+   "n_passes": 78
   },
   {
-   "name": "Dani Olmo",
-   "team": "Spain",
-   "pos": "LW",
-   "total": 0.6895069070424996,
-   "per_pass": 0.010773545422539057,
-   "per_match": 0.1723767267606249,
-   "matches": 4,
-   "n_ft_passes": 64
+   "name": "Frenkie de Jong",
+   "team": "Netherlands",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5636,
+     "per_match": 0.1879
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0942,
+     "per_match": 0.0471
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.6577,
+     "per_match": 0.1315
+    }
+   },
+   "n_passes": 77
+  },
+  {
+   "name": "Lucas Paquet\u00e1",
+   "team": "Brazil",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.2677,
+     "per_match": 0.1339
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.3871,
+     "per_match": 0.1936
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.6548,
+     "per_match": 0.1637
+    }
+   },
+   "n_passes": 57
   },
   {
    "name": "Heung-min Son",
    "team": "South Korea",
    "pos": "LW",
-   "total": 0.6719906416201348,
-   "per_pass": 0.013439812832402696,
-   "per_match": 0.1679976604050337,
-   "matches": 4,
-   "n_ft_passes": 50
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4936,
+     "per_match": 0.1645
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1539,
+     "per_match": 0.1539
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.6475,
+     "per_match": 0.1619
+    }
+   },
+   "n_passes": 50
   },
   {
-   "name": "Casemiro",
-   "team": "Brazil",
-   "pos": "CM",
-   "total": 0.6327058957024965,
-   "per_pass": 0.008911350643697134,
-   "per_match": 0.15817647392562412,
-   "matches": 4,
-   "n_ft_passes": 71
+   "name": "Dani Olmo",
+   "team": "Spain",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5413,
+     "per_match": 0.1804
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.086,
+     "per_match": 0.086
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.6273,
+     "per_match": 0.1568
+    }
+   },
+   "n_passes": 64
   },
   {
    "name": "Moon-hwan Kim",
    "team": "South Korea",
    "pos": "RB",
-   "total": 0.6278775094650707,
-   "per_pass": 0.00860106177349412,
-   "per_match": 0.15696937736626768,
-   "matches": 4,
-   "n_ft_passes": 73
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3792,
+     "per_match": 0.1264
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.2191,
+     "per_match": 0.2191
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.5983,
+     "per_match": 0.1496
+    }
+   },
+   "n_passes": 73
   },
   {
    "name": "\u00c1ngel Di Mar\u00eda",
    "team": "Argentina",
    "pos": "RW",
-   "total": 0.6058500220320729,
-   "per_pass": 0.008909559147530485,
-   "per_match": 0.1211700044064146,
-   "matches": 5,
-   "n_ft_passes": 68
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4263,
+     "per_match": 0.1421
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.1697,
+     "per_match": 0.0848
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.5959,
+     "per_match": 0.1192
+    }
+   },
+   "n_passes": 68
   },
   {
-   "name": "Marco Asensio",
-   "team": "Spain",
-   "pos": "CF",
-   "total": 0.6017532312295248,
-   "per_pass": 0.012035064624590497,
-   "per_match": 0.1504383078073812,
-   "matches": 4,
-   "n_ft_passes": 50
-  },
-  {
-   "name": "Raphinha",
+   "name": "Casemiro",
    "team": "Brazil",
-   "pos": "RW",
-   "total": 0.6000452183775457,
-   "per_pass": 0.011111948488473068,
-   "per_match": 0.12000904367550913,
-   "matches": 5,
-   "n_ft_passes": 54
-  },
-  {
-   "name": "Woo-young Jung",
-   "team": "South Korea",
    "pos": "CM",
-   "total": 0.5987471158734816,
-   "per_pass": 0.010504335366201432,
-   "per_match": 0.1496867789683704,
-   "matches": 4,
-   "n_ft_passes": 57
-  },
-  {
-   "name": "Cody Gakpo",
-   "team": "Netherlands",
-   "pos": "CF",
-   "total": 0.5804360405759502,
-   "per_pass": 0.00967393400959917,
-   "per_match": 0.11608720811519005,
-   "matches": 5,
-   "n_ft_passes": 60
-  },
-  {
-   "name": "Sergio Busquets",
-   "team": "Spain",
-   "pos": "CM",
-   "total": 0.5749622762346137,
-   "per_pass": 0.00898378556616584,
-   "per_match": 0.14374056905865343,
-   "matches": 4,
-   "n_ft_passes": 64
-  },
-  {
-   "name": "Youssouf Sabaly",
-   "team": "Senegal",
-   "pos": "RB",
-   "total": 0.5735848120981142,
-   "per_pass": 0.008435070766148738,
-   "per_match": 0.14339620302452855,
-   "matches": 4,
-   "n_ft_passes": 68
-  },
-  {
-   "name": "Marquinhos",
-   "team": "Brazil",
-   "pos": "CB",
-   "total": 0.5692688447759298,
-   "per_pass": 0.011617731526039383,
-   "per_match": 0.11385376895518595,
-   "matches": 5,
-   "n_ft_passes": 49
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.2013,
+     "per_match": 0.1006
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.3656,
+     "per_match": 0.1828
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.5669,
+     "per_match": 0.1417
+    }
+   },
+   "n_passes": 71
   },
   {
    "name": "Mohamed Kanno",
    "team": "Saudi Arabia",
    "pos": "CM",
-   "total": 0.5650881145593754,
-   "per_pass": 0.010274329355625006,
-   "per_match": 0.18836270485312512,
-   "matches": 3,
-   "n_ft_passes": 55
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5667,
+     "per_match": 0.1889
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.5667,
+     "per_match": 0.1889
+    }
+   },
+   "n_passes": 55
   },
   {
-   "name": "Dusan Tadic",
-   "team": "Serbia",
-   "pos": "RW",
-   "total": 0.5640613775328049,
-   "per_pass": 0.010445581065422314,
-   "per_match": 0.18802045917760166,
-   "matches": 3,
-   "n_ft_passes": 54
+   "name": "Woo-young Jung",
+   "team": "South Korea",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5347,
+     "per_match": 0.1782
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0314,
+     "per_match": 0.0314
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.5661,
+     "per_match": 0.1415
+    }
+   },
+   "n_passes": 57
   },
   {
-   "name": "Eder Militao",
-   "team": "Brazil",
+   "name": "Marco Asensio",
+   "team": "Spain",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4755,
+     "per_match": 0.1585
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.084,
+     "per_match": 0.084
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.5595,
+     "per_match": 0.1399
+    }
+   },
+   "n_passes": 50
+  },
+  {
+   "name": "Youssouf Sabaly",
+   "team": "Senegal",
    "pos": "RB",
-   "total": 0.5607971812648209,
-   "per_pass": 0.010385132986385572,
-   "per_match": 0.14019929531620523,
-   "matches": 4,
-   "n_ft_passes": 54
-  },
-  {
-   "name": "Serge Gnabry",
-   "team": "Germany",
-   "pos": "LW",
-   "total": 0.5484629847230486,
-   "per_pass": 0.011426312181730179,
-   "per_match": 0.18282099490768286,
-   "matches": 3,
-   "n_ft_passes": 48
-  },
-  {
-   "name": "Luke Shaw",
-   "team": "England",
-   "pos": "LB",
-   "total": 0.5410458915927522,
-   "per_pass": 0.006441022518961335,
-   "per_match": 0.10820917831855044,
-   "matches": 5,
-   "n_ft_passes": 84
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5128,
+     "per_match": 0.1709
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0435,
+     "per_match": 0.0435
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.5563,
+     "per_match": 0.1391
+    }
+   },
+   "n_passes": 68
   },
   {
    "name": "Borna Sosa",
    "team": "Croatia",
    "pos": "LB",
-   "total": 0.5400481477714218,
-   "per_pass": 0.007941884526050321,
-   "per_match": 0.10800962955428436,
-   "matches": 5,
-   "n_ft_passes": 68
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4374,
+     "per_match": 0.1458
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0997,
+     "per_match": 0.0498
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.5371,
+     "per_match": 0.1074
+    }
+   },
+   "n_passes": 68
+  },
+  {
+   "name": "Cody Gakpo",
+   "team": "Netherlands",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3077,
+     "per_match": 0.1026
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.2241,
+     "per_match": 0.112
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.5318,
+     "per_match": 0.1064
+    }
+   },
+   "n_passes": 60
+  },
+  {
+   "name": "Sergio Busquets",
+   "team": "Spain",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2554,
+     "per_match": 0.0851
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.273,
+     "per_match": 0.273
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.5284,
+     "per_match": 0.1321
+    }
+   },
+   "n_passes": 64
   },
   {
    "name": "Yunus Musah",
    "team": "United States",
    "pos": "CM",
-   "total": 0.5379192992894151,
-   "per_pass": 0.0107583859857883,
-   "per_match": 0.13447982482235377,
-   "matches": 4,
-   "n_ft_passes": 50
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3595,
+     "per_match": 0.1198
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1684,
+     "per_match": 0.1684
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.5279,
+     "per_match": 0.132
+    }
+   },
+   "n_passes": 50
   },
   {
-   "name": "Neymar",
+   "name": "Eder Militao",
    "team": "Brazil",
-   "pos": "AM",
-   "total": 0.5367010201741325,
-   "per_pass": 0.01095308204437005,
-   "per_match": 0.17890034005804414,
-   "matches": 3,
-   "n_ft_passes": 49
-  },
-  {
-   "name": "Nahuel Molina",
-   "team": "Argentina",
    "pos": "RB",
-   "total": 0.5145216191965265,
-   "per_pass": 0.00612525737138722,
-   "per_match": 0.07350308845664665,
-   "matches": 7,
-   "n_ft_passes": 84
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.1893,
+     "per_match": 0.0946
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.3233,
+     "per_match": 0.1617
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.5126,
+     "per_match": 0.1281
+    }
+   },
+   "n_passes": 54
   },
   {
-   "name": "Josip Juranovic",
-   "team": "Croatia",
-   "pos": "RB",
-   "total": 0.5138805299254853,
-   "per_pass": 0.00597535499913355,
-   "per_match": 0.08564675498758088,
-   "matches": 6,
-   "n_ft_passes": 86
-  },
-  {
-   "name": "Bukayo Saka",
-   "team": "England",
+   "name": "Raphinha",
+   "team": "Brazil",
    "pos": "RW",
-   "total": 0.5137744367526429,
-   "per_pass": 0.011417209705614287,
-   "per_match": 0.12844360918816072,
-   "matches": 4,
-   "n_ft_passes": 45
-  },
-  {
-   "name": "Ilkay G\u00fcndogan",
-   "team": "Germany",
-   "pos": "CM",
-   "total": 0.5106639480770965,
-   "per_pass": 0.010638832251606176,
-   "per_match": 0.17022131602569882,
-   "matches": 3,
-   "n_ft_passes": 48
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2681,
+     "per_match": 0.0894
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.241,
+     "per_match": 0.1205
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.5091,
+     "per_match": 0.1018
+    }
+   },
+   "n_passes": 54
   },
   {
    "name": "Alphonso Davies",
    "team": "Canada",
    "pos": "LB",
-   "total": 0.5016631558772148,
-   "per_pass": 0.010905720779939452,
-   "per_match": 0.16722105195907158,
-   "matches": 3,
-   "n_ft_passes": 46
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5072,
+     "per_match": 0.1691
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.5072,
+     "per_match": 0.1691
+    }
+   },
+   "n_passes": 46
+  },
+  {
+   "name": "Dusan Tadic",
+   "team": "Serbia",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5056,
+     "per_match": 0.1685
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.5056,
+     "per_match": 0.1685
+    }
+   },
+   "n_passes": 54
+  },
+  {
+   "name": "Nahuel Molina",
+   "team": "Argentina",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3327,
+     "per_match": 0.1109
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.1697,
+     "per_match": 0.0424
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.5024,
+     "per_match": 0.0718
+    }
+   },
+   "n_passes": 84
+  },
+  {
+   "name": "Luke Shaw",
+   "team": "England",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2974,
+     "per_match": 0.0991
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.2003,
+     "per_match": 0.1002
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.4978,
+     "per_match": 0.0996
+    }
+   },
+   "n_passes": 84
+  },
+  {
+   "name": "Marquinhos",
+   "team": "Brazil",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3754,
+     "per_match": 0.1251
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.1196,
+     "per_match": 0.0598
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.4949,
+     "per_match": 0.099
+    }
+   },
+   "n_passes": 49
+  },
+  {
+   "name": "Bukayo Saka",
+   "team": "England",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.2718,
+     "per_match": 0.1359
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.2204,
+     "per_match": 0.1102
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.4921,
+     "per_match": 0.123
+    }
+   },
+   "n_passes": 45
+  },
+  {
+   "name": "Josip Juranovic",
+   "team": "Croatia",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2601,
+     "per_match": 0.0867
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.232,
+     "per_match": 0.0773
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.4921,
+     "per_match": 0.082
+    }
+   },
+   "n_passes": 86
+  },
+  {
+   "name": "Neymar",
+   "team": "Brazil",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.1412,
+     "per_match": 0.1412
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.3473,
+     "per_match": 0.1736
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.4885,
+     "per_match": 0.1628
+    }
+   },
+   "n_passes": 49
   },
   {
    "name": "Tyler Adams",
    "team": "United States",
    "pos": "CM",
-   "total": 0.4894929345693157,
-   "per_pass": 0.009597900677829719,
-   "per_match": 0.12237323364232892,
-   "matches": 4,
-   "n_ft_passes": 51
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2546,
+     "per_match": 0.0849
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.2254,
+     "per_match": 0.2254
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.48,
+     "per_match": 0.12
+    }
+   },
+   "n_passes": 51
   },
   {
-   "name": "Gavi",
-   "team": "Spain",
-   "pos": "CM",
-   "total": 0.4795006015859787,
-   "per_pass": 0.011695136624048261,
-   "per_match": 0.11987515039649467,
-   "matches": 4,
-   "n_ft_passes": 41
+   "name": "Serge Gnabry",
+   "team": "Germany",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4794,
+     "per_match": 0.1598
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.4794,
+     "per_match": 0.1598
+    }
+   },
+   "n_passes": 48
   },
   {
    "name": "Salem Al-Dawsari",
    "team": "Saudi Arabia",
    "pos": "LM",
-   "total": 0.4603178843726539,
-   "per_pass": 0.009025840870052038,
-   "per_match": 0.15343929479088464,
-   "matches": 3,
-   "n_ft_passes": 51
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4579,
+     "per_match": 0.1526
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.4579,
+     "per_match": 0.1526
+    }
+   },
+   "n_passes": 51
+  },
+  {
+   "name": "Ilkay G\u00fcndogan",
+   "team": "Germany",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4543,
+     "per_match": 0.1514
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.4543,
+     "per_match": 0.1514
+    }
+   },
+   "n_passes": 48
   },
   {
    "name": "Timothy Weah",
    "team": "United States",
    "pos": "RW",
-   "total": 0.4598766884337805,
-   "per_pass": 0.01094944496270906,
-   "per_match": 0.11496917210844512,
-   "matches": 4,
-   "n_ft_passes": 42
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3517,
+     "per_match": 0.1172
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0967,
+     "per_match": 0.0967
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.4484,
+     "per_match": 0.1121
+    }
+   },
+   "n_passes": 42
   },
   {
-   "name": "David Raum",
-   "team": "Germany",
-   "pos": "LB",
-   "total": 0.4596255233355113,
-   "per_pass": 0.008356827697009296,
-   "per_match": 0.15320850777850378,
-   "matches": 3,
-   "n_ft_passes": 55
+   "name": "Gavi",
+   "team": "Spain",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3682,
+     "per_match": 0.1227
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.072,
+     "per_match": 0.072
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.4403,
+     "per_match": 0.1101
+    }
+   },
+   "n_passes": 41
   },
   {
    "name": "Harry Maguire",
    "team": "England",
    "pos": "CB",
-   "total": 0.4594481763342824,
-   "per_pass": 0.01068484131009959,
-   "per_match": 0.09188963526685648,
-   "matches": 5,
-   "n_ft_passes": 43
-  },
-  {
-   "name": "Ricardo Rodriguez",
-   "team": "Switzerland",
-   "pos": "LB",
-   "total": 0.4501636266887054,
-   "per_pass": 0.009577949504015009,
-   "per_match": 0.11254090667217635,
-   "matches": 4,
-   "n_ft_passes": 47
-  },
-  {
-   "name": "Joao Felix",
-   "team": "Portugal",
-   "pos": "LW",
-   "total": 0.4451432259283762,
-   "per_pass": 0.00989207168729725,
-   "per_match": 0.11128580648209405,
-   "matches": 4,
-   "n_ft_passes": 45
-  },
-  {
-   "name": "Harry Kane",
-   "team": "England",
-   "pos": "CF",
-   "total": 0.440173271587135,
-   "per_pass": 0.009365388757173085,
-   "per_match": 0.08803465431742699,
-   "matches": 5,
-   "n_ft_passes": 47
-  },
-  {
-   "name": "Antonee Robinson",
-   "team": "United States",
-   "pos": "LB",
-   "total": 0.4383483644176094,
-   "per_pass": 0.00695791054631126,
-   "per_match": 0.10958709110440235,
-   "matches": 4,
-   "n_ft_passes": 63
-  },
-  {
-   "name": "Rasmus Kristensen",
-   "team": "Denmark",
-   "pos": "RB",
-   "total": 0.4338260530024113,
-   "per_pass": 0.006674246969267866,
-   "per_match": 0.1446086843341371,
-   "matches": 3,
-   "n_ft_passes": 65
-  },
-  {
-   "name": "Granit Xhaka",
-   "team": "Switzerland",
-   "pos": "CM",
-   "total": 0.4323040670981978,
-   "per_pass": 0.010544001636541409,
-   "per_match": 0.10807601677454945,
-   "matches": 4,
-   "n_ft_passes": 41
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2276,
+     "per_match": 0.0759
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.2116,
+     "per_match": 0.1058
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.4392,
+     "per_match": 0.0878
+    }
+   },
+   "n_passes": 43
   },
   {
    "name": "Christian Pulisic",
    "team": "United States",
    "pos": "LW",
-   "total": 0.4316825839104628,
-   "per_pass": 0.008993387164801308,
-   "per_match": 0.1079206459776157,
-   "matches": 4,
-   "n_ft_passes": 48
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2825,
+     "per_match": 0.0942
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1472,
+     "per_match": 0.1472
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.4297,
+     "per_match": 0.1074
+    }
+   },
+   "n_passes": 48
   },
   {
-   "name": "Daley Blind",
-   "team": "Netherlands",
-   "pos": "LB",
-   "total": 0.4282310933385876,
-   "per_pass": 0.005352888666732345,
-   "per_match": 0.08564621866771752,
-   "matches": 5,
-   "n_ft_passes": 80
-  },
-  {
-   "name": "Xherdan Shaqiri",
+   "name": "Ricardo Rodriguez",
    "team": "Switzerland",
-   "pos": "RW",
-   "total": 0.42112581599657517,
-   "per_pass": 0.009154909043403808,
-   "per_match": 0.14037527199885838,
-   "matches": 3,
-   "n_ft_passes": 46
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2759,
+     "per_match": 0.092
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.149,
+     "per_match": 0.149
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.4249,
+     "per_match": 0.1062
+    }
+   },
+   "n_passes": 47
+  },
+  {
+   "name": "Antonee Robinson",
+   "team": "United States",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.282,
+     "per_match": 0.094
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1423,
+     "per_match": 0.1423
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.4244,
+     "per_match": 0.1061
+    }
+   },
+   "n_passes": 63
+  },
+  {
+   "name": "David Raum",
+   "team": "Germany",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4103,
+     "per_match": 0.1368
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.4103,
+     "per_match": 0.1368
+    }
+   },
+   "n_passes": 55
+  },
+  {
+   "name": "Joao Felix",
+   "team": "Portugal",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.2597,
+     "per_match": 0.1299
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.1483,
+     "per_match": 0.0742
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.4081,
+     "per_match": 0.102
+    }
+   },
+   "n_passes": 45
+  },
+  {
+   "name": "Rasmus Kristensen",
+   "team": "Denmark",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4059,
+     "per_match": 0.1353
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.4059,
+     "per_match": 0.1353
+    }
+   },
+   "n_passes": 65
   },
   {
    "name": "Christian Eriksen",
    "team": "Denmark",
    "pos": "CM",
-   "total": 0.41476213516148747,
-   "per_pass": 0.00942641216276108,
-   "per_match": 0.13825404505382916,
-   "matches": 3,
-   "n_ft_passes": 44
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.4049,
+     "per_match": 0.135
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.4049,
+     "per_match": 0.135
+    }
+   },
+   "n_passes": 44
+  },
+  {
+   "name": "Harry Kane",
+   "team": "England",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1592,
+     "per_match": 0.0531
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.241,
+     "per_match": 0.1205
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.4002,
+     "per_match": 0.08
+    }
+   },
+   "n_passes": 47
+  },
+  {
+   "name": "Granit Xhaka",
+   "team": "Switzerland",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3129,
+     "per_match": 0.1043
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0844,
+     "per_match": 0.0844
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.3973,
+     "per_match": 0.0993
+    }
+   },
+   "n_passes": 41
+  },
+  {
+   "name": "Xherdan Shaqiri",
+   "team": "Switzerland",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.2041,
+     "per_match": 0.102
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1904,
+     "per_match": 0.1904
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.3944,
+     "per_match": 0.1315
+    }
+   },
+   "n_passes": 46
   },
   {
    "name": "Rub\u00e9n Vargas",
    "team": "Switzerland",
    "pos": "LW",
-   "total": 0.4088083684717468,
-   "per_pass": 0.009507171359808065,
-   "per_match": 0.1022020921179367,
-   "matches": 4,
-   "n_ft_passes": 43
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2208,
+     "per_match": 0.0736
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1629,
+     "per_match": 0.1629
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.3837,
+     "per_match": 0.0959
+    }
+   },
+   "n_passes": 43
+  },
+  {
+   "name": "Daley Blind",
+   "team": "Netherlands",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.317,
+     "per_match": 0.1057
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0591,
+     "per_match": 0.0296
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.3761,
+     "per_match": 0.0752
+    }
+   },
+   "n_passes": 80
   },
   {
    "name": "R\u00faben Neves",
    "team": "Portugal",
    "pos": "CM",
-   "total": 0.40432961319735505,
-   "per_pass": 0.009861697882862319,
-   "per_match": 0.08086592263947101,
-   "matches": 5,
-   "n_ft_passes": 41
-  },
-  {
-   "name": "Declan Rice",
-   "team": "England",
-   "pos": "CM",
-   "total": 0.40023948280004085,
-   "per_pass": 0.009529511495239068,
-   "per_match": 0.08004789656000817,
-   "matches": 5,
-   "n_ft_passes": 42
-  },
-  {
-   "name": "Niklas S\u00fcle",
-   "team": "Germany",
-   "pos": "CB",
-   "total": 0.39781773539871246,
-   "per_pass": 0.008840394119971388,
-   "per_match": 0.13260591179957082,
-   "matches": 3,
-   "n_ft_passes": 45
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3186,
+     "per_match": 0.1062
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0523,
+     "per_match": 0.0262
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.3709,
+     "per_match": 0.0742
+    }
+   },
+   "n_passes": 41
   },
   {
    "name": "Federico Valverde",
    "team": "Uruguay",
    "pos": "CM",
-   "total": 0.3868757879512571,
-   "per_pass": 0.009435994828079441,
-   "per_match": 0.12895859598375237,
-   "matches": 3,
-   "n_ft_passes": 41
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3684,
+     "per_match": 0.1228
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.3684,
+     "per_match": 0.1228
+    }
+   },
+   "n_passes": 41
   },
   {
-   "name": "Weston McKennie",
-   "team": "United States",
+   "name": "Declan Rice",
+   "team": "England",
    "pos": "CM",
-   "total": 0.35856027311541383,
-   "per_pass": 0.006290531107287962,
-   "per_match": 0.08964006827885346,
-   "matches": 4,
-   "n_ft_passes": 57
-  },
-  {
-   "name": "Joakim Maehle",
-   "team": "Denmark",
-   "pos": "LB",
-   "total": 0.3573566482349523,
-   "per_pass": 0.007147132964699046,
-   "per_match": 0.1191188827449841,
-   "matches": 3,
-   "n_ft_passes": 50
-  },
-  {
-   "name": "Pervis Estupinan",
-   "team": "Ecuador",
-   "pos": "LB",
-   "total": 0.35031762492930507,
-   "per_pass": 0.00814692150998384,
-   "per_match": 0.11677254164310169,
-   "matches": 3,
-   "n_ft_passes": 43
-  },
-  {
-   "name": "Saud Abdulhamid",
-   "team": "Saudi Arabia",
-   "pos": "RB",
-   "total": 0.3497917466723268,
-   "per_pass": 0.00874479366680817,
-   "per_match": 0.1165972488907756,
-   "matches": 3,
-   "n_ft_passes": 40
-  },
-  {
-   "name": "Sergi\u00f1o Dest",
-   "team": "United States",
-   "pos": "RB",
-   "total": 0.34882488855499044,
-   "per_pass": 0.0077516641901108985,
-   "per_match": 0.08720622213874761,
-   "matches": 4,
-   "n_ft_passes": 45
-  },
-  {
-   "name": "Danilo",
-   "team": "Brazil",
-   "pos": "LB",
-   "total": 0.3459892814401575,
-   "per_pass": 0.007361474073194841,
-   "per_match": 0.1153297604800525,
-   "matches": 3,
-   "n_ft_passes": 47
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2714,
+     "per_match": 0.0905
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0955,
+     "per_match": 0.0478
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.3669,
+     "per_match": 0.0734
+    }
+   },
+   "n_passes": 42
   },
   {
    "name": "Jules Kounde",
    "team": "France",
    "pos": "RB",
-   "total": 0.34576331602451643,
-   "per_pass": 0.007056394204581968,
-   "per_match": 0.057627219337419405,
-   "matches": 6,
-   "n_ft_passes": 49
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0906,
+     "per_match": 0.0453
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.2639,
+     "per_match": 0.066
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.3545,
+     "per_match": 0.0591
+    }
+   },
+   "n_passes": 49
   },
   {
-   "name": "Denzel Dumfries",
-   "team": "Netherlands",
+   "name": "Saud Abdulhamid",
+   "team": "Saudi Arabia",
    "pos": "RB",
-   "total": 0.34525145316546674,
-   "per_pass": 0.00548018179627725,
-   "per_match": 0.06905029063309334,
-   "matches": 5,
-   "n_ft_passes": 63
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3513,
+     "per_match": 0.1171
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.3513,
+     "per_match": 0.1171
+    }
+   },
+   "n_passes": 40
+  },
+  {
+   "name": "Weston McKennie",
+   "team": "United States",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2599,
+     "per_match": 0.0866
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0845,
+     "per_match": 0.0845
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.3444,
+     "per_match": 0.0861
+    }
+   },
+   "n_passes": 57
+  },
+  {
+   "name": "Niklas S\u00fcle",
+   "team": "Germany",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3442,
+     "per_match": 0.1147
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.3442,
+     "per_match": 0.1147
+    }
+   },
+   "n_passes": 45
+  },
+  {
+   "name": "Joakim Maehle",
+   "team": "Denmark",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.334,
+     "per_match": 0.1113
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.334,
+     "per_match": 0.1113
+    }
+   },
+   "n_passes": 50
   },
   {
    "name": "Nicolas Tagliafico",
    "team": "Argentina",
    "pos": "LB",
-   "total": 0.33735221777349433,
-   "per_pass": 0.008228102872524252,
-   "per_match": 0.05622536962891572,
-   "matches": 6,
-   "n_ft_passes": 41
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.1368,
+     "per_match": 0.0684
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.1969,
+     "per_match": 0.0492
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.3337,
+     "per_match": 0.0556
+    }
+   },
+   "n_passes": 41
   },
   {
-   "name": "Rodrygo",
-   "team": "Brazil",
-   "pos": "RW",
-   "total": 0.33657055077590664,
-   "per_pass": 0.008414263769397665,
-   "per_match": 0.06731411015518132,
-   "matches": 5,
-   "n_ft_passes": 40
-  },
-  {
-   "name": "Antony",
-   "team": "Brazil",
-   "pos": "RW",
-   "total": 0.3363604366886116,
-   "per_pass": 0.007644555379286627,
-   "per_match": 0.0840901091721529,
-   "matches": 4,
-   "n_ft_passes": 44
-  },
-  {
-   "name": "Rapha\u00ebl Guerreiro",
-   "team": "Portugal",
-   "pos": "LB",
-   "total": 0.33356676661655443,
-   "per_pass": 0.006807485032990907,
-   "per_match": 0.08339169165413861,
-   "matches": 4,
-   "n_ft_passes": 49
-  },
-  {
-   "name": "Jin-su Kim",
-   "team": "South Korea",
-   "pos": "LB",
-   "total": 0.3309758824114234,
-   "per_pass": 0.007880378152652938,
-   "per_match": 0.08274397060285585,
-   "matches": 4,
-   "n_ft_passes": 42
+   "name": "Sergi\u00f1o Dest",
+   "team": "United States",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2443,
+     "per_match": 0.0814
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0885,
+     "per_match": 0.0885
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.3328,
+     "per_match": 0.0832
+    }
+   },
+   "n_passes": 45
   },
   {
    "name": "Matty Cash",
    "team": "Poland",
    "pos": "RB",
-   "total": 0.3280339715495405,
-   "per_pass": 0.0071311732945552285,
-   "per_match": 0.08200849288738513,
-   "matches": 4,
-   "n_ft_passes": 46
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1988,
+     "per_match": 0.0663
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1337,
+     "per_match": 0.1337
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.3325,
+     "per_match": 0.0831
+    }
+   },
+   "n_passes": 46
   },
   {
    "name": "Julian Alvarez",
    "team": "Argentina",
    "pos": "CF",
-   "total": 0.31866093617569546,
-   "per_pass": 0.007242294003993079,
-   "per_match": 0.04552299088224221,
-   "matches": 7,
-   "n_ft_passes": 44
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0436,
+     "per_match": 0.0145
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.2853,
+     "per_match": 0.0713
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.3289,
+     "per_match": 0.047
+    }
+   },
+   "n_passes": 44
   },
   {
-   "name": "Wataru Endo",
-   "team": "Japan",
-   "pos": "CM",
-   "total": 0.31732609854258514,
-   "per_pass": 0.007739660940063052,
-   "per_match": 0.10577536618086171,
-   "matches": 3,
-   "n_ft_passes": 41
+   "name": "Jin-su Kim",
+   "team": "South Korea",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2926,
+     "per_match": 0.0975
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0243,
+     "per_match": 0.0243
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.3169,
+     "per_match": 0.0792
+    }
+   },
+   "n_passes": 42
+  },
+  {
+   "name": "Danilo",
+   "team": "Brazil",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0969,
+     "per_match": 0.0969
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.2189,
+     "per_match": 0.1094
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.3157,
+     "per_match": 0.1052
+    }
+   },
+   "n_passes": 47
+  },
+  {
+   "name": "Rodrygo",
+   "team": "Brazil",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1095,
+     "per_match": 0.0365
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.2024,
+     "per_match": 0.1012
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.3119,
+     "per_match": 0.0624
+    }
+   },
+   "n_passes": 40
+  },
+  {
+   "name": "Denzel Dumfries",
+   "team": "Netherlands",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1982,
+     "per_match": 0.0661
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.1133,
+     "per_match": 0.0567
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.3116,
+     "per_match": 0.0623
+    }
+   },
+   "n_passes": 63
+  },
+  {
+   "name": "Pervis Estupinan",
+   "team": "Ecuador",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.311,
+     "per_match": 0.1037
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.311,
+     "per_match": 0.1037
+    }
+   },
+   "n_passes": 43
   },
   {
    "name": "Kevin De Bruyne",
    "team": "Belgium",
    "pos": "RW",
-   "total": 0.310104018463898,
-   "per_pass": 0.006597957839657404,
-   "per_match": 0.10336800615463267,
-   "matches": 3,
-   "n_ft_passes": 47
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.3066,
+     "per_match": 0.1022
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.3066,
+     "per_match": 0.1022
+    }
+   },
+   "n_passes": 47
   },
   {
-   "name": "Nathan Ak\u00e9",
-   "team": "Netherlands",
-   "pos": "CB",
-   "total": 0.3009955119929623,
-   "per_pass": 0.0071665598093562455,
-   "per_match": 0.06019910239859246,
-   "matches": 5,
-   "n_ft_passes": 42
-  },
-  {
-   "name": "Jordan Henderson",
-   "team": "England",
-   "pos": "CM",
-   "total": 0.2938294852660262,
-   "per_pass": 0.006251691175872898,
-   "per_match": 0.07345737131650655,
-   "matches": 4,
-   "n_ft_passes": 47
-  },
-  {
-   "name": "Math\u00ed\u00adas Olivera",
-   "team": "Uruguay",
+   "name": "Rapha\u00ebl Guerreiro",
+   "team": "Portugal",
    "pos": "LB",
-   "total": 0.2800679566332578,
-   "per_pass": 0.006668284681744233,
-   "per_match": 0.09335598554441926,
-   "matches": 3,
-   "n_ft_passes": 42
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.2612,
+     "per_match": 0.1306
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0446,
+     "per_match": 0.0223
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.3058,
+     "per_match": 0.0765
+    }
+   },
+   "n_passes": 49
   },
   {
-   "name": "Steven Berghuis",
-   "team": "Netherlands",
-   "pos": "AM",
-   "total": 0.2794649435088583,
-   "per_pass": 0.0066539272264013885,
-   "per_match": 0.06986623587721458,
-   "matches": 4,
-   "n_ft_passes": 42
+   "name": "Antony",
+   "team": "Brazil",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1951,
+     "per_match": 0.065
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1063,
+     "per_match": 0.1063
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.3014,
+     "per_match": 0.0753
+    }
+   },
+   "n_passes": 44
+  },
+  {
+   "name": "Wataru Endo",
+   "team": "Japan",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.2356,
+     "per_match": 0.1178
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0528,
+     "per_match": 0.0528
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.2884,
+     "per_match": 0.0961
+    }
+   },
+   "n_passes": 41
   },
   {
    "name": "Alistair Johnston",
    "team": "Canada",
    "pos": "RB",
-   "total": 0.2785934236084932,
-   "per_pass": 0.006633176752583171,
-   "per_match": 0.09286447453616441,
-   "matches": 3,
-   "n_ft_passes": 42
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2809,
+     "per_match": 0.0936
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.2809,
+     "per_match": 0.0936
+    }
+   },
+   "n_passes": 42
+  },
+  {
+   "name": "Jordan Henderson",
+   "team": "England",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.1253,
+     "per_match": 0.0627
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.1548,
+     "per_match": 0.0774
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.2801,
+     "per_match": 0.07
+    }
+   },
+   "n_passes": 47
   },
   {
    "name": "Aziz Behich",
    "team": "Australia",
    "pos": "LB",
-   "total": 0.2757376209179435,
-   "per_pass": 0.0065651814504272266,
-   "per_match": 0.06893440522948588,
-   "matches": 4,
-   "n_ft_passes": 42
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.194,
+     "per_match": 0.0647
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0806,
+     "per_match": 0.0806
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.2746,
+     "per_match": 0.0687
+    }
+   },
+   "n_passes": 42
+  },
+  {
+   "name": "Nathan Ak\u00e9",
+   "team": "Netherlands",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2102,
+     "per_match": 0.0701
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.06,
+     "per_match": 0.03
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.2702,
+     "per_match": 0.054
+    }
+   },
+   "n_passes": 42
+  },
+  {
+   "name": "Math\u00ed\u00adas Olivera",
+   "team": "Uruguay",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2631,
+     "per_match": 0.0877
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.2631,
+     "per_match": 0.0877
+    }
+   },
+   "n_passes": 42
+  },
+  {
+   "name": "Steven Berghuis",
+   "team": "Netherlands",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2,
+     "per_match": 0.0667
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0467,
+     "per_match": 0.0467
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.2467,
+     "per_match": 0.0617
+    }
+   },
+   "n_passes": 42
   },
   {
    "name": "Marcos Acu\u00f1a",
    "team": "Argentina",
    "pos": "LB",
-   "total": 0.21565160725837232,
-   "per_pass": 0.0047922579390749405,
-   "per_match": 0.035941934543062055,
-   "matches": 6,
-   "n_ft_passes": 45
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1197,
+     "per_match": 0.0399
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0901,
+     "per_match": 0.03
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.2098,
+     "per_match": 0.035
+    }
+   },
+   "n_passes": 45
   }
  ]
 }
