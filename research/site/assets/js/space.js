@@ -866,7 +866,7 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=8");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=9");
   const data = await loadJSON("data/space_pobso.json?v=3");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
@@ -1403,10 +1403,10 @@ async function buildPassSelection() {
 async function buildSOG() {
   const el = $("#pc-sog"); if (!el) return;
   let d; try { d = await loadJSON("data/space_pobso.json?v=3"); } catch (e) { return; }
-  const all = (d.players || []).filter((r) => r.minutes_sampled >= 60 && r.occupation_total != null);
+  const all = (d.players || []).filter((r) => r.minutes_sampled >= 90 && r.pobso != null);
   if (!all.length) return;
-  const modeTg = $("#sog-mode"), permTg = $("#sog-perm"), lab = $("#sog-lab");
-  let mode = "total", perm = false;
+  const modeTg = $("#sog-mode"), lab = $("#sog-lab");
+  let mode = "passive";
   const nameCell = (r) => `<span class="sogname"><span class="fl" style="background:${teamColor(r.team)}"></span>${r.name} <span class="lteam">${r.team}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""}</span>`;
   const seg = (c, w) => `<span style="width:${Math.max(0, w).toFixed(1)}%;background:${c}"></span>`;
   const render = () => {
@@ -1416,31 +1416,25 @@ async function buildSOG() {
       const rows = [...all].sort((a, b) => b[key] - a[key]).slice(0, 12);
       el.innerHTML = rows.map((r) => `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg(col, r[key])}</span><span class="sogval">${r[key]}% ${mode === "passive" ? "walking" : "running"}</span></div>`).join("");
       if (lab) lab.innerHTML = mode === "passive"
-        ? "Share of their valuable space won <b>walking</b> (passive, under 2 m/s)"
-        : "Share of their valuable space won <b>running</b> (active, 2 m/s and up)";
+        ? "Share of each player's dangerous space won <b>walking</b> (passive, under 2 m/s)"
+        : "Share won <b>running</b> (active, 2 m/s and up)";
     } else {
-      const occ = (r) => (perm ? r.occupation_per_match : r.occupation_total);
-      const rows = [...all].sort((a, b) => occ(b) - occ(a)).slice(0, 12);
-      const mx = Math.max(1e-9, ...rows.map(occ));
+      const rows = [...all].sort((a, b) => b.pobso - a.pobso).slice(0, 12);
+      const mx = Math.max(1e-9, ...rows.map((r) => r.pobso));
       el.innerHTML = rows.map((r) => {
-        const tot = clamp(occ(r) / mx * 100, 0, 100);
-        return `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg("#6cb4ee", tot * (r.passive_pct || 0) / 100)}${seg("#f0b429", tot * (r.active_pct || 0) / 100)}</span><span class="sogval">${r.pobso.toFixed(1)} m²${perm ? ` <span class="lteam">${r.matches}g</span>` : ""}</span></div>`;
+        const w = clamp(r.pobso / mx * 100, 0, 100);
+        return `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg("#6cb4ee", w * (r.passive_pct || 0) / 100)}${seg("#f0b429", w * (r.active_pct || 0) / 100)}</span><span class="sogval">${r.pobso.toFixed(1)} m²</span></div>`;
       }).join("");
-      if (lab) lab.innerHTML = perm
-        ? "Valuable space occupied <b>per match</b>, split walking/running (m² = per-moment average)"
-        : "<b>Total</b> valuable space occupied, split walking/running (m² = per-moment average)";
+      if (lab) lab.innerHTML = "Dangerous space owned <b>per moment</b> (m²), bar split walking / running";
     }
   };
   render();
   if (modeTg) $$(".htog", modeTg).forEach((b) => b.addEventListener("click", () => {
     mode = b.dataset.m; $$(".htog", modeTg).forEach((x) => x.classList.toggle("on", x === b)); render();
   }));
-  if (permTg) $$(".htog", permTg).forEach((b) => b.addEventListener("click", () => {
-    perm = b.dataset.m === "permatch"; $$(".htog", permTg).forEach((x) => x.classList.toggle("on", x === b)); render();
-  }));
   const m = all.find((r) => /Messi/.test(r.name));
   const mEl = $("#sog-messi");
-  if (m && mEl) mEl.innerHTML = `<b>Messi is the archetype.</b> ${m.passive_pct}% of the valuable space he occupies, he wins while walking, at an average <b>${m.control_speed} m/s</b> when he owns it, slower than almost any forward in the tournament. Fernández &amp; Bornn measured the same thing in 2017 and got 66%. He walks into the right grass while everyone else runs.`;
+  if (m && mEl) mEl.innerHTML = `<b>Messi is the archetype.</b> He sits at the very top of this walking view: ${m.passive_pct}% of the dangerous space he occupies, he wins while <b>walking</b>, the highest share of any forward, at <b>${m.control_speed} m/s</b> when he owns it. Fernández &amp; Bornn measured the same thing in 2017 and got 66%. He walks into the right grass while everyone else runs.`;
 }
 
 async function buildBWAE() {
@@ -1472,7 +1466,7 @@ async function buildBWAE() {
 /* Way 1 clip — a top creator's pass into controllable dangerous final-third space. */
 async function buildPassingClip() {
   const el = $("#passing-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=7"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=8"); } catch (e) { return; }
   const h = surf.hero || {};
   const shot = h.shot_outcome
     ? ` The move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` (${h.shot_shooter})` : ""}.`
@@ -1497,7 +1491,7 @@ async function buildPassingClip() {
 /* Way 2 clip — a ground duel won against the pitch-control expectation (a BWAE upset). */
 async function buildDuelClip() {
   const el = $("#duel-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=7"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=8"); } catch (e) { return; }
   const h = surf.hero || {};
   buildScrubber(el, surf, {
     id: "duel", ramp: rampHot, gamma: 0.95, threshold: 0.05, surfaceAlpha: 0.6,
