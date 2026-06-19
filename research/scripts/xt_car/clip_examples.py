@@ -572,11 +572,10 @@ def main():
             continue
         hero = {"name": shooter, "team": _teams_block(meta, lock)["attack"],
                 "assist": assist, "outcome": "goal"}
-        # finer sampling (5 Hz) so the sprint is smooth, not jumpy; pre trimmed to ~2.8 s so
-        # the clip starts on his decisive forward run (skips the occluded forward-back-forward
-        # build-up that read as "jumping around"), ending just after the finish.
+        # finer sampling (5 Hz) for smooth scrubbing; WIDE pre (~11 s) so the clip shows the
+        # FULL build-up (all the passing) into Di María's run and finish, not just the last touch.
         payload = export_window(mid, period, gc, lock, "danger", hero,
-                                teams=_teams_block(meta, lock), pre=2.4, post=1.0, stride=6)
+                                teams=_teams_block(meta, lock), pre=11.0, post=1.5, stride=6)
         if not payload or payload["n_frames"] < 8:
             continue
         # validate it's a real forward off-ball arrival: shooter visible + advances toward goal

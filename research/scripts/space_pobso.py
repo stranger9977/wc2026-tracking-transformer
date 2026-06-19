@@ -223,6 +223,7 @@ def compute(matches=SAMPLE_MATCHES):
     # dangerous space. pl_obso_walk = OBSO accrued at walking pace (<2 m/s, "passive").
     pl_obso_walk: dict[tuple, float] = defaultdict(float)
     pl_obso_wspeed: dict[tuple, float] = defaultdict(float)
+    pl_matches: dict[tuple, set] = defaultdict(set)   # distinct matches a player owns OBSO in
     # team -> list of per-frame team-OBSO (one team is "attacking" each frame)
     team_obso_frames: dict[str, list[float]] = defaultdict(list)
     team_obso_pressured: dict[str, list[float]] = defaultdict(list)
@@ -277,6 +278,7 @@ def compute(matches=SAMPLE_MATCHES):
                                     "team_id": ident.team_id, "jersey": ident.jersey,
                                     "is_gk": ident.is_gk}
                 pl_frames[key].append(val)
+                pl_matches[key].add(mid)
                 spd = float(np.hypot(fr.players[row, 2], fr.players[row, 3]))
                 pl_obso_wspeed[key] += val * spd
                 if spd < 2.0:
@@ -309,6 +311,7 @@ def compute(matches=SAMPLE_MATCHES):
         "pl_meta": pl_meta, "pl_frames": pl_frames,
         "pl_frames_pressured": pl_frames_pressured, "pl_vis": pl_vis,
         "pl_obso_walk": dict(pl_obso_walk), "pl_obso_wspeed": dict(pl_obso_wspeed),
+        "pl_matches": {k: len(v) for k, v in pl_matches.items()},
         "team_obso_frames": team_obso_frames,
         "team_obso_pressured": team_obso_pressured,
         "team_frames_count": team_frames_count,
@@ -346,6 +349,7 @@ def build_leaderboard(res):
     pl_vis = res["pl_vis"]
     pl_obso_walk = res.get("pl_obso_walk", {})
     pl_obso_wspeed = res.get("pl_obso_wspeed", {})
+    pl_matches = res.get("pl_matches", {})
 
     # HEADLINE player unit = mean P-OBSO an off-ball attacker CONTROLS per frame
     # they are on the pitch while their team attacks (xT-weighted m^2 of
@@ -373,6 +377,8 @@ def build_leaderboard(res):
             "name": meta["name"], "team": meta["team"], "jersey": meta["jersey"],
             "pobso": round(float(arr.mean()), 3),       # headline (xT-wtd m^2 / frame)
             "occupation_total": round(osum, 2),         # sum over sampled frames (F&B Sum-SOG style)
+            "matches": pl_matches.get(key, 0),
+            "occupation_per_match": round(osum / max(1, pl_matches.get(key, 0)), 2),
             "passive_pct": round(100.0 * passive_share),   # % of owned danger at walking pace (<2 m/s)
             "active_pct": round(100.0 * (1.0 - passive_share)),
             "control_speed": round(control_speed, 2),   # OBSO-weighted speed (m/s) while owning danger

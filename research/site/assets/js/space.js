@@ -866,8 +866,8 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=7");
-  const data = await loadJSON("data/space_pobso.json?v=2");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=8");
+  const data = await loadJSON("data/space_pobso.json?v=3");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
   const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
@@ -897,20 +897,15 @@ async function buildPOBSO() {
   if (pbTitle && h.name) pbTitle.textContent = `${h.name}'s run and finish`;
   // PLAYER board — substantial-minutes players LEAD; cameo subs (<15 min, ~one match) are
   // shown separately so they don't headline (matches the caption's claim).
-  const QUALMIN = 15;
-  const players = [...data.players].sort((a, b) => {
-    const qa = a.minutes_sampled >= QUALMIN, qb = b.minutes_sampled >= QUALMIN;
-    if (qa !== qb) return qa ? -1 : 1;   // qualified first
-    return b.pobso - a.pobso;            // then by dangerous-space desc within each tier
-  }).slice(0, 14);
+  const QUALMIN = 90;   // sampled minutes — gate hard so late-game subs don't headline a per-moment metric
+  const players = [...data.players].filter((r) => r.minutes_sampled >= QUALMIN)
+    .sort((a, b) => b.pobso - a.pobso).slice(0, 12);
   const lb = leaderboard(players, {
     name: (r) => r.name, team: (r) => r.team, pos: (r) => r.position, val: (r) => r.pobso,
     fmt: (v) => `${v.toFixed(1)} m²`,
-    tier: (r) => (r.minutes_sampled < 15 ? "cameo" : "full"),
+    tier: () => "full",
     barColor: null, scrubberEl: scEl,
-    tierLabel: (g) => g === "cameo"
-      ? `cameo subs (under 15 min, one match) shown separately`
-      : `substantial-minutes dangerous-space controllers (15+ min sampled)`,
+    tierLabel: () => `most dangerous space owned per moment (90+ sampled minutes)`,
   });
   $("#pobso-board").appendChild(lb);
   // NOTE: the team danger-RATE board + its xG-receipt were removed in the consolidation
@@ -1407,19 +1402,42 @@ async function buildPassSelection() {
    the passive split is the "Messi walks" finding. Reads the OBSO per-player data. */
 async function buildSOG() {
   const el = $("#pc-sog"); if (!el) return;
-  let d; try { d = await loadJSON("data/space_pobso.json?v=2"); } catch (e) { return; }
-  const all = (d.players || []).filter((r) => r.minutes_sampled >= 30 && r.occupation_total != null);
+  let d; try { d = await loadJSON("data/space_pobso.json?v=3"); } catch (e) { return; }
+  const all = (d.players || []).filter((r) => r.minutes_sampled >= 60 && r.occupation_total != null);
   if (!all.length) return;
-  const rows = [...all].sort((a, b) => b.occupation_total - a.occupation_total).slice(0, 12);
-  const mx = Math.max(1e-9, ...rows.map((r) => r.occupation_total));
-  el.innerHTML = rows.map((r) => {
-    const tot = clamp(r.occupation_total / mx * 100, 0, 100);
-    const pw = (tot * (r.passive_pct || 0) / 100).toFixed(1);
-    const aw = (tot * (r.active_pct || 0) / 100).toFixed(1);
-    return `<div class="sogrow"><span class="sogname"><span class="fl" style="background:${teamColor(r.team)}"></span>${r.name} <span class="lteam">${r.team}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""}</span>
-      <span class="sogbar"><span style="width:${pw}%;background:#6cb4ee"></span><span style="width:${aw}%;background:#f0b429"></span></span>
-      <span class="sogval">${r.passive_pct}% walking</span></div>`;
-  }).join("");
+  const modeTg = $("#sog-mode"), permTg = $("#sog-perm"), lab = $("#sog-lab");
+  let mode = "total", perm = false;
+  const nameCell = (r) => `<span class="sogname"><span class="fl" style="background:${teamColor(r.team)}"></span>${r.name} <span class="lteam">${r.team}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""}</span>`;
+  const seg = (c, w) => `<span style="width:${Math.max(0, w).toFixed(1)}%;background:${c}"></span>`;
+  const render = () => {
+    if (mode === "passive" || mode === "active") {
+      const key = mode === "passive" ? "passive_pct" : "active_pct";
+      const col = mode === "passive" ? "#6cb4ee" : "#f0b429";
+      const rows = [...all].sort((a, b) => b[key] - a[key]).slice(0, 12);
+      el.innerHTML = rows.map((r) => `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg(col, r[key])}</span><span class="sogval">${r[key]}% ${mode === "passive" ? "walking" : "running"}</span></div>`).join("");
+      if (lab) lab.innerHTML = mode === "passive"
+        ? "Share of their valuable space won <b>walking</b> (passive, under 2 m/s)"
+        : "Share of their valuable space won <b>running</b> (active, 2 m/s and up)";
+    } else {
+      const occ = (r) => (perm ? r.occupation_per_match : r.occupation_total);
+      const rows = [...all].sort((a, b) => occ(b) - occ(a)).slice(0, 12);
+      const mx = Math.max(1e-9, ...rows.map(occ));
+      el.innerHTML = rows.map((r) => {
+        const tot = clamp(occ(r) / mx * 100, 0, 100);
+        return `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg("#6cb4ee", tot * (r.passive_pct || 0) / 100)}${seg("#f0b429", tot * (r.active_pct || 0) / 100)}</span><span class="sogval">${r.pobso.toFixed(1)} m²${perm ? ` <span class="lteam">${r.matches}g</span>` : ""}</span></div>`;
+      }).join("");
+      if (lab) lab.innerHTML = perm
+        ? "Valuable space occupied <b>per match</b>, split walking/running (m² = per-moment average)"
+        : "<b>Total</b> valuable space occupied, split walking/running (m² = per-moment average)";
+    }
+  };
+  render();
+  if (modeTg) $$(".htog", modeTg).forEach((b) => b.addEventListener("click", () => {
+    mode = b.dataset.m; $$(".htog", modeTg).forEach((x) => x.classList.toggle("on", x === b)); render();
+  }));
+  if (permTg) $$(".htog", permTg).forEach((b) => b.addEventListener("click", () => {
+    perm = b.dataset.m === "permatch"; $$(".htog", permTg).forEach((x) => x.classList.toggle("on", x === b)); render();
+  }));
   const m = all.find((r) => /Messi/.test(r.name));
   const mEl = $("#sog-messi");
   if (m && mEl) mEl.innerHTML = `<b>Messi is the archetype.</b> ${m.passive_pct}% of the valuable space he occupies, he wins while walking, at an average <b>${m.control_speed} m/s</b> when he owns it, slower than almost any forward in the tournament. Fernández &amp; Bornn measured the same thing in 2017 and got 66%. He walks into the right grass while everyone else runs.`;
@@ -1427,15 +1445,28 @@ async function buildSOG() {
 
 async function buildBWAE() {
   const el = $("#bwae-xt"); if (!el) return;
-  let d; try { d = await loadJSON("data/balls_won_above_expected.json?v=2"); } catch (e) { return; }
-  const rows = (d.players || []).filter((r) => !String(r.name).startsWith("#")).slice(0, 12);
-  if (!rows.length) return;
-  const mx = Math.max(1e-9, ...rows.map((r) => r.bwae_xt));
-  const top = $("#bwae-top");
-  if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
-  el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""}</span>
-    <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.bwae_xt / mx * 100, 0, 100)}%;background:#9b8cff"></span></span>
-    <span class="tbval">+${r.bwae_xt.toFixed(2)}</span></div>`).join("");
+  let d; try { d = await loadJSON("data/balls_won_above_expected.json?v=3"); } catch (e) { return; }
+  const all = (d.players || []).filter((r) => !String(r.name).startsWith("#"));
+  if (!all.length) return;
+  const lab = $("#bwae-lab"), tg = $("#bwae-toggle"), top = $("#bwae-top");
+  if (top) top.textContent = [...all].sort((a, b) => b.bwae_xt - a.bwae_xt).slice(0, 3).map((r) => r.name).join(", ");
+  const render = (mode) => {
+    const pm = mode === "permatch";
+    const valOf = (r) => (pm ? r.bwae_xt_per_match : r.bwae_xt);
+    const rows = [...all].sort((a, b) => valOf(b) - valOf(a)).slice(0, 12);
+    const mx = Math.max(1e-9, ...rows.map(valOf));
+    el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""}${pm ? ` <span class="lpos">${r.matches}m</span>` : ""}</span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 0, 100)}%;background:#9b8cff"></span></span>
+      <span class="tbval">+${valOf(r).toFixed(2)}</span></div>`).join("");
+    if (lab) lab.innerHTML = pm
+      ? "Players · xT-weighted balls won above expected <b>per match</b> (ground duels)"
+      : "Players · <b>total</b> xT-weighted balls won above expected (ground duels)";
+  };
+  render("total");
+  if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => {
+    $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b));
+    render(b.dataset.m);
+  }));
 }
 
 /* Way 1 clip — a top creator's pass into controllable dangerous final-third space. */
@@ -1472,16 +1503,17 @@ async function buildDuelClip() {
     id: "duel", ramp: rampHot, gamma: 0.95, threshold: 0.05, surfaceAlpha: 0.6,
     labelName: h.name, defaultMode: "surface",
     duo: { winner: h.name, loser: h.loser }, focusBall: true, emphasizeBall: true,
-    readout: () => `A genuine 50-50: <b>${h.name}</b> (gold) and <b>${h.loser}</b> (red) arrive together. `
-      + `By position and momentum pitch control rated it ~<b>${h.expected_pct}%</b> to ${h.name}. He won it anyway. `
-      + `Winning more 50-50s than the % predicts, over a tournament, is the skill the board measures.`,
+    readout: () => `<b>${h.name}</b> (gold) and <b>${h.loser}</b> (red) arrive together. From where each player is and how `
+      + `they are moving, pitch control gives <b>${h.name}</b> a <b>baseline ${h.expected_pct}%</b> chance of winning it. `
+      + `He won it: <b>+${(1 - (h.expected_win ?? 0)).toFixed(2)}</b> above baseline. Beating the baseline like this, in `
+      + `valuable areas, again and again, is the skill the board measures.`,
   });
   renderTeamLegend("duel-teamleg", surf.teams);
   // a duel's value is the possession won, not xT — show the BWAE swing vs the 50-50 odds
   const swing = (1 - (h.expected_win ?? 0)).toFixed(2);
-  renderImpact(el, `<b>What it created.</b> A 50-50 pitch control rated `
-    + `~<b>${h.expected_pct}%</b> his way, won: a <span class="big">+${swing}</span> swing above what his `
-    + `positioning predicted. Turning the ball over is the value; doing it more than the % says is the skill.`);
+  renderImpact(el, `<b>What it created.</b> Pitch control's <b>baseline</b> gave him a <b>${h.expected_pct}%</b> `
+    + `chance from his position and momentum. He won it: <span class="big">+${swing}</span> above baseline. `
+    + `Winning the ball back is the value; beating the baseline, in valuable areas, is the skill.`);
   const t1 = $("#duel-hero-title"), t2 = $("#duel-hero-title2");
   if (t1) t1.textContent = `${h.name} vs ${h.loser} (${surf.match})`;
   if (t2) t2.textContent = `${h.name} vs ${h.loser}`;
