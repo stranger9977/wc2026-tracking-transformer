@@ -370,6 +370,13 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
         if anchored:
             t_center = min(anchored, key=lambda r: r["d_anchor"])["t_s"]
     sel = [r for r in raw if t_center - pre <= r["t_s"] <= t_center + post] or raw
+    # Broadcast ball tracking floats/wiggles over a multi-pass move (occlusion); smooth the
+    # ball path with a centered 3-tap mean so it reads as a moving ball, not a detached dot.
+    if len(sel) >= 3:
+        _bx = [r["ball_xy"][0] for r in sel]; _by = [r["ball_xy"][1] for r in sel]
+        _sm = lambda a, i: sum(a[max(0, i - 1):i + 2]) / len(a[max(0, i - 1):i + 2])
+        for i, r in enumerate(sel):
+            r["ball_xy"] = [round(_sm(_bx, i), 1), round(_sm(_by, i), 1)]
     gmax = max(r["raw_max"] for r in sel) or 1.0
     hero_owned = max((r["hero_cell"] for r in sel), default=0.0)
     frames_out = [{"t_s": r["t_s"], "ball_xy": r["ball_xy"],
@@ -572,10 +579,11 @@ def main():
             continue
         hero = {"name": shooter, "team": _teams_block(meta, lock)["attack"],
                 "assist": assist, "outcome": "goal"}
-        # finer sampling (5 Hz) for smooth scrubbing; WIDE pre (~11 s) so the clip shows the
-        # FULL build-up (all the passing) into Di María's run and finish, not just the last touch.
+        # 5 Hz for smooth scrubbing; pre ~5.5 s = the final build-up (the last passes into
+        # Di María's run + finish) in the attacking half, where broadcast tracking holds up.
+        # The full 11 s build-up floated/wiggled (occluded ball over a long midfield move).
         payload = export_window(mid, period, gc, lock, "danger", hero,
-                                teams=_teams_block(meta, lock), pre=11.0, post=1.5, stride=6)
+                                teams=_teams_block(meta, lock), pre=5.5, post=1.5, stride=6)
         if not payload or payload["n_frames"] < 8:
             continue
         # validate it's a real forward off-ball arrival: shooter visible + advances toward goal
