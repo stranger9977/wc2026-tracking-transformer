@@ -1403,30 +1403,21 @@ async function buildPassSelection() {
 async function buildSOG() {
   const el = $("#pc-sog"); if (!el) return;
   let d; try { d = await loadJSON("data/space_pobso.json?v=3"); } catch (e) { return; }
-  const all = (d.players || []).filter((r) => r.minutes_sampled >= 90 && r.pobso != null);
+  const all = (d.players || []).filter((r) => r.minutes_sampled >= 90 && r.passive_pct != null);
   if (!all.length) return;
   const modeTg = $("#sog-mode"), lab = $("#sog-lab");
   let mode = "passive";
   const nameCell = (r) => `<span class="sogname"><span class="fl" style="background:${teamColor(r.team)}"></span>${r.name} <span class="lteam">${r.team}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""}</span>`;
   const seg = (c, w) => `<span style="width:${Math.max(0, w).toFixed(1)}%;background:${c}"></span>`;
   const render = () => {
-    if (mode === "passive" || mode === "active") {
-      const key = mode === "passive" ? "passive_pct" : "active_pct";
-      const col = mode === "passive" ? "#6cb4ee" : "#f0b429";
-      const rows = [...all].sort((a, b) => b[key] - a[key]).slice(0, 12);
-      el.innerHTML = rows.map((r) => `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg(col, r[key])}</span><span class="sogval">${r[key]}% ${mode === "passive" ? "walking" : "running"}</span></div>`).join("");
-      if (lab) lab.innerHTML = mode === "passive"
-        ? "Share of each player's dangerous space won <b>walking</b> (passive, under 2 m/s)"
-        : "Share won <b>running</b> (active, 2 m/s and up)";
-    } else {
-      const rows = [...all].sort((a, b) => b.pobso - a.pobso).slice(0, 12);
-      const mx = Math.max(1e-9, ...rows.map((r) => r.pobso));
-      el.innerHTML = rows.map((r) => {
-        const w = clamp(r.pobso / mx * 100, 0, 100);
-        return `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg("#6cb4ee", w * (r.passive_pct || 0) / 100)}${seg("#f0b429", w * (r.active_pct || 0) / 100)}</span><span class="sogval">${r.pobso.toFixed(1)} m²</span></div>`;
-      }).join("");
-      if (lab) lab.innerHTML = "Dangerous space owned <b>per moment</b> (m²), bar split walking / running";
-    }
+    const key = mode === "active" ? "active_pct" : "passive_pct";
+    const col = mode === "active" ? "#f0b429" : "#6cb4ee";
+    const word = mode === "active" ? "running" : "walking";
+    const rows = [...all].sort((a, b) => b[key] - a[key]).slice(0, 12);
+    el.innerHTML = rows.map((r) => `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg(col, r[key])}</span><span class="sogval">${r[key]}% ${word}</span></div>`).join("");
+    if (lab) lab.innerHTML = mode === "active"
+      ? "Share of each player's dangerous space won <b>running</b> (active, 2 m/s and up)"
+      : "Share of each player's dangerous space won <b>walking</b> (passive, under 2 m/s)";
   };
   render();
   if (modeTg) $$(".htog", modeTg).forEach((b) => b.addEventListener("click", () => {

@@ -445,8 +445,8 @@
 
       <div class="card">
         <h3>Space Occupation Gain (SOG): pitch control as a player number</h3>
-        <p class="caption" style="margin-top:0">Fernández &amp; Bornn's 2018 metric: how much <b>valuable</b> space a player owns off the ball, and <i>how</i> he wins it: <b>passively</b> (walking, settling into it as the play comes to him) or <b>actively</b> (running into it). Our recreation on our control × xT surface, all 64 games. <b>passive</b> and <b>active</b> rank by the share of his space won each way; <b>total</b> ranks by the m² he owns per moment, with the bar split by manner.</p>
-        <div class="htoggles" id="sog-mode" style="padding:0;margin:0 0 8px"><button class="htog" data-m="total">total</button><button class="htog on" data-m="passive">passive (walking)</button><button class="htog" data-m="active">active (running)</button></div>
+        <p class="caption" style="margin-top:0">Fernández &amp; Bornn's 2018 metric had a signature split: of the valuable space a player wins, how much does he win <b>passively</b> (walking, settling into it as the play comes to him) versus <b>actively</b> (running into it)? This is that split, on our control × xT surface across all 64 games. It is the <i>manner</i>, not the amount: who owns the most dangerous space outright is the off-ball board in Act 3. Here, who wins it without running.</p>
+        <div class="htoggles" id="sog-mode" style="padding:0;margin:0 0 8px"><button class="htog on" data-m="passive">walking</button><button class="htog" data-m="active">running</button></div>
         <div class="boardlab" id="sog-lab"></div>
         <div class="legend"><span><span class="swatch" style="background:#6cb4ee"></span>passive (walking)</span><span><span class="swatch" style="background:#f0b429"></span>active (running)</span></div>
         <div id="pc-sog"></div>
@@ -493,7 +493,7 @@
       <div class="card">
         <h3>Off-ball danger controllers</h3>
         <div id="pobso-board" class="lboard"></div>
-        <p class="caption">Average danger-weighted area a player owns off the ball <b>at any moment</b>, in square metres, gated to players with real sampled minutes so late-game subs don't inflate it. It reads small on purpose: every metre is scaled by how dangerous it is, so midfield barely counts. This is per-moment <b>intensity</b>: the box forwards who park in the most dangerous space lead. Who occupies the most valuable space <i>overall</i>, and how (walking vs running), is the Space Occupation board in Act 2, where Messi tops the walking read.</p>
+        <p class="caption">Average danger-weighted area a player owns off the ball <b>at any moment</b>, in square metres, gated to players with real sampled minutes so late-game subs don't inflate it. It reads small on purpose: every metre is scaled by how dangerous it is, so midfield barely counts. This is per-moment <b>intensity</b>: the box forwards who park in the most dangerous space lead. <b>How</b> players win that space, walking or running, is the Space Occupation (SOG) board in Act 2, where Messi tops the walking read.</p>
         <p class="caption faintnote">Averaged over present frames only, which favours late attacking subs, so cameo subs sit in their own tier. Possession and carrier are nearest-player heuristics, velocity is finite-differenced at ~2 Hz, and extra time is excluded.</p>
       </div>
     </div>
@@ -604,6 +604,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=35"></script>
+<script type="module" src="assets/js/space.js?v=36"></script>
 </body>
 </html>
