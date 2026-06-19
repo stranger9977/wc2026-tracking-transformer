@@ -1568,27 +1568,29 @@ async function buildSOG() {
 
 async function buildBWAE() {
   const el = $("#bwae-xt"); if (!el) return;
-  let d; try { d = await loadJSON("data/balls_won_above_expected.json?v=3"); } catch (e) { return; }
-  const all = (d.players || []).filter((r) => !String(r.name).startsWith("#"));
-  if (!all.length) return;
-  const lab = $("#bwae-lab"), tg = $("#bwae-toggle"), top = $("#bwae-top");
-  if (top) top.textContent = [...all].sort((a, b) => b.bwae_xt - a.bwae_xt).slice(0, 3).map((r) => r.name).join(", ");
-  const render = (mode) => {
-    const pm = mode === "permatch";
-    const valOf = (r) => (pm ? r.bwae_xt_per_match : r.bwae_xt);
-    const rows = [...all].sort((a, b) => valOf(b) - valOf(a)).slice(0, 12);
-    const mx = Math.max(1e-9, ...rows.map(valOf));
-    el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""}${pm ? ` <span class="lpos">${r.matches}m</span>` : ""}</span>
-      <span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 0, 100)}%;background:#9b8cff"></span></span>
-      <span class="tbval">+${valOf(r).toFixed(2)}</span></div>`).join("");
-    if (lab) lab.innerHTML = pm
-      ? "Players · xT-weighted balls won above expected <b>per match</b> (ground duels)"
-      : "Players · <b>total</b> xT-weighted balls won above expected (ground duels)";
+  let d; try { d = await loadJSON("data/balls_won_above_expected.json?v=4"); } catch (e) { return; }
+  const players = (d.players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
+  if (!players.length) return;
+  const lab = $("#bwae-lab"), tg = $("#bwae-toggle"), wtg = $("#bwae-weight"), top = $("#bwae-top");
+  const st = { stage: "group", weighted: true };
+  const render = () => {
+    const stage = st.stage, key = st.weighted ? "per_match" : "per_match_raw";
+    const min = STAGE_MIN[stage] || 2;
+    const sv = (r) => (r.stages[stage] && r.stages[stage].matches >= min) ? r.stages[stage][key] : null;
+    const rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
+    const mx = Math.max(1e-9, ...rows.map(sv));
+    el.innerHTML = rows.map((r) => { const s = r.stages[stage]; return `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""} <span class="lpos">${s.matches}m</span></span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(sv(r) / mx * 100, 0, 100)}%;background:#9b8cff"></span></span>
+      <span class="tbval">${sv(r) >= 0 ? "+" : ""}${sv(r).toFixed(2)}</span></div>`; }).join("");
+    if (lab) lab.innerHTML = `Players · xT-weighted balls won above expected, <b>per match</b>${st.weighted ? ", opponent-strength weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
+    if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
-  render("total");
+  render();
   if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => {
-    $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b));
-    render(b.dataset.m);
+    st.stage = b.dataset.m; $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b)); render();
+  }));
+  if (wtg) $$(".htog", wtg).forEach((b) => b.addEventListener("click", () => {
+    st.weighted = b.dataset.w === "weighted"; $$(".htog", wtg).forEach((x) => x.classList.toggle("on", x === b)); render();
   }));
 }
 

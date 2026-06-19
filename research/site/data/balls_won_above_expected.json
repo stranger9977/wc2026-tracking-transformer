@@ -1,2247 +1,6509 @@
 {
  "metric": "Balls Won Above Expected (ground duels), xT-weighted",
+ "stages": [
+  "all",
+  "group",
+  "ko"
+ ],
+ "opponent_weighted": true,
  "n_ground_duels": 7340,
  "n_final_third": 2417,
  "players": [
   {
-   "name": "Jamal Musiala",
-   "team": "Germany",
-   "pos": "LW",
-   "bwae_xt": 0.6139823449556717,
-   "bwae_xt_per_match": 0.20466078165189058,
-   "bwae_per_duel": 0.08435475186933662,
-   "n_duels": 84,
-   "matches": 3
-  },
-  {
    "name": "Lionel Messi",
    "team": "Argentina",
    "pos": "CF",
-   "bwae_xt": 0.5695449204725354,
-   "bwae_xt_per_match": 0.08136356006750504,
-   "bwae_per_duel": 0.10007546846124205,
-   "n_duels": 181,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0728,
+     "per_match": 0.0243,
+     "total_raw": 0.0654,
+     "per_match_raw": 0.0218
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.5005,
+     "per_match": 0.1251,
+     "total_raw": 0.5041,
+     "per_match_raw": 0.126
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.5733,
+     "per_match": 0.0819,
+     "total_raw": 0.5695,
+     "per_match_raw": 0.0814
+    }
+   },
+   "n_duels": 181
+  },
+  {
+   "name": "Jamal Musiala",
+   "team": "Germany",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.5368,
+     "per_match": 0.1789,
+     "total_raw": 0.614,
+     "per_match_raw": 0.2047
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.5368,
+     "per_match": 0.1789,
+     "total_raw": 0.614,
+     "per_match_raw": 0.2047
+    }
+   },
+   "n_duels": 84
   },
   {
    "name": "Mateo Kovacic",
    "team": "Croatia",
    "pos": "CM",
-   "bwae_xt": 0.32697715206163863,
-   "bwae_xt_per_match": 0.04671102172309123,
-   "bwae_per_duel": 0.118987497903734,
-   "n_duels": 144,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.199,
+     "per_match": 0.0663,
+     "total_raw": 0.2018,
+     "per_match_raw": 0.0673
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.1291,
+     "per_match": 0.0323,
+     "total_raw": 0.1252,
+     "per_match_raw": 0.0313
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.328,
+     "per_match": 0.0469,
+     "total_raw": 0.327,
+     "per_match_raw": 0.0467
+    }
+   },
+   "n_duels": 144
   },
   {
    "name": "Isma\u00efla Sarr",
    "team": "Senegal",
    "pos": "LW",
-   "bwae_xt": 0.2732037998065277,
-   "bwae_xt_per_match": 0.06830094995163193,
-   "bwae_per_duel": 0.17304403260239393,
-   "n_duels": 63,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1558,
+     "per_match": 0.0519,
+     "total_raw": 0.1695,
+     "per_match_raw": 0.0565
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.1114,
+     "per_match": 0.1114,
+     "total_raw": 0.1037,
+     "per_match_raw": 0.1037
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.2672,
+     "per_match": 0.0668,
+     "total_raw": 0.2732,
+     "per_match_raw": 0.0683
+    }
+   },
+   "n_duels": 63
   },
   {
    "name": "Jack Grealish",
    "team": "England",
    "pos": "LW",
-   "bwae_xt": 0.2550635967566986,
-   "bwae_xt_per_match": 0.06376589918917465,
-   "bwae_per_duel": 0.20289779739273875,
-   "n_duels": 33,
-   "matches": 4
-  },
-  {
-   "name": "#3865",
-   "team": "Brazil",
-   "pos": "AM",
-   "bwae_xt": 0.2368085474673013,
-   "bwae_xt_per_match": 0.07893618248910043,
-   "bwae_per_duel": 0.0642917081788404,
-   "n_duels": 70,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2601,
+     "per_match": 0.0867,
+     "total_raw": 0.2825,
+     "per_match_raw": 0.0942
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0231,
+     "per_match": -0.0231,
+     "total_raw": -0.0274,
+     "per_match_raw": -0.0274
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.2369,
+     "per_match": 0.0592,
+     "total_raw": 0.2551,
+     "per_match_raw": 0.0638
+    }
+   },
+   "n_duels": 33
   },
   {
    "name": "Aziz Behich",
    "team": "Australia",
    "pos": "LB",
-   "bwae_xt": 0.2349349888034186,
-   "bwae_xt_per_match": 0.05873374720085465,
-   "bwae_per_duel": 0.01701931018691748,
-   "n_duels": 47,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1966,
+     "per_match": 0.0655,
+     "total_raw": 0.2002,
+     "per_match_raw": 0.0667
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0369,
+     "per_match": 0.0369,
+     "total_raw": 0.0348,
+     "per_match_raw": 0.0348
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.2335,
+     "per_match": 0.0584,
+     "total_raw": 0.2349,
+     "per_match_raw": 0.0587
+    }
+   },
+   "n_duels": 47
   },
   {
    "name": "Hirving Lozano",
    "team": "Mexico",
    "pos": "RW",
-   "bwae_xt": 0.2319184232571656,
-   "bwae_xt_per_match": 0.07730614108572187,
-   "bwae_per_duel": 0.2039940233196824,
-   "n_duels": 55,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.2008,
+     "per_match": 0.0669,
+     "total_raw": 0.2319,
+     "per_match_raw": 0.0773
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.2008,
+     "per_match": 0.0669,
+     "total_raw": 0.2319,
+     "per_match_raw": 0.0773
+    }
+   },
+   "n_duels": 55
+  },
+  {
+   "name": "#3865",
+   "team": "Brazil",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.1794,
+     "per_match": 0.1794,
+     "total_raw": 0.2125,
+     "per_match_raw": 0.2125
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0168,
+     "per_match": 0.0084,
+     "total_raw": 0.0243,
+     "per_match_raw": 0.0121
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.1962,
+     "per_match": 0.0654,
+     "total_raw": 0.2368,
+     "per_match_raw": 0.0789
+    }
+   },
+   "n_duels": 70
   },
   {
    "name": "Robert Lewandowski",
    "team": "Poland",
    "pos": "CF",
-   "bwae_xt": 0.21100928690662205,
-   "bwae_xt_per_match": 0.05275232172665551,
-   "bwae_per_duel": -0.024635020489201034,
-   "n_duels": 57,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1857,
+     "per_match": 0.0619,
+     "total_raw": 0.218,
+     "per_match_raw": 0.0727
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0074,
+     "per_match": -0.0074,
+     "total_raw": -0.007,
+     "per_match_raw": -0.007
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.1783,
+     "per_match": 0.0446,
+     "total_raw": 0.211,
+     "per_match_raw": 0.0528
+    }
+   },
+   "n_duels": 57
   },
   {
    "name": "Eden Hazard",
    "team": "Belgium",
    "pos": "LW",
-   "bwae_xt": 0.17864309627797162,
-   "bwae_xt_per_match": 0.05954769875932387,
-   "bwae_per_duel": 0.2533016573363686,
-   "n_duels": 39,
-   "matches": 3
-  },
-  {
-   "name": "Mohammed Kudus",
-   "team": "Ghana",
-   "pos": "CM",
-   "bwae_xt": 0.1783210466627274,
-   "bwae_xt_per_match": 0.0594403488875758,
-   "bwae_per_duel": 0.05149076639011004,
-   "n_duels": 52,
-   "matches": 3
-  },
-  {
-   "name": "Andrej Kramaric",
-   "team": "Croatia",
-   "pos": "RW",
-   "bwae_xt": 0.16864698666806607,
-   "bwae_xt_per_match": 0.024092426666866583,
-   "bwae_per_duel": 0.0728058548217294,
-   "n_duels": 49,
-   "matches": 7
-  },
-  {
-   "name": "Kingsley Coman",
-   "team": "France",
-   "pos": "RW",
-   "bwae_xt": 0.16267762336651984,
-   "bwae_xt_per_match": 0.032535524673303964,
-   "bwae_per_duel": 0.15724832965113422,
-   "n_duels": 37,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1699,
+     "per_match": 0.0566,
+     "total_raw": 0.1786,
+     "per_match_raw": 0.0595
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.1699,
+     "per_match": 0.0566,
+     "total_raw": 0.1786,
+     "per_match_raw": 0.0595
+    }
+   },
+   "n_duels": 39
   },
   {
    "name": "Dejan Lovren",
    "team": "Croatia",
    "pos": "CB",
-   "bwae_xt": 0.1622515402951822,
-   "bwae_xt_per_match": 0.027041923382530367,
-   "bwae_per_duel": 0.09311576706755281,
-   "n_duels": 35,
-   "matches": 6
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1422,
+     "per_match": 0.0474,
+     "total_raw": 0.1447,
+     "per_match_raw": 0.0482
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0169,
+     "per_match": 0.0056,
+     "total_raw": 0.0176,
+     "per_match_raw": 0.0059
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.1591,
+     "per_match": 0.0265,
+     "total_raw": 0.1623,
+     "per_match_raw": 0.027
+    }
+   },
+   "n_duels": 35
+  },
+  {
+   "name": "Kingsley Coman",
+   "team": "France",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1012,
+     "per_match": 0.0337,
+     "total_raw": 0.1094,
+     "per_match_raw": 0.0365
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0562,
+     "per_match": 0.0281,
+     "total_raw": 0.0533,
+     "per_match_raw": 0.0267
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.1573,
+     "per_match": 0.0315,
+     "total_raw": 0.1627,
+     "per_match_raw": 0.0325
+    }
+   },
+   "n_duels": 37
+  },
+  {
+   "name": "Mohammed Kudus",
+   "team": "Ghana",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1548,
+     "per_match": 0.0516,
+     "total_raw": 0.1783,
+     "per_match_raw": 0.0594
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.1548,
+     "per_match": 0.0516,
+     "total_raw": 0.1783,
+     "per_match_raw": 0.0594
+    }
+   },
+   "n_duels": 52
   },
   {
    "name": "Dayot Upamecano",
    "team": "France",
    "pos": "CB",
-   "bwae_xt": 0.13668427750402926,
-   "bwae_xt_per_match": 0.027336855500805852,
-   "bwae_per_duel": 0.16522949740795137,
-   "n_duels": 47,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.051,
+     "per_match": 0.0255,
+     "total_raw": 0.0529,
+     "per_match_raw": 0.0264
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0878,
+     "per_match": 0.0293,
+     "total_raw": 0.0838,
+     "per_match_raw": 0.0279
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.1389,
+     "per_match": 0.0278,
+     "total_raw": 0.1367,
+     "per_match_raw": 0.0273
+    }
+   },
+   "n_duels": 47
   },
   {
-   "name": "#4626",
-   "team": "Cameroon",
-   "pos": "CF",
-   "bwae_xt": 0.13411341128072968,
-   "bwae_xt_per_match": 0.04470447042690989,
-   "bwae_per_duel": 0.2421160304667616,
-   "n_duels": 35,
-   "matches": 3
+   "name": "Andrej Kramaric",
+   "team": "Croatia",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0323,
+     "per_match": -0.0108,
+     "total_raw": -0.0296,
+     "per_match_raw": -0.0099
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.1683,
+     "per_match": 0.0421,
+     "total_raw": 0.1983,
+     "per_match_raw": 0.0496
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.1361,
+     "per_match": 0.0194,
+     "total_raw": 0.1686,
+     "per_match_raw": 0.0241
+    }
+   },
+   "n_duels": 49
   },
   {
    "name": "Nikola Vlasic",
    "team": "Croatia",
    "pos": "AM",
-   "bwae_xt": 0.1298133286525889,
-   "bwae_xt_per_match": 0.021635554775431484,
-   "bwae_per_duel": 0.1686191807833481,
-   "n_duels": 45,
-   "matches": 6
-  },
-  {
-   "name": "Eduardo Camavinga",
-   "team": "France",
-   "pos": "CM",
-   "bwae_xt": 0.1275928420877958,
-   "bwae_xt_per_match": 0.0637964210438979,
-   "bwae_per_duel": 0.20725342427289006,
-   "n_duels": 39,
-   "matches": 2
-  },
-  {
-   "name": "\u00c1ngel Di Mar\u00eda",
-   "team": "Argentina",
-   "pos": "RW",
-   "bwae_xt": 0.12540815513526019,
-   "bwae_xt_per_match": 0.025081631027052038,
-   "bwae_per_duel": 0.10878659626680641,
-   "n_duels": 63,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0611,
+     "per_match": 0.0305,
+     "total_raw": 0.0604,
+     "per_match_raw": 0.0302
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0745,
+     "per_match": 0.0186,
+     "total_raw": 0.0694,
+     "per_match_raw": 0.0174
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.1356,
+     "per_match": 0.0226,
+     "total_raw": 0.1298,
+     "per_match_raw": 0.0216
+    }
+   },
+   "n_duels": 45
   },
   {
    "name": "Phil Foden",
    "team": "England",
    "pos": "LW",
-   "bwae_xt": 0.12329908214102574,
-   "bwae_xt_per_match": 0.030824770535256434,
-   "bwae_per_duel": 0.1525999538417058,
-   "n_duels": 35,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0274,
+     "per_match": -0.0137,
+     "total_raw": -0.0292,
+     "per_match_raw": -0.0146
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.1565,
+     "per_match": 0.0783,
+     "total_raw": 0.1525,
+     "per_match_raw": 0.0763
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.1291,
+     "per_match": 0.0323,
+     "total_raw": 0.1233,
+     "per_match_raw": 0.0308
+    }
+   },
+   "n_duels": 35
   },
   {
-   "name": "Frenkie de Jong",
-   "team": "Netherlands",
+   "name": "Eduardo Camavinga",
+   "team": "France",
    "pos": "CM",
-   "bwae_xt": 0.11579587157001421,
-   "bwae_xt_per_match": 0.023159174314002842,
-   "bwae_per_duel": 0.028826689100036232,
-   "n_duels": 63,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0457,
+     "per_match": 0.0457,
+     "total_raw": 0.0542,
+     "per_match_raw": 0.0542
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0779,
+     "per_match": 0.0779,
+     "total_raw": 0.0734,
+     "per_match_raw": 0.0734
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.1236,
+     "per_match": 0.0618,
+     "total_raw": 0.1276,
+     "per_match_raw": 0.0638
+    }
+   },
+   "n_duels": 39
+  },
+  {
+   "name": "\u00c1ngel Di Mar\u00eda",
+   "team": "Argentina",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1129,
+     "per_match": 0.0376,
+     "total_raw": 0.1179,
+     "per_match_raw": 0.0393
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.008,
+     "per_match": 0.004,
+     "total_raw": 0.0075,
+     "per_match_raw": 0.0038
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.1208,
+     "per_match": 0.0242,
+     "total_raw": 0.1254,
+     "per_match_raw": 0.0251
+    }
+   },
+   "n_duels": 63
+  },
+  {
+   "name": "#4626",
+   "team": "Cameroon",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1128,
+     "per_match": 0.0376,
+     "total_raw": 0.1341,
+     "per_match_raw": 0.0447
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.1128,
+     "per_match": 0.0376,
+     "total_raw": 0.1341,
+     "per_match_raw": 0.0447
+    }
+   },
+   "n_duels": 35
   },
   {
    "name": "Alexis Mac Allister",
    "team": "Argentina",
    "pos": "CM",
-   "bwae_xt": 0.09093384914407907,
-   "bwae_xt_per_match": 0.015155641524013178,
-   "bwae_per_duel": 0.07647778539688165,
-   "n_duels": 83,
-   "matches": 6
-  },
-  {
-   "name": "Marcus Thuram",
-   "team": "France",
-   "pos": "LW",
-   "bwae_xt": 0.0878954828451283,
-   "bwae_xt_per_match": 0.021973870711282074,
-   "bwae_per_duel": 0.05386812676244146,
-   "n_duels": 38,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0455,
+     "per_match": 0.0228,
+     "total_raw": 0.0462,
+     "per_match_raw": 0.0231
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.042,
+     "per_match": 0.0105,
+     "total_raw": 0.0447,
+     "per_match_raw": 0.0112
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0875,
+     "per_match": 0.0146,
+     "total_raw": 0.0909,
+     "per_match_raw": 0.0152
+    }
+   },
+   "n_duels": 83
   },
   {
    "name": "Nicol\u00e1s Otamendi",
    "team": "Argentina",
    "pos": "CB",
-   "bwae_xt": 0.08192711349631002,
-   "bwae_xt_per_match": 0.011703873356615716,
-   "bwae_per_duel": 0.010028014554187606,
-   "n_duels": 43,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0041,
+     "per_match": 0.0014,
+     "total_raw": 0.0036,
+     "per_match_raw": 0.0012
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0827,
+     "per_match": 0.0207,
+     "total_raw": 0.0783,
+     "per_match_raw": 0.0196
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0868,
+     "per_match": 0.0124,
+     "total_raw": 0.0819,
+     "per_match_raw": 0.0117
+    }
+   },
+   "n_duels": 43
   },
   {
-   "name": "Eder Militao",
-   "team": "Brazil",
-   "pos": "RB",
-   "bwae_xt": 0.07900371797907803,
-   "bwae_xt_per_match": 0.019750929494769507,
-   "bwae_per_duel": 0.15866683278811625,
-   "n_duels": 48,
-   "matches": 4
+   "name": "Marcus Thuram",
+   "team": "France",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0017,
+     "per_match": 0.0017,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0017
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0824,
+     "per_match": 0.0275,
+     "total_raw": 0.0862,
+     "per_match_raw": 0.0287
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0841,
+     "per_match": 0.021,
+     "total_raw": 0.0879,
+     "per_match_raw": 0.022
+    }
+   },
+   "n_duels": 38
   },
   {
-   "name": "Junya Ito",
-   "team": "Japan",
-   "pos": "RB",
-   "bwae_xt": 0.07450169441118859,
-   "bwae_xt_per_match": 0.018625423602797148,
-   "bwae_per_duel": -0.08459885473800163,
-   "n_duels": 40,
-   "matches": 4
+   "name": "Frenkie de Jong",
+   "team": "Netherlands",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.1659,
+     "per_match": 0.0553,
+     "total_raw": 0.1961,
+     "per_match_raw": 0.0654
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0818,
+     "per_match": -0.0409,
+     "total_raw": -0.0803,
+     "per_match_raw": -0.0402
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.084,
+     "per_match": 0.0168,
+     "total_raw": 0.1158,
+     "per_match_raw": 0.0232
+    }
+   },
+   "n_duels": 63
   },
   {
    "name": "#3888",
    "team": "France",
    "pos": "CM",
-   "bwae_xt": 0.07357556465219922,
-   "bwae_xt_per_match": 0.010510794950314175,
-   "bwae_per_duel": 0.10668274919591492,
-   "n_duels": 80,
-   "matches": 7
-  },
-  {
-   "name": "Alexis Vega",
-   "team": "Mexico",
-   "pos": "LW",
-   "bwae_xt": 0.07350476680654087,
-   "bwae_xt_per_match": 0.024501588935513626,
-   "bwae_per_duel": 0.07666216066801404,
-   "n_duels": 37,
-   "matches": 3
-  },
-  {
-   "name": "Ramin Rezaeian",
-   "team": "Iran",
-   "pos": "RB",
-   "bwae_xt": 0.07323181540209626,
-   "bwae_xt_per_match": 0.03661590770104813,
-   "bwae_per_duel": 0.19654649392645035,
-   "n_duels": 32,
-   "matches": 2
-  },
-  {
-   "name": "Firas Al-Buraikan",
-   "team": "Saudi Arabia",
-   "pos": "RM",
-   "bwae_xt": 0.0704881511844682,
-   "bwae_xt_per_match": 0.023496050394822734,
-   "bwae_per_duel": 0.12717787873229627,
-   "n_duels": 29,
-   "matches": 3
-  },
-  {
-   "name": "Ritsu Doan",
-   "team": "Japan",
-   "pos": "RW",
-   "bwae_xt": 0.06937689713823969,
-   "bwae_xt_per_match": 0.017344224284559923,
-   "bwae_per_duel": 0.06341369972328156,
-   "n_duels": 43,
-   "matches": 4
-  },
-  {
-   "name": "Bryan Mbeumo",
-   "team": "Cameroon",
-   "pos": "RW",
-   "bwae_xt": 0.06782483317781254,
-   "bwae_xt_per_match": 0.022608277725937515,
-   "bwae_per_duel": 0.0713402087618489,
-   "n_duels": 28,
-   "matches": 3
-  },
-  {
-   "name": "#1973",
-   "team": "United States",
-   "pos": "LB",
-   "bwae_xt": 0.06700613536833154,
-   "bwae_xt_per_match": 0.016751533842082885,
-   "bwae_per_duel": 0.0794042589421423,
-   "n_duels": 44,
-   "matches": 4
-  },
-  {
-   "name": "Federico Valverde",
-   "team": "Uruguay",
-   "pos": "CM",
-   "bwae_xt": 0.06681184495989972,
-   "bwae_xt_per_match": 0.02227061498663324,
-   "bwae_per_duel": 0.03780293093319578,
-   "n_duels": 36,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0336,
+     "per_match": 0.0112,
+     "total_raw": 0.0344,
+     "per_match_raw": 0.0115
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0433,
+     "per_match": 0.0108,
+     "total_raw": 0.0392,
+     "per_match_raw": 0.0098
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0769,
+     "per_match": 0.011,
+     "total_raw": 0.0736,
+     "per_match_raw": 0.0105
+    }
+   },
+   "n_duels": 80
   },
   {
    "name": "Azzedine Ounahi",
    "team": "Morocco",
    "pos": "CM",
-   "bwae_xt": 0.06454693975607811,
-   "bwae_xt_per_match": 0.009220991393725444,
-   "bwae_per_duel": 0.046318756891589714,
-   "n_duels": 94,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1038,
+     "per_match": -0.0346,
+     "total_raw": -0.1022,
+     "per_match_raw": -0.0341
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.1775,
+     "per_match": 0.0444,
+     "total_raw": 0.1668,
+     "per_match_raw": 0.0417
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0737,
+     "per_match": 0.0105,
+     "total_raw": 0.0645,
+     "per_match_raw": 0.0092
+    }
+   },
+   "n_duels": 94
   },
   {
-   "name": "Jo\u00e3o Cancelo",
-   "team": "Portugal",
+   "name": "Firas Al-Buraikan",
+   "team": "Saudi Arabia",
+   "pos": "RM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0701,
+     "per_match": 0.0234,
+     "total_raw": 0.0705,
+     "per_match_raw": 0.0235
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0701,
+     "per_match": 0.0234,
+     "total_raw": 0.0705,
+     "per_match_raw": 0.0235
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Alexis Vega",
+   "team": "Mexico",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0701,
+     "per_match": 0.0234,
+     "total_raw": 0.0735,
+     "per_match_raw": 0.0245
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0701,
+     "per_match": 0.0234,
+     "total_raw": 0.0735,
+     "per_match_raw": 0.0245
+    }
+   },
+   "n_duels": 37
+  },
+  {
+   "name": "Ramin Rezaeian",
+   "team": "Iran",
    "pos": "RB",
-   "bwae_xt": 0.06041524342390803,
-   "bwae_xt_per_match": 0.015103810855977007,
-   "bwae_per_duel": 0.12405710600005627,
-   "n_duels": 36,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0692,
+     "per_match": 0.0346,
+     "total_raw": 0.0732,
+     "per_match_raw": 0.0366
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0692,
+     "per_match": 0.0346,
+     "total_raw": 0.0732,
+     "per_match_raw": 0.0366
+    }
+   },
+   "n_duels": 32
   },
   {
-   "name": "Jurrien Timber",
-   "team": "Netherlands",
-   "pos": "CB",
-   "bwae_xt": 0.06000077132430883,
-   "bwae_xt_per_match": 0.015000192831077208,
-   "bwae_per_duel": 0.07033095930481657,
-   "n_duels": 68,
-   "matches": 4
+   "name": "Ritsu Doan",
+   "team": "Japan",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0143,
+     "per_match": 0.0048,
+     "total_raw": 0.0152,
+     "per_match_raw": 0.0051
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0547,
+     "per_match": 0.0547,
+     "total_raw": 0.0541,
+     "per_match_raw": 0.0541
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.069,
+     "per_match": 0.0172,
+     "total_raw": 0.0694,
+     "per_match_raw": 0.0173
+    }
+   },
+   "n_duels": 43
+  },
+  {
+   "name": "Eder Militao",
+   "team": "Brazil",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0309,
+     "per_match": 0.0155,
+     "total_raw": 0.0367,
+     "per_match_raw": 0.0183
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.037,
+     "per_match": 0.0185,
+     "total_raw": 0.0423,
+     "per_match_raw": 0.0212
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.068,
+     "per_match": 0.017,
+     "total_raw": 0.079,
+     "per_match_raw": 0.0198
+    }
+   },
+   "n_duels": 48
+  },
+  {
+   "name": "Junya Ito",
+   "team": "Japan",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0737,
+     "per_match": 0.0246,
+     "total_raw": 0.0857,
+     "per_match_raw": 0.0286
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0113,
+     "per_match": -0.0113,
+     "total_raw": -0.0112,
+     "per_match_raw": -0.0112
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0624,
+     "per_match": 0.0156,
+     "total_raw": 0.0745,
+     "per_match_raw": 0.0186
+    }
+   },
+   "n_duels": 40
+  },
+  {
+   "name": "#1973",
+   "team": "United States",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0289,
+     "per_match": 0.0096,
+     "total_raw": 0.0368,
+     "per_match_raw": 0.0123
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0317,
+     "per_match": 0.0317,
+     "total_raw": 0.0302,
+     "per_match_raw": 0.0302
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0606,
+     "per_match": 0.0152,
+     "total_raw": 0.067,
+     "per_match_raw": 0.0168
+    }
+   },
+   "n_duels": 44
   },
   {
    "name": "Otavio",
    "team": "Portugal",
    "pos": "CM",
-   "bwae_xt": 0.05697609661815904,
-   "bwae_xt_per_match": 0.018992032206053014,
-   "bwae_per_duel": 0.09457703622004611,
-   "n_duels": 39,
-   "matches": 3
-  },
-  {
-   "name": "Aissa Laidouni",
-   "team": "Tunisia",
-   "pos": "CM",
-   "bwae_xt": 0.05512823350706422,
-   "bwae_xt_per_match": 0.018376077835688075,
-   "bwae_per_duel": 0.11679152552731384,
-   "n_duels": 39,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0327,
+     "per_match": 0.0327,
+     "total_raw": 0.034,
+     "per_match_raw": 0.034
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0272,
+     "per_match": 0.0136,
+     "total_raw": 0.0229,
+     "per_match_raw": 0.0115
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0598,
+     "per_match": 0.0199,
+     "total_raw": 0.057,
+     "per_match_raw": 0.019
+    }
+   },
+   "n_duels": 39
   },
   {
    "name": "Harry Kane",
    "team": "England",
    "pos": "CF",
-   "bwae_xt": 0.05459342518482925,
-   "bwae_xt_per_match": 0.01091868503696585,
-   "bwae_per_duel": 0.13121880258852972,
-   "n_duels": 51,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0811,
+     "per_match": 0.027,
+     "total_raw": 0.0877,
+     "per_match_raw": 0.0292
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0222,
+     "per_match": -0.0111,
+     "total_raw": -0.0331,
+     "per_match_raw": -0.0166
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0589,
+     "per_match": 0.0118,
+     "total_raw": 0.0546,
+     "per_match_raw": 0.0109
+    }
+   },
+   "n_duels": 51
   },
   {
-   "name": "Raphinha",
-   "team": "Brazil",
+   "name": "Federico Valverde",
+   "team": "Uruguay",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0562,
+     "per_match": 0.0187,
+     "total_raw": 0.0668,
+     "per_match_raw": 0.0223
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0562,
+     "per_match": 0.0187,
+     "total_raw": 0.0668,
+     "per_match_raw": 0.0223
+    }
+   },
+   "n_duels": 36
+  },
+  {
+   "name": "Bryan Mbeumo",
+   "team": "Cameroon",
    "pos": "RW",
-   "bwae_xt": 0.05434636125062293,
-   "bwae_xt_per_match": 0.010869272250124585,
-   "bwae_per_duel": 0.00722475682867972,
-   "n_duels": 54,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0556,
+     "per_match": 0.0185,
+     "total_raw": 0.0678,
+     "per_match_raw": 0.0226
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0556,
+     "per_match": 0.0185,
+     "total_raw": 0.0678,
+     "per_match_raw": 0.0226
+    }
+   },
+   "n_duels": 28
   },
   {
-   "name": "Mason Mount",
-   "team": "England",
-   "pos": "AM",
-   "bwae_xt": 0.0508198739564303,
-   "bwae_xt_per_match": 0.012704968489107574,
-   "bwae_per_duel": 0.06904610858178949,
-   "n_duels": 29,
-   "matches": 4
+   "name": "Aissa Laidouni",
+   "team": "Tunisia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0542,
+     "per_match": 0.0181,
+     "total_raw": 0.0551,
+     "per_match_raw": 0.0184
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0542,
+     "per_match": 0.0181,
+     "total_raw": 0.0551,
+     "per_match_raw": 0.0184
+    }
+   },
+   "n_duels": 39
   },
   {
-   "name": "David Raum",
-   "team": "Germany",
-   "pos": "LB",
-   "bwae_xt": 0.04684713180125646,
-   "bwae_xt_per_match": 0.015615710600418818,
-   "bwae_per_duel": 0.09817352897145365,
-   "n_duels": 42,
-   "matches": 3
+   "name": "Jo\u00e3o Cancelo",
+   "team": "Portugal",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0405,
+     "per_match": 0.0135,
+     "total_raw": 0.0483,
+     "per_match_raw": 0.0161
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.012,
+     "per_match": 0.012,
+     "total_raw": 0.0122,
+     "per_match_raw": 0.0122
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0525,
+     "per_match": 0.0131,
+     "total_raw": 0.0604,
+     "per_match_raw": 0.0151
+    }
+   },
+   "n_duels": 36
+  },
+  {
+   "name": "Jurrien Timber",
+   "team": "Netherlands",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0574,
+     "per_match": 0.0287,
+     "total_raw": 0.0664,
+     "per_match_raw": 0.0332
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0085,
+     "per_match": -0.0042,
+     "total_raw": -0.0064,
+     "per_match_raw": -0.0032
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0489,
+     "per_match": 0.0122,
+     "total_raw": 0.06,
+     "per_match_raw": 0.015
+    }
+   },
+   "n_duels": 68
   },
   {
    "name": "Theo Hernandez",
    "team": "France",
    "pos": "LB",
-   "bwae_xt": 0.045264072566825304,
-   "bwae_xt_per_match": 0.007544012094470884,
-   "bwae_per_duel": 0.12475976479688193,
-   "n_duels": 62,
-   "matches": 6
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0016,
+     "per_match": 0.0008,
+     "total_raw": 0.0036,
+     "per_match_raw": 0.0018
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0433,
+     "per_match": 0.0108,
+     "total_raw": 0.0417,
+     "per_match_raw": 0.0104
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0449,
+     "per_match": 0.0075,
+     "total_raw": 0.0453,
+     "per_match_raw": 0.0075
+    }
+   },
+   "n_duels": 62
   },
   {
-   "name": "#6916",
-   "team": "Canada",
-   "pos": "LW",
-   "bwae_xt": 0.04283073008597624,
-   "bwae_xt_per_match": 0.014276910028658746,
-   "bwae_per_duel": 0.11689977956386378,
-   "n_duels": 30,
-   "matches": 3
-  },
-  {
-   "name": "Majid Hosseini",
-   "team": "Iran",
-   "pos": "CB",
-   "bwae_xt": 0.04135470189807656,
-   "bwae_xt_per_match": 0.013784900632692186,
-   "bwae_per_duel": 0.19659424601886535,
-   "n_duels": 29,
-   "matches": 3
+   "name": "Raphinha",
+   "team": "Brazil",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0033,
+     "per_match": 0.0011,
+     "total_raw": 0.0039,
+     "per_match_raw": 0.0013
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0415,
+     "per_match": 0.0207,
+     "total_raw": 0.0504,
+     "per_match_raw": 0.0252
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0448,
+     "per_match": 0.009,
+     "total_raw": 0.0543,
+     "per_match_raw": 0.0109
+    }
+   },
+   "n_duels": 54
   },
   {
    "name": "Josip Juranovic",
    "team": "Croatia",
    "pos": "RB",
-   "bwae_xt": 0.041072982230141976,
-   "bwae_xt_per_match": 0.006845497038356996,
-   "bwae_per_duel": 0.05999085295710569,
-   "n_duels": 46,
-   "matches": 6
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0,
+     "per_match": -0.0,
+     "total_raw": -0.0011,
+     "per_match_raw": -0.0004
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0435,
+     "per_match": 0.0145,
+     "total_raw": 0.0421,
+     "per_match_raw": 0.014
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0435,
+     "per_match": 0.0072,
+     "total_raw": 0.0411,
+     "per_match_raw": 0.0068
+    }
+   },
+   "n_duels": 46
   },
   {
-   "name": "Josko Gvardiol",
-   "team": "Croatia",
+   "name": "#6916",
+   "team": "Canada",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0423,
+     "per_match": 0.0141,
+     "total_raw": 0.0428,
+     "per_match_raw": 0.0143
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0423,
+     "per_match": 0.0141,
+     "total_raw": 0.0428,
+     "per_match_raw": 0.0143
+    }
+   },
+   "n_duels": 30
+  },
+  {
+   "name": "Mason Mount",
+   "team": "England",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0447,
+     "per_match": 0.0223,
+     "total_raw": 0.0579,
+     "per_match_raw": 0.0289
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0034,
+     "per_match": -0.0017,
+     "total_raw": -0.007,
+     "per_match_raw": -0.0035
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0413,
+     "per_match": 0.0103,
+     "total_raw": 0.0508,
+     "per_match_raw": 0.0127
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Majid Hosseini",
+   "team": "Iran",
    "pos": "CB",
-   "bwae_xt": 0.04099981653499264,
-   "bwae_xt_per_match": 0.005857116647856092,
-   "bwae_per_duel": 0.10158372498257055,
-   "n_duels": 75,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0407,
+     "per_match": 0.0136,
+     "total_raw": 0.0414,
+     "per_match_raw": 0.0138
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0407,
+     "per_match": 0.0136,
+     "total_raw": 0.0414,
+     "per_match_raw": 0.0138
+    }
+   },
+   "n_duels": 29
   },
   {
    "name": "#1931",
    "team": "Wales",
    "pos": "CM",
-   "bwae_xt": 0.0400508219842276,
-   "bwae_xt_per_match": 0.013350273994742534,
-   "bwae_per_duel": 0.15238212528759912,
-   "n_duels": 29,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0395,
+     "per_match": 0.0132,
+     "total_raw": 0.0401,
+     "per_match_raw": 0.0134
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0395,
+     "per_match": 0.0132,
+     "total_raw": 0.0401,
+     "per_match_raw": 0.0134
+    }
+   },
+   "n_duels": 29
   },
   {
-   "name": "Bruno Fernandes",
-   "team": "Portugal",
-   "pos": "RW",
-   "bwae_xt": 0.0386474412267115,
-   "bwae_xt_per_match": 0.009661860306677875,
-   "bwae_per_duel": 0.09646596262902986,
-   "n_duels": 43,
-   "matches": 4
-  },
-  {
-   "name": "Sergej Milinkovi\u0107-Savi\u0107",
-   "team": "Serbia",
-   "pos": "LW",
-   "bwae_xt": 0.03807754837392458,
-   "bwae_xt_per_match": 0.012692516124641527,
-   "bwae_per_duel": 0.14036148722235295,
-   "n_duels": 33,
-   "matches": 3
-  },
-  {
-   "name": "Kalidou Koulibaly",
-   "team": "Senegal",
+   "name": "Josko Gvardiol",
+   "team": "Croatia",
    "pos": "CB",
-   "bwae_xt": 0.03792649024511885,
-   "bwae_xt_per_match": 0.009481622561279712,
-   "bwae_per_duel": 0.20193080008431474,
-   "n_duels": 32,
-   "matches": 4
-  },
-  {
-   "name": "Ibrahima Konat\u00e9",
-   "team": "France",
-   "pos": "CB",
-   "bwae_xt": 0.03721241016919629,
-   "bwae_xt_per_match": 0.007442482033839258,
-   "bwae_per_duel": 0.22630831602809684,
-   "n_duels": 30,
-   "matches": 5
-  },
-  {
-   "name": "Youssef Msakni",
-   "team": "Tunisia",
-   "pos": "LW",
-   "bwae_xt": 0.03617488355659048,
-   "bwae_xt_per_match": 0.01808744177829524,
-   "bwae_per_duel": 0.04568734570370158,
-   "n_duels": 29,
-   "matches": 2
-  },
-  {
-   "name": "Luis Ch\u00e1vez",
-   "team": "Mexico",
-   "pos": "CM",
-   "bwae_xt": 0.035616961723856436,
-   "bwae_xt_per_match": 0.011872320574618811,
-   "bwae_per_duel": 0.10953317161569413,
-   "n_duels": 29,
-   "matches": 3
-  },
-  {
-   "name": "Jordan Ayew",
-   "team": "Ghana",
-   "pos": "CF",
-   "bwae_xt": 0.03489562758184391,
-   "bwae_xt_per_match": 0.011631875860614637,
-   "bwae_per_duel": -0.029858306536465824,
-   "n_duels": 33,
-   "matches": 3
-  },
-  {
-   "name": "Alidu Seidu",
-   "team": "Ghana",
-   "pos": "RB",
-   "bwae_xt": 0.0344313353499329,
-   "bwae_xt_per_match": 0.01721566767496645,
-   "bwae_per_duel": 0.1001378557233245,
-   "n_duels": 34,
-   "matches": 2
-  },
-  {
-   "name": "Pierre-Emile H\u00f6jbjerg",
-   "team": "Denmark",
-   "pos": "CM",
-   "bwae_xt": 0.034420701893594904,
-   "bwae_xt_per_match": 0.011473567297864968,
-   "bwae_per_duel": 0.06045823866034051,
-   "n_duels": 28,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0404,
+     "per_match": 0.0135,
+     "total_raw": 0.0415,
+     "per_match_raw": 0.0138
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0041,
+     "per_match": -0.001,
+     "total_raw": -0.0005,
+     "per_match_raw": -0.0001
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0363,
+     "per_match": 0.0052,
+     "total_raw": 0.041,
+     "per_match_raw": 0.0059
+    }
+   },
+   "n_duels": 75
   },
   {
    "name": "Math\u00ed\u00adas Olivera",
    "team": "Uruguay",
    "pos": "LB",
-   "bwae_xt": 0.03157265140642535,
-   "bwae_xt_per_match": 0.010524217135475118,
-   "bwae_per_duel": 0.2191924884142986,
-   "n_duels": 28,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0359,
+     "per_match": 0.012,
+     "total_raw": 0.0316,
+     "per_match_raw": 0.0105
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0359,
+     "per_match": 0.012,
+     "total_raw": 0.0316,
+     "per_match_raw": 0.0105
+    }
+   },
+   "n_duels": 28
+  },
+  {
+   "name": "David Raum",
+   "team": "Germany",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0358,
+     "per_match": 0.0119,
+     "total_raw": 0.0468,
+     "per_match_raw": 0.0156
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0358,
+     "per_match": 0.0119,
+     "total_raw": 0.0468,
+     "per_match_raw": 0.0156
+    }
+   },
+   "n_duels": 42
+  },
+  {
+   "name": "Bruno Fernandes",
+   "team": "Portugal",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0561,
+     "per_match": 0.0281,
+     "total_raw": 0.0587,
+     "per_match_raw": 0.0293
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0209,
+     "per_match": -0.0104,
+     "total_raw": -0.02,
+     "per_match_raw": -0.01
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0352,
+     "per_match": 0.0088,
+     "total_raw": 0.0386,
+     "per_match_raw": 0.0097
+    }
+   },
+   "n_duels": 43
+  },
+  {
+   "name": "Sergej Milinkovi\u0107-Savi\u0107",
+   "team": "Serbia",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0352,
+     "per_match": 0.0117,
+     "total_raw": 0.0381,
+     "per_match_raw": 0.0127
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0352,
+     "per_match": 0.0117,
+     "total_raw": 0.0381,
+     "per_match_raw": 0.0127
+    }
+   },
+   "n_duels": 33
+  },
+  {
+   "name": "Pierre-Emile H\u00f6jbjerg",
+   "team": "Denmark",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0336,
+     "per_match": 0.0112,
+     "total_raw": 0.0344,
+     "per_match_raw": 0.0115
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0336,
+     "per_match": 0.0112,
+     "total_raw": 0.0344,
+     "per_match_raw": 0.0115
+    }
+   },
+   "n_duels": 28
+  },
+  {
+   "name": "Alidu Seidu",
+   "team": "Ghana",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0319,
+     "per_match": 0.016,
+     "total_raw": 0.0344,
+     "per_match_raw": 0.0172
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0319,
+     "per_match": 0.016,
+     "total_raw": 0.0344,
+     "per_match_raw": 0.0172
+    }
+   },
+   "n_duels": 34
+  },
+  {
+   "name": "Kalidou Koulibaly",
+   "team": "Senegal",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0237,
+     "per_match": 0.0079,
+     "total_raw": 0.0305,
+     "per_match_raw": 0.0102
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.008,
+     "per_match": 0.008,
+     "total_raw": 0.0074,
+     "per_match_raw": 0.0074
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0317,
+     "per_match": 0.0079,
+     "total_raw": 0.0379,
+     "per_match_raw": 0.0095
+    }
+   },
+   "n_duels": 32
+  },
+  {
+   "name": "Youssef Msakni",
+   "team": "Tunisia",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0317,
+     "per_match": 0.0158,
+     "total_raw": 0.0362,
+     "per_match_raw": 0.0181
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0317,
+     "per_match": 0.0158,
+     "total_raw": 0.0362,
+     "per_match_raw": 0.0181
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Ibrahima Konat\u00e9",
+   "team": "France",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0343,
+     "per_match": 0.0114,
+     "total_raw": 0.0409,
+     "per_match_raw": 0.0136
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0037,
+     "per_match": -0.0018,
+     "total_raw": -0.0037,
+     "per_match_raw": -0.0019
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0307,
+     "per_match": 0.0061,
+     "total_raw": 0.0372,
+     "per_match_raw": 0.0074
+    }
+   },
+   "n_duels": 30
   },
   {
    "name": "#4674",
    "team": "Belgium",
    "pos": "CM",
-   "bwae_xt": 0.030998777972085306,
-   "bwae_xt_per_match": 0.010332925990695102,
-   "bwae_per_duel": 0.12388000552429117,
-   "n_duels": 28,
-   "matches": 3
-  },
-  {
-   "name": "Salis Abdul Samed",
-   "team": "Ghana",
-   "pos": "CM",
-   "bwae_xt": 0.030624608998796887,
-   "bwae_xt_per_match": 0.010208202999598962,
-   "bwae_per_duel": 0.020691881077047142,
-   "n_duels": 27,
-   "matches": 3
-  },
-  {
-   "name": "Kaoru Mitoma",
-   "team": "Japan",
-   "pos": "LW",
-   "bwae_xt": 0.030605450869007438,
-   "bwae_xt_per_match": 0.0076513627172518596,
-   "bwae_per_duel": -0.06275360257429896,
-   "n_duels": 32,
-   "matches": 4
-  },
-  {
-   "name": "Gavi",
-   "team": "Spain",
-   "pos": "CM",
-   "bwae_xt": 0.028662475981846663,
-   "bwae_xt_per_match": 0.007165618995461666,
-   "bwae_per_duel": 0.05196133003984324,
-   "n_duels": 67,
-   "matches": 4
-  },
-  {
-   "name": "Salem Al-Dawsari",
-   "team": "Saudi Arabia",
-   "pos": "LM",
-   "bwae_xt": 0.02728212731701196,
-   "bwae_xt_per_match": 0.009094042439003988,
-   "bwae_per_duel": 0.005350174667460334,
-   "n_duels": 48,
-   "matches": 3
-  },
-  {
-   "name": "#22",
-   "team": "Belgium",
-   "pos": "RW",
-   "bwae_xt": 0.02641103286746741,
-   "bwae_xt_per_match": 0.008803677622489138,
-   "bwae_per_duel": 0.01321818695245652,
-   "n_duels": 26,
-   "matches": 3
-  },
-  {
-   "name": "Andrija Zivkovic",
-   "team": "Serbia",
-   "pos": "RB",
-   "bwae_xt": 0.02210880044264629,
-   "bwae_xt_per_match": 0.007369600147548763,
-   "bwae_per_duel": 0.06799837113544135,
-   "n_duels": 28,
-   "matches": 3
-  },
-  {
-   "name": "Nouhou",
-   "team": "Cameroon",
-   "pos": "LB",
-   "bwae_xt": 0.021905475366532517,
-   "bwae_xt_per_match": 0.007301825122177506,
-   "bwae_per_duel": 0.04755328847916604,
-   "n_duels": 35,
-   "matches": 3
-  },
-  {
-   "name": "Iliman Ndiaye",
-   "team": "Senegal",
-   "pos": "AM",
-   "bwae_xt": 0.021263373668099987,
-   "bwae_xt_per_match": 0.007087791222699996,
-   "bwae_per_duel": 0.1149218260451066,
-   "n_duels": 26,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0304,
+     "per_match": 0.0101,
+     "total_raw": 0.031,
+     "per_match_raw": 0.0103
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0304,
+     "per_match": 0.0101,
+     "total_raw": 0.031,
+     "per_match_raw": 0.0103
+    }
+   },
+   "n_duels": 28
   },
   {
    "name": "Bukayo Saka",
    "team": "England",
    "pos": "RW",
-   "bwae_xt": 0.020272552822539543,
-   "bwae_xt_per_match": 0.005068138205634886,
-   "bwae_per_duel": -0.025941918238662993,
-   "n_duels": 57,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0536,
+     "per_match": -0.0268,
+     "total_raw": -0.057,
+     "per_match_raw": -0.0285
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0833,
+     "per_match": 0.0417,
+     "total_raw": 0.0772,
+     "per_match_raw": 0.0386
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0298,
+     "per_match": 0.0074,
+     "total_raw": 0.0203,
+     "per_match_raw": 0.0051
+    }
+   },
+   "n_duels": 57
   },
   {
-   "name": "Teun Koopmeiners",
-   "team": "Netherlands",
-   "pos": "DM",
-   "bwae_xt": 0.019717813773977556,
-   "bwae_xt_per_match": 0.003943562754795511,
-   "bwae_per_duel": 0.07115599744895232,
-   "n_duels": 34,
-   "matches": 5
+   "name": "Luis Ch\u00e1vez",
+   "team": "Mexico",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0296,
+     "per_match": 0.0099,
+     "total_raw": 0.0356,
+     "per_match_raw": 0.0119
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0296,
+     "per_match": 0.0099,
+     "total_raw": 0.0356,
+     "per_match_raw": 0.0119
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Kaoru Mitoma",
+   "team": "Japan",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0151,
+     "per_match": 0.005,
+     "total_raw": 0.0192,
+     "per_match_raw": 0.0064
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0115,
+     "per_match": 0.0115,
+     "total_raw": 0.0114,
+     "per_match_raw": 0.0114
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0266,
+     "per_match": 0.0067,
+     "total_raw": 0.0306,
+     "per_match_raw": 0.0077
+    }
+   },
+   "n_duels": 32
+  },
+  {
+   "name": "Salem Al-Dawsari",
+   "team": "Saudi Arabia",
+   "pos": "LM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0261,
+     "per_match": 0.0087,
+     "total_raw": 0.0273,
+     "per_match_raw": 0.0091
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0261,
+     "per_match": 0.0087,
+     "total_raw": 0.0273,
+     "per_match_raw": 0.0091
+    }
+   },
+   "n_duels": 48
+  },
+  {
+   "name": "Jordan Ayew",
+   "team": "Ghana",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.026,
+     "per_match": 0.0087,
+     "total_raw": 0.0349,
+     "per_match_raw": 0.0116
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.026,
+     "per_match": 0.0087,
+     "total_raw": 0.0349,
+     "per_match_raw": 0.0116
+    }
+   },
+   "n_duels": 33
+  },
+  {
+   "name": "#22",
+   "team": "Belgium",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0257,
+     "per_match": 0.0086,
+     "total_raw": 0.0264,
+     "per_match_raw": 0.0088
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0257,
+     "per_match": 0.0086,
+     "total_raw": 0.0264,
+     "per_match_raw": 0.0088
+    }
+   },
+   "n_duels": 26
+  },
+  {
+   "name": "Salis Abdul Samed",
+   "team": "Ghana",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.025,
+     "per_match": 0.0083,
+     "total_raw": 0.0306,
+     "per_match_raw": 0.0102
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.025,
+     "per_match": 0.0083,
+     "total_raw": 0.0306,
+     "per_match_raw": 0.0102
+    }
+   },
+   "n_duels": 27
+  },
+  {
+   "name": "Nouhou",
+   "team": "Cameroon",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0204,
+     "per_match": 0.0068,
+     "total_raw": 0.0219,
+     "per_match_raw": 0.0073
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0204,
+     "per_match": 0.0068,
+     "total_raw": 0.0219,
+     "per_match_raw": 0.0073
+    }
+   },
+   "n_duels": 35
   },
   {
    "name": "Granit Xhaka",
    "team": "Switzerland",
    "pos": "DM",
-   "bwae_xt": 0.018812058170690697,
-   "bwae_xt_per_match": 0.004703014542672674,
-   "bwae_per_duel": 0.03676166069044971,
-   "n_duels": 33,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0206,
+     "per_match": -0.0069,
+     "total_raw": -0.018,
+     "per_match_raw": -0.006
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0391,
+     "per_match": 0.0391,
+     "total_raw": 0.0368,
+     "per_match_raw": 0.0368
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0185,
+     "per_match": 0.0046,
+     "total_raw": 0.0188,
+     "per_match_raw": 0.0047
+    }
+   },
+   "n_duels": 33
   },
   {
    "name": "Guillermo Varela",
    "team": "Uruguay",
    "pos": "RB",
-   "bwae_xt": 0.017593953332124698,
-   "bwae_xt_per_match": 0.005864651110708233,
-   "bwae_per_duel": 0.08979428544642751,
-   "n_duels": 25,
-   "matches": 3
-  },
-  {
-   "name": "Milad Mohammadi",
-   "team": "Iran",
-   "pos": "LB",
-   "bwae_xt": 0.01614768530413776,
-   "bwae_xt_per_match": 0.0053825617680459195,
-   "bwae_per_duel": -0.045582465357499914,
-   "n_duels": 37,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0168,
+     "per_match": 0.0056,
+     "total_raw": 0.0176,
+     "per_match_raw": 0.0059
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0168,
+     "per_match": 0.0056,
+     "total_raw": 0.0176,
+     "per_match_raw": 0.0059
+    }
+   },
+   "n_duels": 25
   },
   {
    "name": "#4758",
    "team": "Tunisia",
    "pos": "CM",
-   "bwae_xt": 0.015906651507754548,
-   "bwae_xt_per_match": 0.005302217169251516,
-   "bwae_per_duel": 0.12956700276494204,
-   "n_duels": 41,
-   "matches": 3
-  },
-  {
-   "name": "Thomas Partey",
-   "team": "Ghana",
-   "pos": "CM",
-   "bwae_xt": 0.01572276602505036,
-   "bwae_xt_per_match": 0.00524092200835012,
-   "bwae_per_duel": 0.06236022735807169,
-   "n_duels": 36,
-   "matches": 3
-  },
-  {
-   "name": "Joel Campbell",
-   "team": "Costa Rica",
-   "pos": "CF",
-   "bwae_xt": 0.015570585177648344,
-   "bwae_xt_per_match": 0.0051901950592161145,
-   "bwae_per_duel": -0.002715154521102114,
-   "n_duels": 77,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0166,
+     "per_match": 0.0055,
+     "total_raw": 0.0159,
+     "per_match_raw": 0.0053
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0166,
+     "per_match": 0.0055,
+     "total_raw": 0.0159,
+     "per_match_raw": 0.0053
+    }
+   },
+   "n_duels": 41
   },
   {
    "name": "Abdelkarim Hassan",
    "team": "Qatar",
    "pos": "CB",
-   "bwae_xt": 0.014299423506102645,
-   "bwae_xt_per_match": 0.004766474502034215,
-   "bwae_per_duel": 0.08740996236813933,
-   "n_duels": 26,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0162,
+     "per_match": 0.0054,
+     "total_raw": 0.0143,
+     "per_match_raw": 0.0048
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0162,
+     "per_match": 0.0054,
+     "total_raw": 0.0143,
+     "per_match_raw": 0.0048
+    }
+   },
+   "n_duels": 26
   },
   {
-   "name": "#1950",
-   "team": "Spain",
-   "pos": "RW",
-   "bwae_xt": 0.013449967846008036,
-   "bwae_xt_per_match": 0.003362491961502009,
-   "bwae_per_duel": -0.04637765898255712,
-   "n_duels": 46,
-   "matches": 4
+   "name": "Teun Koopmeiners",
+   "team": "Netherlands",
+   "pos": "DM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0162,
+     "per_match": 0.0054,
+     "total_raw": 0.0192,
+     "per_match_raw": 0.0064
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0001,
+     "per_match": -0.0,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0161,
+     "per_match": 0.0032,
+     "total_raw": 0.0197,
+     "per_match_raw": 0.0039
+    }
+   },
+   "n_duels": 34
   },
   {
    "name": "Nikola Milenkovic",
    "team": "Serbia",
    "pos": "CB",
-   "bwae_xt": 0.012725860232841672,
-   "bwae_xt_per_match": 0.004241953410947224,
-   "bwae_per_duel": -0.007432788221169837,
-   "n_duels": 31,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0149,
+     "per_match": 0.005,
+     "total_raw": 0.0127,
+     "per_match_raw": 0.0042
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0149,
+     "per_match": 0.005,
+     "total_raw": 0.0127,
+     "per_match_raw": 0.0042
+    }
+   },
+   "n_duels": 31
   },
   {
-   "name": "Nampalys Mendy",
-   "team": "Senegal",
-   "pos": "CM",
-   "bwae_xt": 0.0120881186837069,
-   "bwae_xt_per_match": 0.003022029670926725,
-   "bwae_per_duel": 0.07953900708468702,
-   "n_duels": 26,
-   "matches": 4
-  },
-  {
-   "name": "Pedri",
-   "team": "Spain",
-   "pos": "CM",
-   "bwae_xt": 0.011733282049420615,
-   "bwae_xt_per_match": 0.0029333205123551536,
-   "bwae_per_duel": 0.0261631350048285,
-   "n_duels": 61,
-   "matches": 4
-  },
-  {
-   "name": "Keysher Fuller",
-   "team": "Costa Rica",
-   "pos": "RM",
-   "bwae_xt": 0.011171663172091882,
-   "bwae_xt_per_match": 0.0037238877240306275,
-   "bwae_per_duel": 0.02447733332311663,
-   "n_duels": 28,
-   "matches": 3
+   "name": "Andrija Zivkovic",
+   "team": "Serbia",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0147,
+     "per_match": 0.0049,
+     "total_raw": 0.0221,
+     "per_match_raw": 0.0074
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0147,
+     "per_match": 0.0049,
+     "total_raw": 0.0221,
+     "per_match_raw": 0.0074
+    }
+   },
+   "n_duels": 28
   },
   {
    "name": "#13872",
    "team": "Cameroon",
    "pos": "RB",
-   "bwae_xt": 0.010595589043078989,
-   "bwae_xt_per_match": 0.003531863014359663,
-   "bwae_per_duel": 0.1393856338126296,
-   "n_duels": 29,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0136,
+     "per_match": 0.0045,
+     "total_raw": 0.0106,
+     "per_match_raw": 0.0035
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0136,
+     "per_match": 0.0045,
+     "total_raw": 0.0106,
+     "per_match_raw": 0.0035
+    }
+   },
+   "n_duels": 29
   },
   {
-   "name": "Krystian Bielik",
-   "team": "Poland",
-   "pos": "CM",
-   "bwae_xt": 0.009635474687846517,
-   "bwae_xt_per_match": 0.0024088686719616293,
-   "bwae_per_duel": 0.024974444673279653,
-   "n_duels": 40,
-   "matches": 4
-  },
-  {
-   "name": "Boulaye Dia",
-   "team": "Senegal",
-   "pos": "CF",
-   "bwae_xt": 0.00890283135617033,
-   "bwae_xt_per_match": 0.0022257078390425823,
-   "bwae_per_duel": -0.004051391046368412,
-   "n_duels": 36,
-   "matches": 4
-  },
-  {
-   "name": "Xherdan Shaqiri",
-   "team": "Switzerland",
-   "pos": "CF",
-   "bwae_xt": 0.008174213950653184,
-   "bwae_xt_per_match": 0.0027247379835510614,
-   "bwae_per_duel": 0.05304539491250925,
-   "n_duels": 26,
-   "matches": 3
-  },
-  {
-   "name": "Bryan Oviedo",
+   "name": "Keysher Fuller",
    "team": "Costa Rica",
-   "pos": "LB",
-   "bwae_xt": 0.007707318682010017,
-   "bwae_xt_per_match": 0.0025691062273366723,
-   "bwae_per_duel": 0.10757139972652653,
-   "n_duels": 29,
-   "matches": 3
+   "pos": "RM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0114,
+     "per_match": 0.0038,
+     "total_raw": 0.0112,
+     "per_match_raw": 0.0037
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0114,
+     "per_match": 0.0038,
+     "total_raw": 0.0112,
+     "per_match_raw": 0.0037
+    }
+   },
+   "n_duels": 28
   },
   {
-   "name": "Joe Rodon",
-   "team": "Wales",
-   "pos": "MCB",
-   "bwae_xt": 0.007323801873500299,
-   "bwae_xt_per_match": 0.002441267291166766,
-   "bwae_per_duel": 0.046815179131411463,
-   "n_duels": 25,
-   "matches": 3
+   "name": "Joel Campbell",
+   "team": "Costa Rica",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0113,
+     "per_match": 0.0038,
+     "total_raw": 0.0156,
+     "per_match_raw": 0.0052
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0113,
+     "per_match": 0.0038,
+     "total_raw": 0.0156,
+     "per_match_raw": 0.0052
+    }
+   },
+   "n_duels": 77
+  },
+  {
+   "name": "Gavi",
+   "team": "Spain",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.021,
+     "per_match": -0.007,
+     "total_raw": -0.0032,
+     "per_match_raw": -0.0011
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0314,
+     "per_match": 0.0314,
+     "total_raw": 0.0319,
+     "per_match_raw": 0.0319
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0104,
+     "per_match": 0.0026,
+     "total_raw": 0.0287,
+     "per_match_raw": 0.0072
+    }
+   },
+   "n_duels": 67
+  },
+  {
+   "name": "Nampalys Mendy",
+   "team": "Senegal",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0269,
+     "per_match": 0.009,
+     "total_raw": 0.0276,
+     "per_match_raw": 0.0092
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0167,
+     "per_match": -0.0167,
+     "total_raw": -0.0155,
+     "per_match_raw": -0.0155
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0102,
+     "per_match": 0.0025,
+     "total_raw": 0.0121,
+     "per_match_raw": 0.003
+    }
+   },
+   "n_duels": 26
+  },
+  {
+   "name": "Thomas Partey",
+   "team": "Ghana",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0098,
+     "per_match": 0.0033,
+     "total_raw": 0.0157,
+     "per_match_raw": 0.0052
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0098,
+     "per_match": 0.0033,
+     "total_raw": 0.0157,
+     "per_match_raw": 0.0052
+    }
+   },
+   "n_duels": 36
+  },
+  {
+   "name": "Iliman Ndiaye",
+   "team": "Senegal",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.057,
+     "per_match": 0.0285,
+     "total_raw": 0.0654,
+     "per_match_raw": 0.0327
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0474,
+     "per_match": -0.0474,
+     "total_raw": -0.0441,
+     "per_match_raw": -0.0441
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0096,
+     "per_match": 0.0032,
+     "total_raw": 0.0213,
+     "per_match_raw": 0.0071
+    }
+   },
+   "n_duels": 26
   },
   {
    "name": "Declan Rice",
    "team": "England",
    "pos": "CM",
-   "bwae_xt": 0.0065574750485377096,
-   "bwae_xt_per_match": 0.0013114950097075418,
-   "bwae_per_duel": 0.07747788785659208,
-   "n_duels": 28,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0188,
+     "per_match": -0.0063,
+     "total_raw": -0.025,
+     "per_match_raw": -0.0083
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0268,
+     "per_match": 0.0134,
+     "total_raw": 0.0316,
+     "per_match_raw": 0.0158
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.008,
+     "per_match": 0.0016,
+     "total_raw": 0.0066,
+     "per_match_raw": 0.0013
+    }
+   },
+   "n_duels": 28
   },
   {
-   "name": "#449",
-   "team": "Australia",
-   "pos": "CM",
-   "bwae_xt": 0.00581273670158668,
-   "bwae_xt_per_match": 0.00145318417539667,
-   "bwae_per_duel": -0.037475669333545694,
-   "n_duels": 39,
-   "matches": 4
-  },
-  {
-   "name": "#11856",
-   "team": "Argentina",
-   "pos": "CM",
-   "bwae_xt": 0.004685222726340917,
-   "bwae_xt_per_match": 0.0006693175323344168,
-   "bwae_per_duel": -0.02397261712325288,
-   "n_duels": 92,
-   "matches": 7
-  },
-  {
-   "name": "#1339",
-   "team": "United States",
-   "pos": "CM",
-   "bwae_xt": 0.0014846040420603565,
-   "bwae_xt_per_match": 0.00037115101051508914,
-   "bwae_per_duel": 0.06561158594633186,
-   "n_duels": 58,
-   "matches": 4
-  },
-  {
-   "name": "Joshua Kimmich",
-   "team": "Germany",
-   "pos": "CM",
-   "bwae_xt": 0.0007335830091707712,
-   "bwae_xt_per_match": 0.0002445276697235904,
-   "bwae_per_duel": 0.041877962232212546,
-   "n_duels": 34,
-   "matches": 3
-  },
-  {
-   "name": "Ali Abdi",
-   "team": "Tunisia",
+   "name": "Milad Mohammadi",
+   "team": "Iran",
    "pos": "LB",
-   "bwae_xt": -0.0008591571988967612,
-   "bwae_xt_per_match": -0.00028638573296558705,
-   "bwae_per_duel": 0.05242667814651597,
-   "n_duels": 29,
-   "matches": 3
-  },
-  {
-   "name": "Piotr Zielinski",
-   "team": "Poland",
-   "pos": "CM",
-   "bwae_xt": -0.0009859142119679346,
-   "bwae_xt_per_match": -0.00024647855299198365,
-   "bwae_per_duel": -0.007898210905687101,
-   "n_duels": 29,
-   "matches": 4
-  },
-  {
-   "name": "Steven Bergwijn",
-   "team": "Netherlands",
-   "pos": "LW",
-   "bwae_xt": -0.0022212748130438324,
-   "bwae_xt_per_match": -0.0005553187032609581,
-   "bwae_per_duel": 0.16410086898720216,
-   "n_duels": 25,
-   "matches": 4
-  },
-  {
-   "name": "Achraf Hakimi",
-   "team": "Morocco",
-   "pos": "RB",
-   "bwae_xt": -0.00374511399315327,
-   "bwae_xt_per_match": -0.0005350162847361815,
-   "bwae_per_duel": 0.02558124534576433,
-   "n_duels": 117,
-   "matches": 7
-  },
-  {
-   "name": "Jules Kounde",
-   "team": "France",
-   "pos": "RB",
-   "bwae_xt": -0.004323023471798595,
-   "bwae_xt_per_match": -0.000864604694359719,
-   "bwae_per_duel": -0.1061758702895531,
-   "n_duels": 48,
-   "matches": 5
-  },
-  {
-   "name": "Andr\u00e9 Zambo Anguissa",
-   "team": "Cameroon",
-   "pos": "CM",
-   "bwae_xt": -0.004914575240098271,
-   "bwae_xt_per_match": -0.0016381917466994236,
-   "bwae_per_duel": 0.013384750255940141,
-   "n_duels": 38,
-   "matches": 3
-  },
-  {
-   "name": "Romain Sa\u00efss",
-   "team": "Morocco",
-   "pos": "CB",
-   "bwae_xt": -0.00546416686115393,
-   "bwae_xt_per_match": -0.001092833372230786,
-   "bwae_per_duel": -0.038812156226525105,
-   "n_duels": 26,
-   "matches": 5
-  },
-  {
-   "name": "Heung-min Son",
-   "team": "South Korea",
-   "pos": "CF",
-   "bwae_xt": -0.006783237810722962,
-   "bwae_xt_per_match": -0.0016958094526807405,
-   "bwae_per_duel": -0.005958597251086376,
-   "n_duels": 54,
-   "matches": 4
-  },
-  {
-   "name": "Kieffer Moore",
-   "team": "Wales",
-   "pos": "CF",
-   "bwae_xt": -0.0074826561383389,
-   "bwae_xt_per_match": -0.0024942187127796334,
-   "bwae_per_duel": -0.07237258202487536,
-   "n_duels": 26,
-   "matches": 3
-  },
-  {
-   "name": "#13951",
-   "team": "Qatar",
-   "pos": "LB",
-   "bwae_xt": -0.009440692815569227,
-   "bwae_xt_per_match": -0.0031468976051897426,
-   "bwae_per_duel": 0.07334943330494455,
-   "n_duels": 34,
-   "matches": 3
-  },
-  {
-   "name": "Andre Ayew",
-   "team": "Ghana",
-   "pos": "CF",
-   "bwae_xt": -0.00974383382751094,
-   "bwae_xt_per_match": -0.0032479446091703136,
-   "bwae_per_duel": 0.14312611733535213,
-   "n_duels": 31,
-   "matches": 3
-  },
-  {
-   "name": "Richie Laryea",
-   "team": "Canada",
-   "pos": "RB",
-   "bwae_xt": -0.009960119587224387,
-   "bwae_xt_per_match": -0.003320039862408129,
-   "bwae_per_duel": 0.021742927711405,
-   "n_duels": 26,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0076,
+     "per_match": 0.0025,
+     "total_raw": 0.0161,
+     "per_match_raw": 0.0054
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0076,
+     "per_match": 0.0025,
+     "total_raw": 0.0161,
+     "per_match_raw": 0.0054
+    }
+   },
+   "n_duels": 37
   },
   {
    "name": "Breel Embolo",
    "team": "Switzerland",
    "pos": "CF",
-   "bwae_xt": -0.010918210513341686,
-   "bwae_xt_per_match": -0.0027295526283354216,
-   "bwae_per_duel": 0.042810705158204655,
-   "n_duels": 59,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0697,
+     "per_match": -0.0232,
+     "total_raw": -0.0832,
+     "per_match_raw": -0.0277
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0767,
+     "per_match": 0.0767,
+     "total_raw": 0.0723,
+     "per_match_raw": 0.0723
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.007,
+     "per_match": 0.0018,
+     "total_raw": -0.0109,
+     "per_match_raw": -0.0027
+    }
+   },
+   "n_duels": 59
   },
   {
-   "name": "Serge Gnabry",
-   "team": "Germany",
-   "pos": "RW",
-   "bwae_xt": -0.011429924959308987,
-   "bwae_xt_per_match": -0.003809974986436329,
-   "bwae_per_duel": 0.002641591391046156,
-   "n_duels": 38,
-   "matches": 3
-  },
-  {
-   "name": "Sergio Busquets",
+   "name": "Pedri",
    "team": "Spain",
    "pos": "CM",
-   "bwae_xt": -0.011612993803531056,
-   "bwae_xt_per_match": -0.002903248450882764,
-   "bwae_per_duel": -0.023237042930512545,
-   "n_duels": 36,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0028,
+     "per_match": -0.0009,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0092,
+     "per_match": 0.0092,
+     "total_raw": 0.0094,
+     "per_match_raw": 0.0094
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0065,
+     "per_match": 0.0016,
+     "total_raw": 0.0117,
+     "per_match_raw": 0.0029
+    }
+   },
+   "n_duels": 61
   },
   {
-   "name": "#13850",
+   "name": "Krystian Bielik",
    "team": "Poland",
-   "pos": "DM",
-   "bwae_xt": -0.01456355800958491,
-   "bwae_xt_per_match": -0.0036408895023962275,
-   "bwae_per_duel": -0.001917927320152239,
-   "n_duels": 52,
-   "matches": 4
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0123,
+     "per_match": -0.0041,
+     "total_raw": -0.008,
+     "per_match_raw": -0.0027
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0187,
+     "per_match": 0.0187,
+     "total_raw": 0.0176,
+     "per_match_raw": 0.0176
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0064,
+     "per_match": 0.0016,
+     "total_raw": 0.0096,
+     "per_match_raw": 0.0024
+    }
+   },
+   "n_duels": 40
   },
   {
-   "name": "Nahuel Molina",
-   "team": "Argentina",
-   "pos": "RB",
-   "bwae_xt": -0.015586518486489478,
-   "bwae_xt_per_match": -0.0022266454980699253,
-   "bwae_per_duel": 0.03602241896193288,
-   "n_duels": 50,
-   "matches": 7
+   "name": "Joshua Kimmich",
+   "team": "Germany",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0056,
+     "per_match": 0.0019,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0056,
+     "per_match": 0.0019,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0002
+    }
+   },
+   "n_duels": 34
   },
   {
-   "name": "Jin-su Kim",
-   "team": "South Korea",
-   "pos": "LB",
-   "bwae_xt": -0.015820397063655723,
-   "bwae_xt_per_match": -0.003955099265913931,
-   "bwae_per_duel": 0.06002977361911291,
-   "n_duels": 25,
-   "matches": 4
-  },
-  {
-   "name": "#4661",
+   "name": "Xherdan Shaqiri",
    "team": "Switzerland",
-   "pos": "CB",
-   "bwae_xt": -0.01658007524759291,
-   "bwae_xt_per_match": -0.004145018811898228,
-   "bwae_per_duel": 0.004387529207459564,
-   "n_duels": 25,
-   "matches": 4
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0125,
+     "per_match": 0.0063,
+     "total_raw": 0.0148,
+     "per_match_raw": 0.0074
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0071,
+     "per_match": -0.0071,
+     "total_raw": -0.0067,
+     "per_match_raw": -0.0067
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0054,
+     "per_match": 0.0018,
+     "total_raw": 0.0082,
+     "per_match_raw": 0.0027
+    }
+   },
+   "n_duels": 26
   },
   {
-   "name": "Chris Mepham",
+   "name": "Piotr Zielinski",
+   "team": "Poland",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0226,
+     "per_match": -0.0075,
+     "total_raw": -0.026,
+     "per_match_raw": -0.0087
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0265,
+     "per_match": 0.0265,
+     "total_raw": 0.025,
+     "per_match_raw": 0.025
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0039,
+     "per_match": 0.001,
+     "total_raw": -0.001,
+     "per_match_raw": -0.0002
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Ali Abdi",
+   "team": "Tunisia",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": -0.0009,
+     "per_match_raw": -0.0003
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": -0.0009,
+     "per_match_raw": -0.0003
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Joe Rodon",
    "team": "Wales",
+   "pos": "MCB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.0073,
+     "per_match_raw": 0.0024
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.0073,
+     "per_match_raw": 0.0024
+    }
+   },
+   "n_duels": 25
+  },
+  {
+   "name": "#11856",
+   "team": "Argentina",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0338,
+     "per_match": 0.0113,
+     "total_raw": 0.0357,
+     "per_match_raw": 0.0119
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0326,
+     "per_match": -0.0082,
+     "total_raw": -0.031,
+     "per_match_raw": -0.0078
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0011,
+     "per_match": 0.0002,
+     "total_raw": 0.0047,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_duels": 92
+  },
+  {
+   "name": "Boulaye Dia",
+   "team": "Senegal",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0403,
+     "per_match": 0.0134,
+     "total_raw": 0.0462,
+     "per_match_raw": 0.0154
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.04,
+     "per_match": -0.04,
+     "total_raw": -0.0373,
+     "per_match_raw": -0.0373
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0003,
+     "per_match": 0.0001,
+     "total_raw": 0.0089,
+     "per_match_raw": 0.0022
+    }
+   },
+   "n_duels": 36
+  },
+  {
+   "name": "#1950",
+   "team": "Spain",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0122,
+     "per_match": 0.0041,
+     "total_raw": 0.0267,
+     "per_match_raw": 0.0089
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.013,
+     "per_match": -0.013,
+     "total_raw": -0.0132,
+     "per_match_raw": -0.0132
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0008,
+     "per_match": -0.0002,
+     "total_raw": 0.0134,
+     "per_match_raw": 0.0034
+    }
+   },
+   "n_duels": 46
+  },
+  {
+   "name": "Bryan Oviedo",
+   "team": "Costa Rica",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0012,
+     "per_match": -0.0004,
+     "total_raw": 0.0077,
+     "per_match_raw": 0.0026
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0012,
+     "per_match": -0.0004,
+     "total_raw": 0.0077,
+     "per_match_raw": 0.0026
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Andr\u00e9 Zambo Anguissa",
+   "team": "Cameroon",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.004,
+     "per_match": -0.0013,
+     "total_raw": -0.0049,
+     "per_match_raw": -0.0016
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.004,
+     "per_match": -0.0013,
+     "total_raw": -0.0049,
+     "per_match_raw": -0.0016
+    }
+   },
+   "n_duels": 38
+  },
+  {
+   "name": "#1339",
+   "team": "United States",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0051,
+     "per_match": 0.0017,
+     "total_raw": 0.0109,
+     "per_match_raw": 0.0036
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0099,
+     "per_match": -0.0099,
+     "total_raw": -0.0094,
+     "per_match_raw": -0.0094
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0048,
+     "per_match": -0.0012,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_duels": 58
+  },
+  {
+   "name": "Achraf Hakimi",
+   "team": "Morocco",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0884,
+     "per_match": 0.0295,
+     "total_raw": 0.0875,
+     "per_match_raw": 0.0292
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0936,
+     "per_match": -0.0234,
+     "total_raw": -0.0912,
+     "per_match_raw": -0.0228
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.0052,
+     "per_match": -0.0007,
+     "total_raw": -0.0037,
+     "per_match_raw": -0.0005
+    }
+   },
+   "n_duels": 117
+  },
+  {
+   "name": "Jules Kounde",
+   "team": "France",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0089,
+     "per_match": 0.0089,
+     "total_raw": 0.0089,
+     "per_match_raw": 0.0089
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0144,
+     "per_match": -0.0036,
+     "total_raw": -0.0132,
+     "per_match_raw": -0.0033
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0055,
+     "per_match": -0.0011,
+     "total_raw": -0.0043,
+     "per_match_raw": -0.0009
+    }
+   },
+   "n_duels": 48
+  },
+  {
+   "name": "#449",
+   "team": "Australia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.035,
+     "per_match": 0.0117,
+     "total_raw": 0.0456,
+     "per_match_raw": 0.0152
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0423,
+     "per_match": -0.0423,
+     "total_raw": -0.0398,
+     "per_match_raw": -0.0398
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0073,
+     "per_match": -0.0018,
+     "total_raw": 0.0058,
+     "per_match_raw": 0.0015
+    }
+   },
+   "n_duels": 39
+  },
+  {
+   "name": "Romain Sa\u00efss",
+   "team": "Morocco",
    "pos": "CB",
-   "bwae_xt": -0.01759606707473101,
-   "bwae_xt_per_match": -0.005865355691577003,
-   "bwae_per_duel": 0.017608559300709627,
-   "n_duels": 26,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0241,
+     "per_match": 0.008,
+     "total_raw": 0.024,
+     "per_match_raw": 0.008
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0313,
+     "per_match": -0.0157,
+     "total_raw": -0.0295,
+     "per_match_raw": -0.0148
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0073,
+     "per_match": -0.0015,
+     "total_raw": -0.0055,
+     "per_match_raw": -0.0011
+    }
+   },
+   "n_duels": 26
   },
   {
    "name": "Daichi Kamada",
    "team": "Japan",
    "pos": "LW",
-   "bwae_xt": -0.017668967917578535,
-   "bwae_xt_per_match": -0.004417241979394634,
-   "bwae_per_duel": -0.07560718063554857,
-   "n_duels": 26,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0098,
+     "per_match": -0.0033,
+     "total_raw": -0.0201,
+     "per_match_raw": -0.0067
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0025,
+     "per_match": 0.0025,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0025
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0074,
+     "per_match": -0.0018,
+     "total_raw": -0.0177,
+     "per_match_raw": -0.0044
+    }
+   },
+   "n_duels": 26
   },
   {
-   "name": "Saud Abdulhamid",
-   "team": "Saudi Arabia",
+   "name": "#13951",
+   "team": "Qatar",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0086,
+     "per_match": -0.0029,
+     "total_raw": -0.0094,
+     "per_match_raw": -0.0031
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0086,
+     "per_match": -0.0029,
+     "total_raw": -0.0094,
+     "per_match_raw": -0.0031
+    }
+   },
+   "n_duels": 34
+  },
+  {
+   "name": "#4661",
+   "team": "Switzerland",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0265,
+     "per_match": -0.0088,
+     "total_raw": -0.0313,
+     "per_match_raw": -0.0104
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0157,
+     "per_match": 0.0157,
+     "total_raw": 0.0147,
+     "per_match_raw": 0.0147
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0108,
+     "per_match": -0.0027,
+     "total_raw": -0.0166,
+     "per_match_raw": -0.0041
+    }
+   },
+   "n_duels": 25
+  },
+  {
+   "name": "Serge Gnabry",
+   "team": "Germany",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0108,
+     "per_match": -0.0036,
+     "total_raw": -0.0114,
+     "per_match_raw": -0.0038
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0108,
+     "per_match": -0.0036,
+     "total_raw": -0.0114,
+     "per_match_raw": -0.0038
+    }
+   },
+   "n_duels": 38
+  },
+  {
+   "name": "Andre Ayew",
+   "team": "Ghana",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.011,
+     "per_match": -0.0037,
+     "total_raw": -0.0097,
+     "per_match_raw": -0.0032
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.011,
+     "per_match": -0.0037,
+     "total_raw": -0.0097,
+     "per_match_raw": -0.0032
+    }
+   },
+   "n_duels": 31
+  },
+  {
+   "name": "Richie Laryea",
+   "team": "Canada",
    "pos": "RB",
-   "bwae_xt": -0.019092832793679338,
-   "bwae_xt_per_match": -0.006364277597893112,
-   "bwae_per_duel": -0.02853681646151403,
-   "n_duels": 29,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.012,
+     "per_match": -0.004,
+     "total_raw": -0.01,
+     "per_match_raw": -0.0033
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.012,
+     "per_match": -0.004,
+     "total_raw": -0.01,
+     "per_match_raw": -0.0033
+    }
+   },
+   "n_duels": 26
+  },
+  {
+   "name": "#13850",
+   "team": "Poland",
+   "pos": "DM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0206,
+     "per_match": -0.0069,
+     "total_raw": -0.0217,
+     "per_match_raw": -0.0072
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0076,
+     "per_match": 0.0076,
+     "total_raw": 0.0072,
+     "per_match_raw": 0.0072
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.013,
+     "per_match": -0.0033,
+     "total_raw": -0.0146,
+     "per_match_raw": -0.0036
+    }
+   },
+   "n_duels": 52
+  },
+  {
+   "name": "Kieffer Moore",
+   "team": "Wales",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0137,
+     "per_match": -0.0046,
+     "total_raw": -0.0075,
+     "per_match_raw": -0.0025
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0137,
+     "per_match": -0.0046,
+     "total_raw": -0.0075,
+     "per_match_raw": -0.0025
+    }
+   },
+   "n_duels": 26
+  },
+  {
+   "name": "Heung-min Son",
+   "team": "South Korea",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0142,
+     "per_match": -0.0047,
+     "total_raw": -0.0068,
+     "per_match_raw": -0.0023
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0142,
+     "per_match": -0.0035,
+     "total_raw": -0.0068,
+     "per_match_raw": -0.0017
+    }
+   },
+   "n_duels": 54
+  },
+  {
+   "name": "Sergio Busquets",
+   "team": "Spain",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.038,
+     "per_match": -0.0127,
+     "total_raw": -0.0353,
+     "per_match_raw": -0.0118
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0233,
+     "per_match": 0.0233,
+     "total_raw": 0.0237,
+     "per_match_raw": 0.0237
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0147,
+     "per_match": -0.0037,
+     "total_raw": -0.0116,
+     "per_match_raw": -0.0029
+    }
+   },
+   "n_duels": 36
+  },
+  {
+   "name": "Nahuel Molina",
+   "team": "Argentina",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0331,
+     "per_match": -0.011,
+     "total_raw": -0.0336,
+     "per_match_raw": -0.0112
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0178,
+     "per_match": 0.0044,
+     "total_raw": 0.0181,
+     "per_match_raw": 0.0045
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.0153,
+     "per_match": -0.0022,
+     "total_raw": -0.0156,
+     "per_match_raw": -0.0022
+    }
+   },
+   "n_duels": 50
   },
   {
    "name": "#401",
    "team": "Morocco",
    "pos": "LW",
-   "bwae_xt": -0.01958726457849124,
-   "bwae_xt_per_match": -0.0027981806540701773,
-   "bwae_per_duel": -0.0014780487011822696,
-   "n_duels": 112,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0267,
+     "per_match": -0.0089,
+     "total_raw": -0.0265,
+     "per_match_raw": -0.0088
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0107,
+     "per_match": 0.0027,
+     "total_raw": 0.0069,
+     "per_match_raw": 0.0017
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.016,
+     "per_match": -0.0023,
+     "total_raw": -0.0196,
+     "per_match_raw": -0.0028
+    }
+   },
+   "n_duels": 112
   },
   {
-   "name": "#3930",
-   "team": "Brazil",
-   "pos": "CM",
-   "bwae_xt": -0.020494293663790696,
-   "bwae_xt_per_match": -0.005123573415947674,
-   "bwae_per_duel": 0.06337139574017228,
-   "n_duels": 43,
-   "matches": 4
+   "name": "Steven Bergwijn",
+   "team": "Netherlands",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.1125,
+     "per_match": 0.0563,
+     "total_raw": 0.1333,
+     "per_match_raw": 0.0667
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.13,
+     "per_match": -0.065,
+     "total_raw": -0.1356,
+     "per_match_raw": -0.0678
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0175,
+     "per_match": -0.0044,
+     "total_raw": -0.0022,
+     "per_match_raw": -0.0006
+    }
+   },
+   "n_duels": 25
+  },
+  {
+   "name": "Saud Abdulhamid",
+   "team": "Saudi Arabia",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0182,
+     "per_match": -0.0061,
+     "total_raw": -0.0191,
+     "per_match_raw": -0.0064
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0182,
+     "per_match": -0.0061,
+     "total_raw": -0.0191,
+     "per_match_raw": -0.0064
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Chris Mepham",
+   "team": "Wales",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0183,
+     "per_match": -0.0061,
+     "total_raw": -0.0176,
+     "per_match_raw": -0.0059
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0183,
+     "per_match": -0.0061,
+     "total_raw": -0.0176,
+     "per_match_raw": -0.0059
+    }
+   },
+   "n_duels": 26
   },
   {
    "name": "#8026",
    "team": "Netherlands",
    "pos": "LB",
-   "bwae_xt": -0.02070763941078905,
-   "bwae_xt_per_match": -0.004141527882157809,
-   "bwae_per_duel": -0.039344426238971476,
-   "n_duels": 40,
-   "matches": 5
-  },
-  {
-   "name": "Jordi Alba",
-   "team": "Spain",
-   "pos": "LB",
-   "bwae_xt": -0.022409018376614093,
-   "bwae_xt_per_match": -0.005602254594153523,
-   "bwae_per_duel": -0.1302931823810205,
-   "n_duels": 34,
-   "matches": 4
-  },
-  {
-   "name": "Dusan Tadic",
-   "team": "Serbia",
-   "pos": "RW",
-   "bwae_xt": -0.02504319746372362,
-   "bwae_xt_per_match": -0.008347732487907874,
-   "bwae_per_duel": 0.021693007098286927,
-   "n_duels": 40,
-   "matches": 3
-  },
-  {
-   "name": "Joao Felix",
-   "team": "Portugal",
-   "pos": "LW",
-   "bwae_xt": -0.02594458409005443,
-   "bwae_xt_per_match": -0.006486146022513607,
-   "bwae_per_duel": 0.012117553256145388,
-   "n_duels": 43,
-   "matches": 4
-  },
-  {
-   "name": "Kye Rowles",
-   "team": "Australia",
-   "pos": "CB",
-   "bwae_xt": -0.026185465317035767,
-   "bwae_xt_per_match": -0.006546366329258942,
-   "bwae_per_duel": -0.004280957607344257,
-   "n_duels": 29,
-   "matches": 4
-  },
-  {
-   "name": "Bernardo Silva",
-   "team": "Portugal",
-   "pos": "CM",
-   "bwae_xt": -0.02701229005741247,
-   "bwae_xt_per_match": -0.0054024580114824935,
-   "bwae_per_duel": -0.04011657782398256,
-   "n_duels": 29,
-   "matches": 5
-  },
-  {
-   "name": "Leandro Paredes",
-   "team": "Argentina",
-   "pos": "DM",
-   "bwae_xt": -0.027380343968184173,
-   "bwae_xt_per_match": -0.005476068793636835,
-   "bwae_per_duel": -0.00037331284824005273,
-   "n_duels": 25,
-   "matches": 5
-  },
-  {
-   "name": "Mario Pasalic",
-   "team": "Croatia",
-   "pos": "AM",
-   "bwae_xt": -0.028883521311816814,
-   "bwae_xt_per_match": -0.004126217330259545,
-   "bwae_per_duel": -0.07844650620344606,
-   "n_duels": 42,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0085,
+     "per_match": -0.0028,
+     "total_raw": -0.0092,
+     "per_match_raw": -0.0031
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0101,
+     "per_match": -0.0051,
+     "total_raw": -0.0115,
+     "per_match_raw": -0.0058
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0186,
+     "per_match": -0.0037,
+     "total_raw": -0.0207,
+     "per_match_raw": -0.0041
+    }
+   },
+   "n_duels": 40
   },
   {
    "name": "Randal Kolo Muani",
    "team": "France",
    "pos": "CF",
-   "bwae_xt": -0.031759595283147105,
-   "bwae_xt_per_match": -0.010586531761049034,
-   "bwae_per_duel": -0.023051712374490715,
-   "n_duels": 52,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": -0.0505,
+     "per_match": -0.0505,
+     "total_raw": -0.0599,
+     "per_match_raw": -0.0599
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0302,
+     "per_match": 0.0151,
+     "total_raw": 0.0281,
+     "per_match_raw": 0.0141
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0203,
+     "per_match": -0.0068,
+     "total_raw": -0.0318,
+     "per_match_raw": -0.0106
+    }
+   },
+   "n_duels": 52
   },
   {
-   "name": "Cody Gakpo",
-   "team": "Netherlands",
-   "pos": "CF",
-   "bwae_xt": -0.03182127617989197,
-   "bwae_xt_per_match": -0.006364255235978394,
-   "bwae_per_duel": 0.052363683361750374,
-   "n_duels": 77,
-   "matches": 5
-  },
-  {
-   "name": "Moises Caicedo",
-   "team": "Ecuador",
-   "pos": "CM",
-   "bwae_xt": -0.03425842617950218,
-   "bwae_xt_per_match": -0.011419475393167393,
-   "bwae_per_duel": -0.14585293727794138,
-   "n_duels": 31,
-   "matches": 3
-  },
-  {
-   "name": "Nicolas Tagliafico",
-   "team": "Argentina",
-   "pos": "LB",
-   "bwae_xt": -0.03445090035013687,
-   "bwae_xt_per_match": -0.005741816725022812,
-   "bwae_per_duel": 0.059674914015621944,
-   "n_duels": 45,
-   "matches": 6
-  },
-  {
-   "name": "#13937",
-   "team": "Ecuador",
-   "pos": "RB",
-   "bwae_xt": -0.0351163385374078,
-   "bwae_xt_per_match": -0.011705446179135935,
-   "bwae_per_duel": -0.015726426604837727,
-   "n_duels": 28,
-   "matches": 3
-  },
-  {
-   "name": "Vin\u00edcius Junior",
+   "name": "#3930",
    "team": "Brazil",
-   "pos": "LW",
-   "bwae_xt": -0.035519246451007624,
-   "bwae_xt_per_match": -0.008879811612751906,
-   "bwae_per_duel": -0.013424256179186246,
-   "n_duels": 62,
-   "matches": 4
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0147,
+     "per_match": 0.0073,
+     "total_raw": 0.0174,
+     "per_match_raw": 0.0087
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0354,
+     "per_match": -0.0177,
+     "total_raw": -0.0379,
+     "per_match_raw": -0.0189
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0207,
+     "per_match": -0.0052,
+     "total_raw": -0.0205,
+     "per_match_raw": -0.0051
+    }
+   },
+   "n_duels": 43
   },
   {
-   "name": "Noussair Mazraoui",
-   "team": "Morocco",
+   "name": "Jin-su Kim",
+   "team": "South Korea",
    "pos": "LB",
-   "bwae_xt": -0.03581996160947324,
-   "bwae_xt_per_match": -0.007163992321894648,
-   "bwae_per_duel": -0.01080079389622852,
-   "n_duels": 31,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0082,
+     "per_match": 0.0027,
+     "total_raw": 0.0128,
+     "per_match_raw": 0.0043
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0293,
+     "per_match": -0.0293,
+     "total_raw": -0.0286,
+     "per_match_raw": -0.0286
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.021,
+     "per_match": -0.0053,
+     "total_raw": -0.0158,
+     "per_match_raw": -0.004
+    }
+   },
+   "n_duels": 25
   },
   {
    "name": "Mathew Leckie",
    "team": "Australia",
    "pos": "RM",
-   "bwae_xt": -0.03601264159734381,
-   "bwae_xt_per_match": -0.009003160399335953,
-   "bwae_per_duel": -0.09449002404085928,
-   "n_duels": 58,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0392,
+     "per_match": -0.0131,
+     "total_raw": -0.0512,
+     "per_match_raw": -0.0171
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0161,
+     "per_match": 0.0161,
+     "total_raw": 0.0152,
+     "per_match_raw": 0.0152
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0231,
+     "per_match": -0.0058,
+     "total_raw": -0.036,
+     "per_match_raw": -0.009
+    }
+   },
+   "n_duels": 58
   },
   {
-   "name": "Youssouf Sabaly",
-   "team": "Senegal",
-   "pos": "RB",
-   "bwae_xt": -0.03651820226850441,
-   "bwae_xt_per_match": -0.009129550567126103,
-   "bwae_per_duel": 0.07681138549313399,
-   "n_duels": 40,
-   "matches": 4
+   "name": "Kye Rowles",
+   "team": "Australia",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": -0.0014,
+     "per_match_raw": -0.0005
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0264,
+     "per_match": -0.0264,
+     "total_raw": -0.0248,
+     "per_match_raw": -0.0248
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0245,
+     "per_match": -0.0061,
+     "total_raw": -0.0262,
+     "per_match_raw": -0.0065
+    }
+   },
+   "n_duels": 29
   },
   {
-   "name": "#668",
-   "team": "Poland",
-   "pos": "LM",
-   "bwae_xt": -0.038018010046992734,
-   "bwae_xt_per_match": -0.009504502511748184,
-   "bwae_per_duel": -0.025866197584318764,
-   "n_duels": 26,
-   "matches": 4
+   "name": "Joao Felix",
+   "team": "Portugal",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0472,
+     "per_match": -0.0236,
+     "total_raw": -0.05,
+     "per_match_raw": -0.025
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0228,
+     "per_match": 0.0114,
+     "total_raw": 0.024,
+     "per_match_raw": 0.012
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0245,
+     "per_match": -0.0061,
+     "total_raw": -0.0259,
+     "per_match_raw": -0.0065
+    }
+   },
+   "n_duels": 43
   },
   {
-   "name": "Silvan Widmer",
-   "team": "Switzerland",
-   "pos": "RB",
-   "bwae_xt": -0.03802844784120103,
-   "bwae_xt_per_match": -0.012676149280400345,
-   "bwae_per_duel": -0.09436113948034942,
-   "n_duels": 28,
-   "matches": 3
+   "name": "Vin\u00edcius Junior",
+   "team": "Brazil",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0424,
+     "per_match": -0.0212,
+     "total_raw": -0.0503,
+     "per_match_raw": -0.0251
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0176,
+     "per_match": 0.0088,
+     "total_raw": 0.0148,
+     "per_match_raw": 0.0074
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0248,
+     "per_match": -0.0062,
+     "total_raw": -0.0355,
+     "per_match_raw": -0.0089
+    }
+   },
+   "n_duels": 62
+  },
+  {
+   "name": "Dusan Tadic",
+   "team": "Serbia",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.025,
+     "per_match": -0.0083,
+     "total_raw": -0.025,
+     "per_match_raw": -0.0083
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.025,
+     "per_match": -0.0083,
+     "total_raw": -0.025,
+     "per_match_raw": -0.0083
+    }
+   },
+   "n_duels": 40
+  },
+  {
+   "name": "Bernardo Silva",
+   "team": "Portugal",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0164,
+     "per_match": -0.0055,
+     "total_raw": -0.0152,
+     "per_match_raw": -0.0051
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0092,
+     "per_match": -0.0046,
+     "total_raw": -0.0118,
+     "per_match_raw": -0.0059
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0257,
+     "per_match": -0.0051,
+     "total_raw": -0.027,
+     "per_match_raw": -0.0054
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Cody Gakpo",
+   "team": "Netherlands",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0242,
+     "per_match": -0.0081,
+     "total_raw": -0.0298,
+     "per_match_raw": -0.0099
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0047,
+     "per_match": -0.0024,
+     "total_raw": -0.002,
+     "per_match_raw": -0.001
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0289,
+     "per_match": -0.0058,
+     "total_raw": -0.0318,
+     "per_match_raw": -0.0064
+    }
+   },
+   "n_duels": 77
   },
   {
    "name": "Luka Modric",
    "team": "Croatia",
    "pos": "CM",
-   "bwae_xt": -0.04026955288175481,
-   "bwae_xt_per_match": -0.005752793268822116,
-   "bwae_per_duel": 0.02381815344651263,
-   "n_duels": 125,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0695,
+     "per_match": -0.0232,
+     "total_raw": -0.0742,
+     "per_match_raw": -0.0247
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0399,
+     "per_match": 0.01,
+     "total_raw": 0.0339,
+     "per_match_raw": 0.0085
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.0296,
+     "per_match": -0.0042,
+     "total_raw": -0.0403,
+     "per_match_raw": -0.0058
+    }
+   },
+   "n_duels": 125
   },
   {
-   "name": "#13819",
-   "team": "Australia",
-   "pos": "CF",
-   "bwae_xt": -0.041365349039457454,
-   "bwae_xt_per_match": -0.010341337259864363,
-   "bwae_per_duel": -0.07739363504683835,
-   "n_duels": 25,
-   "matches": 4
+   "name": "Jordi Alba",
+   "team": "Spain",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0017,
+     "per_match": -0.0006,
+     "total_raw": 0.0064,
+     "per_match_raw": 0.0021
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0284,
+     "per_match": -0.0284,
+     "total_raw": -0.0289,
+     "per_match_raw": -0.0289
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0301,
+     "per_match": -0.0075,
+     "total_raw": -0.0224,
+     "per_match_raw": -0.0056
+    }
+   },
+   "n_duels": 34
+  },
+  {
+   "name": "Leandro Paredes",
+   "team": "Argentina",
+   "pos": "DM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0011,
+     "per_match": -0.0006,
+     "total_raw": -0.0,
+     "per_match_raw": -0.0
+    },
+    "ko": {
+     "matches": 3,
+     "total": -0.0292,
+     "per_match": -0.0097,
+     "total_raw": -0.0274,
+     "per_match_raw": -0.0091
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0303,
+     "per_match": -0.0061,
+     "total_raw": -0.0274,
+     "per_match_raw": -0.0055
+    }
+   },
+   "n_duels": 25
+  },
+  {
+   "name": "Mario Pasalic",
+   "team": "Croatia",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0254,
+     "per_match": -0.0085,
+     "total_raw": -0.0243,
+     "per_match_raw": -0.0081
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.005,
+     "per_match": -0.0013,
+     "total_raw": -0.0046,
+     "per_match_raw": -0.0011
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.0304,
+     "per_match": -0.0043,
+     "total_raw": -0.0289,
+     "per_match_raw": -0.0041
+    }
+   },
+   "n_duels": 42
+  },
+  {
+   "name": "Nicolas Tagliafico",
+   "team": "Argentina",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0159,
+     "per_match": -0.0079,
+     "total_raw": -0.0202,
+     "per_match_raw": -0.0101
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0151,
+     "per_match": -0.0038,
+     "total_raw": -0.0142,
+     "per_match_raw": -0.0036
+    },
+    "all": {
+     "matches": 6,
+     "total": -0.0309,
+     "per_match": -0.0052,
+     "total_raw": -0.0345,
+     "per_match_raw": -0.0057
+    }
+   },
+   "n_duels": 45
+  },
+  {
+   "name": "#13937",
+   "team": "Ecuador",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0311,
+     "per_match": -0.0104,
+     "total_raw": -0.0351,
+     "per_match_raw": -0.0117
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0311,
+     "per_match": -0.0104,
+     "total_raw": -0.0351,
+     "per_match_raw": -0.0117
+    }
+   },
+   "n_duels": 28
+  },
+  {
+   "name": "Youssouf Sabaly",
+   "team": "Senegal",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0202,
+     "per_match": -0.0067,
+     "total_raw": -0.0248,
+     "per_match_raw": -0.0083
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0126,
+     "per_match": -0.0126,
+     "total_raw": -0.0117,
+     "per_match_raw": -0.0117
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0327,
+     "per_match": -0.0082,
+     "total_raw": -0.0365,
+     "per_match_raw": -0.0091
+    }
+   },
+   "n_duels": 40
+  },
+  {
+   "name": "Silvan Widmer",
+   "team": "Switzerland",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0331,
+     "per_match": -0.011,
+     "total_raw": -0.038,
+     "per_match_raw": -0.0127
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0331,
+     "per_match": -0.011,
+     "total_raw": -0.038,
+     "per_match_raw": -0.0127
+    }
+   },
+   "n_duels": 28
+  },
+  {
+   "name": "#668",
+   "team": "Poland",
+   "pos": "LM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0334,
+     "per_match": -0.0111,
+     "total_raw": -0.0373,
+     "per_match_raw": -0.0124
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0007,
+     "per_match": -0.0007,
+     "total_raw": -0.0007,
+     "per_match_raw": -0.0007
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0341,
+     "per_match": -0.0085,
+     "total_raw": -0.038,
+     "per_match_raw": -0.0095
+    }
+   },
+   "n_duels": 26
+  },
+  {
+   "name": "Moises Caicedo",
+   "team": "Ecuador",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0359,
+     "per_match": -0.012,
+     "total_raw": -0.0343,
+     "per_match_raw": -0.0114
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0359,
+     "per_match": -0.012,
+     "total_raw": -0.0343,
+     "per_match_raw": -0.0114
+    }
+   },
+   "n_duels": 31
+  },
+  {
+   "name": "Noussair Mazraoui",
+   "team": "Morocco",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0364,
+     "per_match": -0.0121,
+     "total_raw": -0.0349,
+     "per_match_raw": -0.0116
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.001,
+     "per_match": -0.0005,
+     "total_raw": -0.001,
+     "per_match_raw": -0.0005
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0374,
+     "per_match": -0.0075,
+     "total_raw": -0.0358,
+     "per_match_raw": -0.0072
+    }
+   },
+   "n_duels": 31
   },
   {
    "name": "Marten De Roon",
    "team": "Netherlands",
    "pos": "CM",
-   "bwae_xt": -0.04303305970960799,
-   "bwae_xt_per_match": -0.010758264927401997,
-   "bwae_per_duel": -0.14937098565151335,
-   "n_duels": 25,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.017,
+     "per_match": -0.0085,
+     "total_raw": -0.0194,
+     "per_match_raw": -0.0097
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0239,
+     "per_match": -0.0119,
+     "total_raw": -0.0236,
+     "per_match_raw": -0.0118
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0409,
+     "per_match": -0.0102,
+     "total_raw": -0.043,
+     "per_match_raw": -0.0108
+    }
+   },
+   "n_duels": 25
   },
   {
    "name": "Yeltsin Tejeda",
    "team": "Costa Rica",
    "pos": "CM",
-   "bwae_xt": -0.043861764946928956,
-   "bwae_xt_per_match": -0.014620588315642986,
-   "bwae_per_duel": -0.11242805692699936,
-   "n_duels": 26,
-   "matches": 3
-  },
-  {
-   "name": "#5195",
-   "team": "Ecuador",
-   "pos": "CB",
-   "bwae_xt": -0.04621234381475619,
-   "bwae_xt_per_match": -0.01540411460491873,
-   "bwae_per_duel": -0.1066060525683502,
-   "n_duels": 25,
-   "matches": 3
-  },
-  {
-   "name": "#8129",
-   "team": "Croatia",
-   "pos": "CM",
-   "bwae_xt": -0.05037100048924233,
-   "bwae_xt_per_match": -0.008395166748207056,
-   "bwae_per_duel": -0.0062498344553566865,
-   "n_duels": 94,
-   "matches": 6
-  },
-  {
-   "name": "Hee-chan Hwang",
-   "team": "South Korea",
-   "pos": "LM",
-   "bwae_xt": -0.05040210833879355,
-   "bwae_xt_per_match": -0.025201054169396775,
-   "bwae_per_duel": -0.10532996585399146,
-   "n_duels": 28,
-   "matches": 2
-  },
-  {
-   "name": "#1810",
-   "team": "Morocco",
-   "pos": "CF",
-   "bwae_xt": -0.05046650418637101,
-   "bwae_xt_per_match": -0.007209500598053002,
-   "bwae_per_duel": -0.025136511356785244,
-   "n_duels": 39,
-   "matches": 7
-  },
-  {
-   "name": "Rodrigo de Paul",
-   "team": "Argentina",
-   "pos": "CM",
-   "bwae_xt": -0.05057487923600277,
-   "bwae_xt_per_match": -0.007224982748000396,
-   "bwae_per_duel": 0.045268616781926174,
-   "n_duels": 87,
-   "matches": 7
-  },
-  {
-   "name": "Rodrigo Bentancur",
-   "team": "Uruguay",
-   "pos": "CM",
-   "bwae_xt": -0.051610377025378885,
-   "bwae_xt_per_match": -0.01720345900845963,
-   "bwae_per_duel": -0.10149885966525551,
-   "n_duels": 34,
-   "matches": 3
-  },
-  {
-   "name": "Mohamed Kanno",
-   "team": "Saudi Arabia",
-   "pos": "CM",
-   "bwae_xt": -0.0516596602393522,
-   "bwae_xt_per_match": -0.017219886746450735,
-   "bwae_per_duel": 0.024064254685048244,
-   "n_duels": 44,
-   "matches": 3
-  },
-  {
-   "name": "In-beom Hwang",
-   "team": "South Korea",
-   "pos": "CM",
-   "bwae_xt": -0.05406069982914311,
-   "bwae_xt_per_match": -0.013515174957285778,
-   "bwae_per_duel": -0.11302132185516164,
-   "n_duels": 36,
-   "matches": 4
-  },
-  {
-   "name": "#13121",
-   "team": "United States",
-   "pos": "CM",
-   "bwae_xt": -0.05420324862762773,
-   "bwae_xt_per_match": -0.013550812156906933,
-   "bwae_per_duel": -0.10193468602254313,
-   "n_duels": 46,
-   "matches": 4
-  },
-  {
-   "name": "#8138",
-   "team": "Argentina",
-   "pos": "CF",
-   "bwae_xt": -0.05441587522902913,
-   "bwae_xt_per_match": -0.009069312538171522,
-   "bwae_per_duel": -0.06878922317540476,
-   "n_duels": 36,
-   "matches": 6
-  },
-  {
-   "name": "Luke Shaw",
-   "team": "England",
-   "pos": "LB",
-   "bwae_xt": -0.05715310514026135,
-   "bwae_xt_per_match": -0.011430621028052269,
-   "bwae_per_duel": -0.1455436225213338,
-   "n_duels": 32,
-   "matches": 5
-  },
-  {
-   "name": "Ahmad Nourollahi",
-   "team": "Iran",
-   "pos": "CM",
-   "bwae_xt": -0.057725367892035515,
-   "bwae_xt_per_match": -0.01924178929734517,
-   "bwae_per_duel": 0.021459854448933755,
-   "n_duels": 26,
-   "matches": 3
-  },
-  {
-   "name": "Sergi\u00f1o Dest",
-   "team": "United States",
-   "pos": "RB",
-   "bwae_xt": -0.05786436235874502,
-   "bwae_xt_per_match": -0.014466090589686256,
-   "bwae_per_duel": -0.07801916866207283,
-   "n_duels": 50,
-   "matches": 4
-  },
-  {
-   "name": "#926",
-   "team": "Canada",
-   "pos": "CB",
-   "bwae_xt": -0.05818930997857834,
-   "bwae_xt_per_match": -0.019396436659526114,
-   "bwae_per_duel": -0.1116698949406066,
-   "n_duels": 35,
-   "matches": 3
-  },
-  {
-   "name": "Ousmane Dembele",
-   "team": "France",
-   "pos": "RW",
-   "bwae_xt": -0.05831087016208847,
-   "bwae_xt_per_match": -0.008330124308869782,
-   "bwae_per_duel": -0.04892617229430753,
-   "n_duels": 67,
-   "matches": 7
-  },
-  {
-   "name": "#13922",
-   "team": "South Korea",
-   "pos": "CM",
-   "bwae_xt": -0.05948277217909252,
-   "bwae_xt_per_match": -0.01487069304477313,
-   "bwae_per_duel": -0.22551484277283934,
-   "n_duels": 28,
-   "matches": 4
-  },
-  {
-   "name": "Gue-sung Cho",
-   "team": "South Korea",
-   "pos": "CF",
-   "bwae_xt": -0.0600326504745919,
-   "bwae_xt_per_match": -0.015008162618647975,
-   "bwae_per_duel": -0.23635859392132305,
-   "n_duels": 29,
-   "matches": 4
-  },
-  {
-   "name": "Pedro Miguel",
-   "team": "Qatar",
-   "pos": "RB",
-   "bwae_xt": -0.06068210335585919,
-   "bwae_xt_per_match": -0.020227367785286398,
-   "bwae_per_duel": 0.03934996628360821,
-   "n_duels": 29,
-   "matches": 3
-  },
-  {
-   "name": "Yahia Attiat-Allah",
-   "team": "Morocco",
-   "pos": "LB",
-   "bwae_xt": -0.06246927297777415,
-   "bwae_xt_per_match": -0.010411545496295692,
-   "bwae_per_duel": -0.13992557551519152,
-   "n_duels": 33,
-   "matches": 6
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0409,
+     "per_match": -0.0136,
+     "total_raw": -0.0439,
+     "per_match_raw": -0.0146
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0409,
+     "per_match": -0.0136,
+     "total_raw": -0.0439,
+     "per_match_raw": -0.0146
+    }
+   },
+   "n_duels": 26
   },
   {
    "name": "#13961",
    "team": "Qatar",
    "pos": "CF",
-   "bwae_xt": -0.06305374688779462,
-   "bwae_xt_per_match": -0.021017915629264874,
-   "bwae_per_duel": -0.09104462386746953,
-   "n_duels": 29,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0444,
+     "per_match": -0.0148,
+     "total_raw": -0.0631,
+     "per_match_raw": -0.021
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0444,
+     "per_match": -0.0148,
+     "total_raw": -0.0631,
+     "per_match_raw": -0.021
+    }
+   },
+   "n_duels": 29
   },
   {
-   "name": "Jude Bellingham",
-   "team": "England",
+   "name": "#5195",
+   "team": "Ecuador",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0457,
+     "per_match": -0.0152,
+     "total_raw": -0.0462,
+     "per_match_raw": -0.0154
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0457,
+     "per_match": -0.0152,
+     "total_raw": -0.0462,
+     "per_match_raw": -0.0154
+    }
+   },
+   "n_duels": 25
+  },
+  {
+   "name": "Rodrigo Bentancur",
+   "team": "Uruguay",
    "pos": "CM",
-   "bwae_xt": -0.06379491609360516,
-   "bwae_xt_per_match": -0.012758983218721032,
-   "bwae_per_duel": 0.04764024309062661,
-   "n_duels": 71,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0458,
+     "per_match": -0.0153,
+     "total_raw": -0.0516,
+     "per_match_raw": -0.0172
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0458,
+     "per_match": -0.0153,
+     "total_raw": -0.0516,
+     "per_match_raw": -0.0172
+    }
+   },
+   "n_duels": 34
+  },
+  {
+   "name": "#13819",
+   "team": "Australia",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0398,
+     "per_match": -0.0133,
+     "total_raw": -0.0347,
+     "per_match_raw": -0.0116
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.007,
+     "per_match": -0.007,
+     "total_raw": -0.0066,
+     "per_match_raw": -0.0066
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0469,
+     "per_match": -0.0117,
+     "total_raw": -0.0414,
+     "per_match_raw": -0.0103
+    }
+   },
+   "n_duels": 25
+  },
+  {
+   "name": "#13121",
+   "team": "United States",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0598,
+     "per_match": -0.0199,
+     "total_raw": -0.0655,
+     "per_match_raw": -0.0218
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0118,
+     "per_match": 0.0118,
+     "total_raw": 0.0113,
+     "per_match_raw": 0.0113
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.048,
+     "per_match": -0.012,
+     "total_raw": -0.0542,
+     "per_match_raw": -0.0136
+    }
+   },
+   "n_duels": 46
+  },
+  {
+   "name": "#8129",
+   "team": "Croatia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0321,
+     "per_match": -0.0107,
+     "total_raw": -0.0347,
+     "per_match_raw": -0.0116
+    },
+    "ko": {
+     "matches": 3,
+     "total": -0.0164,
+     "per_match": -0.0055,
+     "total_raw": -0.0157,
+     "per_match_raw": -0.0052
+    },
+    "all": {
+     "matches": 6,
+     "total": -0.0484,
+     "per_match": -0.0081,
+     "total_raw": -0.0504,
+     "per_match_raw": -0.0084
+    }
+   },
+   "n_duels": 94
   },
   {
    "name": "Strahinja Pavlovic",
    "team": "Serbia",
    "pos": "CB",
-   "bwae_xt": -0.06394377773360994,
-   "bwae_xt_per_match": -0.02131459257786998,
-   "bwae_per_duel": 0.0025864026564105516,
-   "n_duels": 33,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0493,
+     "per_match": -0.0164,
+     "total_raw": -0.0639,
+     "per_match_raw": -0.0213
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0493,
+     "per_match": -0.0164,
+     "total_raw": -0.0639,
+     "per_match_raw": -0.0213
+    }
+   },
+   "n_duels": 33
   },
   {
-   "name": "#11113",
-   "team": "Poland",
+   "name": "#8138",
+   "team": "Argentina",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0449,
+     "per_match": -0.015,
+     "total_raw": -0.0524,
+     "per_match_raw": -0.0175
+    },
+    "ko": {
+     "matches": 3,
+     "total": -0.0047,
+     "per_match": -0.0016,
+     "total_raw": -0.002,
+     "per_match_raw": -0.0007
+    },
+    "all": {
+     "matches": 6,
+     "total": -0.0496,
+     "per_match": -0.0083,
+     "total_raw": -0.0544,
+     "per_match_raw": -0.0091
+    }
+   },
+   "n_duels": 36
+  },
+  {
+   "name": "#1810",
+   "team": "Morocco",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0112,
+     "per_match": -0.0037,
+     "total_raw": -0.0111,
+     "per_match_raw": -0.0037
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0386,
+     "per_match": -0.0097,
+     "total_raw": -0.0394,
+     "per_match_raw": -0.0098
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.0498,
+     "per_match": -0.0071,
+     "total_raw": -0.0505,
+     "per_match_raw": -0.0072
+    }
+   },
+   "n_duels": 39
+  },
+  {
+   "name": "Mohamed Kanno",
+   "team": "Saudi Arabia",
    "pos": "CM",
-   "bwae_xt": -0.06430594833475717,
-   "bwae_xt_per_match": -0.032152974167378584,
-   "bwae_per_duel": -0.17731468610977788,
-   "n_duels": 27,
-   "matches": 2
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0499,
+     "per_match": -0.0166,
+     "total_raw": -0.0517,
+     "per_match_raw": -0.0172
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0499,
+     "per_match": -0.0166,
+     "total_raw": -0.0517,
+     "per_match_raw": -0.0172
+    }
+   },
+   "n_duels": 44
+  },
+  {
+   "name": "Luke Shaw",
+   "team": "England",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0503,
+     "per_match": -0.0168,
+     "total_raw": -0.0532,
+     "per_match_raw": -0.0177
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0001,
+     "per_match": -0.0001,
+     "total_raw": -0.004,
+     "per_match_raw": -0.002
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0504,
+     "per_match": -0.0101,
+     "total_raw": -0.0572,
+     "per_match_raw": -0.0114
+    }
+   },
+   "n_duels": 32
+  },
+  {
+   "name": "Hee-chan Hwang",
+   "team": "South Korea",
+   "pos": "LM",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0333,
+     "per_match": 0.0333,
+     "total_raw": 0.0314,
+     "per_match_raw": 0.0314
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0837,
+     "per_match": -0.0837,
+     "total_raw": -0.0818,
+     "per_match_raw": -0.0818
+    },
+    "all": {
+     "matches": 2,
+     "total": -0.0504,
+     "per_match": -0.0252,
+     "total_raw": -0.0504,
+     "per_match_raw": -0.0252
+    }
+   },
+   "n_duels": 28
+  },
+  {
+   "name": "In-beom Hwang",
+   "team": "South Korea",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0227,
+     "per_match": -0.0076,
+     "total_raw": -0.0236,
+     "per_match_raw": -0.0079
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0312,
+     "per_match": -0.0312,
+     "total_raw": -0.0305,
+     "per_match_raw": -0.0305
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0539,
+     "per_match": -0.0135,
+     "total_raw": -0.0541,
+     "per_match_raw": -0.0135
+    }
+   },
+   "n_duels": 36
+  },
+  {
+   "name": "Pedro Miguel",
+   "team": "Qatar",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0555,
+     "per_match": -0.0185,
+     "total_raw": -0.0607,
+     "per_match_raw": -0.0202
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0555,
+     "per_match": -0.0185,
+     "total_raw": -0.0607,
+     "per_match_raw": -0.0202
+    }
+   },
+   "n_duels": 29
   },
   {
    "name": "#6020",
    "team": "Portugal",
    "pos": "CF",
-   "bwae_xt": -0.06591185979201403,
-   "bwae_xt_per_match": -0.013182371958402805,
-   "bwae_per_duel": -0.009000993459379585,
-   "n_duels": 26,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0459,
+     "per_match": -0.0153,
+     "total_raw": -0.056,
+     "per_match_raw": -0.0187
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0097,
+     "per_match": -0.0049,
+     "total_raw": -0.0099,
+     "per_match_raw": -0.0049
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0556,
+     "per_match": -0.0111,
+     "total_raw": -0.0659,
+     "per_match_raw": -0.0132
+    }
+   },
+   "n_duels": 26
   },
   {
-   "name": "Jes\u00fas Gallardo",
-   "team": "Mexico",
-   "pos": "LB",
-   "bwae_xt": -0.06948836160286363,
-   "bwae_xt_per_match": -0.023162787200954545,
-   "bwae_per_duel": -0.043493283428630236,
-   "n_duels": 40,
-   "matches": 3
-  },
-  {
-   "name": "Lovro Majer",
-   "team": "Croatia",
-   "pos": "AM",
-   "bwae_xt": -0.07244998056182586,
-   "bwae_xt_per_match": -0.01034999722311798,
-   "bwae_per_duel": -0.024284498151056138,
-   "n_duels": 33,
-   "matches": 7
-  },
-  {
-   "name": "#113",
+   "name": "Ousmane Dembele",
    "team": "France",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0078,
+     "per_match": 0.0026,
+     "total_raw": 0.0078,
+     "per_match_raw": 0.0026
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0644,
+     "per_match": -0.0161,
+     "total_raw": -0.0661,
+     "per_match_raw": -0.0165
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.0567,
+     "per_match": -0.0081,
+     "total_raw": -0.0583,
+     "per_match_raw": -0.0083
+    }
+   },
+   "n_duels": 67
+  },
+  {
+   "name": "Ahmad Nourollahi",
+   "team": "Iran",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0571,
+     "per_match": -0.019,
+     "total_raw": -0.0577,
+     "per_match_raw": -0.0192
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0571,
+     "per_match": -0.019,
+     "total_raw": -0.0577,
+     "per_match_raw": -0.0192
+    }
+   },
+   "n_duels": 26
+  },
+  {
+   "name": "#13922",
+   "team": "South Korea",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.053,
+     "per_match": -0.0177,
+     "total_raw": -0.0547,
+     "per_match_raw": -0.0182
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0049,
+     "per_match": -0.0049,
+     "total_raw": -0.0048,
+     "per_match_raw": -0.0048
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0579,
+     "per_match": -0.0145,
+     "total_raw": -0.0595,
+     "per_match_raw": -0.0149
+    }
+   },
+   "n_duels": 28
+  },
+  {
+   "name": "Rodrigo de Paul",
+   "team": "Argentina",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.044,
+     "per_match": 0.0147,
+     "total_raw": 0.0565,
+     "per_match_raw": 0.0188
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.1024,
+     "per_match": -0.0256,
+     "total_raw": -0.107,
+     "per_match_raw": -0.0268
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.0584,
+     "per_match": -0.0083,
+     "total_raw": -0.0506,
+     "per_match_raw": -0.0072
+    }
+   },
+   "n_duels": 87
+  },
+  {
+   "name": "#926",
+   "team": "Canada",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0585,
+     "per_match": -0.0195,
+     "total_raw": -0.0582,
+     "per_match_raw": -0.0194
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0585,
+     "per_match": -0.0195,
+     "total_raw": -0.0582,
+     "per_match_raw": -0.0194
+    }
+   },
+   "n_duels": 35
+  },
+  {
+   "name": "Jude Bellingham",
+   "team": "England",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0139,
+     "per_match": -0.0046,
+     "total_raw": -0.0153,
+     "per_match_raw": -0.0051
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0453,
+     "per_match": -0.0227,
+     "total_raw": -0.0485,
+     "per_match_raw": -0.0242
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0593,
+     "per_match": -0.0119,
+     "total_raw": -0.0638,
+     "per_match_raw": -0.0128
+    }
+   },
+   "n_duels": 71
+  },
+  {
+   "name": "Gue-sung Cho",
+   "team": "South Korea",
    "pos": "CF",
-   "bwae_xt": -0.07342868948079459,
-   "bwae_xt_per_match": -0.012238114913465764,
-   "bwae_per_duel": -0.15707172808084027,
-   "n_duels": 26,
-   "matches": 6
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0016,
+     "per_match": -0.0005,
+     "total_raw": -0.0016,
+     "per_match_raw": -0.0005
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0597,
+     "per_match": -0.0597,
+     "total_raw": -0.0584,
+     "per_match_raw": -0.0584
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0613,
+     "per_match": -0.0153,
+     "total_raw": -0.06,
+     "per_match_raw": -0.015
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Yahia Attiat-Allah",
+   "team": "Morocco",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.006,
+     "per_match": 0.003,
+     "total_raw": 0.0059,
+     "per_match_raw": 0.0029
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0695,
+     "per_match": -0.0174,
+     "total_raw": -0.0683,
+     "per_match_raw": -0.0171
+    },
+    "all": {
+     "matches": 6,
+     "total": -0.0635,
+     "per_match": -0.0106,
+     "total_raw": -0.0625,
+     "per_match_raw": -0.0104
+    }
+   },
+   "n_duels": 33
+  },
+  {
+   "name": "Sergi\u00f1o Dest",
+   "team": "United States",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0387,
+     "per_match": -0.0129,
+     "total_raw": -0.0341,
+     "per_match_raw": -0.0114
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0249,
+     "per_match": -0.0249,
+     "total_raw": -0.0237,
+     "per_match_raw": -0.0237
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0636,
+     "per_match": -0.0159,
+     "total_raw": -0.0579,
+     "per_match_raw": -0.0145
+    }
+   },
+   "n_duels": 50
   },
   {
    "name": "Antony",
    "team": "Brazil",
    "pos": "RW",
-   "bwae_xt": -0.0751574096352702,
-   "bwae_xt_per_match": -0.01878935240881755,
-   "bwae_per_duel": -0.05872991384940713,
-   "n_duels": 42,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0568,
+     "per_match": -0.0189,
+     "total_raw": -0.0672,
+     "per_match_raw": -0.0224
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.008,
+     "per_match": -0.008,
+     "total_raw": -0.0079,
+     "per_match_raw": -0.0079
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0647,
+     "per_match": -0.0162,
+     "total_raw": -0.0752,
+     "per_match_raw": -0.0188
+    }
+   },
+   "n_duels": 42
   },
   {
-   "name": "Matty Cash",
+   "name": "#11113",
    "team": "Poland",
-   "pos": "RB",
-   "bwae_xt": -0.07562604708263741,
-   "bwae_xt_per_match": -0.018906511770659353,
-   "bwae_per_duel": -0.1404667991512795,
-   "n_duels": 32,
-   "matches": 4
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": -0.0364,
+     "per_match": -0.0364,
+     "total_raw": -0.037,
+     "per_match_raw": -0.037
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.029,
+     "per_match": -0.029,
+     "total_raw": -0.0274,
+     "per_match_raw": -0.0274
+    },
+    "all": {
+     "matches": 2,
+     "total": -0.0654,
+     "per_match": -0.0327,
+     "total_raw": -0.0643,
+     "per_match_raw": -0.0322
+    }
+   },
+   "n_duels": 27
   },
   {
-   "name": "Kr\u00e9pin Diatta",
-   "team": "Senegal",
-   "pos": "RW",
-   "bwae_xt": -0.07675474165692289,
-   "bwae_xt_per_match": -0.025584913885640964,
-   "bwae_per_duel": -0.21375047595538388,
-   "n_duels": 29,
-   "matches": 3
-  },
-  {
-   "name": "Nico Williams",
-   "team": "Spain",
-   "pos": "RW",
-   "bwae_xt": -0.07852601014148894,
-   "bwae_xt_per_match": -0.019631502535372235,
-   "bwae_per_duel": -0.0981662084342669,
-   "n_duels": 28,
-   "matches": 4
+   "name": "Lovro Majer",
+   "team": "Croatia",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0174,
+     "per_match": -0.0058,
+     "total_raw": -0.0178,
+     "per_match_raw": -0.0059
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0514,
+     "per_match": -0.0129,
+     "total_raw": -0.0546,
+     "per_match_raw": -0.0137
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.0688,
+     "per_match": -0.0098,
+     "total_raw": -0.0724,
+     "per_match_raw": -0.0103
+    }
+   },
+   "n_duels": 33
   },
   {
    "name": "Sa\u0161a Luki\u0107",
    "team": "Serbia",
    "pos": "CM",
-   "bwae_xt": -0.07853711416020015,
-   "bwae_xt_per_match": -0.02617903805340005,
-   "bwae_per_duel": -0.1458396391462985,
-   "n_duels": 34,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0716,
+     "per_match": -0.0239,
+     "total_raw": -0.0785,
+     "per_match_raw": -0.0262
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0716,
+     "per_match": -0.0239,
+     "total_raw": -0.0785,
+     "per_match_raw": -0.0262
+    }
+   },
+   "n_duels": 34
   },
   {
-   "name": "Jae-sung Lee",
-   "team": "South Korea",
-   "pos": "RM",
-   "bwae_xt": -0.07864297043278266,
-   "bwae_xt_per_match": -0.026214323477594222,
-   "bwae_per_duel": -0.11310976108656504,
-   "n_duels": 28,
-   "matches": 3
-  },
-  {
-   "name": "Casemiro",
-   "team": "Brazil",
-   "pos": "CM",
-   "bwae_xt": -0.08091090165319423,
-   "bwae_xt_per_match": -0.020227725413298557,
-   "bwae_per_duel": 0.04846743710689973,
-   "n_duels": 53,
-   "matches": 4
-  },
-  {
-   "name": "Jackson Irvine",
-   "team": "Australia",
+   "name": "#113",
+   "team": "France",
    "pos": "CF",
-   "bwae_xt": -0.08168451322091914,
-   "bwae_xt_per_match": -0.020421128305229786,
-   "bwae_per_duel": -0.07662994898183428,
-   "n_duels": 45,
-   "matches": 4
-  },
-  {
-   "name": "Marcos Acu\u00f1a",
-   "team": "Argentina",
-   "pos": "LB",
-   "bwae_xt": -0.08201547676359179,
-   "bwae_xt_per_match": -0.013669246127265298,
-   "bwae_per_duel": -0.095327102420074,
-   "n_duels": 55,
-   "matches": 6
-  },
-  {
-   "name": "Sofyan Amrabat",
-   "team": "Morocco",
-   "pos": "CM",
-   "bwae_xt": -0.08284584012669488,
-   "bwae_xt_per_match": -0.011835120018099268,
-   "bwae_per_duel": -0.03088314037328282,
-   "n_duels": 92,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0344,
+     "per_match": -0.0172,
+     "total_raw": -0.0369,
+     "per_match_raw": -0.0184
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0385,
+     "per_match": -0.0096,
+     "total_raw": -0.0366,
+     "per_match_raw": -0.0091
+    },
+    "all": {
+     "matches": 6,
+     "total": -0.0729,
+     "per_match": -0.0121,
+     "total_raw": -0.0734,
+     "per_match_raw": -0.0122
+    }
+   },
+   "n_duels": 26
   },
   {
    "name": "Youssouf Fofana",
    "team": "France",
    "pos": "CM",
-   "bwae_xt": -0.08419274266019873,
-   "bwae_xt_per_match": -0.014032123776699788,
-   "bwae_per_duel": -0.18196674683268618,
-   "n_duels": 39,
-   "matches": 6
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0568,
+     "per_match": -0.0189,
+     "total_raw": -0.0672,
+     "per_match_raw": -0.0224
+    },
+    "ko": {
+     "matches": 3,
+     "total": -0.0177,
+     "per_match": -0.0059,
+     "total_raw": -0.017,
+     "per_match_raw": -0.0057
+    },
+    "all": {
+     "matches": 6,
+     "total": -0.0746,
+     "per_match": -0.0124,
+     "total_raw": -0.0842,
+     "per_match_raw": -0.014
+    }
+   },
+   "n_duels": 39
   },
   {
-   "name": "Memphis Depay",
-   "team": "Netherlands",
-   "pos": "CF",
-   "bwae_xt": -0.08605776455870556,
-   "bwae_xt_per_match": -0.01721155291174111,
-   "bwae_per_duel": -0.095772937856587,
-   "n_duels": 54,
-   "matches": 5
-  },
-  {
-   "name": "Rodrygo",
-   "team": "Brazil",
-   "pos": "RW",
-   "bwae_xt": -0.08906479914255425,
-   "bwae_xt_per_match": -0.02226619978563856,
-   "bwae_per_duel": -0.08809789259837389,
-   "n_duels": 35,
-   "matches": 4
-  },
-  {
-   "name": "Issam Jebali",
-   "team": "Tunisia",
-   "pos": "CF",
-   "bwae_xt": -0.09086793977156411,
-   "bwae_xt_per_match": -0.030289313257188036,
-   "bwae_per_duel": -0.07098710483974537,
-   "n_duels": 38,
-   "matches": 3
-  },
-  {
-   "name": "Bartosz Bereszynski",
+   "name": "Matty Cash",
    "team": "Poland",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0775,
+     "per_match": -0.0258,
+     "total_raw": -0.078,
+     "per_match_raw": -0.026
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0026,
+     "per_match": 0.0026,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0024
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.075,
+     "per_match": -0.0187,
+     "total_raw": -0.0756,
+     "per_match_raw": -0.0189
+    }
+   },
+   "n_duels": 32
+  },
+  {
+   "name": "Jes\u00fas Gallardo",
+   "team": "Mexico",
    "pos": "LB",
-   "bwae_xt": -0.09107137245436372,
-   "bwae_xt_per_match": -0.02276784311359093,
-   "bwae_per_duel": 0.008652662855371683,
-   "n_duels": 60,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0756,
+     "per_match": -0.0252,
+     "total_raw": -0.0695,
+     "per_match_raw": -0.0232
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0756,
+     "per_match": -0.0252,
+     "total_raw": -0.0695,
+     "per_match_raw": -0.0232
+    }
+   },
+   "n_duels": 40
   },
   {
-   "name": "Jakub Kaminski",
-   "team": "Poland",
-   "pos": "RM",
-   "bwae_xt": -0.09197173485322264,
-   "bwae_xt_per_match": -0.02299293371330566,
-   "bwae_per_duel": -0.08306768270910483,
-   "n_duels": 40,
-   "matches": 4
+   "name": "Nico Williams",
+   "team": "Spain",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.046,
+     "per_match": -0.0153,
+     "total_raw": -0.048,
+     "per_match_raw": -0.016
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0301,
+     "per_match": -0.0301,
+     "total_raw": -0.0305,
+     "per_match_raw": -0.0305
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0761,
+     "per_match": -0.019,
+     "total_raw": -0.0785,
+     "per_match_raw": -0.0196
+    }
+   },
+   "n_duels": 28
   },
   {
-   "name": "Ricardo Rodriguez",
-   "team": "Switzerland",
-   "pos": "CB",
-   "bwae_xt": -0.09405101052239472,
-   "bwae_xt_per_match": -0.02351275263059868,
-   "bwae_per_duel": -0.05389545228798074,
-   "n_duels": 30,
-   "matches": 4
-  },
-  {
-   "name": "Djibril Sow",
-   "team": "Switzerland",
+   "name": "Casemiro",
+   "team": "Brazil",
    "pos": "CM",
-   "bwae_xt": -0.09658066701311485,
-   "bwae_xt_per_match": -0.024145166753278713,
-   "bwae_per_duel": -0.18187794417869696,
-   "n_duels": 25,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0193,
+     "per_match": -0.0096,
+     "total_raw": -0.0229,
+     "per_match_raw": -0.0114
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0581,
+     "per_match": -0.0291,
+     "total_raw": -0.058,
+     "per_match_raw": -0.029
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0774,
+     "per_match": -0.0194,
+     "total_raw": -0.0809,
+     "per_match_raw": -0.0202
+    }
+   },
+   "n_duels": 53
   },
   {
-   "name": "Mehdi Taremi",
-   "team": "Iran",
+   "name": "Jackson Irvine",
+   "team": "Australia",
    "pos": "CF",
-   "bwae_xt": -0.09863587503771833,
-   "bwae_xt_per_match": -0.03287862501257278,
-   "bwae_per_duel": 0.02589786739150664,
-   "n_duels": 58,
-   "matches": 3
-  },
-  {
-   "name": "Christian Pulisic",
-   "team": "United States",
-   "pos": "LW",
-   "bwae_xt": -0.09963537835760476,
-   "bwae_xt_per_match": -0.02490884458940119,
-   "bwae_per_duel": -0.05384376892718303,
-   "n_duels": 68,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0311,
+     "per_match": -0.0104,
+     "total_raw": -0.0346,
+     "per_match_raw": -0.0115
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0499,
+     "per_match": -0.0499,
+     "total_raw": -0.0471,
+     "per_match_raw": -0.0471
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0811,
+     "per_match": -0.0203,
+     "total_raw": -0.0817,
+     "per_match_raw": -0.0204
+    }
+   },
+   "n_duels": 45
   },
   {
    "name": "Neco Williams",
    "team": "Wales",
    "pos": "LB",
-   "bwae_xt": -0.10048780961590587,
-   "bwae_xt_per_match": -0.033495936538635286,
-   "bwae_per_duel": -0.11053194686006386,
-   "n_duels": 38,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0812,
+     "per_match": -0.0271,
+     "total_raw": -0.1005,
+     "per_match_raw": -0.0335
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0812,
+     "per_match": -0.0271,
+     "total_raw": -0.1005,
+     "per_match_raw": -0.0335
+    }
+   },
+   "n_duels": 38
   },
   {
-   "name": "Bruno Petkovic",
-   "team": "Croatia",
+   "name": "Sofyan Amrabat",
+   "team": "Morocco",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0605,
+     "per_match": -0.0202,
+     "total_raw": -0.0628,
+     "per_match_raw": -0.0209
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0208,
+     "per_match": -0.0052,
+     "total_raw": -0.02,
+     "per_match_raw": -0.005
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.0813,
+     "per_match": -0.0116,
+     "total_raw": -0.0828,
+     "per_match_raw": -0.0118
+    }
+   },
+   "n_duels": 92
+  },
+  {
+   "name": "Mehdi Taremi",
+   "team": "Iran",
    "pos": "CF",
-   "bwae_xt": -0.1009575861684329,
-   "bwae_xt_per_match": -0.016826264361405482,
-   "bwae_per_duel": 0.006708018517226307,
-   "n_duels": 51,
-   "matches": 6
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0814,
+     "per_match": -0.0271,
+     "total_raw": -0.0986,
+     "per_match_raw": -0.0329
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0814,
+     "per_match": -0.0271,
+     "total_raw": -0.0986,
+     "per_match_raw": -0.0329
+    }
+   },
+   "n_duels": 58
+  },
+  {
+   "name": "Bartosz Bereszynski",
+   "team": "Poland",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1015,
+     "per_match": -0.0338,
+     "total_raw": -0.1097,
+     "per_match_raw": -0.0366
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0197,
+     "per_match": 0.0197,
+     "total_raw": 0.0186,
+     "per_match_raw": 0.0186
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0818,
+     "per_match": -0.0204,
+     "total_raw": -0.0911,
+     "per_match_raw": -0.0228
+    }
+   },
+   "n_duels": 60
+  },
+  {
+   "name": "Rodrygo",
+   "team": "Brazil",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0388,
+     "per_match": -0.0129,
+     "total_raw": -0.0459,
+     "per_match_raw": -0.0153
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0436,
+     "per_match": -0.0436,
+     "total_raw": -0.0431,
+     "per_match_raw": -0.0431
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0823,
+     "per_match": -0.0206,
+     "total_raw": -0.0891,
+     "per_match_raw": -0.0223
+    }
+   },
+   "n_duels": 35
+  },
+  {
+   "name": "Kr\u00e9pin Diatta",
+   "team": "Senegal",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0479,
+     "per_match": -0.0239,
+     "total_raw": -0.0446,
+     "per_match_raw": -0.0223
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0346,
+     "per_match": -0.0346,
+     "total_raw": -0.0322,
+     "per_match_raw": -0.0322
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0825,
+     "per_match": -0.0275,
+     "total_raw": -0.0768,
+     "per_match_raw": -0.0256
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Jae-sung Lee",
+   "team": "South Korea",
+   "pos": "RM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0351,
+     "per_match": -0.0175,
+     "total_raw": -0.0306,
+     "per_match_raw": -0.0153
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0491,
+     "per_match": -0.0491,
+     "total_raw": -0.048,
+     "per_match_raw": -0.048
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0842,
+     "per_match": -0.0281,
+     "total_raw": -0.0786,
+     "per_match_raw": -0.0262
+    }
+   },
+   "n_duels": 28
+  },
+  {
+   "name": "Marcos Acu\u00f1a",
+   "team": "Argentina",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0589,
+     "per_match": -0.0196,
+     "total_raw": -0.0593,
+     "per_match_raw": -0.0198
+    },
+    "ko": {
+     "matches": 3,
+     "total": -0.0254,
+     "per_match": -0.0085,
+     "total_raw": -0.0227,
+     "per_match_raw": -0.0076
+    },
+    "all": {
+     "matches": 6,
+     "total": -0.0843,
+     "per_match": -0.014,
+     "total_raw": -0.082,
+     "per_match_raw": -0.0137
+    }
+   },
+   "n_duels": 55
   },
   {
    "name": "Wataru Endo",
    "team": "Japan",
    "pos": "CM",
-   "bwae_xt": -0.10219696836303951,
-   "bwae_xt_per_match": -0.03406565612101317,
-   "bwae_per_duel": -0.0823599961072472,
-   "n_duels": 52,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0897,
+     "per_match": -0.0449,
+     "total_raw": -0.1072,
+     "per_match_raw": -0.0536
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0051,
+     "per_match": 0.0051,
+     "total_raw": 0.005,
+     "per_match_raw": 0.005
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0847,
+     "per_match": -0.0282,
+     "total_raw": -0.1022,
+     "per_match_raw": -0.0341
+    }
+   },
+   "n_duels": 52
   },
   {
-   "name": "Selim Amallah",
-   "team": "Morocco",
-   "pos": "CM",
-   "bwae_xt": -0.1028887534693382,
-   "bwae_xt_per_match": -0.014698393352762601,
-   "bwae_per_duel": -0.06010325158316425,
-   "n_duels": 71,
-   "matches": 7
+   "name": "Ricardo Rodriguez",
+   "team": "Switzerland",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0693,
+     "per_match": -0.0231,
+     "total_raw": -0.0795,
+     "per_match_raw": -0.0265
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0154,
+     "per_match": -0.0154,
+     "total_raw": -0.0145,
+     "per_match_raw": -0.0145
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0847,
+     "per_match": -0.0212,
+     "total_raw": -0.0941,
+     "per_match_raw": -0.0235
+    }
+   },
+   "n_duels": 30
   },
   {
-   "name": "Anis Slimane",
-   "team": "Tunisia",
-   "pos": "RW",
-   "bwae_xt": -0.10516028512316468,
-   "bwae_xt_per_match": -0.05258014256158234,
-   "bwae_per_duel": -0.20380460470121103,
-   "n_duels": 25,
-   "matches": 2
-  },
-  {
-   "name": "Remo Freuler",
+   "name": "Djibril Sow",
    "team": "Switzerland",
    "pos": "CM",
-   "bwae_xt": -0.10593190087441409,
-   "bwae_xt_per_match": -0.026482975218603523,
-   "bwae_per_duel": -0.17536333870732185,
-   "n_duels": 38,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0549,
+     "per_match": -0.0183,
+     "total_raw": -0.0663,
+     "per_match_raw": -0.0221
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0321,
+     "per_match": -0.0321,
+     "total_raw": -0.0303,
+     "per_match_raw": -0.0303
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.087,
+     "per_match": -0.0218,
+     "total_raw": -0.0966,
+     "per_match_raw": -0.0241
+    }
+   },
+   "n_duels": 25
+  },
+  {
+   "name": "Memphis Depay",
+   "team": "Netherlands",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.006,
+     "per_match": 0.002,
+     "total_raw": 0.0076,
+     "per_match_raw": 0.0025
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0943,
+     "per_match": -0.0471,
+     "total_raw": -0.0936,
+     "per_match_raw": -0.0468
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.0882,
+     "per_match": -0.0176,
+     "total_raw": -0.0861,
+     "per_match_raw": -0.0172
+    }
+   },
+   "n_duels": 54
+  },
+  {
+   "name": "Jakub Kaminski",
+   "team": "Poland",
+   "pos": "RM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0665,
+     "per_match": -0.0222,
+     "total_raw": -0.0708,
+     "per_match_raw": -0.0236
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0224,
+     "per_match": -0.0224,
+     "total_raw": -0.0211,
+     "per_match_raw": -0.0211
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0889,
+     "per_match": -0.0222,
+     "total_raw": -0.092,
+     "per_match_raw": -0.023
+    }
+   },
+   "n_duels": 40
+  },
+  {
+   "name": "Issam Jebali",
+   "team": "Tunisia",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0936,
+     "per_match": -0.0312,
+     "total_raw": -0.0909,
+     "per_match_raw": -0.0303
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0936,
+     "per_match": -0.0312,
+     "total_raw": -0.0909,
+     "per_match_raw": -0.0303
+    }
+   },
+   "n_duels": 38
   },
   {
    "name": "Brenden Aaronson",
    "team": "United States",
    "pos": "AM",
-   "bwae_xt": -0.1062255857002129,
-   "bwae_xt_per_match": -0.026556396425053225,
-   "bwae_per_duel": -0.18029034680876938,
-   "n_duels": 31,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.085,
+     "per_match": -0.0283,
+     "total_raw": -0.0973,
+     "per_match_raw": -0.0324
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0094,
+     "per_match": -0.0094,
+     "total_raw": -0.009,
+     "per_match_raw": -0.009
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.0944,
+     "per_match": -0.0236,
+     "total_raw": -0.1062,
+     "per_match_raw": -0.0266
+    }
+   },
+   "n_duels": 31
   },
   {
    "name": "#13960",
    "team": "Qatar",
    "pos": "CM",
-   "bwae_xt": -0.10732947762840833,
-   "bwae_xt_per_match": -0.035776492542802775,
-   "bwae_per_duel": -0.17933844417259795,
-   "n_duels": 38,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0984,
+     "per_match": -0.0328,
+     "total_raw": -0.1073,
+     "per_match_raw": -0.0358
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.0984,
+     "per_match": -0.0328,
+     "total_raw": -0.1073,
+     "per_match_raw": -0.0358
+    }
+   },
+   "n_duels": 38
+  },
+  {
+   "name": "Bruno Petkovic",
+   "team": "Croatia",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0339,
+     "per_match": 0.0169,
+     "total_raw": 0.034,
+     "per_match_raw": 0.017
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.1328,
+     "per_match": -0.0332,
+     "total_raw": -0.1349,
+     "per_match_raw": -0.0337
+    },
+    "all": {
+     "matches": 6,
+     "total": -0.0989,
+     "per_match": -0.0165,
+     "total_raw": -0.101,
+     "per_match_raw": -0.0168
+    }
+   },
+   "n_duels": 51
+  },
+  {
+   "name": "Remo Freuler",
+   "team": "Switzerland",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0532,
+     "per_match": -0.0177,
+     "total_raw": -0.0597,
+     "per_match_raw": -0.0199
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0491,
+     "per_match": -0.0491,
+     "total_raw": -0.0463,
+     "per_match_raw": -0.0463
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.1023,
+     "per_match": -0.0256,
+     "total_raw": -0.1059,
+     "per_match_raw": -0.0265
+    }
+   },
+   "n_duels": 38
+  },
+  {
+   "name": "Christian Pulisic",
+   "team": "United States",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0429,
+     "per_match": -0.0143,
+     "total_raw": -0.0422,
+     "per_match_raw": -0.0141
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0603,
+     "per_match": -0.0603,
+     "total_raw": -0.0575,
+     "per_match_raw": -0.0575
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.1032,
+     "per_match": -0.0258,
+     "total_raw": -0.0996,
+     "per_match_raw": -0.0249
+    }
+   },
+   "n_duels": 68
   },
   {
    "name": "Pervis Estupinan",
    "team": "Ecuador",
    "pos": "LB",
-   "bwae_xt": -0.10901324352941344,
-   "bwae_xt_per_match": -0.03633774784313781,
-   "bwae_per_duel": -0.0625530279254849,
-   "n_duels": 50,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1038,
+     "per_match": -0.0346,
+     "total_raw": -0.109,
+     "per_match_raw": -0.0363
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1038,
+     "per_match": -0.0346,
+     "total_raw": -0.109,
+     "per_match_raw": -0.0363
+    }
+   },
+   "n_duels": 50
   },
   {
-   "name": "Hidemasa Morita",
-   "team": "Japan",
+   "name": "Selim Amallah",
+   "team": "Morocco",
    "pos": "CM",
-   "bwae_xt": -0.11670180574516492,
-   "bwae_xt_per_match": -0.038900601915054976,
-   "bwae_per_duel": -0.2034451333421571,
-   "n_duels": 38,
-   "matches": 3
-  },
-  {
-   "name": "Enner Valencia",
-   "team": "Ecuador",
-   "pos": "CF",
-   "bwae_xt": -0.11834139052823349,
-   "bwae_xt_per_match": -0.03944713017607783,
-   "bwae_per_duel": -0.21291939848689953,
-   "n_duels": 42,
-   "matches": 3
-  },
-  {
-   "name": "#2443",
-   "team": "South Korea",
-   "pos": "RB",
-   "bwae_xt": -0.12432478911034656,
-   "bwae_xt_per_match": -0.03108119727758664,
-   "bwae_per_duel": -0.24891934091741236,
-   "n_duels": 32,
-   "matches": 4
-  },
-  {
-   "name": "Weston McKennie",
-   "team": "United States",
-   "pos": "CM",
-   "bwae_xt": -0.1277552991425362,
-   "bwae_xt_per_match": -0.03193882478563405,
-   "bwae_per_duel": -0.10912922552592727,
-   "n_duels": 37,
-   "matches": 4
-  },
-  {
-   "name": "Tajon Buchanan",
-   "team": "Canada",
-   "pos": "RW",
-   "bwae_xt": -0.12984228513287668,
-   "bwae_xt_per_match": -0.0432807617109589,
-   "bwae_per_duel": -0.0932297949216086,
-   "n_duels": 58,
-   "matches": 3
-  },
-  {
-   "name": "Cristian Romero",
-   "team": "Argentina",
-   "pos": "CB",
-   "bwae_xt": -0.13103843937026557,
-   "bwae_xt_per_match": -0.01871977705289508,
-   "bwae_per_duel": -0.16510606217468946,
-   "n_duels": 51,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0729,
+     "per_match": -0.0243,
+     "total_raw": -0.072,
+     "per_match_raw": -0.024
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0336,
+     "per_match": -0.0084,
+     "total_raw": -0.0309,
+     "per_match_raw": -0.0077
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.1065,
+     "per_match": -0.0152,
+     "total_raw": -0.1029,
+     "per_match_raw": -0.0147
+    }
+   },
+   "n_duels": 71
   },
   {
    "name": "Gareth Bale",
    "team": "Wales",
    "pos": "CF",
-   "bwae_xt": -0.13263039788199457,
-   "bwae_xt_per_match": -0.044210132627331526,
-   "bwae_per_duel": -0.02225637391953682,
-   "n_duels": 33,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1086,
+     "per_match": -0.0362,
+     "total_raw": -0.1326,
+     "per_match_raw": -0.0442
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1086,
+     "per_match": -0.0362,
+     "total_raw": -0.1326,
+     "per_match_raw": -0.0442
+    }
+   },
+   "n_duels": 33
   },
   {
-   "name": "Alphonso Davies",
-   "team": "Canada",
-   "pos": "LB",
-   "bwae_xt": -0.13484564942814647,
-   "bwae_xt_per_match": -0.044948549809382156,
-   "bwae_per_duel": 0.052519183043158404,
-   "n_duels": 62,
-   "matches": 3
+   "name": "Anis Slimane",
+   "team": "Tunisia",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.1096,
+     "per_match": -0.0548,
+     "total_raw": -0.1052,
+     "per_match_raw": -0.0526
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": -0.1096,
+     "per_match": -0.0548,
+     "total_raw": -0.1052,
+     "per_match_raw": -0.0526
+    }
+   },
+   "n_duels": 25
   },
   {
-   "name": "Borna Sosa",
-   "team": "Croatia",
-   "pos": "LB",
-   "bwae_xt": -0.13564252324941273,
-   "bwae_xt_per_match": -0.027128504649882545,
-   "bwae_per_duel": 0.007528723422680006,
-   "n_duels": 48,
-   "matches": 5
+   "name": "Weston McKennie",
+   "team": "United States",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0912,
+     "per_match": -0.0304,
+     "total_raw": -0.1099,
+     "per_match_raw": -0.0366
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0188,
+     "per_match": -0.0188,
+     "total_raw": -0.0179,
+     "per_match_raw": -0.0179
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.11,
+     "per_match": -0.0275,
+     "total_raw": -0.1278,
+     "per_match_raw": -0.0319
+    }
+   },
+   "n_duels": 37
+  },
+  {
+   "name": "Hidemasa Morita",
+   "team": "Japan",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": -0.0851,
+     "per_match": -0.0425,
+     "total_raw": -0.0895,
+     "per_match_raw": -0.0448
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0275,
+     "per_match": -0.0275,
+     "total_raw": -0.0272,
+     "per_match_raw": -0.0272
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1126,
+     "per_match": -0.0375,
+     "total_raw": -0.1167,
+     "per_match_raw": -0.0389
+    }
+   },
+   "n_duels": 38
+  },
+  {
+   "name": "#2443",
+   "team": "South Korea",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1497,
+     "per_match": -0.0499,
+     "total_raw": -0.152,
+     "per_match_raw": -0.0507
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0283,
+     "per_match": 0.0283,
+     "total_raw": 0.0277,
+     "per_match_raw": 0.0277
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.1214,
+     "per_match": -0.0303,
+     "total_raw": -0.1243,
+     "per_match_raw": -0.0311
+    }
+   },
+   "n_duels": 32
+  },
+  {
+   "name": "Enner Valencia",
+   "team": "Ecuador",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1229,
+     "per_match": -0.041,
+     "total_raw": -0.1183,
+     "per_match_raw": -0.0394
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1229,
+     "per_match": -0.041,
+     "total_raw": -0.1183,
+     "per_match_raw": -0.0394
+    }
+   },
+   "n_duels": 42
   },
   {
    "name": "Aaron Ramsey",
    "team": "Wales",
    "pos": "CM",
-   "bwae_xt": -0.13789014569325908,
-   "bwae_xt_per_match": -0.04596338189775303,
-   "bwae_per_duel": -0.1458767495671931,
-   "n_duels": 44,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1261,
+     "per_match": -0.042,
+     "total_raw": -0.1379,
+     "per_match_raw": -0.046
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1261,
+     "per_match": -0.042,
+     "total_raw": -0.1379,
+     "per_match_raw": -0.046
+    }
+   },
+   "n_duels": 44
+  },
+  {
+   "name": "Tajon Buchanan",
+   "team": "Canada",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1292,
+     "per_match": -0.0431,
+     "total_raw": -0.1298,
+     "per_match_raw": -0.0433
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1292,
+     "per_match": -0.0431,
+     "total_raw": -0.1298,
+     "per_match_raw": -0.0433
+    }
+   },
+   "n_duels": 58
+  },
+  {
+   "name": "Cristian Romero",
+   "team": "Argentina",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0602,
+     "per_match": -0.0201,
+     "total_raw": -0.0627,
+     "per_match_raw": -0.0209
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.0717,
+     "per_match": -0.0179,
+     "total_raw": -0.0683,
+     "per_match_raw": -0.0171
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.1319,
+     "per_match": -0.0188,
+     "total_raw": -0.131,
+     "per_match_raw": -0.0187
+    }
+   },
+   "n_duels": 51
+  },
+  {
+   "name": "Alphonso Davies",
+   "team": "Canada",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1381,
+     "per_match": -0.046,
+     "total_raw": -0.1348,
+     "per_match_raw": -0.0449
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1381,
+     "per_match": -0.046,
+     "total_raw": -0.1348,
+     "per_match_raw": -0.0449
+    }
+   },
+   "n_duels": 62
+  },
+  {
+   "name": "Borna Sosa",
+   "team": "Croatia",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0144,
+     "per_match": -0.0048,
+     "total_raw": -0.0126,
+     "per_match_raw": -0.0042
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.1269,
+     "per_match": -0.0634,
+     "total_raw": -0.123,
+     "per_match_raw": -0.0615
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.1412,
+     "per_match": -0.0282,
+     "total_raw": -0.1356,
+     "per_match_raw": -0.0271
+    }
+   },
+   "n_duels": 48
   },
   {
    "name": "Joakim Maehle",
    "team": "Denmark",
    "pos": "LB",
-   "bwae_xt": -0.14279528303622305,
-   "bwae_xt_per_match": -0.047598427678741013,
-   "bwae_per_duel": -0.13928162479474682,
-   "n_duels": 31,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1448,
+     "per_match": -0.0483,
+     "total_raw": -0.1428,
+     "per_match_raw": -0.0476
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1448,
+     "per_match": -0.0483,
+     "total_raw": -0.1428,
+     "per_match_raw": -0.0476
+    }
+   },
+   "n_duels": 31
   },
   {
    "name": "Marko Livaja",
    "team": "Croatia",
    "pos": "CF",
-   "bwae_xt": -0.1561740575072444,
-   "bwae_xt_per_match": -0.031234811501448877,
-   "bwae_per_duel": -0.2709696189574121,
-   "n_duels": 27,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0625,
+     "per_match": -0.0208,
+     "total_raw": -0.0644,
+     "per_match_raw": -0.0215
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0921,
+     "per_match": -0.046,
+     "total_raw": -0.0918,
+     "per_match_raw": -0.0459
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.1545,
+     "per_match": -0.0309,
+     "total_raw": -0.1562,
+     "per_match_raw": -0.0312
+    }
+   },
+   "n_duels": 27
   },
   {
    "name": "#8136",
    "team": "Croatia",
    "pos": "LW",
-   "bwae_xt": -0.16101569270011548,
-   "bwae_xt_per_match": -0.023002241814302212,
-   "bwae_per_duel": -0.1341664059991106,
-   "n_duels": 71,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.2222,
+     "per_match": -0.0741,
+     "total_raw": -0.2253,
+     "per_match_raw": -0.0751
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0587,
+     "per_match": 0.0147,
+     "total_raw": 0.0643,
+     "per_match_raw": 0.0161
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.1635,
+     "per_match": -0.0234,
+     "total_raw": -0.161,
+     "per_match_raw": -0.023
+    }
+   },
+   "n_duels": 71
   },
   {
    "name": "#1534",
    "team": "France",
    "pos": "AM",
-   "bwae_xt": -0.16384270561666706,
-   "bwae_xt_per_match": -0.023406100802381008,
-   "bwae_per_duel": -0.07053666271161206,
-   "n_duels": 72,
-   "matches": 7
-  },
-  {
-   "name": "Riley McGree",
-   "team": "Australia",
-   "pos": "LM",
-   "bwae_xt": -0.17512206524953433,
-   "bwae_xt_per_match": -0.04378051631238358,
-   "bwae_per_duel": -0.2850273558372042,
-   "n_duels": 29,
-   "matches": 4
-  },
-  {
-   "name": "Darwin Nunez",
-   "team": "Uruguay",
-   "pos": "LW",
-   "bwae_xt": -0.18908101170965802,
-   "bwae_xt_per_match": -0.06302700390321934,
-   "bwae_per_duel": -0.11808970333151712,
-   "n_duels": 38,
-   "matches": 3
-  },
-  {
-   "name": "Jesper Lindstr\u00f6m",
-   "team": "Denmark",
-   "pos": "AM",
-   "bwae_xt": -0.1899952362526078,
-   "bwae_xt_per_match": -0.06333174541753593,
-   "bwae_per_duel": -0.2366914436208205,
-   "n_duels": 33,
-   "matches": 3
-  },
-  {
-   "name": "#8054",
-   "team": "France",
-   "pos": "CM",
-   "bwae_xt": -0.1902881640200912,
-   "bwae_xt_per_match": -0.03171469400334853,
-   "bwae_per_duel": -0.03308454195785362,
-   "n_duels": 73,
-   "matches": 6
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0327,
+     "per_match": 0.0109,
+     "total_raw": 0.0351,
+     "per_match_raw": 0.0117
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.2034,
+     "per_match": -0.0509,
+     "total_raw": -0.1989,
+     "per_match_raw": -0.0497
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.1707,
+     "per_match": -0.0244,
+     "total_raw": -0.1638,
+     "per_match_raw": -0.0234
+    }
+   },
+   "n_duels": 72
   },
   {
    "name": "Richarlison",
    "team": "Brazil",
    "pos": "CF",
-   "bwae_xt": -0.193893020098905,
-   "bwae_xt_per_match": -0.04847325502472625,
-   "bwae_per_duel": -0.06452984817975771,
-   "n_duels": 49,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0091,
+     "per_match": 0.0046,
+     "total_raw": 0.0108,
+     "per_match_raw": 0.0054
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.1802,
+     "per_match": -0.0901,
+     "total_raw": -0.2047,
+     "per_match_raw": -0.1024
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.171,
+     "per_match": -0.0428,
+     "total_raw": -0.1939,
+     "per_match_raw": -0.0485
+    }
+   },
+   "n_duels": 49
+  },
+  {
+   "name": "Riley McGree",
+   "team": "Australia",
+   "pos": "LM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1072,
+     "per_match": -0.0357,
+     "total_raw": -0.1095,
+     "per_match_raw": -0.0365
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0696,
+     "per_match": -0.0696,
+     "total_raw": -0.0656,
+     "per_match_raw": -0.0656
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.1768,
+     "per_match": -0.0442,
+     "total_raw": -0.1751,
+     "per_match_raw": -0.0438
+    }
+   },
+   "n_duels": 29
+  },
+  {
+   "name": "Darwin Nunez",
+   "team": "Uruguay",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1841,
+     "per_match": -0.0614,
+     "total_raw": -0.1891,
+     "per_match_raw": -0.063
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1841,
+     "per_match": -0.0614,
+     "total_raw": -0.1891,
+     "per_match_raw": -0.063
+    }
+   },
+   "n_duels": 38
+  },
+  {
+   "name": "Jesper Lindstr\u00f6m",
+   "team": "Denmark",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1845,
+     "per_match": -0.0615,
+     "total_raw": -0.19,
+     "per_match_raw": -0.0633
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1845,
+     "per_match": -0.0615,
+     "total_raw": -0.19,
+     "per_match_raw": -0.0633
+    }
+   },
+   "n_duels": 33
+  },
+  {
+   "name": "#8054",
+   "team": "France",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.12,
+     "per_match": -0.04,
+     "total_raw": -0.1216,
+     "per_match_raw": -0.0405
+    },
+    "ko": {
+     "matches": 3,
+     "total": -0.0725,
+     "per_match": -0.0242,
+     "total_raw": -0.0687,
+     "per_match_raw": -0.0229
+    },
+    "all": {
+     "matches": 6,
+     "total": -0.1925,
+     "per_match": -0.0321,
+     "total_raw": -0.1903,
+     "per_match_raw": -0.0317
+    }
+   },
+   "n_duels": 73
   },
   {
    "name": "Saleh Al-Shehri",
    "team": "Saudi Arabia",
    "pos": "CF",
-   "bwae_xt": -0.19891628952966348,
-   "bwae_xt_per_match": -0.06630542984322116,
-   "bwae_per_duel": -0.07699109116071264,
-   "n_duels": 44,
-   "matches": 3
-  },
-  {
-   "name": "Hakim Ziyech",
-   "team": "Morocco",
-   "pos": "RW",
-   "bwae_xt": -0.21550764441831793,
-   "bwae_xt_per_match": -0.03078680634547399,
-   "bwae_per_duel": -0.1266590078791034,
-   "n_duels": 119,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1991,
+     "per_match": -0.0664,
+     "total_raw": -0.1989,
+     "per_match_raw": -0.0663
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.1991,
+     "per_match": -0.0664,
+     "total_raw": -0.1989,
+     "per_match_raw": -0.0663
+    }
+   },
+   "n_duels": 44
   },
   {
    "name": "Christian Eriksen",
    "team": "Denmark",
    "pos": "CM",
-   "bwae_xt": -0.22433630960130868,
-   "bwae_xt_per_match": -0.0747787698671029,
-   "bwae_per_duel": -0.2957575220342739,
-   "n_duels": 33,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.2103,
+     "per_match": -0.0701,
+     "total_raw": -0.2243,
+     "per_match_raw": -0.0748
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.2103,
+     "per_match": -0.0701,
+     "total_raw": -0.2243,
+     "per_match_raw": -0.0748
+    }
+   },
+   "n_duels": 33
+  },
+  {
+   "name": "Hakim Ziyech",
+   "team": "Morocco",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0866,
+     "per_match": -0.0289,
+     "total_raw": -0.0888,
+     "per_match_raw": -0.0296
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.1368,
+     "per_match": -0.0342,
+     "total_raw": -0.1267,
+     "per_match_raw": -0.0317
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.2234,
+     "per_match": -0.0319,
+     "total_raw": -0.2155,
+     "per_match_raw": -0.0308
+    }
+   },
+   "n_duels": 119
   },
   {
    "name": "Rub\u00e9n Vargas",
    "team": "Switzerland",
    "pos": "LB",
-   "bwae_xt": -0.23554585136950928,
-   "bwae_xt_per_match": -0.05888646284237732,
-   "bwae_per_duel": -0.20066507943997505,
-   "n_duels": 28,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.1857,
+     "per_match": -0.0619,
+     "total_raw": -0.19,
+     "per_match_raw": -0.0633
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0483,
+     "per_match": -0.0483,
+     "total_raw": -0.0455,
+     "per_match_raw": -0.0455
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.234,
+     "per_match": -0.0585,
+     "total_raw": -0.2355,
+     "per_match_raw": -0.0589
+    }
+   },
+   "n_duels": 28
   },
   {
    "name": "#13049",
    "team": "Ecuador",
    "pos": "RM",
-   "bwae_xt": -0.2541424874588527,
-   "bwae_xt_per_match": -0.08471416248628423,
-   "bwae_per_duel": -0.1930668631034382,
-   "n_duels": 52,
-   "matches": 3
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.2446,
+     "per_match": -0.0815,
+     "total_raw": -0.2541,
+     "per_match_raw": -0.0847
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": -0.2446,
+     "per_match": -0.0815,
+     "total_raw": -0.2541,
+     "per_match_raw": -0.0847
+    }
+   },
+   "n_duels": 52
   },
   {
    "name": "Dani Olmo",
    "team": "Spain",
    "pos": "LW",
-   "bwae_xt": -0.27423661129266746,
-   "bwae_xt_per_match": -0.06855915282316687,
-   "bwae_per_duel": -0.10032854665333502,
-   "n_duels": 71,
-   "matches": 4
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.254,
+     "per_match": -0.0847,
+     "total_raw": -0.2559,
+     "per_match_raw": -0.0853
+    },
+    "ko": {
+     "matches": 1,
+     "total": -0.0181,
+     "per_match": -0.0181,
+     "total_raw": -0.0184,
+     "per_match_raw": -0.0184
+    },
+    "all": {
+     "matches": 4,
+     "total": -0.2721,
+     "per_match": -0.068,
+     "total_raw": -0.2742,
+     "per_match_raw": -0.0686
+    }
+   },
+   "n_duels": 71
   },
   {
    "name": "Julian Alvarez",
    "team": "Argentina",
    "pos": "RW",
-   "bwae_xt": -0.3022098259376703,
-   "bwae_xt_per_match": -0.04317283227681005,
-   "bwae_per_duel": -0.2072883842959514,
-   "n_duels": 62,
-   "matches": 7
-  },
-  {
-   "name": "Kylian Mbapp\u00e9",
-   "team": "France",
-   "pos": "LW",
-   "bwae_xt": -0.3400041576111852,
-   "bwae_xt_per_match": -0.0485720225158836,
-   "bwae_per_duel": 0.0005039698032881455,
-   "n_duels": 115,
-   "matches": 7
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0491,
+     "per_match": -0.0164,
+     "total_raw": -0.051,
+     "per_match_raw": -0.017
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.2528,
+     "per_match": -0.0632,
+     "total_raw": -0.2512,
+     "per_match_raw": -0.0628
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.3019,
+     "per_match": -0.0431,
+     "total_raw": -0.3022,
+     "per_match_raw": -0.0432
+    }
+   },
+   "n_duels": 62
   },
   {
    "name": "Denzel Dumfries",
    "team": "Netherlands",
    "pos": "RB",
-   "bwae_xt": -0.3680218533472014,
-   "bwae_xt_per_match": -0.07360437066944028,
-   "bwae_per_duel": -0.13813521582686875,
-   "n_duels": 66,
-   "matches": 5
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.2668,
+     "per_match": -0.0889,
+     "total_raw": -0.3128,
+     "per_match_raw": -0.1043
+    },
+    "ko": {
+     "matches": 2,
+     "total": -0.0541,
+     "per_match": -0.027,
+     "total_raw": -0.0553,
+     "per_match_raw": -0.0276
+    },
+    "all": {
+     "matches": 5,
+     "total": -0.3209,
+     "per_match": -0.0642,
+     "total_raw": -0.368,
+     "per_match_raw": -0.0736
+    }
+   },
+   "n_duels": 66
+  },
+  {
+   "name": "Kylian Mbapp\u00e9",
+   "team": "France",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": -0.0487,
+     "per_match": -0.0162,
+     "total_raw": -0.0447,
+     "per_match_raw": -0.0149
+    },
+    "ko": {
+     "matches": 4,
+     "total": -0.3058,
+     "per_match": -0.0764,
+     "total_raw": -0.2953,
+     "per_match_raw": -0.0738
+    },
+    "all": {
+     "matches": 7,
+     "total": -0.3544,
+     "per_match": -0.0506,
+     "total_raw": -0.34,
+     "per_match_raw": -0.0486
+    }
+   },
+   "n_duels": 115
   }
  ],
  "all": [
