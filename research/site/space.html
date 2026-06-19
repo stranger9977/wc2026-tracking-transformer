@@ -493,8 +493,8 @@
       <div class="card">
         <h3>Off-ball danger controllers</h3>
         <div id="pobso-board" class="lboard"></div>
-        <p class="caption">Average danger-weighted area a player owns off the ball <b>at any moment</b>, in square metres, gated to players with real sampled minutes so late-game subs don't inflate it. It reads small on purpose: every metre is scaled by how dangerous it is, so midfield barely counts. This is per-moment <b>intensity</b>: the box forwards who park in the most dangerous space lead. <b>How</b> players win that space, walking or running, is the Space Occupation (SOG) board in Act 2, where Messi tops the walking read.</p>
-        <p class="caption faintnote">Averaged over present frames only, which favours late attacking subs, so cameo subs sit in their own tier. Possession and carrier are nearest-player heuristics, velocity is finite-differenced at ~2 Hz, and extra time is excluded.</p>
+        <p class="caption"><b>Total dangerous space a player owned over the tournament</b>: his control × xT summed over every moment he was on the pitch (danger-weighted m², integrated over minutes), so it rewards owning dangerous space <i>and</i> doing it across many minutes. <b>En-Nesyri, Mbappé and Messi</b> lead: high-control attackers who played deep into the tournament. <b>How</b> they win that space, walking or running, is the Space Occupation (SOG) board in Act 2, where Messi tops the walking read.</p>
+        <p class="caption faintnote">Total over the tournament rewards minutes as well as control (a per-moment view would favour late-game subs). Possession and carrier are nearest-player heuristics, velocity is finite-differenced at ~2 Hz, and extra time is excluded.</p>
       </div>
     </div>
   </div>
@@ -604,6 +604,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=36"></script>
+<script type="module" src="assets/js/space.js?v=37"></script>
 </body>
 </html>

@@ -897,15 +897,16 @@ async function buildPOBSO() {
   if (pbTitle && h.name) pbTitle.textContent = `${h.name}'s run and finish`;
   // PLAYER board — substantial-minutes players LEAD; cameo subs (<15 min, ~one match) are
   // shown separately so they don't headline (matches the caption's claim).
-  const QUALMIN = 90;   // sampled minutes — gate hard so late-game subs don't headline a per-moment metric
-  const players = [...data.players].filter((r) => r.minutes_sampled >= QUALMIN)
-    .sort((a, b) => b.pobso - a.pobso).slice(0, 12);
+  const QUALMIN = 30;   // drop sub cameos; ranking by TOTAL occupation is already minutes-robust
+  const players = [...data.players].filter((r) => r.minutes_sampled >= QUALMIN && r.occupation_total != null)
+    .sort((a, b) => b.occupation_total - a.occupation_total).slice(0, 12);
   const lb = leaderboard(players, {
-    name: (r) => r.name, team: (r) => r.team, pos: (r) => r.position, val: (r) => r.pobso,
-    fmt: (v) => `${v.toFixed(1)} m²`,
+    name: (r) => r.name, team: (r) => r.team, pos: (r) => r.position,
+    val: (r) => r.occupation_total * 0.5 / 60,   // danger-weighted m² held, summed over minutes (m²·min)
+    fmt: (v) => `${Math.round(v).toLocaleString()}`,
     tier: () => "full",
     barColor: null, scrubberEl: scEl,
-    tierLabel: () => `most dangerous space owned per moment (90+ sampled minutes)`,
+    tierLabel: () => `most dangerous space owned over the tournament (danger-weighted m²·min)`,
   });
   $("#pobso-board").appendChild(lb);
   // NOTE: the team danger-RATE board + its xG-receipt were removed in the consolidation
