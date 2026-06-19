@@ -734,6 +734,56 @@ def main():
                                orient_sign, _teams_block(meta, lock)["attack"])
         payload["passes"] = pss
         payload["receivers"] = sorted({p["receiver"] for p in pss if p.get("receiver")})
+        # The broadcast ball tracking LOSES the ball during the fast move — it floats 6-9 m from
+        # any player ("passed to no one") and wiggles. Rebuild it from the carrier instead: the
+        # ball sits on whoever has it (a TRACKED dot, so it matches the players on screen), and
+        # the pass timeline says who that is. On each pass it slides from passer to receiver; the
+        # light median+mean turns the carrier hand-off into a quick pass-slide. The finish (after
+        # the assist) keeps the real tracked ball so the shot into the net still reads.
+        if pss:
+            orig_ball = {f["t_s"]: list(f["ball_xy"]) for f in payload["frames"]}
+
+            def carrier_at(t):
+                if t < pss[0]["t_s"]:
+                    return pss[0]["passer"]
+                for i in range(len(pss)):
+                    nxt = pss[i + 1]["t_s"] if i + 1 < len(pss) else 1e9
+                    if pss[i]["t_s"] <= t < nxt:
+                        return pss[i]["receiver"]
+                return pss[-1]["receiver"]
+
+            # the ball stays on the carrier (incl. Di María's run after the assist), then for the
+            # last ~1 s the shot is drawn from HIS dot to the goal — so the ball leaves the ringed
+            # shooter and finishes in the net, instead of the tracked shot ball (which dives to
+            # the corner while his unreliable dot sits 10-16 m away).
+            end_t = payload["frames"][-1]["t_s"]
+            shot_t = end_t - 1.0
+            hero_name = hero.get("name")
+            rel_pos = next(((p["x"], p["y"]) for f in payload["frames"] if f["t_s"] >= shot_t
+                            for p in f["players"] if p["name"] == hero_name), None)
+            goal_xy = orig_ball[end_t]                    # where the ball really ended (in the net)
+            bx_path, by_path, prev = [], [], None
+            for f in payload["frames"]:
+                t = f["t_s"]
+                if t >= shot_t and rel_pos:
+                    g = (t - shot_t) / (end_t - shot_t) if end_t > shot_t else 1.0
+                    bx, by = rel_pos[0] + (goal_xy[0] - rel_pos[0]) * g, rel_pos[1] + (goal_xy[1] - rel_pos[1]) * g
+                else:
+                    pl = next((p for p in f["players"] if p["name"] == carrier_at(t)), None)
+                    bx, by = (pl["x"], pl["y"]) if pl else (prev or orig_ball[t])
+                prev = (bx, by); bx_path.append(bx); by_path.append(by)
+
+            def _sm(a):                                   # 5-tap median + 3-tap mean
+                m = [sorted(a[max(0, i - 2):i + 3])[len(a[max(0, i - 2):i + 3]) // 2] for i in range(len(a))]
+                return [sum(m[max(0, i - 1):i + 2]) / len(m[max(0, i - 1):i + 2]) for i in range(len(a))]
+            bx_path, by_path = _sm(bx_path), _sm(by_path)
+            for i, f in enumerate(payload["frames"]):
+                f["ball_xy"] = [round(bx_path[i], 1), round(by_path[i], 1)]
+                f["xt"] = round(float(pc.xt_value_m(bx_path[i], by_path[i])), 3)
+            _bxt = [f["xt"] for f in payload["frames"]]
+            payload["impact"] = {"xt_start": round(_bxt[0], 3), "xt_peak": round(max(_bxt), 3),
+                                 "xt_added": round(max(_bxt) - _bxt[0], 3),
+                                 "window_s": payload["impact"]["window_s"]}
         print(f"[danger] {len(pss)} passes in window: "
               + ", ".join(f"{p['passer'].split()[-1] if p['passer'] else '?'}->"
                           f"{p['receiver'].split()[-1]} ({p['xt_added']:+.2f})" for p in pss), flush=True)
