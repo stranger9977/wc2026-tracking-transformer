@@ -360,9 +360,12 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
     # the fast runner, they only lag the dot off its true spot, so keep it light.)
     def _win(vals, i, half):
         return [vals[k] for k in range(max(0, i - half), min(nF, i + half + 1)) if vals[k] is not None]
-    def _smooth(vals):
-        med = [(sorted(w)[len(w) // 2] if (w := _win(vals, i, 2)) else None) for i in range(nF)]
-        return [(sum(w) / len(w) if (w := _win(med, i, 1)) else None) for i in range(nF)]
+    def _smooth(vals, mh=2, ah=1):
+        med = [(sorted(w)[len(w) // 2] if (w := _win(vals, i, mh)) else None) for i in range(nF)]
+        return [(sum(w) / len(w) if (w := _win(med, i, ah)) else None) for i in range(nF)]
+    # the hero (the fast runner whose dot is the noisiest) gets a wider window — a bit more lag
+    # for a visibly cleaner run; everyone else stays light to avoid lagging them off their spot.
+    hero_nm = hero.get("name") if (kind == "danger" and hero) else None
 
     tracks = {}   # name -> {x[],y[],att,gk,vis[]}
     for i, fr in enumerate(fbuf):
@@ -376,8 +379,9 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
                 tr["x"][i] = float(fr.players[j, 0] * HALF_LEN)
                 tr["y"][i] = float(fr.players[j, 1] * HALF_WID)
                 tr["vis"][i] = ident.visibility
-    for tr in tracks.values():
-        tr["xs"], tr["ys"] = _smooth(tr["x"]), _smooth(tr["y"])
+    for nm, tr in tracks.items():
+        mh, ah = (4, 2) if nm == hero_nm else (2, 1)
+        tr["xs"], tr["ys"] = _smooth(tr["x"], mh, ah), _smooth(tr["y"], mh, ah)
         vx, vy = [0.0] * nF, [0.0] * nF
         for i in range(nF):
             a = i - 1 if (i > 0 and tr["xs"][i - 1] is not None) else i
@@ -387,6 +391,24 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
                 vx[i] = (tr["xs"][b] - tr["xs"][a]) / dt
                 vy[i] = (tr["ys"][b] - tr["ys"][a]) / dt
         tr["vx"], tr["vy"] = vx, vy
+    # The hero's dot still wobbles where the tracking is corrupt for multiple frames — no local
+    # filter can beat that. DRAW his run as a single low-order polynomial curve instead: smooth
+    # by construction (per-frame motion is the curve's slope), tracks the overall run, deviates
+    # only a metre or two from the corrupt samples. Velocity = the curve's slope.
+    if hero_nm and hero_nm in tracks:
+        tr = tracks[hero_nm]
+        idx = [i for i in range(nF) if tr["xs"][i] is not None]
+        if len(idx) >= 6:
+            t0 = times[idx[0]]
+            tt = np.array([times[i] - t0 for i in idx])
+            deg = min(4, len(idx) - 1)
+            cx = np.polyfit(tt, np.array([tr["xs"][i] for i in idx]), deg)
+            cy = np.polyfit(tt, np.array([tr["ys"][i] for i in idx]), deg)
+            dcx, dcy = np.polyder(cx), np.polyder(cy)
+            for i in idx:
+                u = times[i] - t0
+                tr["xs"][i], tr["ys"][i] = float(np.polyval(cx, u)), float(np.polyval(cy, u))
+                tr["vx"][i], tr["vy"][i] = float(np.polyval(dcx, u)), float(np.polyval(dcy, u))
     bxs = _smooth([float(fr.ball_m[0]) for fr in fbuf])
     bys = _smooth([float(fr.ball_m[1]) for fr in fbuf])
 
@@ -784,6 +806,18 @@ def main():
             payload["impact"] = {"xt_start": round(_bxt[0], 3), "xt_peak": round(max(_bxt), 3),
                                  "xt_added": round(max(_bxt) - _bxt[0], 3),
                                  "window_s": payload["impact"]["window_s"]}
+            # the pass ARROWS must use TRACKED dot positions too (event coords are a different
+            # system and don't line up with the dots): passer's dot -> receiver's dot at the pass
+            # time. The xt the pass adds stays as computed (from the ball's true landing spot).
+            def _dot_at(t, name):
+                best = min(payload["frames"], key=lambda f: abs(f["t_s"] - t))
+                pl = next((p for p in best["players"] if p["name"] == name), None)
+                return (round(pl["x"], 1), round(pl["y"], 1)) if pl else None
+            for p in pss:
+                a, b = _dot_at(p["t_s"], p["passer"]), _dot_at(p["t_s"], p["receiver"])
+                if a and b:
+                    p["x0"], p["y0"] = a
+                    p["x1"], p["y1"] = b
         print(f"[danger] {len(pss)} passes in window: "
               + ", ".join(f"{p['passer'].split()[-1] if p['passer'] else '?'}->"
                           f"{p['receiver'].split()[-1]} ({p['xt_added']:+.2f})" for p in pss), flush=True)
