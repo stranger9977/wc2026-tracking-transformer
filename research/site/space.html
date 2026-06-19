@@ -517,11 +517,11 @@
       <div class="card">
         <h3>Off-ball danger controllers</h3>
         <div class="boardlab" id="pobso-lab"></div>
-        <div class="htoggles" id="pobso-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="moment">per moment</button><button class="htog" data-v="match">per match</button></div>
+        <div class="htoggles" id="pobso-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="moment">per moment</button><button class="htog" data-v="match">per match</button><button class="htog" data-v="total">total (tournament)</button></div>
         <div class="htoggles" id="pobso-toggle" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
         <div class="htoggles" id="pobso-weight" style="padding:0;margin:0 0 8px"><button class="htog on" data-w="weighted">opponent-weighted</button><button class="htog" data-w="raw">raw</button></div>
         <div id="pobso-board" class="tbars"></div>
-        <p class="caption"><b id="pobso-cap">Per moment: the mean dangerous space (control × xT) a player owns at any instant off the ball</b> — an intensity, independent of minutes. <b>Per match</b> instead switches to danger-weighted m²·min per game, opponent-strength weighted, with a group/knockout/all split (so it is not just the deep-run teams). Leaders: <b id="pobso-top">the leaders</b>. <b>How</b> they win it — walking or running — is the SOG board in Act 2.</p>
+        <p class="caption"><b id="pobso-cap">Per moment: the mean dangerous space (control × xT) a player owns at any instant off the ball</b> — an intensity, independent of minutes. <b>Per match</b> = danger-weighted m²·min per game with a group/knockout/all split (so it is not just deep-run teams); <b>total</b> = summed over the whole tournament (rewards minutes — the deep runs rise). All opponent-strength weighted (toggle for raw). Leaders: <b id="pobso-top">the leaders</b>. <b>How</b> they win it — walking or running — is the SOG board in Act 2.</p>
         <p class="caption faintnote">Possession and carrier are nearest-player heuristics, velocity is finite-differenced at ~2 Hz, and extra time is excluded. Opponent strength is a FIFA-index proxy (partial coverage; minnows floored).</p>
       </div>
     </div>
@@ -634,6 +634,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=49"></script>
+<script type="module" src="assets/js/space.js?v=50"></script>
 </body>
 </html>

@@ -1030,6 +1030,14 @@ async function buildPOBSO() {
       const mx = Math.max(1e-9, ...rows.map(sv));
       boardEl.innerHTML = rows.map((r) => row(r, sv(r) / mx * 100, `${Math.round(r.minutes_sampled)}min`, sv(r).toFixed(1))).join("");
       lab = `Players · dangerous space owned <b>at any instant</b> off the ball (control × xT m²)${bst.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · all 64 (≥90 min)`;
+    } else if (bst.view === "total") {
+      // tournament TOTAL (control × xT summed over all his minutes) — rewards minutes too
+      sv = (r) => (r.minutes_sampled >= 30 && r.stages.all)
+        ? (bst.weighted ? r.stages.all.total : r.stages.all.total_raw) * SCALE : null;
+      rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
+      const mx = Math.max(1e-9, ...rows.map(sv));
+      boardEl.innerHTML = rows.map((r) => row(r, sv(r) / mx * 100, `${r.stages.all.matches}m`, Math.round(sv(r)).toLocaleString())).join("");
+      lab = `Players · <b>total</b> dangerous space owned off the ball over the tournament (m²·min)${bst.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · all 64`;
     } else {
       const stage = bst.stage, key = bst.weighted ? "per_match" : "per_match_raw", min = STAGE_MIN[stage] || 2;
       sv = (r) => (r.stages[stage] && r.stages[stage].matches >= min) ? r.stages[stage][key] * SCALE : null;
