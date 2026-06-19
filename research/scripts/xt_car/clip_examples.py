@@ -761,59 +761,45 @@ def main():
                                orient_sign, _teams_block(meta, lock)["attack"])
         payload["passes"] = pss
         payload["receivers"] = sorted({p["receiver"] for p in pss if p.get("receiver")})
-        # The broadcast ball tracking LOSES the ball during the fast move — it floats 6-9 m from
-        # any player ("passed to no one") and wiggles. Rebuild it from the carrier instead: the
-        # ball sits on whoever has it (a TRACKED dot, so it matches the players on screen), and
-        # the pass timeline says who that is. On each pass it slides from passer to receiver; the
-        # light median+mean turns the carrier hand-off into a quick pass-slide. The finish (after
-        # the assist) keeps the real tracked ball so the shot into the net still reads.
+        # Build the ball path from the REAL event ball locations. The broadcast tracked ball is
+        # lost during the fast move (it floats 6-9 m from anyone); the EVENT data has the true spots
+        # and they match the actual play: Álvarez's LONG ball is received outside the 18-yd box, the
+        # square is received outside the 6-yd box. Each pass's (x0,y0)->(x1,y1) ARE those event
+        # spots (origin -> landing/reception). Waypoints = each pass origin in time order, then the
+        # final reception (the shot spot), then the goal; the ball FLIES each pass then the receiver
+        # holds, so it reads as crisp passing (incl. the long ball) — not a dribble. The tracking
+        # dots are the players running onto the ball a few metres behind (ball ahead of the runner),
+        # which is also why the arrows (origin->reception) sit just ahead of the receiver's dot.
         if pss:
             orig_ball = {f["t_s"]: list(f["ball_xy"]) for f in payload["frames"]}
-
-            def _dot(name, t):                            # a player's smoothed dot at the nearest frame
-                best = min(payload["frames"], key=lambda ff: abs(ff["t_s"] - t))
-                p = next((q for q in best["players"] if q["name"] == name), None)
-                return (p["x"], p["y"]) if p else None
-
-            # the finish: for the last ~1 s draw the shot from Di María's dot to the goal (the real
-            # tracked shot ball dives to the corner while his dot sits away — drawing it from the
-            # shooter reads right and finishes in the net).
             end_t = payload["frames"][-1]["t_s"]
-            shot_t = end_t - 1.0
-            rel_pos = next(((p["x"], p["y"]) for f in payload["frames"] if f["t_s"] >= shot_t
-                            for p in f["players"] if p["name"] == hero.get("name")), None)
             goal_xy = orig_ball[end_t]
-            bx_path, by_path, prev = [], [], None
+            last = pss[-1]
+            anchors = [(p["t_s"], p["x0"], p["y0"]) for p in pss]
+            last_flight = min(1.0, max(0.3, math.hypot(last["x1"] - last["x0"], last["y1"] - last["y0"]) / 18.0))
+            anchors.append((last["t_s"] + last_flight, last["x1"], last["y1"]))   # the shooter receives
+            recv_t, recv_x, recv_y = anchors[-1]
+            shot_t = max(recv_t + 0.2, end_t - 0.8)        # receive, hold a beat, then strike
+            bx_path, by_path = [], []
             for f in payload["frames"]:
                 t = f["t_s"]
-                if t >= shot_t and rel_pos:               # drawn shot -> goal
+                if t >= shot_t:                            # the finish: shooter's spot -> the net
                     g = (t - shot_t) / (end_t - shot_t) if end_t > shot_t else 1.0
-                    bx, by = rel_pos[0] + (goal_xy[0] - rel_pos[0]) * g, rel_pos[1] + (goal_xy[1] - rel_pos[1]) * g
+                    bx, by = recv_x + (goal_xy[0] - recv_x) * g, recv_y + (goal_xy[1] - recv_y) * g
+                elif t <= anchors[0][0]:
+                    bx, by = anchors[0][1], anchors[0][2]
                 else:
-                    cur = None                            # most recent pass at/before t
-                    for p in pss:
-                        if p["t_s"] <= t + 1e-6:
-                            cur = p
-                        else:
+                    bx, by = anchors[-1][1], anchors[-1][2]
+                    for k in range(1, len(anchors)):
+                        if t <= anchors[k][0]:
+                            t0, x0, y0 = anchors[k - 1]; t1, x1, y1 = anchors[k]
+                            # glide to ARRIVE exactly as the next pass begins, so the ball is always
+                            # en route (never waiting alone at a spot the receiver hasn't reached);
+                            # the receiver's dot converges on it. Long ball = ball ahead of the runner.
+                            g = (t - t0) / (t1 - t0) if t1 > t0 else 1.0
+                            bx, by = x0 + (x1 - x0) * g, y0 + (y1 - y0) * g
                             break
-                    if cur is None:                       # before the first pass: at the first passer
-                        d = _dot(pss[0]["passer"], t)
-                    else:
-                        src = _dot(cur["passer"], cur["t_s"])   # where the pass was struck
-                        rcv = _dot(cur["receiver"], t)          # the receiver, now
-                        if src and rcv:
-                            dist = math.hypot(rcv[0] - src[0], rcv[1] - src[1])
-                            flight = min(0.8, max(0.3, dist / 22.0))   # ~0.5 s pass; visible, never instant
-                            if t <= cur["t_s"] + flight:    # ball travelling = the pass
-                                g = (t - cur["t_s"]) / flight
-                                d = (src[0] + (rcv[0] - src[0]) * g, src[1] + (rcv[1] - src[1]) * g)
-                            else:                           # received -> rides the carrier (Mac Allister's drive)
-                                d = rcv
-                        else:
-                            d = rcv or src
-                    bx, by = d if d else (prev or orig_ball[t])
-                prev = (bx, by); bx_path.append(bx); by_path.append(by)
-
+                bx_path.append(bx); by_path.append(by)
             for i, f in enumerate(payload["frames"]):
                 f["ball_xy"] = [round(bx_path[i], 1), round(by_path[i], 1)]
                 f["xt"] = round(float(pc.xt_value_m(bx_path[i], by_path[i])), 3)
@@ -821,18 +807,6 @@ def main():
             payload["impact"] = {"xt_start": round(_bxt[0], 3), "xt_peak": round(max(_bxt), 3),
                                  "xt_added": round(max(_bxt) - _bxt[0], 3),
                                  "window_s": payload["impact"]["window_s"]}
-            # the pass ARROWS must use TRACKED dot positions too (event coords are a different
-            # system and don't line up with the dots): passer's dot -> receiver's dot at the pass
-            # time. The xt the pass adds stays as computed (from the ball's true landing spot).
-            def _dot_at(t, name):
-                best = min(payload["frames"], key=lambda f: abs(f["t_s"] - t))
-                pl = next((p for p in best["players"] if p["name"] == name), None)
-                return (round(pl["x"], 1), round(pl["y"], 1)) if pl else None
-            for p in pss:
-                a, b = _dot_at(p["t_s"], p["passer"]), _dot_at(p["t_s"], p["receiver"])
-                if a and b:
-                    p["x0"], p["y0"] = a
-                    p["x1"], p["y1"] = b
         print(f"[danger] {len(pss)} passes in window: "
               + ", ".join(f"{p['passer'].split()[-1] if p['passer'] else '?'}->"
                           f"{p['receiver'].split()[-1]} ({p['xt_added']:+.2f})" for p in pss), flush=True)
