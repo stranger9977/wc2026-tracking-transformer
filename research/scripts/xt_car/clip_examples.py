@@ -337,50 +337,99 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
     t_center = t_center - 2700.0 * (period - 1)
     margin = 3.0 if anchor_name else 0.0          # read wider so we can re-centre + trim
     lo, hi = max(0.0, t_center - pre - margin), t_center + post + margin
+    # Phase 1 — buffer the raw tracking frames inside the (padded) window.
+    fbuf = [fr for fr in space_io.read_match(mid, sampling_stride=stride, periods=(period,),
+                                             lock_attack_team_id=lock_team_id)
+            if lo <= fr.timestamp_s <= hi]
+    if not fbuf:
+        return None
+    nF = len(fbuf)
+    times = [fr.timestamp_s for fr in fbuf]
+
+    # Phase 2 — build per-player tracks (metres) and SMOOTH them. Broadcast tracking jitters
+    # several metres frame-to-frame (worst on the fast runner — Di María's dot teleports ±4 m),
+    # and at 10 Hz that noise blows up the finite-difference velocity, which flickers the
+    # influence ellipses (they point along velocity). So: a 5-tap centered MEDIAN rejects the
+    # teleport spikes, a 3-tap mean removes the stair-steps, and velocity is RECOMPUTED from the
+    # smoothed track. Players matched by name (stable within a match); the ball gets the same.
+    # De-jitter each track: a 5-tap median kills the isolated ±4 m teleport spikes, a 3-tap mean
+    # removes the residual stair-steps with minimal lag, and velocity is recomputed from the
+    # smoothed track so the influence ellipses (which point along velocity) stop flickering.
+    # Dot AND surface come from this same smoothed track, so the small lag is invisible.
+    # (Heavier windows / polynomial fits were tried — they don't shrink the worst residual on
+    # the fast runner, they only lag the dot off its true spot, so keep it light.)
+    def _win(vals, i, half):
+        return [vals[k] for k in range(max(0, i - half), min(nF, i + half + 1)) if vals[k] is not None]
+    def _smooth(vals):
+        med = [(sorted(w)[len(w) // 2] if (w := _win(vals, i, 2)) else None) for i in range(nF)]
+        return [(sum(w) / len(w) if (w := _win(med, i, 1)) else None) for i in range(nF)]
+
+    tracks = {}   # name -> {x[],y[],att,gk,vis[]}
+    for i, fr in enumerate(fbuf):
+        for j, ident in enumerate(fr.identities):
+            pad = (fr.players[j, 0] == 0 and fr.players[j, 1] == 0
+                   and fr.players[j, 2] == 0 and fr.players[j, 3] == 0)
+            tr = tracks.setdefault(ident.name, {"x": [None] * nF, "y": [None] * nF, "vis": [None] * nF,
+                                                "att": bool(fr.players[j, 4] > 0),
+                                                "gk": bool(fr.players[j, 5] > 0.5)})
+            if not pad:
+                tr["x"][i] = float(fr.players[j, 0] * HALF_LEN)
+                tr["y"][i] = float(fr.players[j, 1] * HALF_WID)
+                tr["vis"][i] = ident.visibility
+    for tr in tracks.values():
+        tr["xs"], tr["ys"] = _smooth(tr["x"]), _smooth(tr["y"])
+        vx, vy = [0.0] * nF, [0.0] * nF
+        for i in range(nF):
+            a = i - 1 if (i > 0 and tr["xs"][i - 1] is not None) else i
+            b = i + 1 if (i < nF - 1 and tr["xs"][i + 1] is not None) else i
+            dt = times[b] - times[a]
+            if tr["xs"][i] is not None and a != b and dt > 1e-3:
+                vx[i] = (tr["xs"][b] - tr["xs"][a]) / dt
+                vy[i] = (tr["ys"][b] - tr["ys"][a]) / dt
+        tr["vx"], tr["vy"] = vx, vy
+    bxs = _smooth([float(fr.ball_m[0]) for fr in fbuf])
+    bys = _smooth([float(fr.ball_m[1]) for fr in fbuf])
+
+    # Phase 3 — recompute the control surface per frame from the SMOOTHED positions/velocities,
+    # so the dots AND the heatmap both come from de-jittered data and move together.
     raw = []
-    for fr in space_io.read_match(mid, sampling_stride=stride,
-                                  periods=(period,), lock_attack_team_id=lock_team_id):
-        if fr.timestamp_s < lo or fr.timestamp_s > hi:
-            continue
-        ctrl = pc.control_surface(fr.players, fr.ball_m, grid, include_gk=True)
+    for i, fr in enumerate(fbuf):
+        rows, idents = [], []
+        for nm, tr in tracks.items():
+            if tr["xs"][i] is None:
+                continue
+            rows.append([tr["xs"][i] / HALF_LEN, tr["ys"][i] / HALF_WID, tr["vx"][i], tr["vy"][i],
+                         1.0 if tr["att"] else -1.0, 1.0 if tr["gk"] else 0.0, 0.0])
+            idents.append((nm, tr["att"], tr["gk"], tr["vis"][i], tr["xs"][i], tr["ys"][i]))
+        bx, by = float(bxs[i]), float(bys[i])
+        ctrl = pc.control_surface(np.array(rows, dtype=np.float64), np.array([bx, by]),
+                                  grid, include_gk=True)
         actrl = ctrl["attack_control"]                  # raw attacker control (pre × xT)
         surf = actrl * xt_grid if kind == "danger" else actrl
-        bx, by = float(fr.ball_m[0]), float(fr.ball_m[1])
-        d_anchor, hero_cell = None, 0.0
-        markers = []
-        for i, ident in enumerate(fr.identities):
-            mx, my = float(fr.players[i, 0] * HALF_LEN), float(fr.players[i, 1] * HALF_WID)
+        d_anchor, hero_cell, markers = None, 0.0, []
+        for (nm, att, gk, vis, mx, my) in idents:
             ci = int(np.clip((my + HALF_WID) / (2 * HALF_WID) * grid.ny, 0, grid.ny - 1))
             cj = int(np.clip((mx + HALF_LEN) / (2 * HALF_LEN) * grid.nx, 0, grid.nx - 1))
-            if anchor_name and ident.name == anchor_name:
+            if anchor_name and nm == anchor_name:
                 d_anchor = math.hypot(mx - bx, my - by)
-            if kind == "danger" and hero and ident.name == hero.get("name"):
+            if kind == "danger" and hero and nm == hero.get("name"):
                 hero_cell = float(surf[ci, cj])
             # `ctrl` = the attacking team's pitch-control share at the player's own cell
             # (0..1). >0.5 = his team owns the grass he is in (winning the space).
             markers.append({"x": round(mx, 1), "y": round(my, 1),
-                            "att": bool(fr.players[i, 4] > 0), "gk": bool(fr.players[i, 5] > 0.5),
-                            "name": ident.name, "vis": ident.visibility,
+                            "att": bool(att), "gk": bool(gk), "name": nm, "vis": vis,
                             "ctrl": round(float(actrl[ci, cj]), 3)})
-        raw.append({"t_s": round(fr.timestamp_s, 2), "ball_xy": [round(bx, 1), round(by, 1)],
+        raw.append({"t_s": round(times[i], 2), "ball_xy": [round(bx, 1), round(by, 1)],
                     "in_possession_team": fr.in_possession_team, "surf": surf,
                     "raw_max": float(surf.max()), "players": markers,
                     "d_anchor": d_anchor, "hero_cell": hero_cell})
-    if not raw:
-        return None
     # re-centre on the true contest frame, then trim to [centre-pre, centre+post]
     if anchor_name:
         anchored = [r for r in raw if r["d_anchor"] is not None]
         if anchored:
             t_center = min(anchored, key=lambda r: r["d_anchor"])["t_s"]
     sel = [r for r in raw if t_center - pre <= r["t_s"] <= t_center + post] or raw
-    # Broadcast ball tracking floats/wiggles over a multi-pass move (occlusion); smooth the
-    # ball path with a centered 3-tap mean so it reads as a moving ball, not a detached dot.
-    if len(sel) >= 3:
-        _bx = [r["ball_xy"][0] for r in sel]; _by = [r["ball_xy"][1] for r in sel]
-        _sm = lambda a, i: sum(a[max(0, i - 1):i + 2]) / len(a[max(0, i - 1):i + 2])
-        for i, r in enumerate(sel):
-            r["ball_xy"] = [round(_sm(_bx, i), 1), round(_sm(_by, i), 1)]
+    # (ball + players are already de-jittered in Phase 2 — no extra ball smoothing here.)
     gmax = max(r["raw_max"] for r in sel) or 1.0
     hero_owned = max((r["hero_cell"] for r in sel), default=0.0)
     # per-frame ball xT (Karun Singh grid, attack-+x) — rendered as a live tag on the ball.
