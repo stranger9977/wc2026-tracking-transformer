@@ -977,7 +977,7 @@ async function buildCHASE() {
 
 async function buildPOBSO() {
   const surf = await loadJSON("data/surfaces/pobso.json?v=16");
-  const data = await loadJSON("data/space_pobso.json?v=4");
+  const data = await loadJSON("data/space_pobso.json?v=6");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
   const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
@@ -1016,43 +1016,40 @@ async function buildPOBSO() {
   const boardEl = $("#pobso-board"), vtg = $("#pobso-view"), btg = $("#pobso-toggle"), bwt = $("#pobso-weight");
   const blab = $("#pobso-lab"), btop = $("#pobso-top"), SCALE = 0.5 / 60;
   const players = (data.players || []).filter((r) => r.stages && r.position);
-  const bst = { view: "moment", stage: "group", weighted: true };
+  const bst = { view: "moment", stage: "all", weighted: true };
   const row = (r, val, badge, fmt) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""} <span class="lpos">${badge}</span></span>
       <span class="tbtrack"><span class="tbfill" style="width:${clamp(val, 0, 100)}%;background:#ff8a5c"></span></span>
       <span class="tbval">${fmt}</span></div>`;
   const renderBoard = () => {
-    let rows, sv, lab;
+    const stage = bst.stage, w = bst.weighted, okM = (s) => s && s.matches >= (STAGE_MIN[stage] || 2);
+    let sv, fmt, lab;
     if (bst.view === "moment") {
-      // intensity: opponent-weighted per-moment = stages.all.total / n_frames; raw = pobso
-      sv = (r) => (r.minutes_sampled >= 90 && r.pobso != null && r.n_frames)
-        ? (bst.weighted ? r.stages.all.total / r.n_frames : r.pobso) : null;
-      rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
-      const mx = Math.max(1e-9, ...rows.map(sv));
-      boardEl.innerHTML = rows.map((r) => row(r, sv(r) / mx * 100, `${Math.round(r.minutes_sampled)}min`, sv(r).toFixed(1))).join("");
-      lab = `Players · dangerous space owned <b>at any instant</b> off the ball (control × xT m²)${bst.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · all 64 (≥90 min)`;
+      // intensity: mean control×xT m² owned per frame present IN this stage (≥6000 frames ≈ real
+      // minutes, so cameo subs don't spike the mean). Stage-aware now.
+      sv = (r) => { const s = r.stages[stage]; return (okM(s) && (s.frames || 0) >= 10800) ? (w ? s.per_moment : s.per_moment_raw) : null; };  // ≥~90 min in this stage (no cameo-sub spikes)
+      fmt = (v) => v.toFixed(1);
+      lab = `Players · dangerous space owned <b>at any instant</b> off the ball (control × xT m²)${w ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
     } else if (bst.view === "total") {
-      // tournament TOTAL (control × xT summed over all his minutes) — rewards minutes too
-      sv = (r) => (r.minutes_sampled >= 30 && r.stages.all)
-        ? (bst.weighted ? r.stages.all.total : r.stages.all.total_raw) * SCALE : null;
-      rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
-      const mx = Math.max(1e-9, ...rows.map(sv));
-      boardEl.innerHTML = rows.map((r) => row(r, sv(r) / mx * 100, `${r.stages.all.matches}m`, Math.round(sv(r)).toLocaleString())).join("");
-      lab = `Players · <b>total</b> dangerous space owned off the ball over the tournament (m²·min)${bst.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · all 64`;
+      sv = (r) => { const s = r.stages[stage]; return okM(s) ? (w ? s.total : s.total_raw) * SCALE : null; };
+      fmt = (v) => Math.round(v).toLocaleString();
+      lab = `Players · <b>total</b> dangerous space owned off the ball (m²·min)${w ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
     } else {
-      const stage = bst.stage, key = bst.weighted ? "per_match" : "per_match_raw", min = STAGE_MIN[stage] || 2;
-      sv = (r) => (r.stages[stage] && r.stages[stage].matches >= min) ? r.stages[stage][key] * SCALE : null;
-      rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
-      const mx = Math.max(1e-9, ...rows.map(sv));
-      boardEl.innerHTML = rows.map((r) => row(r, sv(r) / mx * 100, `${r.stages[stage].matches}m`, Math.round(sv(r)).toLocaleString())).join("");
-      lab = `Players · dangerous space owned off the ball, <b>m²·min per match</b>${bst.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
+      sv = (r) => { const s = r.stages[stage]; return okM(s) ? (w ? s.per_match : s.per_match_raw) * SCALE : null; };
+      fmt = (v) => Math.round(v).toLocaleString();
+      lab = `Players · dangerous space owned off the ball, <b>m²·min per match</b>${w ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
     }
-    if (btg) btg.style.display = bst.view === "match" ? "" : "none";   // stage filter only applies per-match
+    const rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
+    const mx = Math.max(1e-9, ...rows.map(sv));
+    boardEl.innerHTML = rows.map((r) => row(r, sv(r) / mx * 100, `${r.stages[stage].matches}m`, fmt(sv(r)))).join("");
     if (blab) blab.innerHTML = lab;
     if (btop) btop.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
-  renderBoard();
+  const syncStageBtns = () => { if (btg) $$(".htog", btg).forEach((x) => x.classList.toggle("on", x.dataset.m === bst.stage)); };
+  syncStageBtns(); renderBoard();
   if (vtg) $$(".htog", vtg).forEach((b) => b.addEventListener("click", () => {
-    bst.view = b.dataset.v; $$(".htog", vtg).forEach((x) => x.classList.toggle("on", x === b)); renderBoard();
+    bst.view = b.dataset.v; $$(".htog", vtg).forEach((x) => x.classList.toggle("on", x === b));
+    bst.stage = bst.view === "match" ? "group" : "all";   // per-match lands on the level field
+    syncStageBtns(); renderBoard();
   }));
   if (btg) $$(".htog", btg).forEach((b) => b.addEventListener("click", () => {
     bst.stage = b.dataset.m; $$(".htog", btg).forEach((x) => x.classList.toggle("on", x === b)); renderBoard();
@@ -1559,7 +1556,7 @@ async function buildPassSelection() {
    the passive split is the "Messi walks" finding. Reads the OBSO per-player data. */
 async function buildSOG() {
   const el = $("#pc-sog"); if (!el) return;
-  let d; try { d = await loadJSON("data/space_pobso.json?v=5"); } catch (e) { return; }
+  let d; try { d = await loadJSON("data/space_pobso.json?v=6"); } catch (e) { return; }
   const players = (d.players || []).filter((r) => r.walk_stages && r.stages);
   if (!players.length) return;
   const modeTg = $("#sog-mode"), stTg = $("#sog-stage"), lab = $("#sog-lab");

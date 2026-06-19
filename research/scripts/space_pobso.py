@@ -235,7 +235,7 @@ def compute(matches=SAMPLE_MATCHES):
     opp = OppStrength()
 
     def _stage0():
-        return {"occ": 0.0, "occw": 0.0, "walk": 0.0, "mids": set()}
+        return {"occ": 0.0, "occw": 0.0, "walk": 0.0, "n": 0, "mids": set()}
     pl_stage: dict[tuple, dict] = defaultdict(lambda: {"group": _stage0(), "ko": _stage0()})
     # team -> list of per-frame team-OBSO (one team is "attacking" each frame)
     team_obso_frames: dict[str, list[float]] = defaultdict(list)
@@ -302,7 +302,7 @@ def compute(matches=SAMPLE_MATCHES):
                     pl_obso_walk[key] += val
                 # per-stage occupation: raw + opponent-weighted, + walking-occ + games-with-OBSO
                 ps = pl_stage[key][stage]
-                ps["occ"] += val; ps["occw"] += val * oppw; ps["mids"].add(mid)
+                ps["occ"] += val; ps["occw"] += val * oppw; ps["mids"].add(mid); ps["n"] += 1
                 if spd < 2.0:
                     ps["walk"] += val
                 if pressured:
@@ -400,6 +400,15 @@ def build_leaderboard(res):
         # off-ball board: occupation per-match, opponent-weighted (occw) + raw (occ)
         stages = per_stage_block({"group": {"valw": g.get("occw", 0.0), "valr": g.get("occ", 0.0), "mids": g.get("mids", set())},
                                   "ko": {"valw": k.get("occw", 0.0), "valr": k.get("occ", 0.0), "mids": k.get("mids", set())}})
+        # PER-MOMENT (intensity) per stage: mean control×xT owned per frame present IN that stage
+        combo = {"group": g, "ko": k,
+                 "all": {"occ": g.get("occ", 0.0) + k.get("occ", 0.0), "occw": g.get("occw", 0.0) + k.get("occw", 0.0),
+                         "n": g.get("n", 0) + k.get("n", 0)}}
+        for stk, src in combo.items():
+            nn = src.get("n", 0)
+            stages[stk]["per_moment"] = round(src.get("occw", 0.0) / nn, 3) if nn else 0.0
+            stages[stk]["per_moment_raw"] = round(src.get("occ", 0.0) / nn, 3) if nn else 0.0
+            stages[stk]["frames"] = nn
         # SOG: % of owned danger won walking, per stage (a ratio — not opponent-weighted)
         def ws(occ, walk):
             return round(100.0 * walk / occ) if occ > 0 else None
