@@ -402,12 +402,17 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
             t0 = times[idx[0]]
             tt = np.array([times[i] - t0 for i in idx])
             deg = min(4, len(idx) - 1)
-            cx = np.polyfit(tt, np.array([tr["xs"][i] for i in idx]), deg)
-            cy = np.polyfit(tt, np.array([tr["ys"][i] for i in idx]), deg)
+            xs_sm = [tr["xs"][i] for i in idx]; ys_sm = [tr["ys"][i] for i in idx]
+            xlo, xhi, ylo, yhi = min(xs_sm), max(xs_sm), min(ys_sm), max(ys_sm)
+            cx = np.polyfit(tt, np.array(xs_sm), deg)
+            cy = np.polyfit(tt, np.array(ys_sm), deg)
             dcx, dcy = np.polyder(cx), np.polyder(cy)
             for i in idx:
                 u = times[i] - t0
-                tr["xs"][i], tr["ys"][i] = float(np.polyval(cx, u)), float(np.polyval(cy, u))
+                # clamp to the player's ACTUAL range so the curve can't extrapolate past where he
+                # was (it was overshooting his run ~4 m into the goal mouth; he received at the box).
+                tr["xs"][i] = min(max(float(np.polyval(cx, u)), xlo), xhi)
+                tr["ys"][i] = min(max(float(np.polyval(cy, u)), ylo), yhi)
                 tr["vx"][i], tr["vy"][i] = float(np.polyval(dcx, u)), float(np.polyval(dcy, u))
     bxs = _smooth([float(fr.ball_m[0]) for fr in fbuf])
     bys = _smooth([float(fr.ball_m[1]) for fr in fbuf])
@@ -765,40 +770,50 @@ def main():
         if pss:
             orig_ball = {f["t_s"]: list(f["ball_xy"]) for f in payload["frames"]}
 
-            def carrier_at(t):
-                if t < pss[0]["t_s"]:
-                    return pss[0]["passer"]
-                for i in range(len(pss)):
-                    nxt = pss[i + 1]["t_s"] if i + 1 < len(pss) else 1e9
-                    if pss[i]["t_s"] <= t < nxt:
-                        return pss[i]["receiver"]
-                return pss[-1]["receiver"]
+            def _dot(name, t):                            # a player's smoothed dot at the nearest frame
+                best = min(payload["frames"], key=lambda ff: abs(ff["t_s"] - t))
+                p = next((q for q in best["players"] if q["name"] == name), None)
+                return (p["x"], p["y"]) if p else None
 
-            # the ball stays on the carrier (incl. Di María's run after the assist), then for the
-            # last ~1 s the shot is drawn from HIS dot to the goal — so the ball leaves the ringed
-            # shooter and finishes in the net, instead of the tracked shot ball (which dives to
-            # the corner while his unreliable dot sits 10-16 m away).
+            # the finish: for the last ~1 s draw the shot from Di María's dot to the goal (the real
+            # tracked shot ball dives to the corner while his dot sits away — drawing it from the
+            # shooter reads right and finishes in the net).
             end_t = payload["frames"][-1]["t_s"]
             shot_t = end_t - 1.0
-            hero_name = hero.get("name")
             rel_pos = next(((p["x"], p["y"]) for f in payload["frames"] if f["t_s"] >= shot_t
-                            for p in f["players"] if p["name"] == hero_name), None)
-            goal_xy = orig_ball[end_t]                    # where the ball really ended (in the net)
+                            for p in f["players"] if p["name"] == hero.get("name")), None)
+            goal_xy = orig_ball[end_t]
             bx_path, by_path, prev = [], [], None
             for f in payload["frames"]:
                 t = f["t_s"]
-                if t >= shot_t and rel_pos:
+                if t >= shot_t and rel_pos:               # drawn shot -> goal
                     g = (t - shot_t) / (end_t - shot_t) if end_t > shot_t else 1.0
                     bx, by = rel_pos[0] + (goal_xy[0] - rel_pos[0]) * g, rel_pos[1] + (goal_xy[1] - rel_pos[1]) * g
                 else:
-                    pl = next((p for p in f["players"] if p["name"] == carrier_at(t)), None)
-                    bx, by = (pl["x"], pl["y"]) if pl else (prev or orig_ball[t])
+                    cur = None                            # most recent pass at/before t
+                    for p in pss:
+                        if p["t_s"] <= t + 1e-6:
+                            cur = p
+                        else:
+                            break
+                    if cur is None:                       # before the first pass: at the first passer
+                        d = _dot(pss[0]["passer"], t)
+                    else:
+                        src = _dot(cur["passer"], cur["t_s"])   # where the pass was struck
+                        rcv = _dot(cur["receiver"], t)          # the receiver, now
+                        if src and rcv:
+                            dist = math.hypot(rcv[0] - src[0], rcv[1] - src[1])
+                            flight = min(0.8, max(0.3, dist / 22.0))   # ~0.5 s pass; visible, never instant
+                            if t <= cur["t_s"] + flight:    # ball travelling = the pass
+                                g = (t - cur["t_s"]) / flight
+                                d = (src[0] + (rcv[0] - src[0]) * g, src[1] + (rcv[1] - src[1]) * g)
+                            else:                           # received -> rides the carrier (Mac Allister's drive)
+                                d = rcv
+                        else:
+                            d = rcv or src
+                    bx, by = d if d else (prev or orig_ball[t])
                 prev = (bx, by); bx_path.append(bx); by_path.append(by)
 
-            def _sm(a):                                   # 5-tap median + 3-tap mean
-                m = [sorted(a[max(0, i - 2):i + 3])[len(a[max(0, i - 2):i + 3]) // 2] for i in range(len(a))]
-                return [sum(m[max(0, i - 1):i + 2]) / len(m[max(0, i - 1):i + 2]) for i in range(len(a))]
-            bx_path, by_path = _sm(bx_path), _sm(by_path)
             for i, f in enumerate(payload["frames"]):
                 f["ball_xy"] = [round(bx_path[i], 1), round(by_path[i], 1)]
                 f["xt"] = round(float(pc.xt_value_m(bx_path[i], by_path[i])), 3)
