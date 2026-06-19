@@ -793,10 +793,13 @@ def main():
                     for k in range(1, len(anchors)):
                         if t <= anchors[k][0]:
                             t0, x0, y0 = anchors[k - 1]; t1, x1, y1 = anchors[k]
-                            # glide to ARRIVE exactly as the next pass begins, so the ball is always
-                            # en route (never waiting alone at a spot the receiver hasn't reached);
-                            # the receiver's dot converges on it. Long ball = ball ahead of the runner.
-                            g = (t - t0) / (t1 - t0) if t1 > t0 else 1.0
+                            # FAST pass (~16 m/s, like a real ball), then the ball sits at the
+                            # reception until the next pass — a slow full-interval glide read as the
+                            # ball crawling. (Long ball = it gets to the spot quickly and the runner
+                            # chases on; brief.)
+                            dist = math.hypot(x1 - x0, y1 - y0)
+                            flight = min(t1 - t0, max(0.3, dist / 16.0))
+                            g = min(1.0, (t - t0) / flight) if flight > 0 else 1.0
                             bx, by = x0 + (x1 - x0) * g, y0 + (y1 - y0) * g
                             break
                 bx_path.append(bx); by_path.append(by)
