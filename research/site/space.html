@@ -84,6 +84,13 @@
   .caption{color:var(--muted); font-size:14px; margin-top:10px}
   .caption b{color:var(--ink)}
   .caption.faintnote{color:var(--faint); font-size:12.5px}
+  .cite{color:var(--faint); font-size:12.5px; margin:6px 0 18px}
+  .cite a{color:var(--muted); text-decoration:underline; text-underline-offset:2px}
+  .liveupdated{font-size:12px; letter-spacing:.04em; color:var(--muted); margin-bottom:14px}
+  .liveupd{font-size:12.5px; color:var(--muted); letter-spacing:.04em; margin-bottom:14px}
+  .bridge-note{margin-top:18px; padding:2px 0 2px 14px; border-left:3px solid var(--hot); color:var(--muted); font-size:14px}
+  .bridge-note b{color:var(--ink)}
+  .liveboards h4 .unit{font-weight:600; color:var(--faint); text-transform:none; letter-spacing:0; font-size:11px; margin-left:8px}
 
   /* ---- canvas heatmap stage ---- */
   .heat{margin-top:22px; background:#0a0c10; border:1px solid var(--border); border-radius:16px; overflow:hidden}
@@ -97,7 +104,7 @@
   .htoggles{display:flex; gap:8px; flex-wrap:wrap; padding:0 16px 12px; background:var(--bg-elev)}
   .htog{font-size:12.5px; color:var(--muted); background:var(--bg-elev2); border:1px solid var(--border); border-radius:999px; padding:5px 12px; cursor:pointer}
   .htog:hover{border-color:var(--accent)}
-  .htog.on{color:var(--ink); border-color:var(--accent); background:#6cb4ee1f}
+  .htog.on{color:var(--ink); border-color:var(--accent); background:none; text-decoration:underline; text-underline-offset:3px}
   .hreadout{font-size:13.5px; color:var(--muted); padding:12px 16px; border-top:1px solid var(--border); min-height:22px}
   .hreadout b{color:var(--ink)}
   .hreadout .hint{color:var(--faint); font-size:12px}
@@ -116,12 +123,9 @@
   .pcx-read{font-size:13px; color:var(--muted); margin-top:8px; font-variant-numeric:tabular-nums}
   .pcx-read b{color:var(--ink)} .pcx-read .hint{color:var(--faint)}
   /* per-clip "what it created" impact receipt */
-  .impact{margin-top:14px; padding:12px 15px; border:1px solid var(--border); border-left:3px solid var(--good);
-          border-radius:10px; background:linear-gradient(180deg,#16241b,#121a16); font-size:14px; color:var(--muted)}
+  .impact{margin-top:14px; padding:12px 0 12px 15px; border:none; border-left:3px solid var(--good); border-radius:0; background:var(--bg); font-size:14px; color:var(--muted)}
   .impact b{color:var(--ink)}
   .impact .big{color:var(--good); font-weight:800; font-size:19px; font-variant-numeric:tabular-nums; margin:0 2px}
-  .impact .big.goal{color:var(--hot)}
-  .impact .ico{margin-right:5px}
 
   /* ---- intro: team-shape SVG ---- */
   #intro-shape{margin-top:6px}
@@ -139,8 +143,7 @@
   #intro-efi{margin-top:6px}
 
   /* ---------------- explainer widgets (xt / chase / dangerous) ---------------- */
-  .xpl{margin-top:18px; background:var(--bg-elev2); border:1px solid var(--border);
-       border-radius:14px; padding:14px 16px}
+  .xpl{margin-top:18px; background:var(--bg); border:none; border-radius:0; padding:14px 0}
   .xpl-head{font-size:11px; letter-spacing:.14em; text-transform:uppercase;
             color:var(--muted); font-weight:700; margin-bottom:10px}
   .xpl-head b{color:var(--ink)}
@@ -164,13 +167,7 @@
   }
   @media (prefers-reduced-motion:reduce){ .chase-arrow{animation:none; opacity:.85} }
 
-  /* DANGEROUS — the product pocket blooms */
-  #dangerBloom{transform-origin:264px 40px; animation:dangerBloom 2.4s ease-in-out infinite}
-  @keyframes dangerBloom{
-    0%,100%{transform:scale(.7); opacity:.65}
-    50%    {transform:scale(1.05); opacity:1}
-  }
-  @media (prefers-reduced-motion:reduce){ #dangerBloom{animation:none} }
+  /* DANGEROUS — the product pocket (static; decorative bloom removed in the Tufte pass) */
 
   /* ---- scatter (team gravity vs xG, danger-rate vs xG) ---- */
   .scatter{margin-top:6px}
@@ -184,13 +181,13 @@
   .cmp .clab{font-size:13px; color:var(--ink); margin-bottom:5px}
   .cmprow{display:flex; align-items:center; gap:9px; margin:3px 0}
   .cmprow .ck{width:34px; font-size:11px; color:var(--muted); flex:0 0 auto}
-  .cmprow .ctrack{flex:1; height:14px; background:var(--bg-elev2); border-radius:5px; overflow:hidden; border:1px solid var(--border)}
-  .cmprow .cfill{display:block; height:100%; border-radius:5px 0 0 5px; opacity:.9}
+  .cmprow .ctrack{flex:1; height:14px; background:none; border:none; border-radius:0; overflow:hidden}
+  .cmprow .cfill{display:block; height:100%; border-radius:0; opacity:1}
   .cmprow .cval{width:46px; text-align:right; font-size:12.5px; color:var(--ink); font-variant-numeric:tabular-nums; font-weight:600; flex:0 0 auto}
   .cmpwin{font-size:11.5px; color:var(--good); margin-top:2px}
   .cmpsub{font-size:11.5px; color:var(--muted)} .cmpsub b{color:var(--ink)}
   .lxg{margin-top:16px} .lxg .clab{font-size:13px; margin-bottom:10px} .lxg .clab .lteam{font-weight:400}
-  .lcallout{margin-top:14px; padding:12px 14px; border:1px solid var(--border); border-left:3px solid var(--hot); border-radius:8px; background:var(--bg-elev2); font-size:13px; color:var(--muted)}
+  .lcallout{margin-top:14px; padding:10px 0 10px 14px; border:none; border-left:2px solid var(--border); border-radius:0; background:none; font-size:13px; color:var(--muted)}
   .lcallout b{color:var(--ink)}
   .livechip{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; color:var(--hot); font-weight:700; letter-spacing:.04em; border:1px solid #ff6b6b40; background:#ff6b6b14; border-radius:999px; padding:5px 13px; margin-bottom:14px}
   .liveboards{display:grid; grid-template-columns:1fr 1fr; gap:20px}
@@ -206,16 +203,16 @@
 
   /* ---- tie-aware leaderboard ---- */
   .lboard{margin-top:6px}
-  .ltier{border:1px dashed var(--border); border-radius:12px; padding:12px 14px 8px; margin-bottom:12px}
-  .ltier-lab{font-size:12px; color:var(--accent2); font-weight:700; margin-bottom:10px; text-transform:uppercase; letter-spacing:.06em}
+  .ltier{border:none; border-radius:0; padding:0; margin-bottom:18px}
+  .ltier-lab{font-size:12px; color:var(--muted); font-weight:700; margin-bottom:10px; text-transform:uppercase; letter-spacing:.06em}
   .lrow{display:grid; grid-template-columns:minmax(150px,230px) 1fr auto; align-items:center; gap:12px; margin:7px 0; font-size:14px}
   .lname{display:inline-flex; align-items:center; gap:8px}
   .lname .fl{width:9px;height:9px;border-radius:2px; flex:0 0 auto}
   .lteam{color:var(--muted); font-size:12px}
-  .lpos{font-size:10px; font-weight:700; color:var(--accent2); border:1px solid #9b8cff55; background:#9b8cff14; border-radius:4px; padding:1px 5px; letter-spacing:.03em}
+  .lpos{font-size:10px; color:var(--muted); letter-spacing:.03em}
   .boardlab{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin:0 0 8px; font-weight:700}
-  .ltrack{position:relative; height:18px; background:var(--bg-elev2); border-radius:6px; overflow:hidden; border:1px solid var(--border)}
-  .lfill{position:absolute; left:0; top:0; height:100%; border-radius:6px 0 0 6px; opacity:.8}
+  .ltrack{position:relative; height:18px; background:none; border:none; border-radius:0; overflow:visible}
+  .lfill{position:absolute; left:0; top:0; height:100%; border-radius:0; opacity:1}
   .lval{text-align:right; color:var(--ink); font-variant-numeric:tabular-nums; font-weight:600; min-width:64px}
   .lnote{grid-column:1/-1; font-size:12px; color:var(--faint); margin-top:-2px}
   .comp{color:var(--muted)} .comp.warn{color:var(--warn)}
@@ -224,9 +221,9 @@
   /* team mini-bars */
   .tbars{margin-top:10px}
   .tbrow{display:grid; grid-template-columns:minmax(120px,160px) 1fr auto; align-items:center; gap:10px; margin:6px 0; font-size:14px}
-  .tbname{color:var(--ink)}
-  .tbtrack{height:16px; background:var(--bg-elev2); border-radius:6px; overflow:hidden; border:1px solid var(--border)}
-  .tbfill{display:block; height:100%; border-radius:6px 0 0 6px; opacity:1}
+  .tbname{color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .tbtrack{height:16px; background:none; border:none; border-radius:0; overflow:hidden}
+  .tbfill{display:block; height:100%; border-radius:0; opacity:1}
   .tbval{text-align:right; color:var(--muted); font-variant-numeric:tabular-nums; min-width:56px}
 
   /* xG receipt panel */
@@ -296,11 +293,11 @@
     <div class="reveal">
       <div class="act-tag"><span class="num">·</span> Foundations</div>
       <h2>What is space? What is control?</h2>
-      <p class="lede">Almost every goal starts as <b>space</b> — a yard a defender didn't cover, a lane that opens for half a second. The sides that manufacture the most of it create the most chances and win the most games. Before we measure <i>who's best at it</i>, two words worth pinning down — in plain language, then in FIFA's own 2026 World Cup numbers so you can see them, not just hear them.</p>
+      <p class="lede">Almost every goal starts as <b>space</b>: a yard a defender didn't cover, a lane that opens for half a second. The whole game is a fight over it. Teams work to <b>control</b> the space that matters, the grass near the goal they can actually reach, and the side that owns more of it creates more chances and scores more goals. Two words are worth pinning down first. Then we measure who is best at it.</p>
 
-      <p class="body"><b>Space</b> is the controllable pitch a team can actually use. Not the empty green between bodies — the grass a team can <i>get to and do something with</i>: the room they stretch open between an opponent's lines, or the gap they spring into behind the last defender. Good teams manufacture it; they pull markers apart and step into the seam.</p>
+      <p class="body"><b>Space</b> is the controllable pitch a team can use. It is not the empty green between bodies. It is the grass a team can reach and do something with: the room they stretch open between an opponent's lines, or the gap behind the last defender they spring into. Good teams manufacture it. They pull markers apart and step into the seam.</p>
 
-      <p class="body"><b>Control</b> is whose influence owns a patch of grass. Drop a ball onto any spot and ask: which team would get there first? That answer — repeated across every square metre — is <b>pitch control</b>. Space is the controllable pitch; control is the map of who'd win each piece of it.</p>
+      <p class="body"><b>Control</b> is whose influence owns a patch of grass. Drop a ball onto any spot and ask which team gets there first. Repeat that across every square metre and you have <b>pitch control</b>. Space is the controllable pitch. Control is the map of who would win each piece of it.</p>
 
       <!-- STASHED 2026-06-18 — team-shape (occupancy blocks) diagram pulled for iteration
            before re-adding. buildIntro's shape code + intro_efi.json data are intact;
@@ -312,23 +309,7 @@
       </div>
       -->
 
-      <div class="card">
-        <h3>Reaching into space — offers to receive in behind, per match (live WC2026)</h3>
-        <div id="intro-efi"></div>
-        <p class="caption">FIFA now counts, every match, how often a teammate <b>offers to receive in behind</b> the back line — a runner sprinting into the space beyond the last defender, asking for the ball. It is space made <b>countable</b>: more offers in behind means a team is repeatedly attacking the most valuable grass on the pitch. <b>Spain</b> and <b>Uruguay</b> lead the early tournament.</p>
-      </div>
-
-      <p class="body">FIFA's Enhanced Football Intelligence already counts space this way — line-breaks, offers to receive in behind, phases of play — back in <b>2022</b> and live again for <b>2026</b> (which adds a value-laden <b>threat</b> number on top). But what EFI hands you are match <b>totals</b>: how many times, not <i>where</i> or <i>when</i>. The acts below add the layer the totals can't — the per-frame <b>surface</b> reconstructed from raw tracking: who controls which patch of grass, and the danger pocket forming <i>before</i> the pass. Same idea of space, two granularities — and the study ends where the live 2026 feed begins.</p>
-
-      <div class="reading">
-        <div class="rlab">Further reading</div>
-        <ul>
-          <li><a href="https://www.fifatrainingcentre.com/en/fifa-to-introduce-enhanced-football-intelligence-at-fifa-world-cup-2022.php" target="_blank" rel="noopener">FIFA Training Centre — Enhanced Football Intelligence (EFI)</a></li>
-          <li><a href="https://www.fifatrainingcentre.com/en/fifa-world-cup-2026/match-report-hub.php" target="_blank" rel="noopener">FIFA World Cup 2026 Match Report Hub</a></li>
-          <li><a href="https://github.com/shufinskiy/sport_analytics_tools" target="_blank" rel="noopener">shufinskiy/sport_analytics_tools — FIFA WC post-match report parser</a></li>
-          <li><a href="https://github.com/Bustami/efi-fifa-data-wc-2026" target="_blank" rel="noopener">Bustami/efi-fifa-data-wc-2026 — EFI dataset for WC2026</a></li>
-        </ul>
-      </div>
+      <p class="body">Owning space only matters if it is space worth owning. Next we put a number on every patch of grass: how much each spot raises a team's chance of scoring.</p>
     </div>
   </div>
 </section>
@@ -340,68 +321,51 @@
   <div class="wrap">
     <div class="reveal">
       <div class="act-tag"><span class="num">1</span> Where the danger lives</div>
-      <h2>Before space, the value of space.</h2>
-      <p class="lede"><b>Expected Threat (xT)</b> — Karun Singh's canonical model — scores every spot on the pitch by one question: <i>if your team has the ball here, how likely does it become a goal within the next few actions?</i> It is learned from millions of recorded possessions. Move the ball into a higher-xT zone and you have added threat — no shot required yet.</p>
-      <p class="body">A worked example of the gradient: a <b>midfield pocket</b> is worth roughly <b>0.02</b> xT; the <b>edge of the box</b> about <b>0.11</b>; a central spot <b>right in front of goal</b> about <b>0.26</b> — the value climbs the closer the ball gets to the goal. A pass that carries it from midfield to the goal mouth adds about <b>+0.24</b> of threat, purely by moving it to more valuable grass.</p>
+      <h2>How do we value space on the pitch?</h2>
+      <p class="lede"><b>Expected Threat (xT)</b> is the answer. It scores every spot on the pitch by one question: if your team has the ball here, how likely is it to become a goal within the next few actions? The model learns that answer from millions of recorded possessions. Move the ball into a higher-xT zone and you have added threat, no shot required.</p>
+      <p class="cite">Method: Karun Singh, <a href="https://karun.in/blog/expected-threat.html" target="_blank" rel="noopener">Introducing Expected Threat (xT)</a>.</p>
+      <p class="body">The gradient is steep. A <b>midfield pocket</b> is worth about <b>0.02</b> xT, the <b>edge of the box</b> about <b>0.11</b>, and a central spot <b>right in front of goal</b> about <b>0.26</b>. A pass that carries the ball from midfield to the goal mouth adds roughly <b>+0.24</b> of threat just by moving it to more valuable grass. Read 0.26 as a probability: about a 26% chance the possession ends in a goal within the next few actions, starting from that spot. That is what makes xT different from <b>xG</b>. xG scores a single shot once someone takes it. xT scores possession at a place, and it exists for every spot on the pitch, peaking right in front of goal.</p>
 
-      <details class="notes reveal">
-        <summary>What does an xT of 0.26 mean — and how is it different from xG?</summary>
-        <ul>
-          <li><b>It's a 0–1 value like a probability, but it is not xG.</b> <b>xG</b> scores a single shot — “how likely is <i>this shot</i> a goal?” <b>xT</b> scores <i>possession at a place</i> — “if our team has the ball here, how likely is a goal within the next few actions?” xT exists for every spot on the pitch; xG only exists once someone shoots.</li>
-          <li><b>So 0.26 ≈ a 26% chance the possession ends in a goal</b> within the next few actions (Singh's model settles after ~5), starting from that spot. It values the whole short sequence, not one shot — which is why it reads higher than a single shot's xG.</li>
-          <li><b>Where it peaks:</b> right in front of goal — the central <b>six-yard box / goal mouth</b> — climbing the closer the ball gets to goal (midfield ~0.02 → edge of the box ~0.11 → front of goal ~0.26). The danger really is at the goal, steepest through the central channel.</li>
-          <li><b>These are Karun Singh's published values, not ours.</b> The surface is his canonical open 12×8 xT grid (peak 0.2574); we verified our copy matches his published file exactly — the scale isn't something we invented.</li>
-        </ul>
-      </details>
       <div class="card">
-        <h3>The xT surface — attacking left → right · <span style="color:var(--accent)">hover any zone to read its xT</span></h3>
+        <h3>The xT surface · attacking left → right · <span style="color:var(--accent)">hover any zone to read its xT</span></h3>
         <div id="xt-canvas" class="heat"></div>
         <div class="legend"><span>low value</span><span class="grad"></span><span>high value</span></div>
-        <p class="caption">xT climbs the closer the ball gets to goal, peaking in the central zone <b>right in front of goal</b> — the six-yard box / goal mouth — at <b>≈ 0.257</b>. Everything wide and deep is low-value grass. (Karun Singh's published values, not ours.)</p>
+        <p class="caption">xT climbs the closer the ball gets to goal, peaking in the central zone <b>right in front of goal</b>, the six-yard box and goal mouth, at <b>≈ 0.257</b>. Everything wide and deep is low-value grass.</p>
       </div>
       <div id="xt-explainer" class="xpl"></div>
 
       <div class="card">
-        <h3>Who creates the most threat — xT added by open-play ball progression (passes + carries)</h3>
+        <h3>Who creates the most threat: xT added by open-play ball progression (passes + carries)</h3>
         <div class="twoup">
-          <div><div class="boardlab">Teams · xT added per match</div><div id="xt-teams" class="tbars"></div></div>
+          <div><div class="boardlab">Teams · xT added per match (WC2022)</div><div id="xt-teams" class="tbars"></div></div>
           <div>
             <div class="boardlab" id="xt-pl-lab">Players · total xT added (WC2022)</div>
             <div class="htoggles" id="xt-pl-toggle" style="padding:0;margin:0 0 8px"><button class="htog on" data-m="total">total</button><button class="htog" data-m="permatch">per match</button></div>
             <div id="xt-players" class="tbars"></div>
           </div>
         </div>
-        <p class="caption">Every completed open-play <b>pass or carry</b> scores the <b>xT it gains</b> — the rise in Expected Threat from where the ball started to where it ended (Karun Singh's xT-created, which counts dribbles too, not just passes). Sum it up and you get who repeatedly moves the ball into more dangerous space. <b>Germany</b> and <b>Spain</b> lead the teams; <b>Mbappé</b> and <b>Messi</b> the players. <span class="faintnote">Note on scale: xT's absolute value is dataset-specific (this is Karun's released grid, peak ≈ 0.257; his blog grid peaks ≈ 0.413, ~1.6× larger) and these are 4–7 World Cup games, not a 38-game league season — so the numbers read smaller than season-long league xT totals. The <b>ranking</b> is the stable part.</span></p>
+        <p class="caption">Every completed open-play <b>pass or carry</b> scores the <b>xT it gains</b>: the rise in Expected Threat from where the ball started to where it ended. Singh's xT-created counts dribbles too, not just passes. Sum it up and you get who repeatedly moves the ball into more dangerous space. <b>Germany</b> and <b>Spain</b> lead the teams, <b>Mbappé</b> and <b>Messi</b> the players. These are 4-7 World Cup games, so the totals read smaller than a league season; the ranking is the stable part.</p>
       </div>
 
       <div class="card">
-        <h3>Where that number comes from — Mbappé vs Messi</h3>
-        <p class="caption" style="margin-top:0">A player's total isn't a few Hollywood balls — it's a <b>long tail of small progressions</b>, and <b>~40% of passes go backward/sideways</b> (which add no threat, so they count as 0). Each completed pass/carry adds its xT gain (a box entry ≈ +0.10; a square ball ≈ +0.005); the season-style total is just those bumps summed. Two routes to the same ~2.8:</p>
+        <h3>Where that number comes from: Mbappé vs Messi</h3>
+        <p class="caption" style="margin-top:0">A player's total is a <b>long tail of small progressions</b>, not a handful of line-breakers. About <b>40% of passes go backward or sideways</b> and add no threat, so they count as 0. Each completed pass or carry adds its xT gain (a box entry ≈ +0.10, a square ball ≈ +0.005), and the total is just those bumps summed. Two routes reach the same ≈ 2.8:</p>
         <div id="xt-breakdown" class="twoup"></div>
-        <p class="caption">Both land at ≈ <b>0.40 xT/match</b> (total ÷ games) but with opposite fingerprints: <b>Mbappé</b> via fewer, sharper vertical balls (most of his value in the moderate/big buckets); <b>Messi</b> via sheer involvement — a huge pile of small progressions. xT-created rewards both the rare line-breaker and the relentless progressor. <span class="faintnote">It's a cumulative volume measure (every progressive action in a move gets credited), not a literal goal count — read it as "who moved the ball into danger most," not "+280% to score."</span></p>
+        <p class="caption">Both land at ≈ <b>0.40 xT/match</b> (total ÷ games) with opposite fingerprints. <b>Mbappé</b> gets there through fewer, sharper vertical balls, with most of his value in the moderate and big buckets. <b>Messi</b> gets there through sheer involvement, a huge pile of small progressions. xT-created rewards both the rare line-breaker and the relentless progressor. Read it as who moved the ball into danger most, not a goal count.</p>
       </div>
 
       <div class="card">
-        <h3>The same idea, measured live — World Cup 2026 threat so far</h3>
-        <div class="livechip" id="xt-threat-updated"><span class="dot live"></span> LIVE · FIFA EFI</div>
-        <p class="caption" style="margin-top:0">A true Karun-style xT needs pass-by-pass event data, which isn't public for 2026 yet — but FIFA's Enhanced Football Intelligence publishes a <b>threat</b> number that is the same idea (how much each action raises the chance of a goal), and it's <b>live</b>. Here's who's generating it through the opening round of matches — the xT story, already running in the tournament we're building toward. <span class="faintnote">Different scale, though: FIFA's threat is its <b>own proprietary index</b>, not the goal-probability units of the xT board above — so the numbers are much larger. Read teams/players <b>within</b> this board, not against the xT numbers.</span></p>
+        <h3>The same idea, measured live: World Cup 2026 threat so far</h3>
+        <div class="liveupdated" id="xt-threat-updated">FIFA EFI · live</div>
+        <p class="caption" style="margin-top:0">A true Karun-style xT needs pass-by-pass event data, which is not public for 2026 yet. FIFA's Enhanced Football Intelligence publishes a <b>threat</b> number that captures the same idea, how much each action raises the chance of a goal, and it updates live. Here is who is generating it through the opening round. FIFA's threat is a proprietary index on its own scale, so compare teams and players <b>within</b> this board, not against the xT numbers above.</p>
         <div class="liveboards">
           <div><div class="boardlab">Teams · threat created / match</div><div id="xt-threat-teams" class="tbars"></div></div>
           <div><div class="boardlab">Players · threat created / match</div><div id="xt-threat-players" class="tbars"></div></div>
         </div>
-        <p class="caption"><b>Belgium</b> lit up their opener — De Ketelaere, De Bruyne, Trossard and Lukaku all chipping in — to top the early team threat; <b>De Ketelaere</b> and Egypt's <b>Marmoush</b> lead the players. Same dangerous-space idea as the WC2022 board above, straight from FIFA's 2026 feed.</p>
+        <p class="caption"><b>Belgium</b> lit up their opener, with De Ketelaere, De Bruyne, Trossard and Lukaku all chipping in, to top the early team threat. <b>De Ketelaere</b> and Egypt's <b>Marmoush</b> lead the players. Same dangerous-space idea as the WC2022 board above, straight from FIFA's 2026 feed.</p>
       </div>
 
-      <p class="body">xT answers <b>where</b> the danger is. The next act adds the other half — <b>pitch control</b>, the map of <b>who</b> actually owns each patch of grass — and then turns that control into three player skills, the last of which multiplies the two ideas back together into dangerous space.</p>
-
-      <div class="reading">
-        <div class="rlab">Further reading</div>
-        <ul>
-          <li><a href="https://karun.in/blog/expected-threat.html" target="_blank" rel="noopener">Karun Singh — Introducing Expected Threat (xT)</a></li>
-          <li><a href="https://www.getgoalsideanalytics.com/research-focus-expected-threat-xt/" target="_blank" rel="noopener">Get Goalside — Research in Focus: Karun Singh's Expected Threat</a></li>
-          <li><a href="https://github.com/Friends-of-Tracking-Data-FoTD/LaurieOnTracking" target="_blank" rel="noopener">Friends of Tracking — LaurieOnTracking (pitch control &amp; EPV)</a></li>
-        </ul>
-      </div>
+      <p class="body">xT answers <b>where</b> the danger is. The next act adds the other half: <b>pitch control</b>, the map of <b>who</b> actually owns each patch of grass. From there we turn control into three player skills, one of which multiplies the two ideas back into dangerous space.</p>
     </div>
   </div>
 </section>
@@ -456,47 +420,17 @@
   <div class="wrap">
     <div class="reveal">
       <div class="act-tag"><span class="num">2</span> Who owns the grass</div>
-      <h2>Pitch control: who'd get there first.</h2>
-      <p class="lede">xT tells you <b>where</b> the danger is. Pitch control tells you <b>who owns it</b>. Drop a ball onto any spot and ask which team would reach it first, given everyone's position <i>and</i> momentum — repeat that for every square metre and you have a <b>control surface</b>: a live map of which side owns each piece of the pitch. It's the engine under every player metric that follows.</p>
+      <p class="cite">Method: Fernández &amp; Bornn (2018), <a href="https://www.researchgate.net/publication/324942294_Wide_Open_Spaces_A_statistical_technique_for_measuring_space_creation_in_professional_soccer" target="_blank" rel="noopener">&ldquo;Wide Open Spaces: a statistical technique for measuring space creation in professional soccer&rdquo;</a> (MIT Sloan). Every control number on this page comes from this model.</p>
+      <h2>Pitch control: who gets there first.</h2>
+      <p class="lede">xT tells you <b>where</b> the danger is. Pitch control tells you <b>who owns it</b>. Picture a loose ball dropped onto one spot. Which player reaches it first? Not by distance alone, because a sprinting defender beats a standing striker who is two metres closer. Account for everyone's position and momentum, run that race for every square metre, and you get a <b>control surface</b>: a live map of which side would win each piece of the grass. It is the engine under every player metric that follows.</p>
 
-      <p class="body">We compute pitch control with the <b>Fernández &amp; Bornn (2018)</b> model — “Wide Open Spaces.” Each player casts a <b>bivariate-normal influence</b> zone centred slightly ahead of them (nudged by their velocity), wider when the ball is far, tighter when it's close. A spot's control is a logistic of the attacking influence there minus the defending influence: <b>≈1</b> means the in-possession team clearly owns it, <b>≈0.5</b> means it's contested.</p>
+      <p class="body">Each player owns a patch of reach around them, the grass they could realistically get to. Fernández &amp; Bornn model that patch as a soft blob, brightest at the player and fading with distance. Two things reshape it. Speed stretches it: a player sprinting forward can reach grass ahead of them, so the blob lengthens in the direction they are moving, like the cone of a headlight. Distance to the ball sets its size: far from the ball the blob spreads wide, because there is time to cover ground before the ball ever arrives, and close to the ball it tightens to where they stand right now.</p>
+
+      <p class="body">A spot's control compares the two sides' reach there. Add up the attacking blobs, subtract the defending blobs, and pass the result through a logistic curve to land between 0 and 1. A value near <b>1</b> means the team in possession clearly owns that grass. Near <b>0.5</b> means it is genuinely contested. Drag the dots below to feel it: move a player, flick it to add speed, and watch the field tilt.</p>
 
       <div id="pc-explainer" class="xpl"></div>
+      <div id="pc-sog" class="lboard"></div>
 
-      <div class="card">
-        <h3>Which pitch-control model — Fernández–Bornn, not Spearman</h3>
-        <p class="caption" style="margin-top:0">There are two canonical pitch-control models, and they're easy to mix up — so to be unambiguous:</p>
-        <details class="notes reveal" open>
-          <summary>The two models, and which one we run</summary>
-          <ul>
-            <li><b>Fernández &amp; Bornn (2018), “Wide Open Spaces” — this is what we use, everywhere.</b> Control comes from each player's bivariate-normal <i>influence</i> (position + velocity). Every control number on this page — the surface above, the three player metrics below, the team scatter — is computed this way, in our <span class="mono">pitch_control.py</span>.</li>
-            <li><b>Spearman (2018), “Beyond Expected Goals” — the <i>other</i> model; we don't use it to compute control.</b> It models control as a race: the probability each player can physically intercept the ball first (time-to-intercept under a motion model). It's what the popular Friends-of-Tracking / <span class="mono">LaurieOnTracking</span> code implements. We link it as the alternative, for comparison.</li>
-            <li><b>The one Spearman idea we borrow is OBSO</b> (Off-Ball Scoring Opportunity = control × xT). That's a <i>concept</i>, not his control model — and in Way 3 below we compute it on our <b>Fernández–Bornn</b> control surface. So: F&B for all control; Spearman only for the name and shape of the dangerous-space idea.</li>
-          </ul>
-        </details>
-      </div>
-
-      <div class="xgpanel">
-        <h3>So what? — control is table stakes; conversion is the skill</h3>
-        <div id="pc-scatter" class="scatter"></div>
-        <p class="caption">Zoom out to teams. Across all 64 games the contenders cluster in a tight 30–35% final-third-control band — owning space barely separates anyone (which is why a raw control ranking is uninteresting). What separates teams is whether they <b>convert</b> it. Final-third control (x) vs StatsBomb xG per match (y): <b>above the line = more xG than control predicts</b> (clinical / counter) — <b>Portugal</b> and <b>England</b> turn middling control into ~2.3 xG; <b>Spain</b> (0.17) and <b>Croatia</b> (0.40) own space without product. Owning the grass is necessary; cashing it in is the skill the next act measures, player by player.</p>
-      </div>
-      <details class="notes reveal">
-        <summary>How this is measured</summary>
-        <ul>
-          <li>Pitch control is the Fernández–Bornn surface; "final-third control" is the in-possession team's mean share of control where x &gt; 17.5 m, over the sampled frames.</li>
-          <li>All 64 WC2022 matches at ~2 Hz; "plays above / below" is the residual of xG on final-third control (n=32 teams). Suggestive, not causal.</li>
-        </ul>
-      </details>
-      <div class="reading">
-        <div class="rlab">Further reading</div>
-        <ul>
-          <li><a href="https://www.researchgate.net/publication/324942294_Wide_Open_Spaces_A_statistical_technique_for_measuring_space_creation_in_professional_soccer" target="_blank" rel="noopener">Fernández &amp; Bornn — Wide Open Spaces (the model we use)</a></li>
-          <li><a href="https://www.researchgate.net/publication/327139841_Beyond_Expected_Goals" target="_blank" rel="noopener">William Spearman — Beyond Expected Goals (the alternative model + the OBSO idea)</a></li>
-          <li><a href="https://github.com/Friends-of-Tracking-Data-FoTD/LaurieOnTracking" target="_blank" rel="noopener">Friends of Tracking — LaurieOnTracking (Spearman's model, for comparison)</a></li>
-          <li><a href="https://www.getgoalsideanalytics.com/everything-you-need-to-know-about-pitch-control/" target="_blank" rel="noopener">Get Goalside — a history of “pitch control”</a></li>
-        </ul>
-      </div>
     </div>
   </div>
 </section>
@@ -507,9 +441,38 @@
 <section id="threeways">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag"><span class="num">3</span> Three ways it becomes a player skill</div>
-      <h2>The same model, turned on individuals.</h2>
-      <p class="lede">Pitch control is usually a team heat-map for one moment. Turn it on <b>players</b>, across all <b>64 World Cup 2022 games</b>, and it answers concrete questions about individual skill. Three of them — each with a clip and a leaderboard, all built on the <b>same Fernández–Bornn control surface</b>: who finds dangerous space with his <b>passing</b>, who wins <b>duels</b> the percentages say he shouldn't, and — combining control with xT — who owns the most <b>dangerous space</b> off the ball.</p>
+      <div class="act-tag"><span class="num">3</span> Three applications of controlling valuable space</div>
+      <h2>Controlling valuable space.</h2>
+      <p class="lede">Acts 1 and 2 gave us two numbers for any spot on the pitch: <b>xT</b> for how much it is worth, and <b>pitch control</b> for who owns it. Multiply them and you have a single read on controlling space that is also dangerous. Run it across all <b>64 World Cup 2022 games</b> and it answers three questions about individual skill. First, who owns the most <b>dangerous space off the ball</b>, the value times control synthesis. Second, who finds the player in that space with a <b>pass</b>. Third, who wins <b>duels</b> in the spots that are worth winning.</p>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- Application 1 — Dangerous Space (OBSO = pitch control × xT) -->
+<section id="pobso">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">1</span> Application one · the off-ball read</div>
+      <h2>Dangerous space: control x xT.</h2>
+      <p class="subtitle">We borrow William <a href="https://www.researchgate.net/publication/327139841_Beyond_Expected_Goals" target="_blank" rel="noopener">Spearman's</a> idea of control times value (he calls it OBSO) and compute it on our own Fernández-Bornn control surface.</p>
+      <p class="lede">This is the strongest read on the page, because it is the other two combined. It finds the off-ball player who controls the most <b>valuable</b> grass: space the ball could reach that also sits close to a goal. Control over a midfield pocket is worth almost nothing. Control over the space in front of goal is worth everything.</p>
+      <p class="body">It scores <b>control</b>, not presence. A striker standing in the six-yard box with a centre-back goal-side of him owns almost none of it, because the defender reaches the ball there first. Every cell is weighted by who would win it first, given where everyone is and how fast they are moving. You only score the space you would actually win, and only the space that is dangerous: each square metre is scaled by its xT, so owning grass far from goal counts for nothing. The honest edge follows from this. A player who drifts unmarked into the danger zone is credited, and he should be, because being uncovered in front of goal is the skill the metric is built to catch.</p>
+      <div class="card">
+        <h3>Dangerous-space surface: <span id="pobso-hero-title">an off-ball run into the danger zone</span> (ARG v FRA final)</h3>
+        <div id="pobso-canvas" class="heat"></div>
+        <div class="legend teamleg" id="pobso-teamleg"></div>
+        <div class="legend"><span>dark = opponent's, or low-value</span><span class="grad"></span><span>bright = controlled danger</span></div>
+        <p class="caption">A cell glows only when the attacking team both <b>controls</b> it <b>and</b> it is dangerous. Toggle <b>reveal danger</b> to keep just those cells, and watch the chance form ahead of the run, before the pass.</p>
+      </div>
+      <div id="pobso-explainer" class="xpl"></div>
+      <div class="card">
+        <h3>Off-ball danger controllers</h3>
+        <div id="pobso-board" class="lboard"></div>
+        <p class="caption">Average danger-weighted area each player controls off the ball, in square metres. It reads small on purpose: every metre is scaled by how dangerous it is, so midfield barely counts. Players with substantial minutes lead; cameo subs are shown separately. The trustworthy read is En-Nesyri, Mbappé, Petković, Messi.</p>
+        <p class="caption faintnote">Averaged over present frames only, which favours late attacking subs, so cameo subs sit in their own tier. Possession and carrier are nearest-player heuristics, velocity is finite-differenced at ~2 Hz, and extra time is excluded.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -520,33 +483,25 @@
 <section id="way-passing">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag">Way one · Finds dangerous space with his passing</div>
-      <h2>The pass that finds the right space.</h2>
-      <p class="lede">A great pass isn't just completed — it puts the ball into grass that's both <b>dangerous</b> (high xT) and <b>keepable</b> (the receiver actually controls it). We score every final-third pass by <b>control × xT at the target</b>, and the players who do it most are the tournament's creators. Scrub the auto-picked example: <span id="passing-hero-title">a pass into the danger zone</span>.</p>
+      <div class="act-tag"><span class="num">2</span> Application two · The passer who hits that space</div>
+      <h2>The pass that hits the dangerous space.</h2>
+      <p class="lede">Application one found the off-ball runner who drifts into valuable grass. This one finds the player who puts the ball there. A great pass lands in space that is both <b>dangerous</b> (high xT) and <b>keepable</b> (controlled at the target). Completion is the floor. We score every final-third pass by <b>control × xT at the target</b> and rank the players who do it most. Scrub the auto-picked example: <span id="passing-hero-title">a pass into the danger zone</span>.</p>
       <div class="card">
-        <h3>Finding dangerous space — <span id="passing-hero-title2">the pass</span></h3>
+        <h3>Hitting the dangerous space · <span id="passing-hero-title2">the pass</span></h3>
         <div id="passing-canvas" class="heat"></div>
         <div class="legend teamleg" id="passing-teamleg"></div>
         <div class="legend"><span>dark = opponent's, or low-value</span><span class="grad"></span><span>bright = controlled danger</span></div>
-        <p class="caption">The passer is ringed and labelled. The surface is attacker pitch-control × xT: a cell glows only where the team both <b>controls</b> it <i>and</i> it's <b>valuable</b> (near goal) — so the bright pocket is grass the receiver both owns and can score from. <b>Dark</b> = the opponent owns it, or it's controlled but low-value (midfield). Watch the pocket bloom at the receiver before the ball arrives.</p>
+        <p class="caption">The passer is ringed and labelled. The surface is attacker pitch-control × xT. A cell glows only where the team both <b>controls</b> it and it sits near goal, so the bright pocket is grass the receiver owns and can score from. <b>Dark</b> means the opponent owns it, or it is controlled but low-value midfield. The pocket forms at the receiver before the ball arrives.</p>
       </div>
+      <div id="ps-explainer" class="xpl"></div>
       <div class="card">
-        <h3>Finds dangerous space with his passing — final third</h3>
-        <div class="boardlab" id="ps-lab">Players · <b>total</b> controllable threat (control × xT) accessed via final-third passes</div>
+        <h3>Who repeatedly threads it into dangerous, controlled space</h3>
+        <div class="boardlab" id="ps-lab">Players · <b>total</b> controllable threat (control × xT) summed over final-third passes</div>
         <div class="htoggles" id="ps-toggle" style="padding:0;margin:0 0 8px"><button class="htog on" data-m="total">total</button><button class="htog" data-m="permatch">per match</button></div>
         <div id="ps-board" class="tbars"></div>
-        <details class="notes">
-          <summary>How it's calculated</summary>
-          <ul>
-            <li><b>The question:</b> when a player passes into the attacking third, does the ball go into space that is both <i>dangerous</i> and <i>keepable</i> — not a hospital ball into traffic?</li>
-            <li><b>Pitch control at the target</b> (Fernández–Bornn model): every player projects a bivariate-normal "influence" zone — nudged ahead of them by their velocity, ~4–10m wide depending on distance to the ball. The receiving team's control of the target spot is a logistic of (sum of attackers' influence − sum of defenders' influence) there: ≈1 means the receiver is in clear space, ≈0.5 means tightly contested.</li>
-            <li><b>Expected Threat (xT) at the target</b> (Karun Singh's grid): how dangerous that spot is.</li>
-            <li><b>Per pass:</b> value = <b>control × xT</b> at the intended target, counted only for passes whose target sits in the attacking final third. <b>Per player:</b> the sum across all such passes — so it rewards doing it often <i>and</i> well. Goalkeepers excluded.</li>
-            <li><b>Reads as:</b> who repeatedly threads the ball into dangerous, uncontested final-third space — creators, not recyclers.</li>
-          </ul>
-        </details>
-        <p class="caption">All 64 WC2022 games. The final-third restriction is what surfaces the creators — <b id="ps-top">the top names</b> — rather than deep ball-playing defenders, who rack up "progression" simply by passing forward out of their own half.</p>
+        <p class="caption">All 64 WC2022 games. The final-third restriction is what surfaces the creators rather than deep ball-playing defenders. Defenders rack up progression just by passing forward out of their own half. The leaders here are <b id="ps-top">the top names</b>.</p>
       </div>
+      <p class="bridge-note"><b>One goal, both reads.</b> Take the Di María goal in the 2022 final. Application one credits Di María for finding the valuable grass behind the line. Application two credits the passer for putting the ball into it. The same square metre scores on both boards: one for arriving in it, one for hitting it.</p>
     </div>
   </div>
 </section>
@@ -557,15 +512,15 @@
 <section id="way-duels">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag">Way two · Wins the ball against the odds</div>
+      <div class="act-tag"><span class="num">3</span> Application three · Wins duels where it counts</div>
       <h2>Winning balls the percentages say you shouldn't.</h2>
-      <p class="lede">Pitch control also says who <i>should</i> reach a contested ball first. A player who keeps winning 50-50s <b>above</b> that probability is beating his own positioning — anticipation, timing, strength. We call it <b>Balls Won Above Expected</b>. Scrub an auto-picked example: <span id="duel-hero-title">a genuine 50-50 won</span>.</p>
+      <p class="lede">Pitch control also says who <i>should</i> reach a contested ball first. A player who keeps winning 50-50s <b>above</b> that probability is beating his own positioning: anticipation, timing, strength. We call it <b>Balls Won Above Expected</b>. Scrub an auto-picked example: <span id="duel-hero-title">a genuine 50-50 won</span>.</p>
       <div class="card">
-        <h3>Winning the ball against the odds — <span id="duel-hero-title2">the duel</span></h3>
+        <h3>Winning the ball against the odds · <span id="duel-hero-title2">the duel</span></h3>
         <div id="duel-canvas" class="heat"></div>
         <div class="legend teamleg" id="duel-teamleg"></div>
         <div class="legend"><span>opponent controls</span><span class="grad"></span><span>winner's team controls</span></div>
-        <p class="caption">Pitch control is locked to the duel <b>winner's</b> team; both contestants are ringed (winner gold, the other red). The two arrive together and the model rated it a near-50-50 by position + momentum — watch the winner come away with it. Winning more of these than the percentage predicts, summed over a tournament, is the skill the board measures.</p>
+        <p class="caption">Pitch control is locked to the duel <b>winner's</b> team; both contestants are ringed (winner gold, the other red). The two arrive together and the model rated it a near-50-50 by position and momentum. Watch the winner come away with it. Winning more of these than the percentage predicts, summed over a tournament, is the skill the board measures.</p>
       </div>
       <div class="card">
         <h3>Wins more ground duels than his positioning says he should</h3>
@@ -576,70 +531,18 @@
         <details class="notes">
           <summary>How it's calculated</summary>
           <ul>
-            <li><b>The idea:</b> pitch control says who <i>should</i> reach a contested ball first; a player who wins 50-50s <i>above</i> that probability is beating his positioning — anticipation, timing, technique.</li>
-            <li><b>Each ground duel</b> (PFF challenge events; headers excluded by requiring the ball below 1m): we take the two contestants' Fernández–Bornn influence at the ball — their position and speed pointed at it — and form an expected win probability: <b>P(A&nbsp;wins) = influence<sub>A</sub> ÷ (influence<sub>A</sub> + influence<sub>B</sub>)</b>. That's literally "the percentage says he should win it."</li>
+            <li><b>The idea:</b> pitch control says who <i>should</i> reach a contested ball first; a player who wins 50-50s <i>above</i> that probability is beating his positioning: anticipation, timing, technique.</li>
+            <li><b>Each ground duel</b> (PFF challenge events; headers excluded by requiring the ball below 1m): we take the two contestants' Fernández–Bornn influence at the ball, their position and speed pointed at it, and form an expected win probability: <b>P(A&nbsp;wins) = influence<sub>A</sub> ÷ (influence<sub>A</sub> + influence<sub>B</sub>)</b>. That's literally "the percentage says he should win it."</li>
             <li><b>Then:</b> actual (1 if he won the duel, 0 if not) − expected, averaged over all his duels. <b>Positive = wins more than predicted.</b></li>
             <li><b>Final-third version</b> restricts to duels in the attacking third (attacking direction inferred from each team's goalkeeper position). It pools winning the ball both as a carrier (shielding / dribbling out) and as a challenger (tackling).</li>
           </ul>
         </details>
-        <p class="caption">Per-duel residual — actual minus expected win rate — across all 64 games.</p>
+        <p class="caption">Per-duel residual: actual minus expected win rate, across all 64 games.</p>
       </div>
     </div>
   </div>
 </section>
 
-<div class="rule"></div>
-
-<!-- Way 3 — Dangerous Space: the synthesis (pitch control × xT = OBSO) -->
-<section id="pobso">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="act-tag">Way three · Dangerous space — the two combined</div>
-      <h2>Dangerous Space: control × xT.</h2>
-      <p class="subtitle">This is Act 1 (xT) × Act 2 (pitch control) multiplied together — the synthesis. Academically it's Spearman's pressure-aware <b>OBSO</b>, computed on our Fernández–Bornn control surface.</p>
-      <p class="lede">The strongest read of the three. It finds the off-ball player who controls the most <b>valuable</b> grass — space the ball could reach that's also close to a goal (high xT). Control over low-value grass is nothing; control over the danger pocket is everything. Scrub the auto-selected run from the Argentina–France final: <b>Di María</b> ghosts into a danger-pocket that blooms <b>ahead</b> of his run, receives, and <b>scores</b> — the metric lighting up the exact space the goal came from, before the pass exists.</p>
-      <div class="card">
-        <h3>Dangerous-space surface — <span id="pobso-hero-title">an off-ball run into the danger zone</span> (ARG v FRA final)</h3>
-        <div id="pobso-canvas" class="heat"></div>
-        <div class="legend teamleg" id="pobso-teamleg"></div>
-        <div class="legend"><span>dark = opponent's, or low-value</span><span class="grad"></span><span>bright = controlled danger</span></div>
-        <p class="caption"><b>Reading the surface:</b> it's <b>control × xT</b>, so a cell only glows when it's <i>both</i> controlled by the attacking team <i>and</i> valuable (near goal). <b>Dark</b> means one of those is ~zero — either the opponent owns it, <i>or</i> it's controlled but far from goal (midfield is low-value, so it stays dark even when Argentina owns it). <b>Greenish</b> = controlled but only modest value; the <b>bright</b> bloom by the goal is controlled <i>and</i> dangerous. The runner is ringed and labelled so he's never lost in the dots. Toggle <b>reveal danger</b> to keep only the controlled-and-threatening cells — you watch the scoring chance form ahead of his run, before the pass.</p>
-      </div>
-      <div id="pobso-explainer" class="xpl"></div>
-
-      <details class="notes reveal">
-        <summary>Can't a player just stand in valuable space and rack this up?</summary>
-        <ul>
-          <li><b>No — it measures pitch CONTROL, not presence.</b> Think hoops: standing under the basket is worth nothing if a big body is between you and the ball — he gets there first. Same here. Every cell is weighted by who would actually reach the ball there <i>first</i>, given everyone's position <i>and</i> momentum (Fernández–Bornn pitch control). If a defender is closer or goal-side, he owns that grass and the attacker's value there is ~0. You only score the space you'd genuinely win.</li>
-          <li><b>Marked = not yours.</b> A striker in the six-yard box with a centre-back goal-side of him controls almost none of it. Peel off into a lane nobody covers and the same spot lights up — that off-ball timing is exactly what the metric is built to catch.</li>
-          <li><b>It's also xT-weighted and pressure-aware:</b> controlling low-value grass is worth nothing, and control under heavy pressure is discounted.</li>
-          <li><b>The honest edge:</b> if a player really is unmarked in the danger zone, he <i>is</i> credited — and he should be. Being uncovered in dangerous space is the valuable thing; ghosting into it unmarked is the skill, not a loophole.</li>
-        </ul>
-      </details>
-      <div class="card">
-        <h3>Off-ball danger controllers</h3>
-        <div id="pobso-board" class="lboard"></div>
-        <p class="caption"><b>Reading the numbers:</b> <b>m²</b> is the average <b>danger-weighted</b> area a player controls off the ball — the grass he'd actually win, with every square metre scaled by how dangerous it is (× xT), which is why it reads small (controlling midfield counts for almost nothing). It's a per-moment average, not a match total. <b>fr</b> = frames of tracking behind that average (one snapshot every 0.5 s, so ~120 ≈ a minute), and <b>min</b> is the same thing in minutes — more frames means a steadier number. That's why substantial-minutes players lead and cameo subs (&lt;15 min, one match) are split out; the trustworthy read is En-Nesyri, Mbappé, Petković, Messi.</p>
-      </div>
-      <details class="notes reveal">
-        <summary>How this is measured</summary>
-        <ul>
-          <li>The player headline rests on present-frames-only averaging, which favours late-game attacking subs; that is why cameo subs are split into their own tier and the qualified-minutes group leads.</li>
-          <li>Possession and carrier identity are heuristic (nearest-player-to-ball), not event-joined. Velocity is finite-differenced at ~2 Hz. Extra time is excluded from both tracking and xG.</li>
-        </ul>
-      </details>
-
-      <div class="reading">
-        <div class="rlab">Further reading</div>
-        <ul>
-          <li><a href="https://www.researchgate.net/publication/327139841_Beyond_Expected_Goals" target="_blank" rel="noopener">William Spearman — Beyond Expected Goals (the source of OBSO = control × xT)</a></li>
-          <li><a href="https://karun.in/blog/expected-threat.html" target="_blank" rel="noopener">Karun Singh — Introducing Expected Threat (xT)</a></li>
-          <li><a href="https://www.researchgate.net/publication/324942294_Wide_Open_Spaces_A_statistical_technique_for_measuring_space_creation_in_professional_soccer" target="_blank" rel="noopener">Fernández &amp; Bornn — Wide Open Spaces (the control surface we multiply by xT)</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
 
 <div class="rule"></div>
 
@@ -648,31 +551,19 @@
   <div class="wrap">
     <div class="reveal">
       <div class="act-tag live"><span class="num">★</span> The full toolkit · 2022 → live 2026</div>
-      <h2>Two lenses on the same space — then live in 2026.</h2>
-      <p class="lede">Everything above is one half of a toolkit: our frame-by-frame reconstruction from PFF tracking. The other half is <b>FIFA's own Enhanced Football Intelligence</b> — the official space metrics in every match report. On the 2022 final, two systems that never saw each other's data tell the <b>same story</b>. And for 2026 the EFI half is already <b>live</b> — the tracking half we'll bring play by play.</p>
+      <h2>Two lenses on the same space, then live in 2026.</h2>
+      <p class="lede">Everything above is one half of a toolkit: a frame-by-frame reconstruction from PFF tracking. The other half is <b>FIFA's Enhanced Football Intelligence</b>, the official space metrics in every match report. On the 2022 final, two systems that never saw each other's data tell the <b>same story</b>. For 2026 the EFI half is already <b>live</b>.</p>
 
       <div class="card">
-        <h3>Argentina 3–3 France — the 2022 final, measured two ways</h3>
+        <h3>Argentina 3–3 France · the 2022 final, measured two ways</h3>
         <div id="final-2lens"></div>
-        <p class="caption">Left, <b>FIFA's official EFI</b>, read straight off the match-report PDF; right, <b>our pitch-control reconstruction</b> from raw tracking. Two measurement systems, no shared data. Argentina broke more lines, received far more in the final third, moved into the space behind more often — <i>and</i> held more dangerous space per minute. France's danger ran through one man: Mbappé's hat-trick, and the danger-pocket you scrubbed in Act 2. Same final, same story.</p>
+        <p class="caption">Left, <b>FIFA's official EFI</b>, read off the match-report PDF. Right, <b>our pitch-control reconstruction</b> from raw tracking. Two measurement systems, no shared data. Argentina broke more lines, received far more in the final third, moved into the space behind more often, and held more dangerous space per minute. France's danger ran through one man: Mbappé's hat-trick, and the danger-pocket from Act 2. Same final, same story.</p>
       </div>
 
       <div class="card">
-        <h3>The same space metrics, live — World Cup 2026 so far</h3>
+        <h3>The same space-to-value read, live in World Cup 2026</h3>
         <div id="live-efi"></div>
-        <p class="caption">Straight from FIFA's feed, no tracking required: <b>completed line breaks</b> and <b>offers to receive in behind</b> — the very metrics the 2022 final was measured on, above — now updating each matchday for the tournament in progress.</p>
-      </div>
-
-      <p class="body"><b>The tracking half, for 2026:</b> we can't run pitch control across a whole tournament with no public 30 Hz feed — but <b>computer vision can pull a few example plays from broadcasts</b>, and we'll run <i>these</i> metrics — the passing, duel and dangerous-space reads above — on them, exactly as the acts above do for 2022. The clips you just scrubbed are the prototype; CV-tracked clips are the production line as the matches come. (FIFA's live <b>threat</b> board — the xT-cousin — is up in <b>Act 1</b>.)</p>
-
-      <div class="reading">
-        <div class="rlab">Further reading</div>
-        <ul>
-          <li><a href="https://www.fifatrainingcentre.com/en/fifa-world-cup-2026/match-report-hub.php" target="_blank" rel="noopener">FIFA World Cup 2026 Match Report Hub (live EFI reports)</a></li>
-          <li><a href="https://github.com/Bustami/efi-fifa-data-wc-2026" target="_blank" rel="noopener">Bustami/efi-fifa-data-wc-2026 — daily EFI dataset</a></li>
-          <li><a href="https://github.com/shufinskiy/sport_analytics_tools" target="_blank" rel="noopener">shufinskiy/sport_analytics_tools — WC report parser</a></li>
-          <li><a href="https://github.com/doganparlak/EFI" target="_blank" rel="noopener">doganparlak/EFI — open-source FIFA EFI implementation</a></li>
-        </ul>
+        <p class="caption">FIFA's feed, no tracking required. <b>Threat</b> is the value side, FIFA's cousin of xT. <b>Receptions in behind</b> is the access side: how often a team actually gets a player into the space behind the last line. Space into value, the whole thesis above, now updating each matchday. This panel is a placeholder for a real tracking-2026 example once one is built.</p>
       </div>
     </div>
   </div>
@@ -691,16 +582,16 @@
       <div class="rlab">Sources &amp; data</div>
       <ul>
         <li><a href="https://github.com/statsbomb/open-data" target="_blank" rel="noopener">StatsBomb Open Data</a></li>
-        <li><a href="https://www.blog.fc.pff.com/" target="_blank" rel="noopener">PFF FC — Blog (soccer data)</a></li>
-        <li><a href="https://github.com/Bustami/efi-fifa-data-wc-2026" target="_blank" rel="noopener">Bustami/efi-fifa-data-wc-2026 — live WC2026 EFI</a></li>
+        <li><a href="https://www.blog.fc.pff.com/" target="_blank" rel="noopener">PFF FC Blog (soccer data)</a></li>
+        <li><a href="https://github.com/Bustami/efi-fifa-data-wc-2026" target="_blank" rel="noopener">Bustami/efi-fifa-data-wc-2026 · live WC2026 EFI</a></li>
       </ul>
     </div>
     <p class="fine">
-      Data: PFF FC Men's World Cup 2022 — 30 Hz broadcast tracking, sampled at ~2 Hz. Surfaces are real Fernández–Bornn pitch control (and Karun Singh's xT for the value layer), normalized 0–1 for display. Leaderboards group ties rather than forcing a single “#1” when values overlap. Broadcast positions are partly estimated where players leave frame. xG receipts use StatsBomb 2022 open data on a defensible per-match-rate or per-90 unit; all correlation, not causation. Live 2026 figures: FIFA Enhanced Football Intelligence via the open Bustami/efi-fifa-data-wc-2026 dataset.
+      Data: PFF FC Men's World Cup 2022, 30 Hz broadcast tracking, sampled at ~2 Hz. Surfaces are real Fernández–Bornn pitch control (and Karun Singh's xT for the value layer), normalized 0–1 for display. Leaderboards group ties rather than forcing a single “#1” when values overlap. Broadcast positions are partly estimated where players leave frame. xG receipts use StatsBomb 2022 open data on a defensible per-match-rate or per-90 unit; all correlation, not causation. Live 2026 figures: FIFA Enhanced Football Intelligence via the open Bustami/efi-fifa-data-wc-2026 dataset.
     </p>
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=31"></script>
+<script type="module" src="assets/js/space.js?v=32"></script>
 </body>
 </html>
