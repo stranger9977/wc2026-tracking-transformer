@@ -976,14 +976,14 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=15");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=16");
   const data = await loadJSON("data/space_pobso.json?v=4");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
   const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
   const from = h.assist ? ` from <b>${h.assist}</b>` : "";
   buildScrubber(scEl, surf, {
-    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: 0.6,
+    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: 1.0,
     labelName: h.name, defaultMode: "surface",
     ballXt: true, receivers: surf.receivers || [], passes: surf.passes || null,
     toggles: [
