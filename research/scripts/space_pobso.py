@@ -55,6 +55,7 @@ if str(_REPO / "src") not in sys.path:
 
 import space_io  # noqa: E402
 import pitch_control as pc  # noqa: E402
+from opp_strength import OppStrength, stage_of, per_stage_block  # noqa: E402
 
 HALF_LEN = pc.HALF_LEN
 HALF_WID = pc.HALF_WID
@@ -223,7 +224,19 @@ def compute(matches=SAMPLE_MATCHES):
     # dangerous space. pl_obso_walk = OBSO accrued at walking pace (<2 m/s, "passive").
     pl_obso_walk: dict[tuple, float] = defaultdict(float)
     pl_obso_wspeed: dict[tuple, float] = defaultdict(float)
+    # OVERALL time-on-pitch walking share (every outfield frame a player is on the field, not
+    # just when he owns danger): pl_walk = frames moving <2 m/s, pl_present = total frames.
+    # This is the "Messi walks 65% of his time" number (distinct from the danger-space share).
+    pl_walk: dict[tuple, int] = defaultdict(int)
+    pl_present: dict[tuple, int] = defaultdict(int)
     pl_matches: dict[tuple, set] = defaultdict(set)   # distinct matches a player owns OBSO in
+    # per-STAGE (group/ko) occupation, opponent-weighted (occw) + raw (occ), + walk share, so the
+    # off-ball board can split group/knockout, go per-match, and weight by the defending team.
+    opp = OppStrength()
+
+    def _stage0():
+        return {"occ": 0.0, "occw": 0.0, "walk": 0.0, "mids": set()}
+    pl_stage: dict[tuple, dict] = defaultdict(lambda: {"group": _stage0(), "ko": _stage0()})
     # team -> list of per-frame team-OBSO (one team is "attacking" each frame)
     team_obso_frames: dict[str, list[float]] = defaultdict(list)
     team_obso_pressured: dict[str, list[float]] = defaultdict(list)
@@ -244,6 +257,7 @@ def compute(matches=SAMPLE_MATCHES):
         n_pressured = 0
         meta = space_io.load_metadata(mid)
         teams = (meta["homeTeam"]["name"], meta["awayTeam"]["name"])
+        stage = stage_of(mid)
         match_team_obso: dict[str, list[float]] = defaultdict(list)
         match_team_dm: dict[str, list[int]] = defaultdict(lambda: [0, 0])  # [dm, frames]
         t0 = time.time()
@@ -258,6 +272,9 @@ def compute(matches=SAMPLE_MATCHES):
                 n_pressured += 1
 
             att_team = fr.in_possession_team
+            # the defending team this frame (the other of the two) sets the opponent weight
+            opp_team = teams[0] if att_team == teams[1] else teams[1]
+            oppw = opp.weight(opp_team)
             team_obso_frames[att_team].append(obso_total)
             match_team_obso[att_team].append(obso_total)
             if pressured:
@@ -283,12 +300,31 @@ def compute(matches=SAMPLE_MATCHES):
                 pl_obso_wspeed[key] += val * spd
                 if spd < 2.0:
                     pl_obso_walk[key] += val
+                # per-stage occupation: raw + opponent-weighted, + walking-occ + games-with-OBSO
+                ps = pl_stage[key][stage]
+                ps["occ"] += val; ps["occw"] += val * oppw; ps["mids"].add(mid)
+                if spd < 2.0:
+                    ps["walk"] += val
                 if pressured:
                     pl_frames_pressured[key].append(val)
                 if str(ident.visibility) == "ESTIMATED":
                     pl_vis[key][1] += 1
                 else:
                     pl_vis[key][0] += 1
+            # OVERALL walking share — every outfield player on the pitch this frame (not just the
+            # OBSO owners above), bucketed by speed. This is time-on-pitch, the "% of time walking".
+            for row in range(fr.players.shape[0]):
+                ident = fr.identities[row]
+                if ident.is_gk:
+                    continue
+                px, py, vx, vy = (fr.players[row, 0], fr.players[row, 1],
+                                  fr.players[row, 2], fr.players[row, 3])
+                if px == 0 and py == 0 and vx == 0 and vy == 0:
+                    continue
+                key = (ident.team_id, ident.jersey)
+                pl_present[key] += 1
+                if float(np.hypot(vx, vy)) < 2.0:
+                    pl_walk[key] += 1
         # record this match's per-team mean OBSO + danger-moment rate (>= 50 frames)
         for tm, vals in match_team_obso.items():
             if len(vals) >= 50:
@@ -311,6 +347,8 @@ def compute(matches=SAMPLE_MATCHES):
         "pl_meta": pl_meta, "pl_frames": pl_frames,
         "pl_frames_pressured": pl_frames_pressured, "pl_vis": pl_vis,
         "pl_obso_walk": dict(pl_obso_walk), "pl_obso_wspeed": dict(pl_obso_wspeed),
+        "pl_walk": dict(pl_walk), "pl_present": dict(pl_present),
+        "pl_stage": {k: v for k, v in pl_stage.items()},
         "pl_matches": {k: len(v) for k, v in pl_matches.items()},
         "team_obso_frames": team_obso_frames,
         "team_obso_pressured": team_obso_pressured,
@@ -349,7 +387,26 @@ def build_leaderboard(res):
     pl_vis = res["pl_vis"]
     pl_obso_walk = res.get("pl_obso_walk", {})
     pl_obso_wspeed = res.get("pl_obso_wspeed", {})
+    pl_walk = res.get("pl_walk", {})
+    pl_present = res.get("pl_present", {})
+    pl_stage = res.get("pl_stage", {})
     pl_matches = res.get("pl_matches", {})
+
+    def _stage_blocks(key):
+        ps = pl_stage.get(key)
+        if not ps:
+            return None, None
+        g, k = ps.get("group", {}), ps.get("ko", {})
+        # off-ball board: occupation per-match, opponent-weighted (occw) + raw (occ)
+        stages = per_stage_block({"group": {"valw": g.get("occw", 0.0), "valr": g.get("occ", 0.0), "mids": g.get("mids", set())},
+                                  "ko": {"valw": k.get("occw", 0.0), "valr": k.get("occ", 0.0), "mids": k.get("mids", set())}})
+        # SOG: % of owned danger won walking, per stage (a ratio — not opponent-weighted)
+        def ws(occ, walk):
+            return round(100.0 * walk / occ) if occ > 0 else None
+        gw, kw = g.get("occ", 0.0), k.get("occ", 0.0)
+        walk_stages = {"group": ws(gw, g.get("walk", 0.0)), "ko": ws(kw, k.get("walk", 0.0)),
+                       "all": ws(gw + kw, g.get("walk", 0.0) + k.get("walk", 0.0))}
+        return stages, walk_stages
 
     # HEADLINE player unit = mean P-OBSO an off-ball attacker CONTROLS per frame
     # they are on the pitch while their team attacks (xT-weighted m^2 of
@@ -373,7 +430,12 @@ def build_leaderboard(res):
         wspeed = pl_obso_wspeed.get(key, 0.0)
         passive_share = (walk / osum) if osum > 0 else 0.0
         control_speed = (wspeed / osum) if osum > 0 else 0.0
+        present = pl_present.get(key, 0)
+        time_walk_pct = round(100.0 * pl_walk.get(key, 0) / present) if present else None
+        stages, walk_stages = _stage_blocks(key)
         players.append({
+            "stages": stages,            # off-ball occupation per stage (opponent-weighted + raw)
+            "walk_stages": walk_stages,  # SOG walking share per stage
             "name": meta["name"], "team": meta["team"], "jersey": meta["jersey"],
             "pobso": round(float(arr.mean()), 3),       # headline (xT-wtd m^2 / frame)
             "occupation_total": round(osum, 2),         # sum over sampled frames (F&B Sum-SOG style)
@@ -382,6 +444,7 @@ def build_leaderboard(res):
             "passive_pct": round(100.0 * passive_share),   # % of owned danger at walking pace (<2 m/s)
             "active_pct": round(100.0 * (1.0 - passive_share)),
             "control_speed": round(control_speed, 2),   # OBSO-weighted speed (m/s) while owning danger
+            "time_walk_pct": time_walk_pct,             # % of his time ON THE PITCH spent walking (<2 m/s)
             "ci": [round(lo, 3), round(hi, 3)],
             "n_frames": len(frames),
             "minutes_sampled": round(len(frames) * SECS_PER_FRAME / 60.0, 1),
