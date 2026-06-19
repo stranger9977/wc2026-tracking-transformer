@@ -52,8 +52,10 @@ MIDS = sorted(p.name.replace(".jsonl.bz2", "")
 PASS_STARS = ["de paul", "pedri", "messi", "kovacic", "bernardo", "musiala",
               "kramaric", "son", "de bruyne", "modric", "griezmann", "bruno",
               "gundogan", "neymar", "kane"]
-DUEL_STARS = ["lozano", "sarr", "vlasic", "kane", "kramaric", "kim", "saliba",
-              "romero", "gvardiol", "amrabat", "rodri", "casemiro", "tchouameni"]
+# Leaders of the xT-weighted Balls-Won-Above-Expected board (duels won where it counts),
+# so the clip lands on a creator winning a 50-50 in a dangerous area, not a CB clearance.
+DUEL_STARS = ["musiala", "messi", "kovacic", "sarr", "grealish", "lozano",
+              "lewandowski", "kramaric", "hazard", "kudus", "vlasic", "amrabat"]
 
 
 # ---- event-scan influence helpers (snapshot-based, for PICKING only) ----
@@ -283,17 +285,22 @@ def validate_export_duel(mid, period, gc, win_id, wname, los_id, lname):
         return None
     if math.hypot(c["wx"] - c["lx"], c["wy"] - c["ly"]) > 4.0:   # same tussle, not two loose players
         return None
-    if abs(c["bx"]) > 38.0 or abs(c["by"]) > 22.0:
+    # the contest must sit in a VALUABLE area (winner's attacking half, not a corner or
+    # the defensive third), so the clip shows a duel won "where it counts" — matching the
+    # xT-weighted board, not a CB clearing his own box.
+    xtv = float(xt_for_ball(c["bx"] / HALF_LEN, c["by"] / HALF_WID))
+    if c["bx"] < 6.0 or c["bx"] > 50.0 or abs(c["by"]) > 24.0:
         return None
     iw = _duel_infl(c["wx"], c["wy"], c["wsp"], c["bx"], c["by"])
     il = _duel_infl(c["lx"], c["ly"], c["lsp"], c["bx"], c["by"])
     if iw + il < 1e-9:
         return None
     exp_win = iw / (iw + il)
-    if exp_win > 0.55:                  # winner even-or-underdog at the contest (a true 50-50)
+    if exp_win > 0.58:                  # winner even-or-underdog at the contest (a true 50-50)
         return None
     hero = {"name": wname, "loser": lname, "team": _teams_block(meta, lock)["attack"],
-            "expected_win": round(exp_win, 3), "expected_pct": round(exp_win * 100)}
+            "expected_win": round(exp_win, 3), "expected_pct": round(exp_win * 100),
+            "xt": round(xtv, 3)}
     payload = export_window(mid, period, c["t"] + 2700.0 * (period - 1), lock, "control", hero,
                             teams=_teams_block(meta, lock), pre=3.5, post=2.2, anchor_name=wname)
     if payload:
@@ -301,9 +308,9 @@ def validate_export_duel(mid, period, gc, win_id, wname, los_id, lname):
             "metric": "duel",
             "title": f"Winning a 50-50: {wname} vs {lname}",
             "match": f"{meta['homeTeam']['name']} v {meta['awayTeam']['name']}",
-            "description": (f"A genuine 50-50: both arrive together and pitch control rated it "
-                            f"~{round(exp_win*100)}% to {wname}. He won it — winning more of these "
-                            "than the % predicts is the skill the board measures."),
+            "description": (f"A genuine 50-50 in a dangerous area: both arrive together and pitch "
+                            f"control rated it ~{round(exp_win*100)}% to {wname}. He won it. Winning "
+                            "more of these in valuable spots than the percentage predicts is the skill."),
         })
     return payload
 

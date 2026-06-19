@@ -546,7 +546,7 @@ async function buildXT() {
       const x0 = c / nx * W, y0 = r / ny * H, cw = W / nx, ch = H / ny;
       ctx.fillStyle = "rgba(255,255,255,0.16)"; ctx.fillRect(x0, y0, cw, ch);
       ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.strokeRect(x0, y0, cw, ch);
-      readEl.innerHTML = `<b>xT = ${xt.toFixed(3)}</b> — with the ball in this zone, the team scores within the next ~5 actions about <b>${(xt * 100).toFixed(1)}%</b> of the time.`;
+      readEl.innerHTML = `<b>xT = ${xt.toFixed(3)}</b>: with the ball in this zone, the team scores within the next ~5 actions about <b>${(xt * 100).toFixed(1)}%</b> of the time.`;
     };
     const clearHover = () => {
       ctx.putImageData(base, 0, 0);
@@ -866,8 +866,8 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=6");
-  const data = await loadJSON("data/space_pobso.json");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=7");
+  const data = await loadJSON("data/space_pobso.json?v=2");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
   const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
@@ -997,7 +997,7 @@ async function buildLive() {
         </div>
         <div class="lcol">
           <h4>Our tracking<span class="src">pitch-control reconstruction from raw PFF tracking</span></h4>
-          ${cmp("Dangerous space — danger-moments / min", danger.Argentina, danger.France, num)}
+          ${cmp("Dangerous space · danger-moments / min", danger.Argentina, danger.France, num)}
           <div class="lcallout">France's danger was concentrated: <b>Mbappé</b>'s hat-trick, and France's late surges into dangerous space (the kind you scrubbed in <b>Act 2</b>). The team rate favours Argentina; France's biggest moments were a handful of individual runs.</div>
           <div class="lcallout">Both lenses agree on the shape of the game: <b>Argentina created more, more often</b>, off two completely independent measurement systems.</div>
         </div>
@@ -1010,9 +1010,9 @@ async function buildLive() {
           <span class="cval">${v.toFixed(2)}</span></div>
           <div class="cmprow"><span class="ck"></span><span class="cmpsub">open-play (non-penalty) xG: <b>${np.toFixed(2)}</b></span></div>`;
         lensEl.innerHTML += `<div class="card lxg">
-          <div class="clab"><b>The outcome — real expected goals</b> <span class="lteam">StatsBomb 2022, penalty shootout excluded</span></div>
+          <div class="clab"><b>The outcome: real expected goals</b> <span class="lteam">StatsBomb 2022, penalty shootout excluded</span></div>
           ${xbar("ARG", a.xg, a.npxg, ARG)}${xbar("FRA", b.xg, b.npxg, FRA)}
-          <p class="caption">The space dominance showed up on the scoreboard of chances: Argentina out-created France on xG (2.76 vs 2.27) — and in <b>open play it isn't close</b> (1.97 vs 0.71). France's xG was penalty-driven; their open-play danger really did run through Mbappé. Three independent measurements — FIFA's counts, our tracking, StatsBomb's xG — all point the same way.</p>
+          <p class="caption">The space dominance showed up on the scoreboard of chances: Argentina out-created France on xG (2.76 vs 2.27), and in <b>open play it isn't close</b> (1.97 vs 0.71). France's xG was penalty-driven; their open-play danger really did run through Mbappé. Three independent measurements (FIFA's counts, our tracking, StatsBomb's xG) all point the same way.</p>
         </div>`;
       }
     } catch (e) {
@@ -1229,19 +1229,19 @@ function buildPitchControlExplainer() {
   const cv = $("#pcx-cv", host), ctx = cv.getContext("2d"), readEl = $("#pcx-read", host);
   const m2p = (x, y) => [x * SC, y * SC];
   // state (metres). attacker attacks +x (right).
-  const att = { x: 20, y: REG_H / 2, vx: 0, vy: 0, kind: "att" };
-  const def = { x: 40, y: REG_H / 2 - 2, vx: 0, vy: 0, kind: "def" };
-  const ball = { x: 13, y: REG_H / 2, kind: "ball" };
+  const att = { x: 22, y: REG_H / 2, vx: 0, vy: 0, kind: "att" };
+  const def = { x: 34, y: REG_H / 2 - 2, vx: 0, vy: 0, kind: "def" };
+  const ball = { x: 16, y: REG_H / 2, kind: "ball" };
   const players = [att, def];
 
   function influence(pl, gx, gy) {        // Fernández–Bornn influence of pl at (gx,gy) metres
     const speed = Math.hypot(pl.vx, pl.vy);
     const distBall = Math.hypot(pl.x - ball.x, pl.y - ball.y);
     const frac = Math.min(distBall / 18, 1);
-    const radius = 4 + 6 * frac * frac;
+    const radius = 4 + 4 * frac * frac;          // gentler far-from-ball growth (teaching view)
     const sr = Math.min(speed / 13, 1);
-    const sAlong = radius * (1 + sr);
-    const sPerp = Math.max(radius * (1 - sr), radius * 0.30);
+    const sAlong = radius * (1 + 0.6 * sr);       // softer forward stretch so fast drags don't warp
+    const sPerp = Math.max(radius * (1 - 0.35 * sr), radius * 0.55);
     const mux = pl.x + 0.5 * pl.vx * 0.5, muy = pl.y + 0.5 * pl.vy * 0.5;
     let cos = 1, sin = 0;
     if (speed > 1e-3) { cos = pl.vx / speed; sin = pl.vy / speed; }
@@ -1257,7 +1257,7 @@ function buildPitchControlExplainer() {
     for (let r = 0; r < GH; r++) for (let c = 0; c < GW; c++) {
       const gx = (c + 0.5) / GW * REG_W, gy = (r + 0.5) / GH * REG_H;
       const a = influence(att, gx, gy), d = influence(def, gx, gy);
-      const ctrl = 1 / (1 + Math.exp(-3 * (a - d)));
+      const ctrl = 1 / (1 + Math.exp(-2.4 * (a - d)));
       const k = (ctrl - 0.5) * 2;                  // -1 (def) .. +1 (att)
       const i = (r * GW + c) * 4;
       if (k >= 0) { img.data[i] = 108; img.data[i + 1] = 180; img.data[i + 2] = 238; }
@@ -1289,7 +1289,7 @@ function buildPitchControlExplainer() {
     }
     const [bx, by] = m2p(ball.x, ball.y);
     // LIVE control metric at the ball's spot — σ(attacker − defender influence) there
-    const cb = 1 / (1 + Math.exp(-3 * (influence(att, ball.x, ball.y) - influence(def, ball.x, ball.y))));
+    const cb = 1 / (1 + Math.exp(-2.4 * (influence(att, ball.x, ball.y) - influence(def, ball.x, ball.y))));
     const cCol = cb > 0.5 ? "#7ec8ff" : "#ff9a9a";
     // value chip above the ball
     ctx.save();
@@ -1341,8 +1341,8 @@ function buildPitchControlExplainer() {
     const dt = Math.max(0.016, (now - lastT) / 1000);
     dragging.x = clamp(mx / SC, 0, REG_W); dragging.y = clamp(my / SC, 0, REG_H);
     if (dragging.kind !== "ball") {            // velocity from drag speed (m/s), clamped + EMA
-      const vx = clamp((mx - lastX) / SC / dt, -13, 13), vy = clamp((my - lastY) / SC / dt, -13, 13);
-      dragging.vx = 0.5 * dragging.vx + 0.5 * vx; dragging.vy = 0.5 * dragging.vy + 0.5 * vy;
+      const vx = clamp((mx - lastX) / SC / dt, -9, 9), vy = clamp((my - lastY) / SC / dt, -9, 9);
+      dragging.vx = 0.6 * dragging.vx + 0.4 * vx; dragging.vy = 0.6 * dragging.vy + 0.4 * vy;
     }
     lastT = now; lastX = mx; lastY = my; e.preventDefault();
   };
@@ -1402,25 +1402,46 @@ async function buildPassSelection() {
   }));
 }
 
+/* Act 2 — Space Occupation board: pitch control turned into a per-player number,
+   split active (running) vs passive (walking). The Fernández & Bornn 2018 result;
+   the passive split is the "Messi walks" finding. Reads the OBSO per-player data. */
+async function buildSOG() {
+  const el = $("#pc-sog"); if (!el) return;
+  let d; try { d = await loadJSON("data/space_pobso.json?v=2"); } catch (e) { return; }
+  const all = (d.players || []).filter((r) => r.minutes_sampled >= 30 && r.occupation_total != null);
+  if (!all.length) return;
+  const rows = [...all].sort((a, b) => b.occupation_total - a.occupation_total).slice(0, 12);
+  const mx = Math.max(1e-9, ...rows.map((r) => r.occupation_total));
+  el.innerHTML = rows.map((r) => {
+    const tot = clamp(r.occupation_total / mx * 100, 0, 100);
+    const pw = (tot * (r.passive_pct || 0) / 100).toFixed(1);
+    const aw = (tot * (r.active_pct || 0) / 100).toFixed(1);
+    return `<div class="sogrow"><span class="sogname"><span class="fl" style="background:${teamColor(r.team)}"></span>${r.name} <span class="lteam">${r.team}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""}</span>
+      <span class="sogbar"><span style="width:${pw}%;background:#6cb4ee"></span><span style="width:${aw}%;background:#f0b429"></span></span>
+      <span class="sogval">${r.passive_pct}% walking</span></div>`;
+  }).join("");
+  const m = all.find((r) => /Messi/.test(r.name));
+  const mEl = $("#sog-messi");
+  if (m && mEl) mEl.innerHTML = `<b>Messi is the archetype.</b> ${m.passive_pct}% of the valuable space he occupies, he wins while walking, at an average <b>${m.control_speed} m/s</b> when he owns it, slower than almost any forward in the tournament. Fernández &amp; Bornn measured the same thing in 2017 and got 66%. He walks into the right grass while everyone else runs.`;
+}
+
 async function buildBWAE() {
-  let d; try { d = await loadJSON("data/balls_won_above_expected.json?v=1"); } catch (e) { return; }
-  const render = (rows, sel, color) => {
-    const el = $(sel); if (!el || !rows) return;
-    const top = rows.filter((r) => !String(r.name).startsWith("#")).slice(0, 10);
-    if (!top.length) return;
-    const mx = Math.max(1e-9, ...top.map((r) => r.bwae_per_duel));
-    el.innerHTML = top.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""}</span>
-      <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.bwae_per_duel / mx * 100, 0, 100)}%;background:${color}"></span></span>
-      <span class="tbval">+${(r.bwae_per_duel * 100).toFixed(0)}%</span></div>`).join("");
-  };
-  render(d.all, "#bwae-all", "#9b8cff");
-  render(d.final_third, "#bwae-f3", "#c08cff");
+  const el = $("#bwae-xt"); if (!el) return;
+  let d; try { d = await loadJSON("data/balls_won_above_expected.json?v=2"); } catch (e) { return; }
+  const rows = (d.players || []).filter((r) => !String(r.name).startsWith("#")).slice(0, 12);
+  if (!rows.length) return;
+  const mx = Math.max(1e-9, ...rows.map((r) => r.bwae_xt));
+  const top = $("#bwae-top");
+  if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
+  el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""}</span>
+    <span class="tbtrack"><span class="tbfill" style="width:${clamp(r.bwae_xt / mx * 100, 0, 100)}%;background:#9b8cff"></span></span>
+    <span class="tbval">+${r.bwae_xt.toFixed(2)}</span></div>`).join("");
 }
 
 /* Way 1 clip — a top creator's pass into controllable dangerous final-third space. */
 async function buildPassingClip() {
   const el = $("#passing-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=6"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=7"); } catch (e) { return; }
   const h = surf.hero || {};
   const shot = h.shot_outcome
     ? ` The move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` (${h.shot_shooter})` : ""}.`
@@ -1428,7 +1449,7 @@ async function buildPassingClip() {
   buildScrubber(el, surf, {
     id: "passing", ramp: rampHot, gamma: 0.55, threshold: 0.02,
     labelName: h.name, defaultMode: "surface",
-    readout: () => `<b>${h.name}</b> threads it to <b>${h.receiver}</b> into controllable, dangerous space — `
+    readout: () => `<b>${h.name}</b> threads it to <b>${h.receiver}</b> into controllable, dangerous space: `
       + `control ${Math.round((h.control || 0) * 100)}% × xT ${Number(h.xt || 0).toFixed(2)} at the target. `
       + `The bright pocket forms <b>before</b> the ball arrives.${shot}`,
   });
@@ -1445,14 +1466,14 @@ async function buildPassingClip() {
 /* Way 2 clip — a ground duel won against the pitch-control expectation (a BWAE upset). */
 async function buildDuelClip() {
   const el = $("#duel-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=6"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/duel.json?v=7"); } catch (e) { return; }
   const h = surf.hero || {};
   buildScrubber(el, surf, {
     id: "duel", ramp: rampHot, gamma: 0.95, threshold: 0.05, surfaceAlpha: 0.6,
     labelName: h.name, defaultMode: "surface",
     duo: { winner: h.name, loser: h.loser }, focusBall: true, emphasizeBall: true,
     readout: () => `A genuine 50-50: <b>${h.name}</b> (gold) and <b>${h.loser}</b> (red) arrive together. `
-      + `By position + momentum pitch control rated it ~<b>${h.expected_pct}%</b> to ${h.name} — he won it anyway. `
+      + `By position and momentum pitch control rated it ~<b>${h.expected_pct}%</b> to ${h.name}. He won it anyway. `
       + `Winning more 50-50s than the % predicts, over a tournament, is the skill the board measures.`,
   });
   renderTeamLegend("duel-teamleg", surf.teams);
@@ -1476,8 +1497,9 @@ if (!window.__spaceWIPPage) {
     buildXTcreated();
     buildXtBreakdown();
     buildThreat();
-    // Act 2 — Pitch control (Fernández & Bornn): interactive explainer
+    // Act 2 — Pitch control (Fernández & Bornn): interactive explainer + space-occupation board
     buildPitchControlExplainer();
+    buildSOG();
     // Act 3 — three applications: off-ball OBSO, passing, duels (each clip + leaderboard)
     buildPassSelection();
     buildBWAE();

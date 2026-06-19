@@ -1,7 +1,1801 @@
 {
- "metric": "Balls Won Above Expected (ground duels)",
+ "metric": "Balls Won Above Expected (ground duels), xT-weighted",
  "n_ground_duels": 7340,
  "n_final_third": 2417,
+ "players": [
+  {
+   "name": "Jamal Musiala",
+   "team": "Germany",
+   "pos": "LW",
+   "bwae_xt": 0.6139823449556717,
+   "bwae_per_duel": 0.08435475186933662,
+   "n_duels": 84
+  },
+  {
+   "name": "Lionel Messi",
+   "team": "Argentina",
+   "pos": "CF",
+   "bwae_xt": 0.5695449204725354,
+   "bwae_per_duel": 0.10007546846124205,
+   "n_duels": 181
+  },
+  {
+   "name": "Mateo Kovacic",
+   "team": "Croatia",
+   "pos": "CM",
+   "bwae_xt": 0.32697715206163863,
+   "bwae_per_duel": 0.118987497903734,
+   "n_duels": 144
+  },
+  {
+   "name": "Isma\u00efla Sarr",
+   "team": "Senegal",
+   "pos": "LW",
+   "bwae_xt": 0.2732037998065277,
+   "bwae_per_duel": 0.17304403260239393,
+   "n_duels": 63
+  },
+  {
+   "name": "Jack Grealish",
+   "team": "England",
+   "pos": "LW",
+   "bwae_xt": 0.2550635967566986,
+   "bwae_per_duel": 0.20289779739273875,
+   "n_duels": 33
+  },
+  {
+   "name": "#3865",
+   "team": "Brazil",
+   "pos": "AM",
+   "bwae_xt": 0.2368085474673013,
+   "bwae_per_duel": 0.0642917081788404,
+   "n_duels": 70
+  },
+  {
+   "name": "Aziz Behich",
+   "team": "Australia",
+   "pos": "LB",
+   "bwae_xt": 0.2349349888034186,
+   "bwae_per_duel": 0.01701931018691748,
+   "n_duels": 47
+  },
+  {
+   "name": "Hirving Lozano",
+   "team": "Mexico",
+   "pos": "RW",
+   "bwae_xt": 0.2319184232571656,
+   "bwae_per_duel": 0.2039940233196824,
+   "n_duels": 55
+  },
+  {
+   "name": "Robert Lewandowski",
+   "team": "Poland",
+   "pos": "CF",
+   "bwae_xt": 0.21100928690662205,
+   "bwae_per_duel": -0.024635020489201034,
+   "n_duels": 57
+  },
+  {
+   "name": "Eden Hazard",
+   "team": "Belgium",
+   "pos": "LW",
+   "bwae_xt": 0.17864309627797162,
+   "bwae_per_duel": 0.2533016573363686,
+   "n_duels": 39
+  },
+  {
+   "name": "Mohammed Kudus",
+   "team": "Ghana",
+   "pos": "CM",
+   "bwae_xt": 0.1783210466627274,
+   "bwae_per_duel": 0.05149076639011004,
+   "n_duels": 52
+  },
+  {
+   "name": "Andrej Kramaric",
+   "team": "Croatia",
+   "pos": "RW",
+   "bwae_xt": 0.16864698666806607,
+   "bwae_per_duel": 0.0728058548217294,
+   "n_duels": 49
+  },
+  {
+   "name": "Kingsley Coman",
+   "team": "France",
+   "pos": "RW",
+   "bwae_xt": 0.16267762336651984,
+   "bwae_per_duel": 0.15724832965113422,
+   "n_duels": 37
+  },
+  {
+   "name": "Dejan Lovren",
+   "team": "Croatia",
+   "pos": "CB",
+   "bwae_xt": 0.1622515402951822,
+   "bwae_per_duel": 0.09311576706755281,
+   "n_duels": 35
+  },
+  {
+   "name": "Dayot Upamecano",
+   "team": "France",
+   "pos": "CB",
+   "bwae_xt": 0.13668427750402926,
+   "bwae_per_duel": 0.16522949740795137,
+   "n_duels": 47
+  },
+  {
+   "name": "#4626",
+   "team": "Cameroon",
+   "pos": "CF",
+   "bwae_xt": 0.13411341128072968,
+   "bwae_per_duel": 0.2421160304667616,
+   "n_duels": 35
+  },
+  {
+   "name": "Nikola Vlasic",
+   "team": "Croatia",
+   "pos": "AM",
+   "bwae_xt": 0.1298133286525889,
+   "bwae_per_duel": 0.1686191807833481,
+   "n_duels": 45
+  },
+  {
+   "name": "Eduardo Camavinga",
+   "team": "France",
+   "pos": "CM",
+   "bwae_xt": 0.1275928420877958,
+   "bwae_per_duel": 0.20725342427289006,
+   "n_duels": 39
+  },
+  {
+   "name": "\u00c1ngel Di Mar\u00eda",
+   "team": "Argentina",
+   "pos": "RW",
+   "bwae_xt": 0.12540815513526019,
+   "bwae_per_duel": 0.10878659626680641,
+   "n_duels": 63
+  },
+  {
+   "name": "Phil Foden",
+   "team": "England",
+   "pos": "LW",
+   "bwae_xt": 0.12329908214102574,
+   "bwae_per_duel": 0.1525999538417058,
+   "n_duels": 35
+  },
+  {
+   "name": "Frenkie de Jong",
+   "team": "Netherlands",
+   "pos": "CM",
+   "bwae_xt": 0.11579587157001421,
+   "bwae_per_duel": 0.028826689100036232,
+   "n_duels": 63
+  },
+  {
+   "name": "Alexis Mac Allister",
+   "team": "Argentina",
+   "pos": "CM",
+   "bwae_xt": 0.09093384914407907,
+   "bwae_per_duel": 0.07647778539688165,
+   "n_duels": 83
+  },
+  {
+   "name": "Marcus Thuram",
+   "team": "France",
+   "pos": "LW",
+   "bwae_xt": 0.0878954828451283,
+   "bwae_per_duel": 0.05386812676244146,
+   "n_duels": 38
+  },
+  {
+   "name": "Nicol\u00e1s Otamendi",
+   "team": "Argentina",
+   "pos": "CB",
+   "bwae_xt": 0.08192711349631002,
+   "bwae_per_duel": 0.010028014554187606,
+   "n_duels": 43
+  },
+  {
+   "name": "Eder Militao",
+   "team": "Brazil",
+   "pos": "RB",
+   "bwae_xt": 0.07900371797907803,
+   "bwae_per_duel": 0.15866683278811625,
+   "n_duels": 48
+  },
+  {
+   "name": "Junya Ito",
+   "team": "Japan",
+   "pos": "RB",
+   "bwae_xt": 0.07450169441118859,
+   "bwae_per_duel": -0.08459885473800163,
+   "n_duels": 40
+  },
+  {
+   "name": "#3888",
+   "team": "France",
+   "pos": "CM",
+   "bwae_xt": 0.07357556465219922,
+   "bwae_per_duel": 0.10668274919591492,
+   "n_duels": 80
+  },
+  {
+   "name": "Alexis Vega",
+   "team": "Mexico",
+   "pos": "LW",
+   "bwae_xt": 0.07350476680654087,
+   "bwae_per_duel": 0.07666216066801404,
+   "n_duels": 37
+  },
+  {
+   "name": "Ramin Rezaeian",
+   "team": "Iran",
+   "pos": "RB",
+   "bwae_xt": 0.07323181540209626,
+   "bwae_per_duel": 0.19654649392645035,
+   "n_duels": 32
+  },
+  {
+   "name": "Firas Al-Buraikan",
+   "team": "Saudi Arabia",
+   "pos": "RM",
+   "bwae_xt": 0.0704881511844682,
+   "bwae_per_duel": 0.12717787873229627,
+   "n_duels": 29
+  },
+  {
+   "name": "Ritsu Doan",
+   "team": "Japan",
+   "pos": "RW",
+   "bwae_xt": 0.06937689713823969,
+   "bwae_per_duel": 0.06341369972328156,
+   "n_duels": 43
+  },
+  {
+   "name": "Bryan Mbeumo",
+   "team": "Cameroon",
+   "pos": "RW",
+   "bwae_xt": 0.06782483317781254,
+   "bwae_per_duel": 0.0713402087618489,
+   "n_duels": 28
+  },
+  {
+   "name": "#1973",
+   "team": "United States",
+   "pos": "LB",
+   "bwae_xt": 0.06700613536833154,
+   "bwae_per_duel": 0.0794042589421423,
+   "n_duels": 44
+  },
+  {
+   "name": "Federico Valverde",
+   "team": "Uruguay",
+   "pos": "CM",
+   "bwae_xt": 0.06681184495989972,
+   "bwae_per_duel": 0.03780293093319578,
+   "n_duels": 36
+  },
+  {
+   "name": "Azzedine Ounahi",
+   "team": "Morocco",
+   "pos": "CM",
+   "bwae_xt": 0.06454693975607811,
+   "bwae_per_duel": 0.046318756891589714,
+   "n_duels": 94
+  },
+  {
+   "name": "Jo\u00e3o Cancelo",
+   "team": "Portugal",
+   "pos": "RB",
+   "bwae_xt": 0.06041524342390803,
+   "bwae_per_duel": 0.12405710600005627,
+   "n_duels": 36
+  },
+  {
+   "name": "Jurrien Timber",
+   "team": "Netherlands",
+   "pos": "CB",
+   "bwae_xt": 0.06000077132430883,
+   "bwae_per_duel": 0.07033095930481657,
+   "n_duels": 68
+  },
+  {
+   "name": "Otavio",
+   "team": "Portugal",
+   "pos": "CM",
+   "bwae_xt": 0.05697609661815904,
+   "bwae_per_duel": 0.09457703622004611,
+   "n_duels": 39
+  },
+  {
+   "name": "Aissa Laidouni",
+   "team": "Tunisia",
+   "pos": "CM",
+   "bwae_xt": 0.05512823350706422,
+   "bwae_per_duel": 0.11679152552731384,
+   "n_duels": 39
+  },
+  {
+   "name": "Harry Kane",
+   "team": "England",
+   "pos": "CF",
+   "bwae_xt": 0.05459342518482925,
+   "bwae_per_duel": 0.13121880258852972,
+   "n_duels": 51
+  },
+  {
+   "name": "Raphinha",
+   "team": "Brazil",
+   "pos": "RW",
+   "bwae_xt": 0.05434636125062293,
+   "bwae_per_duel": 0.00722475682867972,
+   "n_duels": 54
+  },
+  {
+   "name": "Mason Mount",
+   "team": "England",
+   "pos": "AM",
+   "bwae_xt": 0.0508198739564303,
+   "bwae_per_duel": 0.06904610858178949,
+   "n_duels": 29
+  },
+  {
+   "name": "David Raum",
+   "team": "Germany",
+   "pos": "LB",
+   "bwae_xt": 0.04684713180125646,
+   "bwae_per_duel": 0.09817352897145365,
+   "n_duels": 42
+  },
+  {
+   "name": "Theo Hernandez",
+   "team": "France",
+   "pos": "LB",
+   "bwae_xt": 0.045264072566825304,
+   "bwae_per_duel": 0.12475976479688193,
+   "n_duels": 62
+  },
+  {
+   "name": "#6916",
+   "team": "Canada",
+   "pos": "LW",
+   "bwae_xt": 0.04283073008597624,
+   "bwae_per_duel": 0.11689977956386378,
+   "n_duels": 30
+  },
+  {
+   "name": "Majid Hosseini",
+   "team": "Iran",
+   "pos": "CB",
+   "bwae_xt": 0.04135470189807656,
+   "bwae_per_duel": 0.19659424601886535,
+   "n_duels": 29
+  },
+  {
+   "name": "Josip Juranovic",
+   "team": "Croatia",
+   "pos": "RB",
+   "bwae_xt": 0.041072982230141976,
+   "bwae_per_duel": 0.05999085295710569,
+   "n_duels": 46
+  },
+  {
+   "name": "Josko Gvardiol",
+   "team": "Croatia",
+   "pos": "CB",
+   "bwae_xt": 0.04099981653499264,
+   "bwae_per_duel": 0.10158372498257055,
+   "n_duels": 75
+  },
+  {
+   "name": "#1931",
+   "team": "Wales",
+   "pos": "CM",
+   "bwae_xt": 0.0400508219842276,
+   "bwae_per_duel": 0.15238212528759912,
+   "n_duels": 29
+  },
+  {
+   "name": "Bruno Fernandes",
+   "team": "Portugal",
+   "pos": "RW",
+   "bwae_xt": 0.0386474412267115,
+   "bwae_per_duel": 0.09646596262902986,
+   "n_duels": 43
+  },
+  {
+   "name": "Sergej Milinkovi\u0107-Savi\u0107",
+   "team": "Serbia",
+   "pos": "LW",
+   "bwae_xt": 0.03807754837392458,
+   "bwae_per_duel": 0.14036148722235295,
+   "n_duels": 33
+  },
+  {
+   "name": "Kalidou Koulibaly",
+   "team": "Senegal",
+   "pos": "CB",
+   "bwae_xt": 0.03792649024511885,
+   "bwae_per_duel": 0.20193080008431474,
+   "n_duels": 32
+  },
+  {
+   "name": "Ibrahima Konat\u00e9",
+   "team": "France",
+   "pos": "CB",
+   "bwae_xt": 0.03721241016919629,
+   "bwae_per_duel": 0.22630831602809684,
+   "n_duels": 30
+  },
+  {
+   "name": "Youssef Msakni",
+   "team": "Tunisia",
+   "pos": "LW",
+   "bwae_xt": 0.03617488355659048,
+   "bwae_per_duel": 0.04568734570370158,
+   "n_duels": 29
+  },
+  {
+   "name": "Luis Ch\u00e1vez",
+   "team": "Mexico",
+   "pos": "CM",
+   "bwae_xt": 0.035616961723856436,
+   "bwae_per_duel": 0.10953317161569413,
+   "n_duels": 29
+  },
+  {
+   "name": "Jordan Ayew",
+   "team": "Ghana",
+   "pos": "CF",
+   "bwae_xt": 0.03489562758184391,
+   "bwae_per_duel": -0.029858306536465824,
+   "n_duels": 33
+  },
+  {
+   "name": "Alidu Seidu",
+   "team": "Ghana",
+   "pos": "RB",
+   "bwae_xt": 0.0344313353499329,
+   "bwae_per_duel": 0.1001378557233245,
+   "n_duels": 34
+  },
+  {
+   "name": "Pierre-Emile H\u00f6jbjerg",
+   "team": "Denmark",
+   "pos": "CM",
+   "bwae_xt": 0.034420701893594904,
+   "bwae_per_duel": 0.06045823866034051,
+   "n_duels": 28
+  },
+  {
+   "name": "Math\u00ed\u00adas Olivera",
+   "team": "Uruguay",
+   "pos": "LB",
+   "bwae_xt": 0.03157265140642535,
+   "bwae_per_duel": 0.2191924884142986,
+   "n_duels": 28
+  },
+  {
+   "name": "#4674",
+   "team": "Belgium",
+   "pos": "CM",
+   "bwae_xt": 0.030998777972085306,
+   "bwae_per_duel": 0.12388000552429117,
+   "n_duels": 28
+  },
+  {
+   "name": "Salis Abdul Samed",
+   "team": "Ghana",
+   "pos": "CM",
+   "bwae_xt": 0.030624608998796887,
+   "bwae_per_duel": 0.020691881077047142,
+   "n_duels": 27
+  },
+  {
+   "name": "Kaoru Mitoma",
+   "team": "Japan",
+   "pos": "LW",
+   "bwae_xt": 0.030605450869007438,
+   "bwae_per_duel": -0.06275360257429896,
+   "n_duels": 32
+  },
+  {
+   "name": "Gavi",
+   "team": "Spain",
+   "pos": "CM",
+   "bwae_xt": 0.028662475981846663,
+   "bwae_per_duel": 0.05196133003984324,
+   "n_duels": 67
+  },
+  {
+   "name": "Salem Al-Dawsari",
+   "team": "Saudi Arabia",
+   "pos": "LM",
+   "bwae_xt": 0.02728212731701196,
+   "bwae_per_duel": 0.005350174667460334,
+   "n_duels": 48
+  },
+  {
+   "name": "#22",
+   "team": "Belgium",
+   "pos": "RW",
+   "bwae_xt": 0.02641103286746741,
+   "bwae_per_duel": 0.01321818695245652,
+   "n_duels": 26
+  },
+  {
+   "name": "Andrija Zivkovic",
+   "team": "Serbia",
+   "pos": "RB",
+   "bwae_xt": 0.02210880044264629,
+   "bwae_per_duel": 0.06799837113544135,
+   "n_duels": 28
+  },
+  {
+   "name": "Nouhou",
+   "team": "Cameroon",
+   "pos": "LB",
+   "bwae_xt": 0.021905475366532517,
+   "bwae_per_duel": 0.04755328847916604,
+   "n_duels": 35
+  },
+  {
+   "name": "Iliman Ndiaye",
+   "team": "Senegal",
+   "pos": "AM",
+   "bwae_xt": 0.021263373668099987,
+   "bwae_per_duel": 0.1149218260451066,
+   "n_duels": 26
+  },
+  {
+   "name": "Bukayo Saka",
+   "team": "England",
+   "pos": "RW",
+   "bwae_xt": 0.020272552822539543,
+   "bwae_per_duel": -0.025941918238662993,
+   "n_duels": 57
+  },
+  {
+   "name": "Teun Koopmeiners",
+   "team": "Netherlands",
+   "pos": "DM",
+   "bwae_xt": 0.019717813773977556,
+   "bwae_per_duel": 0.07115599744895232,
+   "n_duels": 34
+  },
+  {
+   "name": "Granit Xhaka",
+   "team": "Switzerland",
+   "pos": "DM",
+   "bwae_xt": 0.018812058170690697,
+   "bwae_per_duel": 0.03676166069044971,
+   "n_duels": 33
+  },
+  {
+   "name": "Guillermo Varela",
+   "team": "Uruguay",
+   "pos": "RB",
+   "bwae_xt": 0.017593953332124698,
+   "bwae_per_duel": 0.08979428544642751,
+   "n_duels": 25
+  },
+  {
+   "name": "Milad Mohammadi",
+   "team": "Iran",
+   "pos": "LB",
+   "bwae_xt": 0.01614768530413776,
+   "bwae_per_duel": -0.045582465357499914,
+   "n_duels": 37
+  },
+  {
+   "name": "#4758",
+   "team": "Tunisia",
+   "pos": "CM",
+   "bwae_xt": 0.015906651507754548,
+   "bwae_per_duel": 0.12956700276494204,
+   "n_duels": 41
+  },
+  {
+   "name": "Thomas Partey",
+   "team": "Ghana",
+   "pos": "CM",
+   "bwae_xt": 0.01572276602505036,
+   "bwae_per_duel": 0.06236022735807169,
+   "n_duels": 36
+  },
+  {
+   "name": "Joel Campbell",
+   "team": "Costa Rica",
+   "pos": "CF",
+   "bwae_xt": 0.015570585177648344,
+   "bwae_per_duel": -0.002715154521102114,
+   "n_duels": 77
+  },
+  {
+   "name": "Abdelkarim Hassan",
+   "team": "Qatar",
+   "pos": "CB",
+   "bwae_xt": 0.014299423506102645,
+   "bwae_per_duel": 0.08740996236813933,
+   "n_duels": 26
+  },
+  {
+   "name": "#1950",
+   "team": "Spain",
+   "pos": "RW",
+   "bwae_xt": 0.013449967846008036,
+   "bwae_per_duel": -0.04637765898255712,
+   "n_duels": 46
+  },
+  {
+   "name": "Nikola Milenkovic",
+   "team": "Serbia",
+   "pos": "CB",
+   "bwae_xt": 0.012725860232841672,
+   "bwae_per_duel": -0.007432788221169837,
+   "n_duels": 31
+  },
+  {
+   "name": "Nampalys Mendy",
+   "team": "Senegal",
+   "pos": "CM",
+   "bwae_xt": 0.0120881186837069,
+   "bwae_per_duel": 0.07953900708468702,
+   "n_duels": 26
+  },
+  {
+   "name": "Pedri",
+   "team": "Spain",
+   "pos": "CM",
+   "bwae_xt": 0.011733282049420615,
+   "bwae_per_duel": 0.0261631350048285,
+   "n_duels": 61
+  },
+  {
+   "name": "Keysher Fuller",
+   "team": "Costa Rica",
+   "pos": "RM",
+   "bwae_xt": 0.011171663172091882,
+   "bwae_per_duel": 0.02447733332311663,
+   "n_duels": 28
+  },
+  {
+   "name": "#13872",
+   "team": "Cameroon",
+   "pos": "RB",
+   "bwae_xt": 0.010595589043078989,
+   "bwae_per_duel": 0.1393856338126296,
+   "n_duels": 29
+  },
+  {
+   "name": "Krystian Bielik",
+   "team": "Poland",
+   "pos": "CM",
+   "bwae_xt": 0.009635474687846517,
+   "bwae_per_duel": 0.024974444673279653,
+   "n_duels": 40
+  },
+  {
+   "name": "Boulaye Dia",
+   "team": "Senegal",
+   "pos": "CF",
+   "bwae_xt": 0.00890283135617033,
+   "bwae_per_duel": -0.004051391046368412,
+   "n_duels": 36
+  },
+  {
+   "name": "Xherdan Shaqiri",
+   "team": "Switzerland",
+   "pos": "CF",
+   "bwae_xt": 0.008174213950653184,
+   "bwae_per_duel": 0.05304539491250925,
+   "n_duels": 26
+  },
+  {
+   "name": "Bryan Oviedo",
+   "team": "Costa Rica",
+   "pos": "LB",
+   "bwae_xt": 0.007707318682010017,
+   "bwae_per_duel": 0.10757139972652653,
+   "n_duels": 29
+  },
+  {
+   "name": "Joe Rodon",
+   "team": "Wales",
+   "pos": "MCB",
+   "bwae_xt": 0.007323801873500299,
+   "bwae_per_duel": 0.046815179131411463,
+   "n_duels": 25
+  },
+  {
+   "name": "Declan Rice",
+   "team": "England",
+   "pos": "CM",
+   "bwae_xt": 0.0065574750485377096,
+   "bwae_per_duel": 0.07747788785659208,
+   "n_duels": 28
+  },
+  {
+   "name": "#449",
+   "team": "Australia",
+   "pos": "CM",
+   "bwae_xt": 0.00581273670158668,
+   "bwae_per_duel": -0.037475669333545694,
+   "n_duels": 39
+  },
+  {
+   "name": "#11856",
+   "team": "Argentina",
+   "pos": "CM",
+   "bwae_xt": 0.004685222726340917,
+   "bwae_per_duel": -0.02397261712325288,
+   "n_duels": 92
+  },
+  {
+   "name": "#1339",
+   "team": "United States",
+   "pos": "CM",
+   "bwae_xt": 0.0014846040420603565,
+   "bwae_per_duel": 0.06561158594633186,
+   "n_duels": 58
+  },
+  {
+   "name": "Joshua Kimmich",
+   "team": "Germany",
+   "pos": "CM",
+   "bwae_xt": 0.0007335830091707712,
+   "bwae_per_duel": 0.041877962232212546,
+   "n_duels": 34
+  },
+  {
+   "name": "Ali Abdi",
+   "team": "Tunisia",
+   "pos": "LB",
+   "bwae_xt": -0.0008591571988967612,
+   "bwae_per_duel": 0.05242667814651597,
+   "n_duels": 29
+  },
+  {
+   "name": "Piotr Zielinski",
+   "team": "Poland",
+   "pos": "CM",
+   "bwae_xt": -0.0009859142119679346,
+   "bwae_per_duel": -0.007898210905687101,
+   "n_duels": 29
+  },
+  {
+   "name": "Steven Bergwijn",
+   "team": "Netherlands",
+   "pos": "LW",
+   "bwae_xt": -0.0022212748130438324,
+   "bwae_per_duel": 0.16410086898720216,
+   "n_duels": 25
+  },
+  {
+   "name": "Achraf Hakimi",
+   "team": "Morocco",
+   "pos": "RB",
+   "bwae_xt": -0.00374511399315327,
+   "bwae_per_duel": 0.02558124534576433,
+   "n_duels": 117
+  },
+  {
+   "name": "Jules Kounde",
+   "team": "France",
+   "pos": "RB",
+   "bwae_xt": -0.004323023471798595,
+   "bwae_per_duel": -0.1061758702895531,
+   "n_duels": 48
+  },
+  {
+   "name": "Andr\u00e9 Zambo Anguissa",
+   "team": "Cameroon",
+   "pos": "CM",
+   "bwae_xt": -0.004914575240098271,
+   "bwae_per_duel": 0.013384750255940141,
+   "n_duels": 38
+  },
+  {
+   "name": "Romain Sa\u00efss",
+   "team": "Morocco",
+   "pos": "CB",
+   "bwae_xt": -0.00546416686115393,
+   "bwae_per_duel": -0.038812156226525105,
+   "n_duels": 26
+  },
+  {
+   "name": "Heung-min Son",
+   "team": "South Korea",
+   "pos": "CF",
+   "bwae_xt": -0.006783237810722962,
+   "bwae_per_duel": -0.005958597251086376,
+   "n_duels": 54
+  },
+  {
+   "name": "Kieffer Moore",
+   "team": "Wales",
+   "pos": "CF",
+   "bwae_xt": -0.0074826561383389,
+   "bwae_per_duel": -0.07237258202487536,
+   "n_duels": 26
+  },
+  {
+   "name": "#13951",
+   "team": "Qatar",
+   "pos": "LB",
+   "bwae_xt": -0.009440692815569227,
+   "bwae_per_duel": 0.07334943330494455,
+   "n_duels": 34
+  },
+  {
+   "name": "Andre Ayew",
+   "team": "Ghana",
+   "pos": "CF",
+   "bwae_xt": -0.00974383382751094,
+   "bwae_per_duel": 0.14312611733535213,
+   "n_duels": 31
+  },
+  {
+   "name": "Richie Laryea",
+   "team": "Canada",
+   "pos": "RB",
+   "bwae_xt": -0.009960119587224387,
+   "bwae_per_duel": 0.021742927711405,
+   "n_duels": 26
+  },
+  {
+   "name": "Breel Embolo",
+   "team": "Switzerland",
+   "pos": "CF",
+   "bwae_xt": -0.010918210513341686,
+   "bwae_per_duel": 0.042810705158204655,
+   "n_duels": 59
+  },
+  {
+   "name": "Serge Gnabry",
+   "team": "Germany",
+   "pos": "RW",
+   "bwae_xt": -0.011429924959308987,
+   "bwae_per_duel": 0.002641591391046156,
+   "n_duels": 38
+  },
+  {
+   "name": "Sergio Busquets",
+   "team": "Spain",
+   "pos": "CM",
+   "bwae_xt": -0.011612993803531056,
+   "bwae_per_duel": -0.023237042930512545,
+   "n_duels": 36
+  },
+  {
+   "name": "#13850",
+   "team": "Poland",
+   "pos": "DM",
+   "bwae_xt": -0.01456355800958491,
+   "bwae_per_duel": -0.001917927320152239,
+   "n_duels": 52
+  },
+  {
+   "name": "Nahuel Molina",
+   "team": "Argentina",
+   "pos": "RB",
+   "bwae_xt": -0.015586518486489478,
+   "bwae_per_duel": 0.03602241896193288,
+   "n_duels": 50
+  },
+  {
+   "name": "Jin-su Kim",
+   "team": "South Korea",
+   "pos": "LB",
+   "bwae_xt": -0.015820397063655723,
+   "bwae_per_duel": 0.06002977361911291,
+   "n_duels": 25
+  },
+  {
+   "name": "#4661",
+   "team": "Switzerland",
+   "pos": "CB",
+   "bwae_xt": -0.01658007524759291,
+   "bwae_per_duel": 0.004387529207459564,
+   "n_duels": 25
+  },
+  {
+   "name": "Chris Mepham",
+   "team": "Wales",
+   "pos": "CB",
+   "bwae_xt": -0.01759606707473101,
+   "bwae_per_duel": 0.017608559300709627,
+   "n_duels": 26
+  },
+  {
+   "name": "Daichi Kamada",
+   "team": "Japan",
+   "pos": "LW",
+   "bwae_xt": -0.017668967917578535,
+   "bwae_per_duel": -0.07560718063554857,
+   "n_duels": 26
+  },
+  {
+   "name": "Saud Abdulhamid",
+   "team": "Saudi Arabia",
+   "pos": "RB",
+   "bwae_xt": -0.019092832793679338,
+   "bwae_per_duel": -0.02853681646151403,
+   "n_duels": 29
+  },
+  {
+   "name": "#401",
+   "team": "Morocco",
+   "pos": "LW",
+   "bwae_xt": -0.01958726457849124,
+   "bwae_per_duel": -0.0014780487011822696,
+   "n_duels": 112
+  },
+  {
+   "name": "#3930",
+   "team": "Brazil",
+   "pos": "CM",
+   "bwae_xt": -0.020494293663790696,
+   "bwae_per_duel": 0.06337139574017228,
+   "n_duels": 43
+  },
+  {
+   "name": "#8026",
+   "team": "Netherlands",
+   "pos": "LB",
+   "bwae_xt": -0.02070763941078905,
+   "bwae_per_duel": -0.039344426238971476,
+   "n_duels": 40
+  },
+  {
+   "name": "Jordi Alba",
+   "team": "Spain",
+   "pos": "LB",
+   "bwae_xt": -0.022409018376614093,
+   "bwae_per_duel": -0.1302931823810205,
+   "n_duels": 34
+  },
+  {
+   "name": "Dusan Tadic",
+   "team": "Serbia",
+   "pos": "RW",
+   "bwae_xt": -0.02504319746372362,
+   "bwae_per_duel": 0.021693007098286927,
+   "n_duels": 40
+  },
+  {
+   "name": "Joao Felix",
+   "team": "Portugal",
+   "pos": "LW",
+   "bwae_xt": -0.02594458409005443,
+   "bwae_per_duel": 0.012117553256145388,
+   "n_duels": 43
+  },
+  {
+   "name": "Kye Rowles",
+   "team": "Australia",
+   "pos": "CB",
+   "bwae_xt": -0.026185465317035767,
+   "bwae_per_duel": -0.004280957607344257,
+   "n_duels": 29
+  },
+  {
+   "name": "Bernardo Silva",
+   "team": "Portugal",
+   "pos": "CM",
+   "bwae_xt": -0.02701229005741247,
+   "bwae_per_duel": -0.04011657782398256,
+   "n_duels": 29
+  },
+  {
+   "name": "Leandro Paredes",
+   "team": "Argentina",
+   "pos": "DM",
+   "bwae_xt": -0.027380343968184173,
+   "bwae_per_duel": -0.00037331284824005273,
+   "n_duels": 25
+  },
+  {
+   "name": "Mario Pasalic",
+   "team": "Croatia",
+   "pos": "AM",
+   "bwae_xt": -0.028883521311816814,
+   "bwae_per_duel": -0.07844650620344606,
+   "n_duels": 42
+  },
+  {
+   "name": "Randal Kolo Muani",
+   "team": "France",
+   "pos": "CF",
+   "bwae_xt": -0.031759595283147105,
+   "bwae_per_duel": -0.023051712374490715,
+   "n_duels": 52
+  },
+  {
+   "name": "Cody Gakpo",
+   "team": "Netherlands",
+   "pos": "CF",
+   "bwae_xt": -0.03182127617989197,
+   "bwae_per_duel": 0.052363683361750374,
+   "n_duels": 77
+  },
+  {
+   "name": "Moises Caicedo",
+   "team": "Ecuador",
+   "pos": "CM",
+   "bwae_xt": -0.03425842617950218,
+   "bwae_per_duel": -0.14585293727794138,
+   "n_duels": 31
+  },
+  {
+   "name": "Nicolas Tagliafico",
+   "team": "Argentina",
+   "pos": "LB",
+   "bwae_xt": -0.03445090035013687,
+   "bwae_per_duel": 0.059674914015621944,
+   "n_duels": 45
+  },
+  {
+   "name": "#13937",
+   "team": "Ecuador",
+   "pos": "RB",
+   "bwae_xt": -0.0351163385374078,
+   "bwae_per_duel": -0.015726426604837727,
+   "n_duels": 28
+  },
+  {
+   "name": "Vin\u00edcius Junior",
+   "team": "Brazil",
+   "pos": "LW",
+   "bwae_xt": -0.035519246451007624,
+   "bwae_per_duel": -0.013424256179186246,
+   "n_duels": 62
+  },
+  {
+   "name": "Noussair Mazraoui",
+   "team": "Morocco",
+   "pos": "LB",
+   "bwae_xt": -0.03581996160947324,
+   "bwae_per_duel": -0.01080079389622852,
+   "n_duels": 31
+  },
+  {
+   "name": "Mathew Leckie",
+   "team": "Australia",
+   "pos": "RM",
+   "bwae_xt": -0.03601264159734381,
+   "bwae_per_duel": -0.09449002404085928,
+   "n_duels": 58
+  },
+  {
+   "name": "Youssouf Sabaly",
+   "team": "Senegal",
+   "pos": "RB",
+   "bwae_xt": -0.03651820226850441,
+   "bwae_per_duel": 0.07681138549313399,
+   "n_duels": 40
+  },
+  {
+   "name": "#668",
+   "team": "Poland",
+   "pos": "LM",
+   "bwae_xt": -0.038018010046992734,
+   "bwae_per_duel": -0.025866197584318764,
+   "n_duels": 26
+  },
+  {
+   "name": "Silvan Widmer",
+   "team": "Switzerland",
+   "pos": "RB",
+   "bwae_xt": -0.03802844784120103,
+   "bwae_per_duel": -0.09436113948034942,
+   "n_duels": 28
+  },
+  {
+   "name": "Luka Modric",
+   "team": "Croatia",
+   "pos": "CM",
+   "bwae_xt": -0.04026955288175481,
+   "bwae_per_duel": 0.02381815344651263,
+   "n_duels": 125
+  },
+  {
+   "name": "#13819",
+   "team": "Australia",
+   "pos": "CF",
+   "bwae_xt": -0.041365349039457454,
+   "bwae_per_duel": -0.07739363504683835,
+   "n_duels": 25
+  },
+  {
+   "name": "Marten De Roon",
+   "team": "Netherlands",
+   "pos": "CM",
+   "bwae_xt": -0.04303305970960799,
+   "bwae_per_duel": -0.14937098565151335,
+   "n_duels": 25
+  },
+  {
+   "name": "Yeltsin Tejeda",
+   "team": "Costa Rica",
+   "pos": "CM",
+   "bwae_xt": -0.043861764946928956,
+   "bwae_per_duel": -0.11242805692699936,
+   "n_duels": 26
+  },
+  {
+   "name": "#5195",
+   "team": "Ecuador",
+   "pos": "CB",
+   "bwae_xt": -0.04621234381475619,
+   "bwae_per_duel": -0.1066060525683502,
+   "n_duels": 25
+  },
+  {
+   "name": "#8129",
+   "team": "Croatia",
+   "pos": "CM",
+   "bwae_xt": -0.05037100048924233,
+   "bwae_per_duel": -0.0062498344553566865,
+   "n_duels": 94
+  },
+  {
+   "name": "Hee-chan Hwang",
+   "team": "South Korea",
+   "pos": "LM",
+   "bwae_xt": -0.05040210833879355,
+   "bwae_per_duel": -0.10532996585399146,
+   "n_duels": 28
+  },
+  {
+   "name": "#1810",
+   "team": "Morocco",
+   "pos": "CF",
+   "bwae_xt": -0.05046650418637101,
+   "bwae_per_duel": -0.025136511356785244,
+   "n_duels": 39
+  },
+  {
+   "name": "Rodrigo de Paul",
+   "team": "Argentina",
+   "pos": "CM",
+   "bwae_xt": -0.05057487923600277,
+   "bwae_per_duel": 0.045268616781926174,
+   "n_duels": 87
+  },
+  {
+   "name": "Rodrigo Bentancur",
+   "team": "Uruguay",
+   "pos": "CM",
+   "bwae_xt": -0.051610377025378885,
+   "bwae_per_duel": -0.10149885966525551,
+   "n_duels": 34
+  },
+  {
+   "name": "Mohamed Kanno",
+   "team": "Saudi Arabia",
+   "pos": "CM",
+   "bwae_xt": -0.0516596602393522,
+   "bwae_per_duel": 0.024064254685048244,
+   "n_duels": 44
+  },
+  {
+   "name": "In-beom Hwang",
+   "team": "South Korea",
+   "pos": "CM",
+   "bwae_xt": -0.05406069982914311,
+   "bwae_per_duel": -0.11302132185516164,
+   "n_duels": 36
+  },
+  {
+   "name": "#13121",
+   "team": "United States",
+   "pos": "CM",
+   "bwae_xt": -0.05420324862762773,
+   "bwae_per_duel": -0.10193468602254313,
+   "n_duels": 46
+  },
+  {
+   "name": "#8138",
+   "team": "Argentina",
+   "pos": "CF",
+   "bwae_xt": -0.05441587522902913,
+   "bwae_per_duel": -0.06878922317540476,
+   "n_duels": 36
+  },
+  {
+   "name": "Luke Shaw",
+   "team": "England",
+   "pos": "LB",
+   "bwae_xt": -0.05715310514026135,
+   "bwae_per_duel": -0.1455436225213338,
+   "n_duels": 32
+  },
+  {
+   "name": "Ahmad Nourollahi",
+   "team": "Iran",
+   "pos": "CM",
+   "bwae_xt": -0.057725367892035515,
+   "bwae_per_duel": 0.021459854448933755,
+   "n_duels": 26
+  },
+  {
+   "name": "Sergi\u00f1o Dest",
+   "team": "United States",
+   "pos": "RB",
+   "bwae_xt": -0.05786436235874502,
+   "bwae_per_duel": -0.07801916866207283,
+   "n_duels": 50
+  },
+  {
+   "name": "#926",
+   "team": "Canada",
+   "pos": "CB",
+   "bwae_xt": -0.05818930997857834,
+   "bwae_per_duel": -0.1116698949406066,
+   "n_duels": 35
+  },
+  {
+   "name": "Ousmane Dembele",
+   "team": "France",
+   "pos": "RW",
+   "bwae_xt": -0.05831087016208847,
+   "bwae_per_duel": -0.04892617229430753,
+   "n_duels": 67
+  },
+  {
+   "name": "#13922",
+   "team": "South Korea",
+   "pos": "CM",
+   "bwae_xt": -0.05948277217909252,
+   "bwae_per_duel": -0.22551484277283934,
+   "n_duels": 28
+  },
+  {
+   "name": "Gue-sung Cho",
+   "team": "South Korea",
+   "pos": "CF",
+   "bwae_xt": -0.0600326504745919,
+   "bwae_per_duel": -0.23635859392132305,
+   "n_duels": 29
+  },
+  {
+   "name": "Pedro Miguel",
+   "team": "Qatar",
+   "pos": "RB",
+   "bwae_xt": -0.06068210335585919,
+   "bwae_per_duel": 0.03934996628360821,
+   "n_duels": 29
+  },
+  {
+   "name": "Yahia Attiat-Allah",
+   "team": "Morocco",
+   "pos": "LB",
+   "bwae_xt": -0.06246927297777415,
+   "bwae_per_duel": -0.13992557551519152,
+   "n_duels": 33
+  },
+  {
+   "name": "#13961",
+   "team": "Qatar",
+   "pos": "CF",
+   "bwae_xt": -0.06305374688779462,
+   "bwae_per_duel": -0.09104462386746953,
+   "n_duels": 29
+  },
+  {
+   "name": "Jude Bellingham",
+   "team": "England",
+   "pos": "CM",
+   "bwae_xt": -0.06379491609360516,
+   "bwae_per_duel": 0.04764024309062661,
+   "n_duels": 71
+  },
+  {
+   "name": "Strahinja Pavlovic",
+   "team": "Serbia",
+   "pos": "CB",
+   "bwae_xt": -0.06394377773360994,
+   "bwae_per_duel": 0.0025864026564105516,
+   "n_duels": 33
+  },
+  {
+   "name": "#11113",
+   "team": "Poland",
+   "pos": "CM",
+   "bwae_xt": -0.06430594833475717,
+   "bwae_per_duel": -0.17731468610977788,
+   "n_duels": 27
+  },
+  {
+   "name": "#6020",
+   "team": "Portugal",
+   "pos": "CF",
+   "bwae_xt": -0.06591185979201403,
+   "bwae_per_duel": -0.009000993459379585,
+   "n_duels": 26
+  },
+  {
+   "name": "Jes\u00fas Gallardo",
+   "team": "Mexico",
+   "pos": "LB",
+   "bwae_xt": -0.06948836160286363,
+   "bwae_per_duel": -0.043493283428630236,
+   "n_duels": 40
+  },
+  {
+   "name": "Lovro Majer",
+   "team": "Croatia",
+   "pos": "AM",
+   "bwae_xt": -0.07244998056182586,
+   "bwae_per_duel": -0.024284498151056138,
+   "n_duels": 33
+  },
+  {
+   "name": "#113",
+   "team": "France",
+   "pos": "CF",
+   "bwae_xt": -0.07342868948079459,
+   "bwae_per_duel": -0.15707172808084027,
+   "n_duels": 26
+  },
+  {
+   "name": "Antony",
+   "team": "Brazil",
+   "pos": "RW",
+   "bwae_xt": -0.0751574096352702,
+   "bwae_per_duel": -0.05872991384940713,
+   "n_duels": 42
+  },
+  {
+   "name": "Matty Cash",
+   "team": "Poland",
+   "pos": "RB",
+   "bwae_xt": -0.07562604708263741,
+   "bwae_per_duel": -0.1404667991512795,
+   "n_duels": 32
+  },
+  {
+   "name": "Kr\u00e9pin Diatta",
+   "team": "Senegal",
+   "pos": "RW",
+   "bwae_xt": -0.07675474165692289,
+   "bwae_per_duel": -0.21375047595538388,
+   "n_duels": 29
+  },
+  {
+   "name": "Nico Williams",
+   "team": "Spain",
+   "pos": "RW",
+   "bwae_xt": -0.07852601014148894,
+   "bwae_per_duel": -0.0981662084342669,
+   "n_duels": 28
+  },
+  {
+   "name": "Sa\u0161a Luki\u0107",
+   "team": "Serbia",
+   "pos": "CM",
+   "bwae_xt": -0.07853711416020015,
+   "bwae_per_duel": -0.1458396391462985,
+   "n_duels": 34
+  },
+  {
+   "name": "Jae-sung Lee",
+   "team": "South Korea",
+   "pos": "RM",
+   "bwae_xt": -0.07864297043278266,
+   "bwae_per_duel": -0.11310976108656504,
+   "n_duels": 28
+  },
+  {
+   "name": "Casemiro",
+   "team": "Brazil",
+   "pos": "CM",
+   "bwae_xt": -0.08091090165319423,
+   "bwae_per_duel": 0.04846743710689973,
+   "n_duels": 53
+  },
+  {
+   "name": "Jackson Irvine",
+   "team": "Australia",
+   "pos": "CF",
+   "bwae_xt": -0.08168451322091914,
+   "bwae_per_duel": -0.07662994898183428,
+   "n_duels": 45
+  },
+  {
+   "name": "Marcos Acu\u00f1a",
+   "team": "Argentina",
+   "pos": "LB",
+   "bwae_xt": -0.08201547676359179,
+   "bwae_per_duel": -0.095327102420074,
+   "n_duels": 55
+  },
+  {
+   "name": "Sofyan Amrabat",
+   "team": "Morocco",
+   "pos": "CM",
+   "bwae_xt": -0.08284584012669488,
+   "bwae_per_duel": -0.03088314037328282,
+   "n_duels": 92
+  },
+  {
+   "name": "Youssouf Fofana",
+   "team": "France",
+   "pos": "CM",
+   "bwae_xt": -0.08419274266019873,
+   "bwae_per_duel": -0.18196674683268618,
+   "n_duels": 39
+  },
+  {
+   "name": "Memphis Depay",
+   "team": "Netherlands",
+   "pos": "CF",
+   "bwae_xt": -0.08605776455870556,
+   "bwae_per_duel": -0.095772937856587,
+   "n_duels": 54
+  },
+  {
+   "name": "Rodrygo",
+   "team": "Brazil",
+   "pos": "RW",
+   "bwae_xt": -0.08906479914255425,
+   "bwae_per_duel": -0.08809789259837389,
+   "n_duels": 35
+  },
+  {
+   "name": "Issam Jebali",
+   "team": "Tunisia",
+   "pos": "CF",
+   "bwae_xt": -0.09086793977156411,
+   "bwae_per_duel": -0.07098710483974537,
+   "n_duels": 38
+  },
+  {
+   "name": "Bartosz Bereszynski",
+   "team": "Poland",
+   "pos": "LB",
+   "bwae_xt": -0.09107137245436372,
+   "bwae_per_duel": 0.008652662855371683,
+   "n_duels": 60
+  },
+  {
+   "name": "Jakub Kaminski",
+   "team": "Poland",
+   "pos": "RM",
+   "bwae_xt": -0.09197173485322264,
+   "bwae_per_duel": -0.08306768270910483,
+   "n_duels": 40
+  },
+  {
+   "name": "Ricardo Rodriguez",
+   "team": "Switzerland",
+   "pos": "CB",
+   "bwae_xt": -0.09405101052239472,
+   "bwae_per_duel": -0.05389545228798074,
+   "n_duels": 30
+  },
+  {
+   "name": "Djibril Sow",
+   "team": "Switzerland",
+   "pos": "CM",
+   "bwae_xt": -0.09658066701311485,
+   "bwae_per_duel": -0.18187794417869696,
+   "n_duels": 25
+  },
+  {
+   "name": "Mehdi Taremi",
+   "team": "Iran",
+   "pos": "CF",
+   "bwae_xt": -0.09863587503771833,
+   "bwae_per_duel": 0.02589786739150664,
+   "n_duels": 58
+  },
+  {
+   "name": "Christian Pulisic",
+   "team": "United States",
+   "pos": "LW",
+   "bwae_xt": -0.09963537835760476,
+   "bwae_per_duel": -0.05384376892718303,
+   "n_duels": 68
+  },
+  {
+   "name": "Neco Williams",
+   "team": "Wales",
+   "pos": "LB",
+   "bwae_xt": -0.10048780961590587,
+   "bwae_per_duel": -0.11053194686006386,
+   "n_duels": 38
+  },
+  {
+   "name": "Bruno Petkovic",
+   "team": "Croatia",
+   "pos": "CF",
+   "bwae_xt": -0.1009575861684329,
+   "bwae_per_duel": 0.006708018517226307,
+   "n_duels": 51
+  },
+  {
+   "name": "Wataru Endo",
+   "team": "Japan",
+   "pos": "CM",
+   "bwae_xt": -0.10219696836303951,
+   "bwae_per_duel": -0.0823599961072472,
+   "n_duels": 52
+  },
+  {
+   "name": "Selim Amallah",
+   "team": "Morocco",
+   "pos": "CM",
+   "bwae_xt": -0.1028887534693382,
+   "bwae_per_duel": -0.06010325158316425,
+   "n_duels": 71
+  },
+  {
+   "name": "Anis Slimane",
+   "team": "Tunisia",
+   "pos": "RW",
+   "bwae_xt": -0.10516028512316468,
+   "bwae_per_duel": -0.20380460470121103,
+   "n_duels": 25
+  },
+  {
+   "name": "Remo Freuler",
+   "team": "Switzerland",
+   "pos": "CM",
+   "bwae_xt": -0.10593190087441409,
+   "bwae_per_duel": -0.17536333870732185,
+   "n_duels": 38
+  },
+  {
+   "name": "Brenden Aaronson",
+   "team": "United States",
+   "pos": "AM",
+   "bwae_xt": -0.1062255857002129,
+   "bwae_per_duel": -0.18029034680876938,
+   "n_duels": 31
+  },
+  {
+   "name": "#13960",
+   "team": "Qatar",
+   "pos": "CM",
+   "bwae_xt": -0.10732947762840833,
+   "bwae_per_duel": -0.17933844417259795,
+   "n_duels": 38
+  },
+  {
+   "name": "Pervis Estupinan",
+   "team": "Ecuador",
+   "pos": "LB",
+   "bwae_xt": -0.10901324352941344,
+   "bwae_per_duel": -0.0625530279254849,
+   "n_duels": 50
+  },
+  {
+   "name": "Hidemasa Morita",
+   "team": "Japan",
+   "pos": "CM",
+   "bwae_xt": -0.11670180574516492,
+   "bwae_per_duel": -0.2034451333421571,
+   "n_duels": 38
+  },
+  {
+   "name": "Enner Valencia",
+   "team": "Ecuador",
+   "pos": "CF",
+   "bwae_xt": -0.11834139052823349,
+   "bwae_per_duel": -0.21291939848689953,
+   "n_duels": 42
+  },
+  {
+   "name": "#2443",
+   "team": "South Korea",
+   "pos": "RB",
+   "bwae_xt": -0.12432478911034656,
+   "bwae_per_duel": -0.24891934091741236,
+   "n_duels": 32
+  },
+  {
+   "name": "Weston McKennie",
+   "team": "United States",
+   "pos": "CM",
+   "bwae_xt": -0.1277552991425362,
+   "bwae_per_duel": -0.10912922552592727,
+   "n_duels": 37
+  },
+  {
+   "name": "Tajon Buchanan",
+   "team": "Canada",
+   "pos": "RW",
+   "bwae_xt": -0.12984228513287668,
+   "bwae_per_duel": -0.0932297949216086,
+   "n_duels": 58
+  },
+  {
+   "name": "Cristian Romero",
+   "team": "Argentina",
+   "pos": "CB",
+   "bwae_xt": -0.13103843937026557,
+   "bwae_per_duel": -0.16510606217468946,
+   "n_duels": 51
+  },
+  {
+   "name": "Gareth Bale",
+   "team": "Wales",
+   "pos": "CF",
+   "bwae_xt": -0.13263039788199457,
+   "bwae_per_duel": -0.02225637391953682,
+   "n_duels": 33
+  },
+  {
+   "name": "Alphonso Davies",
+   "team": "Canada",
+   "pos": "LB",
+   "bwae_xt": -0.13484564942814647,
+   "bwae_per_duel": 0.052519183043158404,
+   "n_duels": 62
+  },
+  {
+   "name": "Borna Sosa",
+   "team": "Croatia",
+   "pos": "LB",
+   "bwae_xt": -0.13564252324941273,
+   "bwae_per_duel": 0.007528723422680006,
+   "n_duels": 48
+  },
+  {
+   "name": "Aaron Ramsey",
+   "team": "Wales",
+   "pos": "CM",
+   "bwae_xt": -0.13789014569325908,
+   "bwae_per_duel": -0.1458767495671931,
+   "n_duels": 44
+  },
+  {
+   "name": "Joakim Maehle",
+   "team": "Denmark",
+   "pos": "LB",
+   "bwae_xt": -0.14279528303622305,
+   "bwae_per_duel": -0.13928162479474682,
+   "n_duels": 31
+  },
+  {
+   "name": "Marko Livaja",
+   "team": "Croatia",
+   "pos": "CF",
+   "bwae_xt": -0.1561740575072444,
+   "bwae_per_duel": -0.2709696189574121,
+   "n_duels": 27
+  },
+  {
+   "name": "#8136",
+   "team": "Croatia",
+   "pos": "LW",
+   "bwae_xt": -0.16101569270011548,
+   "bwae_per_duel": -0.1341664059991106,
+   "n_duels": 71
+  },
+  {
+   "name": "#1534",
+   "team": "France",
+   "pos": "AM",
+   "bwae_xt": -0.16384270561666706,
+   "bwae_per_duel": -0.07053666271161206,
+   "n_duels": 72
+  },
+  {
+   "name": "Riley McGree",
+   "team": "Australia",
+   "pos": "LM",
+   "bwae_xt": -0.17512206524953433,
+   "bwae_per_duel": -0.2850273558372042,
+   "n_duels": 29
+  },
+  {
+   "name": "Darwin Nunez",
+   "team": "Uruguay",
+   "pos": "LW",
+   "bwae_xt": -0.18908101170965802,
+   "bwae_per_duel": -0.11808970333151712,
+   "n_duels": 38
+  },
+  {
+   "name": "Jesper Lindstr\u00f6m",
+   "team": "Denmark",
+   "pos": "AM",
+   "bwae_xt": -0.1899952362526078,
+   "bwae_per_duel": -0.2366914436208205,
+   "n_duels": 33
+  },
+  {
+   "name": "#8054",
+   "team": "France",
+   "pos": "CM",
+   "bwae_xt": -0.1902881640200912,
+   "bwae_per_duel": -0.03308454195785362,
+   "n_duels": 73
+  },
+  {
+   "name": "Richarlison",
+   "team": "Brazil",
+   "pos": "CF",
+   "bwae_xt": -0.193893020098905,
+   "bwae_per_duel": -0.06452984817975771,
+   "n_duels": 49
+  },
+  {
+   "name": "Saleh Al-Shehri",
+   "team": "Saudi Arabia",
+   "pos": "CF",
+   "bwae_xt": -0.19891628952966348,
+   "bwae_per_duel": -0.07699109116071264,
+   "n_duels": 44
+  },
+  {
+   "name": "Hakim Ziyech",
+   "team": "Morocco",
+   "pos": "RW",
+   "bwae_xt": -0.21550764441831793,
+   "bwae_per_duel": -0.1266590078791034,
+   "n_duels": 119
+  },
+  {
+   "name": "Christian Eriksen",
+   "team": "Denmark",
+   "pos": "CM",
+   "bwae_xt": -0.22433630960130868,
+   "bwae_per_duel": -0.2957575220342739,
+   "n_duels": 33
+  },
+  {
+   "name": "Rub\u00e9n Vargas",
+   "team": "Switzerland",
+   "pos": "LB",
+   "bwae_xt": -0.23554585136950928,
+   "bwae_per_duel": -0.20066507943997505,
+   "n_duels": 28
+  },
+  {
+   "name": "#13049",
+   "team": "Ecuador",
+   "pos": "RM",
+   "bwae_xt": -0.2541424874588527,
+   "bwae_per_duel": -0.1930668631034382,
+   "n_duels": 52
+  },
+  {
+   "name": "Dani Olmo",
+   "team": "Spain",
+   "pos": "LW",
+   "bwae_xt": -0.27423661129266746,
+   "bwae_per_duel": -0.10032854665333502,
+   "n_duels": 71
+  },
+  {
+   "name": "Julian Alvarez",
+   "team": "Argentina",
+   "pos": "RW",
+   "bwae_xt": -0.3022098259376703,
+   "bwae_per_duel": -0.2072883842959514,
+   "n_duels": 62
+  },
+  {
+   "name": "Kylian Mbapp\u00e9",
+   "team": "France",
+   "pos": "LW",
+   "bwae_xt": -0.3400041576111852,
+   "bwae_per_duel": 0.0005039698032881455,
+   "n_duels": 115
+  },
+  {
+   "name": "Denzel Dumfries",
+   "team": "Netherlands",
+   "pos": "RB",
+   "bwae_xt": -0.3680218533472014,
+   "bwae_per_duel": -0.13813521582686875,
+   "n_duels": 66
+  }
+ ],
  "all": [
   {
    "name": "Hirving Lozano",
