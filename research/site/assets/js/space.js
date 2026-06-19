@@ -976,8 +976,8 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=14");
-  const data = await loadJSON("data/space_pobso.json?v=3");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=15");
+  const data = await loadJSON("data/space_pobso.json?v=4");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
   const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
@@ -1517,7 +1517,7 @@ async function buildPassSelection() {
    the passive split is the "Messi walks" finding. Reads the OBSO per-player data. */
 async function buildSOG() {
   const el = $("#pc-sog"); if (!el) return;
-  let d; try { d = await loadJSON("data/space_pobso.json?v=3"); } catch (e) { return; }
+  let d; try { d = await loadJSON("data/space_pobso.json?v=4"); } catch (e) { return; }
   const all = (d.players || []).filter((r) => r.minutes_sampled >= 90 && r.passive_pct != null);
   if (!all.length) return;
   const modeTg = $("#sog-mode"), lab = $("#sog-lab");
@@ -1539,8 +1539,26 @@ async function buildSOG() {
     mode = b.dataset.m; $$(".htog", modeTg).forEach((x) => x.classList.toggle("on", x === b)); render();
   }));
   const m = all.find((r) => /Messi/.test(r.name));
+  // HEADLINE: overall share of his time on the pitch spent walking (distinct from the
+  // danger-space share below — this is total time, the "Messi walks" number).
+  const ws = $("#sog-walkstat");
+  if (m && ws && m.time_walk_pct != null) {
+    const field = (d.players || []).filter((r) => r.time_walk_pct != null && r.minutes_sampled >= 90);
+    const sorted = field.slice().sort((a, b) => b.time_walk_pct - a.time_walk_pct);
+    const rank = sorted.findIndex((r) => /Messi/.test(r.name)) + 1;
+    const DEF = /\b(CB|RB|LB|RWB|LWB|WB|DM|GK)\b/i;   // defenders/holders walk most; Messi is a forward
+    const above = sorted.slice(0, Math.max(0, rank - 1));
+    const defAbove = above.filter((r) => DEF.test(r.position || "")).length;
+    const tail = (rank > 3 && above.length && defAbove >= Math.ceil(above.length * 0.6))
+      ? ` Almost everyone who walks more is a <b>defender</b> — he is a forward who owns the most dangerous space on the pitch.`
+      : ` He owns the most dangerous space on the pitch while doing it.`;
+    ws.innerHTML = `<span class="wnum">${m.time_walk_pct}%</span>`
+      + `<span class="wlab">of his time on the pitch, <b>Messi is walking</b> (under 2 m/s)`
+      + `${rank ? ` — the <b>#${rank}</b> highest share of the ${field.length} outfielders with real minutes` : ""}.`
+      + `${tail}</span>`;
+  }
   const mEl = $("#sog-messi");
-  if (m && mEl) mEl.innerHTML = `<b>Messi is the archetype.</b> He sits at the very top of this walking view: ${m.passive_pct}% of the dangerous space he occupies, he wins while <b>walking</b>, the highest share of any forward, at <b>${m.control_speed} m/s</b> when he owns it. Fernández &amp; Bornn measured the same thing in 2017 and got 66%. He walks into the right grass while everyone else runs.`;
+  if (m && mEl) mEl.innerHTML = `<b>And it shows up in where it matters.</b> Of the dangerous space Messi wins, <b>${m.passive_pct}%</b> he wins while <b>walking</b> — the highest share of any forward — moving just <b>${m.control_speed} m/s</b> when he owns it. Fernández &amp; Bornn measured the same thing in 2017 and got 66%. He walks into the right grass while everyone else runs.`;
 }
 
 async function buildBWAE() {
