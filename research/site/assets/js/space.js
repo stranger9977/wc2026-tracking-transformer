@@ -976,7 +976,7 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=12");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=13");
   const data = await loadJSON("data/space_pobso.json?v=3");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
