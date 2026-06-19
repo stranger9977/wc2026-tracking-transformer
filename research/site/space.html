@@ -220,7 +220,7 @@
 
   /* team mini-bars */
   .tbars{margin-top:10px}
-  .tbrow{display:grid; grid-template-columns:minmax(120px,160px) 1fr auto; align-items:center; gap:10px; margin:6px 0; font-size:14px}
+  .tbrow{display:grid; grid-template-columns:minmax(150px,270px) 1fr auto; align-items:center; gap:10px; margin:6px 0; font-size:14px}
   .tbname{color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .tbtrack{height:16px; background:none; border:none; border-radius:0; overflow:hidden}
   .tbfill{display:block; height:100%; border-radius:0; opacity:1}
@@ -444,12 +444,15 @@
       <div id="pc-explainer" class="xpl"></div>
 
       <div class="card">
-        <h3>Pitch control as a player number: space occupation</h3>
-        <p class="caption" style="margin-top:0">Turn the control surface on players across all 64 games and you can ask who occupies the most <b>valuable</b> space, and <i>how</i>: <b>actively</b>, by running into it, or <b>passively</b>, by settling into it while the play comes to them. This is Fernández &amp; Bornn's original 2018 result.</p>
+        <h3>Space Occupation Gain (SOG): pitch control as a player number</h3>
+        <p class="caption" style="margin-top:0">Fernández &amp; Bornn's 2018 metric: how much <b>valuable</b> space a player occupies, and <i>how</i> he wins it: <b>actively</b> (running into it) or <b>passively</b> (settling into it while the play comes to him). This is our recreation on our control × xT surface over all 64 games. Their exact algorithm derives space <i>gained</i> from a dynamic value model; we measure controlled valuable space and split it by speed.</p>
+        <div class="htoggles" id="sog-mode" style="padding:0;margin:0 0 4px"><button class="htog on" data-m="total">total</button><button class="htog" data-m="passive">passive</button><button class="htog" data-m="active">active</button></div>
+        <div class="htoggles" id="sog-perm" style="padding:0;margin:0 0 8px"><button class="htog on" data-m="total">tournament</button><button class="htog" data-m="permatch">per match</button></div>
+        <div class="boardlab" id="sog-lab"></div>
         <div class="legend"><span><span class="swatch" style="background:#6cb4ee"></span>passive (walking)</span><span><span class="swatch" style="background:#f0b429"></span>active (running)</span></div>
         <div id="pc-sog"></div>
         <p class="caption" id="sog-messi"></p>
-        <p class="cite">Replicates Fernández &amp; Bornn (2018); the active vs passive split is the read behind FiveThirtyEight's <a href="https://fivethirtyeight.com/features/messi-walks-better-than-most-players-run/" target="_blank" rel="noopener">&ldquo;Messi Walks Better Than Most Players Run&rdquo;</a>.</p>
+        <p class="cite">Recreates Fernández &amp; Bornn (2018) Space Occupation Gain; the active vs passive split is the read behind FiveThirtyEight's <a href="https://fivethirtyeight.com/features/messi-walks-better-than-most-players-run/" target="_blank" rel="noopener">&ldquo;Messi Walks Better Than Most Players Run&rdquo;</a>.</p>
       </div>
 
     </div>
@@ -488,14 +491,10 @@
         <p class="caption">A cell glows only when the attacking team both <b>controls</b> it <b>and</b> it is dangerous. Toggle <b>reveal danger</b> to keep just those cells, and watch the chance form ahead of the run, before the pass.</p>
       </div>
       <div id="pobso-explainer" class="xpl"></div>
-      <figure class="giffig">
-        <img src="data/gifs/dimaria-buildup.gif" alt="Di María's off-ball run into the danger pocket, Argentina v France 2022 final" loading="lazy" />
-        <figcaption class="gifcap"><b>The full move, as a loop.</b> Di María (ringed) is the off-ball runner. Watch the danger pocket, control × xT, bloom ahead of him as Argentina build, before he receives and scores. ARG v FRA final, reconstructed from our tracking.</figcaption>
-      </figure>
       <div class="card">
         <h3>Off-ball danger controllers</h3>
         <div id="pobso-board" class="lboard"></div>
-        <p class="caption">Average danger-weighted area each player controls off the ball, in square metres. It reads small on purpose: every metre is scaled by how dangerous it is, so midfield barely counts. Players with substantial minutes lead; cameo subs are shown separately. The trustworthy read is En-Nesyri, Mbappé, Petković, Messi. <b>Messi</b> makes that list at a near-standstill: the space-occupation board in Act 2 shows he wins this grass by walking into it.</p>
+        <p class="caption">Average danger-weighted area a player owns off the ball <b>at any moment</b>, in square metres, gated to players with real sampled minutes so late-game subs don't inflate it. It reads small on purpose: every metre is scaled by how dangerous it is, so midfield barely counts. This is per-moment <b>intensity</b>: the box forwards who park in the most dangerous space lead. Who occupies the most valuable space <i>overall</i>, and how (walking vs running), is the Space Occupation board in Act 2, where Messi tops the walking read.</p>
         <p class="caption faintnote">Averaged over present frames only, which favours late attacking subs, so cameo subs sit in their own tier. Possession and carrier are nearest-player heuristics, velocity is finite-differenced at ~2 Hz, and extra time is excluded.</p>
       </div>
     </div>
@@ -519,10 +518,6 @@
         <p class="caption">The passer is ringed and labelled. The surface is attacker pitch-control × xT. A cell glows only where the team both <b>controls</b> it and it sits near goal, so the bright pocket is grass the receiver owns and can score from. <b>Dark</b> means the opponent owns it, or it is controlled but low-value midfield. The pocket forms at the receiver before the ball arrives.</p>
       </div>
       <div id="ps-explainer" class="xpl"></div>
-      <figure class="giffig">
-        <img src="data/gifs/dimaria-finish.gif" alt="The pass into the space Di María found, Argentina v France 2022 final" loading="lazy" />
-        <figcaption class="gifcap"><b>The same goal, the pass in.</b> Mac Allister threads it into the exact space Di María found. Application one credits the run; this one credits the pass.</figcaption>
-      </figure>
       <div class="card">
         <h3>Who repeatedly threads it into dangerous, controlled space</h3>
         <div class="boardlab" id="ps-lab">Players · <b>total</b> controllable threat (control × xT) summed over final-third passes</div>
@@ -530,7 +525,6 @@
         <div id="ps-board" class="tbars"></div>
         <p class="caption">All 64 WC2022 games. The final-third restriction is what surfaces the creators rather than deep ball-playing defenders. Defenders rack up progression just by passing forward out of their own half. The leaders here are <b id="ps-top">the top names</b>.</p>
       </div>
-      <p class="bridge-note"><b>One goal, both reads.</b> Take the Di María goal in the 2022 final. Application one credits Di María for finding the valuable grass behind the line. Application two credits the passer for putting the ball into it. The same square metre scores on both boards: one for arriving in it, one for hitting it.</p>
     </div>
   </div>
 </section>
@@ -543,7 +537,7 @@
     <div class="reveal">
       <div class="act-tag"><span class="num">3</span> Application three · Wins duels where it counts</div>
       <h2>Winning balls the percentages say you shouldn't.</h2>
-      <p class="lede">Pitch control also says who <i>should</i> reach a contested ball first. A player who keeps winning 50-50s <b>above</b> that probability is beating his own positioning: anticipation, timing, strength. We call it <b>Balls Won Above Expected</b>. Scrub an auto-picked example: <span id="duel-hero-title">a genuine 50-50 won</span>.</p>
+      <p class="lede">Pitch control gives each player a <b>baseline</b> chance of winning a loose ball, from where he is and how he is moving: a true 50-50 is 50%, a better-placed player more. Winning <b>above</b> that baseline, again and again, is anticipation, timing and strength his positioning alone does not explain. We call it <b>Balls Won Above Expected</b>, and we weight each duel by the xT of where it happens. Scrub an auto-picked example: <span id="duel-hero-title">a genuine 50-50 won</span>.</p>
       <div class="card">
         <h3>Winning the ball against the odds · <span id="duel-hero-title2">the duel</span></h3>
         <div id="duel-canvas" class="heat"></div>
@@ -553,7 +547,8 @@
       </div>
       <div class="card">
         <h3>Wins his duels where it counts</h3>
-        <div class="boardlab" id="bwae-lab">Players · xT-weighted balls won above expected (ground duels)</div>
+        <div class="boardlab" id="bwae-lab">Players · <b>total</b> xT-weighted balls won above expected (ground duels)</div>
+        <div class="htoggles" id="bwae-toggle" style="padding:0;margin:0 0 8px"><button class="htog on" data-m="total">total</button><button class="htog" data-m="permatch">per match</button></div>
         <div id="bwae-xt" class="tbars"></div>
         <p class="caption">Each ground duel is scored <b>xT(where it happens) × (won − expected)</b>, then summed. Pitch control sets the expectation from both players' position and momentum; the xT weight means winning a 50-50 near goal counts and a clearance in your own half barely does. So it surfaces the players who win the ball in dangerous areas more than their positioning predicts: <b id="bwae-top">the leaders</b>. All 64 WC2022 games.</p>
       </div>
@@ -610,6 +605,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=33"></script>
+<script type="module" src="assets/js/space.js?v=34"></script>
 </body>
 </html>

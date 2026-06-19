@@ -116,7 +116,7 @@ def attack_dir(snap, carrier_id):
     return 1.0 if gk_x[0] < 0 else -1.0
 
 
-def process_match(root, mid, acc_all, acc_f3, names):
+def process_match(root, mid, acc_all, acc_f3, names, pmatches):
     try:
         ev = json.load(open(root / "Event Data" / f"{mid}.json"))
     except Exception:
@@ -164,7 +164,7 @@ def process_match(root, mid, acc_all, acc_f3, names):
                 names[pid] = {"name": nm or f"#{pid}", "team": roster.get(pid, {}).get("team", ""),
                               "pos": (COLLAPSE.get(g, g) if g else "")}
             acc_all[pid]["res"] += res; acc_all[pid]["n"] += 1
-            acc_all[pid]["xtw"] += wt * res
+            acc_all[pid]["xtw"] += wt * res; pmatches[pid].add(mid)
             if in_f3:
                 acc_f3[pid]["res"] += res; acc_f3[pid]["n"] += 1
         n_all += 1; n_f3 += 1 if in_f3 else 0
@@ -179,14 +179,18 @@ def board(acc, names, min_n):
     return rows
 
 
-def board_xt(acc, names, min_n):
+def board_xt(acc, names, min_n, pmatches):
     """xT-weighted Balls Won Above Expected: sum over a player's ground duels of
     xT(contest) x (won - expected). Wins in dangerous areas above the odds dominate;
-    own-half clearances barely register."""
-    rows = [{"name": names[p]["name"], "team": names[p]["team"], "pos": names[p].get("pos", ""),
-             "bwae_xt": acc[p]["xtw"], "bwae_per_duel": acc[p]["res"] / acc[p]["n"],
-             "n_duels": acc[p]["n"]}
-            for p in acc if acc[p]["n"] >= min_n]
+    own-half clearances barely register. Per-match = the sum / matches with a duel."""
+    rows = []
+    for p in acc:
+        if acc[p]["n"] < min_n:
+            continue
+        m = len(pmatches.get(p, ()))
+        rows.append({"name": names[p]["name"], "team": names[p]["team"], "pos": names[p].get("pos", ""),
+                     "bwae_xt": acc[p]["xtw"], "bwae_xt_per_match": acc[p]["xtw"] / max(1, m),
+                     "bwae_per_duel": acc[p]["res"] / acc[p]["n"], "n_duels": acc[p]["n"], "matches": m})
     rows.sort(key=lambda r: -r["bwae_xt"])
     return rows
 
@@ -202,11 +206,12 @@ def main():
                         for p in (root / "Tracking Data").glob("*.jsonl.bz2")))
     acc_all = defaultdict(lambda: {"res": 0.0, "n": 0, "xtw": 0.0})
     acc_f3 = defaultdict(lambda: {"res": 0.0, "n": 0}); names = {}
+    pmatches = defaultdict(set)
     t_all = t_f3 = 0
     for mid in mids:
-        na, nf = process_match(root, mid, acc_all, acc_f3, names); t_all += na; t_f3 += nf
+        na, nf = process_match(root, mid, acc_all, acc_f3, names, pmatches); t_all += na; t_f3 += nf
     all_b = board(acc_all, names, a.min_n); f3_b = board(acc_f3, names, a.min_n_f3)
-    xt_b = board_xt(acc_all, names, a.min_n_xt)
+    xt_b = board_xt(acc_all, names, a.min_n_xt, pmatches)
     OUT.write_text(json.dumps({"metric": "Balls Won Above Expected (ground duels), xT-weighted",
                                "n_ground_duels": t_all, "n_final_third": t_f3,
                                "players": xt_b, "all": all_b, "final_third": f3_b}, indent=1))
