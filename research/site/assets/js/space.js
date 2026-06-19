@@ -1009,20 +1009,32 @@ async function buildPOBSO() {
   // name the auto-picked runner in the card title
   const pbTitle = $("#pobso-hero-title");
   if (pbTitle && h.name) pbTitle.textContent = `${h.name}'s run and finish`;
-  // PLAYER board — substantial-minutes players LEAD; cameo subs (<15 min, ~one match) are
-  // shown separately so they don't headline (matches the caption's claim).
-  const QUALMIN = 30;   // drop sub cameos; ranking by TOTAL occupation is already minutes-robust
-  const players = [...data.players].filter((r) => r.minutes_sampled >= QUALMIN && r.occupation_total != null)
-    .sort((a, b) => b.occupation_total - a.occupation_total).slice(0, 12);
-  const lb = leaderboard(players, {
-    name: (r) => r.name, team: (r) => r.team, pos: (r) => r.position,
-    val: (r) => r.occupation_total * 0.5 / 60,   // danger-weighted m² held, summed over minutes (m²·min)
-    fmt: (v) => `${Math.round(v).toLocaleString()}`,
-    tier: () => "full",
-    barColor: null, scrubberEl: scEl,
-    tierLabel: () => `most dangerous space owned over the tournament (danger-weighted m²·min)`,
-  });
-  $("#pobso-board").appendChild(lb);
+  // PLAYER board — off-ball danger owned PER MATCH, opponent-strength weighted, with a
+  // group/knockout/all stage filter (so it is not "just the deep-run teams"). Same stages
+  // schema + toggle pattern as the passing/duel boards. SCALE → danger-weighted m²·min/game.
+  const boardEl = $("#pobso-board"), btg = $("#pobso-toggle"), bwt = $("#pobso-weight");
+  const blab = $("#pobso-lab"), btop = $("#pobso-top"), SCALE = 0.5 / 60;
+  const players = (data.players || []).filter((r) => r.stages && r.position);
+  const bst = { stage: "group", weighted: true };
+  const renderBoard = () => {
+    const stage = bst.stage, key = bst.weighted ? "per_match" : "per_match_raw";
+    const min = STAGE_MIN[stage] || 2;
+    const sv = (r) => (r.stages[stage] && r.stages[stage].matches >= min) ? r.stages[stage][key] * SCALE : null;
+    const rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
+    const mx = Math.max(1e-9, ...rows.map(sv));
+    boardEl.innerHTML = rows.map((r) => { const s = r.stages[stage]; return `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""} <span class="lpos">${s.matches}m</span></span>
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(sv(r) / mx * 100, 0, 100)}%;background:#ff8a5c"></span></span>
+      <span class="tbval">${Math.round(sv(r)).toLocaleString()}</span></div>`; }).join("");
+    if (blab) blab.innerHTML = `Players · dangerous space owned off the ball, <b>m²·min per match</b>${bst.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
+    if (btop) btop.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
+  };
+  renderBoard();
+  if (btg) $$(".htog", btg).forEach((b) => b.addEventListener("click", () => {
+    bst.stage = b.dataset.m; $$(".htog", btg).forEach((x) => x.classList.toggle("on", x === b)); renderBoard();
+  }));
+  if (bwt) $$(".htog", bwt).forEach((b) => b.addEventListener("click", () => {
+    bst.weighted = b.dataset.w === "weighted"; $$(".htog", bwt).forEach((x) => x.classList.toggle("on", x === b)); renderBoard();
+  }));
   // NOTE: the team danger-RATE board + its xG-receipt were removed in the consolidation
   // sweep — that metric tracked xG only on the 10 knockout contenders and INVERTS across
   // all 64 (counter teams get acres of unconverted transition space). See the "measuring
@@ -1522,28 +1534,31 @@ async function buildPassSelection() {
    the passive split is the "Messi walks" finding. Reads the OBSO per-player data. */
 async function buildSOG() {
   const el = $("#pc-sog"); if (!el) return;
-  let d; try { d = await loadJSON("data/space_pobso.json?v=4"); } catch (e) { return; }
-  const all = (d.players || []).filter((r) => r.minutes_sampled >= 90 && r.passive_pct != null);
-  if (!all.length) return;
-  const modeTg = $("#sog-mode"), lab = $("#sog-lab");
-  let mode = "passive";
+  let d; try { d = await loadJSON("data/space_pobso.json?v=5"); } catch (e) { return; }
+  const players = (d.players || []).filter((r) => r.walk_stages && r.stages);
+  if (!players.length) return;
+  const modeTg = $("#sog-mode"), stTg = $("#sog-stage"), lab = $("#sog-lab");
+  const st = { mode: "passive", stage: "all" };
   const nameCell = (r) => `<span class="sogname"><span class="fl" style="background:${teamColor(r.team)}"></span>${r.name} <span class="lteam">${r.team}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""}</span>`;
   const seg = (c, w) => `<span style="width:${Math.max(0, w).toFixed(1)}%;background:${c}"></span>`;
   const render = () => {
-    const key = mode === "active" ? "active_pct" : "passive_pct";
-    const col = mode === "active" ? "#f0b429" : "#6cb4ee";
-    const word = mode === "active" ? "running" : "walking";
-    const rows = [...all].sort((a, b) => b[key] - a[key]).slice(0, 12);
-    el.innerHTML = rows.map((r) => `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg(col, r[key])}</span><span class="sogval">${r[key]}% ${word}</span></div>`).join("");
-    if (lab) lab.innerHTML = mode === "active"
-      ? "Share of each player's dangerous space won <b>running</b> (active, 2 m/s and up)"
-      : "Share of each player's dangerous space won <b>walking</b> (passive, under 2 m/s)";
+    const stage = st.stage, min = STAGE_MIN[stage] || 2;
+    const walkOf = (r) => (r.walk_stages[stage] != null && r.stages[stage] && r.stages[stage].matches >= min) ? r.walk_stages[stage] : null;
+    const valOf = (r) => { const w = walkOf(r); return w == null ? null : (st.mode === "active" ? 100 - w : w); };
+    const col = st.mode === "active" ? "#f0b429" : "#6cb4ee";
+    const word = st.mode === "active" ? "running" : "walking";
+    const rows = players.filter((r) => valOf(r) != null).sort((a, b) => valOf(b) - valOf(a)).slice(0, 12);
+    el.innerHTML = rows.map((r) => `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg(col, valOf(r))}</span><span class="sogval">${valOf(r)}% ${word}</span></div>`).join("");
+    if (lab) lab.innerHTML = `Share of each player's dangerous space won <b>${word}</b> (${st.mode === "active" ? "2 m/s and up" : "under 2 m/s"}) · <b>${STAGE_LABEL[stage]}</b>`;
   };
   render();
   if (modeTg) $$(".htog", modeTg).forEach((b) => b.addEventListener("click", () => {
-    mode = b.dataset.m; $$(".htog", modeTg).forEach((x) => x.classList.toggle("on", x === b)); render();
+    st.mode = b.dataset.m; $$(".htog", modeTg).forEach((x) => x.classList.toggle("on", x === b)); render();
   }));
-  const m = all.find((r) => /Messi/.test(r.name));
+  if (stTg) $$(".htog", stTg).forEach((b) => b.addEventListener("click", () => {
+    st.stage = b.dataset.s; $$(".htog", stTg).forEach((x) => x.classList.toggle("on", x === b)); render();
+  }));
+  const m = (d.players || []).find((r) => /Messi/.test(r.name) && r.minutes_sampled >= 90);
   // HEADLINE: overall share of his time on the pitch spent walking (distinct from the
   // danger-space share below — this is total time, the "Messi walks" number).
   const ws = $("#sog-walkstat");
