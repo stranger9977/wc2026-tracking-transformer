@@ -187,7 +187,9 @@ function drawPlayers(ctx, players, ball, W, H, opts = {}) {
   if (!players) return;
   const r = Math.max(6, W / 120);           // bigger, clearly-visible dots
   const duo = opts.duo;                      // {winner, loser} → ring + label BOTH contestants
+  const ringSet = opts.ringSet;              // pass-receivers get a green/red space-owned ring
   const labels = [];                         // defer labels so they paint on top of every dot
+  const tags = [];                           // defer the % control tags so they sit on top
   for (const p of players) {
     const [px, py] = m2px(p.x, p.y, W, H);
     const isHi = opts.highlightName && p.name === opts.highlightName;
@@ -208,7 +210,7 @@ function drawPlayers(ctx, players, ball, W, H, opts = {}) {
       ctx.beginPath(); ctx.arc(px, py, r + 1.6, 0, Math.PI * 2);
       ctx.strokeStyle = col; ctx.lineWidth = Math.max(1.4, W / 360); ctx.stroke();
     }
-    if (isHi) {
+    if (isHi && !(ringSet && ringSet.has(p.name))) {   // the green/red ring replaces the white one
       ctx.globalAlpha = 1;
       ctx.beginPath(); ctx.arc(px, py, r + 3.5, 0, Math.PI * 2);
       ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.stroke();
@@ -222,6 +224,15 @@ function drawPlayers(ctx, players, ball, W, H, opts = {}) {
       labels.push({ px, py, role, name: role === "win" ? `${p.name} — won` : p.name,
                     accent: role === "win" ? "#ffd23c" : "#ff8a8a" });
     }
+    // pass-receivers: ring colored by whether the player's team owns the grass he's in
+    // (attacker control at his cell), with a live "% of his space he controls" tag.
+    if (ringSet && ringSet.has(p.name)) {
+      const winning = (p.ctrl ?? 0) >= 0.5;
+      ctx.globalAlpha = 1;
+      ctx.beginPath(); ctx.arc(px, py, r + 4, 0, Math.PI * 2);
+      ctx.strokeStyle = winning ? "#5fd38a" : "#ff6b6b"; ctx.lineWidth = 3; ctx.stroke();
+      tags.push({ px, py, r, pct: Math.round((p.ctrl ?? 0) * 100), win: winning });
+    }
     if (!duo && opts.labelName && p.name === opts.labelName) labels.push({ px, py, name: p.name });
   }
   ctx.globalAlpha = 1;
@@ -231,6 +242,7 @@ function drawPlayers(ctx, players, ball, W, H, opts = {}) {
     const lose = labels.find((l) => l.role === "lose"); if (lose) lose.stack = 1;
   }
   for (const l of labels) drawNamePill(ctx, l.px, l.py, r, l.name, W, H, l.accent, l.stack || 0);
+  for (const t of tags) drawCtrlTag(ctx, t.px, t.py, t.r, t.pct, t.win, W, H);
 }
 
 // a small filled name pill anchored at a player dot. Stays IN-FRAME: clamps horizontally
@@ -290,6 +302,65 @@ function drawGravitySpokes(ctx, players, focus, W, H) {
   ctx.stroke(); ctx.setLineDash([]);
 }
 
+// A pass that just happened: dashed arrow origin->receiver that fades over ~1.5s, with the
+// xT it ADDED tagged at the midpoint. `passes` is ordered by t_s; ts is the live clock.
+function drawPassArrow(ctx, passes, ts, W, H) {
+  let p = null;
+  for (const q of passes) { if (q.t_s <= ts + 0.05) p = q; else break; }
+  if (!p) return;
+  const age = ts - p.t_s;
+  if (age > 2.8) return;                       // linger so the assist arrow survives to the finish
+  const a = clamp(1 - age / 2.8, 0.22, 1);
+  const [x0, y0] = m2px(p.x0, p.y0, W, H), [x1, y1] = m2px(p.x1, p.y1, W, H);
+  ctx.save();
+  ctx.globalAlpha = a;
+  ctx.strokeStyle = "#ffe08a"; ctx.lineWidth = 2.4; ctx.setLineDash([6, 4]);
+  ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+  ctx.setLineDash([]);
+  const ang = Math.atan2(y1 - y0, x1 - x0), hl = 10;
+  ctx.beginPath(); ctx.moveTo(x1, y1);
+  ctx.lineTo(x1 - hl * Math.cos(ang - 0.42), y1 - hl * Math.sin(ang - 0.42));
+  ctx.lineTo(x1 - hl * Math.cos(ang + 0.42), y1 - hl * Math.sin(ang + 0.42));
+  ctx.closePath(); ctx.fillStyle = "#ffe08a"; ctx.fill();
+  const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+  const txt = `${p.xt_added >= 0 ? "+" : ""}${p.xt_added.toFixed(2)} xT`;
+  ctx.font = "700 12px Inter, system-ui, sans-serif";
+  const tw = ctx.measureText(txt).width;
+  ctx.fillStyle = "rgba(10,12,16,0.9)"; ctx.fillRect(mx - tw / 2 - 5, my - 9, tw + 10, 17);
+  ctx.fillStyle = p.xt_added >= 0 ? "#ffe08a" : "#ff8a8a";
+  ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(txt, mx, my);
+  ctx.restore();
+}
+
+// live xT tag on the ball (Karun Singh grid value of the ball's current spot).
+function drawBallXt(ctx, ball, xt, W, H) {
+  const [bx, by] = m2px(ball[0], ball[1], W, H);
+  const txt = `xT ${xt.toFixed(2)}`;
+  ctx.save();
+  ctx.font = "700 11px Inter, system-ui, sans-serif";
+  const tw = ctx.measureText(txt).width, w = tw + 10, h = 16;
+  const x = clamp(bx + 9, 2, W - w - 2), y = clamp(by - h - 7, 2, H - h - 2);
+  ctx.fillStyle = "rgba(10,12,16,0.92)"; ctx.fillRect(x, y, w, h);
+  ctx.strokeStyle = "rgba(255,255,255,0.32)"; ctx.lineWidth = 1; ctx.strokeRect(x, y, w, h);
+  ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText(txt, x + w / 2, y + h / 2 + 0.5);
+  ctx.restore();
+}
+
+// small "% of his space his team controls" tag below a ringed receiver (green=winning, red=losing).
+function drawCtrlTag(ctx, cx, dotY, r, pct, win, W, H) {
+  ctx.save();
+  ctx.font = "700 11px Inter, system-ui, sans-serif";
+  const txt = `${pct}%`, tw = ctx.measureText(txt).width, w = tw + 10, h = 15;
+  const x = clamp(cx - w / 2, 2, W - w - 2), y = clamp(dotY + r + 3, 2, H - h - 2);
+  ctx.fillStyle = win ? "rgba(20,60,38,0.95)" : "rgba(70,20,24,0.95)";
+  ctx.fillRect(x, y, w, h);
+  ctx.strokeStyle = win ? "#5fd38a" : "#ff6b6b"; ctx.lineWidth = 1; ctx.strokeRect(x, y, w, h);
+  ctx.fillStyle = win ? "#9ff0bf" : "#ffb3b3"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText(txt, x + w / 2, y + h / 2 + 0.5);
+  ctx.restore();
+}
+
 // Generic scrubbable canvas player. `cfg` describes the metric.
 // SMOOTH SCRUB: a float playhead is tweened by requestAnimationFrame; renderAt(fFloat) LERPs player
 // positions (matched by .name), the ball, and the surface cell-by-cell between the two bracketing frames.
@@ -305,13 +376,28 @@ function buildScrubber(el, surf, cfg) {
       <span class="tlabel" id="tl-${cfg.id}"></span>
     </div>
     <div class="htoggles" id="tg-${cfg.id}"></div>
-    <div class="hreadout" id="ro-${cfg.id}"></div>`;
+    <div class="hreadout" id="ro-${cfg.id}"></div>
+    <div class="hpasses" id="px-${cfg.id}"></div>`;
   const cv = $(`#cv-${cfg.id}`), rg = $(`#rg-${cfg.id}`), pl = $(`#pl-${cfg.id}`),
-        tl = $(`#tl-${cfg.id}`), ro = $(`#ro-${cfg.id}`), tgEl = $(`#tg-${cfg.id}`);
+        tl = $(`#tl-${cfg.id}`), ro = $(`#ro-${cfg.id}`), tgEl = $(`#tg-${cfg.id}`),
+        pxEl = $(`#px-${cfg.id}`);
   const ctx = cv.getContext("2d");
 
   // toggle state
   const state = { highlight: null, mode: cfg.defaultMode || "surface" };
+
+  // receivers ringed green/red; passes laid out as a running ledger of xT added.
+  // Only the CURRENT receiver (most-recent pass target) is ringed each frame, so the ring
+  // tracks the ball and matches the ledger's timeline (not all receivers for the whole clip).
+  const hasReceivers = !!(cfg.receivers && cfg.receivers.length);
+  const passes = (cfg.passes && cfg.passes.length) ? cfg.passes.slice().sort((a, b) => a.t_s - b.t_s) : null;
+  if (passes && pxEl) {
+    pxEl.innerHTML = `<div class="px-head">Passes in the move<span class="px-tot" id="pt-${cfg.id}">+0.00 xT</span></div>`
+      + `<ol class="px-list">` + passes.map((p, i) =>
+        `<li data-i="${i}"><span class="px-nm">${p.passer ? p.passer + " → " : ""}<b>${p.receiver}</b></span>`
+        + `<span class="px-xt ${p.xt_added >= 0 ? "pos" : "neg"}">${p.xt_added >= 0 ? "+" : ""}${p.xt_added.toFixed(2)} xT</span></li>`
+      ).join("") + `</ol>`;
+  }
 
   // build toggle buttons
   const toggles = cfg.toggles || [];
@@ -365,7 +451,8 @@ function buildScrubber(el, surf, cfg) {
     return pa.map((p) => {
       const q = idx.get(p.name);
       if (!q) return p;
-      return { ...p, x: p.x * (1 - f) + q.x * f, y: p.y * (1 - f) + q.y * f };
+      const c = (p.ctrl != null && q.ctrl != null) ? p.ctrl * (1 - f) + q.ctrl * f : (q.ctrl ?? p.ctrl);
+      return { ...p, x: p.x * (1 - f) + q.x * f, y: p.y * (1 - f) + q.y * f, ctrl: c };
     });
   }
   const lerpPt = (a, b, f) => (a && b) ? [a[0] * (1 - f) + b[0] * f, a[1] * (1 - f) + b[1] * f] : (a || b);
@@ -375,6 +462,13 @@ function buildScrubber(el, surf, cfg) {
     fFloat = clamp(fFloat, 0, n - 1);
     const i0 = Math.floor(fFloat), i1 = Math.min(i0 + 1, n - 1), f = fFloat - i0;
     const fr = frames[i0], frNext = frames[i1];
+    const ts = fr.t_s * (1 - f) + frNext.t_s * f;
+    // ring only the receiver of the most-recent pass (the ball-holder/target right now)
+    let activeReceiver = null;
+    if (passes && hasReceivers) {
+      for (const p of passes) { if (p.t_s <= ts + 0.05) activeReceiver = p.receiver; else break; }
+    }
+    const frameRingSet = activeReceiver ? new Set([activeReceiver]) : null;
     const ramp = cfg.ramp || rampHot;
     const surface = applyMode(lerpSurface(fr.surface, frNext.surface, f));
     const ball = lerpPt(fr.ball_xy, frNext.ball_xy, f);
@@ -388,11 +482,12 @@ function buildScrubber(el, surf, cfg) {
       g.addColorStop(0, "rgba(8,10,14,0)"); g.addColorStop(1, "rgba(8,10,14,0.64)");
       ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
     }
+    if (passes) drawPassArrow(ctx, passes, ts, W, H);
     drawBall(ctx, ball, W, H, { emphasize: cfg.emphasizeBall });
     if (fr.players) {
       const players = lerpPlayers(fr.players, frNext.players, f);
       const opts = { highlightName: cfg.duo ? null : (state.highlight || cfg.labelName),
-                     labelName: cfg.labelName, duo: cfg.duo,
+                     labelName: cfg.labelName, duo: cfg.duo, ringSet: frameRingSet,
                      attColor: "#7ec8ff", defColor: "#ff9a9a" };
       if (cfg.id === "chase" && state.mode === "gravity") drawGravitySpokes(ctx, players, cfg.gravityFocus, W, H);
       drawPlayers(ctx, players, ball, W, H, opts);
@@ -403,9 +498,24 @@ function buildScrubber(el, surf, cfg) {
       ctx.fillStyle = "#fff"; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#6cb4ee"; ctx.stroke();
     }
     if (surf.teams) drawGoalLabels(ctx, W, H, surf.teams);
-    const ts = fr.t_s * (1 - f) + frNext.t_s * f;
+    if (cfg.ballXt && ball) {
+      const bxt = (fr.xt != null) ? (fr.xt * (1 - f) + (frNext.xt ?? fr.xt) * f) : null;
+      if (bxt != null) drawBallXt(ctx, ball, bxt, W, H);
+    }
     tl.textContent = `${i0 + 1}/${n} · ${ts.toFixed(1)}s`;
     ro.innerHTML = cfg.readout ? cfg.readout(fr, state) : "";
+    // running ledger: light up each pass once the playhead reaches it, sum the xT added.
+    if (passes && pxEl) {
+      let tot = 0;
+      passes.forEach((p, i) => {
+        const on = p.t_s <= ts + 1e-6;
+        const li = pxEl.querySelector(`li[data-i="${i}"]`);
+        if (li) li.classList.toggle("on", on);
+        if (on) tot += p.xt_added;
+      });
+      const pt = $(`#pt-${cfg.id}`);
+      if (pt) pt.textContent = `${tot >= 0 ? "+" : ""}${tot.toFixed(2)} xT`;
+    }
   }
 
   // float playhead (0..n-1) + rAF tween loop (~60fps)
@@ -866,7 +976,7 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=9");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=10");
   const data = await loadJSON("data/space_pobso.json?v=3");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
@@ -875,12 +985,16 @@ async function buildPOBSO() {
   buildScrubber(scEl, surf, {
     id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: 0.6,
     labelName: h.name, defaultMode: "surface",
+    ballXt: true, receivers: surf.receivers || [], passes: surf.passes || null,
     toggles: [
       { key: "reveal", label: "reveal danger (× xT)" },
     ],
     readout: (fr, st) => st.mode === "reveal"
       ? `Only the cells the attacker controls <b>and</b> that carry threat stay lit. That is the dangerous space forming before the ball arrives.`
-      : `<b>${h.name}</b> drifts off the ball into the space he both <b>owns</b> and can finish from, then receives${from} ${got}. The pocket opens in front of his run, before the pass exists.`,
+      : `<b>${h.name}</b> drifts off the ball into the space he both <b>owns</b> and can finish from, then receives${from} ${got}. `
+        + `Each pass is tagged with the <b>xT it adds</b>; every receiver is ringed — `
+        + `<span style="color:#5fd38a">green when his team owns the grass he is in</span>, `
+        + `<span style="color:#ff6b6b">red when it does not</span> — and the tag on the ball is its live xT.`,
   });
   renderTeamLegend("pobso-teamleg", surf.teams);
   const im = surf.impact;
