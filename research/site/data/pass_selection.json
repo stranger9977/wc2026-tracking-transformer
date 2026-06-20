@@ -7,8 +7,37 @@
   "ko"
  ],
  "opponent_weighted": true,
- "n_passes": 13441,
+ "n_passes": 30154,
  "players": [
+  {
+   "name": "Grzegorz Krychowiak",
+   "team": "Poland",
+   "pos": "DM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0234,
+     "per_match": 0.0234,
+     "total_raw": 0.022,
+     "per_match_raw": 0.022
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0251,
+     "per_match": 0.0063,
+     "total_raw": 0.0239,
+     "per_match_raw": 0.006
+    }
+   },
+   "n_passes": 65
+  },
   {
    "name": "Rodrigo de Paul",
    "team": "Argentina",
@@ -16,143 +45,27 @@
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.9385,
-     "per_match": 0.3128,
-     "total_raw": 0.9879,
-     "per_match_raw": 0.3293
+     "total": 0.0101,
+     "per_match": 0.0034,
+     "total_raw": 0.0111,
+     "per_match_raw": 0.0037
     },
     "ko": {
      "matches": 4,
-     "total": 0.515,
-     "per_match": 0.1288,
-     "total_raw": 0.5153,
-     "per_match_raw": 0.1288
+     "total": 0.0047,
+     "per_match": 0.0012,
+     "total_raw": 0.0047,
+     "per_match_raw": 0.0012
     },
     "all": {
      "matches": 7,
-     "total": 1.4535,
-     "per_match": 0.2076,
-     "total_raw": 1.5032,
-     "per_match_raw": 0.2147
+     "total": 0.0148,
+     "per_match": 0.0021,
+     "total_raw": 0.0159,
+     "per_match_raw": 0.0023
     }
    },
-   "n_passes": 145
-  },
-  {
-   "name": "Pedri",
-   "team": "Spain",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.9288,
-     "per_match": 0.3096,
-     "total_raw": 1.0401,
-     "per_match_raw": 0.3467
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.3952,
-     "per_match": 0.3952,
-     "total_raw": 0.4014,
-     "per_match_raw": 0.4014
-    },
-    "all": {
-     "matches": 4,
-     "total": 1.324,
-     "per_match": 0.331,
-     "total_raw": 1.4415,
-     "per_match_raw": 0.3604
-    }
-   },
-   "n_passes": 137
-  },
-  {
-   "name": "Lionel Messi",
-   "team": "Argentina",
-   "pos": "CF",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5954,
-     "per_match": 0.1985,
-     "total_raw": 0.6221,
-     "per_match_raw": 0.2074
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.6849,
-     "per_match": 0.1712,
-     "total_raw": 0.6899,
-     "per_match_raw": 0.1725
-    },
-    "all": {
-     "matches": 7,
-     "total": 1.2804,
-     "per_match": 0.1829,
-     "total_raw": 1.3119,
-     "per_match_raw": 0.1874
-    }
-   },
-   "n_passes": 133
-  },
-  {
-   "name": "Mateo Kovacic",
-   "team": "Croatia",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5926,
-     "per_match": 0.1975,
-     "total_raw": 0.5948,
-     "per_match_raw": 0.1983
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.6577,
-     "per_match": 0.1644,
-     "total_raw": 0.6889,
-     "per_match_raw": 0.1722
-    },
-    "all": {
-     "matches": 7,
-     "total": 1.2503,
-     "per_match": 0.1786,
-     "total_raw": 1.2837,
-     "per_match_raw": 0.1834
-    }
-   },
-   "n_passes": 111
-  },
-  {
-   "name": "Bernardo Silva",
-   "team": "Portugal",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5698,
-     "per_match": 0.1899,
-     "total_raw": 0.6321,
-     "per_match_raw": 0.2107
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.4609,
-     "per_match": 0.2305,
-     "total_raw": 0.4805,
-     "per_match_raw": 0.2402
-    },
-    "all": {
-     "matches": 5,
-     "total": 1.0307,
-     "per_match": 0.2061,
-     "total_raw": 1.1125,
-     "per_match_raw": 0.2225
-    }
-   },
-   "n_passes": 90
+   "n_passes": 247
   },
   {
    "name": "Luka Modric",
@@ -161,1448 +74,56 @@
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.5163,
-     "per_match": 0.1721,
-     "total_raw": 0.5311,
-     "per_match_raw": 0.177
+     "total": 0.0068,
+     "per_match": 0.0023,
+     "total_raw": 0.0069,
+     "per_match_raw": 0.0023
     },
     "ko": {
      "matches": 4,
-     "total": 0.4969,
-     "per_match": 0.1242,
-     "total_raw": 0.5044,
-     "per_match_raw": 0.1261
+     "total": 0.0051,
+     "per_match": 0.0013,
+     "total_raw": 0.0051,
+     "per_match_raw": 0.0013
     },
     "all": {
      "matches": 7,
-     "total": 1.0132,
-     "per_match": 0.1447,
-     "total_raw": 1.0355,
-     "per_match_raw": 0.1479
+     "total": 0.0119,
+     "per_match": 0.0017,
+     "total_raw": 0.0121,
+     "per_match_raw": 0.0017
     }
    },
-   "n_passes": 112
+   "n_passes": 249
   },
   {
-   "name": "Kylian Mbapp\u00e9",
-   "team": "France",
-   "pos": "LW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.482,
-     "per_match": 0.1607,
-     "total_raw": 0.526,
-     "per_match_raw": 0.1753
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.5092,
-     "per_match": 0.1273,
-     "total_raw": 0.4991,
-     "per_match_raw": 0.1248
-    },
-    "all": {
-     "matches": 7,
-     "total": 0.9912,
-     "per_match": 0.1416,
-     "total_raw": 1.0251,
-     "per_match_raw": 0.1464
-    }
-   },
-   "n_passes": 98
-  },
-  {
-   "name": "Rodri",
-   "team": "Spain",
-   "pos": "CB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.7394,
-     "per_match": 0.2465,
-     "total_raw": 0.8276,
-     "per_match_raw": 0.2759
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.2274,
-     "per_match": 0.2274,
-     "total_raw": 0.231,
-     "per_match_raw": 0.231
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.9668,
-     "per_match": 0.2417,
-     "total_raw": 1.0585,
-     "per_match_raw": 0.2646
-    }
-   },
-   "n_passes": 76
-  },
-  {
-   "name": "Aur\u00e9lien Tchouam\u00e9ni",
-   "team": "France",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.403,
-     "per_match": 0.1343,
-     "total_raw": 0.4296,
-     "per_match_raw": 0.1432
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.5154,
-     "per_match": 0.1288,
-     "total_raw": 0.5092,
-     "per_match_raw": 0.1273
-    },
-    "all": {
-     "matches": 7,
-     "total": 0.9184,
-     "per_match": 0.1312,
-     "total_raw": 0.9388,
-     "per_match_raw": 0.1341
-    }
-   },
-   "n_passes": 84
-  },
-  {
-   "name": "In-beom Hwang",
-   "team": "South Korea",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.7105,
-     "per_match": 0.2368,
-     "total_raw": 0.7531,
-     "per_match_raw": 0.251
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.1884,
-     "per_match": 0.1884,
-     "total_raw": 0.1841,
-     "per_match_raw": 0.1841
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.8989,
-     "per_match": 0.2247,
-     "total_raw": 0.9372,
-     "per_match_raw": 0.2343
-    }
-   },
-   "n_passes": 90
-  },
-  {
-   "name": "Ivan Perisic",
-   "team": "Croatia",
-   "pos": "LW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.46,
-     "per_match": 0.1533,
-     "total_raw": 0.4704,
-     "per_match_raw": 0.1568
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.4264,
-     "per_match": 0.1066,
-     "total_raw": 0.4233,
-     "per_match_raw": 0.1058
-    },
-    "all": {
-     "matches": 7,
-     "total": 0.8863,
-     "per_match": 0.1266,
-     "total_raw": 0.8937,
-     "per_match_raw": 0.1277
-    }
-   },
-   "n_passes": 93
-  },
-  {
-   "name": "Jamal Musiala",
-   "team": "Germany",
-   "pos": "LW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.8729,
-     "per_match": 0.291,
-     "total_raw": 1.0036,
-     "per_match_raw": 0.3345
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.8729,
-     "per_match": 0.291,
-     "total_raw": 1.0036,
-     "per_match_raw": 0.3345
-    }
-   },
-   "n_passes": 63
-  },
-  {
-   "name": "Adrien Rabiot",
-   "team": "France",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.322,
-     "per_match": 0.1073,
-     "total_raw": 0.3515,
-     "per_match_raw": 0.1172
-    },
-    "ko": {
-     "matches": 3,
-     "total": 0.5488,
-     "per_match": 0.1829,
-     "total_raw": 0.5304,
-     "per_match_raw": 0.1768
-    },
-    "all": {
-     "matches": 6,
-     "total": 0.8708,
-     "per_match": 0.1451,
-     "total_raw": 0.8819,
-     "per_match_raw": 0.147
-    }
-   },
-   "n_passes": 77
-  },
-  {
-   "name": "Bruno Fernandes",
-   "team": "Portugal",
-   "pos": "RW",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.3881,
-     "per_match": 0.194,
-     "total_raw": 0.4213,
-     "per_match_raw": 0.2106
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.4245,
-     "per_match": 0.2123,
-     "total_raw": 0.4481,
-     "per_match_raw": 0.224
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.8126,
-     "per_match": 0.2031,
-     "total_raw": 0.8694,
-     "per_match_raw": 0.2173
-    }
-   },
-   "n_passes": 73
-  },
-  {
-   "name": "Joshua Kimmich",
-   "team": "Germany",
-   "pos": "RB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.8065,
-     "per_match": 0.2688,
-     "total_raw": 0.947,
-     "per_match_raw": 0.3157
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.8065,
-     "per_match": 0.2688,
-     "total_raw": 0.947,
-     "per_match_raw": 0.3157
-    }
-   },
-   "n_passes": 73
-  },
-  {
-   "name": "Alexis Mac Allister",
+   "name": "Lionel Messi",
    "team": "Argentina",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.3276,
-     "per_match": 0.1638,
-     "total_raw": 0.3327,
-     "per_match_raw": 0.1664
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.4757,
-     "per_match": 0.1189,
-     "total_raw": 0.4703,
-     "per_match_raw": 0.1176
-    },
-    "all": {
-     "matches": 6,
-     "total": 0.8033,
-     "per_match": 0.1339,
-     "total_raw": 0.803,
-     "per_match_raw": 0.1338
-    }
-   },
-   "n_passes": 68
-  },
-  {
-   "name": "Andrej Kramaric",
-   "team": "Croatia",
-   "pos": "RW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.4884,
-     "per_match": 0.1628,
-     "total_raw": 0.5038,
-     "per_match_raw": 0.1679
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.3141,
-     "per_match": 0.0785,
-     "total_raw": 0.312,
-     "per_match_raw": 0.078
-    },
-    "all": {
-     "matches": 7,
-     "total": 0.8024,
-     "per_match": 0.1146,
-     "total_raw": 0.8158,
-     "per_match_raw": 0.1165
-    }
-   },
-   "n_passes": 58
-  },
-  {
-   "name": "Marcelo Brozovic",
-   "team": "Croatia",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5126,
-     "per_match": 0.1709,
-     "total_raw": 0.5239,
-     "per_match_raw": 0.1746
-    },
-    "ko": {
-     "matches": 3,
-     "total": 0.2869,
-     "per_match": 0.0956,
-     "total_raw": 0.3041,
-     "per_match_raw": 0.1014
-    },
-    "all": {
-     "matches": 6,
-     "total": 0.7995,
-     "per_match": 0.1333,
-     "total_raw": 0.828,
-     "per_match_raw": 0.138
-    }
-   },
-   "n_passes": 78
-  },
-  {
-   "name": "Hakim Ziyech",
-   "team": "Morocco",
-   "pos": "RW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3981,
-     "per_match": 0.1327,
-     "total_raw": 0.3977,
-     "per_match_raw": 0.1326
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.3915,
-     "per_match": 0.0979,
-     "total_raw": 0.3745,
-     "per_match_raw": 0.0936
-    },
-    "all": {
-     "matches": 7,
-     "total": 0.7896,
-     "per_match": 0.1128,
-     "total_raw": 0.7722,
-     "per_match_raw": 0.1103
-    }
-   },
-   "n_passes": 85
-  },
-  {
-   "name": "Ousmane Dembele",
-   "team": "France",
-   "pos": "RW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.405,
-     "per_match": 0.135,
-     "total_raw": 0.4425,
-     "per_match_raw": 0.1475
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.361,
-     "per_match": 0.0902,
-     "total_raw": 0.3528,
-     "per_match_raw": 0.0882
-    },
-    "all": {
-     "matches": 7,
-     "total": 0.7659,
-     "per_match": 0.1094,
-     "total_raw": 0.7952,
-     "per_match_raw": 0.1136
-    }
-   },
-   "n_passes": 81
-  },
-  {
-   "name": "Achraf Hakimi",
-   "team": "Morocco",
-   "pos": "RB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.1815,
-     "per_match": 0.0605,
-     "total_raw": 0.1823,
-     "per_match_raw": 0.0608
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.5636,
-     "per_match": 0.1409,
-     "total_raw": 0.5409,
-     "per_match_raw": 0.1352
-    },
-    "all": {
-     "matches": 7,
-     "total": 0.7451,
-     "per_match": 0.1064,
-     "total_raw": 0.7232,
-     "per_match_raw": 0.1033
-    }
-   },
-   "n_passes": 87
-  },
-  {
-   "name": "Jo\u00e3o Cancelo",
-   "team": "Portugal",
-   "pos": "RB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5398,
-     "per_match": 0.1799,
-     "total_raw": 0.6214,
-     "per_match_raw": 0.2071
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.2022,
-     "per_match": 0.2022,
-     "total_raw": 0.2053,
-     "per_match_raw": 0.2053
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.742,
-     "per_match": 0.1855,
-     "total_raw": 0.8267,
-     "per_match_raw": 0.2067
-    }
-   },
-   "n_passes": 73
-  },
-  {
-   "name": "Jordi Alba",
-   "team": "Spain",
-   "pos": "LB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5455,
-     "per_match": 0.1818,
-     "total_raw": 0.6051,
-     "per_match_raw": 0.2017
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.1875,
-     "per_match": 0.1875,
-     "total_raw": 0.1905,
-     "per_match_raw": 0.1905
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.733,
-     "per_match": 0.1833,
-     "total_raw": 0.7956,
-     "per_match_raw": 0.1989
-    }
-   },
-   "n_passes": 95
-  },
-  {
-   "name": "Azzedine Ounahi",
-   "team": "Morocco",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.2753,
-     "per_match": 0.0918,
-     "total_raw": 0.2789,
-     "per_match_raw": 0.093
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.4493,
-     "per_match": 0.1123,
-     "total_raw": 0.4301,
-     "per_match_raw": 0.1075
-    },
-    "all": {
-     "matches": 7,
-     "total": 0.7246,
-     "per_match": 0.1035,
-     "total_raw": 0.709,
-     "per_match_raw": 0.1013
-    }
-   },
-   "n_passes": 60
-  },
-  {
-   "name": "Antoine Griezmann",
-   "team": "France",
-   "pos": "AM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3165,
-     "per_match": 0.1055,
-     "total_raw": 0.353,
-     "per_match_raw": 0.1177
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.4027,
-     "per_match": 0.1007,
-     "total_raw": 0.395,
-     "per_match_raw": 0.0987
-    },
-    "all": {
-     "matches": 7,
-     "total": 0.7192,
-     "per_match": 0.1027,
-     "total_raw": 0.7479,
-     "per_match_raw": 0.1068
-    }
-   },
-   "n_passes": 87
-  },
-  {
-   "name": "Enzo Fernandez",
-   "team": "Argentina",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.2535,
-     "per_match": 0.0845,
-     "total_raw": 0.27,
-     "per_match_raw": 0.09
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.4599,
-     "per_match": 0.115,
-     "total_raw": 0.459,
-     "per_match_raw": 0.1147
-    },
-    "all": {
-     "matches": 7,
-     "total": 0.7135,
-     "per_match": 0.1019,
-     "total_raw": 0.7289,
-     "per_match_raw": 0.1041
-    }
-   },
-   "n_passes": 87
-  },
-  {
-   "name": "Jude Bellingham",
-   "team": "England",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.4287,
-     "per_match": 0.1429,
-     "total_raw": 0.4806,
-     "per_match_raw": 0.1602
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.2839,
-     "per_match": 0.142,
-     "total_raw": 0.291,
-     "per_match_raw": 0.1455
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.7126,
-     "per_match": 0.1425,
-     "total_raw": 0.7716,
-     "per_match_raw": 0.1543
-    }
-   },
-   "n_passes": 67
-  },
-  {
-   "name": "Theo Hernandez",
-   "team": "France",
-   "pos": "LB",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.2818,
-     "per_match": 0.1409,
-     "total_raw": 0.2985,
-     "per_match_raw": 0.1492
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.4137,
-     "per_match": 0.1034,
-     "total_raw": 0.4065,
-     "per_match_raw": 0.1016
-    },
-    "all": {
-     "matches": 6,
-     "total": 0.6955,
-     "per_match": 0.1159,
-     "total_raw": 0.705,
-     "per_match_raw": 0.1175
-    }
-   },
-   "n_passes": 78
-  },
-  {
-   "name": "Frenkie de Jong",
-   "team": "Netherlands",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5636,
-     "per_match": 0.1879,
-     "total_raw": 0.6591,
-     "per_match_raw": 0.2197
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.0942,
-     "per_match": 0.0471,
-     "total_raw": 0.0907,
-     "per_match_raw": 0.0453
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.6577,
-     "per_match": 0.1315,
-     "total_raw": 0.7497,
-     "per_match_raw": 0.1499
-    }
-   },
-   "n_passes": 77
-  },
-  {
-   "name": "Lucas Paquet\u00e1",
-   "team": "Brazil",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.2677,
-     "per_match": 0.1339,
-     "total_raw": 0.3172,
-     "per_match_raw": 0.1586
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.3871,
-     "per_match": 0.1936,
-     "total_raw": 0.424,
-     "per_match_raw": 0.212
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.6548,
-     "per_match": 0.1637,
-     "total_raw": 0.7412,
-     "per_match_raw": 0.1853
-    }
-   },
-   "n_passes": 57
-  },
-  {
-   "name": "Heung-min Son",
-   "team": "South Korea",
-   "pos": "LW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.4936,
-     "per_match": 0.1645,
-     "total_raw": 0.5215,
-     "per_match_raw": 0.1738
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.1539,
-     "per_match": 0.1539,
-     "total_raw": 0.1504,
-     "per_match_raw": 0.1504
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.6475,
-     "per_match": 0.1619,
-     "total_raw": 0.672,
-     "per_match_raw": 0.168
-    }
-   },
-   "n_passes": 50
-  },
-  {
-   "name": "Dani Olmo",
-   "team": "Spain",
-   "pos": "LW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5413,
-     "per_match": 0.1804,
-     "total_raw": 0.6022,
-     "per_match_raw": 0.2007
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.086,
-     "per_match": 0.086,
-     "total_raw": 0.0873,
-     "per_match_raw": 0.0873
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.6273,
-     "per_match": 0.1568,
-     "total_raw": 0.6895,
-     "per_match_raw": 0.1724
-    }
-   },
-   "n_passes": 64
-  },
-  {
-   "name": "Moon-hwan Kim",
-   "team": "South Korea",
-   "pos": "RB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3792,
-     "per_match": 0.1264,
-     "total_raw": 0.4137,
-     "per_match_raw": 0.1379
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.2191,
-     "per_match": 0.2191,
-     "total_raw": 0.2142,
-     "per_match_raw": 0.2142
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.5983,
-     "per_match": 0.1496,
-     "total_raw": 0.6279,
-     "per_match_raw": 0.157
-    }
-   },
-   "n_passes": 73
-  },
-  {
-   "name": "\u00c1ngel Di Mar\u00eda",
-   "team": "Argentina",
-   "pos": "RW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.4263,
-     "per_match": 0.1421,
-     "total_raw": 0.446,
-     "per_match_raw": 0.1487
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.1697,
-     "per_match": 0.0848,
-     "total_raw": 0.1598,
-     "per_match_raw": 0.0799
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.5959,
-     "per_match": 0.1192,
-     "total_raw": 0.6059,
-     "per_match_raw": 0.1212
-    }
-   },
-   "n_passes": 68
-  },
-  {
-   "name": "Casemiro",
-   "team": "Brazil",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.2013,
-     "per_match": 0.1006,
-     "total_raw": 0.2385,
-     "per_match_raw": 0.1193
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.3656,
-     "per_match": 0.1828,
-     "total_raw": 0.3942,
-     "per_match_raw": 0.1971
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.5669,
-     "per_match": 0.1417,
-     "total_raw": 0.6327,
-     "per_match_raw": 0.1582
-    }
-   },
-   "n_passes": 71
-  },
-  {
-   "name": "Mohamed Kanno",
-   "team": "Saudi Arabia",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5667,
-     "per_match": 0.1889,
-     "total_raw": 0.5651,
-     "per_match_raw": 0.1884
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.5667,
-     "per_match": 0.1889,
-     "total_raw": 0.5651,
-     "per_match_raw": 0.1884
-    }
-   },
-   "n_passes": 55
-  },
-  {
-   "name": "Woo-young Jung",
-   "team": "South Korea",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5347,
-     "per_match": 0.1782,
-     "total_raw": 0.568,
-     "per_match_raw": 0.1893
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.0314,
-     "per_match": 0.0314,
-     "total_raw": 0.0307,
-     "per_match_raw": 0.0307
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.5661,
-     "per_match": 0.1415,
-     "total_raw": 0.5987,
-     "per_match_raw": 0.1497
-    }
-   },
-   "n_passes": 57
-  },
-  {
-   "name": "Marco Asensio",
-   "team": "Spain",
    "pos": "CF",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.4755,
-     "per_match": 0.1585,
-     "total_raw": 0.5165,
-     "per_match_raw": 0.1722
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.084,
-     "per_match": 0.084,
-     "total_raw": 0.0853,
-     "per_match_raw": 0.0853
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.5595,
-     "per_match": 0.1399,
-     "total_raw": 0.6018,
-     "per_match_raw": 0.1504
-    }
-   },
-   "n_passes": 50
-  },
-  {
-   "name": "Youssouf Sabaly",
-   "team": "Senegal",
-   "pos": "RB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5128,
-     "per_match": 0.1709,
-     "total_raw": 0.5331,
-     "per_match_raw": 0.1777
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.0435,
-     "per_match": 0.0435,
-     "total_raw": 0.0405,
-     "per_match_raw": 0.0405
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.5563,
-     "per_match": 0.1391,
-     "total_raw": 0.5736,
-     "per_match_raw": 0.1434
-    }
-   },
-   "n_passes": 68
-  },
-  {
-   "name": "Borna Sosa",
-   "team": "Croatia",
-   "pos": "LB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.4374,
-     "per_match": 0.1458,
-     "total_raw": 0.4432,
-     "per_match_raw": 0.1477
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.0997,
-     "per_match": 0.0498,
-     "total_raw": 0.0968,
-     "per_match_raw": 0.0484
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.5371,
-     "per_match": 0.1074,
-     "total_raw": 0.54,
-     "per_match_raw": 0.108
-    }
-   },
-   "n_passes": 68
-  },
-  {
-   "name": "Cody Gakpo",
-   "team": "Netherlands",
-   "pos": "CF",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3077,
-     "per_match": 0.1026,
-     "total_raw": 0.3603,
-     "per_match_raw": 0.1201
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.2241,
-     "per_match": 0.112,
-     "total_raw": 0.2201,
-     "per_match_raw": 0.1101
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.5318,
-     "per_match": 0.1064,
-     "total_raw": 0.5804,
-     "per_match_raw": 0.1161
-    }
-   },
-   "n_passes": 60
-  },
-  {
-   "name": "Sergio Busquets",
-   "team": "Spain",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.2554,
-     "per_match": 0.0851,
-     "total_raw": 0.2977,
-     "per_match_raw": 0.0992
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.273,
-     "per_match": 0.273,
-     "total_raw": 0.2772,
-     "per_match_raw": 0.2772
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.5284,
-     "per_match": 0.1321,
-     "total_raw": 0.575,
-     "per_match_raw": 0.1437
-    }
-   },
-   "n_passes": 64
-  },
-  {
-   "name": "Yunus Musah",
-   "team": "United States",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3595,
-     "per_match": 0.1198,
-     "total_raw": 0.3773,
-     "per_match_raw": 0.1258
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.1684,
-     "per_match": 0.1684,
-     "total_raw": 0.1606,
-     "per_match_raw": 0.1606
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.5279,
-     "per_match": 0.132,
-     "total_raw": 0.5379,
-     "per_match_raw": 0.1345
-    }
-   },
-   "n_passes": 50
-  },
-  {
-   "name": "Eder Militao",
-   "team": "Brazil",
-   "pos": "RB",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.1893,
-     "per_match": 0.0946,
-     "total_raw": 0.2242,
-     "per_match_raw": 0.1121
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.3233,
-     "per_match": 0.1617,
-     "total_raw": 0.3366,
-     "per_match_raw": 0.1683
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.5126,
-     "per_match": 0.1281,
-     "total_raw": 0.5608,
-     "per_match_raw": 0.1402
-    }
-   },
-   "n_passes": 54
-  },
-  {
-   "name": "Raphinha",
-   "team": "Brazil",
-   "pos": "RW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.2681,
-     "per_match": 0.0894,
-     "total_raw": 0.3176,
-     "per_match_raw": 0.1059
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.241,
-     "per_match": 0.1205,
-     "total_raw": 0.2824,
-     "per_match_raw": 0.1412
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.5091,
-     "per_match": 0.1018,
-     "total_raw": 0.6,
-     "per_match_raw": 0.12
-    }
-   },
-   "n_passes": 54
-  },
-  {
-   "name": "Alphonso Davies",
-   "team": "Canada",
-   "pos": "LB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5072,
-     "per_match": 0.1691,
-     "total_raw": 0.5017,
-     "per_match_raw": 0.1672
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.5072,
-     "per_match": 0.1691,
-     "total_raw": 0.5017,
-     "per_match_raw": 0.1672
-    }
-   },
-   "n_passes": 46
-  },
-  {
-   "name": "Dusan Tadic",
-   "team": "Serbia",
-   "pos": "RW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.5056,
-     "per_match": 0.1685,
-     "total_raw": 0.5641,
-     "per_match_raw": 0.188
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.5056,
-     "per_match": 0.1685,
-     "total_raw": 0.5641,
-     "per_match_raw": 0.188
-    }
-   },
-   "n_passes": 54
-  },
-  {
-   "name": "Nahuel Molina",
-   "team": "Argentina",
-   "pos": "RB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3327,
-     "per_match": 0.1109,
-     "total_raw": 0.3487,
-     "per_match_raw": 0.1162
+     "total": 0.0053,
+     "per_match": 0.0018,
+     "total_raw": 0.0056,
+     "per_match_raw": 0.0019
     },
     "ko": {
      "matches": 4,
-     "total": 0.1697,
-     "per_match": 0.0424,
-     "total_raw": 0.1658,
-     "per_match_raw": 0.0415
+     "total": 0.0065,
+     "per_match": 0.0016,
+     "total_raw": 0.0065,
+     "per_match_raw": 0.0016
     },
     "all": {
      "matches": 7,
-     "total": 0.5024,
-     "per_match": 0.0718,
-     "total_raw": 0.5145,
-     "per_match_raw": 0.0735
+     "total": 0.0118,
+     "per_match": 0.0017,
+     "total_raw": 0.0121,
+     "per_match_raw": 0.0017
     }
    },
-   "n_passes": 84
-  },
-  {
-   "name": "Luke Shaw",
-   "team": "England",
-   "pos": "LB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.2974,
-     "per_match": 0.0991,
-     "total_raw": 0.322,
-     "per_match_raw": 0.1073
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.2003,
-     "per_match": 0.1002,
-     "total_raw": 0.219,
-     "per_match_raw": 0.1095
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.4978,
-     "per_match": 0.0996,
-     "total_raw": 0.541,
-     "per_match_raw": 0.1082
-    }
-   },
-   "n_passes": 84
-  },
-  {
-   "name": "Marquinhos",
-   "team": "Brazil",
-   "pos": "CB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3754,
-     "per_match": 0.1251,
-     "total_raw": 0.4448,
-     "per_match_raw": 0.1483
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.1196,
-     "per_match": 0.0598,
-     "total_raw": 0.1245,
-     "per_match_raw": 0.0623
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.4949,
-     "per_match": 0.099,
-     "total_raw": 0.5693,
-     "per_match_raw": 0.1139
-    }
-   },
-   "n_passes": 49
-  },
-  {
-   "name": "Bukayo Saka",
-   "team": "England",
-   "pos": "RW",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.2718,
-     "per_match": 0.1359,
-     "total_raw": 0.2989,
-     "per_match_raw": 0.1495
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.2204,
-     "per_match": 0.1102,
-     "total_raw": 0.2148,
-     "per_match_raw": 0.1074
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.4921,
-     "per_match": 0.123,
-     "total_raw": 0.5138,
-     "per_match_raw": 0.1284
-    }
-   },
-   "n_passes": 45
-  },
-  {
-   "name": "Josip Juranovic",
-   "team": "Croatia",
-   "pos": "RB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.2601,
-     "per_match": 0.0867,
-     "total_raw": 0.2657,
-     "per_match_raw": 0.0886
-    },
-    "ko": {
-     "matches": 3,
-     "total": 0.232,
-     "per_match": 0.0773,
-     "total_raw": 0.2482,
-     "per_match_raw": 0.0827
-    },
-    "all": {
-     "matches": 6,
-     "total": 0.4921,
-     "per_match": 0.082,
-     "total_raw": 0.5139,
-     "per_match_raw": 0.0856
-    }
-   },
-   "n_passes": 86
-  },
-  {
-   "name": "Neymar",
-   "team": "Brazil",
-   "pos": "AM",
-   "stages": {
-    "group": {
-     "matches": 1,
-     "total": 0.1412,
-     "per_match": 0.1412,
-     "total_raw": 0.1673,
-     "per_match_raw": 0.1673
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.3473,
-     "per_match": 0.1736,
-     "total_raw": 0.3694,
-     "per_match_raw": 0.1847
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.4885,
-     "per_match": 0.1628,
-     "total_raw": 0.5367,
-     "per_match_raw": 0.1789
-    }
-   },
-   "n_passes": 49
-  },
-  {
-   "name": "Tyler Adams",
-   "team": "United States",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.2546,
-     "per_match": 0.0849,
-     "total_raw": 0.2745,
-     "per_match_raw": 0.0915
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.2254,
-     "per_match": 0.2254,
-     "total_raw": 0.215,
-     "per_match_raw": 0.215
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.48,
-     "per_match": 0.12,
-     "total_raw": 0.4895,
-     "per_match_raw": 0.1224
-    }
-   },
-   "n_passes": 51
-  },
-  {
-   "name": "Serge Gnabry",
-   "team": "Germany",
-   "pos": "LW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.4794,
-     "per_match": 0.1598,
-     "total_raw": 0.5485,
-     "per_match_raw": 0.1828
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.4794,
-     "per_match": 0.1598,
-     "total_raw": 0.5485,
-     "per_match_raw": 0.1828
-    }
-   },
-   "n_passes": 48
+   "n_passes": 139
   },
   {
    "name": "Salem Al-Dawsari",
@@ -1611,10 +132,10 @@
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.4579,
-     "per_match": 0.1526,
-     "total_raw": 0.4603,
-     "per_match_raw": 0.1534
+     "total": 0.0109,
+     "per_match": 0.0036,
+     "total_raw": 0.0111,
+     "per_match_raw": 0.0037
     },
     "ko": {
      "matches": 0,
@@ -1625,100 +146,42 @@
     },
     "all": {
      "matches": 3,
-     "total": 0.4579,
-     "per_match": 0.1526,
-     "total_raw": 0.4603,
-     "per_match_raw": 0.1534
+     "total": 0.0109,
+     "per_match": 0.0036,
+     "total_raw": 0.0111,
+     "per_match_raw": 0.0037
     }
    },
-   "n_passes": 51
+   "n_passes": 49
   },
   {
-   "name": "Ilkay G\u00fcndogan",
-   "team": "Germany",
-   "pos": "CM",
+   "name": "Ivan Perisic",
+   "team": "Croatia",
+   "pos": "LW",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.4543,
-     "per_match": 0.1514,
-     "total_raw": 0.5107,
-     "per_match_raw": 0.1702
+     "total": 0.0033,
+     "per_match": 0.0011,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0011
     },
     "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.4543,
-     "per_match": 0.1514,
-     "total_raw": 0.5107,
-     "per_match_raw": 0.1702
-    }
-   },
-   "n_passes": 48
-  },
-  {
-   "name": "Timothy Weah",
-   "team": "United States",
-   "pos": "RW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3517,
-     "per_match": 0.1172,
-     "total_raw": 0.3676,
-     "per_match_raw": 0.1225
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.0967,
-     "per_match": 0.0967,
-     "total_raw": 0.0922,
-     "per_match_raw": 0.0922
-    },
-    "all": {
      "matches": 4,
-     "total": 0.4484,
-     "per_match": 0.1121,
-     "total_raw": 0.4599,
-     "per_match_raw": 0.115
-    }
-   },
-   "n_passes": 42
-  },
-  {
-   "name": "Gavi",
-   "team": "Spain",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3682,
-     "per_match": 0.1227,
-     "total_raw": 0.4063,
-     "per_match_raw": 0.1354
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.072,
-     "per_match": 0.072,
-     "total_raw": 0.0732,
-     "per_match_raw": 0.0732
+     "total": 0.0072,
+     "per_match": 0.0018,
+     "total_raw": 0.0069,
+     "per_match_raw": 0.0017
     },
     "all": {
-     "matches": 4,
-     "total": 0.4403,
-     "per_match": 0.1101,
-     "total_raw": 0.4795,
-     "per_match_raw": 0.1199
+     "matches": 7,
+     "total": 0.0105,
+     "per_match": 0.0015,
+     "total_raw": 0.0102,
+     "per_match_raw": 0.0015
     }
    },
-   "n_passes": 41
+   "n_passes": 118
   },
   {
    "name": "Harry Maguire",
@@ -1727,56 +190,462 @@
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.2276,
-     "per_match": 0.0759,
-     "total_raw": 0.2457,
-     "per_match_raw": 0.0819
+     "total": 0.0055,
+     "per_match": 0.0018,
+     "total_raw": 0.0059,
+     "per_match_raw": 0.002
     },
     "ko": {
      "matches": 2,
-     "total": 0.2116,
-     "per_match": 0.1058,
-     "total_raw": 0.2137,
-     "per_match_raw": 0.1069
+     "total": 0.0048,
+     "per_match": 0.0024,
+     "total_raw": 0.0051,
+     "per_match_raw": 0.0026
     },
     "all": {
      "matches": 5,
-     "total": 0.4392,
-     "per_match": 0.0878,
-     "total_raw": 0.4594,
-     "per_match_raw": 0.0919
+     "total": 0.0103,
+     "per_match": 0.0021,
+     "total_raw": 0.0111,
+     "per_match_raw": 0.0022
     }
    },
-   "n_passes": 43
+   "n_passes": 283
   },
   {
-   "name": "Christian Pulisic",
-   "team": "United States",
+   "name": "Jude Bellingham",
+   "team": "England",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0063,
+     "per_match": 0.0021,
+     "total_raw": 0.0068,
+     "per_match_raw": 0.0023
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.003,
+     "per_match": 0.0015,
+     "total_raw": 0.0034,
+     "per_match_raw": 0.0017
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0093,
+     "per_match": 0.0019,
+     "total_raw": 0.0102,
+     "per_match_raw": 0.002
+    }
+   },
+   "n_passes": 106
+  },
+  {
+   "name": "Lucas Paquet\u00e1",
+   "team": "Brazil",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0009,
+     "per_match": 0.0005,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0084,
+     "per_match": 0.0042,
+     "total_raw": 0.0087,
+     "per_match_raw": 0.0043
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0093,
+     "per_match": 0.0023,
+     "total_raw": 0.0098,
+     "per_match_raw": 0.0024
+    }
+   },
+   "n_passes": 78
+  },
+  {
+   "name": "Aur\u00e9lien Tchouam\u00e9ni",
+   "team": "France",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0068,
+     "per_match": 0.0017,
+     "total_raw": 0.0069,
+     "per_match_raw": 0.0017
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0087,
+     "per_match": 0.0012,
+     "total_raw": 0.0089,
+     "per_match_raw": 0.0013
+    }
+   },
+   "n_passes": 201
+  },
+  {
+   "name": "Theo Hernandez",
+   "team": "France",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.003,
+     "per_match": 0.0015,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0016
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0056,
+     "per_match": 0.0014,
+     "total_raw": 0.0053,
+     "per_match_raw": 0.0013
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0086,
+     "per_match": 0.0014,
+     "total_raw": 0.0086,
+     "per_match_raw": 0.0014
+    }
+   },
+   "n_passes": 161
+  },
+  {
+   "name": "Eduardo Camavinga",
+   "team": "France",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0006,
+     "per_match": 0.0006,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0075,
+     "per_match": 0.0075,
+     "total_raw": 0.0071,
+     "per_match_raw": 0.0071
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0081,
+     "per_match": 0.0041,
+     "total_raw": 0.0078,
+     "per_match_raw": 0.0039
+    }
+   },
+   "n_passes": 52
+  },
+  {
+   "name": "Adrien Rabiot",
+   "team": "France",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0054,
+     "per_match": 0.0018,
+     "total_raw": 0.0059,
+     "per_match_raw": 0.002
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0026,
+     "per_match": 0.0009,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.008,
+     "per_match": 0.0013,
+     "total_raw": 0.0084,
+     "per_match_raw": 0.0014
+    }
+   },
+   "n_passes": 114
+  },
+  {
+   "name": "Joshua Kimmich",
+   "team": "Germany",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0079,
+     "per_match": 0.0026,
+     "total_raw": 0.0093,
+     "per_match_raw": 0.0031
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0079,
+     "per_match": 0.0026,
+     "total_raw": 0.0093,
+     "per_match_raw": 0.0031
+    }
+   },
+   "n_passes": 108
+  },
+  {
+   "name": "Rodri",
+   "team": "Spain",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0052,
+     "per_match": 0.0017,
+     "total_raw": 0.006,
+     "per_match_raw": 0.002
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0024,
+     "per_match": 0.0024,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0024
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0076,
+     "per_match": 0.0019,
+     "total_raw": 0.0084,
+     "per_match_raw": 0.0021
+    }
+   },
+   "n_passes": 298
+  },
+  {
+   "name": "Alphonso Davies",
+   "team": "Canada",
+   "pos": "LM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0076,
+     "per_match": 0.0025,
+     "total_raw": 0.0075,
+     "per_match_raw": 0.0025
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0076,
+     "per_match": 0.0025,
+     "total_raw": 0.0075,
+     "per_match_raw": 0.0025
+    }
+   },
+   "n_passes": 40
+  },
+  {
+   "name": "Bruno Fernandes",
+   "team": "Portugal",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0039,
+     "per_match": 0.0019,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0021
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0037,
+     "per_match": 0.0018,
+     "total_raw": 0.0038,
+     "per_match_raw": 0.0019
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0075,
+     "per_match": 0.0019,
+     "total_raw": 0.008,
+     "per_match_raw": 0.002
+    }
+   },
+   "n_passes": 82
+  },
+  {
+   "name": "Pedri",
+   "team": "Spain",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0043,
+     "per_match": 0.0014,
+     "total_raw": 0.0048,
+     "per_match_raw": 0.0016
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0027,
+     "per_match": 0.0027,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0027
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.007,
+     "per_match": 0.0017,
+     "total_raw": 0.0076,
+     "per_match_raw": 0.0019
+    }
+   },
+   "n_passes": 205
+  },
+  {
+   "name": "Ousmane Dembele",
+   "team": "France",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0059,
+     "per_match": 0.002,
+     "total_raw": 0.0061,
+     "per_match_raw": 0.002
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0009,
+     "per_match": 0.0002,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0002
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0068,
+     "per_match": 0.001,
+     "total_raw": 0.007,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 64
+  },
+  {
+   "name": "Kylian Mbapp\u00e9",
+   "team": "France",
    "pos": "LW",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.2825,
-     "per_match": 0.0942,
-     "total_raw": 0.2913,
-     "per_match_raw": 0.0971
+     "total": 0.001,
+     "per_match": 0.0003,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0057,
+     "per_match": 0.0014,
+     "total_raw": 0.0057,
+     "per_match_raw": 0.0014
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0066,
+     "per_match": 0.0009,
+     "total_raw": 0.0067,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 64
+  },
+  {
+   "name": "Mateo Kovacic",
+   "team": "Croatia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0027,
+     "per_match": 0.0009,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0039,
+     "per_match": 0.001,
+     "total_raw": 0.0039,
+     "per_match_raw": 0.001
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0066,
+     "per_match": 0.0009,
+     "total_raw": 0.0067,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 190
+  },
+  {
+   "name": "In-beom Hwang",
+   "team": "South Korea",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0052,
+     "per_match": 0.0017,
+     "total_raw": 0.0054,
+     "per_match_raw": 0.0018
     },
     "ko": {
      "matches": 1,
-     "total": 0.1472,
-     "per_match": 0.1472,
-     "total_raw": 0.1404,
-     "per_match_raw": 0.1404
+     "total": 0.0012,
+     "per_match": 0.0012,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0012
     },
     "all": {
      "matches": 4,
-     "total": 0.4297,
-     "per_match": 0.1074,
-     "total_raw": 0.4317,
-     "per_match_raw": 0.1079
+     "total": 0.0063,
+     "per_match": 0.0016,
+     "total_raw": 0.0066,
+     "per_match_raw": 0.0016
     }
    },
-   "n_passes": 48
+   "n_passes": 120
   },
   {
    "name": "Ricardo Rodriguez",
@@ -1785,520 +654,114 @@
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.2759,
-     "per_match": 0.092,
-     "total_raw": 0.3098,
-     "per_match_raw": 0.1033
+     "total": 0.0032,
+     "per_match": 0.0011,
+     "total_raw": 0.0036,
+     "per_match_raw": 0.0012
     },
     "ko": {
      "matches": 1,
-     "total": 0.149,
-     "per_match": 0.149,
-     "total_raw": 0.1404,
-     "per_match_raw": 0.1404
+     "total": 0.003,
+     "per_match": 0.003,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.0029
     },
     "all": {
      "matches": 4,
-     "total": 0.4249,
-     "per_match": 0.1062,
-     "total_raw": 0.4502,
-     "per_match_raw": 0.1125
+     "total": 0.0063,
+     "per_match": 0.0016,
+     "total_raw": 0.0065,
+     "per_match_raw": 0.0016
     }
    },
-   "n_passes": 47
+   "n_passes": 134
   },
   {
-   "name": "Antonee Robinson",
-   "team": "United States",
-   "pos": "LB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.282,
-     "per_match": 0.094,
-     "total_raw": 0.3026,
-     "per_match_raw": 0.1009
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.1423,
-     "per_match": 0.1423,
-     "total_raw": 0.1357,
-     "per_match_raw": 0.1357
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.4244,
-     "per_match": 0.1061,
-     "total_raw": 0.4383,
-     "per_match_raw": 0.1096
-    }
-   },
-   "n_passes": 63
-  },
-  {
-   "name": "David Raum",
-   "team": "Germany",
-   "pos": "LB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.4103,
-     "per_match": 0.1368,
-     "total_raw": 0.4596,
-     "per_match_raw": 0.1532
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.4103,
-     "per_match": 0.1368,
-     "total_raw": 0.4596,
-     "per_match_raw": 0.1532
-    }
-   },
-   "n_passes": 55
-  },
-  {
-   "name": "Joao Felix",
+   "name": "Jo\u00e3o Cancelo",
    "team": "Portugal",
-   "pos": "LW",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.2597,
-     "per_match": 0.1299,
-     "total_raw": 0.2853,
-     "per_match_raw": 0.1426
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.1483,
-     "per_match": 0.0742,
-     "total_raw": 0.1599,
-     "per_match_raw": 0.0799
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.4081,
-     "per_match": 0.102,
-     "total_raw": 0.4451,
-     "per_match_raw": 0.1113
-    }
-   },
-   "n_passes": 45
-  },
-  {
-   "name": "Rasmus Kristensen",
-   "team": "Denmark",
    "pos": "RB",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.4059,
-     "per_match": 0.1353,
-     "total_raw": 0.4338,
-     "per_match_raw": 0.1446
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.4059,
-     "per_match": 0.1353,
-     "total_raw": 0.4338,
-     "per_match_raw": 0.1446
-    }
-   },
-   "n_passes": 65
-  },
-  {
-   "name": "Christian Eriksen",
-   "team": "Denmark",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.4049,
-     "per_match": 0.135,
-     "total_raw": 0.4148,
-     "per_match_raw": 0.1383
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.4049,
-     "per_match": 0.135,
-     "total_raw": 0.4148,
-     "per_match_raw": 0.1383
-    }
-   },
-   "n_passes": 44
-  },
-  {
-   "name": "Harry Kane",
-   "team": "England",
-   "pos": "CF",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.1592,
-     "per_match": 0.0531,
-     "total_raw": 0.1713,
-     "per_match_raw": 0.0571
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.241,
-     "per_match": 0.1205,
-     "total_raw": 0.2689,
-     "per_match_raw": 0.1344
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.4002,
-     "per_match": 0.08,
-     "total_raw": 0.4402,
-     "per_match_raw": 0.088
-    }
-   },
-   "n_passes": 47
-  },
-  {
-   "name": "Granit Xhaka",
-   "team": "Switzerland",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3129,
-     "per_match": 0.1043,
-     "total_raw": 0.3528,
-     "per_match_raw": 0.1176
+     "total": 0.0038,
+     "per_match": 0.0013,
+     "total_raw": 0.0044,
+     "per_match_raw": 0.0015
     },
     "ko": {
      "matches": 1,
-     "total": 0.0844,
-     "per_match": 0.0844,
-     "total_raw": 0.0795,
-     "per_match_raw": 0.0795
+     "total": 0.0025,
+     "per_match": 0.0025,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0025
     },
     "all": {
      "matches": 4,
-     "total": 0.3973,
-     "per_match": 0.0993,
-     "total_raw": 0.4323,
-     "per_match_raw": 0.1081
+     "total": 0.0063,
+     "per_match": 0.0016,
+     "total_raw": 0.0069,
+     "per_match_raw": 0.0017
     }
    },
-   "n_passes": 41
+   "n_passes": 132
   },
   {
-   "name": "Xherdan Shaqiri",
-   "team": "Switzerland",
-   "pos": "RW",
+   "name": "Gavi",
+   "team": "Spain",
+   "pos": "CM",
    "stages": {
     "group": {
-     "matches": 2,
-     "total": 0.2041,
-     "per_match": 0.102,
-     "total_raw": 0.2418,
-     "per_match_raw": 0.1209
+     "matches": 3,
+     "total": 0.0059,
+     "per_match": 0.002,
+     "total_raw": 0.0059,
+     "per_match_raw": 0.002
     },
     "ko": {
      "matches": 1,
-     "total": 0.1904,
-     "per_match": 0.1904,
-     "total_raw": 0.1794,
-     "per_match_raw": 0.1794
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.3944,
-     "per_match": 0.1315,
-     "total_raw": 0.4211,
-     "per_match_raw": 0.1404
-    }
-   },
-   "n_passes": 46
-  },
-  {
-   "name": "Rub\u00e9n Vargas",
-   "team": "Switzerland",
-   "pos": "LW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.2208,
-     "per_match": 0.0736,
-     "total_raw": 0.2554,
-     "per_match_raw": 0.0851
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.1629,
-     "per_match": 0.1629,
-     "total_raw": 0.1534,
-     "per_match_raw": 0.1534
+     "total": 0.0003,
+     "per_match": 0.0003,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0003
     },
     "all": {
      "matches": 4,
-     "total": 0.3837,
-     "per_match": 0.0959,
-     "total_raw": 0.4088,
-     "per_match_raw": 0.1022
+     "total": 0.0062,
+     "per_match": 0.0015,
+     "total_raw": 0.0062,
+     "per_match_raw": 0.0015
     }
    },
-   "n_passes": 43
+   "n_passes": 48
   },
   {
-   "name": "Daley Blind",
-   "team": "Netherlands",
-   "pos": "LB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.317,
-     "per_match": 0.1057,
-     "total_raw": 0.3709,
-     "per_match_raw": 0.1236
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.0591,
-     "per_match": 0.0296,
-     "total_raw": 0.0574,
-     "per_match_raw": 0.0287
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.3761,
-     "per_match": 0.0752,
-     "total_raw": 0.4282,
-     "per_match_raw": 0.0856
-    }
-   },
-   "n_passes": 80
-  },
-  {
-   "name": "R\u00faben Neves",
-   "team": "Portugal",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3186,
-     "per_match": 0.1062,
-     "total_raw": 0.3512,
-     "per_match_raw": 0.1171
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.0523,
-     "per_match": 0.0262,
-     "total_raw": 0.0531,
-     "per_match_raw": 0.0266
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.3709,
-     "per_match": 0.0742,
-     "total_raw": 0.4043,
-     "per_match_raw": 0.0809
-    }
-   },
-   "n_passes": 41
-  },
-  {
-   "name": "Federico Valverde",
-   "team": "Uruguay",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3684,
-     "per_match": 0.1228,
-     "total_raw": 0.3869,
-     "per_match_raw": 0.129
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.3684,
-     "per_match": 0.1228,
-     "total_raw": 0.3869,
-     "per_match_raw": 0.129
-    }
-   },
-   "n_passes": 41
-  },
-  {
-   "name": "Declan Rice",
-   "team": "England",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.2714,
-     "per_match": 0.0905,
-     "total_raw": 0.3006,
-     "per_match_raw": 0.1002
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.0955,
-     "per_match": 0.0478,
-     "total_raw": 0.0997,
-     "per_match_raw": 0.0498
-    },
-    "all": {
-     "matches": 5,
-     "total": 0.3669,
-     "per_match": 0.0734,
-     "total_raw": 0.4002,
-     "per_match_raw": 0.08
-    }
-   },
-   "n_passes": 42
-  },
-  {
-   "name": "Jules Kounde",
-   "team": "France",
-   "pos": "RB",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.0906,
-     "per_match": 0.0453,
-     "total_raw": 0.0921,
-     "per_match_raw": 0.0461
-    },
-    "ko": {
-     "matches": 4,
-     "total": 0.2639,
-     "per_match": 0.066,
-     "total_raw": 0.2536,
-     "per_match_raw": 0.0634
-    },
-    "all": {
-     "matches": 6,
-     "total": 0.3545,
-     "per_match": 0.0591,
-     "total_raw": 0.3458,
-     "per_match_raw": 0.0576
-    }
-   },
-   "n_passes": 49
-  },
-  {
-   "name": "Saud Abdulhamid",
-   "team": "Saudi Arabia",
-   "pos": "RB",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3513,
-     "per_match": 0.1171,
-     "total_raw": 0.3498,
-     "per_match_raw": 0.1166
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.3513,
-     "per_match": 0.1171,
-     "total_raw": 0.3498,
-     "per_match_raw": 0.1166
-    }
-   },
-   "n_passes": 40
-  },
-  {
-   "name": "Weston McKennie",
-   "team": "United States",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.2599,
-     "per_match": 0.0866,
-     "total_raw": 0.278,
-     "per_match_raw": 0.0927
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.0845,
-     "per_match": 0.0845,
-     "total_raw": 0.0805,
-     "per_match_raw": 0.0805
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.3444,
-     "per_match": 0.0861,
-     "total_raw": 0.3586,
-     "per_match_raw": 0.0896
-    }
-   },
-   "n_passes": 57
-  },
-  {
-   "name": "Niklas S\u00fcle",
-   "team": "Germany",
+   "name": "Josko Gvardiol",
+   "team": "Croatia",
    "pos": "CB",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.3442,
-     "per_match": 0.1147,
-     "total_raw": 0.3978,
-     "per_match_raw": 0.1326
+     "total": 0.0035,
+     "per_match": 0.0012,
+     "total_raw": 0.0036,
+     "per_match_raw": 0.0012
     },
     "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
+     "matches": 4,
+     "total": 0.0026,
+     "per_match": 0.0007,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0007
     },
     "all": {
-     "matches": 3,
-     "total": 0.3442,
-     "per_match": 0.1147,
-     "total_raw": 0.3978,
-     "per_match_raw": 0.1326
+     "matches": 7,
+     "total": 0.0061,
+     "per_match": 0.0009,
+     "total_raw": 0.0062,
+     "per_match_raw": 0.0009
     }
    },
-   "n_passes": 45
+   "n_passes": 304
   },
   {
    "name": "Joakim Maehle",
@@ -2307,10 +770,10 @@
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.334,
-     "per_match": 0.1113,
-     "total_raw": 0.3574,
-     "per_match_raw": 0.1191
+     "total": 0.0061,
+     "per_match": 0.002,
+     "total_raw": 0.0061,
+     "per_match_raw": 0.002
     },
     "ko": {
      "matches": 0,
@@ -2321,216 +784,1028 @@
     },
     "all": {
      "matches": 3,
-     "total": 0.334,
-     "per_match": 0.1113,
-     "total_raw": 0.3574,
-     "per_match_raw": 0.1191
+     "total": 0.0061,
+     "per_match": 0.002,
+     "total_raw": 0.0061,
+     "per_match_raw": 0.002
     }
    },
-   "n_passes": 50
+   "n_passes": 68
   },
   {
-   "name": "Nicolas Tagliafico",
-   "team": "Argentina",
-   "pos": "LB",
+   "name": "Jackson Irvine",
+   "team": "Australia",
+   "pos": "CM",
    "stages": {
     "group": {
-     "matches": 2,
-     "total": 0.1368,
-     "per_match": 0.0684,
-     "total_raw": 0.1451,
-     "per_match_raw": 0.0725
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.0019,
+     "per_match_raw": 0.0006
     },
     "ko": {
+     "matches": 1,
+     "total": 0.0041,
+     "per_match": 0.0041,
+     "total_raw": 0.0039,
+     "per_match_raw": 0.0039
+    },
+    "all": {
      "matches": 4,
-     "total": 0.1969,
-     "per_match": 0.0492,
-     "total_raw": 0.1923,
-     "per_match_raw": 0.0481
+     "total": 0.006,
+     "per_match": 0.0015,
+     "total_raw": 0.0058,
+     "per_match_raw": 0.0014
+    }
+   },
+   "n_passes": 48
+  },
+  {
+   "name": "Marcelo Brozovic",
+   "team": "Croatia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0032,
+     "per_match": 0.0011,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0024,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
     },
     "all": {
      "matches": 6,
-     "total": 0.3337,
-     "per_match": 0.0556,
-     "total_raw": 0.3374,
-     "per_match_raw": 0.0562
+     "total": 0.0056,
+     "per_match": 0.0009,
+     "total_raw": 0.0058,
+     "per_match_raw": 0.001
     }
    },
-   "n_passes": 41
+   "n_passes": 218
   },
   {
-   "name": "Sergi\u00f1o Dest",
-   "team": "United States",
-   "pos": "RB",
+   "name": "Dusan Tadic",
+   "team": "Serbia",
+   "pos": "RW",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.2443,
-     "per_match": 0.0814,
-     "total_raw": 0.2644,
-     "per_match_raw": 0.0881
+     "total": 0.0056,
+     "per_match": 0.0019,
+     "total_raw": 0.0065,
+     "per_match_raw": 0.0022
     },
     "ko": {
-     "matches": 1,
-     "total": 0.0885,
-     "per_match": 0.0885,
-     "total_raw": 0.0844,
-     "per_match_raw": 0.0844
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
     },
     "all": {
-     "matches": 4,
-     "total": 0.3328,
-     "per_match": 0.0832,
-     "total_raw": 0.3488,
-     "per_match_raw": 0.0872
-    }
-   },
-   "n_passes": 45
-  },
-  {
-   "name": "Matty Cash",
-   "team": "Poland",
-   "pos": "RB",
-   "stages": {
-    "group": {
      "matches": 3,
-     "total": 0.1988,
-     "per_match": 0.0663,
-     "total_raw": 0.2021,
-     "per_match_raw": 0.0674
-    },
-    "ko": {
-     "matches": 1,
-     "total": 0.1337,
-     "per_match": 0.1337,
-     "total_raw": 0.126,
-     "per_match_raw": 0.126
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.3325,
-     "per_match": 0.0831,
-     "total_raw": 0.328,
-     "per_match_raw": 0.082
+     "total": 0.0056,
+     "per_match": 0.0019,
+     "total_raw": 0.0065,
+     "per_match_raw": 0.0022
     }
    },
-   "n_passes": 46
+   "n_passes": 49
   },
   {
-   "name": "Julian Alvarez",
+   "name": "Nicol\u00e1s Otamendi",
    "team": "Argentina",
-   "pos": "CF",
+   "pos": "CB",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.0436,
-     "per_match": 0.0145,
-     "total_raw": 0.0444,
-     "per_match_raw": 0.0148
+     "total": 0.003,
+     "per_match": 0.001,
+     "total_raw": 0.0032,
+     "per_match_raw": 0.0011
     },
     "ko": {
      "matches": 4,
-     "total": 0.2853,
-     "per_match": 0.0713,
-     "total_raw": 0.2743,
-     "per_match_raw": 0.0686
+     "total": 0.0025,
+     "per_match": 0.0006,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0006
     },
     "all": {
      "matches": 7,
-     "total": 0.3289,
-     "per_match": 0.047,
-     "total_raw": 0.3187,
-     "per_match_raw": 0.0455
+     "total": 0.0055,
+     "per_match": 0.0008,
+     "total_raw": 0.0057,
+     "per_match_raw": 0.0008
     }
    },
-   "n_passes": 44
+   "n_passes": 308
   },
   {
-   "name": "Jin-su Kim",
-   "team": "South Korea",
-   "pos": "LB",
+   "name": "Dejan Lovren",
+   "team": "Croatia",
+   "pos": "CB",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.2926,
-     "per_match": 0.0975,
-     "total_raw": 0.3073,
-     "per_match_raw": 0.1024
+     "total": 0.0028,
+     "per_match": 0.0009,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
     },
     "ko": {
-     "matches": 1,
-     "total": 0.0243,
-     "per_match": 0.0243,
-     "total_raw": 0.0237,
-     "per_match_raw": 0.0237
+     "matches": 3,
+     "total": 0.0027,
+     "per_match": 0.0009,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0009
     },
     "all": {
-     "matches": 4,
-     "total": 0.3169,
-     "per_match": 0.0792,
-     "total_raw": 0.331,
-     "per_match_raw": 0.0827
+     "matches": 6,
+     "total": 0.0055,
+     "per_match": 0.0009,
+     "total_raw": 0.0056,
+     "per_match_raw": 0.0009
     }
    },
-   "n_passes": 42
+   "n_passes": 242
   },
   {
-   "name": "Danilo",
+   "name": "Casemiro",
    "team": "Brazil",
-   "pos": "LB",
+   "pos": "CM",
    "stages": {
     "group": {
-     "matches": 1,
-     "total": 0.0969,
-     "per_match": 0.0969,
-     "total_raw": 0.1148,
-     "per_match_raw": 0.1148
+     "matches": 2,
+     "total": 0.0024,
+     "per_match": 0.0012,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.0014
     },
     "ko": {
      "matches": 2,
-     "total": 0.2189,
-     "per_match": 0.1094,
-     "total_raw": 0.2312,
-     "per_match_raw": 0.1156
+     "total": 0.0031,
+     "per_match": 0.0015,
+     "total_raw": 0.0035,
+     "per_match_raw": 0.0017
     },
     "all": {
-     "matches": 3,
-     "total": 0.3157,
-     "per_match": 0.1052,
-     "total_raw": 0.346,
-     "per_match_raw": 0.1153
+     "matches": 4,
+     "total": 0.0055,
+     "per_match": 0.0014,
+     "total_raw": 0.0064,
+     "per_match_raw": 0.0016
     }
    },
-   "n_passes": 47
+   "n_passes": 119
   },
   {
-   "name": "Rodrygo",
+   "name": "Enzo Fernandez",
+   "team": "Argentina",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0026,
+     "per_match": 0.0009,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0027,
+     "per_match": 0.0007,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0054,
+     "per_match": 0.0008,
+     "total_raw": 0.0057,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 206
+  },
+  {
+   "name": "Yunus Musah",
+   "team": "United States",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0033,
+     "per_match": 0.0011,
+     "total_raw": 0.0034,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0019,
+     "per_match": 0.0019,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0018
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0052,
+     "per_match": 0.0013,
+     "total_raw": 0.0052,
+     "per_match_raw": 0.0013
+    }
+   },
+   "n_passes": 80
+  },
+  {
+   "name": "John Stones",
+   "team": "England",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0042,
+     "per_match": 0.0014,
+     "total_raw": 0.0046,
+     "per_match_raw": 0.0015
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.001,
+     "per_match": 0.0005,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0005
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0052,
+     "per_match": 0.001,
+     "total_raw": 0.0057,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 263
+  },
+  {
+   "name": "Jules Kounde",
+   "team": "France",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0008,
+     "per_match": 0.0004,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0044,
+     "per_match": 0.0011,
+     "total_raw": 0.0043,
+     "per_match_raw": 0.0011
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0051,
+     "per_match": 0.0009,
+     "total_raw": 0.0051,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 180
+  },
+  {
+   "name": "Dayot Upamecano",
+   "team": "France",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0027,
+     "per_match": 0.0013,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.0014
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.005,
+     "per_match": 0.001,
+     "total_raw": 0.0051,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 204
+  },
+  {
+   "name": "Luke Shaw",
+   "team": "England",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0036,
+     "per_match": 0.0012,
+     "total_raw": 0.004,
+     "per_match_raw": 0.0013
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0013,
+     "per_match": 0.0007,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.005,
+     "per_match": 0.001,
+     "total_raw": 0.0055,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 197
+  },
+  {
+   "name": "Raphinha",
    "team": "Brazil",
    "pos": "RW",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.1095,
-     "per_match": 0.0365,
-     "total_raw": 0.1298,
-     "per_match_raw": 0.0433
+     "total": 0.0013,
+     "per_match": 0.0004,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
     },
     "ko": {
      "matches": 2,
-     "total": 0.2024,
-     "per_match": 0.1012,
-     "total_raw": 0.2068,
-     "per_match_raw": 0.1034
+     "total": 0.0037,
+     "per_match": 0.0018,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0021
     },
     "all": {
      "matches": 5,
-     "total": 0.3119,
-     "per_match": 0.0624,
-     "total_raw": 0.3366,
-     "per_match_raw": 0.0673
+     "total": 0.005,
+     "per_match": 0.001,
+     "total_raw": 0.0058,
+     "per_match_raw": 0.0012
     }
    },
-   "n_passes": 40
+   "n_passes": 62
+  },
+  {
+   "name": "Aymeric Laporte",
+   "team": "Spain",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0027,
+     "per_match": 0.0013,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.0014
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0021,
+     "per_match": 0.0021,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0022
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0048,
+     "per_match": 0.0016,
+     "total_raw": 0.005,
+     "per_match_raw": 0.0017
+    }
+   },
+   "n_passes": 247
+  },
+  {
+   "name": "\u00c1ngel Di Mar\u00eda",
+   "team": "Argentina",
+   "pos": "RM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0044,
+     "per_match": 0.0015,
+     "total_raw": 0.0048,
+     "per_match_raw": 0.0016
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0004,
+     "per_match": 0.0002,
+     "total_raw": 0.0004,
+     "per_match_raw": 0.0002
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0048,
+     "per_match": 0.001,
+     "total_raw": 0.0052,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 47
+  },
+  {
+   "name": "Abdul Rahman Baba",
+   "team": "Ghana",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0048,
+     "per_match": 0.0024,
+     "total_raw": 0.0056,
+     "per_match_raw": 0.0028
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0048,
+     "per_match": 0.0024,
+     "total_raw": 0.0056,
+     "per_match_raw": 0.0028
+    }
+   },
+   "n_passes": 60
+  },
+  {
+   "name": "Tyler Adams",
+   "team": "United States",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.0023,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0026,
+     "per_match": 0.0026,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0025
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0047,
+     "per_match": 0.0012,
+     "total_raw": 0.0048,
+     "per_match_raw": 0.0012
+    }
+   },
+   "n_passes": 133
+  },
+  {
+   "name": "Woo-young Jung",
+   "team": "South Korea",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.004,
+     "per_match": 0.0013,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0014
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0007,
+     "per_match": 0.0007,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0047,
+     "per_match": 0.0012,
+     "total_raw": 0.0049,
+     "per_match_raw": 0.0012
+    }
+   },
+   "n_passes": 97
+  },
+  {
+   "name": "Pepe",
+   "team": "Portugal",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0021,
+     "per_match": 0.0011,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0013
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0025,
+     "per_match": 0.0012,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0013
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0046,
+     "per_match": 0.0012,
+     "total_raw": 0.0052,
+     "per_match_raw": 0.0013
+    }
+   },
+   "n_passes": 195
+  },
+  {
+   "name": "Achraf Hakimi",
+   "team": "Morocco",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.0019,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0025,
+     "per_match": 0.0006,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0045,
+     "per_match": 0.0006,
+     "total_raw": 0.0044,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 198
+  },
+  {
+   "name": "Hakim Ziyech",
+   "team": "Morocco",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0023,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0022,
+     "per_match": 0.0005,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0005
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0044,
+     "per_match": 0.0006,
+     "total_raw": 0.0044,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 130
+  },
+  {
+   "name": "Frenkie de Jong",
+   "team": "Netherlands",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0028,
+     "per_match": 0.0009,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0015,
+     "per_match": 0.0007,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0043,
+     "per_match": 0.0009,
+     "total_raw": 0.0047,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 133
+  },
+  {
+   "name": "Tim Ream",
+   "team": "United States",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0018,
+     "per_match": 0.0018,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0017
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0043,
+     "per_match": 0.0011,
+     "total_raw": 0.0044,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 168
+  },
+  {
+   "name": "Antonee Robinson",
+   "team": "United States",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0029,
+     "per_match": 0.001,
+     "total_raw": 0.0032,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0013,
+     "per_match": 0.0013,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0012
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0042,
+     "per_match": 0.0011,
+     "total_raw": 0.0044,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 126
+  },
+  {
+   "name": "Young-gwon Kim",
+   "team": "South Korea",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0034,
+     "per_match": 0.0011,
+     "total_raw": 0.0036,
+     "per_match_raw": 0.0012
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0008,
+     "per_match": 0.0008,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0008
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0042,
+     "per_match": 0.001,
+     "total_raw": 0.0044,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 157
+  },
+  {
+   "name": "Granit Xhaka",
+   "team": "Switzerland",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.003,
+     "per_match": 0.001,
+     "total_raw": 0.0034,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0012,
+     "per_match": 0.0012,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0012
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0042,
+     "per_match": 0.0011,
+     "total_raw": 0.0046,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 89
+  },
+  {
+   "name": "Chris Mepham",
+   "team": "Wales",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0042,
+     "per_match": 0.0014,
+     "total_raw": 0.0043,
+     "per_match_raw": 0.0014
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0042,
+     "per_match": 0.0014,
+     "total_raw": 0.0043,
+     "per_match_raw": 0.0014
+    }
+   },
+   "n_passes": 121
+  },
+  {
+   "name": "Nahuel Molina",
+   "team": "Argentina",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0021,
+     "per_match": 0.0005,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0005
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0041,
+     "per_match": 0.0006,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 201
+  },
+  {
+   "name": "Josip Juranovic",
+   "team": "Croatia",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0027,
+     "per_match": 0.0009,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0009
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0041,
+     "per_match": 0.0007,
+     "total_raw": 0.0041,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 189
+  },
+  {
+   "name": "Min Jae Kim",
+   "team": "South Korea",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0027,
+     "per_match": 0.0013,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.0014
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0014,
+     "per_match": 0.0014,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0014
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0041,
+     "per_match": 0.0014,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0014
+    }
+   },
+   "n_passes": 117
+  },
+  {
+   "name": "Thiago Silva",
+   "team": "Brazil",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0019,
+     "per_match": 0.0009,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0022,
+     "per_match": 0.0011,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0012
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0041,
+     "per_match": 0.001,
+     "total_raw": 0.0046,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 197
+  },
+  {
+   "name": "Pierre-Emile H\u00f6jbjerg",
+   "team": "Denmark",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0041,
+     "per_match": 0.0014,
+     "total_raw": 0.0044,
+     "per_match_raw": 0.0015
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0041,
+     "per_match": 0.0014,
+     "total_raw": 0.0044,
+     "per_match_raw": 0.0015
+    }
+   },
+   "n_passes": 113
+  },
+  {
+   "name": "Kamal Miller",
+   "team": "Canada",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0041,
+     "per_match": 0.0014,
+     "total_raw": 0.0041,
+     "per_match_raw": 0.0014
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0041,
+     "per_match": 0.0014,
+     "total_raw": 0.0041,
+     "per_match_raw": 0.0014
+    }
+   },
+   "n_passes": 162
+  },
+  {
+   "name": "Declan Rice",
+   "team": "England",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0028,
+     "per_match": 0.0009,
+     "total_raw": 0.0031,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0012,
+     "per_match": 0.0006,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.004,
+     "per_match": 0.0008,
+     "total_raw": 0.0044,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 149
+  },
+  {
+   "name": "Jordi Alba",
+   "team": "Spain",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0024,
+     "per_match": 0.0008,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0015,
+     "per_match": 0.0015,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0016
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.004,
+     "per_match": 0.001,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 182
   },
   {
    "name": "Denzel Dumfries",
@@ -2539,143 +1814,143 @@
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.1982,
-     "per_match": 0.0661,
-     "total_raw": 0.2316,
-     "per_match_raw": 0.0772
+     "total": 0.0015,
+     "per_match": 0.0005,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
     },
     "ko": {
      "matches": 2,
-     "total": 0.1133,
-     "per_match": 0.0567,
-     "total_raw": 0.1137,
-     "per_match_raw": 0.0568
+     "total": 0.0023,
+     "per_match": 0.0012,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0012
     },
     "all": {
      "matches": 5,
-     "total": 0.3116,
-     "per_match": 0.0623,
-     "total_raw": 0.3453,
-     "per_match_raw": 0.0691
+     "total": 0.0039,
+     "per_match": 0.0008,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0008
     }
    },
-   "n_passes": 63
+   "n_passes": 97
   },
   {
-   "name": "Pervis Estupinan",
-   "team": "Ecuador",
-   "pos": "LB",
+   "name": "Cristian Romero",
+   "team": "Argentina",
+   "pos": "CB",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.311,
-     "per_match": 0.1037,
-     "total_raw": 0.3503,
-     "per_match_raw": 0.1168
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0005
     },
     "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.311,
-     "per_match": 0.1037,
-     "total_raw": 0.3503,
-     "per_match_raw": 0.1168
-    }
-   },
-   "n_passes": 43
-  },
-  {
-   "name": "Kevin De Bruyne",
-   "team": "Belgium",
-   "pos": "RW",
-   "stages": {
-    "group": {
-     "matches": 3,
-     "total": 0.3066,
-     "per_match": 0.1022,
-     "total_raw": 0.3101,
-     "per_match_raw": 0.1034
-    },
-    "ko": {
-     "matches": 0,
-     "total": 0.0,
-     "per_match": 0.0,
-     "total_raw": 0.0,
-     "per_match_raw": 0.0
-    },
-    "all": {
-     "matches": 3,
-     "total": 0.3066,
-     "per_match": 0.1022,
-     "total_raw": 0.3101,
-     "per_match_raw": 0.1034
-    }
-   },
-   "n_passes": 47
-  },
-  {
-   "name": "Rapha\u00ebl Guerreiro",
-   "team": "Portugal",
-   "pos": "LB",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.2612,
-     "per_match": 0.1306,
-     "total_raw": 0.2831,
-     "per_match_raw": 0.1416
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.0446,
-     "per_match": 0.0223,
-     "total_raw": 0.0504,
-     "per_match_raw": 0.0252
-    },
-    "all": {
      "matches": 4,
-     "total": 0.3058,
-     "per_match": 0.0765,
-     "total_raw": 0.3336,
-     "per_match_raw": 0.0834
+     "total": 0.0025,
+     "per_match": 0.0006,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0039,
+     "per_match": 0.0006,
+     "total_raw": 0.004,
+     "per_match_raw": 0.0006
     }
    },
-   "n_passes": 49
+   "n_passes": 211
   },
   {
-   "name": "Antony",
+   "name": "Marquinhos",
    "team": "Brazil",
-   "pos": "RW",
+   "pos": "CB",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.1951,
-     "per_match": 0.065,
-     "total_raw": 0.2312,
-     "per_match_raw": 0.0771
+     "total": 0.0026,
+     "per_match": 0.0009,
+     "total_raw": 0.0031,
+     "per_match_raw": 0.001
     },
     "ko": {
-     "matches": 1,
-     "total": 0.1063,
-     "per_match": 0.1063,
-     "total_raw": 0.1052,
-     "per_match_raw": 0.1052
+     "matches": 2,
+     "total": 0.0013,
+     "per_match": 0.0006,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0007
     },
     "all": {
-     "matches": 4,
-     "total": 0.3014,
-     "per_match": 0.0753,
-     "total_raw": 0.3364,
-     "per_match_raw": 0.0841
+     "matches": 5,
+     "total": 0.0039,
+     "per_match": 0.0008,
+     "total_raw": 0.0045,
+     "per_match_raw": 0.0009
     }
    },
-   "n_passes": 44
+   "n_passes": 181
+  },
+  {
+   "name": "R\u00faben Neves",
+   "team": "Portugal",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0031,
+     "per_match": 0.001,
+     "total_raw": 0.0034,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0009,
+     "per_match": 0.0004,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0005
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0039,
+     "per_match": 0.0008,
+     "total_raw": 0.0043,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 108
+  },
+  {
+   "name": "Virgil van Dijk",
+   "team": "Netherlands",
+   "pos": "MCB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0024,
+     "per_match": 0.0008,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0014,
+     "per_match": 0.0007,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0038,
+     "per_match": 0.0008,
+     "total_raw": 0.0041,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 199
   },
   {
    "name": "Wataru Endo",
@@ -2684,39 +1959,68 @@
    "stages": {
     "group": {
      "matches": 2,
-     "total": 0.2356,
-     "per_match": 0.1178,
-     "total_raw": 0.2651,
-     "per_match_raw": 0.1325
+     "total": 0.0028,
+     "per_match": 0.0014,
+     "total_raw": 0.003,
+     "per_match_raw": 0.0015
     },
     "ko": {
      "matches": 1,
-     "total": 0.0528,
-     "per_match": 0.0528,
-     "total_raw": 0.0523,
-     "per_match_raw": 0.0523
+     "total": 0.001,
+     "per_match": 0.001,
+     "total_raw": 0.001,
+     "per_match_raw": 0.001
     },
     "all": {
      "matches": 3,
-     "total": 0.2884,
-     "per_match": 0.0961,
-     "total_raw": 0.3173,
-     "per_match_raw": 0.1058
+     "total": 0.0038,
+     "per_match": 0.0013,
+     "total_raw": 0.004,
+     "per_match_raw": 0.0013
     }
    },
-   "n_passes": 41
+   "n_passes": 81
   },
   {
-   "name": "Alistair Johnston",
-   "team": "Canada",
-   "pos": "RB",
+   "name": "Borna Sosa",
+   "team": "Croatia",
+   "pos": "LB",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.2809,
-     "per_match": 0.0936,
-     "total_raw": 0.2786,
-     "per_match_raw": 0.0929
+     "total": 0.0028,
+     "per_match": 0.0009,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.001,
+     "per_match": 0.0005,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0005
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0038,
+     "per_match": 0.0008,
+     "total_raw": 0.0039,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 141
+  },
+  {
+   "name": "Ethan Ampadu",
+   "team": "Wales",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0038,
+     "per_match": 0.0013,
+     "total_raw": 0.0043,
+     "per_match_raw": 0.0014
     },
     "ko": {
      "matches": 0,
@@ -2727,71 +2031,42 @@
     },
     "all": {
      "matches": 3,
-     "total": 0.2809,
-     "per_match": 0.0936,
-     "total_raw": 0.2786,
-     "per_match_raw": 0.0929
+     "total": 0.0038,
+     "per_match": 0.0013,
+     "total_raw": 0.0043,
+     "per_match_raw": 0.0014
     }
    },
-   "n_passes": 42
+   "n_passes": 78
   },
   {
-   "name": "Jordan Henderson",
-   "team": "England",
-   "pos": "CM",
-   "stages": {
-    "group": {
-     "matches": 2,
-     "total": 0.1253,
-     "per_match": 0.0627,
-     "total_raw": 0.1338,
-     "per_match_raw": 0.0669
-    },
-    "ko": {
-     "matches": 2,
-     "total": 0.1548,
-     "per_match": 0.0774,
-     "total_raw": 0.16,
-     "per_match_raw": 0.08
-    },
-    "all": {
-     "matches": 4,
-     "total": 0.2801,
-     "per_match": 0.07,
-     "total_raw": 0.2938,
-     "per_match_raw": 0.0735
-    }
-   },
-   "n_passes": 47
-  },
-  {
-   "name": "Aziz Behich",
-   "team": "Australia",
-   "pos": "LB",
+   "name": "Joachim Andersen",
+   "team": "Denmark",
+   "pos": "CB",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.194,
-     "per_match": 0.0647,
-     "total_raw": 0.1998,
-     "per_match_raw": 0.0666
+     "total": 0.0038,
+     "per_match": 0.0013,
+     "total_raw": 0.0041,
+     "per_match_raw": 0.0014
     },
     "ko": {
-     "matches": 1,
-     "total": 0.0806,
-     "per_match": 0.0806,
-     "total_raw": 0.076,
-     "per_match_raw": 0.076
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
     },
     "all": {
-     "matches": 4,
-     "total": 0.2746,
-     "per_match": 0.0687,
-     "total_raw": 0.2757,
-     "per_match_raw": 0.0689
+     "matches": 3,
+     "total": 0.0038,
+     "per_match": 0.0013,
+     "total_raw": 0.0041,
+     "per_match_raw": 0.0014
     }
    },
-   "n_passes": 42
+   "n_passes": 161
   },
   {
    "name": "Nathan Ak\u00e9",
@@ -2800,39 +2075,68 @@
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.2102,
-     "per_match": 0.0701,
-     "total_raw": 0.2444,
-     "per_match_raw": 0.0815
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.003,
+     "per_match_raw": 0.001
     },
     "ko": {
      "matches": 2,
-     "total": 0.06,
-     "per_match": 0.03,
-     "total_raw": 0.0566,
-     "per_match_raw": 0.0283
+     "total": 0.0012,
+     "per_match": 0.0006,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0006
     },
     "all": {
      "matches": 5,
-     "total": 0.2702,
-     "per_match": 0.054,
-     "total_raw": 0.301,
-     "per_match_raw": 0.0602
+     "total": 0.0037,
+     "per_match": 0.0007,
+     "total_raw": 0.0041,
+     "per_match_raw": 0.0008
     }
    },
-   "n_passes": 42
+   "n_passes": 203
   },
   {
-   "name": "Math\u00ed\u00adas Olivera",
-   "team": "Uruguay",
+   "name": "Sofyan Amrabat",
+   "team": "Morocco",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0009,
+     "per_match": 0.0003,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0027,
+     "per_match": 0.0007,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0036,
+     "per_match": 0.0005,
+     "total_raw": 0.0035,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 149
+  },
+  {
+   "name": "Pervis Estupinan",
+   "team": "Ecuador",
    "pos": "LB",
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.2631,
-     "per_match": 0.0877,
-     "total_raw": 0.2801,
-     "per_match_raw": 0.0934
+     "total": 0.0036,
+     "per_match": 0.0012,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0014
     },
     "ko": {
      "matches": 0,
@@ -2843,13 +2147,129 @@
     },
     "all": {
      "matches": 3,
-     "total": 0.2631,
-     "per_match": 0.0877,
-     "total_raw": 0.2801,
-     "per_match_raw": 0.0934
+     "total": 0.0036,
+     "per_match": 0.0012,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0014
     }
    },
-   "n_passes": 42
+   "n_passes": 91
+  },
+  {
+   "name": "Niklas S\u00fcle",
+   "team": "Germany",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0036,
+     "per_match": 0.0012,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0014
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0036,
+     "per_match": 0.0012,
+     "total_raw": 0.0042,
+     "per_match_raw": 0.0014
+    }
+   },
+   "n_passes": 165
+  },
+  {
+   "name": "Antoine Griezmann",
+   "team": "France",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0009,
+     "per_match": 0.0003,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0026,
+     "per_match": 0.0006,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0035,
+     "per_match": 0.0005,
+     "total_raw": 0.0036,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 102
+  },
+  {
+   "name": "Bernardo Silva",
+   "team": "Portugal",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.002,
+     "per_match": 0.001,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.001
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0034,
+     "per_match": 0.0007,
+     "total_raw": 0.0037,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 92
+  },
+  {
+   "name": "Ruben Dias",
+   "team": "Portugal",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0019,
+     "per_match": 0.0009,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0015,
+     "per_match": 0.0008,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0008
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0034,
+     "per_match": 0.0009,
+     "total_raw": 0.0037,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 165
   },
   {
    "name": "Steven Berghuis",
@@ -2858,27 +2278,549 @@
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.2,
-     "per_match": 0.0667,
-     "total_raw": 0.2355,
-     "per_match_raw": 0.0785
+     "total": 0.0029,
+     "per_match": 0.001,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0011
     },
     "ko": {
      "matches": 1,
-     "total": 0.0467,
-     "per_match": 0.0467,
-     "total_raw": 0.044,
-     "per_match_raw": 0.044
+     "total": 0.0005,
+     "per_match": 0.0005,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0005
     },
     "all": {
      "matches": 4,
-     "total": 0.2467,
-     "per_match": 0.0617,
-     "total_raw": 0.2795,
-     "per_match_raw": 0.0699
+     "total": 0.0034,
+     "per_match": 0.0009,
+     "total_raw": 0.0039,
+     "per_match_raw": 0.001
     }
    },
-   "n_passes": 42
+   "n_passes": 53
+  },
+  {
+   "name": "Steven Vit\u00f3ria",
+   "team": "Canada",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0034,
+     "per_match": 0.0011,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0034,
+     "per_match": 0.0011,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 120
+  },
+  {
+   "name": "Toby Alderweireld",
+   "team": "Belgium",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0034,
+     "per_match": 0.0011,
+     "total_raw": 0.0035,
+     "per_match_raw": 0.0012
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0034,
+     "per_match": 0.0011,
+     "total_raw": 0.0035,
+     "per_match_raw": 0.0012
+    }
+   },
+   "n_passes": 157
+  },
+  {
+   "name": "Thomas Partey",
+   "team": "Ghana",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0034,
+     "per_match": 0.0011,
+     "total_raw": 0.0039,
+     "per_match_raw": 0.0013
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0034,
+     "per_match": 0.0011,
+     "total_raw": 0.0039,
+     "per_match_raw": 0.0013
+    }
+   },
+   "n_passes": 76
+  },
+  {
+   "name": "Federico Valverde",
+   "team": "Uruguay",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0033,
+     "per_match": 0.0011,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0033,
+     "per_match": 0.0011,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 69
+  },
+  {
+   "name": "Sa\u0161a Luki\u0107",
+   "team": "Serbia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0033,
+     "per_match": 0.0011,
+     "total_raw": 0.0039,
+     "per_match_raw": 0.0013
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0033,
+     "per_match": 0.0011,
+     "total_raw": 0.0039,
+     "per_match_raw": 0.0013
+    }
+   },
+   "n_passes": 71
+  },
+  {
+   "name": "Walker Zimmerman",
+   "team": "United States",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0015,
+     "per_match": 0.0015,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0015
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0032,
+     "per_match": 0.0008,
+     "total_raw": 0.0032,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 140
+  },
+  {
+   "name": "Abdou Diallo",
+   "team": "Senegal",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0007,
+     "per_match": 0.0007,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0032,
+     "per_match": 0.0008,
+     "total_raw": 0.0034,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 132
+  },
+  {
+   "name": "Manuel Akanji",
+   "team": "Switzerland",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0009,
+     "per_match": 0.0009,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0009
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0032,
+     "per_match": 0.0008,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 162
+  },
+  {
+   "name": "Pedro Miguel",
+   "team": "Qatar",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0032,
+     "per_match": 0.0011,
+     "total_raw": 0.0037,
+     "per_match_raw": 0.0012
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0032,
+     "per_match": 0.0011,
+     "total_raw": 0.0037,
+     "per_match_raw": 0.0012
+    }
+   },
+   "n_passes": 57
+  },
+  {
+   "name": "C\u00e9sar Montes",
+   "team": "Mexico",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0032,
+     "per_match": 0.0011,
+     "total_raw": 0.0034,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0032,
+     "per_match": 0.0011,
+     "total_raw": 0.0034,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 99
+  },
+  {
+   "name": "Antonio R\u00fcdiger",
+   "team": "Germany",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0032,
+     "per_match": 0.0011,
+     "total_raw": 0.0037,
+     "per_match_raw": 0.0012
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0032,
+     "per_match": 0.0011,
+     "total_raw": 0.0037,
+     "per_match_raw": 0.0012
+    }
+   },
+   "n_passes": 153
+  },
+  {
+   "name": "Jurrien Timber",
+   "team": "Netherlands",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0016,
+     "per_match": 0.0008,
+     "total_raw": 0.0019,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0015,
+     "per_match": 0.0008,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0031,
+     "per_match": 0.0008,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 181
+  },
+  {
+   "name": "Matty Cash",
+   "team": "Poland",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0006,
+     "per_match": 0.0006,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0031,
+     "per_match": 0.0008,
+     "total_raw": 0.0033,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 76
+  },
+  {
+   "name": "Mohamed Kanno",
+   "team": "Saudi Arabia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0031,
+     "per_match": 0.001,
+     "total_raw": 0.0031,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0031,
+     "per_match": 0.001,
+     "total_raw": 0.0031,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 69
+  },
+  {
+   "name": "Strahinja Pavlovic",
+   "team": "Serbia",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0031,
+     "per_match": 0.001,
+     "total_raw": 0.0035,
+     "per_match_raw": 0.0012
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0031,
+     "per_match": 0.001,
+     "total_raw": 0.0035,
+     "per_match_raw": 0.0012
+    }
+   },
+   "n_passes": 110
+  },
+  {
+   "name": "Daley Blind",
+   "team": "Netherlands",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0024,
+     "per_match": 0.0008,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0005,
+     "per_match": 0.0003,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.003,
+     "per_match": 0.0006,
+     "total_raw": 0.0034,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 170
+  },
+  {
+   "name": "Krystian Bielik",
+   "team": "Poland",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0027,
+     "per_match": 0.0009,
+     "total_raw": 0.0031,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0003,
+     "per_match": 0.0003,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.003,
+     "per_match": 0.0008,
+     "total_raw": 0.0034,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 51
+  },
+  {
+   "name": "Romain Sa\u00efss",
+   "team": "Morocco",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0024,
+     "per_match": 0.0008,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0006,
+     "per_match": 0.0002,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0002
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.003,
+     "per_match": 0.0005,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 133
   },
   {
    "name": "Marcos Acu\u00f1a",
@@ -2887,27 +2829,4406 @@
    "stages": {
     "group": {
      "matches": 3,
-     "total": 0.1197,
-     "per_match": 0.0399,
-     "total_raw": 0.1253,
-     "per_match_raw": 0.0418
+     "total": 0.0013,
+     "per_match": 0.0004,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0004
     },
     "ko": {
      "matches": 3,
-     "total": 0.0901,
-     "per_match": 0.03,
-     "total_raw": 0.0903,
-     "per_match_raw": 0.0301
+     "total": 0.0016,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
     },
     "all": {
      "matches": 6,
-     "total": 0.2098,
-     "per_match": 0.035,
-     "total_raw": 0.2157,
-     "per_match_raw": 0.0359
+     "total": 0.0029,
+     "per_match": 0.0005,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 96
+  },
+  {
+   "name": "Youssouf Sabaly",
+   "team": "Senegal",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0004,
+     "per_match": 0.0004,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0029,
+     "per_match": 0.0007,
+     "total_raw": 0.0031,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 115
+  },
+  {
+   "name": "Eder Militao",
+   "team": "Brazil",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0014,
+     "per_match": 0.0007,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0015,
+     "per_match": 0.0007,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0008
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0029,
+     "per_match": 0.0007,
+     "total_raw": 0.0032,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 146
+  },
+  {
+   "name": "Leandro Paredes",
+   "team": "Argentina",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0023,
+     "per_match": 0.0011,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0012
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0006,
+     "per_match": 0.0002,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0002
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0029,
+     "per_match": 0.0006,
+     "total_raw": 0.0031,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 99
+  },
+  {
+   "name": "Andreas Christensen",
+   "team": "Denmark",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0029,
+     "per_match": 0.001,
+     "total_raw": 0.0031,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0029,
+     "per_match": 0.001,
+     "total_raw": 0.0031,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 135
+  },
+  {
+   "name": "Kevin De Bruyne",
+   "team": "Belgium",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0029,
+     "per_match": 0.001,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0029,
+     "per_match": 0.001,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 59
+  },
+  {
+   "name": "Timothy Castagne",
+   "team": "Belgium",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0029,
+     "per_match": 0.001,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0029,
+     "per_match": 0.001,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 124
+  },
+  {
+   "name": "Filip Kosti\u0107",
+   "team": "Serbia",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0029,
+     "per_match": 0.0015,
+     "total_raw": 0.0035,
+     "per_match_raw": 0.0017
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0029,
+     "per_match": 0.0015,
+     "total_raw": 0.0035,
+     "per_match_raw": 0.0017
     }
    },
    "n_passes": 45
+  },
+  {
+   "name": "Sergi\u00f1o Dest",
+   "team": "United States",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.0023,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0008,
+     "per_match": 0.0008,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0028,
+     "per_match": 0.0007,
+     "total_raw": 0.003,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 103
+  },
+  {
+   "name": "Danilo",
+   "team": "Brazil",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.001,
+     "per_match": 0.001,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0018,
+     "per_match": 0.0009,
+     "total_raw": 0.002,
+     "per_match_raw": 0.001
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0028,
+     "per_match": 0.0009,
+     "total_raw": 0.0031,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 122
+  },
+  {
+   "name": "Sergio Busquets",
+   "team": "Spain",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0014,
+     "per_match": 0.0014,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0015
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0028,
+     "per_match": 0.0007,
+     "total_raw": 0.003,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 98
+  },
+  {
+   "name": "Rasmus Kristensen",
+   "team": "Denmark",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0028,
+     "per_match": 0.0009,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0028,
+     "per_match": 0.0009,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 94
+  },
+  {
+   "name": "Luis Ch\u00e1vez",
+   "team": "Mexico",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0028,
+     "per_match": 0.0009,
+     "total_raw": 0.003,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0028,
+     "per_match": 0.0009,
+     "total_raw": 0.003,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 65
+  },
+  {
+   "name": "Nampalys Mendy",
+   "team": "Senegal",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0007,
+     "per_match": 0.0007,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0027,
+     "per_match": 0.0007,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 61
+  },
+  {
+   "name": "Maya Yoshida",
+   "team": "Japan",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0022,
+     "per_match": 0.0007,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0006,
+     "per_match": 0.0006,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0027,
+     "per_match": 0.0007,
+     "total_raw": 0.003,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 123
+  },
+  {
+   "name": "Moon-hwan Kim",
+   "team": "South Korea",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0008,
+     "per_match": 0.0008,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0008
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0027,
+     "per_match": 0.0007,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 110
+  },
+  {
+   "name": "Remo Freuler",
+   "team": "Switzerland",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0013,
+     "per_match": 0.0004,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0014,
+     "per_match": 0.0014,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0013
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0027,
+     "per_match": 0.0007,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 70
+  },
+  {
+   "name": "Alistair Johnston",
+   "team": "Canada",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0027,
+     "per_match": 0.0009,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0027,
+     "per_match": 0.0009,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 107
+  },
+  {
+   "name": "Thomas Meunier",
+   "team": "Belgium",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0027,
+     "per_match": 0.0009,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0027,
+     "per_match": 0.0009,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 77
+  },
+  {
+   "name": "Harry Souttar",
+   "team": "Australia",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0007,
+     "per_match": 0.0007,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0026,
+     "per_match": 0.0007,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 111
+  },
+  {
+   "name": "Raphael Varane",
+   "team": "France",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0007,
+     "per_match": 0.0003,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0019,
+     "per_match": 0.0005,
+     "total_raw": 0.0019,
+     "per_match_raw": 0.0005
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0026,
+     "per_match": 0.0004,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 153
+  },
+  {
+   "name": "Jakub Kiwior",
+   "team": "Poland",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0015,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0011,
+     "per_match": 0.0011,
+     "total_raw": 0.001,
+     "per_match_raw": 0.001
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0026,
+     "per_match": 0.0007,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 128
+  },
+  {
+   "name": "Kalidou Koulibaly",
+   "team": "Senegal",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0009,
+     "per_match": 0.0009,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0008
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0026,
+     "per_match": 0.0007,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 134
+  },
+  {
+   "name": "Kyle Walker",
+   "team": "England",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0005,
+     "per_match": 0.0005,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.002,
+     "per_match": 0.001,
+     "total_raw": 0.0023,
+     "per_match_raw": 0.0011
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0026,
+     "per_match": 0.0009,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 94
+  },
+  {
+   "name": "Otavio",
+   "team": "Portugal",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0004,
+     "per_match": 0.0004,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0022,
+     "per_match": 0.0011,
+     "total_raw": 0.0023,
+     "per_match_raw": 0.0011
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0026,
+     "per_match": 0.0009,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 49
+  },
+  {
+   "name": "Stephen Eustaquio",
+   "team": "Canada",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0026,
+     "per_match": 0.0013,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0013
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0026,
+     "per_match": 0.0013,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0013
+    }
+   },
+   "n_passes": 49
+  },
+  {
+   "name": "Nikola Milenkovic",
+   "team": "Serbia",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0026,
+     "per_match": 0.0009,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0026,
+     "per_match": 0.0009,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 116
+  },
+  {
+   "name": "Teun Koopmeiners",
+   "team": "Netherlands",
+   "pos": "DM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0012,
+     "per_match": 0.0004,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0013,
+     "per_match": 0.0006,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0025,
+     "per_match": 0.0005,
+     "total_raw": 0.0027,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 64
+  },
+  {
+   "name": "Piotr Zielinski",
+   "team": "Poland",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0006,
+     "per_match": 0.0002,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0019,
+     "per_match": 0.0019,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0017
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0025,
+     "per_match": 0.0006,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 60
+  },
+  {
+   "name": "Morteza Pouraliganji",
+   "team": "Iran",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 83
+  },
+  {
+   "name": "Saud Abdulhamid",
+   "team": "Saudi Arabia",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 60
+  },
+  {
+   "name": "Christian Eriksen",
+   "team": "Denmark",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 62
+  },
+  {
+   "name": "Jan Vertonghen",
+   "team": "Belgium",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0025,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 163
+  },
+  {
+   "name": "Aaron Mooy",
+   "team": "Australia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0016,
+     "per_match": 0.0005,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0008,
+     "per_match": 0.0008,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0024,
+     "per_match": 0.0006,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 98
+  },
+  {
+   "name": "Alex Sandro",
+   "team": "Brazil",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0024,
+     "per_match": 0.0012,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0014
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0001,
+     "per_match": 0.0001,
+     "total_raw": 0.0001,
+     "per_match_raw": 0.0001
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0024,
+     "per_match": 0.0008,
+     "total_raw": 0.0029,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 84
+  },
+  {
+   "name": "David Raum",
+   "team": "Germany",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0024,
+     "per_match": 0.0008,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0024,
+     "per_match": 0.0008,
+     "total_raw": 0.0026,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 84
+  },
+  {
+   "name": "C\u00e9sar Azpilicueta",
+   "team": "Spain",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0024,
+     "per_match": 0.0012,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0014
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0024,
+     "per_match": 0.0012,
+     "total_raw": 0.0028,
+     "per_match_raw": 0.0014
+    }
+   },
+   "n_passes": 95
+  },
+  {
+   "name": "Dani Olmo",
+   "team": "Spain",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0003,
+     "per_match": 0.0003,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0023,
+     "per_match": 0.0006,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 50
+  },
+  {
+   "name": "Akram Afif",
+   "team": "Qatar",
+   "pos": "CF",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0023,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0023,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 52
+  },
+  {
+   "name": "Connor Roberts",
+   "team": "Wales",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 68
+  },
+  {
+   "name": "Yassine Meriah",
+   "team": "Tunisia",
+   "pos": "MCB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 106
+  },
+  {
+   "name": "Mohammed Salisu",
+   "team": "Ghana",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0023,
+     "per_match": 0.0008,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 107
+  },
+  {
+   "name": "Ramin Rezaeian",
+   "team": "Iran",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0023,
+     "per_match": 0.0012,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0012
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0023,
+     "per_match": 0.0012,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0012
+    }
+   },
+   "n_passes": 65
+  },
+  {
+   "name": "Neymar",
+   "team": "Brazil",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0006,
+     "per_match": 0.0006,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0016,
+     "per_match": 0.0008,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0008
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0022,
+     "per_match": 0.0007,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 63
+  },
+  {
+   "name": "H\u00e9ctor Moreno",
+   "team": "Mexico",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0022,
+     "per_match": 0.0007,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0022,
+     "per_match": 0.0007,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 119
+  },
+  {
+   "name": "Weston McKennie",
+   "team": "United States",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0012,
+     "per_match": 0.0004,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0009,
+     "per_match": 0.0009,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0008
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0021,
+     "per_match": 0.0005,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 69
+  },
+  {
+   "name": "Achraf Dari",
+   "team": "Morocco",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 73
+  },
+  {
+   "name": "Ibrahima Konat\u00e9",
+   "team": "France",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0003,
+     "per_match": 0.0002,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0002
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0021,
+     "per_match": 0.0004,
+     "total_raw": 0.0023,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 137
+  },
+  {
+   "name": "Abdelkarim Hassan",
+   "team": "Qatar",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 97
+  },
+  {
+   "name": "Moises Caicedo",
+   "team": "Ecuador",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 58
+  },
+  {
+   "name": "Ilkay G\u00fcndogan",
+   "team": "Germany",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 72
+  },
+  {
+   "name": "Math\u00ed\u00adas Olivera",
+   "team": "Uruguay",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0021,
+     "per_match": 0.0007,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 66
+  },
+  {
+   "name": "Abdulelah Al-Amri",
+   "team": "Saudi Arabia",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0021,
+     "per_match": 0.001,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0021,
+     "per_match": 0.001,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 76
+  },
+  {
+   "name": "Pau Torres",
+   "team": "Spain",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0021,
+     "per_match": 0.0021,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0025
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 1,
+     "total": 0.0021,
+     "per_match": 0.0021,
+     "total_raw": 0.0025,
+     "per_match_raw": 0.0025
+    }
+   },
+   "n_passes": 111
+  },
+  {
+   "name": "Aziz Behich",
+   "team": "Australia",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0006,
+     "per_match": 0.0006,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.002,
+     "per_match": 0.0005,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 91
+  },
+  {
+   "name": "Dani Alves",
+   "team": "Brazil",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0017,
+     "per_match": 0.0017,
+     "total_raw": 0.002,
+     "per_match_raw": 0.002
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0003,
+     "per_match": 0.0003,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.002,
+     "per_match": 0.001,
+     "total_raw": 0.0024,
+     "per_match_raw": 0.0012
+    }
+   },
+   "n_passes": 52
+  },
+  {
+   "name": "Ben Davies",
+   "team": "Wales",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 109
+  },
+  {
+   "name": "Joe Rodon",
+   "team": "Wales",
+   "pos": "MCB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 99
+  },
+  {
+   "name": "Ismael Kone",
+   "team": "Canada",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 46
+  },
+  {
+   "name": "Jose Gimenez",
+   "team": "Uruguay",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.002,
+     "per_match": 0.0007,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 103
+  },
+  {
+   "name": "Jordan Henderson",
+   "team": "England",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0009,
+     "per_match": 0.0004,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0011,
+     "per_match": 0.0005,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0005
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0019,
+     "per_match": 0.0005,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 63
+  },
+  {
+   "name": "Jin-su Kim",
+   "team": "South Korea",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0015,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0004,
+     "per_match": 0.0004,
+     "total_raw": 0.0004,
+     "per_match_raw": 0.0004
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0019,
+     "per_match": 0.0005,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 67
+  },
+  {
+   "name": "Azzedine Ounahi",
+   "team": "Morocco",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0005,
+     "per_match": 0.0002,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0014,
+     "per_match": 0.0004,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0019,
+     "per_match": 0.0003,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 94
+  },
+  {
+   "name": "Alex Balde",
+   "team": "Spain",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0002,
+     "per_match": 0.0002,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0019,
+     "per_match": 0.0005,
+     "total_raw": 0.0022,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 49
+  },
+  {
+   "name": "Piero Hincapie",
+   "team": "Ecuador",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 115
+  },
+  {
+   "name": "Montassar Talbi",
+   "team": "Tunisia",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.0019,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.0019,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 88
+  },
+  {
+   "name": "Andr\u00e9 Zambo Anguissa",
+   "team": "Cameroon",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 65
+  },
+  {
+   "name": "Daniel Amartey",
+   "team": "Ghana",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0019,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 105
+  },
+  {
+   "name": "Lisandro Martinez",
+   "team": "Argentina",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0014,
+     "per_match": 0.0007,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0004,
+     "per_match": 0.0001,
+     "total_raw": 0.0004,
+     "per_match_raw": 0.0001
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0018,
+     "per_match": 0.0004,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 81
+  },
+  {
+   "name": "Nicolas Tagliafico",
+   "team": "Argentina",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0003,
+     "per_match": 0.0001,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0016,
+     "per_match": 0.0004,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0004
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0018,
+     "per_match": 0.0003,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 83
+  },
+  {
+   "name": "Bartosz Bereszynski",
+   "team": "Poland",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0007,
+     "per_match": 0.0007,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0018,
+     "per_match": 0.0004,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 82
+  },
+  {
+   "name": "Takehiro Tomiyasu",
+   "team": "Japan",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0003,
+     "per_match": 0.0002,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0015,
+     "per_match": 0.0015,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0014
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 56
+  },
+  {
+   "name": "Rapha\u00ebl Guerreiro",
+   "team": "Portugal",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.001,
+     "per_match": 0.0005,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0008,
+     "per_match": 0.0004,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0004
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0018,
+     "per_match": 0.0005,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 85
+  },
+  {
+   "name": "Vitinha",
+   "team": "Portugal",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0007,
+     "per_match": 0.0007,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0011,
+     "per_match": 0.0005,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 50
+  },
+  {
+   "name": "Nico Schlotterbeck",
+   "team": "Germany",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0018,
+     "per_match": 0.0009,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0018,
+     "per_match": 0.0009,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 69
+  },
+  {
+   "name": "Axel Witsel",
+   "team": "Belgium",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 69
+  },
+  {
+   "name": "Silvan Widmer",
+   "team": "Switzerland",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 86
+  },
+  {
+   "name": "Matias Vecino",
+   "team": "Uruguay",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.002,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 49
+  },
+  {
+   "name": "Diego Godin",
+   "team": "Uruguay",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0018,
+     "per_match": 0.0009,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.001
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0018,
+     "per_match": 0.0009,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.001
+    }
+   },
+   "n_passes": 63
+  },
+  {
+   "name": "Sergej Milinkovi\u0107-Savi\u0107",
+   "team": "Serbia",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0018,
+     "per_match": 0.0006,
+     "total_raw": 0.0021,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 47
+  },
+  {
+   "name": "Nayef Aguerd",
+   "team": "Morocco",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0013,
+     "per_match": 0.0004,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0004,
+     "per_match": 0.0004,
+     "total_raw": 0.0004,
+     "per_match_raw": 0.0004
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0017,
+     "per_match": 0.0004,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 97
+  },
+  {
+   "name": "Sofiane Boufal",
+   "team": "Morocco",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0007,
+     "per_match": 0.0002,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.001,
+     "per_match": 0.0003,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0002
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0017,
+     "per_match": 0.0002,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0002
+    }
+   },
+   "n_passes": 53
+  },
+  {
+   "name": "Yahia Attiat-Allah",
+   "team": "Morocco",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0003,
+     "per_match": 0.0002,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0014,
+     "per_match": 0.0003,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0017,
+     "per_match": 0.0003,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 78
+  },
+  {
+   "name": "Kieran Trippier",
+   "team": "England",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 87
+  },
+  {
+   "name": "Majid Hosseini",
+   "team": "Iran",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 66
+  },
+  {
+   "name": "F\u00e9lix Torres",
+   "team": "Ecuador",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 136
+  },
+  {
+   "name": "Boualem Khoukhi",
+   "team": "Qatar",
+   "pos": "MCB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 110
+  },
+  {
+   "name": "Atiba Hutchinson",
+   "team": "Canada",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0017,
+     "per_match": 0.0006,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 56
+  },
+  {
+   "name": "Alexis Mac Allister",
+   "team": "Argentina",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0007,
+     "per_match": 0.0004,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0009,
+     "per_match": 0.0002,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0002
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0016,
+     "per_match": 0.0003,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 76
+  },
+  {
+   "name": "William Carvalho",
+   "team": "Portugal",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0012,
+     "per_match": 0.0004,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0004,
+     "per_match": 0.0004,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0005
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0016,
+     "per_match": 0.0004,
+     "total_raw": 0.0018,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 80
+  },
+  {
+   "name": "Ali Abdi",
+   "team": "Tunisia",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0016,
+     "per_match": 0.0008,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0016,
+     "per_match": 0.0008,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 56
+  },
+  {
+   "name": "Sebastian Coates",
+   "team": "Uruguay",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0016,
+     "per_match": 0.0008,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0016,
+     "per_match": 0.0008,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 55
+  },
+  {
+   "name": "Kye Rowles",
+   "team": "Australia",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0009,
+     "per_match": 0.0003,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0006,
+     "per_match": 0.0006,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0015,
+     "per_match": 0.0004,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 114
+  },
+  {
+   "name": "Ismail Jakobs",
+   "team": "Senegal",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0004,
+     "per_match": 0.0004,
+     "total_raw": 0.0004,
+     "per_match_raw": 0.0004
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0015,
+     "per_match": 0.0004,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 77
+  },
+  {
+   "name": "Jawad El Yamiq",
+   "team": "Morocco",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0014,
+     "per_match": 0.0004,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0015,
+     "per_match": 0.0002,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0002
+    }
+   },
+   "n_passes": 106
+  },
+  {
+   "name": "Diogo Dalot",
+   "team": "Portugal",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0006,
+     "per_match": 0.0006,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0009,
+     "per_match": 0.0005,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0005
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0015,
+     "per_match": 0.0005,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 70
+  },
+  {
+   "name": "Joao Felix",
+   "team": "Portugal",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0008,
+     "per_match": 0.0004,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0008,
+     "per_match": 0.0004,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0004
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0015,
+     "per_match": 0.0004,
+     "total_raw": 0.0017,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 52
+  },
+  {
+   "name": "Neco Williams",
+   "team": "Wales",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0015,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0015,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 45
+  },
+  {
+   "name": "Jes\u00fas Gallardo",
+   "team": "Mexico",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0015,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0015,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 66
+  },
+  {
+   "name": "Daniel Carvajal",
+   "team": "Spain",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0015,
+     "per_match": 0.0007,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0008
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0015,
+     "per_match": 0.0007,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0008
+    }
+   },
+   "n_passes": 70
+  },
+  {
+   "name": "Marcos Llorente",
+   "team": "Spain",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0014,
+     "per_match": 0.0014,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0014
+    },
+    "all": {
+     "matches": 1,
+     "total": 0.0014,
+     "per_match": 0.0014,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0014
+    }
+   },
+   "n_passes": 50
+  },
+  {
+   "name": "Saeid Ezatolahi",
+   "team": "Iran",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 48
+  },
+  {
+   "name": "Aissa Laidouni",
+   "team": "Tunisia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 57
+  },
+  {
+   "name": "Collins Fai",
+   "team": "Cameroon",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0016,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 84
+  },
+  {
+   "name": "Salis Abdul Samed",
+   "team": "Ghana",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0014,
+     "per_match": 0.0005,
+     "total_raw": 0.0015,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 62
+  },
+  {
+   "name": "Hidemasa Morita",
+   "team": "Japan",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0008,
+     "per_match": 0.0004,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0005,
+     "per_match": 0.0005,
+     "total_raw": 0.0004,
+     "per_match_raw": 0.0004
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0013,
+     "per_match": 0.0004,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 74
+  },
+  {
+   "name": "Noussair Mazraoui",
+   "team": "Morocco",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0009,
+     "per_match": 0.0003,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0004,
+     "per_match": 0.0002,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0002
+    },
+    "all": {
+     "matches": 5,
+     "total": 0.0013,
+     "per_match": 0.0003,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0002
+    }
+   },
+   "n_passes": 64
+  },
+  {
+   "name": "Jorge S\u00e1nchez",
+   "team": "Mexico",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0013,
+     "per_match": 0.0007,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0013,
+     "per_match": 0.0007,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0007
+    }
+   },
+   "n_passes": 47
+  },
+  {
+   "name": "Rodrigo Bentancur",
+   "team": "Uruguay",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0013,
+     "per_match": 0.0004,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0013,
+     "per_match": 0.0004,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 74
+  },
+  {
+   "name": "Danilo Pereira",
+   "team": "Portugal",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0013,
+     "per_match": 0.0013,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0014
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 1,
+     "total": 0.0013,
+     "per_match": 0.0013,
+     "total_raw": 0.0014,
+     "per_match_raw": 0.0014
+    }
+   },
+   "n_passes": 61
+  },
+  {
+   "name": "Christian Pulisic",
+   "team": "United States",
+   "pos": "LW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0009,
+     "per_match": 0.0003,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0003,
+     "per_match": 0.0003,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0012,
+     "per_match": 0.0003,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 40
+  },
+  {
+   "name": "Milos Degenek",
+   "team": "Australia",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0005,
+     "per_match": 0.0002,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0007,
+     "per_match": 0.0007,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0007
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0012,
+     "per_match": 0.0003,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 59
+  },
+  {
+   "name": "Francisco Calvo",
+   "team": "Costa Rica",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0012,
+     "per_match": 0.0006,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0012,
+     "per_match": 0.0006,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 71
+  },
+  {
+   "name": "Nouhou",
+   "team": "Cameroon",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0012,
+     "per_match": 0.0004,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0012,
+     "per_match": 0.0004,
+     "total_raw": 0.0013,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 53
+  },
+  {
+   "name": "Milos Veljkovic",
+   "team": "Serbia",
+   "pos": "MCB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0012,
+     "per_match": 0.0004,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0012,
+     "per_match": 0.0004,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 60
+  },
+  {
+   "name": "Mathew Leckie",
+   "team": "Australia",
+   "pos": "RM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.001,
+     "per_match": 0.0003,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0001,
+     "per_match": 0.0001,
+     "total_raw": 0.0001,
+     "per_match_raw": 0.0001
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0011,
+     "per_match": 0.0003,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 44
+  },
+  {
+   "name": "Youssouf Fofana",
+   "team": "France",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0004,
+     "per_match": 0.0001,
+     "total_raw": 0.0004,
+     "per_match_raw": 0.0001
+    },
+    "ko": {
+     "matches": 3,
+     "total": 0.0008,
+     "per_match": 0.0003,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 6,
+     "total": 0.0011,
+     "per_match": 0.0002,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0002
+    }
+   },
+   "n_passes": 43
+  },
+  {
+   "name": "Antony",
+   "team": "Brazil",
+   "pos": "RW",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0005,
+     "per_match": 0.0002,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0006,
+     "per_match": 0.0006,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0006
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0011,
+     "per_match": 0.0003,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 41
+  },
+  {
+   "name": "Ehsan Hajsafi",
+   "team": "Iran",
+   "pos": "LM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 56
+  },
+  {
+   "name": "Angelo Preciado",
+   "team": "Ecuador",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 65
+  },
+  {
+   "name": "Jhegson M\u00e9ndez",
+   "team": "Ecuador",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0011,
+     "per_match": 0.0006,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0011,
+     "per_match": 0.0006,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 61
+  },
+  {
+   "name": "Ellyes Skhiri",
+   "team": "Tunisia",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 62
+  },
+  {
+   "name": "Edson Alvarez",
+   "team": "Mexico",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0011,
+     "per_match": 0.0006,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0011,
+     "per_match": 0.0006,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 57
+  },
+  {
+   "name": "Ko Itakura",
+   "team": "Japan",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 62
+  },
+  {
+   "name": "Celso Borges",
+   "team": "Costa Rica",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 68
+  },
+  {
+   "name": "Sam Adekugbe",
+   "team": "Canada",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0011,
+     "per_match": 0.0004,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 44
+  },
+  {
+   "name": "Marten De Roon",
+   "team": "Netherlands",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0007,
+     "per_match": 0.0003,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0004
+    },
+    "ko": {
+     "matches": 2,
+     "total": 0.0003,
+     "per_match": 0.0001,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0001
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.001,
+     "per_match": 0.0002,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 53
+  },
+  {
+   "name": "Dylan Bronn",
+   "team": "Tunisia",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.001,
+     "per_match": 0.0005,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.001,
+     "per_match": 0.0005,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 51
+  },
+  {
+   "name": "Benjamin Pavard",
+   "team": "France",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.001,
+     "per_match": 0.001,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 1,
+     "total": 0.001,
+     "per_match": 0.001,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 47
+  },
+  {
+   "name": "\u00d3scar Duarte",
+   "team": "Costa Rica",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.001,
+     "per_match": 0.0003,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.001,
+     "per_match": 0.0003,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 59
+  },
+  {
+   "name": "Leander Dendoncker",
+   "team": "Belgium",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.001,
+     "per_match": 0.0005,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.001,
+     "per_match": 0.0005,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 53
+  },
+  {
+   "name": "Nicolas N'Koulou",
+   "team": "Cameroon",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.001,
+     "per_match": 0.0005,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.001,
+     "per_match": 0.0005,
+     "total_raw": 0.0012,
+     "per_match_raw": 0.0006
+    }
+   },
+   "n_passes": 57
+  },
+  {
+   "name": "Mart\u00edn C\u00e1ceres",
+   "team": "Uruguay",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.001,
+     "per_match": 0.001,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0011
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 1,
+     "total": 0.001,
+     "per_match": 0.001,
+     "total_raw": 0.0011,
+     "per_match_raw": 0.0011
+    }
+   },
+   "n_passes": 42
+  },
+  {
+   "name": "Yuto Nagatomo",
+   "team": "Japan",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0008,
+     "per_match": 0.0003,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0001,
+     "per_match": 0.0001,
+     "total_raw": 0.0001,
+     "per_match_raw": 0.0001
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0009,
+     "per_match": 0.0002,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0002
+    }
+   },
+   "n_passes": 53
+  },
+  {
+   "name": "Fabian Sch\u00e4r",
+   "team": "Switzerland",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0005,
+     "per_match": 0.0005,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0005,
+     "per_match": 0.0005,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0005
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0009,
+     "per_match": 0.0005,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 51
+  },
+  {
+   "name": "Abdulelah Al-Malki",
+   "team": "Saudi Arabia",
+   "pos": "DM",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0009,
+     "per_match": 0.0005,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0009,
+     "per_match": 0.0005,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 42
+  },
+  {
+   "name": "Kendall Waston",
+   "team": "Costa Rica",
+   "pos": "MCB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0009,
+     "per_match": 0.0003,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0009,
+     "per_match": 0.0003,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 41
+  },
+  {
+   "name": "Guillermo Varela",
+   "team": "Uruguay",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0009,
+     "per_match": 0.0003,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0009,
+     "per_match": 0.0003,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 52
+  },
+  {
+   "name": "Victor Nelsson",
+   "team": "Denmark",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0009,
+     "per_match": 0.0009,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 1,
+     "total": 0.0009,
+     "per_match": 0.0009,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 40
+  },
+  {
+   "name": "Kamil Glik",
+   "team": "Poland",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0006,
+     "per_match": 0.0002,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0002,
+     "per_match": 0.0002,
+     "total_raw": 0.0002,
+     "per_match_raw": 0.0002
+    },
+    "all": {
+     "matches": 4,
+     "total": 0.0008,
+     "per_match": 0.0002,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0002
+    }
+   },
+   "n_passes": 69
+  },
+  {
+   "name": "Bremer",
+   "team": "Brazil",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0005,
+     "per_match": 0.0005,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0006
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0002,
+     "per_match": 0.0002,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0003
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0008,
+     "per_match": 0.0004,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 43
+  },
+  {
+   "name": "Milad Mohammadi",
+   "team": "Iran",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0008,
+     "per_match": 0.0003,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0008,
+     "per_match": 0.0003,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 40
+  },
+  {
+   "name": "Bassam Al-Rawi",
+   "team": "Qatar",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0008,
+     "per_match": 0.0008,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0009
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 1,
+     "total": 0.0008,
+     "per_match": 0.0008,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0009
+    }
+   },
+   "n_passes": 42
+  },
+  {
+   "name": "Karim Boudiaf",
+   "team": "Qatar",
+   "pos": "CM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0008,
+     "per_match": 0.0003,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0008,
+     "per_match": 0.0003,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 47
+  },
+  {
+   "name": "Ali Al-Bulayhi",
+   "team": "Saudi Arabia",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0008,
+     "per_match": 0.0003,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0008,
+     "per_match": 0.0003,
+     "total_raw": 0.0008,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 58
+  },
+  {
+   "name": "Nico Elvedi",
+   "team": "Switzerland",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0008,
+     "per_match": 0.0004,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0008,
+     "per_match": 0.0004,
+     "total_raw": 0.0009,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 81
+  },
+  {
+   "name": "Jean-Charles Castelletto",
+   "team": "Cameroon",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 2,
+     "total": 0.0008,
+     "per_match": 0.0004,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0005
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0008,
+     "per_match": 0.0004,
+     "total_raw": 0.001,
+     "per_match_raw": 0.0005
+    }
+   },
+   "n_passes": 50
+  },
+  {
+   "name": "Shogo Taniguchi",
+   "team": "Japan",
+   "pos": "CB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0003,
+     "per_match": 0.0003,
+     "total_raw": 0.0003,
+     "per_match_raw": 0.0003
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0004,
+     "per_match": 0.0004,
+     "total_raw": 0.0004,
+     "per_match_raw": 0.0004
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0007,
+     "per_match": 0.0003,
+     "total_raw": 0.0006,
+     "per_match_raw": 0.0003
+    }
+   },
+   "n_passes": 49
+  },
+  {
+   "name": "Bryan Oviedo",
+   "team": "Costa Rica",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0007,
+     "per_match": 0.0002,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0007,
+     "per_match": 0.0002,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0002
+    }
+   },
+   "n_passes": 48
+  },
+  {
+   "name": "Axel Disasi",
+   "team": "France",
+   "pos": "RB",
+   "stages": {
+    "group": {
+     "matches": 1,
+     "total": 0.0006,
+     "per_match": 0.0006,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0007
+    },
+    "ko": {
+     "matches": 1,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 2,
+     "total": 0.0006,
+     "per_match": 0.0003,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0004
+    }
+   },
+   "n_passes": 44
+  },
+  {
+   "name": "Homam Ahmed",
+   "team": "Qatar",
+   "pos": "LB",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0006,
+     "per_match": 0.0002,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0002
+    },
+    "ko": {
+     "matches": 0,
+     "total": 0.0,
+     "per_match": 0.0,
+     "total_raw": 0.0,
+     "per_match_raw": 0.0
+    },
+    "all": {
+     "matches": 3,
+     "total": 0.0006,
+     "per_match": 0.0002,
+     "total_raw": 0.0007,
+     "per_match_raw": 0.0002
+    }
+   },
+   "n_passes": 40
+  },
+  {
+   "name": "Lovro Majer",
+   "team": "Croatia",
+   "pos": "AM",
+   "stages": {
+    "group": {
+     "matches": 3,
+     "total": 0.0001,
+     "per_match": 0.0,
+     "total_raw": 0.0001,
+     "per_match_raw": 0.0
+    },
+    "ko": {
+     "matches": 4,
+     "total": 0.0004,
+     "per_match": 0.0001,
+     "total_raw": 0.0004,
+     "per_match_raw": 0.0001
+    },
+    "all": {
+     "matches": 7,
+     "total": 0.0005,
+     "per_match": 0.0001,
+     "total_raw": 0.0005,
+     "per_match_raw": 0.0001
+    }
+   },
+   "n_passes": 41
   }
  ]
 }

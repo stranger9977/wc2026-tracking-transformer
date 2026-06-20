@@ -119,9 +119,20 @@
   .px-list li.on{opacity:1; background:var(--bg-elev2); color:var(--muted)}
   .px-list li .px-nm b{color:var(--faint)}
   .px-list li.on .px-nm b{color:var(--ink)}
-  .px-xt{font-variant-numeric:tabular-nums; font-weight:700; white-space:nowrap}
+  .px-list li .px-nm{flex:1}
+  .px-ctrl{font-variant-numeric:tabular-nums; color:var(--accent); white-space:nowrap; font-size:11.5px; min-width:62px; text-align:right; opacity:.85}
+  .px-xt{font-variant-numeric:tabular-nums; font-weight:700; white-space:nowrap; min-width:74px; text-align:right}
   .px-xt.pos{color:#5fd38a}
   .px-xt.neg{color:#ff8a8a}
+
+  /* reusable step-by-step explainer (high-school-level metric breakdown) */
+  .stepx{list-style:none; margin:14px 0 6px; padding:0; display:flex; flex-direction:column; gap:10px; counter-reset:sx}
+  .stepx li{display:flex; gap:14px; align-items:flex-start; background:var(--bg-elev2); border:1px solid var(--border); border-radius:11px; padding:12px 14px}
+  .stepx .sx-n{flex:0 0 auto; width:26px; height:26px; border-radius:50%; background:var(--accent); color:var(--bg); font-weight:800; font-size:13px; display:grid; place-items:center; margin-top:1px}
+  .stepx .sx-b{font-size:14px; color:var(--muted); line-height:1.5}
+  .stepx .sx-b b{color:var(--ink)}
+  .stepx .sx-eq{display:inline-block; margin-top:6px; font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-size:13px; color:var(--ink); background:var(--bg); border:1px solid var(--border); border-radius:7px; padding:3px 9px; font-variant-numeric:tabular-nums}
+  .stepx .sx-pos{color:#5fd38a}
   .legend{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted); margin-top:12px; flex-wrap:wrap}
   .legend .grad{height:9px; width:160px; border-radius:5px; background:linear-gradient(90deg,#1a2440,#3c7a8c,#3cb878,#bedc46,#ffc43c,#ff6b6b)}
   .legend .grad.cool{background:linear-gradient(90deg,#1e2240,#3a3c96,#7860dc,#b496f5,#dccdff)}
@@ -480,7 +491,7 @@
         <p class="caption" style="margin-top:0">A control surface is one instant. Average it over a whole match and you get the honest version of &ldquo;France controlled 55% of the pitch.&rdquo; Two reads, across all 64 games: <b>territorial control</b> — the share of the grass a team owns outright (its influence beats the opponent's) — and <b>dangerous space</b>, the ball-aware OBSO it generates going forward (reach × control × xT).</p>
         <div class="htoggles" id="team-metric" style="padding:0;margin:0 0 6px"><button class="htog on" data-k="control">territorial control %</button><button class="htog" data-k="dangerous">dangerous space</button></div>
         <div class="htoggles" id="team-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="per_match">per match</button><button class="htog" data-v="total">total</button></div>
-        <div class="htoggles" id="team-stage" style="padding:0;margin:0 0 8px"><button class="htog" data-s="group">group stage</button><button class="htog" data-s="ko">knockout</button><button class="htog on" data-s="all">all 64</button></div>
+        <div class="htoggles" id="team-stage" style="padding:0;margin:0 0 8px"><button class="htog on" data-s="group">group stage</button><button class="htog" data-s="ko">knockout</button><button class="htog" data-s="all">all 64</button></div>
         <div class="boardlab" id="team-lab"></div>
         <div id="team-board" class="tbars"></div>
         <p class="caption"><b>Territorial control</b> is the &ldquo;controlled X% of the pitch&rdquo; number — possession-dominant sides top it, and the two teams in a game always sum to 100%. <b>Dangerous space</b> is the OBSO a team generates attacking (reach × control × xT, xT-weighted m²·min) — <b>per match</b> is the per-game rate, <b>total</b> rewards deep runs. <span id="team-top">Leaders</span>.</p>
@@ -527,10 +538,11 @@
         <h3>Space Occupation Gain (SOG): who owns the dangerous space</h3>
         <div class="boardlab" id="pobso-lab"></div>
         <div class="htoggles" id="pobso-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="moment">per moment</button><button class="htog" data-v="match">per match</button><button class="htog" data-v="total">total (tournament)</button></div>
-        <div class="htoggles" id="pobso-toggle" style="padding:0;margin:0 0 6px"><button class="htog" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog on" data-m="all">all 64</button></div>
-        <div class="htoggles" id="pobso-weight" style="padding:0;margin:0 0 8px"><button class="htog on" data-w="weighted">opponent-weighted</button><button class="htog" data-w="raw">raw</button></div>
+        <div class="htoggles" id="pobso-toggle" style="padding:0;margin:0 0 6px"><button class="htog" data-m="group">group stage</button><button class="htog on" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
+        <div class="htoggles" id="pobso-weight" style="padding:0;margin:0 0 8px"><button class="htog" data-w="weighted">opponent-weighted</button><button class="htog on" data-w="raw">raw</button></div>
         <div id="pobso-board" class="tbars"></div>
         <p class="caption"><b id="pobso-cap">Per moment: the mean dangerous space (control × xT) a player owns at any instant off the ball</b> — an intensity, independent of minutes. <b>Per match</b> = danger-weighted m²·min per game with a group/knockout/all split (so it is not just deep-run teams); <b>total</b> = summed over the whole tournament (rewards minutes — the deep runs rise). All opponent-strength weighted (toggle for raw). Leaders: <b id="pobso-top">the leaders</b>. <b>How</b> they win it — walking or running — is the split right below.</p>
+        <p class="caption"><b>Reading the number:</b> it is <b>square metres of grass, discounted twice</b> — once by how much the player <i>owns</i> it (0–1 pitch control) and once by how <i>dangerous</i> it is (xT, which peaks near <b>0.26</b> right in front of goal and is ~0 back in midfield). A cell only counts near its full area when the player fully owns it <i>and</i> it sits in the danger zone. So En-Nesyri's ≈14 means that, frozen at any instant, he sits on the equivalent of ~14 m² of fully-owned, in-front-of-goal shooting space; most players sit near 5–8.</p>
         <p class="caption faintnote">Possession and carrier are nearest-player heuristics, velocity is finite-differenced at ~2 Hz, and extra time is excluded. Opponent strength is a FIFA-index proxy (partial coverage; minnows floored).</p>
       </div>
 
@@ -564,8 +576,8 @@
         <h3>Space Generation Gain (SGG): who frees teammates</h3>
         <div class="boardlab" id="sgg-lab"></div>
         <div class="htoggles" id="sgg-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="per_match">per match</button><button class="htog" data-v="total">total (tournament)</button></div>
-        <div class="htoggles" id="sgg-stage" style="padding:0;margin:0 0 6px"><button class="htog" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog on" data-m="all">all 64</button></div>
-        <div class="htoggles" id="sgg-weight" style="padding:0;margin:0 0 8px"><button class="htog on" data-w="weighted">opponent-weighted</button><button class="htog" data-w="raw">raw</button></div>
+        <div class="htoggles" id="sgg-stage" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
+        <div class="htoggles" id="sgg-weight" style="padding:0;margin:0 0 8px"><button class="htog" data-w="weighted">opponent-weighted</button><button class="htog on" data-w="raw">raw</button></div>
         <div id="sgg-board" class="tbars"></div>
         <p class="caption"><b>Space generated for teammates</b> — the dangerous space (control × xT) a teammate gains when this player drags his marker away, summed per game. <b>Per match</b> is the rate; <b>total</b> rewards deep runs. Opponent-strength weighted (toggle for raw). Leaders: <b id="sgg-top">the leaders</b>. This is the <i>generation</i> half of Fernández &amp; Bornn; the off-ball board above is the <i>occupation</i> half.</p>
         <p class="caption faintnote">Drag detection uses δ=5 m marking distance and a 3 s window (F&amp;B Eqs 10-11); a defender's true intent is unobserved, so this is geometric evidence of a drag, not proof of one. Possession is a nearest-player heuristic; extra time excluded; opponent strength is a FIFA-index proxy.</p>
@@ -582,7 +594,7 @@
     <div class="reveal">
       <div class="act-tag"><span class="num">3</span> Application three · The passer who hits that space</div>
       <h2>The pass that hits the dangerous space.</h2>
-      <p class="lede">Application one found the off-ball runner who drifts into valuable grass. This one finds the player who puts the ball there. A great pass lands in space that is both <b>dangerous</b> (high xT) and <b>keepable</b> (controlled at the target). Completion is the floor. We score every final-third pass by <b>control × xT at the target</b> and rank the players who do it most. Scrub the auto-picked example: <span id="passing-hero-title">a pass into the danger zone</span>.</p>
+      <p class="lede">Application one found the off-ball runner who drifts into valuable grass. This one finds the player who puts the ball there. A great pass does two things at once: it <b>adds threat</b> (moves the ball to a more dangerous spot — the same xT-added the clip tags on each pass) and lands somewhere <b>keepable</b> (controlled by his team at the target). We score every pass by <b>control × xT(target) × xT-added</b> and rank the players who do it most. Scrub the auto-picked example: <span id="passing-hero-title">a pass into the danger zone</span>.</p>
       <div class="card">
         <h3>Hitting the dangerous space · <span id="passing-hero-title2">the pass</span></h3>
         <div id="passing-canvas" class="heat"></div>
@@ -595,9 +607,9 @@
         <h3>Who repeatedly threads it into dangerous, controlled space</h3>
         <div class="boardlab" id="ps-lab"></div>
         <div class="htoggles" id="ps-toggle" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
-        <div class="htoggles" id="ps-weight" style="padding:0;margin:0 0 8px"><button class="htog on" data-w="weighted">opponent-weighted</button><button class="htog" data-w="raw">raw</button></div>
+        <div class="htoggles" id="ps-weight" style="padding:0;margin:0 0 8px"><button class="htog" data-w="weighted">opponent-weighted</button><button class="htog on" data-w="raw">raw</button></div>
         <div id="ps-board" class="tbars"></div>
-        <p class="caption"><b>Per match, weighted by opponent strength</b> (a FIFA-index proxy), so racking up numbers against minnows is discounted. The <b>group stage</b> is the level field — every team plays three games — so it is the fairest comparison; <b>knockout</b> is who did it against elite defences. Leaders: <b id="ps-top">the top names</b>. Kept to passes into the final third on purpose: summed over <i>all</i> passes the metric just rewards deep defenders for passing volume (xT alone does not fix it), so the final-third gate is what surfaces the creators.</p>
+        <p class="caption"><b>Per match</b> (group stage is the level field — every team plays three games; knockout is who did it against elite defences). <b>Toggle opponent-weighting</b> to discount minnows. Leaders: <b id="ps-top">the top names</b>. <b>No zone gate:</b> we tried it without one, but a pure sum of progressive passes just rewards centre-backs for build-up volume. Multiplying by the destination's danger (xT there) instead fixes it continuously — own-half passes are worth ≈0 with no arbitrary line, so only balls threaded <i>into</i> dangerous, controlled space score, and the creators surface. The number is that product ×100 — a relative threading index, not a unit.</p>
       </div>
     </div>
   </div>
@@ -619,11 +631,26 @@
         <div class="legend"><span>opponent controls</span><span class="grad"></span><span>winner's team controls</span></div>
         <p class="caption">Pitch control is locked to the duel <b>winner's</b> team; both contestants are ringed (winner gold, the other red). The two arrive together and the model rated it a near-50-50 by position and momentum. Watch the winner come away with it. Winning more of these than the percentage predicts, summed over a tournament, is the skill the board measures.</p>
       </div>
+
+      <div class="card">
+        <h3>Where the number comes from: one duel, step by step</h3>
+        <p class="caption" style="margin-top:0">Follow a single loose ball from the contest to the leaderboard number. Each step is one idea.</p>
+        <ol class="stepx">
+          <li><span class="sx-n">1</span><div class="sx-b"><b>A 50-50 happens.</b> Two players chase the same loose ball. Here it is near the edge of the box — a dangerous spot.</div></li>
+          <li><span class="sx-n">2</span><div class="sx-b"><b>Pitch control sets the expectation.</b> From where both players are and how fast they are moving, the model says our player <i>should</i> win it about <b>50%</b> of the time. That is his <b>baseline</b>. <span class="sx-eq">expected = 0.50</span></div></li>
+          <li><span class="sx-n">3</span><div class="sx-b"><b>Did he actually win it?</b> Yes. A win is <b>1</b>, a loss is <b>0</b>. <span class="sx-eq">actual = 1</span></div></li>
+          <li><span class="sx-n">4</span><div class="sx-b"><b>Above expected = actual − expected.</b> He won a ball he was only meant to win half the time. <span class="sx-eq">1 − 0.50 = <b class="sx-pos">+0.50</b></span> (lose a 50-50 and it is −0.50).</div></li>
+          <li><span class="sx-n">5</span><div class="sx-b"><b>Weight it by where it mattered.</b> Multiply by the <b>xT</b> of that spot, so winning near goal counts and a clearance in your own half barely does. Near the box, xT ≈ 0.04. <span class="sx-eq">+0.50 × 0.04 = <b class="sx-pos">+0.020</b></span></div></li>
+          <li><span class="sx-n">6</span><div class="sx-b"><b>Add up every duel, per match.</b> Do this for all his loose-ball duels and sum. Beating your baseline <i>again and again, in dangerous spots</i> is the skill — that running total, per game, is the leaderboard below.</div></li>
+        </ol>
+        <p class="caption faintnote">Why one duel is small (≈ +0.02) but a tournament leader reaches ≈ +0.20 per match: it is a <i>sum</i> of many duels, and most are tiny — the number rewards <b>volume of winning the right ones</b>, not one big moment.</p>
+      </div>
+
       <div class="card">
         <h3>Wins his duels where it counts</h3>
         <div class="boardlab" id="bwae-lab"></div>
-        <div class="htoggles" id="bwae-toggle" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
-        <div class="htoggles" id="bwae-weight" style="padding:0;margin:0 0 8px"><button class="htog on" data-w="weighted">opponent-weighted</button><button class="htog" data-w="raw">raw</button></div>
+        <div class="htoggles" id="bwae-toggle" style="padding:0;margin:0 0 6px"><button class="htog" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog on" data-m="all">all 64</button></div>
+        <div class="htoggles" id="bwae-weight" style="padding:0;margin:0 0 8px"><button class="htog" data-w="weighted">opponent-weighted</button><button class="htog on" data-w="raw">raw</button></div>
         <div id="bwae-xt" class="tbars"></div>
         <p class="caption">Each ground duel is scored <b>xT(where it happens) × (won − expected)</b> — pitch control sets the expectation from both players' position and momentum, and the xT weight means winning a 50-50 near goal counts while a clearance in your own half barely does. <b>Per match, weighted by opponent strength</b>; group stage is the level field, knockout is who did it against the best. Leaders: <b id="bwae-top">the leaders</b>.</p>
       </div>
@@ -680,6 +707,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=54"></script>
+<script type="module" src="assets/js/space.js?v=55"></script>
 </body>
 </html>
