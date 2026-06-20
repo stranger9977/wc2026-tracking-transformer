@@ -113,17 +113,25 @@ def process_match(root, mid, meta, opp):
         # games-played denominator (per stage): any valid (non-GK) pass = the passer appeared.
         m["by_stage"][stage]["mids"].add(mid)
         tx, ty = pos[target]
-        # KEEP the final-third gate: it is NOT redundant with xT. Summing control x xT over ALL
-        # passes is volume-dominated (a CB's ~80 low-xT build-up balls/game out-total a creator's
-        # few killer passes — even with xT^2). The final-third restriction is what removes that
-        # build-up volume and surfaces the creators. Weight the kept passes by OPPONENT strength.
-        if tx * d <= FINAL_THIRD_X:
-            continue
+        # Score every pass by control x xT-ADDED (no zone gate): the THREAT the pass
+        # creates (xT at the target minus xT at the ball's origin), times how well the
+        # receiving team controls the target. Build-up passes add ~0 xT so they
+        # contribute ~0 with no arbitrary final-third line — and it rewards progression,
+        # matching the per-pass xT-added shown on the clip. Orient both ends to attack-+x
+        # via d so xT is read at the correct goal. control is orientation-independent.
+        xt_dest = xt(tx * d, ty * d)
+        xt_gain = xt_dest - xt(bx * d, by * d)
+        if xt_gain <= 0:
+            continue                                   # only threat-adding passes
         pteam = roster.get(passer, "")
         oteam = next((t for t in teams if t != pteam), "")
         w = opp.weight(oteam) if oteam else 1.0
         att_xy = [(x, y) for i, x, y, _ in att]; dfn_xy = [(x, y) for i, x, y, _ in dfn]
-        val = control_at(tx, ty, att_xy, dfn_xy, bx, by) * xt(tx, ty)
+        # control x destination-danger x threat-added: no zone gate, but the xT(dest)
+        # term continuously suppresses own-half build-up (xT~0 back there) so high
+        # pass VOLUME from deep defenders cannot dominate — only progressive passes
+        # INTO dangerous, controlled space score. Surfaces creators, not CBs.
+        val = control_at(tx, ty, att_xy, dfn_xy, bx, by) * xt_dest * xt_gain
         m["by_stage"][stage]["valw"] += val * w   # opponent-weighted
         m["by_stage"][stage]["valr"] += val       # raw
         m["n"] += 1

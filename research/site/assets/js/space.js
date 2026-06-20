@@ -395,6 +395,7 @@ function buildScrubber(el, surf, cfg) {
     pxEl.innerHTML = `<div class="px-head">Passes in the move<span class="px-tot" id="pt-${cfg.id}">+0.00 xT</span></div>`
       + `<ol class="px-list">` + passes.map((p, i) =>
         `<li data-i="${i}"><span class="px-nm">${p.passer ? p.passer + " → " : ""}<b>${p.receiver}</b></span>`
+        + (p.control != null ? `<span class="px-ctrl">${Math.round(p.control * 100)}% ctrl</span>` : "")
         + `<span class="px-xt ${p.xt_added >= 0 ? "pos" : "neg"}">${p.xt_added >= 0 ? "+" : ""}${p.xt_added.toFixed(2)} xT</span></li>`
       ).join("") + `</ol>`;
   }
@@ -976,7 +977,7 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=18");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=19");
   const data = await loadJSON("data/space_pobso.json?v=7");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
@@ -1016,7 +1017,7 @@ async function buildPOBSO() {
   const boardEl = $("#pobso-board"), vtg = $("#pobso-view"), btg = $("#pobso-toggle"), bwt = $("#pobso-weight");
   const blab = $("#pobso-lab"), btop = $("#pobso-top"), SCALE = 0.5 / 60;
   const players = (data.players || []).filter((r) => r.stages && r.position);
-  const bst = { view: "moment", stage: "all", weighted: true };
+  const bst = { view: "moment", stage: "ko", weighted: false };
   const row = (r, val, badge, fmt) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""} <span class="lpos">${badge}</span></span>
       <span class="tbtrack"><span class="tbfill" style="width:${clamp(val, 0, 100)}%;background:#ff8a5c"></span></span>
       <span class="tbval">${fmt}</span></div>`;
@@ -1048,7 +1049,7 @@ async function buildPOBSO() {
   syncStageBtns(); renderBoard();
   if (vtg) $$(".htog", vtg).forEach((b) => b.addEventListener("click", () => {
     bst.view = b.dataset.v; $$(".htog", vtg).forEach((x) => x.classList.toggle("on", x === b));
-    bst.stage = bst.view === "match" ? "group" : "all";   // per-match lands on the level field
+    bst.stage = bst.view === "match" ? "group" : "ko";   // moment/total default to knockout, per-match to the level field
     syncStageBtns(); renderBoard();
   }));
   if (btg) $$(".htog", btg).forEach((b) => b.addEventListener("click", () => {
@@ -1525,21 +1526,22 @@ const STAGE_LABEL = { group: "group stage", ko: "knockout", all: "all 64 games" 
 const STAGE_MIN = { group: 2, ko: 1, all: 2 };
 async function buildPassSelection() {
   const el = $("#ps-board"); if (!el) return;
-  let d; try { d = await loadJSON("data/pass_selection.json?v=4"); } catch (e) { return; }
+  let d; try { d = await loadJSON("data/pass_selection.json?v=5"); } catch (e) { return; }
   const players = (d.players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
   if (!players.length) return;
   const lab = $("#ps-lab"), tg = $("#ps-toggle"), wtg = $("#ps-weight"), top = $("#ps-top");
-  const st = { stage: "group", weighted: true };
+  const st = { stage: "group", weighted: false };
   const render = () => {
     const stage = st.stage, key = st.weighted ? "per_match" : "per_match_raw";
     const min = STAGE_MIN[stage] || 2;
     const sv = (r) => (r.stages[stage] && r.stages[stage].matches >= min) ? r.stages[stage][key] : null;
     const rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
     const mx = Math.max(1e-9, ...rows.map(sv));
+    const PS_SCALE = 100;   // triple product (control × xT_dest × xT_added) is small; ×100 for a readable index
     el.innerHTML = rows.map((r) => { const s = r.stages[stage]; return `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""} <span class="lpos">${s.matches}m</span></span>
       <span class="tbtrack"><span class="tbfill" style="width:${clamp(sv(r) / mx * 100, 0, 100)}%;background:#6cb4ee"></span></span>
-      <span class="tbval">${sv(r).toFixed(2)}</span></div>`; }).join("");
-    if (lab) lab.innerHTML = `Players · control × xT into the final third, <b>per match</b>${st.weighted ? ", opponent-strength weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
+      <span class="tbval">${(sv(r) * PS_SCALE).toFixed(2)}</span></div>`; }).join("");
+    if (lab) lab.innerHTML = `Players · control × xT-added into dangerous space (threading index), <b>per match</b>${st.weighted ? ", opponent-strength weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
     if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
   render();
@@ -1611,7 +1613,7 @@ async function buildTeamBoard() {
   let d; try { d = await loadJSON("data/team_control.json?v=1"); } catch (e) { return; }
   const teams = d.teams || []; if (!teams.length) return;
   const mTg = $("#team-metric"), vTg = $("#team-view"), sTg = $("#team-stage"), lab = $("#team-lab"), top = $("#team-top");
-  const st = { metric: "control", view: "per_match", stage: "all" };
+  const st = { metric: "control", view: "per_match", stage: "group" };
   const valOf = (t) => {
     if ((t.n_matches[st.stage] || 0) < 1) return null;
     const blk = t[st.metric] && t[st.metric][st.view];
@@ -1644,7 +1646,7 @@ async function buildSGG() {
   const players = (d.players || []).filter((r) => r.stages);
   if (!players.length) return;
   const vTg = $("#sgg-view"), sTg = $("#sgg-stage"), wTg = $("#sgg-weight"), lab = $("#sgg-lab"), top = $("#sgg-top");
-  const st = { view: "per_match", stage: "all", weighted: true };
+  const st = { view: "per_match", stage: "group", weighted: false };
   const SCALE = 0.5 / 60;   // xT-wtd m²·frame → m²·min (same as the SOG board)
   const valOf = (r) => {
     const s = r.stages[st.stage];
@@ -1675,7 +1677,7 @@ async function buildBWAE() {
   const players = (d.players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
   if (!players.length) return;
   const lab = $("#bwae-lab"), tg = $("#bwae-toggle"), wtg = $("#bwae-weight"), top = $("#bwae-top");
-  const st = { stage: "group", weighted: true };
+  const st = { stage: "all", weighted: false };
   const render = () => {
     const stage = st.stage, key = st.weighted ? "per_match" : "per_match_raw";
     const min = STAGE_MIN[stage] || 2;
