@@ -84,6 +84,13 @@ SPEED_RATIO_MAX = 1.0      # clip of (speed/SPEED_NORM)
 # distance covered in the next reaction window (F&B use 0.5 s look-ahead).
 REACTION_S = 0.5
 
+# Reachability decay for OBSO: P(ball reaches a location) ~ exp(-dist/lambda),
+# which is the survival function of pass length if lambda = mean pass distance.
+# Calibrated on PFF WC22: mean completed open-play pass = 13.73 m over 64
+# matches (n=48,875). This restores ball-awareness that bare xT lacks: dangerous
+# space the ball cannot realistically be played into is discounted toward 0.
+REACH_LAMBDA_M = 13.73
+
 
 @dataclass(frozen=True)
 class Grid:
@@ -272,19 +279,35 @@ def control_surface(
         "player_y_m": py[idx],
         "player_is_attacking": att_mask,
         "player_idx": idx,
+        "ball_m": np.asarray(ball_m, dtype=np.float64),
     }
 
 
 # ===========================================================================
 # SPACE OCCUPATION + VALUE-OF-SPACE (the shared quantity)
 # ===========================================================================
+def reach_surface(ball_m: np.ndarray, grid: Grid) -> np.ndarray:
+    """P(the ball can be played to each cell), an exp decay from the ball.
+
+    ``reach(d) = exp(-d / REACH_LAMBDA_M)`` is the survival function of pass
+    length (P(a pass travels >= d)) when lambda is the mean pass distance. This
+    is the ball-aware factor that turns control x xT into proper OBSO: space the
+    ball cannot realistically reach right now is discounted toward 0.
+
+    Returns (ny, nx) in (0, 1], = 1 at the ball.
+    """
+    d = np.hypot(grid.XX - float(ball_m[0]), grid.YY - float(ball_m[1]))
+    return np.exp(-d / REACH_LAMBDA_M)
+
+
 def value_of_space_surface(control: dict, grid: Grid) -> np.ndarray:
-    """attacker pitch-control x xT(cell), the shared value-of-space surface.
+    """OBSO: reach x attacker pitch-control x xT(cell), the shared value surface.
 
     Returns (ny, nx) >= 0; integrate (sum * cell_area) for total controlled
     xT-weighted space, or slice per-player via :func:`player_space`.
     """
-    return control["attack_control"] * xt_surface(grid)
+    return (control["attack_control"] * xt_surface(grid)
+            * reach_surface(control["ball_m"], grid))
 
 
 def player_space(control: dict, grid: Grid, *, attacking_only: bool = True) -> dict:
@@ -300,6 +323,9 @@ def player_space(control: dict, grid: Grid, *, attacking_only: bool = True) -> d
     infl = control["player_influence"]            # (n, ny, nx)
     idx = control["player_idx"]
     is_att = control["player_is_attacking"]
+    # Per-PLAYER owned value uses control x xT WITHOUT reach (occupation, F&B
+    # SOG). Reach lives on the full surface (value_of_space_surface) and team
+    # OBSO; on a local per-player attribution it would only penalise forwards.
     xt = xt_surface(grid)
     attack_control = control["attack_control"]
 

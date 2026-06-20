@@ -463,19 +463,28 @@
 
       <p class="body">A spot's control compares the two sides' reach there. Add up the attacking blobs, subtract the defending blobs, and pass the result through a logistic curve to land between 0 and 1. A value near <b>1</b> means the team in possession clearly owns that grass. Near <b>0.5</b> means it is genuinely contested. Drag the dots below to feel it: move a player, flick it to add speed, and watch the field tilt.</p>
 
+      <div class="decode" style="margin:20px 0 6px; border:1px solid var(--border); border-radius:12px; background:var(--bg-elev); padding:6px 22px">
+        <p class="caption" style="margin:16px 0 12px"><b>The jargon, decoded.</b> You will see this engine named a <i>&ldquo;bivariate-normal influence&rdquo;</i> model. Three plain words hide under that label:</p>
+        <dl style="margin:0 0 4px; display:grid; grid-template-columns:max-content 1fr; gap:10px 18px; align-items:baseline; font-size:14.5px; color:var(--muted); line-height:1.55">
+          <dt style="color:var(--accent); font-weight:700">Influence</dt><dd style="margin:0">how much a player owns a spot &mdash; total at his feet, fading with distance. Every player casts one of these.</dd>
+          <dt style="color:var(--accent); font-weight:700">Bivariate&nbsp;normal</dt><dd style="margin:0">the <i>shape</i> of that ownership: a bell-shaped mound over the pitch (&ldquo;bivariate&rdquo; just means two dimensions, <i>x</i> and <i>y</i>), tallest at the player and sloping down all around &mdash; the &ldquo;soft blob&rdquo; above.</dd>
+          <dt style="color:var(--accent); font-weight:700">Geometry</dt><dd style="margin:0">the mound is not a round hill: speed stretches it into an ellipse along the run, direction rotates it, and distance to the ball scales it.</dd>
+        </dl>
+        <p class="caption" style="margin:12px 0 16px"><b>Then control is a contest:</b> sum the attackers' mounds, subtract the defenders', squeeze through the logistic to land in 0&ndash;1. A lone player with no support reads <b>0.73</b>, not 1 &mdash; control needs <i>density</i>, not just presence.</p>
+      </div>
+
       <div id="pc-explainer" class="xpl"></div>
 
       <div class="card">
-        <h3>Space Occupation Gain (SOG): pitch control as a player number</h3>
-        <p class="caption" style="margin-top:0">Fernández &amp; Bornn's 2018 metric had a signature split: of the valuable space a player wins, how much does he win <b>passively</b> (walking, settling into it as the play comes to him) versus <b>actively</b> (running into it)? This is that split, on our control × xT surface across all 64 games. It is the <i>manner</i>, not the amount: who owns the most dangerous space outright is the off-ball board in Act 3. Here, who wins it without running.</p>
-        <div class="walkstat" id="sog-walkstat"></div>
-        <div class="htoggles" id="sog-mode" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="passive">walking</button><button class="htog" data-m="active">running</button></div>
-        <div class="htoggles" id="sog-stage" style="padding:0;margin:0 0 8px"><button class="htog" data-s="group">group stage</button><button class="htog" data-s="ko">knockout</button><button class="htog on" data-s="all">all 64</button></div>
-        <div class="boardlab" id="sog-lab"></div>
-        <div class="legend"><span><span class="swatch" style="background:#6cb4ee"></span>passive (walking)</span><span><span class="swatch" style="background:#f0b429"></span>active (running)</span></div>
-        <div id="pc-sog"></div>
-        <p class="caption" id="sog-messi"></p>
-        <p class="cite">Recreates Fernández &amp; Bornn (2018) Space Occupation Gain; the active vs passive split is the read behind FiveThirtyEight's <a href="https://fivethirtyeight.com/features/messi-walks-better-than-most-players-run/" target="_blank" rel="noopener">&ldquo;Messi Walks Better Than Most Players Run&rdquo;</a>.</p>
+        <h3>So how much of the pitch does a team control over a game?</h3>
+        <p class="caption" style="margin-top:0">A control surface is one instant. Average it over a whole match and you get the honest version of &ldquo;France controlled 55% of the pitch.&rdquo; Two reads, across all 64 games: <b>territorial control</b> — the share of the grass a team owns outright (its influence beats the opponent's) — and <b>dangerous space</b>, the ball-aware OBSO it generates going forward (reach × control × xT).</p>
+        <div class="htoggles" id="team-metric" style="padding:0;margin:0 0 6px"><button class="htog on" data-k="control">territorial control %</button><button class="htog" data-k="dangerous">dangerous space</button></div>
+        <div class="htoggles" id="team-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="per_match">per match</button><button class="htog" data-v="total">total</button></div>
+        <div class="htoggles" id="team-stage" style="padding:0;margin:0 0 8px"><button class="htog" data-s="group">group stage</button><button class="htog" data-s="ko">knockout</button><button class="htog on" data-s="all">all 64</button></div>
+        <div class="boardlab" id="team-lab"></div>
+        <div id="team-board" class="tbars"></div>
+        <p class="caption"><b>Territorial control</b> is the &ldquo;controlled X% of the pitch&rdquo; number — possession-dominant sides top it, and the two teams in a game always sum to 100%. <b>Dangerous space</b> is the OBSO a team generates attacking (reach × control × xT, xT-weighted m²·min) — <b>per match</b> is the per-game rate, <b>total</b> rewards deep runs. <span id="team-top">Leaders</span>.</p>
+        <p class="cite">Pitch control aggregated per team across all 64 WC2022 games. Territorial control is possession-independent (measured for both teams every frame); dangerous space is ball-aware OBSO. The <i>player</i> version — who owns it, and walking or running — is the SOG board in Act 3.</p>
       </div>
 
     </div>
@@ -488,9 +497,9 @@
 <section id="threeways">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag"><span class="num">3</span> Three applications of controlling valuable space</div>
+      <div class="act-tag"><span class="num">3</span> Four applications of controlling valuable space</div>
       <h2>Controlling valuable space.</h2>
-      <p class="lede">Acts 1 and 2 gave us two numbers for any spot on the pitch: <b>xT</b> for how much it is worth, and <b>pitch control</b> for who owns it. Multiply them and you have a single read on controlling space that is also dangerous. Run it across all <b>64 World Cup 2022 games</b> and it answers three questions about individual skill. First, who owns the most <b>dangerous space off the ball</b>, the value times control synthesis. Second, who finds the player in that space with a <b>pass</b>. Third, who wins <b>duels</b> in the spots that are worth winning.</p>
+      <p class="lede">Acts 1 and 2 gave us two numbers for any spot on the pitch: <b>xT</b> for how much it is worth, and <b>pitch control</b> for who owns it. Multiply them and you have a single read on controlling space that is also dangerous. Run it across all <b>64 World Cup 2022 games</b> and it answers four questions about individual skill. First, who owns the most <b>dangerous space off the ball</b> for himself (SOG). Second, who creates it <b>for teammates</b> by dragging markers away (SGG). Third, who finds the player in that space with a <b>pass</b>. Fourth, who wins <b>duels</b> in the spots that are worth winning.</p>
     </div>
   </div>
 </section>
@@ -515,14 +524,51 @@
       </div>
       <div id="pobso-explainer" class="xpl"></div>
       <div class="card">
-        <h3>Off-ball danger controllers</h3>
+        <h3>Space Occupation Gain (SOG): who owns the dangerous space</h3>
         <div class="boardlab" id="pobso-lab"></div>
         <div class="htoggles" id="pobso-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="moment">per moment</button><button class="htog" data-v="match">per match</button><button class="htog" data-v="total">total (tournament)</button></div>
         <div class="htoggles" id="pobso-toggle" style="padding:0;margin:0 0 6px"><button class="htog" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog on" data-m="all">all 64</button></div>
         <div class="htoggles" id="pobso-weight" style="padding:0;margin:0 0 8px"><button class="htog on" data-w="weighted">opponent-weighted</button><button class="htog" data-w="raw">raw</button></div>
         <div id="pobso-board" class="tbars"></div>
-        <p class="caption"><b id="pobso-cap">Per moment: the mean dangerous space (control × xT) a player owns at any instant off the ball</b> — an intensity, independent of minutes. <b>Per match</b> = danger-weighted m²·min per game with a group/knockout/all split (so it is not just deep-run teams); <b>total</b> = summed over the whole tournament (rewards minutes — the deep runs rise). All opponent-strength weighted (toggle for raw). Leaders: <b id="pobso-top">the leaders</b>. <b>How</b> they win it — walking or running — is the SOG board in Act 2.</p>
+        <p class="caption"><b id="pobso-cap">Per moment: the mean dangerous space (control × xT) a player owns at any instant off the ball</b> — an intensity, independent of minutes. <b>Per match</b> = danger-weighted m²·min per game with a group/knockout/all split (so it is not just deep-run teams); <b>total</b> = summed over the whole tournament (rewards minutes — the deep runs rise). All opponent-strength weighted (toggle for raw). Leaders: <b id="pobso-top">the leaders</b>. <b>How</b> they win it — walking or running — is the split right below.</p>
         <p class="caption faintnote">Possession and carrier are nearest-player heuristics, velocity is finite-differenced at ~2 Hz, and extra time is excluded. Opponent strength is a FIFA-index proxy (partial coverage; minnows floored).</p>
+      </div>
+
+      <div class="card">
+        <h3>…and how they win it: walking vs running</h3>
+        <p class="caption" style="margin-top:0">Fernández &amp; Bornn's 2018 signature split: of the dangerous space a player wins, how much does he win <b>passively</b> (walking, settling into it as the play comes to him) versus <b>actively</b> (running into it)? This is the <i>manner</i>, not the amount — the board above is who owns the most; this is who wins it without running.</p>
+        <div class="walkstat" id="sog-walkstat"></div>
+        <div class="htoggles" id="sog-mode" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="passive">walking</button><button class="htog" data-m="active">running</button></div>
+        <div class="htoggles" id="sog-stage" style="padding:0;margin:0 0 8px"><button class="htog" data-s="group">group stage</button><button class="htog" data-s="ko">knockout</button><button class="htog on" data-s="all">all 64</button></div>
+        <div class="boardlab" id="sog-lab"></div>
+        <div class="legend"><span><span class="swatch" style="background:#6cb4ee"></span>passive (walking)</span><span><span class="swatch" style="background:#f0b429"></span>active (running)</span></div>
+        <div id="pc-sog"></div>
+        <p class="caption" id="sog-messi"></p>
+        <p class="cite">Recreates Fernández &amp; Bornn (2018) Space Occupation Gain; the active vs passive split is the read behind FiveThirtyEight's <a href="https://fivethirtyeight.com/features/messi-walks-better-than-most-players-run/" target="_blank" rel="noopener">&ldquo;Messi Walks Better Than Most Players Run&rdquo;</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- Application 2 — Space Generation Gain (SGG): space created FOR teammates -->
+<section id="way-sgg">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">2</span> Application two · The decoy who frees a teammate</div>
+      <h2>Creating space for someone else.</h2>
+      <p class="lede">Application one credited the space a player wins for <b>himself</b>. This one credits the space he frees for <b>a teammate</b>. The move every coach talks about and no box score records: drag your marker away, and the man you left behind is suddenly open. Fernández &amp; Bornn formalised it — when a defender who was marking one attacker gets pulled onto another within three seconds, releasing the first, the <b>space the freed teammate gains is credited to the player who dragged the marker</b>. It is the assist before the assist.</p>
+      <p class="body">We run their detection across all 64 games. A generation event needs a defender within 5 m of a teammate, then within 5 m of the generator three seconds later and no longer near the teammate — a real drag, not incidental drift. The teammate's gain in owned dangerous space (control × xT, the same quantity as the off-ball board) is the credit. It rewards the pivots and decoys who bend a defence without ever touching the ball: Busquets dropping to pull a striker's marker, a forward's run that opens the channel behind him.</p>
+      <div class="card">
+        <h3>Space Generation Gain (SGG): who frees teammates</h3>
+        <div class="boardlab" id="sgg-lab"></div>
+        <div class="htoggles" id="sgg-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="per_match">per match</button><button class="htog" data-v="total">total (tournament)</button></div>
+        <div class="htoggles" id="sgg-stage" style="padding:0;margin:0 0 6px"><button class="htog" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog on" data-m="all">all 64</button></div>
+        <div class="htoggles" id="sgg-weight" style="padding:0;margin:0 0 8px"><button class="htog on" data-w="weighted">opponent-weighted</button><button class="htog" data-w="raw">raw</button></div>
+        <div id="sgg-board" class="tbars"></div>
+        <p class="caption"><b>Space generated for teammates</b> — the dangerous space (control × xT) a teammate gains when this player drags his marker away, summed per game. <b>Per match</b> is the rate; <b>total</b> rewards deep runs. Opponent-strength weighted (toggle for raw). Leaders: <b id="sgg-top">the leaders</b>. This is the <i>generation</i> half of Fernández &amp; Bornn; the off-ball board above is the <i>occupation</i> half.</p>
+        <p class="caption faintnote">Drag detection uses δ=5 m marking distance and a 3 s window (F&amp;B Eqs 10-11); a defender's true intent is unobserved, so this is geometric evidence of a drag, not proof of one. Possession is a nearest-player heuristic; extra time excluded; opponent strength is a FIFA-index proxy.</p>
       </div>
     </div>
   </div>
@@ -534,7 +580,7 @@
 <section id="way-passing">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag"><span class="num">2</span> Application two · The passer who hits that space</div>
+      <div class="act-tag"><span class="num">3</span> Application three · The passer who hits that space</div>
       <h2>The pass that hits the dangerous space.</h2>
       <p class="lede">Application one found the off-ball runner who drifts into valuable grass. This one finds the player who puts the ball there. A great pass lands in space that is both <b>dangerous</b> (high xT) and <b>keepable</b> (controlled at the target). Completion is the floor. We score every final-third pass by <b>control × xT at the target</b> and rank the players who do it most. Scrub the auto-picked example: <span id="passing-hero-title">a pass into the danger zone</span>.</p>
       <div class="card">
@@ -563,7 +609,7 @@
 <section id="way-duels">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag"><span class="num">3</span> Application three · Wins duels where it counts</div>
+      <div class="act-tag"><span class="num">4</span> Application four · Wins duels where it counts</div>
       <h2>Winning balls the percentages say you shouldn't.</h2>
       <p class="lede">Pitch control gives each player a <b>baseline</b> chance of winning a loose ball, from where he is and how he is moving: a true 50-50 is 50%, a better-placed player more. Winning <b>above</b> that baseline, again and again, is anticipation, timing and strength his positioning alone does not explain. We call it <b>Balls Won Above Expected</b>, and we weight each duel by the xT of where it happens. Scrub an auto-picked example: <span id="duel-hero-title">a genuine 50-50 won</span>.</p>
       <div class="card">
@@ -634,6 +680,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=52"></script>
+<script type="module" src="assets/js/space.js?v=54"></script>
 </body>
 </html>

@@ -25,6 +25,7 @@ import math
 import os
 import sys
 import time
+from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
@@ -432,7 +433,10 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
         ctrl = pc.control_surface(np.array(rows, dtype=np.float64), np.array([bx, by]),
                                   grid, include_gk=True)
         actrl = ctrl["attack_control"]                  # raw attacker control (pre × xT)
-        surf = actrl * xt_grid if kind == "danger" else actrl
+        # danger surface = true OBSO (reach × control × xT); reach discounts
+        # dangerous grass the ball cannot be played into from where it is now.
+        surf = (actrl * xt_grid * pc.reach_surface(np.array([bx, by]), grid)
+                if kind == "danger" else actrl)
         d_anchor, hero_cell, markers = None, 0.0, []
         for (nm, att, gk, vis, mx, my) in idents:
             ci = int(np.clip((my + HALF_WID) / (2 * HALF_WID) * grid.ny, 0, grid.ny - 1))
@@ -555,12 +559,21 @@ def passes_in_window(ev_list, period, t_lo, t_hi, orient_sign, attack_name, pad=
         xt0 = float(xt_for_ball(x0 / HALF_LEN, y0 / HALF_WID))
         xt1 = float(xt_for_ball(x1 / HALF_LEN, y1 / HALF_WID))
         psr_id = pe.get("passerPlayerId") or pe.get("crosserPlayerId")
+        # PITCH CONTROL of the pass: F&B 0-1 control of where the ball is going (the reception
+        # spot) at the moment of the pass, from both teams' positions+momentum in the snapshot.
+        ctrl_pass = None
+        if psr_id is not None:
+            att_s, dfn_s, _, _, _ = _sides(e, int(psr_id))
+            if att_s and dfn_s:
+                att_xy = [(x, y) for _, x, y, _ in att_s]; dfn_xy = [(x, y) for _, x, y, _ in dfn_s]
+                ctrl_pass = round(_pass_control(dest[0], dest[1], att_xy, dfn_xy, origin[0], origin[1]), 3)
         out.append({"t_s": round(t_s, 2),
                     "passer": pe.get("passerPlayerName") or pe.get("crosserPlayerName") or "",
                     "receiver": recv,
                     "passer_id": int(psr_id) if psr_id is not None else None,
                     "receiver_id": int(tgt_id) if tgt_id is not None else None,
                     "x0": round(x0, 1), "y0": round(y0, 1), "x1": round(x1, 1), "y1": round(y1, 1),
+                    "control": ctrl_pass,               # pitch control at the target (0-1)
                     "xt_before": round(xt0, 3), "xt_after": round(xt1, 3),
                     "xt_added": round(xt1 - xt0, 3),
                     "complete": pe.get("passOutcomeType") in (None, "C")})

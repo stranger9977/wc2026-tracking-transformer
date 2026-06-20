@@ -1,0 +1,1032 @@
+{
+ "metric": "team_control",
+ "title": "Pitch control & dangerous space, by team",
+ "definition": "Territorial control = mean share of the pitch a team owns outright (attacker influence > defender), the 'controlled 55% of the pitch' number. Dangerous space = OBSO (reach x control x xT) the team generates when attacking, in xT-weighted m^2.min per game / total.",
+ "lambda_m": 13.73,
+ "teams": [
+  {
+   "team": "Spain",
+   "control": {
+    "per_match": {
+     "group": 55.7,
+     "ko": 59.3,
+     "all": 56.6
+    },
+    "total": {
+     "group": 55.8,
+     "ko": 59.3,
+     "all": 56.6
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 304.06,
+     "ko": 294.21,
+     "all": 301.6
+    },
+    "total": {
+     "group": 912.2,
+     "ko": 294.2,
+     "all": 1206.4
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 1,
+    "all": 4
+   }
+  },
+  {
+   "team": "Germany",
+   "control": {
+    "per_match": {
+     "group": 56.5,
+     "ko": 0.0,
+     "all": 56.5
+    },
+    "total": {
+     "group": 56.5,
+     "ko": 0.0,
+     "all": 56.5
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 258.75,
+     "ko": 0.0,
+     "all": 258.75
+    },
+    "total": {
+     "group": 776.2,
+     "ko": 0.0,
+     "all": 776.2
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Brazil",
+   "control": {
+    "per_match": {
+     "group": 54.5,
+     "ko": 52.8,
+     "all": 53.8
+    },
+    "total": {
+     "group": 54.6,
+     "ko": 52.8,
+     "all": 53.9
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 235.78,
+     "ko": 227.58,
+     "all": 232.5
+    },
+    "total": {
+     "group": 707.3,
+     "ko": 455.2,
+     "all": 1162.5
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 2,
+    "all": 5
+   }
+  },
+  {
+   "team": "Canada",
+   "control": {
+    "per_match": {
+     "group": 53.7,
+     "ko": 0.0,
+     "all": 53.7
+    },
+    "total": {
+     "group": 53.7,
+     "ko": 0.0,
+     "all": 53.7
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 219.98,
+     "ko": 0.0,
+     "all": 219.98
+    },
+    "total": {
+     "group": 659.9,
+     "ko": 0.0,
+     "all": 659.9
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Denmark",
+   "control": {
+    "per_match": {
+     "group": 53.2,
+     "ko": 0.0,
+     "all": 53.2
+    },
+    "total": {
+     "group": 53.3,
+     "ko": 0.0,
+     "all": 53.3
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 234.49,
+     "ko": 0.0,
+     "all": 234.49
+    },
+    "total": {
+     "group": 703.5,
+     "ko": 0.0,
+     "all": 703.5
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "England",
+   "control": {
+    "per_match": {
+     "group": 54.0,
+     "ko": 52.0,
+     "all": 53.2
+    },
+    "total": {
+     "group": 54.0,
+     "ko": 52.0,
+     "all": 53.2
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 243.81,
+     "ko": 227.16,
+     "all": 237.15
+    },
+    "total": {
+     "group": 731.4,
+     "ko": 454.3,
+     "all": 1185.7
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 2,
+    "all": 5
+   }
+  },
+  {
+   "team": "Portugal",
+   "control": {
+    "per_match": {
+     "group": 52.6,
+     "ko": 52.9,
+     "all": 52.7
+    },
+    "total": {
+     "group": 52.6,
+     "ko": 53.0,
+     "all": 52.8
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 230.14,
+     "ko": 204.07,
+     "all": 219.71
+    },
+    "total": {
+     "group": 690.4,
+     "ko": 408.1,
+     "all": 1098.6
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 2,
+    "all": 5
+   }
+  },
+  {
+   "team": "United States",
+   "control": {
+    "per_match": {
+     "group": 51.2,
+     "ko": 56.9,
+     "all": 52.6
+    },
+    "total": {
+     "group": 51.1,
+     "ko": 56.9,
+     "all": 52.5
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 233.11,
+     "ko": 313.68,
+     "all": 253.25
+    },
+    "total": {
+     "group": 699.3,
+     "ko": 313.7,
+     "all": 1013.0
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 1,
+    "all": 4
+   }
+  },
+  {
+   "team": "Mexico",
+   "control": {
+    "per_match": {
+     "group": 52.5,
+     "ko": 0.0,
+     "all": 52.5
+    },
+    "total": {
+     "group": 52.5,
+     "ko": 0.0,
+     "all": 52.5
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 207.67,
+     "ko": 0.0,
+     "all": 207.67
+    },
+    "total": {
+     "group": 623.0,
+     "ko": 0.0,
+     "all": 623.0
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Argentina",
+   "control": {
+    "per_match": {
+     "group": 55.0,
+     "ko": 48.9,
+     "all": 51.5
+    },
+    "total": {
+     "group": 55.2,
+     "ko": 48.9,
+     "all": 51.6
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 263.45,
+     "ko": 196.03,
+     "all": 224.92
+    },
+    "total": {
+     "group": 790.3,
+     "ko": 784.1,
+     "all": 1574.5
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 4,
+    "all": 7
+   }
+  },
+  {
+   "team": "Ecuador",
+   "control": {
+    "per_match": {
+     "group": 51.5,
+     "ko": 0.0,
+     "all": 51.5
+    },
+    "total": {
+     "group": 51.5,
+     "ko": 0.0,
+     "all": 51.5
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 196.54,
+     "ko": 0.0,
+     "all": 196.54
+    },
+    "total": {
+     "group": 589.6,
+     "ko": 0.0,
+     "all": 589.6
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "France",
+   "control": {
+    "per_match": {
+     "group": 53.6,
+     "ko": 49.7,
+     "all": 51.4
+    },
+    "total": {
+     "group": 53.7,
+     "ko": 49.7,
+     "all": 51.4
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 235.03,
+     "ko": 191.93,
+     "all": 210.4
+    },
+    "total": {
+     "group": 705.1,
+     "ko": 767.7,
+     "all": 1472.8
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 4,
+    "all": 7
+   }
+  },
+  {
+   "team": "South Korea",
+   "control": {
+    "per_match": {
+     "group": 51.1,
+     "ko": 49.0,
+     "all": 50.6
+    },
+    "total": {
+     "group": 51.2,
+     "ko": 49.0,
+     "all": 50.6
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 186.73,
+     "ko": 196.02,
+     "all": 189.05
+    },
+    "total": {
+     "group": 560.2,
+     "ko": 196.0,
+     "all": 756.2
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 1,
+    "all": 4
+   }
+  },
+  {
+   "team": "Croatia",
+   "control": {
+    "per_match": {
+     "group": 50.3,
+     "ko": 50.1,
+     "all": 50.2
+    },
+    "total": {
+     "group": 50.3,
+     "ko": 50.0,
+     "all": 50.1
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 197.79,
+     "ko": 215.71,
+     "all": 208.03
+    },
+    "total": {
+     "group": 593.4,
+     "ko": 862.8,
+     "all": 1456.2
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 4,
+    "all": 7
+   }
+  },
+  {
+   "team": "Serbia",
+   "control": {
+    "per_match": {
+     "group": 49.6,
+     "ko": 0.0,
+     "all": 49.6
+    },
+    "total": {
+     "group": 49.6,
+     "ko": 0.0,
+     "all": 49.6
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 192.12,
+     "ko": 0.0,
+     "all": 192.12
+    },
+    "total": {
+     "group": 576.4,
+     "ko": 0.0,
+     "all": 576.4
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Senegal",
+   "control": {
+    "per_match": {
+     "group": 50.1,
+     "ko": 47.8,
+     "all": 49.5
+    },
+    "total": {
+     "group": 50.2,
+     "ko": 47.8,
+     "all": 49.5
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 177.95,
+     "ko": 166.75,
+     "all": 175.15
+    },
+    "total": {
+     "group": 533.9,
+     "ko": 166.7,
+     "all": 700.6
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 1,
+    "all": 4
+   }
+  },
+  {
+   "team": "Uruguay",
+   "control": {
+    "per_match": {
+     "group": 49.5,
+     "ko": 0.0,
+     "all": 49.5
+    },
+    "total": {
+     "group": 49.5,
+     "ko": 0.0,
+     "all": 49.5
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 186.83,
+     "ko": 0.0,
+     "all": 186.83
+    },
+    "total": {
+     "group": 560.5,
+     "ko": 0.0,
+     "all": 560.5
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Cameroon",
+   "control": {
+    "per_match": {
+     "group": 49.3,
+     "ko": 0.0,
+     "all": 49.3
+    },
+    "total": {
+     "group": 49.4,
+     "ko": 0.0,
+     "all": 49.4
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 176.92,
+     "ko": 0.0,
+     "all": 176.92
+    },
+    "total": {
+     "group": 530.8,
+     "ko": 0.0,
+     "all": 530.8
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Netherlands",
+   "control": {
+    "per_match": {
+     "group": 50.3,
+     "ko": 47.9,
+     "all": 49.3
+    },
+    "total": {
+     "group": 50.3,
+     "ko": 47.8,
+     "all": 49.3
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 197.37,
+     "ko": 182.23,
+     "all": 191.31
+    },
+    "total": {
+     "group": 592.1,
+     "ko": 364.5,
+     "all": 956.6
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 2,
+    "all": 5
+   }
+  },
+  {
+   "team": "Belgium",
+   "control": {
+    "per_match": {
+     "group": 49.2,
+     "ko": 0.0,
+     "all": 49.2
+    },
+    "total": {
+     "group": 49.2,
+     "ko": 0.0,
+     "all": 49.2
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 242.47,
+     "ko": 0.0,
+     "all": 242.47
+    },
+    "total": {
+     "group": 727.4,
+     "ko": 0.0,
+     "all": 727.4
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Saudi Arabia",
+   "control": {
+    "per_match": {
+     "group": 48.6,
+     "ko": 0.0,
+     "all": 48.6
+    },
+    "total": {
+     "group": 48.6,
+     "ko": 0.0,
+     "all": 48.6
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 187.76,
+     "ko": 0.0,
+     "all": 187.76
+    },
+    "total": {
+     "group": 563.3,
+     "ko": 0.0,
+     "all": 563.3
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Wales",
+   "control": {
+    "per_match": {
+     "group": 48.5,
+     "ko": 0.0,
+     "all": 48.5
+    },
+    "total": {
+     "group": 48.5,
+     "ko": 0.0,
+     "all": 48.5
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 186.0,
+     "ko": 0.0,
+     "all": 186.0
+    },
+    "total": {
+     "group": 558.0,
+     "ko": 0.0,
+     "all": 558.0
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Qatar",
+   "control": {
+    "per_match": {
+     "group": 48.1,
+     "ko": 0.0,
+     "all": 48.1
+    },
+    "total": {
+     "group": 48.1,
+     "ko": 0.0,
+     "all": 48.1
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 201.15,
+     "ko": 0.0,
+     "all": 201.15
+    },
+    "total": {
+     "group": 603.4,
+     "ko": 0.0,
+     "all": 603.4
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Switzerland",
+   "control": {
+    "per_match": {
+     "group": 46.5,
+     "ko": 52.7,
+     "all": 48.1
+    },
+    "total": {
+     "group": 46.6,
+     "ko": 52.7,
+     "all": 48.0
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 192.85,
+     "ko": 195.1,
+     "all": 193.41
+    },
+    "total": {
+     "group": 578.5,
+     "ko": 195.1,
+     "all": 773.6
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 1,
+    "all": 4
+   }
+  },
+  {
+   "team": "Tunisia",
+   "control": {
+    "per_match": {
+     "group": 48.0,
+     "ko": 0.0,
+     "all": 48.0
+    },
+    "total": {
+     "group": 47.9,
+     "ko": 0.0,
+     "all": 47.9
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 170.8,
+     "ko": 0.0,
+     "all": 170.8
+    },
+    "total": {
+     "group": 512.4,
+     "ko": 0.0,
+     "all": 512.4
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Japan",
+   "control": {
+    "per_match": {
+     "group": 47.2,
+     "ko": 48.2,
+     "all": 47.5
+    },
+    "total": {
+     "group": 47.4,
+     "ko": 48.2,
+     "all": 47.6
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 166.14,
+     "ko": 180.41,
+     "all": 169.71
+    },
+    "total": {
+     "group": 498.4,
+     "ko": 180.4,
+     "all": 678.8
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 1,
+    "all": 4
+   }
+  },
+  {
+   "team": "Ghana",
+   "control": {
+    "per_match": {
+     "group": 46.8,
+     "ko": 0.0,
+     "all": 46.8
+    },
+    "total": {
+     "group": 46.7,
+     "ko": 0.0,
+     "all": 46.7
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 199.68,
+     "ko": 0.0,
+     "all": 199.68
+    },
+    "total": {
+     "group": 599.0,
+     "ko": 0.0,
+     "all": 599.0
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Morocco",
+   "control": {
+    "per_match": {
+     "group": 46.7,
+     "ko": 46.5,
+     "all": 46.6
+    },
+    "total": {
+     "group": 46.7,
+     "ko": 46.5,
+     "all": 46.6
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 163.5,
+     "ko": 178.69,
+     "all": 172.18
+    },
+    "total": {
+     "group": 490.5,
+     "ko": 714.8,
+     "all": 1205.3
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 4,
+    "all": 7
+   }
+  },
+  {
+   "team": "Iran",
+   "control": {
+    "per_match": {
+     "group": 46.4,
+     "ko": 0.0,
+     "all": 46.4
+    },
+    "total": {
+     "group": 46.4,
+     "ko": 0.0,
+     "all": 46.4
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 172.57,
+     "ko": 0.0,
+     "all": 172.57
+    },
+    "total": {
+     "group": 517.7,
+     "ko": 0.0,
+     "all": 517.7
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  },
+  {
+   "team": "Australia",
+   "control": {
+    "per_match": {
+     "group": 45.2,
+     "ko": 47.0,
+     "all": 45.6
+    },
+    "total": {
+     "group": 45.1,
+     "ko": 47.0,
+     "all": 45.6
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 161.63,
+     "ko": 171.3,
+     "all": 164.05
+    },
+    "total": {
+     "group": 484.9,
+     "ko": 171.3,
+     "all": 656.2
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 1,
+    "all": 4
+   }
+  },
+  {
+   "team": "Poland",
+   "control": {
+    "per_match": {
+     "group": 43.8,
+     "ko": 47.6,
+     "all": 44.8
+    },
+    "total": {
+     "group": 43.7,
+     "ko": 47.6,
+     "all": 44.7
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 155.89,
+     "ko": 194.79,
+     "all": 165.61
+    },
+    "total": {
+     "group": 467.7,
+     "ko": 194.8,
+     "all": 662.4
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 1,
+    "all": 4
+   }
+  },
+  {
+   "team": "Costa Rica",
+   "control": {
+    "per_match": {
+     "group": 40.6,
+     "ko": 0.0,
+     "all": 40.6
+    },
+    "total": {
+     "group": 40.6,
+     "ko": 0.0,
+     "all": 40.6
+    }
+   },
+   "dangerous": {
+    "per_match": {
+     "group": 147.33,
+     "ko": 0.0,
+     "all": 147.33
+    },
+    "total": {
+     "group": 442.0,
+     "ko": 0.0,
+     "all": 442.0
+    }
+   },
+   "n_matches": {
+    "group": 3,
+    "ko": 0,
+    "all": 3
+   }
+  }
+ ]
+}

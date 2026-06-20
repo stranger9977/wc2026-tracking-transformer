@@ -162,9 +162,22 @@ def frame_obso(fr, grid, xt_grid):
                     DANGER_MOMENT_THRESH.
     """
     ctrl = pc.control_surface(fr.players, fr.ball_m, grid, include_gk=True)
-    surface = ctrl["attack_control"] * xt_grid
+    # True OBSO = reach x control x xT: the reach factor (P the ball can be
+    # played to a cell) restores the ball-awareness bare xT lacks, so dangerous
+    # space the ball cannot reach right now is discounted toward 0.
+    reach = pc.reach_surface(fr.ball_m, grid)
+    surface = ctrl["attack_control"] * xt_grid * reach      # ball-aware: team OBSO, render, peak
     obso_total = float(surface.sum() * grid.cell_area_m2)
     peak_cell = float(surface.max())       # best single controlled-danger pocket
+    # Per-PLAYER attribution uses control x xT WITHOUT reach. F&B "Space
+    # Occupation" credits OCCUPYING valuable space (Messi walks into it before
+    # the ball arrives), and the attribution is already local (a player only
+    # gets the danger he personally owns), so reach would only penalise forwards
+    # for being upfield — it belongs on the surface/team OBSO, not the board.
+    surf_attr = ctrl["attack_control"] * xt_grid
+    # Territorial control share: fraction of the pitch the in-possession team
+    # owns outright (the "France controlled 55% of the pitch" number).
+    ctrl_share = float((ctrl["attack_control"] > 0.5).mean())
 
     infl = ctrl["player_influence"]        # (n_kept, ny, nx)
     idx = ctrl["player_idx"]               # row indices into fr.players
@@ -200,8 +213,8 @@ def frame_obso(fr, grid, xt_grid):
         owner = np.argmax(sub, axis=0)       # (ny, nx)
         for m_i, row in enumerate(sel_rows):
             cells = owner == m_i
-            attrib[row] = float((cells * surface).sum() * grid.cell_area_m2)
-    return obso_total, surface, attrib, carrier_row, peak_cell
+            attrib[row] = float((cells * surf_attr).sum() * grid.cell_area_m2)
+    return obso_total, surface, attrib, carrier_row, peak_cell, ctrl_share
 
 
 # ---------------------------------------------------------------------------
@@ -248,6 +261,8 @@ def compute(matches=SAMPLE_MATCHES):
     team_match_means: dict[str, list[float]] = defaultdict(list)
     # team -> list of PER-MATCH danger-moment rate /min (CI for the FLOW ranking)
     team_match_dm: dict[str, list[float]] = defaultdict(list)
+    # team board: one row per (team, match) with territorial control + OBSO.
+    team_board_rows: list[dict] = []
 
     match_summ = []
     t_start = time.time()
@@ -259,11 +274,12 @@ def compute(matches=SAMPLE_MATCHES):
         teams = (meta["homeTeam"]["name"], meta["awayTeam"]["name"])
         stage = stage_of(mid)
         match_team_obso: dict[str, list[float]] = defaultdict(list)
+        match_team_ctrl: dict[str, list[float]] = defaultdict(list)  # territorial share
         match_team_dm: dict[str, list[int]] = defaultdict(lambda: [0, 0])  # [dm, frames]
         t0 = time.time()
         for fr in space_io.read_match(mid, sampling_stride=SAMPLING_STRIDE,
                                       periods=PERIODS):
-            obso_total, surface, attrib, carrier_row, peak_cell = frame_obso(
+            obso_total, surface, attrib, carrier_row, peak_cell, ctrl_share = frame_obso(
                 fr, grid, xt_grid)
             pt = _carrier_pressured(intervals, fr.period, fr.timestamp_s)
             pressured = pt is not None
@@ -277,6 +293,10 @@ def compute(matches=SAMPLE_MATCHES):
             oppw = opp.weight(opp_team)
             team_obso_frames[att_team].append(obso_total)
             match_team_obso[att_team].append(obso_total)
+            # Territorial control share, recorded for BOTH teams every frame
+            # (in-possession team owns ctrl_share, the other owns the rest).
+            match_team_ctrl[att_team].append(ctrl_share)
+            match_team_ctrl[opp_team].append(1.0 - ctrl_share)
             if pressured:
                 team_obso_pressured[att_team].append(obso_total)
             team_frames_count[att_team] += 1
@@ -331,6 +351,21 @@ def compute(matches=SAMPLE_MATCHES):
                 team_match_means[tm].append(float(np.mean(vals)))
                 nd, naf = match_team_dm[tm]
                 team_match_dm[tm].append((nd / max(naf, 1)) / SECS_PER_FRAME * 60.0)
+        # one team-board row per (team, match): territorial control share +
+        # dangerous OBSO (xT-wtd m^2). Minutes via frame count -> per-match m^2.min.
+        for tm in teams:
+            cvals = match_team_ctrl.get(tm, [])
+            ovals = match_team_obso.get(tm, [])
+            if len(cvals) < 50:
+                continue
+            team_board_rows.append({
+                "team": tm, "stage": stage,
+                "ctrl_mean": float(np.mean(cvals)),                 # territorial share 0..1
+                "ctrl_frames": len(cvals),
+                "obso_mean": float(np.mean(ovals)) if ovals else 0.0,  # dangerous intensity / attacking frame
+                "obso_min": float(np.sum(ovals)) * SECS_PER_FRAME / 60.0,  # m^2.min of danger this match
+                "att_frames": len(ovals),
+            })
         dt = time.time() - t0
         match_summ.append({
             "match_id": mid, "teams": teams, "n_frames": n_frames,
@@ -357,6 +392,7 @@ def compute(matches=SAMPLE_MATCHES):
         "team_peak": dict(team_peak),
         "team_match_means": dict(team_match_means),
         "team_match_dm": dict(team_match_dm),
+        "team_board_rows": team_board_rows,
         "match_summ": match_summ,
         "compute_s": round(time.time() - t_start, 1),
     }
@@ -670,7 +706,7 @@ def find_and_export_hero(res, matches):
     track = defaultdict(list)   # (period, name, team) -> [(t_s, obso, x_m, spd)]
     for fr in space_io.read_match(hero_mid, sampling_stride=SAMPLING_STRIDE,
                                   periods=PERIODS):
-        _, surface, attrib, carrier_row, peak_cell = frame_obso(fr, grid, xt_grid)
+        _, surface, attrib, carrier_row, peak_cell, _ = frame_obso(fr, grid, xt_grid)
         if not attrib:
             continue
         top_row = max(attrib, key=attrib.get)
@@ -680,8 +716,16 @@ def find_and_export_hero(res, matches):
             (fr.timestamp_s, float(attrib[top_row]), x_m, spd))
 
     WIN_S = 6.0
+    # Pin the hero to Di María's run + finish (ARG's 2nd goal in the final) — the
+    # series' signature off-ball story. Fall back to the auto-picked best if his
+    # window isn't found (e.g. tracking gap).
+    HERO_PIN = "Ángel Di María"
+    pinned_keys = [k for k in track if k[1] == HERO_PIN]
+    candidate_keys = pinned_keys if pinned_keys else list(track.keys())
     best = None   # (score, period, name, team, w0, w1, t_peak, peak_val, peak_spd)
-    for (period, nm, tm), series in track.items():
+    for key in candidate_keys:
+        (period, nm, tm) = key
+        series = track[key]
         series.sort()
         ts = [s[0] for s in series]; ob = [s[1] for s in series]
         xs = [s[2] for s in series]; sp = [s[3] for s in series]
@@ -787,6 +831,55 @@ def find_and_export_hero(res, matches):
 # ---------------------------------------------------------------------------
 # Orchestration.
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Team board: territorial pitch control % + dangerous-space OBSO, per
+# match / total x group / knockout / all. Answers "France controlled 55%?".
+# ---------------------------------------------------------------------------
+def build_team_board(res):
+    rows = res.get("team_board_rows", [])
+    teams = sorted({r["team"] for r in rows})
+
+    def agg(team_rows):
+        cf = sum(r["ctrl_frames"] for r in team_rows)
+        ctrl_pm = 100.0 * float(np.mean([r["ctrl_mean"] for r in team_rows])) if team_rows else 0.0
+        ctrl_tot = (100.0 * sum(r["ctrl_mean"] * r["ctrl_frames"] for r in team_rows) / cf
+                    if cf else 0.0)
+        dang_pm = float(np.mean([r["obso_min"] for r in team_rows])) if team_rows else 0.0
+        dang_tot = float(sum(r["obso_min"] for r in team_rows))
+        return ctrl_pm, ctrl_tot, dang_pm, dang_tot, len(team_rows)
+
+    out = []
+    for tm in teams:
+        trows = [r for r in rows if r["team"] == tm]
+        by_stage = {"group": [r for r in trows if r["stage"] == "group"],
+                    "ko": [r for r in trows if r["stage"] == "ko"],
+                    "all": trows}
+        ctrl_pm, ctrl_tot, dang_pm, dang_tot, nm = {}, {}, {}, {}, {}
+        for sk, sr in by_stage.items():
+            cpm, ctot, dpm, dtot, n = agg(sr)
+            ctrl_pm[sk] = round(cpm, 1); ctrl_tot[sk] = round(ctot, 1)
+            dang_pm[sk] = round(dpm, 2); dang_tot[sk] = round(dtot, 1)
+            nm[sk] = n
+        out.append({
+            "team": tm,
+            "control": {"per_match": ctrl_pm, "total": ctrl_tot},
+            "dangerous": {"per_match": dang_pm, "total": dang_tot},
+            "n_matches": nm,
+        })
+    out.sort(key=lambda t: -t["control"]["per_match"]["all"])
+    return {
+        "metric": "team_control",
+        "title": "Pitch control & dangerous space, by team",
+        "definition": (
+            "Territorial control = mean share of the pitch a team owns outright "
+            "(attacker influence > defender), the 'controlled 55% of the pitch' "
+            "number. Dangerous space = OBSO (reach x control x xT) the team "
+            "generates when attacking, in xT-weighted m^2.min per game / total."),
+        "lambda_m": pc.REACH_LAMBDA_M,
+        "teams": out,
+    }
+
+
 def main():
     print("=" * 70)
     print("P-OBSO — Pressure-gated Off-ball Scoring Opportunity (xT bridge)")
@@ -867,6 +960,12 @@ def main():
     with open(lb_path, "w") as fh:
         json.dump(leaderboard, fh, indent=1)
     print(f"\n[export] leaderboard -> {lb_path}")
+
+    team_board = build_team_board(res)
+    tb_path = DATA_DIR / "team_control.json"
+    with open(tb_path, "w") as fh:
+        json.dump(team_board, fh, indent=1)
+    print(f"[export] team board -> {tb_path} ({len(team_board['teams'])} teams)")
     print(f"[leaderboard] {len(players)} players, {len(teams)} teams")
     print(f"[xg-receipt] n={receipt['n']} rho={receipt['rho']} "
           f"CI95={receipt['ci95']} p={receipt['p_value']}")
