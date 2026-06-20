@@ -660,7 +660,7 @@
    2
   ],
   "secs_per_frame": 0.5,
-  "compute_s": 1267.5,
+  "compute_s": 1364.4,
   "occlusion_estimated_pct": 42.2
  },
  "section_spec": {
@@ -671,11 +671,11 @@
  },
  "xg_receipt": {
   "n": 32,
-  "rho": -0.306,
-  "p_value": 0.0884,
+  "rho": 0.292,
+  "p_value": 0.1051,
   "ci95": [
-   -0.622,
-   0.063
+   -0.063,
+   0.615
   ],
   "unit": "x = team P-OBSO danger-moment rate (controlled control x xT pockets per minute of possession); y = StatsBomb 2022 xG-for per match",
   "unit_x": "danger-moments per minute of possession (control x xT pocket > 0.12)",
@@ -683,196 +683,196 @@
   "reading": "NULL / not significant: over these 8 matches, team-level off-ball danger-moment rate does NOT reliably predict xG-for (CI spans 0). Controlled dangerous space is necessary but not sufficient for shots; conversion/penetration is a separate step, and n=10 teams with overlapping CIs is underpowered. Honest negative result.",
   "detail": [
    {
-    "team": "Costa Rica",
-    "danger_moments_per_min": 27.33,
-    "sb_xg_per_match": 0.411,
-    "sb_matches": 3
-   },
-   {
-    "team": "Iran",
-    "danger_moments_per_min": 20.0,
-    "sb_xg_per_match": 1.277,
-    "sb_matches": 3
-   },
-   {
-    "team": "Japan",
-    "danger_moments_per_min": 18.7,
-    "sb_xg_per_match": 1.018,
-    "sb_matches": 4
-   },
-   {
-    "team": "Ghana",
-    "danger_moments_per_min": 17.42,
-    "sb_xg_per_match": 1.118,
-    "sb_matches": 3
-   },
-   {
-    "team": "Poland",
-    "danger_moments_per_min": 16.6,
-    "sb_xg_per_match": 1.166,
-    "sb_matches": 4
-   },
-   {
-    "team": "Saudi Arabia",
-    "danger_moments_per_min": 16.4,
-    "sb_xg_per_match": 1.067,
-    "sb_matches": 3
-   },
-   {
-    "team": "Switzerland",
-    "danger_moments_per_min": 16.21,
-    "sb_xg_per_match": 1.523,
-    "sb_matches": 4
-   },
-   {
-    "team": "Australia",
-    "danger_moments_per_min": 15.55,
-    "sb_xg_per_match": 0.395,
-    "sb_matches": 4
-   },
-   {
-    "team": "Mexico",
-    "danger_moments_per_min": 14.15,
-    "sb_xg_per_match": 1.019,
-    "sb_matches": 3
-   },
-   {
-    "team": "Cameroon",
-    "danger_moments_per_min": 13.42,
-    "sb_xg_per_match": 1.022,
-    "sb_matches": 3
-   },
-   {
-    "team": "Qatar",
-    "danger_moments_per_min": 12.93,
-    "sb_xg_per_match": 0.469,
-    "sb_matches": 3
-   },
-   {
-    "team": "Argentina",
-    "danger_moments_per_min": 12.78,
-    "sb_xg_per_match": 1.757,
-    "sb_matches": 7
-   },
-   {
-    "team": "Serbia",
-    "danger_moments_per_min": 12.47,
-    "sb_xg_per_match": 1.03,
-    "sb_matches": 3
-   },
-   {
-    "team": "Wales",
-    "danger_moments_per_min": 12.47,
-    "sb_xg_per_match": 0.74,
-    "sb_matches": 3
-   },
-   {
-    "team": "Senegal",
-    "danger_moments_per_min": 12.46,
-    "sb_xg_per_match": 1.069,
-    "sb_matches": 4
-   },
-   {
-    "team": "Morocco",
-    "danger_moments_per_min": 12.2,
-    "sb_xg_per_match": 0.773,
-    "sb_matches": 7
-   },
-   {
-    "team": "Uruguay",
-    "danger_moments_per_min": 11.19,
-    "sb_xg_per_match": 1.09,
-    "sb_matches": 3
-   },
-   {
-    "team": "Netherlands",
-    "danger_moments_per_min": 11.09,
-    "sb_xg_per_match": 0.988,
-    "sb_matches": 5
-   },
-   {
-    "team": "Croatia",
-    "danger_moments_per_min": 10.63,
-    "sb_xg_per_match": 0.922,
-    "sb_matches": 7
-   },
-   {
-    "team": "Tunisia",
-    "danger_moments_per_min": 10.47,
-    "sb_xg_per_match": 0.803,
-    "sb_matches": 3
-   },
-   {
-    "team": "Belgium",
-    "danger_moments_per_min": 10.23,
-    "sb_xg_per_match": 1.231,
-    "sb_matches": 3
-   },
-   {
-    "team": "France",
-    "danger_moments_per_min": 9.95,
-    "sb_xg_per_match": 1.53,
-    "sb_matches": 7
-   },
-   {
-    "team": "Brazil",
-    "danger_moments_per_min": 9.52,
-    "sb_xg_per_match": 1.949,
-    "sb_matches": 5
-   },
-   {
-    "team": "United States",
-    "danger_moments_per_min": 9.04,
-    "sb_xg_per_match": 0.985,
-    "sb_matches": 4
-   },
-   {
-    "team": "Canada",
-    "danger_moments_per_min": 8.7,
-    "sb_xg_per_match": 1.31,
-    "sb_matches": 3
-   },
-   {
-    "team": "Ecuador",
-    "danger_moments_per_min": 8.11,
-    "sb_xg_per_match": 1.269,
-    "sb_matches": 3
-   },
-   {
-    "team": "Denmark",
-    "danger_moments_per_min": 7.84,
-    "sb_xg_per_match": 1.064,
-    "sb_matches": 3
-   },
-   {
     "team": "Portugal",
-    "danger_moments_per_min": 7.8,
+    "danger_moments_per_min": 0.25,
     "sb_xg_per_match": 1.463,
     "sb_matches": 5
    },
    {
-    "team": "England",
-    "danger_moments_per_min": 7.64,
-    "sb_xg_per_match": 1.747,
+    "team": "Wales",
+    "danger_moments_per_min": 0.17,
+    "sb_xg_per_match": 0.74,
+    "sb_matches": 3
+   },
+   {
+    "team": "Brazil",
+    "danger_moments_per_min": 0.1,
+    "sb_xg_per_match": 1.949,
     "sb_matches": 5
    },
    {
-    "team": "South Korea",
-    "danger_moments_per_min": 7.34,
-    "sb_xg_per_match": 0.901,
-    "sb_matches": 4
-   },
-   {
     "team": "Germany",
-    "danger_moments_per_min": 7.21,
+    "danger_moments_per_min": 0.1,
     "sb_xg_per_match": 2.744,
     "sb_matches": 3
    },
    {
+    "team": "Morocco",
+    "danger_moments_per_min": 0.1,
+    "sb_xg_per_match": 0.773,
+    "sb_matches": 7
+   },
+   {
+    "team": "Ecuador",
+    "danger_moments_per_min": 0.09,
+    "sb_xg_per_match": 1.269,
+    "sb_matches": 3
+   },
+   {
+    "team": "Ghana",
+    "danger_moments_per_min": 0.09,
+    "sb_xg_per_match": 1.118,
+    "sb_matches": 3
+   },
+   {
+    "team": "Belgium",
+    "danger_moments_per_min": 0.08,
+    "sb_xg_per_match": 1.231,
+    "sb_matches": 3
+   },
+   {
+    "team": "Denmark",
+    "danger_moments_per_min": 0.08,
+    "sb_xg_per_match": 1.064,
+    "sb_matches": 3
+   },
+   {
+    "team": "Iran",
+    "danger_moments_per_min": 0.08,
+    "sb_xg_per_match": 1.277,
+    "sb_matches": 3
+   },
+   {
+    "team": "Netherlands",
+    "danger_moments_per_min": 0.08,
+    "sb_xg_per_match": 0.988,
+    "sb_matches": 5
+   },
+   {
+    "team": "Japan",
+    "danger_moments_per_min": 0.07,
+    "sb_xg_per_match": 1.018,
+    "sb_matches": 4
+   },
+   {
+    "team": "England",
+    "danger_moments_per_min": 0.06,
+    "sb_xg_per_match": 1.747,
+    "sb_matches": 5
+   },
+   {
+    "team": "France",
+    "danger_moments_per_min": 0.06,
+    "sb_xg_per_match": 1.53,
+    "sb_matches": 7
+   },
+   {
+    "team": "Mexico",
+    "danger_moments_per_min": 0.06,
+    "sb_xg_per_match": 1.019,
+    "sb_matches": 3
+   },
+   {
+    "team": "Poland",
+    "danger_moments_per_min": 0.06,
+    "sb_xg_per_match": 1.166,
+    "sb_matches": 4
+   },
+   {
+    "team": "South Korea",
+    "danger_moments_per_min": 0.06,
+    "sb_xg_per_match": 0.901,
+    "sb_matches": 4
+   },
+   {
+    "team": "Argentina",
+    "danger_moments_per_min": 0.05,
+    "sb_xg_per_match": 1.757,
+    "sb_matches": 7
+   },
+   {
+    "team": "Costa Rica",
+    "danger_moments_per_min": 0.05,
+    "sb_xg_per_match": 0.411,
+    "sb_matches": 3
+   },
+   {
+    "team": "Croatia",
+    "danger_moments_per_min": 0.05,
+    "sb_xg_per_match": 0.922,
+    "sb_matches": 7
+   },
+   {
+    "team": "Qatar",
+    "danger_moments_per_min": 0.05,
+    "sb_xg_per_match": 0.469,
+    "sb_matches": 3
+   },
+   {
+    "team": "Senegal",
+    "danger_moments_per_min": 0.04,
+    "sb_xg_per_match": 1.069,
+    "sb_matches": 4
+   },
+   {
     "team": "Spain",
-    "danger_moments_per_min": 4.88,
+    "danger_moments_per_min": 0.04,
     "sb_xg_per_match": 1.108,
     "sb_matches": 4
+   },
+   {
+    "team": "Switzerland",
+    "danger_moments_per_min": 0.04,
+    "sb_xg_per_match": 1.523,
+    "sb_matches": 4
+   },
+   {
+    "team": "Uruguay",
+    "danger_moments_per_min": 0.04,
+    "sb_xg_per_match": 1.09,
+    "sb_matches": 3
+   },
+   {
+    "team": "Cameroon",
+    "danger_moments_per_min": 0.03,
+    "sb_xg_per_match": 1.022,
+    "sb_matches": 3
+   },
+   {
+    "team": "Saudi Arabia",
+    "danger_moments_per_min": 0.03,
+    "sb_xg_per_match": 1.067,
+    "sb_matches": 3
+   },
+   {
+    "team": "Australia",
+    "danger_moments_per_min": 0.02,
+    "sb_xg_per_match": 0.395,
+    "sb_matches": 4
+   },
+   {
+    "team": "Canada",
+    "danger_moments_per_min": 0.02,
+    "sb_xg_per_match": 1.31,
+    "sb_matches": 3
+   },
+   {
+    "team": "Serbia",
+    "danger_moments_per_min": 0.02,
+    "sb_xg_per_match": 1.03,
+    "sb_matches": 3
+   },
+   {
+    "team": "United States",
+    "danger_moments_per_min": 0.01,
+    "sb_xg_per_match": 0.985,
+    "sb_matches": 4
+   },
+   {
+    "team": "Tunisia",
+    "danger_moments_per_min": 0.0,
+    "sb_xg_per_match": 0.803,
+    "sb_matches": 3
    }
   ],
   "sb_match_map": {
@@ -39742,451 +39742,451 @@
  ],
  "teams": [
   {
-   "team": "Costa Rica",
-   "danger_moments_per_min": 27.33,
+   "team": "Portugal",
+   "danger_moments_per_min": 0.25,
    "ci": [
-    18.79,
-    43.96
+    0.08,
+    0.48
    ],
-   "ci_basis": "bootstrap over 3 sampled matches",
-   "n_matches_sampled": 3,
-   "pobso_stock": 67.156,
-   "attacking_frames": 9989,
-   "pressured_share": 0.239,
+   "ci_basis": "bootstrap over 5 sampled matches",
+   "n_matches_sampled": 5,
+   "pobso_stock": 6.317,
+   "attacking_frames": 20867,
+   "pressured_share": 0.224,
    "tied_with_leader": true
   },
   {
-   "team": "Iran",
-   "danger_moments_per_min": 20.0,
+   "team": "Wales",
+   "danger_moments_per_min": 0.17,
    "ci": [
-    12.82,
-    33.09
+    0.07,
+    0.39
    ],
    "ci_basis": "bootstrap over 3 sampled matches",
    "n_matches_sampled": 3,
-   "pobso_stock": 66.623,
-   "attacking_frames": 10648,
-   "pressured_share": 0.208,
+   "pobso_stock": 5.695,
+   "attacking_frames": 11758,
+   "pressured_share": 0.218,
    "tied_with_leader": true
   },
   {
-   "team": "Japan",
-   "danger_moments_per_min": 18.7,
+   "team": "Brazil",
+   "danger_moments_per_min": 0.1,
    "ci": [
-    7.57,
-    38.84
+    0.05,
+    0.15
    ],
-   "ci_basis": "bootstrap over 4 sampled matches",
-   "n_matches_sampled": 4,
-   "pobso_stock": 66.851,
-   "attacking_frames": 13578,
-   "pressured_share": 0.212,
+   "ci_basis": "bootstrap over 5 sampled matches",
+   "n_matches_sampled": 5,
+   "pobso_stock": 6.326,
+   "attacking_frames": 22052,
+   "pressured_share": 0.2,
    "tied_with_leader": true
   },
   {
-   "team": "Ghana",
-   "danger_moments_per_min": 17.42,
+   "team": "Morocco",
+   "danger_moments_per_min": 0.1,
    "ci": [
-    11.87,
-    24.02
+    0.03,
+    0.23
+   ],
+   "ci_basis": "bootstrap over 7 sampled matches",
+   "n_matches_sampled": 7,
+   "pobso_stock": 5.487,
+   "attacking_frames": 26361,
+   "pressured_share": 0.219,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Germany",
+   "danger_moments_per_min": 0.1,
+   "ci": [
+    0.04,
+    0.23
    ],
    "ci_basis": "bootstrap over 3 sampled matches",
    "n_matches_sampled": 3,
-   "pobso_stock": 66.753,
-   "attacking_frames": 12705,
+   "pobso_stock": 6.58,
+   "attacking_frames": 14156,
+   "pressured_share": 0.256,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Ecuador",
+   "danger_moments_per_min": 0.09,
+   "ci": [
+    0.03,
+    0.15
+   ],
+   "ci_basis": "bootstrap over 3 sampled matches",
+   "n_matches_sampled": 3,
+   "pobso_stock": 5.888,
+   "attacking_frames": 12017,
    "pressured_share": 0.204,
    "tied_with_leader": true
   },
   {
-   "team": "Poland",
-   "danger_moments_per_min": 16.6,
+   "team": "Ghana",
+   "danger_moments_per_min": 0.09,
    "ci": [
-    11.61,
-    22.16
+    0.03,
+    0.2
    ],
-   "ci_basis": "bootstrap over 4 sampled matches",
-   "n_matches_sampled": 4,
-   "pobso_stock": 65.344,
-   "attacking_frames": 13849,
-   "pressured_share": 0.21,
+   "ci_basis": "bootstrap over 3 sampled matches",
+   "n_matches_sampled": 3,
+   "pobso_stock": 5.658,
+   "attacking_frames": 12705,
+   "pressured_share": 0.202,
    "tied_with_leader": true
-  },
-  {
-   "team": "Saudi Arabia",
-   "danger_moments_per_min": 16.4,
-   "ci": [
-    4.27,
-    25.58
-   ],
-   "ci_basis": "bootstrap over 3 sampled matches",
-   "n_matches_sampled": 3,
-   "pobso_stock": 66.132,
-   "attacking_frames": 11700,
-   "pressured_share": 0.181,
-   "tied_with_leader": true
-  },
-  {
-   "team": "Switzerland",
-   "danger_moments_per_min": 16.21,
-   "ci": [
-    11.96,
-    19.96
-   ],
-   "ci_basis": "bootstrap over 4 sampled matches",
-   "n_matches_sampled": 4,
-   "pobso_stock": 66.614,
-   "attacking_frames": 16235,
-   "pressured_share": 0.197,
-   "tied_with_leader": true
-  },
-  {
-   "team": "Australia",
-   "danger_moments_per_min": 15.55,
-   "ci": [
-    11.39,
-    19.5
-   ],
-   "ci_basis": "bootstrap over 4 sampled matches",
-   "n_matches_sampled": 4,
-   "pobso_stock": 65.679,
-   "attacking_frames": 14460,
-   "pressured_share": 0.21,
-   "tied_with_leader": true
-  },
-  {
-   "team": "Mexico",
-   "danger_moments_per_min": 14.15,
-   "ci": [
-    11.17,
-    17.86
-   ],
-   "ci_basis": "bootstrap over 3 sampled matches",
-   "n_matches_sampled": 3,
-   "pobso_stock": 66.873,
-   "attacking_frames": 12561,
-   "pressured_share": 0.19,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Cameroon",
-   "danger_moments_per_min": 13.42,
-   "ci": [
-    7.92,
-    18.67
-   ],
-   "ci_basis": "bootstrap over 3 sampled matches",
-   "n_matches_sampled": 3,
-   "pobso_stock": 66.948,
-   "attacking_frames": 11464,
-   "pressured_share": 0.168,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Qatar",
-   "danger_moments_per_min": 12.93,
-   "ci": [
-    10.17,
-    17.23
-   ],
-   "ci_basis": "bootstrap over 3 sampled matches",
-   "n_matches_sampled": 3,
-   "pobso_stock": 66.716,
-   "attacking_frames": 12969,
-   "pressured_share": 0.175,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Argentina",
-   "danger_moments_per_min": 12.78,
-   "ci": [
-    9.55,
-    17.59
-   ],
-   "ci_basis": "bootstrap over 7 sampled matches",
-   "n_matches_sampled": 7,
-   "pobso_stock": 66.106,
-   "attacking_frames": 30748,
-   "pressured_share": 0.224,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Wales",
-   "danger_moments_per_min": 12.47,
-   "ci": [
-    9.86,
-    15.68
-   ],
-   "ci_basis": "bootstrap over 3 sampled matches",
-   "n_matches_sampled": 3,
-   "pobso_stock": 66.581,
-   "attacking_frames": 11758,
-   "pressured_share": 0.224,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Serbia",
-   "danger_moments_per_min": 12.47,
-   "ci": [
-    6.95,
-    21.77
-   ],
-   "ci_basis": "bootstrap over 3 sampled matches",
-   "n_matches_sampled": 3,
-   "pobso_stock": 65.814,
-   "attacking_frames": 11667,
-   "pressured_share": 0.178,
-   "tied_with_leader": true
-  },
-  {
-   "team": "Senegal",
-   "danger_moments_per_min": 12.46,
-   "ci": [
-    8.66,
-    16.47
-   ],
-   "ci_basis": "bootstrap over 4 sampled matches",
-   "n_matches_sampled": 4,
-   "pobso_stock": 65.544,
-   "attacking_frames": 14269,
-   "pressured_share": 0.219,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Morocco",
-   "danger_moments_per_min": 12.2,
-   "ci": [
-    9.22,
-    15.99
-   ],
-   "ci_basis": "bootstrap over 7 sampled matches",
-   "n_matches_sampled": 7,
-   "pobso_stock": 66.211,
-   "attacking_frames": 26361,
-   "pressured_share": 0.22,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Uruguay",
-   "danger_moments_per_min": 11.19,
-   "ci": [
-    6.02,
-    15.46
-   ],
-   "ci_basis": "bootstrap over 3 sampled matches",
-   "n_matches_sampled": 3,
-   "pobso_stock": 65.66,
-   "attacking_frames": 11277,
-   "pressured_share": 0.196,
-   "tied_with_leader": false
   },
   {
    "team": "Netherlands",
-   "danger_moments_per_min": 11.09,
+   "danger_moments_per_min": 0.08,
    "ci": [
-    6.08,
-    20.39
+    0.01,
+    0.12
    ],
    "ci_basis": "bootstrap over 5 sampled matches",
    "n_matches_sampled": 5,
-   "pobso_stock": 64.372,
+   "pobso_stock": 6.004,
    "attacking_frames": 19118,
    "pressured_share": 0.232,
    "tied_with_leader": true
   },
   {
-   "team": "Croatia",
-   "danger_moments_per_min": 10.63,
+   "team": "Iran",
+   "danger_moments_per_min": 0.08,
    "ci": [
-    8.29,
-    13.16
-   ],
-   "ci_basis": "bootstrap over 7 sampled matches",
-   "n_matches_sampled": 7,
-   "pobso_stock": 64.769,
-   "attacking_frames": 29726,
-   "pressured_share": 0.219,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Tunisia",
-   "danger_moments_per_min": 10.47,
-   "ci": [
-    9.04,
-    12.36
+    0.0,
+    0.23
    ],
    "ci_basis": "bootstrap over 3 sampled matches",
    "n_matches_sampled": 3,
-   "pobso_stock": 65.103,
-   "attacking_frames": 11037,
-   "pressured_share": 0.228,
-   "tied_with_leader": false
+   "pobso_stock": 5.835,
+   "attacking_frames": 10648,
+   "pressured_share": 0.203,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Denmark",
+   "danger_moments_per_min": 0.08,
+   "ci": [
+    0.0,
+    0.21
+   ],
+   "ci_basis": "bootstrap over 3 sampled matches",
+   "n_matches_sampled": 3,
+   "pobso_stock": 5.959,
+   "attacking_frames": 14167,
+   "pressured_share": 0.219,
+   "tied_with_leader": true
   },
   {
    "team": "Belgium",
-   "danger_moments_per_min": 10.23,
+   "danger_moments_per_min": 0.08,
    "ci": [
-    5.63,
-    18.0
+    0.02,
+    0.17
    ],
    "ci_basis": "bootstrap over 3 sampled matches",
    "n_matches_sampled": 3,
-   "pobso_stock": 65.982,
+   "pobso_stock": 5.796,
    "attacking_frames": 15061,
-   "pressured_share": 0.195,
-   "tied_with_leader": false
+   "pressured_share": 0.197,
+   "tied_with_leader": true
   },
   {
-   "team": "France",
-   "danger_moments_per_min": 9.95,
+   "team": "Japan",
+   "danger_moments_per_min": 0.07,
    "ci": [
-    6.45,
-    14.92
-   ],
-   "ci_basis": "bootstrap over 7 sampled matches",
-   "n_matches_sampled": 7,
-   "pobso_stock": 65.493,
-   "attacking_frames": 29267,
-   "pressured_share": 0.218,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Brazil",
-   "danger_moments_per_min": 9.52,
-   "ci": [
-    6.83,
-    12.97
-   ],
-   "ci_basis": "bootstrap over 5 sampled matches",
-   "n_matches_sampled": 5,
-   "pobso_stock": 66.353,
-   "attacking_frames": 22052,
-   "pressured_share": 0.202,
-   "tied_with_leader": false
-  },
-  {
-   "team": "United States",
-   "danger_moments_per_min": 9.04,
-   "ci": [
-    5.26,
-    14.21
+    0.04,
+    0.09
    ],
    "ci_basis": "bootstrap over 4 sampled matches",
    "n_matches_sampled": 4,
-   "pobso_stock": 65.276,
-   "attacking_frames": 20021,
-   "pressured_share": 0.21,
+   "pobso_stock": 5.999,
+   "attacking_frames": 13578,
+   "pressured_share": 0.212,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Poland",
+   "danger_moments_per_min": 0.06,
+   "ci": [
+    0.02,
+    0.1
+   ],
+   "ci_basis": "bootstrap over 4 sampled matches",
+   "n_matches_sampled": 4,
+   "pobso_stock": 5.74,
+   "attacking_frames": 13849,
+   "pressured_share": 0.202,
+   "tied_with_leader": true
+  },
+  {
+   "team": "France",
+   "danger_moments_per_min": 0.06,
+   "ci": [
+    0.03,
+    0.09
+   ],
+   "ci_basis": "bootstrap over 7 sampled matches",
+   "n_matches_sampled": 7,
+   "pobso_stock": 6.039,
+   "attacking_frames": 29267,
+   "pressured_share": 0.217,
+   "tied_with_leader": true
+  },
+  {
+   "team": "England",
+   "danger_moments_per_min": 0.06,
+   "ci": [
+    0.0,
+    0.13
+   ],
+   "ci_basis": "bootstrap over 5 sampled matches",
+   "n_matches_sampled": 5,
+   "pobso_stock": 6.039,
+   "attacking_frames": 23561,
+   "pressured_share": 0.242,
+   "tied_with_leader": true
+  },
+  {
+   "team": "South Korea",
+   "danger_moments_per_min": 0.06,
+   "ci": [
+    0.0,
+    0.11
+   ],
+   "ci_basis": "bootstrap over 4 sampled matches",
+   "n_matches_sampled": 4,
+   "pobso_stock": 6.062,
+   "attacking_frames": 14969,
+   "pressured_share": 0.232,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Mexico",
+   "danger_moments_per_min": 0.06,
+   "ci": [
+    0.03,
+    0.09
+   ],
+   "ci_basis": "bootstrap over 3 sampled matches",
+   "n_matches_sampled": 3,
+   "pobso_stock": 5.952,
+   "attacking_frames": 12561,
+   "pressured_share": 0.192,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Argentina",
+   "danger_moments_per_min": 0.05,
+   "ci": [
+    0.03,
+    0.09
+   ],
+   "ci_basis": "bootstrap over 7 sampled matches",
+   "n_matches_sampled": 7,
+   "pobso_stock": 6.145,
+   "attacking_frames": 30748,
+   "pressured_share": 0.229,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Croatia",
+   "danger_moments_per_min": 0.05,
+   "ci": [
+    0.02,
+    0.1
+   ],
+   "ci_basis": "bootstrap over 7 sampled matches",
+   "n_matches_sampled": 7,
+   "pobso_stock": 5.878,
+   "attacking_frames": 29726,
+   "pressured_share": 0.219,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Qatar",
+   "danger_moments_per_min": 0.05,
+   "ci": [
+    0.03,
+    0.06
+   ],
+   "ci_basis": "bootstrap over 3 sampled matches",
+   "n_matches_sampled": 3,
+   "pobso_stock": 5.584,
+   "attacking_frames": 12969,
+   "pressured_share": 0.168,
+   "tied_with_leader": false
+  },
+  {
+   "team": "Costa Rica",
+   "danger_moments_per_min": 0.05,
+   "ci": [
+    0.0,
+    0.11
+   ],
+   "ci_basis": "bootstrap over 3 sampled matches",
+   "n_matches_sampled": 3,
+   "pobso_stock": 5.31,
+   "attacking_frames": 9989,
+   "pressured_share": 0.239,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Senegal",
+   "danger_moments_per_min": 0.04,
+   "ci": [
+    0.02,
+    0.08
+   ],
+   "ci_basis": "bootstrap over 4 sampled matches",
+   "n_matches_sampled": 4,
+   "pobso_stock": 5.892,
+   "attacking_frames": 14269,
+   "pressured_share": 0.222,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Spain",
+   "danger_moments_per_min": 0.04,
+   "ci": [
+    0.01,
+    0.08
+   ],
+   "ci_basis": "bootstrap over 4 sampled matches",
+   "n_matches_sampled": 4,
+   "pobso_stock": 6.41,
+   "attacking_frames": 22584,
+   "pressured_share": 0.215,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Switzerland",
+   "danger_moments_per_min": 0.04,
+   "ci": [
+    0.0,
+    0.08
+   ],
+   "ci_basis": "bootstrap over 4 sampled matches",
+   "n_matches_sampled": 4,
+   "pobso_stock": 5.718,
+   "attacking_frames": 16235,
+   "pressured_share": 0.2,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Uruguay",
+   "danger_moments_per_min": 0.04,
+   "ci": [
+    0.0,
+    0.1
+   ],
+   "ci_basis": "bootstrap over 3 sampled matches",
+   "n_matches_sampled": 3,
+   "pobso_stock": 5.964,
+   "attacking_frames": 11277,
+   "pressured_share": 0.2,
+   "tied_with_leader": true
+  },
+  {
+   "team": "Saudi Arabia",
+   "danger_moments_per_min": 0.03,
+   "ci": [
+    0.0,
+    0.05
+   ],
+   "ci_basis": "bootstrap over 3 sampled matches",
+   "n_matches_sampled": 3,
+   "pobso_stock": 5.777,
+   "attacking_frames": 11700,
+   "pressured_share": 0.191,
+   "tied_with_leader": false
+  },
+  {
+   "team": "Cameroon",
+   "danger_moments_per_min": 0.03,
+   "ci": [
+    0.0,
+    0.05
+   ],
+   "ci_basis": "bootstrap over 3 sampled matches",
+   "n_matches_sampled": 3,
+   "pobso_stock": 5.556,
+   "attacking_frames": 11464,
+   "pressured_share": 0.168,
+   "tied_with_leader": false
+  },
+  {
+   "team": "Australia",
+   "danger_moments_per_min": 0.02,
+   "ci": [
+    0.0,
+    0.05
+   ],
+   "ci_basis": "bootstrap over 4 sampled matches",
+   "n_matches_sampled": 4,
+   "pobso_stock": 5.446,
+   "attacking_frames": 14460,
+   "pressured_share": 0.218,
    "tied_with_leader": false
   },
   {
    "team": "Canada",
-   "danger_moments_per_min": 8.7,
+   "danger_moments_per_min": 0.02,
    "ci": [
-    4.66,
-    16.15
+    0.0,
+    0.06
    ],
    "ci_basis": "bootstrap over 3 sampled matches",
    "n_matches_sampled": 3,
-   "pobso_stock": 65.545,
+   "pobso_stock": 6.141,
    "attacking_frames": 12896,
-   "pressured_share": 0.199,
+   "pressured_share": 0.198,
    "tied_with_leader": false
   },
   {
-   "team": "Ecuador",
-   "danger_moments_per_min": 8.11,
+   "team": "Serbia",
+   "danger_moments_per_min": 0.02,
    "ci": [
-    4.85,
-    11.09
+    0.0,
+    0.06
    ],
    "ci_basis": "bootstrap over 3 sampled matches",
    "n_matches_sampled": 3,
-   "pobso_stock": 65.326,
-   "attacking_frames": 12017,
-   "pressured_share": 0.206,
+   "pobso_stock": 5.928,
+   "attacking_frames": 11667,
+   "pressured_share": 0.181,
    "tied_with_leader": false
   },
   {
-   "team": "Denmark",
-   "danger_moments_per_min": 7.84,
+   "team": "United States",
+   "danger_moments_per_min": 0.01,
    "ci": [
-    4.57,
-    11.69
-   ],
-   "ci_basis": "bootstrap over 3 sampled matches",
-   "n_matches_sampled": 3,
-   "pobso_stock": 64.749,
-   "attacking_frames": 14167,
-   "pressured_share": 0.218,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Portugal",
-   "danger_moments_per_min": 7.8,
-   "ci": [
-    4.38,
-    12.31
-   ],
-   "ci_basis": "bootstrap over 5 sampled matches",
-   "n_matches_sampled": 5,
-   "pobso_stock": 64.414,
-   "attacking_frames": 20867,
-   "pressured_share": 0.224,
-   "tied_with_leader": false
-  },
-  {
-   "team": "England",
-   "danger_moments_per_min": 7.64,
-   "ci": [
-    5.77,
-    9.71
-   ],
-   "ci_basis": "bootstrap over 5 sampled matches",
-   "n_matches_sampled": 5,
-   "pobso_stock": 65.641,
-   "attacking_frames": 23561,
-   "pressured_share": 0.237,
-   "tied_with_leader": false
-  },
-  {
-   "team": "South Korea",
-   "danger_moments_per_min": 7.34,
-   "ci": [
-    4.85,
-    10.63
+    0.0,
+    0.03
    ],
    "ci_basis": "bootstrap over 4 sampled matches",
    "n_matches_sampled": 4,
-   "pobso_stock": 65.54,
-   "attacking_frames": 14969,
-   "pressured_share": 0.223,
+   "pobso_stock": 6.072,
+   "attacking_frames": 20021,
+   "pressured_share": 0.222,
    "tied_with_leader": false
   },
   {
-   "team": "Germany",
-   "danger_moments_per_min": 7.21,
+   "team": "Tunisia",
+   "danger_moments_per_min": 0.0,
    "ci": [
-    4.14,
-    12.3
+    0.0,
+    0.0
    ],
    "ci_basis": "bootstrap over 3 sampled matches",
    "n_matches_sampled": 3,
-   "pobso_stock": 66.172,
-   "attacking_frames": 14156,
-   "pressured_share": 0.243,
-   "tied_with_leader": false
-  },
-  {
-   "team": "Spain",
-   "danger_moments_per_min": 4.88,
-   "ci": [
-    2.63,
-    10.07
-   ],
-   "ci_basis": "bootstrap over 4 sampled matches",
-   "n_matches_sampled": 4,
-   "pobso_stock": 64.637,
-   "attacking_frames": 22584,
-   "pressured_share": 0.211,
+   "pobso_stock": 5.571,
+   "attacking_frames": 11037,
+   "pressured_share": 0.221,
    "tied_with_leader": false
   }
  ]

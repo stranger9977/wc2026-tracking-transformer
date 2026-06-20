@@ -53,6 +53,7 @@ def main():
     print(f"position map: {len(pos_map)} (team,name) entries from {PFF/'Rosters'}")
     stamp(SITE / "space_chase.json", pos_map)
     stamp(SITE / "space_pobso.json", pos_map)
+    stamp(SITE / "space_sgg.json", pos_map)
 
 
 if __name__ == "__main__":

@@ -976,8 +976,8 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=17");
-  const data = await loadJSON("data/space_pobso.json?v=6");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=18");
+  const data = await loadJSON("data/space_pobso.json?v=7");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
   const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
@@ -1556,7 +1556,7 @@ async function buildPassSelection() {
    the passive split is the "Messi walks" finding. Reads the OBSO per-player data. */
 async function buildSOG() {
   const el = $("#pc-sog"); if (!el) return;
-  let d; try { d = await loadJSON("data/space_pobso.json?v=6"); } catch (e) { return; }
+  let d; try { d = await loadJSON("data/space_pobso.json?v=7"); } catch (e) { return; }
   const players = (d.players || []).filter((r) => r.walk_stages && r.stages);
   if (!players.length) return;
   const modeTg = $("#sog-mode"), stTg = $("#sog-stage"), lab = $("#sog-lab");
@@ -1601,6 +1601,72 @@ async function buildSOG() {
   }
   const mEl = $("#sog-messi");
   if (m && mEl) mEl.innerHTML = `<b>And it shows up in where it matters.</b> Of the dangerous space Messi wins, <b>${m.passive_pct}%</b> he wins while <b>walking</b> — the highest share of any forward — moving just <b>${m.control_speed} m/s</b> when he owns it. Fernández &amp; Bornn measured the same thing in 2017 and got 66%. He walks into the right grass while everyone else runs.`;
+}
+
+/* TEAM BOARD (Act 2): pitch control aggregated per team — territorial control %
+   and dangerous space (OBSO), per match / total × group / knockout / all. The
+   "France controlled 55% of the pitch?" board. Reads team_control.json. */
+async function buildTeamBoard() {
+  const el = $("#team-board"); if (!el) return;
+  let d; try { d = await loadJSON("data/team_control.json?v=1"); } catch (e) { return; }
+  const teams = d.teams || []; if (!teams.length) return;
+  const mTg = $("#team-metric"), vTg = $("#team-view"), sTg = $("#team-stage"), lab = $("#team-lab"), top = $("#team-top");
+  const st = { metric: "control", view: "per_match", stage: "all" };
+  const valOf = (t) => {
+    if ((t.n_matches[st.stage] || 0) < 1) return null;
+    const blk = t[st.metric] && t[st.metric][st.view];
+    return blk && blk[st.stage] != null ? blk[st.stage] : null;
+  };
+  const render = () => {
+    const isC = st.metric === "control";
+    const rows = teams.filter((t) => valOf(t) != null).sort((a, b) => valOf(b) - valOf(a)).slice(0, 14);
+    const mx = Math.max(1e-9, ...rows.map(valOf));
+    const fmt = isC ? (v) => v.toFixed(1) + "%" : (v) => Math.round(v).toLocaleString();
+    const col = isC ? "#6cb4ee" : "#ff8a5c";
+    el.innerHTML = rows.map((t) => `<div class="tbrow"><span class="tbname">${t.team} <span class="lpos">${t.n_matches[st.stage]}m</span></span>`
+      + `<span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(t) / mx * 100, 0, 100)}%;background:${col}"></span></span>`
+      + `<span class="tbval">${fmt(valOf(t))}</span></div>`).join("");
+    if (lab) lab.innerHTML = `Teams · ${isC ? "<b>territorial control</b> (share of the pitch owned)" : "<b>dangerous space</b> (OBSO, xT-weighted m²·min)"}, ${st.view === "total" ? "<b>tournament total</b>" : "<b>per match</b>"} · <b>${STAGE_LABEL[st.stage]}</b>`;
+    if (top) top.innerHTML = "Leaders: <b>" + rows.slice(0, 3).map((t) => t.team).join(", ") + "</b>";
+  };
+  render();
+  const wire = (tg, key, get) => { if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => { st[key] = get(b); $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b)); render(); })); };
+  wire(mTg, "metric", (b) => b.dataset.k);
+  wire(vTg, "view", (b) => b.dataset.v);
+  wire(sTg, "stage", (b) => b.dataset.s);
+}
+
+/* SGG (Act 3, Application 2): Space Generation Gain — space a player frees for
+   teammates by dragging a marker (F&B drag detection). Reads space_sgg.json. */
+async function buildSGG() {
+  const el = $("#sgg-board"); if (!el) return;
+  let d; try { d = await loadJSON("data/space_sgg.json?v=1"); } catch (e) { return; }
+  const players = (d.players || []).filter((r) => r.stages);
+  if (!players.length) return;
+  const vTg = $("#sgg-view"), sTg = $("#sgg-stage"), wTg = $("#sgg-weight"), lab = $("#sgg-lab"), top = $("#sgg-top");
+  const st = { view: "per_match", stage: "all", weighted: true };
+  const SCALE = 0.5 / 60;   // xT-wtd m²·frame → m²·min (same as the SOG board)
+  const valOf = (r) => {
+    const s = r.stages[st.stage];
+    if (!s || s.matches < (STAGE_MIN[st.stage] || 2)) return null;
+    const k = st.view === "total" ? (st.weighted ? "total" : "total_raw") : (st.weighted ? "per_match" : "per_match_raw");
+    return s[k] != null ? s[k] * SCALE : null;
+  };
+  const render = () => {
+    const rows = players.filter((r) => valOf(r) != null).sort((a, b) => valOf(b) - valOf(a)).slice(0, 12);
+    const mx = Math.max(1e-9, ...rows.map(valOf));
+    const fmt = (v) => st.view === "total" ? Math.round(v).toLocaleString() : v.toFixed(1);
+    el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""} <span class="lpos">${r.stages[st.stage].matches}m</span></span>`
+      + `<span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 0, 100)}%;background:#9b8cff"></span></span>`
+      + `<span class="tbval">${fmt(valOf(r))}</span></div>`).join("");
+    if (lab) lab.innerHTML = `Players · space generated for teammates (control × xT m²·min)${st.view === "total" ? ", <b>tournament total</b>" : ", <b>per match</b>"}${st.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[st.stage]}</b>`;
+    if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
+  };
+  render();
+  const wire = (tg, key, get) => { if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => { st[key] = get(b); $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b)); render(); })); };
+  wire(vTg, "view", (b) => b.dataset.v);
+  wire(sTg, "stage", (b) => b.dataset.m);
+  wire(wTg, "weighted", (b) => b.dataset.w === "weighted");
 }
 
 async function buildBWAE() {
@@ -1693,10 +1759,12 @@ if (!window.__spaceWIPPage) {
     buildThreat();
     // Act 2 — Pitch control (Fernández & Bornn): interactive explainer + space-occupation board
     buildPitchControlExplainer();
-    buildSOG();
-    // Act 3 — three applications: off-ball OBSO, passing, duels (each clip + leaderboard)
+    buildTeamBoard();
+    // Act 3 — applications: off-ball SOG, SGG (teammates), passing, duels
     buildPassSelection();
     buildBWAE();
+    buildSOG();
+    buildSGG();
     await Promise.allSettled([buildPassingClip(), buildDuelClip(), buildPOBSO()]);
     buildDangerExplainer("#pobso-explainer");
     buildDangerExplainer("#ps-explainer", "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. The board below sums this product over each player's final-third passes, so a big number means repeated balls into controlled, high-value space.");

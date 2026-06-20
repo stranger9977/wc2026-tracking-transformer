@@ -102,7 +102,7 @@ def main():
                                     "is_gk": ident.is_gk}
                 time_bkt[key][bucket(float(spds[i]))] += 1
             # off-ball OBSO attribution this frame
-            _, _, attrib, _, _ = sp.frame_obso(fr, grid, xt_grid)
+            _, _, attrib, _, _, _ = sp.frame_obso(fr, grid, xt_grid)
             for row, val in attrib.items():
                 ident = fr.identities[row]
                 key = (ident.team_id, ident.jersey)
