@@ -395,8 +395,13 @@ function buildScrubber(el, surf, cfg) {
     pxEl.innerHTML = `<div class="px-head">Passes in the move<span class="px-tot" id="pt-${cfg.id}">+0.00 xT</span></div>`
       + `<ol class="px-list">` + passes.map((p, i) =>
         `<li data-i="${i}"><span class="px-nm">${p.passer ? p.passer + " → " : ""}<b>${p.receiver}</b></span>`
+        + `<span class="px-chips">`
         + (p.control != null ? `<span class="px-ctrl">${Math.round(p.control * 100)}% ctrl</span>` : "")
-        + `<span class="px-xt ${p.xt_added >= 0 ? "pos" : "neg"}">${p.xt_added >= 0 ? "+" : ""}${p.xt_added.toFixed(2)} xT</span></li>`
+        + (p.v != null ? `<span class="px-v">${p.v.toFixed(2)} V</span>` : "")
+        + (p.sog != null ? `<span class="px-sog">${p.sog}% SOG</span>` : "")
+        + (p.sgg ? `<span class="px-sgg">freed by ${p.sgg.by.split(" ").slice(-1)[0]}</span>` : "")
+        + `<span class="px-xt ${p.xt_added >= 0 ? "pos" : "neg"}">${p.xt_added >= 0 ? "+" : ""}${p.xt_added.toFixed(2)} xT</span>`
+        + `</span></li>`
       ).join("") + `</ol>`;
   }
 
@@ -977,10 +982,22 @@ async function buildCHASE() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=19");
+  const surf = await loadJSON("data/surfaces/pobso.json?v=20");
   const data = await loadJSON("data/space_pobso.json?v=7");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
+  // Tag each pass's RECEIVER with the paper-scored SOG (occupation gain share) and any SGG
+  // (who dragged a marker to free them), so the ledger shows control + xT + SOG + SGG together.
+  try {
+    const ps = await loadJSON("data/surfaces/dimaria_paper_score.json?v=1");
+    const sogMap = {}, sggMap = {};
+    (ps.players || []).forEach((p) => { if (p.att && !p.gk) sogMap[p.name] = p.sog_share; });
+    (ps.sgg || []).forEach((s) => { if (!sggMap[s.receiver] || s.share > sggMap[s.receiver].share) sggMap[s.receiver] = s; });
+    (surf.passes || []).forEach((p) => {
+      if (sogMap[p.receiver] != null) p.sog = sogMap[p.receiver];
+      if (sggMap[p.receiver]) p.sgg = { by: sggMap[p.receiver].generator, share: sggMap[p.receiver].share };
+    });
+  } catch (e) { /* paper-score optional */ }
   const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
   const from = h.assist ? ` from <b>${h.assist}</b>` : "";
   buildScrubber(scEl, surf, {
@@ -993,9 +1010,13 @@ async function buildPOBSO() {
     readout: (fr, st) => st.mode === "reveal"
       ? `Only the cells the attacker controls <b>and</b> that carry threat stay lit. That is the dangerous space forming before the ball arrives.`
       : `<b>${h.name}</b> drifts off the ball into the space he both <b>owns</b> and can finish from, then receives${from} ${got}. `
-        + `Each pass is tagged with the <b>xT it adds</b>; every receiver is ringed — `
-        + `<span style="color:#5fd38a">green when his team owns the grass he is in</span>, `
-        + `<span style="color:#ff6b6b">red when it does not</span> — and the tag on the ball is its live xT.`,
+        + `Each receiver is ringed — <span style="color:#5fd38a">green when his team owns the grass he is in</span>, `
+        + `<span style="color:#ff6b6b">red when it does not</span>. In the ledger every pass carries four factors: `
+        + `<span style="color:var(--accent)">ctrl</span> = pitch control at the target (the C in Q=C·V), `
+        + `<span style="color:#e0a93f">V</span> = the paper value model (how much that space is worth — by defensive coverage, not xT), `
+        + `<span style="color:#6cb4ee">SOG</span> = the receiver's occupation-gain share, `
+        + `<span style="color:#5fd38a">freed by</span> = the SGG drag that sprang him — then the <b>xT it adds</b>. `
+        + `Watch <b>V climb through the build-up</b> (0.37→0.86) while xT stays ~0 until the final ball: the value model credits the build-up that xT ignores.`,
   });
   renderTeamLegend("pobso-teamleg", surf.teams);
   const im = surf.impact;
