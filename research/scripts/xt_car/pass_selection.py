@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
-"""Pass Selection vs Pitch Control (friend's #1) — v3: FINAL-THIRD controllable danger.
+"""Pass Selection vs Pitch Control (friend's #1) — v5: control x xT(dest) x xT-added, dual-zone.
 
-Among passes whose TARGET is in the passer's attacking third, value =
-control_at_target x xT(target) — "did the pass find controllable, dangerous space in
-the final third." Isolates creative final-third passing from deep build-up. GKs excluded.
-Per passer: total (volume x quality, in xT units) + per-pass. Carries team + position.
+Every threat-adding pass (xT-added > 0) is scored control_at_target x xT(target) x xT-added —
+"did the pass find controllable, dangerous space AND move the ball toward goal." The xT(dest)
+term continuously suppresses own-half build-up (xT~0 back there) so high pass VOLUME from deep
+defenders cannot dominate, without an arbitrary final-third line. GKs excluded.
+
+Two zone views per player, same metric, different spatial filter — so the front end can toggle:
+  * "all"  — every threat-adding pass on the pitch.
+  * "f3"   — only passes whose TARGET sits in the attacking final third (x > FINAL_THIRD_X).
+Both share the same games-played denominator, so per-match is comparable across the toggle.
+Per passer: total (volume x quality, in xT units) + per-match, opponent-weighted + raw. Team + position.
 
 Reads ONLY PFF Event Data (+ Rosters) locally + the xT grid. Fast.
 Run:  PFF_ROOT=$HOME/pff_wc22_local PYTHONPATH=src \
@@ -132,8 +138,11 @@ def process_match(root, mid, meta, opp):
         # pass VOLUME from deep defenders cannot dominate — only progressive passes
         # INTO dangerous, controlled space score. Surfaces creators, not CBs.
         val = control_at(tx, ty, att_xy, dfn_xy, bx, by) * xt_dest * xt_gain
-        m["by_stage"][stage]["valw"] += val * w   # opponent-weighted
-        m["by_stage"][stage]["valr"] += val       # raw
+        m["by_stage"][stage]["valw"] += val * w   # opponent-weighted (all pitch)
+        m["by_stage"][stage]["valr"] += val       # raw (all pitch)
+        if tx * d > FINAL_THIRD_X:                 # target in the attacking final third
+            m["by_stage"][stage]["valw_f3"] += val * w
+            m["by_stage"][stage]["valr_f3"] += val
         m["n"] += 1
         if not m["name"]:
             m["name"] = pe.get("passerPlayerName") or f"#{passer}"
@@ -145,9 +154,16 @@ def process_match(root, mid, meta, opp):
 
 
 def _new_meta():
+    z = lambda: {"valw": 0.0, "valr": 0.0, "valw_f3": 0.0, "valr_f3": 0.0, "mids": set()}
     return {"name": "", "team": "", "pos": Counter(), "n": 0,
-            "by_stage": {"group": {"valw": 0.0, "valr": 0.0, "mids": set()},
-                         "ko": {"valw": 0.0, "valr": 0.0, "mids": set()}}}
+            "by_stage": {"group": z(), "ko": z()}}
+
+
+def _f3_view(by_stage):
+    """Remap the final-third sub-totals into the {valw,valr,mids} shape per_stage_block wants.
+    mids (games played) is shared with the all-pitch view so per-match uses the same denominator."""
+    return {st: {"valw": d["valw_f3"], "valr": d["valr_f3"], "mids": d["mids"]}
+            for st, d in by_stage.items()}
 
 
 def main():
@@ -165,12 +181,15 @@ def main():
         tot += process_match(root, mid, meta, opp)
     rows = [{"name": m["name"], "team": m["team"],
              "pos": (m["pos"].most_common(1)[0][0] if m["pos"] else ""),
-             "stages": per_stage_block(m["by_stage"]), "n_passes": m["n"]}
+             "stages": per_stage_block(m["by_stage"]),
+             "stages_f3": per_stage_block(_f3_view(m["by_stage"])),
+             "n_passes": m["n"]}
             for m in meta.values() if m["n"] >= a.min_n]
     rows.sort(key=lambda r: -r["stages"]["all"]["total"])
-    OUT.write_text(json.dumps({"metric": "Pass selection: controllable danger created (control x xT)",
-                               "unit": "sum of pitch-control x xT over a player's passes, opponent-strength weighted",
-                               "stages": ["all", "group", "ko"], "opponent_weighted": True,
+    OUT.write_text(json.dumps({"metric": "Pass selection: controllable danger created (control x xT(dest) x xT-added)",
+                               "unit": "sum of pitch-control x xT(dest) x xT-added over a player's passes, opponent-strength weighted",
+                               "stages": ["all", "group", "ko"], "zones": ["all", "f3"],
+                               "opponent_weighted": True,
                                "n_passes": tot, "players": rows}, indent=1))
     print(f"[pass-selection v4] {tot} passes, {len(rows)} passers (stage + opp-weighted)", flush=True)
     for r in rows[:15]:

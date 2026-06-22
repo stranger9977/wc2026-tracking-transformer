@@ -1526,27 +1526,33 @@ const STAGE_LABEL = { group: "group stage", ko: "knockout", all: "all 64 games" 
 const STAGE_MIN = { group: 2, ko: 1, all: 2 };
 async function buildPassSelection() {
   const el = $("#ps-board"); if (!el) return;
-  let d; try { d = await loadJSON("data/pass_selection.json?v=5"); } catch (e) { return; }
+  let d; try { d = await loadJSON("data/pass_selection.json?v=6"); } catch (e) { return; }
   const players = (d.players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
   if (!players.length) return;
-  const lab = $("#ps-lab"), tg = $("#ps-toggle"), wtg = $("#ps-weight"), top = $("#ps-top");
-  const st = { stage: "group", weighted: false };
+  const lab = $("#ps-lab"), tg = $("#ps-toggle"), ztg = $("#ps-zone"), wtg = $("#ps-weight"), top = $("#ps-top");
+  const st = { stage: "group", weighted: false, zone: "all" };
   const render = () => {
     const stage = st.stage, key = st.weighted ? "per_match" : "per_match_raw";
+    // "f3" = same metric, only passes whose target is in the attacking third; falls back to all if absent
+    const blk = (r) => (st.zone === "f3" && r.stages_f3) ? r.stages_f3 : r.stages;
     const min = STAGE_MIN[stage] || 2;
-    const sv = (r) => (r.stages[stage] && r.stages[stage].matches >= min) ? r.stages[stage][key] : null;
+    const sv = (r) => (blk(r)[stage] && blk(r)[stage].matches >= min) ? blk(r)[stage][key] : null;
     const rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
     const mx = Math.max(1e-9, ...rows.map(sv));
     const PS_SCALE = 100;   // triple product (control × xT_dest × xT_added) is small; ×100 for a readable index
-    el.innerHTML = rows.map((r) => { const s = r.stages[stage]; return `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""} <span class="lpos">${s.matches}m</span></span>
+    el.innerHTML = rows.map((r) => { const s = blk(r)[stage]; return `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""} <span class="lpos">${s.matches}m</span></span>
       <span class="tbtrack"><span class="tbfill" style="width:${clamp(sv(r) / mx * 100, 0, 100)}%;background:#6cb4ee"></span></span>
       <span class="tbval">${(sv(r) * PS_SCALE).toFixed(2)}</span></div>`; }).join("");
-    if (lab) lab.innerHTML = `Players · control × xT-added into dangerous space (threading index), <b>per match</b>${st.weighted ? ", opponent-strength weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
+    const zoneTxt = st.zone === "f3" ? "into the <b>final third</b>" : "into dangerous space";
+    if (lab) lab.innerHTML = `Players · control × xT-added ${zoneTxt} (threading index), <b>per match</b>${st.weighted ? ", opponent-strength weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
     if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
   render();
   if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => {
     st.stage = b.dataset.m; $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b)); render();
+  }));
+  if (ztg) $$(".htog", ztg).forEach((b) => b.addEventListener("click", () => {
+    st.zone = b.dataset.z; $$(".htog", ztg).forEach((x) => x.classList.toggle("on", x === b)); render();
   }));
   if (wtg) $$(".htog", wtg).forEach((b) => b.addEventListener("click", () => {
     st.weighted = b.dataset.w === "weighted"; $$(".htog", wtg).forEach((x) => x.classList.toggle("on", x === b)); render();
@@ -1769,7 +1775,7 @@ if (!window.__spaceWIPPage) {
     buildSGG();
     await Promise.allSettled([buildPassingClip(), buildDuelClip(), buildPOBSO()]);
     buildDangerExplainer("#pobso-explainer");
-    buildDangerExplainer("#ps-explainer", "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. The board below sums this product over each player's final-third passes, so a big number means repeated balls into controlled, high-value space.");
+    buildDangerExplainer("#ps-explainer", "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. The board below sums this product — times the threat each pass adds — over a player's passes, so a big number means repeated balls into controlled, high-value space. Toggle whether to count the whole pitch or only the final third.");
     // Closing — live 2026 (2022-final two-lens validation + live EFI)
     await buildLive();
   })();
