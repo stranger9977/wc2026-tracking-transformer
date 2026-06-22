@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
-"""Pass Selection vs Pitch Control (friend's #1) — v5: control x xT(dest) x xT-added, dual-zone.
+"""Pass Selection vs Pitch Control (friend's #1) — v6: progression + occupation, dual-zone.
 
-Every threat-adding pass (xT-added > 0) is scored control_at_target x xT(target) x xT-added —
-"did the pass find controllable, dangerous space AND move the ball toward goal." The xT(dest)
-term continuously suppresses own-half build-up (xT~0 back there) so high pass VOLUME from deep
-defenders cannot dominate, without an arbitrary final-third line. GKs excluded.
+TWO complementary metrics per passer, so the front end can toggle which question it asks:
+  * PROGRESSION  = sum control_at_target x xT(target) x xT-ADDED, over threat-adding passes.
+                   "Who THREADS the ball forward into more danger." xT(dest) suppresses own-half
+                   build-up and xT-added rewards line-breaking, so creators surface, not CBs.
+  * OCCUPATION   = sum control_at_target x xT(target), over EVERY completed pass (no xT-added).
+                   "Who LIVES in dangerous, controlled space." Volume-weighted, so high-tempo
+                   circulators who hold + recycle in good areas (Pedri, Kovacic) surface — the
+                   progression metric demotes them because their passes add ~0 threat.
 
-Two zone views per player, same metric, different spatial filter — so the front end can toggle:
-  * "all"  — every threat-adding pass on the pitch.
-  * "f3"   — only passes whose TARGET sits in the attacking final third (x > FINAL_THIRD_X).
-Both share the same games-played denominator, so per-match is comparable across the toggle.
-Per passer: total (volume x quality, in xT units) + per-match, opponent-weighted + raw. Team + position.
+Each metric in two zones (front end toggles, all share the games-played denominator so per-match
+is comparable across every toggle):
+  * "all"  — the whole pitch.   * "f3" — only passes whose TARGET is in the attacking final third.
+GKs excluded. Orient both ends to attack-+x so xT is read at the correct goal.
+Per passer: total (volume x quality) + per-match, opponent-weighted + raw, team + position.
 
 Reads ONLY PFF Event Data (+ Rosters) locally + the xT grid. Fast.
 Run:  PFF_ROOT=$HOME/pff_wc22_local PYTHONPATH=src \
@@ -119,30 +123,34 @@ def process_match(root, mid, meta, opp):
         # games-played denominator (per stage): any valid (non-GK) pass = the passer appeared.
         m["by_stage"][stage]["mids"].add(mid)
         tx, ty = pos[target]
-        # Score every pass by control x xT-ADDED (no zone gate): the THREAT the pass
-        # creates (xT at the target minus xT at the ball's origin), times how well the
-        # receiving team controls the target. Build-up passes add ~0 xT so they
-        # contribute ~0 with no arbitrary final-third line — and it rewards progression,
-        # matching the per-pass xT-added shown on the clip. Orient both ends to attack-+x
-        # via d so xT is read at the correct goal. control is orientation-independent.
+        # Orient both ends to attack-+x via d so xT is read at the correct goal; control is
+        # orientation-independent. We score TWO complementary metrics per pass (the board toggles):
+        #   OCCUPATION  = control x xT(dest)            — did the ball land in dangerous, CONTROLLED
+        #                                                 space? Volume-weighted, every completed pass.
+        #                                                 Rewards circulators who LIVE in good areas
+        #                                                 (Pedri/Kovacic), holding + recycling there.
+        #   PROGRESSION = control x xT(dest) x xT-added — did the pass MOVE the ball to MORE danger?
+        #                                                 Only threat-adding passes; rewards line-
+        #                                                 breaking creators (de Paul/Messi), not CB
+        #                                                 build-up volume (xT(dest)~0 in own half).
         xt_dest = xt(tx * d, ty * d)
         xt_gain = xt_dest - xt(bx * d, by * d)
-        if xt_gain <= 0:
-            continue                                   # only threat-adding passes
         pteam = roster.get(passer, "")
         oteam = next((t for t in teams if t != pteam), "")
         w = opp.weight(oteam) if oteam else 1.0
         att_xy = [(x, y) for i, x, y, _ in att]; dfn_xy = [(x, y) for i, x, y, _ in dfn]
-        # control x destination-danger x threat-added: no zone gate, but the xT(dest)
-        # term continuously suppresses own-half build-up (xT~0 back there) so high
-        # pass VOLUME from deep defenders cannot dominate — only progressive passes
-        # INTO dangerous, controlled space score. Surfaces creators, not CBs.
-        val = control_at(tx, ty, att_xy, dfn_xy, bx, by) * xt_dest * xt_gain
-        m["by_stage"][stage]["valw"] += val * w   # opponent-weighted (all pitch)
-        m["by_stage"][stage]["valr"] += val       # raw (all pitch)
-        if tx * d > FINAL_THIRD_X:                 # target in the attacking final third
-            m["by_stage"][stage]["valw_f3"] += val * w
-            m["by_stage"][stage]["valr_f3"] += val
+        c = control_at(tx, ty, att_xy, dfn_xy, bx, by)
+        st = m["by_stage"][stage]
+        in_f3 = tx * d > FINAL_THIRD_X
+        occ = c * xt_dest                              # OCCUPATION — all passes, no xT-added gate
+        st["occ_w"] += occ * w; st["occ_r"] += occ
+        if in_f3:
+            st["occ_w_f3"] += occ * w; st["occ_r_f3"] += occ
+        if xt_gain > 0:                                # PROGRESSION — threat-adding passes only
+            val = occ * xt_gain
+            st["valw"] += val * w; st["valr"] += val
+            if in_f3:
+                st["valw_f3"] += val * w; st["valr_f3"] += val
         m["n"] += 1
         if not m["name"]:
             m["name"] = pe.get("passerPlayerName") or f"#{passer}"
@@ -154,15 +162,17 @@ def process_match(root, mid, meta, opp):
 
 
 def _new_meta():
-    z = lambda: {"valw": 0.0, "valr": 0.0, "valw_f3": 0.0, "valr_f3": 0.0, "mids": set()}
+    z = lambda: {"valw": 0.0, "valr": 0.0, "valw_f3": 0.0, "valr_f3": 0.0,
+                 "occ_w": 0.0, "occ_r": 0.0, "occ_w_f3": 0.0, "occ_r_f3": 0.0, "mids": set()}
     return {"name": "", "team": "", "pos": Counter(), "n": 0,
             "by_stage": {"group": z(), "ko": z()}}
 
 
-def _f3_view(by_stage):
-    """Remap the final-third sub-totals into the {valw,valr,mids} shape per_stage_block wants.
-    mids (games played) is shared with the all-pitch view so per-match uses the same denominator."""
-    return {st: {"valw": d["valw_f3"], "valr": d["valr_f3"], "mids": d["mids"]}
+def _view(by_stage, wk, rk):
+    """Remap a chosen (weighted, raw) sub-total pair into the {valw,valr,mids} shape
+    per_stage_block wants. mids (games played) is shared across all views so per-match
+    uses the same denominator regardless of metric/zone."""
+    return {st: {"valw": d[wk], "valr": d[rk], "mids": d["mids"]}
             for st, d in by_stage.items()}
 
 
@@ -181,20 +191,27 @@ def main():
         tot += process_match(root, mid, meta, opp)
     rows = [{"name": m["name"], "team": m["team"],
              "pos": (m["pos"].most_common(1)[0][0] if m["pos"] else ""),
-             "stages": per_stage_block(m["by_stage"]),
-             "stages_f3": per_stage_block(_f3_view(m["by_stage"])),
+             "stages": per_stage_block(_view(m["by_stage"], "valw", "valr")),
+             "stages_f3": per_stage_block(_view(m["by_stage"], "valw_f3", "valr_f3")),
+             "stages_occ": per_stage_block(_view(m["by_stage"], "occ_w", "occ_r")),
+             "stages_occ_f3": per_stage_block(_view(m["by_stage"], "occ_w_f3", "occ_r_f3")),
              "n_passes": m["n"]}
             for m in meta.values() if m["n"] >= a.min_n]
     rows.sort(key=lambda r: -r["stages"]["all"]["total"])
-    OUT.write_text(json.dumps({"metric": "Pass selection: controllable danger created (control x xT(dest) x xT-added)",
-                               "unit": "sum of pitch-control x xT(dest) x xT-added over a player's passes, opponent-strength weighted",
+    OUT.write_text(json.dumps({"metric": "Pass selection: progression (control x xT(dest) x xT-added) + occupation (control x xT(dest))",
+                               "unit": "sum over a player's passes, opponent-strength weighted; progression=threat added, occupation=lands in dangerous controlled space",
                                "stages": ["all", "group", "ko"], "zones": ["all", "f3"],
+                               "metrics": ["progression", "occupation"],
                                "opponent_weighted": True,
                                "n_passes": tot, "players": rows}, indent=1))
-    print(f"[pass-selection v4] {tot} passes, {len(rows)} passers (stage + opp-weighted)", flush=True)
-    for r in rows[:15]:
-        g = r["stages"]["group"]; print(f"  all {r['stages']['all']['total']:.2f}  "
-              f"grp/match {g['per_match']:.3f}  {r['name']:<22} {r['team']:<12} {r['pos']}", flush=True)
+    print(f"[pass-selection v6] {tot} passes, {len(rows)} passers (progression + occupation)", flush=True)
+    for metric, key in (("PROGRESSION", "stages"), ("OCCUPATION", "stages_occ")):
+        top = sorted(rows, key=lambda r: -r[key]["all"]["total"])
+        pedri = next(((i + 1, r) for i, r in enumerate(top) if "Pedri" in r["name"]), None)
+        print(f"  --- {metric} (all, total) — Pedri rank: "
+              f"{pedri[0] if pedri else '—'} ---", flush=True)
+        for r in top[:6]:
+            print(f"    {r[key]['all']['total']:.3f}  {r['name']:<22} {r['team']:<12} {r['pos']}", flush=True)
 
 
 if __name__ == "__main__":
