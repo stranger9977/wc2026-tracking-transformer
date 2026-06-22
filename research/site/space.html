@@ -607,9 +607,10 @@
         <h3>Who repeatedly threads it into dangerous, controlled space</h3>
         <div class="boardlab" id="ps-lab"></div>
         <div class="htoggles" id="ps-toggle" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
+        <div class="htoggles" id="ps-zone" style="padding:0;margin:0 0 6px"><button class="htog on" data-z="all">whole pitch</button><button class="htog" data-z="f3">final third only</button></div>
         <div class="htoggles" id="ps-weight" style="padding:0;margin:0 0 8px"><button class="htog" data-w="weighted">opponent-weighted</button><button class="htog on" data-w="raw">raw</button></div>
         <div id="ps-board" class="tbars"></div>
-        <p class="caption"><b>Per match</b> (group stage is the level field — every team plays three games; knockout is who did it against elite defences). <b>Toggle opponent-weighting</b> to discount minnows. Leaders: <b id="ps-top">the top names</b>. <b>No zone gate:</b> we tried it without one, but a pure sum of progressive passes just rewards centre-backs for build-up volume. Multiplying by the destination's danger (xT there) instead fixes it continuously — own-half passes are worth ≈0 with no arbitrary line, so only balls threaded <i>into</i> dangerous, controlled space score, and the creators surface. The number is that product ×100 — a relative threading index, not a unit.</p>
+        <p class="caption"><b>Per match</b> (group stage is the level field — every team plays three games; knockout is who did it against elite defences). <b>Toggle opponent-weighting</b> to discount minnows. Leaders: <b id="ps-top">the top names</b>. <b>Whole pitch</b> scores every threat-adding pass: multiplying by the destination's danger (xT there) and the threat it adds means own-half build-up is worth ≈0 with no arbitrary line — so it surfaces creators, not centre-backs racking up volume. <b>Final third only</b> applies the same metric but keeps only passes whose target lands in the attacking third, for when you want pure final-third creation. The number is that product ×100 — a relative threading index, not a unit.</p>
       </div>
     </div>
   </div>
@@ -707,6 +708,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=55"></script>
+<script type="module" src="assets/js/space.js?v=56"></script>
 </body>
 </html>
