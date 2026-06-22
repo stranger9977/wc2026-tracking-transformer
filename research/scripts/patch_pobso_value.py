@@ -22,23 +22,29 @@ import pitch_control as pc  # noqa: E402
 import space_value_model as svm  # noqa: E402
 
 HALF_LEN, HALF_WID = pc.HALF_LEN, pc.HALF_WID
-P = _REPO / "research" / "site" / "data" / "surfaces" / "pobso.json"
+SURF = _REPO / "research" / "site" / "data" / "surfaces"
+# Patch BOTH the xT-coloured and V-coloured Di María surfaces — the per-pass V is a
+# mode-independent fact (value at the target), so the ledger shows it under either toggle.
+PATHS = [SURF / "pobso.json", SURF / "pobso_v.json"]
 
 
 def main():
     model = svm.load_model()
-    d = json.load(open(P))
-    for p in d.get("passes", []):
-        X = np.array([[p["x0"] / HALF_LEN, p["y0"] / HALF_WID,
-                       p["x1"] / HALF_LEN, p["y1"] / HALF_WID]], dtype=np.float32)
-        with torch.no_grad():
-            v = float(model(torch.tensor(X))[0])
-        v *= max(0.0, min(1.0, (p["x1"] + HALF_LEN) / (2 * HALF_LEN)))   # goal-distance multiplier
-        p["v"] = round(v, 3)
-    json.dump(d, open(P, "w"))
-    print(f"patched {len(d.get('passes', []))} passes in {P.name} with V:")
-    for p in d["passes"]:
-        print(f"  {p['receiver']:<22} V={p['v']:.3f}  ctrl={p['control']:.2f}  xT+{p['xt_added']:.2f}")
+    for P in PATHS:
+        if not P.exists():
+            continue
+        d = json.load(open(P))
+        for p in d.get("passes", []):
+            X = np.array([[p["x0"] / HALF_LEN, p["y0"] / HALF_WID,
+                           p["x1"] / HALF_LEN, p["y1"] / HALF_WID]], dtype=np.float32)
+            with torch.no_grad():
+                v = float(model(torch.tensor(X))[0])
+            v *= max(0.0, min(1.0, (p["x1"] + HALF_LEN) / (2 * HALF_LEN)))   # goal-distance multiplier
+            p["v"] = round(v, 3)
+        json.dump(d, open(P, "w"))
+        print(f"patched {len(d.get('passes', []))} passes in {P.name} with V:")
+        for p in d["passes"]:
+            print(f"  {p['receiver']:<22} V={p['v']:.3f}  ctrl={p['control']:.2f}  xT+{p['xt_added']:.2f}")
 
 
 if __name__ == "__main__":

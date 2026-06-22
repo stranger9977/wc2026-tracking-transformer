@@ -45,11 +45,23 @@ from opp_strength import OppStrength, stage_of, per_stage_block  # noqa: E402
 HALF_LEN, HALF_WID = 52.5, 34.0
 
 
+# Value layer: static xT (default) or the ball-conditioned paper V model (SPACE_VALUE=v),
+# so the duels board can be regenerated under either value model for the site toggle.
+_VALMODE = "xt"
+_VMODEL = None
+
+
 def xt_dir(x, y, d):
-    """xT at world (x,y) seen by a team attacking direction d (+1 toward +x, -1 toward -x).
-    Returns 0 when direction is unknown so a duel only earns xT weight when we can
-    orient it (a CB clearing his own box gets ~0 weight; a 50-50 in the box, a lot)."""
-    if xt_for_ball is None or d is None:
+    """Value at world (x,y) seen by a team attacking direction d (+1 toward +x, -1 toward -x).
+    Returns 0 when direction is unknown so a duel only earns value weight when we can
+    orient it (a CB clearing his own box gets ~0 weight; a 50-50 in the box, a lot).
+    Static xT by default; the paper V (value of the contested spot) under SPACE_VALUE=v."""
+    if d is None:
+        return 0.0
+    if _VALMODE == "v":
+        import space_value_model as svm  # noqa: E402
+        return svm.value_point((x * d, y), (x * d, y), _VMODEL)   # value of the contested spot
+    if xt_for_ball is None:
         return 0.0
     return float(xt_for_ball(x * d / HALF_LEN, y / HALF_WID))
 
@@ -208,11 +220,18 @@ def _new_xt():
 
 
 def main():
+    global _VALMODE, _VMODEL
     root = Path(os.environ.get("PFF_ROOT", str(Path.home() / "pff_wc22_local")))
     ap = argparse.ArgumentParser(); ap.add_argument("--matches", default="")
     ap.add_argument("--min-n", type=int, default=40); ap.add_argument("--min-n-f3", type=int, default=15)
     ap.add_argument("--min-n-xt", type=int, default=25)
     a = ap.parse_args()
+    out_path = OUT
+    if os.environ.get("SPACE_VALUE") == "v":
+        import space_value_model as svm  # noqa: E402
+        _VALMODE, _VMODEL = "v", svm.load_model()
+        out_path = OUT.with_name("balls_won_above_expected_v.json")
+        print("[value] SPACE_VALUE=v — duels weighted by the Fernández–Bornn pitch-value model", flush=True)
     mids = (a.matches.split(",") if a.matches
             else sorted(p.name.replace(".jsonl.bz2", "")
                         for p in (root / "Tracking Data").glob("*.jsonl.bz2")))
@@ -226,7 +245,7 @@ def main():
         na, nf = process_match(root, mid, acc_all, acc_f3, names, pmatches, acc_xt, opp); t_all += na; t_f3 += nf
     all_b = board(acc_all, names, a.min_n); f3_b = board(acc_f3, names, a.min_n_f3)
     xt_b = board_xt(acc_xt, names, a.min_n_xt)
-    OUT.write_text(json.dumps({"metric": "Balls Won Above Expected (ground duels), xT-weighted",
+    out_path.write_text(json.dumps({"metric": "Balls Won Above Expected (ground duels), xT-weighted",
                                "stages": ["all", "group", "ko"], "opponent_weighted": True,
                                "n_ground_duels": t_all, "n_final_third": t_f3,
                                "players": xt_b, "all": all_b, "final_third": f3_b}, indent=1))

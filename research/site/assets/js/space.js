@@ -18,6 +18,32 @@ async function loadJSON(path) {
   return r.json();
 }
 
+/* ---------- global VALUE MODE: xT (threat) vs V (paper defensive-coverage model) ----------
+   The whole site values space with the chosen model. Boards/surfaces have a precomputed _v
+   variant; vname() rewrites a data path to the variant for the current mode. Switching reloads
+   (robust vs. re-running scrubbers/animations) and restores scroll so it feels in-place. */
+function getValueMode() {
+  try { return localStorage.getItem("spaceValueMode") === "v" ? "v" : "xt"; } catch (e) { return "xt"; }
+}
+function vname(path) {
+  // "data/x.json?v=3" -> "data/x_v.json?v=3" when in V mode (first ".json" only)
+  return getValueMode() === "v" ? path.replace(".json", "_v.json") : path;
+}
+function setValueMode(mode) {
+  try {
+    localStorage.setItem("spaceValueMode", mode === "v" ? "v" : "xt");
+    sessionStorage.setItem("spaceScrollY", String(window.scrollY || window.pageYOffset || 0));
+  } catch (e) { /* ignore */ }
+  location.reload();
+}
+// Load the value variant for the current mode, gracefully falling back to the xT file if a
+// _v variant isn't deployed yet (so a board never breaks while its V version is still computing).
+async function loadValueJSON(path) {
+  const vp = vname(path);
+  if (vp === path) return loadJSON(path);
+  try { return await loadJSON(vp); } catch (e) { return loadJSON(path); }
+}
+
 const teamColor = (t) => ({
   Argentina: "#6cb4ee", France: "#3f6bd6", Morocco: "#c1272d", Croatia: "#e23b3b",
   Germany: "#d8d8d8", Spain: "#f0b429", Portugal: "#2e8b57", England: "#dfe7f0",
@@ -981,9 +1007,47 @@ async function buildCHASE() {
   // gravity collapses on all 64 (ρ +0.38 -> +0.03). Gravity stays a player + clip story.
 }
 
+/* "Two ways to value space" animation: xT (static) vs V (follows the ball). Reads precomputed
+   V surfaces at ball positions along the central channel (the NN can't run in-browser). */
+async function buildValueAnim() {
+  const host = $("#value-anim"); if (!host) return;
+  let d; try { d = await loadJSON("data/surfaces/value_anim.json?v=1"); } catch (e) { return; }
+  const W = 320, H = Math.round(320 * 68 / 105);
+  host.innerHTML = `<div class="vanim">`
+    + `<div class="vacol"><div class="valab">xT — where a goal could come from <span style="color:var(--faint)">(static)</span></div><canvas id="va-xt" width="${W}" height="${H}"></canvas></div>`
+    + `<div class="vacol"><div class="valab">V — where the play is contested <span style="color:var(--faint)">(follows the ball)</span></div><canvas id="va-v" width="${W}" height="${H}"></canvas></div>`
+    + `</div>`;
+  const cxXt = $("#va-xt").getContext("2d"), cxV = $("#va-v").getContext("2d");
+  const opts = { ramp: rampHot, gamma: 0.7, threshold: 0.02 };
+  const ball = (ctx, bx, by) => {
+    const [px, py] = m2px(bx, by, W, H);
+    ctx.beginPath(); ctx.arc(px, py, 5, 0, 7); ctx.fillStyle = "#fff"; ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = "#0b1118"; ctx.stroke();
+  };
+  let i = 0;
+  const tick = () => {
+    const f = d.frames[i % d.frames.length];
+    paintSurface(cxXt, d.xt, W, H, opts); ball(cxXt, f.ball_x, f.ball_y);
+    paintSurface(cxV, f.v, W, H, opts); ball(cxV, f.ball_x, f.ball_y);
+    i++;
+  };
+  tick();
+  setInterval(tick, 850);
+}
+
+/* Wire the global xT/V switch: reflect the current mode, switch + reload on click. */
+function wireValueToggle() {
+  const tg = $("#value-mode-toggle"); if (!tg) return;
+  const mode = getValueMode();
+  $$("button", tg).forEach((b) => {
+    b.classList.toggle("on", b.dataset.vm === mode);
+    b.addEventListener("click", () => { if (b.dataset.vm !== getValueMode()) setValueMode(b.dataset.vm); });
+  });
+}
+
 async function buildPOBSO() {
-  const surf = await loadJSON("data/surfaces/pobso.json?v=20");
-  const data = await loadJSON("data/space_pobso.json?v=7");
+  const surf = await loadValueJSON("data/surfaces/pobso.json?v=20");
+  const data = await loadValueJSON("data/space_pobso.json?v=7");
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
   // Tag each pass's RECEIVER with the paper-scored SOG (occupation gain share) and any SGG
@@ -1649,7 +1713,7 @@ const STAGE_LABEL = { group: "group stage", ko: "knockout", all: "all 64 games" 
 const STAGE_MIN = { group: 2, ko: 1, all: 2 };
 async function buildPassSelection() {
   const el = $("#ps-board"); if (!el) return;
-  let d; try { d = await loadJSON("data/pass_selection.json?v=7"); } catch (e) { return; }
+  let d; try { d = await loadValueJSON("data/pass_selection.json?v=7"); } catch (e) { return; }
   const players = (d.players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
   if (!players.length) return;
   const lab = $("#ps-lab"), tg = $("#ps-toggle"), mtg = $("#ps-metric"), ztg = $("#ps-zone"), wtg = $("#ps-weight"), top = $("#ps-top");
@@ -1751,7 +1815,7 @@ async function buildSOG() {
    "France controlled 55% of the pitch?" board. Reads team_control.json. */
 async function buildTeamBoard() {
   const el = $("#team-board"); if (!el) return;
-  let d; try { d = await loadJSON("data/team_control.json?v=1"); } catch (e) { return; }
+  let d; try { d = await loadValueJSON("data/team_control.json?v=1"); } catch (e) { return; }
   const teams = d.teams || []; if (!teams.length) return;
   const mTg = $("#team-metric"), vTg = $("#team-view"), sTg = $("#team-stage"), lab = $("#team-lab"), top = $("#team-top");
   const st = { metric: "control", view: "per_match", stage: "group" };
@@ -1783,7 +1847,7 @@ async function buildTeamBoard() {
    teammates by dragging a marker (F&B drag detection). Reads space_sgg.json. */
 async function buildSGG() {
   const el = $("#sgg-board"); if (!el) return;
-  let d; try { d = await loadJSON("data/space_sgg.json?v=1"); } catch (e) { return; }
+  let d; try { d = await loadValueJSON("data/space_sgg.json?v=1"); } catch (e) { return; }
   const players = (d.players || []).filter((r) => r.stages);
   if (!players.length) return;
   const vTg = $("#sgg-view"), sTg = $("#sgg-stage"), wTg = $("#sgg-weight"), lab = $("#sgg-lab"), top = $("#sgg-top");
@@ -1814,7 +1878,7 @@ async function buildSGG() {
 
 async function buildBWAE() {
   const el = $("#bwae-xt"); if (!el) return;
-  let d; try { d = await loadJSON("data/balls_won_above_expected.json?v=4"); } catch (e) { return; }
+  let d; try { d = await loadValueJSON("data/balls_won_above_expected.json?v=4"); } catch (e) { return; }
   const players = (d.players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
   if (!players.length) return;
   const lab = $("#bwae-lab"), tg = $("#bwae-toggle"), wtg = $("#bwae-weight"), top = $("#bwae-top");
@@ -1900,6 +1964,9 @@ if (!window.__spaceWIPPage) {
     buildXTcreated();
     buildXtBreakdown();
     buildThreat();
+    // Two ways to value space: the V explainer animation + the global xT/V switch
+    buildValueAnim();
+    wireValueToggle();
     // Act 2 — Pitch control (Fernández & Bornn): interactive explainer + space-occupation board
     buildPitchControlExplainer();
     buildTeamBoard();
@@ -1914,5 +1981,10 @@ if (!window.__spaceWIPPage) {
     // Closing — live 2026 (2022-final two-lens validation + live EFI)
     await buildLive();
     await buildEagleLive();
+    // restore scroll after a value-mode switch reload, once content has laid out
+    try {
+      const y = sessionStorage.getItem("spaceScrollY");
+      if (y != null) { sessionStorage.removeItem("spaceScrollY"); setTimeout(() => window.scrollTo(0, +y), 60); }
+    } catch (e) { /* ignore */ }
   })();
 }

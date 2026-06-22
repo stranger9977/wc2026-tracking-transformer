@@ -51,9 +51,11 @@ def stamp(path, pos_map):
 def main():
     pos_map = build_map()
     print(f"position map: {len(pos_map)} (team,name) entries from {PFF/'Rosters'}")
-    stamp(SITE / "space_chase.json", pos_map)
-    stamp(SITE / "space_pobso.json", pos_map)
-    stamp(SITE / "space_sgg.json", pos_map)
+    # stamp the xT boards and, when present, their V-value variants (site value toggle)
+    for name in ("space_chase.json", "space_pobso.json", "space_pobso_v.json",
+                 "space_sgg.json", "space_sgg_v.json"):
+        if (SITE / name).exists():
+            stamp(SITE / name, pos_map)
 
 
 if __name__ == "__main__":
