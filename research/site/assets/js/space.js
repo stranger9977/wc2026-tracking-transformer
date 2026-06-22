@@ -1102,6 +1102,39 @@ async function buildSAR() {
 // CLOSING — two lenses on the 2022 final (FIFA EFI vs our tracking), then the same metrics live in 2026.
 // (team pitch-control scatter removed in the Pass 1 restructure)
 
+/* Closing — a broadcast clip turned into tracking by Eagle (CV), scored with our OWN
+   pitch-control + xT engine. Reads surfaces/eagle_live.json (the buildScrubber schema +
+   a `scorecard`). The live-2026 proof: TV feed -> tracking -> the same space read. */
+async function buildEagleLive() {
+  const el = $("#eagle-live"); if (!el) return;
+  let surf; try { surf = await loadJSON("data/surfaces/eagle_live.json?v=1"); } catch (e) { return; }
+  const h = surf.hero || {}, t = surf.teams || {};
+  buildScrubber(el, surf, {
+    id: "eaglelive", ramp: rampHot, gamma: 0.55, threshold: 0.03, speed: 1.0,
+    labelName: h.name, defaultMode: "surface", ballXt: true,
+    readout: () => `Every dot here was recovered from the <b>broadcast picture</b> by Eagle's `
+      + `computer vision — no tracking feed. The bright pocket is the dangerous space `
+      + `<b>${t.attack || "the attack"}</b> controls as the move builds; the tag on the ball is its live xT. `
+      + `Positions are approximate (±1–2 m) and only the players in frame are counted.`,
+  });
+  if (typeof renderTeamLegend === "function") renderTeamLegend("eagle-teamleg", surf.teams);
+  const sc = surf.scorecard, im = surf.impact, scEl = $("#eagle-score");
+  if (sc && scEl) {
+    const top = (sc.top_occupiers || [])[0];
+    const tile = (v, l, sub) => `<div class="et"><div class="ev">${v}</div>`
+      + `<div class="el">${l}${sub ? `<span>${sub}</span>` : ""}</div></div>`;
+    scEl.innerHTML = `<div class="escore">`
+      + tile(`+${(im ? im.xt_added : 0).toFixed(2)}`, "xT the move added",
+             `ball ${(im ? im.xt_start : 0).toFixed(2)} → ${(im ? im.xt_peak : 0).toFixed(2)} — into peak danger`)
+      + tile(`${sc.dangerous_share_pct}%`, `of the danger zone ${sc.attack_team} controlled`,
+             `${sc.defend_team}'s block held the rest`)
+      + tile(`${sc.territorial_control_pct}%`, "territorial control", "of the players in frame")
+      + tile(top ? top.name : "—", "owned the most dangerous space",
+             "off the ball, this phase · track-id label")
+      + `</div>`;
+  }
+}
+
 async function buildLive() {
   const lensEl = $("#final-2lens"), liveEl = $("#live-efi");
   if (!lensEl && !liveEl) return;
@@ -1778,5 +1811,6 @@ if (!window.__spaceWIPPage) {
     buildDangerExplainer("#ps-explainer", "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. The board below sums this product — times the threat each pass adds — over a player's passes, so a big number means repeated balls into controlled, high-value space. Toggle whether to count the whole pitch or only the final third.");
     // Closing — live 2026 (2022-final two-lens validation + live EFI)
     await buildLive();
+    await buildEagleLive();
   })();
 }
