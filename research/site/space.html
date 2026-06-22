@@ -306,6 +306,13 @@
   .livestat{display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--hot); font-weight:700; letter-spacing:.06em; border:1px solid #ff6b6b40; background:#ff6b6b14; border-radius:999px; padding:5px 13px; margin-bottom:8px}
   .livegrid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
   @media(max-width:760px){ .livegrid{grid-template-columns:1fr} }
+  /* eagle broadcast→tracking scorecard */
+  .escore{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:14px 0 4px}
+  @media(max-width:680px){ .escore{grid-template-columns:repeat(2,1fr)} }
+  .et{background:#0d1622; border:1px solid #1d2a3a; border-radius:10px; padding:12px 13px}
+  .et .ev{font-size:23px; font-weight:800; color:var(--hot); line-height:1.05; letter-spacing:-.01em}
+  .et .el{font-size:11.5px; color:var(--muted); margin-top:5px; line-height:1.3}
+  .et .el span{display:block; color:var(--faint); font-size:10.5px; margin-top:2px}
 
   footer{border-top:1px solid var(--border); padding:54px 0 80px; color:var(--muted); font-size:14px}
   footer h3{font-size:16px; color:var(--ink); margin-bottom:14px}
@@ -679,7 +686,17 @@
       <div class="card">
         <h3>The same space-to-value read, live in World Cup 2026</h3>
         <div id="live-efi"></div>
-        <p class="caption">FIFA's feed, no tracking required. <b>Threat</b> is the value side, FIFA's cousin of xT. <b>Receptions in behind</b> is the access side: how often a team actually gets a player into the space behind the last line. Space into value, the whole thesis above, now updating each matchday. This panel is a placeholder for a real tracking-2026 example once one is built.</p>
+        <p class="caption">FIFA's feed, no tracking required. <b>Threat</b> is the value side, FIFA's cousin of xT. <b>Receptions in behind</b> is the access side: how often a team actually gets a player into the space behind the last line. Space into value, the whole thesis above, now updating each matchday. And the panel below shows the <b>other</b> half — full tracking, rebuilt from nothing but a broadcast clip.</p>
+      </div>
+
+      <div class="card">
+        <div class="livestat"><span class="dot live"></span> broadcast → tracking · open-source CV</div>
+        <h3>From a TV broadcast to a scored space surface</h3>
+        <div id="eagle-live"></div>
+        <div class="legend teamleg" id="eagle-teamleg"></div>
+        <div class="legend"><span>dark = low-value or opponent's</span><span class="grad"></span><span>bright = controlled, dangerous, reachable</span></div>
+        <div id="eagle-score"></div>
+        <p class="caption">No PFF tracking feed exists live during a tournament — all you get is the TV picture. So we ran a France–Morocco broadcast clip (2022 semi) through <a href="https://github.com/nreHieW/Eagle" target="_blank" rel="noopener">Eagle</a>, an open-source computer-vision model that recovers player and ball positions from a single camera, then scored the result with the <b>same</b> pitch-control + xT engine as everything above. The read: France threaded the ball into the danger zone (the pocket lights up at the goal as it arrives, ball xT climbing to its peak) — but against Morocco's packed block they controlled under a quarter of that dangerous space; the threat came from <b>moving</b> the ball, not owning the box. <b>This is approximate</b> — broadcast-derived positions wobble a metre or two, only the players in frame are counted, and the engine has no player names (tracks are labelled by team). The point is the pipeline: a 2026 match feed → tracking → the same space read, with no proprietary data. The defensible numbers stay on PFF.</p>
       </div>
     </div>
   </div>
@@ -708,6 +725,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=57"></script>
+<script type="module" src="assets/js/space.js?v=58"></script>
 </body>
 </html>
