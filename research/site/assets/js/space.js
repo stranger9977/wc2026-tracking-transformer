@@ -1102,6 +1102,75 @@ async function buildSAR() {
 // CLOSING — two lenses on the 2022 final (FIFA EFI vs our tracking), then the same metrics live in 2026.
 // (team pitch-control scatter removed in the Pass 1 restructure)
 
+/* Application 1 coda — the Di María goal scored EXACTLY like Fernández & Bornn: the paper's
+   own value model (NN trained on defensive coverage, not xT) -> Q_i(t) per player over time,
+   plus SOG (occupation, active/passive) and SGG (generation) per the paper's equations.
+   Reads surfaces/dimaria_paper_score.json. */
+async function buildPaperScore() {
+  const host = $("#paper-chart"); if (!host) return;
+  let d; try { d = await loadJSON("data/surfaces/dimaria_paper_score.json?v=1"); } catch (e) { return; }
+  const times = d.times || [];
+  const att = (d.players || []).filter((p) => p.att && !p.gk && p.q && p.q.length);
+  att.sort((a, b) => b.sog_share - a.sog_share);
+  const top = att.slice(0, 6);
+  const COLORS = ["#f0b429", "#6cb4ee", "#5fd38a", "#e07b39", "#b07be0", "#e23b5f"];
+  top.forEach((p, i) => { p._col = COLORS[i % COLORS.length]; });
+
+  // ---- SVG line chart: owned-space value Q_i(t) over the clip ----
+  const W = 660, H = 240, mL = 34, mR = 12, mT = 16, mB = 24;
+  const tmax = Math.max(...times, 1);
+  // anchor the y-axis to the 93rd percentile so one transient spike doesn't flatten the rest;
+  // values above it clamp to the top edge.
+  const allq = []; top.forEach((p) => p.q.forEach((q) => { if (q != null) allq.push(q); }));
+  allq.sort((a, b) => a - b);
+  const qmax = allq.length ? (allq[Math.floor(allq.length * 0.93)] || allq[allq.length - 1]) : 1;
+  const X = (t) => mL + (t / tmax) * (W - mL - mR);
+  const Y = (q) => H - mB - (Math.min(q, qmax) / qmax) * (H - mT - mB);
+  const lines = top.map((p) => {
+    let ds = "", pen = false;
+    p.q.forEach((q, i) => {
+      if (q == null) { pen = false; return; }
+      ds += (pen ? "L" : "M") + X(times[i]).toFixed(1) + " " + Y(q).toFixed(1) + " "; pen = true;
+    });
+    return `<path d="${ds}" fill="none" stroke="${p._col}" stroke-width="2" stroke-linejoin="round" opacity="0.92"/>`;
+  }).join("");
+  const yticks = [0, 0.5, 1].map((f) => { const q = qmax * f, y = Y(q).toFixed(1);
+    return `<line x1="${mL}" y1="${y}" x2="${W - mR}" y2="${y}" stroke="#16212e" stroke-width="1"/>`
+         + `<text x="2" y="${(+y + 3).toFixed(1)}" fill="#5b6b7e" font-size="9">${Math.round(q)}</text>`; }).join("");
+  const xticks = [0, Math.round(tmax / 2), Math.round(tmax)].map((t) =>
+    `<text x="${X(t).toFixed(1)}" y="${H - 6}" fill="#5b6b7e" font-size="9" text-anchor="middle">${t}s</text>`).join("");
+  host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="background:#0b1118;border:1px solid #16212e;border-radius:10px">
+    ${yticks}${xticks}
+    <text x="${mL}" y="11" fill="#5b6b7e" font-size="9">owned-space value Q (m²·V) · ball reaches Di María near the end</text>
+    ${lines}</svg>`;
+
+  const leg = $("#paper-legend");
+  if (leg) leg.innerHTML = top.map((p) =>
+    `<span class="lk"><span class="ld" style="background:${p._col}"></span>${p.name} <span style="color:var(--faint)">${p.sog_share}%</span></span>`).join("");
+
+  // ---- SOG share bars, split active (running) / passive (walking) ----
+  const sogEl = $("#paper-sog");
+  if (sogEl) {
+    const mx = Math.max(...top.map((p) => p.sog_share), 1);
+    sogEl.innerHTML = top.map((p) => {
+      const w = (p.sog_share / mx * 100).toFixed(1), act = p.active_pct;
+      return `<div class="psrow"><span class="pn">${p.name}</span>
+        <span class="pt" style="width:${w}%"><i style="width:${act}%;background:#f0b429"></i><i style="width:${100 - act}%;background:#6cb4ee"></i></span>
+        <span class="pv">${p.sog_share}%</span></div>`;
+    }).join("");
+  }
+
+  // ---- SGG: generator -> receiver shares ----
+  const sggEl = $("#paper-sgg");
+  if (sggEl) {
+    const sgg = (d.sgg || []).slice(0, 6);
+    sggEl.innerHTML = sgg.length
+      ? `<div class="psgg">` + sgg.map((s) =>
+          `<div class="gr"><span class="nm">${s.generator} <span class="ar">→</span> ${s.receiver}</span><span class="sh">${s.share}%</span></div>`).join("") + `</div>`
+      : `<p class="caption">No clean single-defender drag cleared the threshold in this window.</p>`;
+  }
+}
+
 /* Closing — a broadcast clip turned into tracking by Eagle (CV), scored with our OWN
    pitch-control + xT engine. Reads surfaces/eagle_live.json (the buildScrubber schema +
    a `scorecard`). The live-2026 proof: TV feed -> tracking -> the same space read. */
@@ -1818,7 +1887,7 @@ if (!window.__spaceWIPPage) {
     buildBWAE();
     buildSOG();
     buildSGG();
-    await Promise.allSettled([buildPassingClip(), buildDuelClip(), buildPOBSO()]);
+    await Promise.allSettled([buildPassingClip(), buildDuelClip(), buildPOBSO(), buildPaperScore()]);
     buildDangerExplainer("#pobso-explainer");
     buildDangerExplainer("#ps-explainer", "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. The board below sums this product — times the threat each pass adds — over a player's passes, so a big number means repeated balls into controlled, high-value space. Toggle whether to count the whole pitch or only the final third.");
     // Closing — live 2026 (2022-final two-lens validation + live EFI)
