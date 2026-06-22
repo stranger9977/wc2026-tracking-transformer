@@ -1775,7 +1775,7 @@ if (!window.__spaceWIPPage) {
     buildSGG();
     await Promise.allSettled([buildPassingClip(), buildDuelClip(), buildPOBSO()]);
     buildDangerExplainer("#pobso-explainer");
-    buildDangerExplainer("#ps-explainer", "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. The board below sums this product over each player's final-third passes, so a big number means repeated balls into controlled, high-value space.");
+    buildDangerExplainer("#ps-explainer", "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. The board below sums this product — times the threat each pass adds — over a player's passes, so a big number means repeated balls into controlled, high-value space. Toggle whether to count the whole pitch or only the final third.");
     // Closing — live 2026 (2022-final two-lens validation + live EFI)
     await buildLive();
   })();
