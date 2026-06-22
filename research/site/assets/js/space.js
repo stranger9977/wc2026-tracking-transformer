@@ -1559,30 +1559,42 @@ const STAGE_LABEL = { group: "group stage", ko: "knockout", all: "all 64 games" 
 const STAGE_MIN = { group: 2, ko: 1, all: 2 };
 async function buildPassSelection() {
   const el = $("#ps-board"); if (!el) return;
-  let d; try { d = await loadJSON("data/pass_selection.json?v=6"); } catch (e) { return; }
+  let d; try { d = await loadJSON("data/pass_selection.json?v=7"); } catch (e) { return; }
   const players = (d.players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
   if (!players.length) return;
-  const lab = $("#ps-lab"), tg = $("#ps-toggle"), ztg = $("#ps-zone"), wtg = $("#ps-weight"), top = $("#ps-top");
-  const st = { stage: "group", weighted: false, zone: "all" };
+  const lab = $("#ps-lab"), tg = $("#ps-toggle"), mtg = $("#ps-metric"), ztg = $("#ps-zone"), wtg = $("#ps-weight"), top = $("#ps-top");
+  // metric: "progression" = control × xT(dest) × xT-added (threads it forward into danger);
+  //         "occupation"  = control × xT(dest) over every pass (lives in dangerous controlled space).
+  const st = { stage: "group", weighted: false, zone: "all", metric: "progression" };
   const render = () => {
     const stage = st.stage, key = st.weighted ? "per_match" : "per_match_raw";
-    // "f3" = same metric, only passes whose target is in the attacking third; falls back to all if absent
-    const blk = (r) => (st.zone === "f3" && r.stages_f3) ? r.stages_f3 : r.stages;
+    const occ = st.metric === "occupation";
+    // pick the block by (metric, zone); fall back to progression-whole if a block is absent
+    const bk = occ ? (st.zone === "f3" ? "stages_occ_f3" : "stages_occ")
+                   : (st.zone === "f3" ? "stages_f3" : "stages");
+    const blk = (r) => r[bk] || r.stages;
     const min = STAGE_MIN[stage] || 2;
     const sv = (r) => (blk(r)[stage] && blk(r)[stage].matches >= min) ? blk(r)[stage][key] : null;
     const rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
     const mx = Math.max(1e-9, ...rows.map(sv));
-    const PS_SCALE = 100;   // triple product (control × xT_dest × xT_added) is small; ×100 for a readable index
+    // occupation totals are ~10× the threat-added product, so scale each metric to a readable index.
+    const PS_SCALE = occ ? 10 : 100, dec = occ ? 1 : 2, col = occ ? "#5fd38a" : "#6cb4ee";
     el.innerHTML = rows.map((r) => { const s = blk(r)[stage]; return `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""} <span class="lpos">${s.matches}m</span></span>
-      <span class="tbtrack"><span class="tbfill" style="width:${clamp(sv(r) / mx * 100, 0, 100)}%;background:#6cb4ee"></span></span>
-      <span class="tbval">${(sv(r) * PS_SCALE).toFixed(2)}</span></div>`; }).join("");
-    const zoneTxt = st.zone === "f3" ? "into the <b>final third</b>" : "into dangerous space";
-    if (lab) lab.innerHTML = `Players · control × xT-added ${zoneTxt} (threading index), <b>per match</b>${st.weighted ? ", opponent-strength weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
+      <span class="tbtrack"><span class="tbfill" style="width:${clamp(sv(r) / mx * 100, 0, 100)}%;background:${col}"></span></span>
+      <span class="tbval">${(sv(r) * PS_SCALE).toFixed(dec)}</span></div>`; }).join("");
+    const zoneTxt = st.zone === "f3" ? "<b>final third</b> only" : "whole pitch";
+    const metricTxt = occ
+      ? `Players who <b>live in</b> dangerous, controlled space · control × xT (occupation index)`
+      : `Players who <b>thread it into</b> dangerous space · control × xT-added (threading index)`;
+    if (lab) lab.innerHTML = `${metricTxt}, ${zoneTxt}, <b>per match</b>${st.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
     if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
   render();
   if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => {
     st.stage = b.dataset.m; $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b)); render();
+  }));
+  if (mtg) $$(".htog", mtg).forEach((b) => b.addEventListener("click", () => {
+    st.metric = b.dataset.pm; $$(".htog", mtg).forEach((x) => x.classList.toggle("on", x === b)); render();
   }));
   if (ztg) $$(".htog", ztg).forEach((b) => b.addEventListener("click", () => {
     st.zone = b.dataset.z; $$(".htog", ztg).forEach((x) => x.classList.toggle("on", x === b)); render();

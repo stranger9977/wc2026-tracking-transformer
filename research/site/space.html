@@ -601,7 +601,7 @@
     <div class="reveal">
       <div class="act-tag"><span class="num">3</span> Application three · The passer who hits that space</div>
       <h2>The pass that hits the dangerous space.</h2>
-      <p class="lede">Application one found the off-ball runner who drifts into valuable grass. This one finds the player who puts the ball there. A great pass does two things at once: it <b>adds threat</b> (moves the ball to a more dangerous spot — the same xT-added the clip tags on each pass) and lands somewhere <b>keepable</b> (controlled by his team at the target). We score every pass by <b>control × xT(target) × xT-added</b> and rank the players who do it most. Scrub the auto-picked example: <span id="passing-hero-title">a pass into the danger zone</span>.</p>
+      <p class="lede">Application one found the off-ball runner who drifts into valuable grass. This one finds the player who puts the ball there. A great pass does two things at once: it <b>adds threat</b> (moves the ball to a more dangerous spot — the same xT-added the clip tags on each pass) and lands somewhere <b>keepable</b> (controlled by his team at the target). The board below scores this two ways — <b>progression</b> (the threat each pass <i>adds</i>) and <b>occupation</b> (how much dangerous, controlled space a passer <i>lives in</i>) — so both the line-breakers and the deep controllers get their due. Scrub the auto-picked example: <span id="passing-hero-title">a pass into the danger zone</span>.</p>
       <div class="card">
         <h3>Hitting the dangerous space · <span id="passing-hero-title2">the pass</span></h3>
         <div id="passing-canvas" class="heat"></div>
@@ -611,13 +611,14 @@
       </div>
       <div id="ps-explainer" class="xpl"></div>
       <div class="card">
-        <h3>Who repeatedly threads it into dangerous, controlled space</h3>
+        <h3>Who hits the dangerous, controlled space — two ways</h3>
         <div class="boardlab" id="ps-lab"></div>
         <div class="htoggles" id="ps-toggle" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
+        <div class="htoggles" id="ps-metric" style="padding:0;margin:0 0 6px"><button class="htog on" data-pm="progression">progression · threads it forward</button><button class="htog" data-pm="occupation">occupation · lives in the space</button></div>
         <div class="htoggles" id="ps-zone" style="padding:0;margin:0 0 6px"><button class="htog on" data-z="all">whole pitch</button><button class="htog" data-z="f3">final third only</button></div>
         <div class="htoggles" id="ps-weight" style="padding:0;margin:0 0 8px"><button class="htog" data-w="weighted">opponent-weighted</button><button class="htog on" data-w="raw">raw</button></div>
         <div id="ps-board" class="tbars"></div>
-        <p class="caption"><b>Per match</b> (group stage is the level field — every team plays three games; knockout is who did it against elite defences). <b>Toggle opponent-weighting</b> to discount minnows. Leaders: <b id="ps-top">the top names</b>. <b>Whole pitch</b> scores every threat-adding pass: multiplying by the destination's danger (xT there) and the threat it adds means own-half build-up is worth ≈0 with no arbitrary line — so it surfaces creators, not centre-backs racking up volume. <b>Final third only</b> applies the same metric but keeps only passes whose target lands in the attacking third, for when you want pure final-third creation. The number is that product ×100 — a relative threading index, not a unit.</p>
+        <p class="caption"><b>Two questions, one board.</b> <b>Progression</b> (default) scores <i>control × xT(target) × xT-added</i>: who <b>threads the ball forward into more danger</b>. Own-half build-up adds ≈0 threat, so it surfaces line-breaking creators (de Paul, Modrić, Messi), not centre-backs racking up volume. <b>Occupation</b> drops the xT-added term — <i>control × xT(target)</i> over every pass — so it rewards who <b>lives in dangerous, controlled space</b>, holding and recycling it: the deep-lying controllers (Rodri, <b>Pedri</b>, Kovačić) the progression view demotes because their passes don't move the ball to <i>more</i> danger. Pair either with <b>final third only</b> to drop the build-up entirely. <b>Per match</b>; toggle opponent-weighting to discount minnows. Leaders: <b id="ps-top">the top names</b>. The number is a relative index, not a unit.</p>
       </div>
     </div>
   </div>
@@ -725,6 +726,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=58"></script>
+<script type="module" src="assets/js/space.js?v=59"></script>
 </body>
 </html>
