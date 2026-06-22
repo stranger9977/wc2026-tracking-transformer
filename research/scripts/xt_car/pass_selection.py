@@ -45,6 +45,19 @@ COLLAPSE = {"RCB": "CB", "LCB": "CB", "RB": "RB", "LB": "LB", "RWB": "RB", "LWB"
             "DM": "DM", "GK": "GK", "RM": "RM", "LM": "LM"}
 OUT = _REPO / "research" / "site" / "data" / "pass_selection.json"
 
+# Value layer: static xT (default) or the ball-conditioned paper V model (SPACE_VALUE=v),
+# so the passing board can be regenerated under either value model for the site toggle.
+_VALMODE = "xt"
+_VMODEL = None
+
+
+def _val(ball_xy, cell_xy):
+    """Value of a cell given the ball — xT (ball-blind) or the paper V (ball-conditioned)."""
+    if _VALMODE == "v":
+        import space_value_model as svm  # noqa: E402
+        return svm.value_point(ball_xy, cell_xy, _VMODEL)
+    return xt(cell_xy[0], cell_xy[1])
+
 
 def infl(px, py, bx, by, tx, ty):
     frac = min(math.hypot(px - bx, py - by) / BALL_SAT, 1.0)
@@ -133,8 +146,8 @@ def process_match(root, mid, meta, opp):
         #                                                 Only threat-adding passes; rewards line-
         #                                                 breaking creators (de Paul/Messi), not CB
         #                                                 build-up volume (xT(dest)~0 in own half).
-        xt_dest = xt(tx * d, ty * d)
-        xt_gain = xt_dest - xt(bx * d, by * d)
+        xt_dest = _val((bx * d, by * d), (tx * d, ty * d))
+        xt_gain = xt_dest - _val((bx * d, by * d), (bx * d, by * d))
         pteam = roster.get(passer, "")
         oteam = next((t for t in teams if t != pteam), "")
         w = opp.weight(oteam) if oteam else 1.0
@@ -177,10 +190,17 @@ def _view(by_stage, wk, rk):
 
 
 def main():
+    global _VALMODE, _VMODEL
     root = Path(os.environ.get("PFF_ROOT", str(Path.home() / "pff_wc22_local")))
     ap = argparse.ArgumentParser(); ap.add_argument("--matches", default="")
     ap.add_argument("--min-n", type=int, default=40)
     a = ap.parse_args()
+    out_path = OUT
+    if os.environ.get("SPACE_VALUE") == "v":
+        import space_value_model as svm  # noqa: E402
+        _VALMODE, _VMODEL = "v", svm.load_model()
+        out_path = OUT.with_name("pass_selection_v.json")
+        print("[value] SPACE_VALUE=v — passing scored with the Fernández–Bornn pitch-value model", flush=True)
     opp = OppStrength()
     mids = (a.matches.split(",") if a.matches
             else sorted(p.name.replace(".jsonl.bz2", "")
@@ -198,7 +218,7 @@ def main():
              "n_passes": m["n"]}
             for m in meta.values() if m["n"] >= a.min_n]
     rows.sort(key=lambda r: -r["stages"]["all"]["total"])
-    OUT.write_text(json.dumps({"metric": "Pass selection: progression (control x xT(dest) x xT-added) + occupation (control x xT(dest))",
+    out_path.write_text(json.dumps({"metric": "Pass selection: progression (control x xT(dest) x xT-added) + occupation (control x xT(dest))",
                                "unit": "sum over a player's passes, opponent-strength weighted; progression=threat added, occupation=lands in dangerous controlled space",
                                "stages": ["all", "group", "ko"], "zones": ["all", "f3"],
                                "metrics": ["progression", "occupation"],

@@ -69,6 +69,13 @@ COMPUTE_GRID = (26, 40)       # (ny, nx) coarse control grid
 RAW_HZ = 30.0
 SECS_PER_FRAME = SAMPLING_STRIDE / RAW_HZ  # 0.5 s per kept frame
 
+# Value layer. xT (static, ball-blind) by default; set SPACE_VALUE=v to score with the
+# Fernández–Bornn pitch-value model (ball-conditioned defensive-coverage NN) instead, so the
+# whole SOG/team/SGG pipeline can be regenerated under either value model for the site toggle.
+# _VALUE_FN(ball_m, grid) -> (ny,nx) value surface; None => use the static xt_grid passed in.
+_VALUE_FN = None
+_SUFFIX = ""
+
 # A "danger moment": the in-possession team controls a single cell whose
 # control x xT exceeds this (i.e. it owns a genuinely chance-quality pocket).
 # control ~ >0.8 of a >~0.15-xT cell. This is the FLOW unit the team xG receipt
@@ -162,11 +169,13 @@ def frame_obso(fr, grid, xt_grid):
                     DANGER_MOMENT_THRESH.
     """
     ctrl = pc.control_surface(fr.players, fr.ball_m, grid, include_gk=True)
-    # True OBSO = reach x control x xT: the reach factor (P the ball can be
+    # Value layer: static xT (default) or the ball-conditioned paper V (SPACE_VALUE=v).
+    val = _VALUE_FN(fr.ball_m, grid) if _VALUE_FN is not None else xt_grid
+    # True OBSO = reach x control x value: the reach factor (P the ball can be
     # played to a cell) restores the ball-awareness bare xT lacks, so dangerous
     # space the ball cannot reach right now is discounted toward 0.
     reach = pc.reach_surface(fr.ball_m, grid)
-    surface = ctrl["attack_control"] * xt_grid * reach      # ball-aware: team OBSO, render, peak
+    surface = ctrl["attack_control"] * val * reach      # ball-aware: team OBSO, render, peak
     obso_total = float(surface.sum() * grid.cell_area_m2)
     peak_cell = float(surface.max())       # best single controlled-danger pocket
     # Per-PLAYER attribution uses control x xT WITHOUT reach. F&B "Space
@@ -174,7 +183,7 @@ def frame_obso(fr, grid, xt_grid):
     # the ball arrives), and the attribution is already local (a player only
     # gets the danger he personally owns), so reach would only penalise forwards
     # for being upfield — it belongs on the surface/team OBSO, not the board.
-    surf_attr = ctrl["attack_control"] * xt_grid
+    surf_attr = ctrl["attack_control"] * val
     # Territorial control share: fraction of the pitch the in-possession team
     # owns outright (the "France controlled 55% of the pitch" number).
     ctrl_share = float((ctrl["attack_control"] > 0.5).mean())
@@ -881,6 +890,14 @@ def build_team_board(res):
 
 
 def main():
+    global _VALUE_FN, _SUFFIX
+    if os.environ.get("SPACE_VALUE") == "v":
+        import space_value_model as svm  # noqa: E402
+        _model = svm.load_model()
+        _VALUE_FN = lambda ball, g: svm.value_surface_cached(ball, g, _model)   # noqa: E731
+        _SUFFIX = "_v"
+        os.environ["POBSO_SKIP_HERO"] = "1"   # live surface comes from clip_examples; skip here
+        print("[value] SPACE_VALUE=v — scoring with the Fernández–Bornn pitch-value model")
     print("=" * 70)
     print("P-OBSO — Pressure-gated Off-ball Scoring Opportunity (xT bridge)")
     print(f"sample: {len(SAMPLE_MATCHES)} matches, stride {SAMPLING_STRIDE} "
@@ -956,13 +973,13 @@ def main():
     }
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    lb_path = DATA_DIR / "space_pobso.json"
+    lb_path = DATA_DIR / f"space_pobso{_SUFFIX}.json"
     with open(lb_path, "w") as fh:
         json.dump(leaderboard, fh, indent=1)
     print(f"\n[export] leaderboard -> {lb_path}")
 
     team_board = build_team_board(res)
-    tb_path = DATA_DIR / "team_control.json"
+    tb_path = DATA_DIR / f"team_control{_SUFFIX}.json"
     with open(tb_path, "w") as fh:
         json.dump(team_board, fh, indent=1)
     print(f"[export] team board -> {tb_path} ({len(team_board['teams'])} teams)")

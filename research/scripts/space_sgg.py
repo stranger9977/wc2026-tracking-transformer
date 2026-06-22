@@ -31,6 +31,7 @@ Run (full 64, ~2 Hz):
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 from collections import defaultdict
@@ -146,6 +147,13 @@ def score_match(mid, grid, xt_grid, opp, meta):
 
 
 def main():
+    suffix = ""
+    if os.environ.get("SPACE_VALUE") == "v":
+        import space_value_model as svm  # noqa: E402
+        _model = svm.load_model()
+        sp._VALUE_FN = lambda ball, g: svm.value_surface_cached(ball, g, _model)   # noqa: E731
+        suffix = "_v"
+        print("[value] SPACE_VALUE=v — SGG scored with the Fernández–Bornn pitch-value model")
     print("=" * 70)
     print("SGG — Space Generation Gain (F&B drag detection, Eqs 10-11)")
     print(f"sample: {len(SAMPLE_MATCHES)} matches, stride {SAMPLING_STRIDE} "
@@ -210,7 +218,7 @@ def main():
         "players": players,
     }
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    path = DATA_DIR / "space_sgg.json"
+    path = DATA_DIR / f"space_sgg{suffix}.json"
     with open(path, "w") as fh:
         json.dump(out, fh, indent=1)
     print(f"\n[export] SGG board -> {path} ({len(players)} players, {time.time()-t0:.0f}s)")

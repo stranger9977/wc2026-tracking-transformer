@@ -123,6 +123,33 @@ def load_model(path=CKPT):
     return m
 
 
+def value_point(ball_m, cell_m, model, *, goal_mult=True):
+    """V at a single (ball, cell) point — for per-pass scoring (pass_selection, bwae)."""
+    X = np.array([[ball_m[0] / HALF_LEN, ball_m[1] / HALF_WID,
+                   cell_m[0] / HALF_LEN, cell_m[1] / HALF_WID]], dtype=np.float32)
+    with torch.no_grad():
+        v = float(model(torch.tensor(X))[0])
+    if goal_mult:
+        v *= max(0.0, min(1.0, (cell_m[0] + HALF_LEN) / (2 * HALF_LEN)))
+    return v
+
+
+_VS_CACHE: dict = {}
+
+
+def value_surface_cached(ball_m, grid, model, *, goal_mult=True, q=1.0):
+    """value_surface, memoised on the ball position quantised to ``q`` metres. V depends only on
+    (ball, cell) and the grid is fixed, so a 64-match sweep hits only a few thousand unique ball
+    cells instead of one NN forward per frame — a ~100x speedup with sub-metre value error."""
+    key = (round(float(ball_m[0]) / q) * q, round(float(ball_m[1]) / q) * q,
+           grid.nx, grid.ny, bool(goal_mult))
+    s = _VS_CACHE.get(key)
+    if s is None:
+        s = value_surface(np.array([key[0], key[1]]), grid, model, goal_mult=goal_mult)
+        _VS_CACHE[key] = s
+    return s
+
+
 def value_surface(ball_m, grid, model, *, goal_mult=True):
     """Evaluate V = f_n(ball, cell) over the grid for one ball position, × goal-distance mult."""
     bxn, byn = ball_m[0] / HALF_LEN, ball_m[1] / HALF_WID

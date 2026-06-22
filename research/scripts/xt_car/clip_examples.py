@@ -45,6 +45,11 @@ PAD_S = 2.5
 
 SURF_DIR = _REPO / "research" / "site" / "data" / "surfaces"
 ROOT = Path(os.environ.get("PFF_ROOT", str(Path.home() / "pff_wc22_local")))
+
+# Value layer for the danger (pobso) surface: static xT by default; the ball-conditioned paper V
+# under SPACE_VALUE=v (writes pobso_v.json). Only the danger surface uses a value layer — the
+# passing/duel surfaces are pure control. _VALUE_FN(ball_m, grid) -> (ny,nx); None => static xT.
+_VALUE_FN = None
 MIDS = sorted(p.name.replace(".jsonl.bz2", "")
               for p in (ROOT / "Tracking Data").glob("*.jsonl.bz2"))
 
@@ -435,7 +440,8 @@ def export_window(mid, period, t_center, lock_team_id, kind, hero,
         actrl = ctrl["attack_control"]                  # raw attacker control (pre × xT)
         # danger surface = true OBSO (reach × control × xT); reach discounts
         # dangerous grass the ball cannot be played into from where it is now.
-        surf = (actrl * xt_grid * pc.reach_surface(np.array([bx, by]), grid)
+        val = _VALUE_FN(np.array([bx, by]), grid) if _VALUE_FN is not None else xt_grid
+        surf = (actrl * val * pc.reach_surface(np.array([bx, by]), grid)
                 if kind == "danger" else actrl)
         d_anchor, hero_cell, markers = None, 0.0, []
         for (nm, att, gk, vis, mx, my) in idents:
@@ -683,6 +689,12 @@ def pick_dangerous_run():
 
 def main():
     import argparse
+    global _VALUE_FN
+    if os.environ.get("SPACE_VALUE") == "v":
+        import space_value_model as svm  # noqa: E402
+        _model = svm.load_model()
+        _VALUE_FN = lambda ball, g: svm.value_surface(ball, g, _model)   # noqa: E731
+        print("[value] SPACE_VALUE=v — danger surface uses the Fernández–Bornn pitch-value model", flush=True)
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", default="all", choices=["all", "passing", "duel", "danger"],
                     help="export just one clip (fast iteration)")
@@ -817,10 +829,21 @@ def main():
             end_t = payload["frames"][-1]["t_s"]
             goal_xy = orig_ball[end_t]
             last = pss[-1]
-            anchors = [(p["t_s"], p["x0"], p["y0"]) for p in pss]
-            last_flight = min(1.0, max(0.3, math.hypot(last["x1"] - last["x0"], last["y1"] - last["y0"]) / 18.0))
-            anchors.append((last["t_s"] + last_flight, last["x1"], last["y1"]))   # the shooter receives
-            recv_t, recv_x, recv_y = anchors[-1]
+            # Anchors interleave each pass's STRIKE (origin) and RECEPTION (dest):
+            # the ball is struck at x0,y0 then arrives at x1,y1 a short flight later,
+            # so a receiver who carries the ball before the next pass lands the ball
+            # where he actually received it (not where he later strikes). BALL_SPEED
+            # 24 m/s = a driven pass; the long ball + the cross reach the receiver
+            # quickly instead of floating.
+            BALL_SPEED = 24.0
+            anchors = []
+            for k, p in enumerate(pss):
+                d = math.hypot(p["x1"] - p["x0"], p["y1"] - p["y0"])
+                nxt = pss[k + 1]["t_s"] if k + 1 < len(pss) else p["t_s"] + 2.0
+                flight = min(max(0.25, d / BALL_SPEED), max(0.25, nxt - p["t_s"] - 0.05))
+                anchors.append((p["t_s"], p["x0"], p["y0"]))            # struck
+                anchors.append((p["t_s"] + flight, p["x1"], p["y1"]))   # received
+            recv_t, recv_x, recv_y = anchors[-1]                        # shooter receives
             shot_t = max(recv_t + 0.2, end_t - 0.8)        # receive, hold a beat, then strike
             bx_path, by_path = [], []
             for f in payload["frames"]:
@@ -840,7 +863,7 @@ def main():
                             # ball crawling. (Long ball = it gets to the spot quickly and the runner
                             # chases on; brief.)
                             dist = math.hypot(x1 - x0, y1 - y0)
-                            flight = min(t1 - t0, max(0.3, dist / 16.0))
+                            flight = min(t1 - t0, max(0.25, dist / 24.0))
                             g = min(1.0, (t - t0) / flight) if flight > 0 else 1.0
                             bx, by = x0 + (x1 - x0) * g, y0 + (y1 - y0) * g
                             break
@@ -884,8 +907,8 @@ def main():
         print(f"[danger] {len(pss)} passes in window: "
               + ", ".join(f"{p['passer'].split()[-1] if p['passer'] else '?'}->"
                           f"{p['receiver'].split()[-1]} ({p['xt_added']:+.2f})" for p in pss), flush=True)
-        (SURF_DIR / "pobso.json").write_text(json.dumps(payload))
-        print(f"[danger] wrote surfaces/pobso.json — {shooter} ({meta['homeTeam']['name']} v "
+        (SURF_DIR / ("pobso_v.json" if _VALUE_FN is not None else "pobso.json")).write_text(json.dumps(payload))
+        print(f"[danger] wrote surfaces/pobso{'_v' if _VALUE_FN is not None else ''}.json — {shooter} ({meta['homeTeam']['name']} v "
               f"{meta['awayTeam']['name']}, p{period} {gc:.0f}s), assist {assist}, "
               f"{payload['n_frames']} frames, obso_owned={hero.get('obso_owned')}", flush=True)
         break

@@ -310,6 +310,23 @@
   .livestat{display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--hot); font-weight:700; letter-spacing:.06em; border:1px solid #ff6b6b40; background:#ff6b6b14; border-radius:999px; padding:5px 13px; margin-bottom:8px}
   .livegrid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
   @media(max-width:760px){ .livegrid{grid-template-columns:1fr} }
+  /* two-ways-to-value-space: explainer animation + global toggle */
+  .vchip{display:inline-block; font-size:11px; text-transform:uppercase; letter-spacing:.1em; font-weight:700;
+    color:#e0a93f; border:1px solid #e0a93f55; background:#e0a93f14; border-radius:999px; padding:4px 11px; margin-bottom:10px}
+  .vanim{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:6px 0 2px}
+  @media(max-width:600px){ .vanim{grid-template-columns:1fr} }
+  .vacol{}
+  .valab{font-size:12px; color:var(--muted); margin-bottom:6px; font-weight:600}
+  .vacol canvas{width:100%; height:auto; display:block; border-radius:8px; background:#0b1118; border:1px solid #16212e}
+  .vtoggle{margin-top:16px; padding-top:14px; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; align-items:center; gap:12px}
+  .vtlab{font-size:13px; color:var(--ink); font-weight:600}
+  .vtbtns{display:inline-flex; border:1px solid var(--border); border-radius:999px; overflow:hidden}
+  .vtbtns button{appearance:none; border:none; background:transparent; color:var(--muted); font:inherit; font-size:13px;
+    padding:7px 16px; cursor:pointer; transition:background .15s,color .15s}
+  .vtbtns button+button{border-left:1px solid var(--border)}
+  .vtbtns button.on{background:#e0a93f; color:#0b1118; font-weight:700}
+  .vthint{font-size:11.5px; color:var(--faint); flex-basis:100%}
+
   /* eagle broadcast→tracking scorecard */
   .escore{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:14px 0 4px}
   @media(max-width:680px){ .escore{grid-template-columns:repeat(2,1fr)} }
@@ -429,6 +446,22 @@
         <p class="caption" style="margin-top:0">A player's total is a <b>long tail of small progressions</b>, not a handful of line-breakers. About <b>40% of passes go backward or sideways</b> and add no threat, so they count as 0. Each completed pass or carry adds its xT gain (a box entry ≈ +0.10, a square ball ≈ +0.005), and the total is just those bumps summed. Two routes reach the same ≈ 2.8:</p>
         <div id="xt-breakdown" class="twoup"></div>
         <p class="caption">Both land at ≈ <b>0.40 xT/match</b> (total ÷ games) with opposite fingerprints. <b>Mbappé</b> gets there through fewer, sharper vertical balls, with most of his value in the moderate and big buckets. <b>Messi</b> gets there through sheer involvement, a huge pile of small progressions. xT-created rewards both the rare line-breaker and the relentless progressor. Read it as who moved the ball into danger most, not a goal count.</p>
+      </div>
+
+      <div class="card" id="value-models">
+        <div class="vchip">Two ways to value space</div>
+        <h3>The other lens: <b>V</b> — value is where the defence guards</h3>
+        <p class="lede">xT answers <i>"where could a goal come from"</i>, so it only lights up near the opponent's goal. The Fernández–Bornn paper takes the opposite view: <b>space is valuable where the defence bothers to guard it</b>. Their value model <b>V</b> is a neural net trained on exactly that — given where the ball is, how much defensive coverage piles onto each part of the pitch. It <b>inverts</b> xT: the crowded <b>build-up</b> grass in midfield becomes valuable, not just the box. We trained it on 16 World Cup matches.</p>
+        <div id="value-anim"></div>
+        <p class="caption">Same ball, two value models. <b>xT (left)</b> never moves — the danger always lives at the goal. <b>V (right)</b> follows the ball: as it climbs the pitch, value re-pools around where defenders typically sit given the ball there. xT cares where the ball could <i>end up</i>; V cares where the play is being <i>contested now</i>.</p>
+        <div class="vtoggle">
+          <span class="vtlab">Value space across the rest of the site by</span>
+          <div class="vtbtns" id="value-mode-toggle">
+            <button data-vm="xt">xT · threat</button>
+            <button data-vm="v">V · defensive coverage</button>
+          </div>
+          <span class="vthint">switching reloads and re-scores every board, surface and leaderboard below — defensive gravity (V) reshuffles them.</span>
+        </div>
       </div>
 
       <div class="card">
@@ -771,6 +804,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=61"></script>
+<script type="module" src="assets/js/space.js?v=62"></script>
 </body>
 </html>
