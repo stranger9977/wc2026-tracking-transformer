@@ -83,10 +83,10 @@ function vSwapEl(el, mode) {
 }
 function applyVTermStatic() {
   if (getValueMode() !== "v") return;
-  ["#pitchcontrol", "#pobso", "#way-sgg", "#way-passing", "#way-duels"].forEach((s) => {
+  ["#pitchcontrol", "#pobso", "#way-sgg", "#way-passing", "#way-duels", "#more-plays"].forEach((s) => {
     const sec = document.querySelector(s); if (!sec) return;
     sec.querySelectorAll("h2,h3,.caption,.lede,.subtitle,.xpl,.cite").forEach((el) => {
-      if (el.closest("#value-models,#paper-score-card")) return;
+      if (el.closest("#value-models,#paper-score-card,.paper-score-card")) return;
       vSwapEl(el, getValueMode());
     });
   });
@@ -530,8 +530,8 @@ function buildScrubber(el, surf, cfg) {
 
   // apply the active "mode" transform to a (possibly interpolated) surface
   function applyMode(surface) {
-    // P-OBSO 'reveal danger' mode: multiply surface by xt_reference to keep only dangerous cells
-    if (cfg.id === "pobso" && state.mode === "reveal" && surf.xt_reference) {
+    // 'reveal danger' mode (any danger clip): multiply surface by xt_reference to keep only dangerous cells
+    if (state.mode === "reveal" && surf.xt_reference) {
       const xt = surf.xt_reference, out = surface.map((row, r) => row.map((v, c) => v * (xt[r] ? xt[r][c] : 0)));
       let mx = 0; out.forEach((row) => row.forEach((v) => { if (v > mx) mx = v; }));
       if (mx > 0) for (let r = 0; r < out.length; r++) for (let c = 0; c < out[r].length; c++) out[r][c] /= mx;
@@ -1276,9 +1276,12 @@ async function buildSAR() {
    own value model (NN trained on defensive coverage, not xT) -> Q_i(t) per player over time,
    plus SOG (occupation, active/passive) and SGG (generation) per the paper's equations.
    Reads surfaces/dimaria_paper_score.json. */
-async function buildPaperScore() {
-  const host = $("#paper-chart"); if (!host) return;
-  let d; try { d = await loadJSON("data/surfaces/dimaria_paper_score.json?v=1"); } catch (e) { return; }
+async function buildPaperScore(cfg) {
+  // cfg lets the same paper-score card render for any clip; defaults to the Di María goal.
+  cfg = cfg || { file: "data/surfaces/dimaria_paper_score.json?v=1",
+                 chartId: "paper-chart", legendId: "paper-legend", sogId: "paper-sog", sggId: "paper-sgg" };
+  const host = document.getElementById(cfg.chartId); if (!host) return;
+  let d; try { d = await loadJSON(cfg.file); } catch (e) { return; }
   const times = d.times || [];
   const att = (d.players || []).filter((p) => p.att && !p.gk && p.q && p.q.length);
   att.sort((a, b) => b.sog_share - a.sog_share);
@@ -1314,12 +1317,12 @@ async function buildPaperScore() {
     <text x="${mL}" y="11" fill="#5b6b7e" font-size="9">owned-space value Q (m²·V) · ball reaches Di María near the end</text>
     ${lines}</svg>`;
 
-  const leg = $("#paper-legend");
+  const leg = document.getElementById(cfg.legendId);
   if (leg) leg.innerHTML = top.map((p) =>
     `<span class="lk"><span class="ld" style="background:${p._col}"></span>${p.name} <span style="color:var(--faint)">${p.sog_share}%</span></span>`).join("");
 
   // ---- SOG share bars, split active (running) / passive (walking) ----
-  const sogEl = $("#paper-sog");
+  const sogEl = document.getElementById(cfg.sogId);
   if (sogEl) {
     const mx = Math.max(...top.map((p) => p.sog_share), 1);
     sogEl.innerHTML = top.map((p) => {
@@ -1331,7 +1334,7 @@ async function buildPaperScore() {
   }
 
   // ---- SGG: generator -> receiver shares ----
-  const sggEl = $("#paper-sgg");
+  const sggEl = document.getElementById(cfg.sggId);
   if (sggEl) {
     const sgg = (d.sgg || []).slice(0, 6);
     sggEl.innerHTML = sgg.length
@@ -1339,6 +1342,54 @@ async function buildPaperScore() {
           `<div class="gr"><span class="nm">${s.generator} <span class="ar">→</span> ${s.receiver}</span><span class="sh">${s.share}%</span></div>`).join("") + `</div>`
       : `<p class="caption">No clean single-defender drag cleared the threshold in this window.</p>`;
   }
+}
+
+/* The shared "what the ledger shows" explanation — the same four-factor read (ctrl/V/SOG/freed-by/xT)
+   the Di María clip uses, so every danger clip narrates its passes ledger identically. */
+function clipLedgerHelp() {
+  return `Each receiver is ringed — <span style="color:#5fd38a">green when his team owns the grass he is in</span>, `
+    + `<span style="color:#ff6b6b">red when it does not</span>. In the ledger every pass carries four factors: `
+    + `<span style="color:var(--accent)">ctrl</span> = pitch control at the target (the C in Q=C·V), `
+    + `<span style="color:#e0a93f">V</span> = the paper value model (how much that space is worth — by defensive coverage, not xT), `
+    + `<span style="color:#6cb4ee">SOG</span> = the receiver's occupation-gain share, `
+    + `<span style="color:#5fd38a">freed by</span> = the SGG drag that sprang him — then the <b>xT it adds</b>.`;
+}
+
+/* Two more 2022 World Cup moments rendered from PFF tracking, each given the FULL Di María treatment:
+   the dangerous-space scrubber (control × value, ball-xT tag, receiver rings, a passes ledger carrying
+   ctrl/V/SOG/freed-by/xT, the reveal-danger toggle), an impact receipt, and the paper-score card
+   (owned-space value Q over time + SOG active/passive split + SGG). cfg names the surface + paper-score
+   files, the DOM ids, and the clip-specific narration. Follows the GLOBAL value mode via loadValueJSON. */
+async function buildExtraClip(cfg) {
+  const scEl = document.getElementById(cfg.canvasId); if (!scEl) return;
+  let surf; try { surf = await loadValueJSON(cfg.surfaceFile); } catch (e) { return; }
+  const h = surf.hero || {}, im = surf.impact;
+  // join the paper-scored SOG share + any SGG drag onto each pass's receiver (same join as the Di María ledger)
+  try {
+    const ps = await loadJSON(cfg.paper.file);
+    const sogMap = {}, sggMap = {};
+    (ps.players || []).forEach((p) => { if (p.att && !p.gk) sogMap[p.name] = p.sog_share; });
+    (ps.sgg || []).forEach((s) => { if (!sggMap[s.receiver] || s.share > sggMap[s.receiver].share) sggMap[s.receiver] = s; });
+    (surf.passes || []).forEach((p) => {
+      if (sogMap[p.receiver] != null) p.sog = sogMap[p.receiver];
+      if (sggMap[p.receiver]) p.sgg = { by: sggMap[p.receiver].generator, share: sggMap[p.receiver].share };
+    });
+  } catch (e) { /* paper-score optional */ }
+  buildScrubber(scEl, surf, {
+    id: cfg.id, ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: cfg.speed || 1.0,
+    labelName: h.name, defaultMode: "surface",
+    ballXt: true, receivers: surf.receivers || [], passes: surf.passes || null,
+    toggles: [{ key: "reveal", label: "reveal danger (× xT)" }],
+    readout: (fr, st) => st.mode === "reveal"
+      ? `Only the cells the attacking team controls <b>and</b> that carry threat stay lit — the dangerous space forming before the ball arrives.`
+      : cfg.lead + " " + clipLedgerHelp(),
+  });
+  renderTeamLegend(cfg.teamlegId, surf.teams);
+  if (im) renderImpact(scEl, `<b>What it created.</b> Over ${im.window_s}s the ball`
+    + ` climbed from ${im.xt_start.toFixed(2)} to <b>${im.xt_peak.toFixed(2)} xT</b>,`
+    + ` a <span class="big">+${im.xt_added.toFixed(2)} xT</span> rise in threat`
+    + ` ${cfg.impactTail}`);
+  await buildPaperScore(cfg.paper);
 }
 
 /* Closing — a broadcast clip turned into tracking by Eagle (CV), scored with our OWN
@@ -2074,6 +2125,25 @@ if (!window.__spaceWIPPage) {
     // Closing — live 2026 (2022-final two-lens validation + live EFI)
     await buildLive();
     await buildEagleLive();
+    // Bottom — two more 2022 World Cup moments, each with the full Di María treatment
+    await Promise.allSettled([
+      buildExtraClip({
+        id: "argcro", canvasId: "argcro-canvas", teamlegId: "argcro-teamleg",
+        surfaceFile: "data/surfaces/argcro.json?v=1",
+        paper: { file: "data/surfaces/argcro_paper_score.json?v=1",
+                 chartId: "argcro-chart", legendId: "argcro-legend", sogId: "argcro-sog", sggId: "argcro-sgg" },
+        lead: `<b>Messi</b> takes it on the right, beats Gvardiol to the byline and cuts it back; <b>Álvarez</b> reads the run and arrives into the space to finish.`,
+        impactTail: `, and it ended in a <b>goal</b>. That is dangerous space turned into the most valuable spot on the pitch.`,
+      }),
+      buildExtraClip({
+        id: "framar", canvasId: "framar-canvas", teamlegId: "framar-teamleg", speed: 0.85,
+        surfaceFile: "data/surfaces/framar.json?v=1",
+        paper: { file: "data/surfaces/framar_paper_score.json?v=1",
+                 chartId: "framar-chart", legendId: "framar-legend", sogId: "framar-sog", sggId: "framar-sgg" },
+        lead: `<b>Mbappé</b> tears down the left and drags Morocco's block across with him, opening the lane the ball is fired back into across the face of goal.`,
+        impactTail: ` — a clear chance, the ball worked back across goal into the most valuable spot on the pitch. France manufactured it from open play; the finish didn't come, the space did.`,
+      }),
+    ]);
     // in V mode, swap xT-language to V-language across the board descriptors (static captions/headings)
     applyVTermStatic();
     // restore scroll after a value-mode switch reload, once content has laid out
