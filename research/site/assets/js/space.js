@@ -1948,6 +1948,46 @@ async function buildSOG() {
   if (m && mEl) mEl.innerHTML = `<b>And it shows up in where it matters.</b> Of the dangerous space Messi wins, <b>${m.passive_pct}%</b> he wins while <b>walking</b> — the highest share of any forward — moving just <b>${m.control_speed} m/s</b> when he owns it. Fernández &amp; Bornn measured the same thing in 2017 and got 66%. He walks into the right grass while everyone else runs.`;
 }
 
+/* Act 3 — the REAL Fernández–Bornn SOG: the GAIN in owned-space quality (control × value) over a
+   3 s window, tournament-wide — who MOVES INTO valuable space off the ball, vs the OBSO board's
+   instantaneous STOCK. Per-match / total × group/ko/all × opponent-weighted/raw, following the
+   global xT/V value mode. Each row's bar splits the gain active (running) vs passive (walking).
+   Reads space_sog.json / _v.json. */
+async function buildSOGwin() {
+  const el = $("#sogw-board"); if (!el) return;
+  const bd = await boardData("sogw", "data/space_sog.json?v=1"); if (!bd.ok()) return;
+  const card = el.closest(".card");
+  let players = (bd.cur().players || []).filter((r) => r.stages);
+  if (!players.length) return;
+  const vtg = $("#sogw-value"), vw = $("#sogw-view"), stg = $("#sogw-stage"), wt = $("#sogw-weight"),
+        lab = $("#sogw-lab"), top = $("#sogw-top");
+  const st = { view: "per_match", stage: "ko", weighted: false };
+  const render = () => {
+    // SOG is a per-rate metric, so require ≥2 matches even in the knockouts (STAGE_MIN.ko=1 would
+    // otherwise let a single big knockout game top the per-match board with a noisy sample).
+    const stage = st.stage, w = st.weighted, min = Math.max(2, STAGE_MIN[stage] || 2);
+    const key = st.view === "total" ? (w ? "total" : "total_raw") : (w ? "per_match" : "per_match_raw");
+    const sv = (r) => { const s = r.stages[stage]; return (s && s.matches >= min) ? s[key] : null; };
+    const rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
+    const mx = Math.max(1e-9, ...rows.map(sv));
+    el.innerHTML = rows.map((r) => {
+      const act = r.active_pct == null ? 60 : r.active_pct, wpct = clamp(sv(r) / mx * 100, 0, 100);
+      return `<div class="psrow"><span class="pn">${r.name} <span class="lteam">${r.team || ""}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""} <span class="lpos">${r.stages[stage].matches}m</span></span>`
+        + `<span class="pt" style="width:${wpct.toFixed(1)}%"><i style="width:${act}%;background:#f0b429"></i><i style="width:${100 - act}%;background:#6cb4ee"></i></span>`
+        + `<span class="pv">${Math.round(sv(r)).toLocaleString()}</span></div>`;
+    }).join("");
+    const unit = st.view === "total" ? "summed over the tournament" : "per match";
+    if (lab) lab.innerHTML = vterm(`Players · <b>space occupation gain</b> — moving into dangerous space (control × xT), ${unit}${w ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`, bd.mode());
+    if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
+  };
+  swapCard(card, bd.mode()); render();
+  wireBoardValue("sogw", vtg, card, () => { players = (bd.cur().players || []).filter((r) => r.stages); render(); });
+  const wire = (tg, fn) => { if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => { fn(b); $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b)); render(); })); };
+  wire(vw, (b) => st.view = b.dataset.v);
+  wire(stg, (b) => st.stage = b.dataset.m);
+  wire(wt, (b) => st.weighted = b.dataset.w === "weighted");
+}
+
 /* TEAM BOARD (Act 2): pitch control aggregated per team — territorial control %
    and dangerous space (OBSO), per match / total × group / knockout / all. The
    "France controlled 55% of the pitch?" board. Reads team_control.json. */
@@ -1987,7 +2027,7 @@ async function buildTeamBoard() {
    teammates by dragging a marker (F&B drag detection). Reads space_sgg.json. */
 async function buildSGG() {
   const el = $("#sgg-board"); if (!el) return;
-  const bd = await boardData("sgg", "data/space_sgg.json?v=1"); if (!bd.ok()) return;
+  const bd = await boardData("sgg", "data/space_sgg.json?v=2"); if (!bd.ok()) return;
   const card = el.closest(".card");
   let players = (bd.cur().players || []).filter((r) => r.stages);
   if (!players.length) return;
@@ -2118,6 +2158,7 @@ if (!window.__spaceWIPPage) {
     buildPassSelection();
     buildBWAE();
     buildSOG();
+    buildSOGwin();
     buildSGG();
     await Promise.allSettled([buildPassingClip(), buildDuelClip(), buildPOBSO(), buildPaperScore()]);
     buildDangerExplainer("#pobso-explainer");

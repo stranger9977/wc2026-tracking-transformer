@@ -564,7 +564,7 @@
         <div class="boardlab" id="team-lab"></div>
         <div id="team-board" class="tbars"></div>
         <p class="caption"><b>Territorial control</b> is the &ldquo;controlled X% of the pitch&rdquo; number — possession-dominant sides top it, and the two teams in a game always sum to 100%. <b>Dangerous space</b> is the OBSO a team generates attacking (reach × control × xT, xT-weighted m²·min) — <b>per match</b> is the per-game rate, <b>total</b> rewards deep runs. <span id="team-top">Leaders</span>.</p>
-        <p class="cite">Pitch control aggregated per team across all 64 WC2022 games. Territorial control is possession-independent (measured for both teams every frame); dangerous space is ball-aware OBSO. The <i>player</i> version — who owns it, and walking or running — is the SOG board in Act 3.</p>
+        <p class="cite">Pitch control aggregated per team across all 64 WC2022 games. Territorial control is possession-independent (measured for both teams every frame); dangerous space is ball-aware OBSO. The <i>player</i> version — who owns it (OBSO), who gains it by moving (SOG), and walking or running — is in Act 3.</p>
       </div>
 
     </div>
@@ -579,7 +579,7 @@
     <div class="reveal">
       <div class="act-tag"><span class="num">3</span> Four applications of controlling valuable space</div>
       <h2>Controlling valuable space.</h2>
-      <p class="lede">Acts 1 and 2 gave us two numbers for any spot on the pitch: <b>xT</b> for how much it is worth, and <b>pitch control</b> for who owns it. Multiply them and you have a single read on controlling space that is also dangerous. Run it across all <b>64 World Cup 2022 games</b> and it answers four questions about individual skill. First, who owns the most <b>dangerous space off the ball</b> for himself (SOG). Second, who creates it <b>for teammates</b> by dragging markers away (SGG). Third, who finds the player in that space with a <b>pass</b>. Fourth, who wins <b>duels</b> in the spots that are worth winning.</p>
+      <p class="lede">Acts 1 and 2 gave us two numbers for any spot on the pitch: <b>xT</b> for how much it is worth, and <b>pitch control</b> for who owns it. Multiply them and you have a single read on controlling space that is also dangerous. Run it across all <b>64 World Cup 2022 games</b> and it answers four questions about individual skill. First, who owns the most <b>dangerous space off the ball</b> for himself — the stock (OBSO) — and who keeps <b>gaining</b> it by moving into value (Space Occupation Gain, SOG). Second, who creates it <b>for teammates</b> by dragging markers away (SGG). Third, who finds the player in that space with a <b>pass</b>. Fourth, who wins <b>duels</b> in the spots that are worth winning.</p>
     </div>
   </div>
 </section>
@@ -604,7 +604,8 @@
       </div>
       <div id="pobso-explainer" class="xpl"></div>
       <div class="card">
-        <h3>Space Occupation Gain (SOG): who owns the dangerous space</h3>
+        <h3>OBSO: who <b>owns</b> the dangerous space (the stock)</h3>
+        <p class="caption" style="margin-top:0">This is the <b>stock</b> — how much controlled, dangerous space a player sits on at any instant. The companion board further down is the <b>flow</b>: the real Fernández &amp; Bornn <b>Space Occupation Gain</b>, how much a player <i>gains</i> by moving into that space over the next 3 s.</p>
         <div class="boardlab" id="pobso-lab"></div>
         <div class="htoggles vbrow" id="pobso-value" style="padding:0;margin:0 0 6px"></div>
         <div class="htoggles" id="pobso-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="moment">per moment</button><button class="htog" data-v="match">per match</button><button class="htog" data-v="total">total (tournament)</button></div>
@@ -626,7 +627,21 @@
         <div class="legend"><span><span class="swatch" style="background:#6cb4ee"></span>passive (walking)</span><span><span class="swatch" style="background:#f0b429"></span>active (running)</span></div>
         <div id="pc-sog"></div>
         <p class="caption" id="sog-messi"></p>
-        <p class="cite">Recreates Fernández &amp; Bornn (2018) Space Occupation Gain; the active vs passive split is the read behind FiveThirtyEight's <a href="https://fivethirtyeight.com/features/messi-walks-better-than-most-players-run/" target="_blank" rel="noopener">&ldquo;Messi Walks Better Than Most Players Run&rdquo;</a>.</p>
+        <p class="cite">The active vs passive split of the owned-space stock, the read behind FiveThirtyEight's <a href="https://fivethirtyeight.com/features/messi-walks-better-than-most-players-run/" target="_blank" rel="noopener">&ldquo;Messi Walks Better Than Most Players Run&rdquo;</a>.</p>
+      </div>
+
+      <div class="card">
+        <h3>Space Occupation Gain (SOG): who <b>moves into</b> the dangerous space (the flow)</h3>
+        <p class="caption" style="margin-top:0">The OBSO board above is the <b>stock</b> — space owned at an instant. This is Fernández &amp; Bornn's actual <b>Space Occupation Gain</b>: the <b>gain</b> in a player's owned-space quality (control × value) over a <b>3-second window</b> — <i>G<sub>i</sub> = mean Q over the next 3 s − now</i>, summed across the match. It rewards players who <b>move into</b> valuable space off the ball, not those who merely stand in it. The bar splits each player's gain <span style="color:#f0b429">active (running, &gt;1.5 m/s)</span> vs <span style="color:#6cb4ee">passive (walking into value)</span>.</p>
+        <div class="boardlab" id="sogw-lab"></div>
+        <div class="htoggles vbrow" id="sogw-value" style="padding:0;margin:0 0 6px"></div>
+        <div class="htoggles" id="sogw-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="per_match">per match</button><button class="htog" data-v="total">total (tournament)</button></div>
+        <div class="htoggles" id="sogw-stage" style="padding:0;margin:0 0 6px"><button class="htog" data-m="group">group stage</button><button class="htog on" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
+        <div class="htoggles" id="sogw-weight" style="padding:0;margin:0 0 8px"><button class="htog" data-w="weighted">opponent-weighted</button><button class="htog on" data-w="raw">raw</button></div>
+        <div class="legend"><span><span class="swatch" style="background:#f0b429"></span>active (running)</span><span><span class="swatch" style="background:#6cb4ee"></span>passive (walking)</span></div>
+        <div id="sogw-board"></div>
+        <p class="caption">The leaders are the forwards and attacking mids who keep <b>arriving</b> into dangerous space: <b id="sogw-top">the leaders</b>. The number is the summed 3-second gain (control × xT, opponent-weighted unless raw) — a relative <b>index</b>, not metres. Note the split: players like <b>Messi</b> win roughly half their gain <b>walking</b>, the same signature the per-clip card shows on the Di María goal below.</p>
+        <p class="cite">Fernández &amp; Bornn (2018) Space Occupation Gain — the windowed <i>gain</i> (w=3 s), distinct from the instantaneous OBSO stock. Active/passive at 1.5 m/s; ε dead-band 0.4; ≥200 sampled frames. The same equation runs per-clip in the paper-score cards.</p>
       </div>
 
       <div class="card" id="paper-score-card">
@@ -886,6 +901,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=65"></script>
+<script type="module" src="assets/js/space.js?v=66"></script>
 </body>
 </html>
