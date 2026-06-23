@@ -1182,7 +1182,7 @@ async function buildPOBSO() {
   const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
   const from = h.assist ? ` from <b>${h.assist}</b>` : "";
   buildScrubber(scEl, surf, {
-    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: 1.0, follow: true,
+    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: 1.0, follow: false,
     labelName: h.name, defaultMode: "surface",
     ballXt: true, receivers: surf.receivers || [], passes: surf.passes || null,
     toggles: [
@@ -1420,7 +1420,7 @@ async function buildExtraClip(cfg) {
     });
   } catch (e) { /* paper-score optional */ }
   buildScrubber(scEl, surf, {
-    id: cfg.id, ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: cfg.speed || 1.0, follow: true,
+    id: cfg.id, ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: cfg.speed || 1.0, follow: false,
     labelName: h.name, defaultMode: "surface",
     ballXt: true, receivers: surf.receivers || [], passes: surf.passes || null,
     toggles: [{ key: "reveal", label: "reveal danger (× xT)" }],
@@ -1444,7 +1444,7 @@ async function buildEagleLive() {
   let surf; try { surf = await loadJSON("data/surfaces/eagle_live.json?v=1"); } catch (e) { return; }
   const h = surf.hero || {}, t = surf.teams || {};
   buildScrubber(el, surf, {
-    id: "eaglelive", ramp: rampHot, gamma: 0.55, threshold: 0.03, speed: 1.0, follow: true,
+    id: "eaglelive", ramp: rampHot, gamma: 0.55, threshold: 0.03, speed: 1.0, follow: false,
     labelName: h.name, defaultMode: "surface", ballXt: true,
     readout: () => `Every dot here was recovered from the <b>broadcast picture</b> by Eagle's `
       + `computer vision — no tracking feed. The bright pocket is the dangerous space `
