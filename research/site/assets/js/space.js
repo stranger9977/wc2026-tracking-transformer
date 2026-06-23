@@ -189,8 +189,8 @@ function m2px(x, y, W, H) {
 
 function drawPitchLines(ctx, W, H) {
   ctx.save();
-  ctx.strokeStyle = "rgba(190,210,230,0.22)";
-  ctx.lineWidth = Math.max(1, W / 520);
+  ctx.strokeStyle = "rgba(208,228,214,0.38)";
+  ctx.lineWidth = Math.max(1.2, W / 460);
   const pad = 0;
   ctx.strokeRect(pad, pad, W - 2 * pad, H - 2 * pad);
   // halfway
@@ -241,7 +241,7 @@ function paintSurface(ctx, surface, W, H, opts = {}) {
   // glows brighter than the grass instead of holes opening in black.
   // flat dark base: areas the team doesn't control read as neutral low-value grass.
   // (Source row 0 = top of pitch, col 0 = -x/left; attacking +x to the right, no flip.)
-  ctx.fillStyle = opts.felt || "#101a14"; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = opts.felt || "#15291c"; ctx.fillRect(0, 0, W, H);
   ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
   ctx.drawImage(off, 0, 0, nx, ny, 0, 0, W, H);
   drawPitchLines(ctx, W, H);
@@ -490,6 +490,13 @@ function buildScrubber(el, surf, cfg) {
         tl = $(`#tl-${cfg.id}`), ro = $(`#ro-${cfg.id}`), tgEl = $(`#tg-${cfg.id}`),
         pxEl = $(`#px-${cfg.id}`);
   const ctx = cv.getContext("2d");
+  // Oversample the backing store so the CSS-stretched canvas (.hstage canvas{width:100%}) stays
+  // crisp instead of upscaling a 640-wide buffer. All drawing stays in logical W×H units.
+  const OS = 2;
+  cv.width = W * OS; cv.height = H * OS;
+  // Follow-cam state (metres): eased toward a ball-centred view each frame for clips with cfg.follow,
+  // so the action fills the frame instead of sitting tiny on a wide static pitch.
+  const cam = { cx: 0, cy: 0, w: 105, h: 68, init: false };
 
   // toggle state
   const state = { highlight: null, mode: cfg.defaultMode || "surface" };
@@ -571,8 +578,9 @@ function buildScrubber(el, surf, cfg) {
   }
   const lerpPt = (a, b, f) => (a && b) ? [a[0] * (1 - f) + b[0] * f, a[1] * (1 - f) + b[1] * f] : (a || b);
 
-  // render at a fractional frame index
-  function renderAt(fFloat) {
+  // render at a fractional frame index. snap=true jumps the follow-cam straight to its target
+  // (scrub / first paint); snap=false eases it (during playback) for a smooth glide.
+  function renderAt(fFloat, snap = false) {
     fFloat = clamp(fFloat, 0, n - 1);
     const i0 = Math.floor(fFloat), i1 = Math.min(i0 + 1, n - 1), f = fFloat - i0;
     const fr = frames[i0], frNext = frames[i1];
@@ -586,6 +594,22 @@ function buildScrubber(el, surf, cfg) {
     const ramp = cfg.ramp || rampHot;
     const surface = applyMode(lerpSurface(fr.surface, frNext.surface, f));
     const ball = lerpPt(fr.ball_xy, frNext.ball_xy, f);
+    // ---- follow-cam: ease a ball-centred view box, applied as a canvas zoom (clips with cfg.follow) ----
+    ctx.setTransform(OS, 0, 0, OS, 0, 0); ctx.clearRect(0, 0, W, H);
+    let _Z = 1, _Tx = 0, _Ty = 0;
+    if (cfg.follow && ball) {
+      const absBx = Math.min(Math.abs(ball[0]), 52.5);
+      const ease = Math.min(1, Math.pow(Math.max(0, (absBx - 6) / 32), 2));    // 0 mid-pitch → 1 near a goal
+      const tw = 105 - 105 * 0.38 * ease, th = 68 - 68 * 0.38 * ease;          // full pitch → 62% of it
+      const tcx = clamp(ball[0], -52.5 + tw / 2, 52.5 - tw / 2);
+      const tcy = clamp(ball[1], -34 + th / 2, 34 - th / 2);
+      if (snap || !cam.init) { cam.cx = tcx; cam.cy = tcy; cam.w = tw; cam.h = th; cam.init = true; }
+      else { const a = 0.18; cam.cx += (tcx - cam.cx) * a; cam.cy += (tcy - cam.cy) * a; cam.w += (tw - cam.w) * a; cam.h += (th - cam.h) * a; }
+      _Z = 105 / cam.w;
+      _Tx = -_Z * ((cam.cx - cam.w / 2 + 52.5) / 105 * W);
+      _Ty = -_Z * ((34 - (cam.cy + cam.h / 2)) / 68 * H);
+    }
+    ctx.setTransform(OS * _Z, 0, 0, OS * _Z, OS * _Tx, OS * _Ty);
     paintSurface(ctx, surface, W, H, { ramp, gamma: cfg.gamma ?? 0.6, threshold: cfg.threshold ?? 0.04,
                                        alpha: cfg.surfaceAlpha });
     // duel: radial focus-dim around the contest so the dominating control field recedes
@@ -611,11 +635,12 @@ function buildScrubber(el, surf, cfg) {
       ctx.beginPath(); ctx.arc(hx, hy, Math.max(6, W / 120), 0, Math.PI * 2);
       ctx.fillStyle = "#fff"; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#6cb4ee"; ctx.stroke();
     }
-    if (surf.teams) drawGoalLabels(ctx, W, H, surf.teams);
     if (cfg.ballXt && ball) {
       const bxt = (fr.xt != null) ? (fr.xt * (1 - f) + (frNext.xt ?? fr.xt) * f) : null;
       if (bxt != null) drawBallXt(ctx, ball, bxt, W, H);
     }
+    ctx.setTransform(OS, 0, 0, OS, 0, 0);   // back to screen space for the persistent goal-end labels
+    if (surf.teams) drawGoalLabels(ctx, W, H, surf.teams);
     tl.textContent = `${i0 + 1}/${n} · ${ts.toFixed(1)}s`;
     ro.innerHTML = cfg.readout ? cfg.readout(fr, state) : "";
     // running ledger: light up each pass once the playhead reaches it, sum the xT added.
@@ -640,7 +665,7 @@ function buildScrubber(el, surf, cfg) {
     if (!lastTs) lastTs = now;
     const dt = Math.min(0.1, (now - lastTs) / 1000); lastTs = now;
     playhead += dt * fracPerSec;
-    if (playhead >= n - 1) playhead = 0;        // loop at end
+    if (playhead >= n - 1) { playhead = 0; cam.init = false; }   // loop: snap the cam back, no pan
     syncSlider();
     renderAt(playhead);
     raf = requestAnimationFrame(loop);
@@ -652,10 +677,10 @@ function buildScrubber(el, surf, cfg) {
     raf = requestAnimationFrame(loop);
   }
   pl.addEventListener("click", play);
-  rg.addEventListener("input", () => { stop(); playhead = (+rg.value) / 1000; renderAt(playhead); });
+  rg.addEventListener("input", () => { stop(); playhead = (+rg.value) / 1000; renderAt(playhead, true); });
   // expose highlight setter so leaderboard hover can pin a player onto the surface
-  el._setHighlight = (name) => { state.highlight = name; renderAt(playhead); };
-  renderAt(0);
+  el._setHighlight = (name) => { state.highlight = name; renderAt(playhead, true); };
+  renderAt(0, true);
 }
 
 /* =================================================================
@@ -1148,7 +1173,7 @@ async function buildPOBSO() {
   const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
   const from = h.assist ? ` from <b>${h.assist}</b>` : "";
   buildScrubber(scEl, surf, {
-    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: 1.0,
+    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: 1.0, follow: true,
     labelName: h.name, defaultMode: "surface",
     ballXt: true, receivers: surf.receivers || [], passes: surf.passes || null,
     toggles: [
@@ -1286,8 +1311,14 @@ async function buildPaperScore(cfg) {
   const att = (d.players || []).filter((p) => p.att && !p.gk && p.q && p.q.length);
   att.sort((a, b) => b.sog_share - a.sog_share);
   const top = att.slice(0, 6);
+  // ALWAYS include pinned players (the on-ball hero) even if their off-ball SOG is low — a dribble/
+  // carry into wide, low-value space scores ~0 on Space Occupation Gain by design, but the viewer
+  // expects to see the protagonist of his own goal.
+  (cfg.pin || []).forEach((nm) => {
+    if (!top.some((p) => p.name === nm)) { const p = att.find((x) => x.name === nm); if (p) top.push(p); }
+  });
   const COLORS = ["#f0b429", "#6cb4ee", "#5fd38a", "#e07b39", "#b07be0", "#e23b5f"];
-  top.forEach((p, i) => { p._col = COLORS[i % COLORS.length]; });
+  top.forEach((p, i) => { p._pin = (cfg.pin || []).includes(p.name); p._col = p._pin ? "#ffffff" : COLORS[i % COLORS.length]; });
 
   // ---- SVG line chart: owned-space value Q_i(t) over the clip ----
   const W = 660, H = 240, mL = 34, mR = 12, mT = 16, mB = 24;
@@ -1299,13 +1330,14 @@ async function buildPaperScore(cfg) {
   const qmax = allq.length ? (allq[Math.floor(allq.length * 0.93)] || allq[allq.length - 1]) : 1;
   const X = (t) => mL + (t / tmax) * (W - mL - mR);
   const Y = (q) => H - mB - (Math.min(q, qmax) / qmax) * (H - mT - mB);
-  const lines = top.map((p) => {
+  const lines = top.slice().sort((a, b) => (a._pin ? 1 : 0) - (b._pin ? 1 : 0)).map((p) => {
     let ds = "", pen = false;
     p.q.forEach((q, i) => {
       if (q == null) { pen = false; return; }
       ds += (pen ? "L" : "M") + X(times[i]).toFixed(1) + " " + Y(q).toFixed(1) + " "; pen = true;
     });
-    return `<path d="${ds}" fill="none" stroke="${p._col}" stroke-width="2" stroke-linejoin="round" opacity="0.92"/>`;
+    return `<path d="${ds}" fill="none" stroke="${p._col}" stroke-width="${p._pin ? 3 : 2}"`
+      + `${p._pin ? ' stroke-dasharray="3 3"' : ''} stroke-linejoin="round" opacity="${p._pin ? 1 : 0.92}"/>`;
   }).join("");
   const yticks = [0, 0.5, 1].map((f) => { const q = qmax * f, y = Y(q).toFixed(1);
     return `<line x1="${mL}" y1="${y}" x2="${W - mR}" y2="${y}" stroke="#16212e" stroke-width="1"/>`
@@ -1314,12 +1346,15 @@ async function buildPaperScore(cfg) {
     `<text x="${X(t).toFixed(1)}" y="${H - 6}" fill="#5b6b7e" font-size="9" text-anchor="middle">${t}s</text>`).join("");
   host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="background:#0b1118;border:1px solid #16212e;border-radius:10px">
     ${yticks}${xticks}
-    <text x="${mL}" y="11" fill="#5b6b7e" font-size="9">owned-space value Q (m²·V) · ball reaches Di María near the end</text>
+    <text x="${mL}" y="11" fill="#5b6b7e" font-size="9">owned-space value Q (m²·V) · ${cfg.chartNote || "ball reaches Di María near the end"}</text>
     ${lines}</svg>`;
 
   const leg = document.getElementById(cfg.legendId);
-  if (leg) leg.innerHTML = top.map((p) =>
-    `<span class="lk"><span class="ld" style="background:${p._col}"></span>${p.name} <span style="color:var(--faint)">${p.sog_share}%</span></span>`).join("");
+  if (leg) {
+    leg.innerHTML = top.map((p) =>
+      `<span class="lk"><span class="ld" style="background:${p._col}"></span>${p.name} <span style="color:var(--faint)">${p.sog_share}%${p._pin ? " · on the ball" : ""}</span></span>`).join("");
+    if (cfg.note) leg.insertAdjacentHTML("afterend", `<p class="caption" style="margin-top:10px">${cfg.note}</p>`);
+  }
 
   // ---- SOG share bars, split active (running) / passive (walking) ----
   const sogEl = document.getElementById(cfg.sogId);
@@ -1376,7 +1411,7 @@ async function buildExtraClip(cfg) {
     });
   } catch (e) { /* paper-score optional */ }
   buildScrubber(scEl, surf, {
-    id: cfg.id, ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: cfg.speed || 1.0,
+    id: cfg.id, ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: cfg.speed || 1.0, follow: true,
     labelName: h.name, defaultMode: "surface",
     ballXt: true, receivers: surf.receivers || [], passes: surf.passes || null,
     toggles: [{ key: "reveal", label: "reveal danger (× xT)" }],
@@ -1400,7 +1435,7 @@ async function buildEagleLive() {
   let surf; try { surf = await loadJSON("data/surfaces/eagle_live.json?v=1"); } catch (e) { return; }
   const h = surf.hero || {}, t = surf.teams || {};
   buildScrubber(el, surf, {
-    id: "eaglelive", ramp: rampHot, gamma: 0.55, threshold: 0.03, speed: 1.0,
+    id: "eaglelive", ramp: rampHot, gamma: 0.55, threshold: 0.03, speed: 1.0, follow: true,
     labelName: h.name, defaultMode: "surface", ballXt: true,
     readout: () => `Every dot here was recovered from the <b>broadcast picture</b> by Eagle's `
       + `computer vision — no tracking feed. The bright pocket is the dangerous space `
@@ -2172,7 +2207,9 @@ if (!window.__spaceWIPPage) {
         id: "argcro", canvasId: "argcro-canvas", teamlegId: "argcro-teamleg",
         surfaceFile: "data/surfaces/argcro.json?v=2",
         paper: { file: "data/surfaces/argcro_paper_score.json?v=1",
-                 chartId: "argcro-chart", legendId: "argcro-legend", sogId: "argcro-sog", sggId: "argcro-sgg" },
+                 chartId: "argcro-chart", legendId: "argcro-legend", sogId: "argcro-sog", sggId: "argcro-sgg",
+                 chartNote: "ball reaches Álvarez near the end", pin: ["Lionel Messi", "Julian Alvarez"],
+                 note: `<b>Where's Messi?</b> Near the bottom — and that is the metric being honest, not broken. Space Occupation Gain credits moving into valuable space <b>off the ball</b>. Here Messi is <b>on the ball</b>: he beats Gvardiol — a <b>duel won</b>, the skill the duels board measures, not this one — and drives to the <b>byline</b>, wide low-value space, so his owned-space value actually <i>falls</i> while his teammates' climbs. Álvarez makes the decisive run, but only in the final second, so his 3-second gain barely registers over 11 s. The build-up <b>occupies</b> the central space; Messi <b>creates</b> the chance with the carry and the cut-back.` },
         lead: `<b>Messi</b> takes it on the right, beats Gvardiol to the byline and cuts it back; <b>Álvarez</b> reads the run and arrives into the space to finish.`,
         impactTail: `, and it ended in a <b>goal</b>. That is dangerous space turned into the most valuable spot on the pitch.`,
       }),
@@ -2180,7 +2217,9 @@ if (!window.__spaceWIPPage) {
         id: "framar", canvasId: "framar-canvas", teamlegId: "framar-teamleg", speed: 0.85,
         surfaceFile: "data/surfaces/framar.json?v=2",
         paper: { file: "data/surfaces/framar_paper_score.json?v=1",
-                 chartId: "framar-chart", legendId: "framar-legend", sogId: "framar-sog", sggId: "framar-sgg" },
+                 chartId: "framar-chart", legendId: "framar-legend", sogId: "framar-sog", sggId: "framar-sgg",
+                 chartNote: "ball worked back across goal near the end", pin: ["Kylian Mbappé"],
+                 note: `<b>Where's Mbappé?</b> Low, for the same reason as Messi on the Argentina goal: he is <b>on the ball</b>, carrying down the wing into wide, low-value space. Space Occupation Gain measures teammates running into central value <b>off</b> the ball — not the carry. Mbappé's danger here is the <b>run itself</b> (the xT view, in the scrubber above), which the defensive-coverage value model deliberately doesn't reward.` },
         lead: `<b>Mbappé</b> tears down the left and drags Morocco's block across with him, opening the lane the ball is fired back into across the face of goal.`,
         impactTail: ` — a clear chance, the ball worked back across goal into the most valuable spot on the pitch. France manufactured it from open play; the finish didn't come, the space did.`,
       }),
