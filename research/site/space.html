@@ -340,11 +340,11 @@
   .et .el span{display:block; color:var(--faint); font-size:10.5px; margin-top:2px}
 
   /* paper-score: owned-space value over time + SOG/SGG */
-  #paper-chart{width:100%; overflow:hidden; border-radius:10px}
-  #paper-chart svg{display:block; width:100%; height:auto}
-  #paper-legend{display:flex; flex-wrap:wrap; gap:14px; margin:8px 2px 2px; font-size:12px; color:var(--muted)}
-  #paper-legend .lk{display:inline-flex; align-items:center; gap:6px}
-  #paper-legend .ld{width:13px; height:3px; border-radius:2px}
+  #paper-chart, .pchart{width:100%; overflow:hidden; border-radius:10px}
+  #paper-chart svg, .pchart svg{display:block; width:100%; height:auto}
+  #paper-legend, .plegend{display:flex; flex-wrap:wrap; gap:14px; margin:8px 2px 2px; font-size:12px; color:var(--muted)}
+  #paper-legend .lk, .plegend .lk{display:inline-flex; align-items:center; gap:6px}
+  #paper-legend .ld, .plegend .ld{width:13px; height:3px; border-radius:2px}
   .pscols{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:18px}
   @media(max-width:760px){ .pscols{grid-template-columns:1fr} }
   .pscols h4{font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 10px; font-weight:700}
@@ -790,6 +790,79 @@
   </div>
 </section>
 
+<div class="rule"></div>
+
+<!-- BOTTOM — two more 2022 World Cup moments, given the full Di María treatment -->
+<section id="more-plays">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">+</span> Two more, the same way</div>
+      <h2>The whole read, on two more World Cup moments.</h2>
+      <p class="lede">The same machinery as the Di María goal, pointed at two more plays from 2022 — rebuilt frame by frame from PFF tracking, real names and all. For each: the dangerous-space surface as it forms (control × value, with the ball carrying its live xT), the passes ledger scoring every ball for control, value, occupation gain and the drag that freed the receiver, and the paper's own owned-space value <i>Q</i> over time underneath.</p>
+
+      <!-- ARG–CRO 69' · Messi → Álvarez -->
+      <div class="card">
+        <h3>Messi's run, Álvarez's finish — Argentina 3–0 Croatia, 2022 semi-final (69')</h3>
+        <div id="argcro-canvas" class="heat"></div>
+        <div class="legend teamleg" id="argcro-teamleg"></div>
+        <div class="legend"><span>dark = opponent's, or low-value</span><span class="grad"></span><span>bright = controlled danger</span></div>
+        <p class="caption">Messi carries it to the byline past Gvardiol; the bright pocket is the dangerous space Argentina owns as the cutback arrives, ball xT climbing to its peak right in front of goal. Toggle <b>reveal danger</b> to keep only the cells that are both controlled and threatening. The ledger scores the cutback: low control at release, but high value, and it adds the most threat on the pitch.</p>
+      </div>
+
+      <div class="card paper-score-card">
+        <div class="livestat" style="margin-bottom:8px">scored exactly like the paper · value model = defensive coverage, not xT</div>
+        <h3>Scored like Fernández &amp; Bornn: owned-space value over time</h3>
+        <p class="caption" style="margin-top:0">The same value model as the Di María card — a net trained so a cell is worth what <b>defenders typically guard</b> there — applied to every Argentina player through the move. <i>Q<sub>i</sub>(t) = PC<sub>i</sub> · V</i>, frame by frame.</p>
+        <div id="argcro-chart" class="pchart"></div>
+        <div class="legend plegend" id="argcro-legend"></div>
+        <div class="pscols">
+          <div>
+            <h4>Space Occupation Gain — share of the build-up</h4>
+            <div id="argcro-sog"></div>
+            <p class="caption" style="margin-top:6px">SOG <i>= Σ<sub>t</sub> G<sub>i</sub></i> over the play (<i>G<sub>i</sub></i> = mean <i>Q</i> over the next 3 s − now), each player's <b>share</b> of the team total. Split <span style="color:#f0b429">active (running)</span> vs <span style="color:#6cb4ee">passive (walking into value)</span>.</p>
+          </div>
+          <div>
+            <h4>Space Generation Gain — who freed whom</h4>
+            <div id="argcro-sgg"></div>
+            <p class="caption" style="margin-top:6px">A drag is detected (a defender within 5 m of a teammate at the start, pulled onto the generator by the end); the freed teammate's gain is credited <b>generator → receiver</b>.</p>
+          </div>
+        </div>
+        <p class="caption faintnote">Paper-exact: β=1 control, value NN trained on World Cup defensive coverage × goal-distance, w=3 s window, active/passive at 1.5 m/s, drag δ=5 m / α=3 m. The curve is the raw owned-space value (m²·V); per-frame <i>G</i> sums are relative, shown as shares.</p>
+      </div>
+
+      <!-- FRA–MAR 47' · Mbappé run -->
+      <div class="card" style="margin-top:30px">
+        <h3>Mbappé down the side, fired back in — France 2–0 Morocco, 2022 semi-final (47')</h3>
+        <div id="framar-canvas" class="heat"></div>
+        <div class="legend teamleg" id="framar-teamleg"></div>
+        <div class="legend"><span>dark = opponent's, or low-value</span><span class="grad"></span><span>bright = controlled danger</span></div>
+        <p class="caption">Mbappé takes the ball down the left and drags Morocco's block across the pitch with him; the lane that opens is where the ball is fired back in. The pocket lights up at goal as the ball arrives. This one <b>didn't</b> finish — but the dangerous space was manufactured all the same, which is exactly what the surface is built to see, goal or no goal.</p>
+      </div>
+
+      <div class="card paper-score-card" style="margin-top:14px">
+        <div class="livestat" style="margin-bottom:8px">scored exactly like the paper · value model = defensive coverage, not xT</div>
+        <h3>Scored like Fernández &amp; Bornn: owned-space value over time</h3>
+        <p class="caption" style="margin-top:0">Here the inversion is on full display. xT (the scrubber above) lights up for <b>Mbappé's</b> burst into the box. But the paper's value model credits whoever sits in the space the opponent has to <b>guard</b> — over this 13 s that's France's <b>defenders and midfield</b> holding the build-up, not the one runner. Two honest answers to "who created the danger," from two different definitions of value.</p>
+        <div id="framar-chart" class="pchart"></div>
+        <div class="legend plegend" id="framar-legend"></div>
+        <div class="pscols">
+          <div>
+            <h4>Space Occupation Gain — share of the build-up</h4>
+            <div id="framar-sog"></div>
+            <p class="caption" style="margin-top:6px">SOG <i>= Σ<sub>t</sub> G<sub>i</sub></i> over the play, each player's <b>share</b> of the team total, split <span style="color:#f0b429">active (running)</span> vs <span style="color:#6cb4ee">passive (walking into value)</span>.</p>
+          </div>
+          <div>
+            <h4>Space Generation Gain — who freed whom</h4>
+            <div id="framar-sgg"></div>
+            <p class="caption" style="margin-top:6px">A drag is detected (a defender within 5 m of a teammate at the start, pulled onto the generator by the end); the freed teammate's gain is credited <b>generator → receiver</b>.</p>
+          </div>
+        </div>
+        <p class="caption faintnote">Paper-exact: β=1 control, value NN trained on World Cup defensive coverage × goal-distance, w=3 s window, active/passive at 1.5 m/s, drag δ=5 m / α=3 m. The curve is the raw owned-space value (m²·V); per-frame <i>G</i> sums are relative, shown as shares.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <h3>The full study</h3>
@@ -813,6 +886,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=64"></script>
+<script type="module" src="assets/js/space.js?v=65"></script>
 </body>
 </html>
