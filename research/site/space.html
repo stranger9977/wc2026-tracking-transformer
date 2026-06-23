@@ -326,6 +326,10 @@
   .vtbtns button+button{border-left:1px solid var(--border)}
   .vtbtns button.on{background:#e0a93f; color:#0b1118; font-weight:700}
   .vthint{font-size:11.5px; color:var(--faint); flex-basis:100%}
+  /* per-board value switch (gold, to echo the global V toggle and stand apart from the blue stage toggles) */
+  .vbrow{align-items:center}
+  .vbrow .bvlab{font-size:10px; text-transform:uppercase; letter-spacing:.09em; color:var(--faint); margin-right:9px}
+  .vbrow .htog.on{background:#e0a93f; color:#0b1118; border-color:#e0a93f}
 
   /* eagle broadcast→tracking scorecard */
   .escore{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:14px 0 4px}
@@ -553,6 +557,7 @@
       <div class="card">
         <h3>So how much of the pitch does a team control over a game?</h3>
         <p class="caption" style="margin-top:0">A control surface is one instant. Average it over a whole match and you get the honest version of &ldquo;France controlled 55% of the pitch.&rdquo; Two reads, across all 64 games: <b>territorial control</b> — the share of the grass a team owns outright (its influence beats the opponent's) — and <b>dangerous space</b>, the ball-aware OBSO it generates going forward (reach × control × xT).</p>
+        <div class="htoggles vbrow" id="team-value" style="padding:0;margin:0 0 6px"></div>
         <div class="htoggles" id="team-metric" style="padding:0;margin:0 0 6px"><button class="htog on" data-k="control">territorial control %</button><button class="htog" data-k="dangerous">dangerous space</button></div>
         <div class="htoggles" id="team-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="per_match">per match</button><button class="htog" data-v="total">total</button></div>
         <div class="htoggles" id="team-stage" style="padding:0;margin:0 0 8px"><button class="htog on" data-s="group">group stage</button><button class="htog" data-s="ko">knockout</button><button class="htog" data-s="all">all 64</button></div>
@@ -601,6 +606,7 @@
       <div class="card">
         <h3>Space Occupation Gain (SOG): who owns the dangerous space</h3>
         <div class="boardlab" id="pobso-lab"></div>
+        <div class="htoggles vbrow" id="pobso-value" style="padding:0;margin:0 0 6px"></div>
         <div class="htoggles" id="pobso-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="moment">per moment</button><button class="htog" data-v="match">per match</button><button class="htog" data-v="total">total (tournament)</button></div>
         <div class="htoggles" id="pobso-toggle" style="padding:0;margin:0 0 6px"><button class="htog" data-m="group">group stage</button><button class="htog on" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
         <div class="htoggles" id="pobso-weight" style="padding:0;margin:0 0 8px"><button class="htog" data-w="weighted">opponent-weighted</button><button class="htog on" data-w="raw">raw</button></div>
@@ -660,6 +666,7 @@
       <div class="card">
         <h3>Space Generation Gain (SGG): who frees teammates</h3>
         <div class="boardlab" id="sgg-lab"></div>
+        <div class="htoggles vbrow" id="sgg-value" style="padding:0;margin:0 0 6px"></div>
         <div class="htoggles" id="sgg-view" style="padding:0;margin:0 0 6px"><button class="htog on" data-v="per_match">per match</button><button class="htog" data-v="total">total (tournament)</button></div>
         <div class="htoggles" id="sgg-stage" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
         <div class="htoggles" id="sgg-weight" style="padding:0;margin:0 0 8px"><button class="htog" data-w="weighted">opponent-weighted</button><button class="htog on" data-w="raw">raw</button></div>
@@ -691,6 +698,7 @@
       <div class="card">
         <h3>Who hits the dangerous, controlled space — two ways</h3>
         <div class="boardlab" id="ps-lab"></div>
+        <div class="htoggles vbrow" id="ps-value" style="padding:0;margin:0 0 6px"></div>
         <div class="htoggles" id="ps-toggle" style="padding:0;margin:0 0 6px"><button class="htog on" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog" data-m="all">all 64</button></div>
         <div class="htoggles" id="ps-metric" style="padding:0;margin:0 0 6px"><button class="htog on" data-pm="progression">progression · threads it forward</button><button class="htog" data-pm="occupation">occupation · lives in the space</button></div>
         <div class="htoggles" id="ps-zone" style="padding:0;margin:0 0 6px"><button class="htog on" data-z="all">whole pitch</button><button class="htog" data-z="f3">final third only</button></div>
@@ -736,6 +744,7 @@
       <div class="card">
         <h3>Wins his duels where it counts</h3>
         <div class="boardlab" id="bwae-lab"></div>
+        <div class="htoggles vbrow" id="bwae-value" style="padding:0;margin:0 0 6px"></div>
         <div class="htoggles" id="bwae-toggle" style="padding:0;margin:0 0 6px"><button class="htog" data-m="group">group stage</button><button class="htog" data-m="ko">knockout</button><button class="htog on" data-m="all">all 64</button></div>
         <div class="htoggles" id="bwae-weight" style="padding:0;margin:0 0 8px"><button class="htog" data-w="weighted">opponent-weighted</button><button class="htog on" data-w="raw">raw</button></div>
         <div id="bwae-xt" class="tbars"></div>
@@ -804,6 +813,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=63"></script>
+<script type="module" src="assets/js/space.js?v=64"></script>
 </body>
 </html>
