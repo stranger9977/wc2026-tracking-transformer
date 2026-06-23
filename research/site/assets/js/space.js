@@ -1391,7 +1391,7 @@ async function buildSAR() {
    Reads surfaces/dimaria_paper_score.json. */
 async function buildPaperScore(cfg) {
   // cfg lets the same paper-score card render for any clip; defaults to the Di María goal.
-  cfg = cfg || { file: "data/surfaces/dimaria_paper_score.json?v=1",
+  cfg = cfg || { file: "data/surfaces/dimaria_paper_score.json?v=2",
                  chartId: "paper-chart", legendId: "paper-legend", sogId: "paper-sog", sggId: "paper-sgg" };
   const host = document.getElementById(cfg.chartId); if (!host) return;
   // V (defensive-coverage) and xT (Expected Threat) variants, with a per-card toggle.
@@ -1416,7 +1416,9 @@ async function buildPaperScore(cfg) {
     if (!top.some((p) => p.name === nm)) { const p = att.find((x) => x.name === nm); if (p) top.push(p); }
   });
   const COLORS = ["#f0b429", "#6cb4ee", "#5fd38a", "#e07b39", "#b07be0", "#e23b5f"];
-  top.forEach((p, i) => { p._pin = (cfg.pin || []).includes(p.name); p._col = p._pin ? "#ffffff" : COLORS[i % COLORS.length]; });
+  const PIN_COLORS = ["#ffffff", "#22d3ee", "#f472b6"];   // distinct bright colors for the on-ball pinned players
+  let _pinI = 0;
+  top.forEach((p, i) => { p._pin = (cfg.pin || []).includes(p.name); p._col = p._pin ? PIN_COLORS[_pinI++ % PIN_COLORS.length] : COLORS[i % COLORS.length]; });
 
   // ---- SVG line chart: owned-space value Q_i(t) over the clip ----
   const W = 660, H = 240, mL = 34, mR = 12, mT = 16, mB = 24;
@@ -1479,6 +1481,22 @@ async function buildPaperScore(cfg) {
       ? `<div class="psgg">` + sgg.map((s) =>
           `<div class="gr"><span class="nm">${s.generator} <span class="ar">→</span> ${s.receiver}</span><span class="sh">${s.share}%</span></div>`).join("") + `</div>`
       : `<p class="caption">No clean single-defender drag cleared the threshold in this window.</p>`;
+  }
+  // ---- ON-BALL value created (carry + pass) — where the ball-carrier (Messi) finally shows up ----
+  const ob = (d.on_ball || []).filter((x) => x.created > 0).slice(0, 6);
+  if (leg && ob.length) {
+    let obEl = document.getElementById(`${cfg.legendId}-onball`);
+    if (!obEl) {
+      (document.getElementById(`${cfg.legendId}-note`) || leg).insertAdjacentHTML("afterend", `<div id="${cfg.legendId}-onball" style="margin-top:14px"></div>`);
+      obEl = document.getElementById(`${cfg.legendId}-onball`);
+    }
+    const mxs = Math.max(...ob.map((x) => x.share), 1);
+    obEl.innerHTML = `<h4 style="margin:0 0 4px">Value created <span style="color:#ffd166">ON the ball</span> — carry + threaded pass</h4>`
+      + ob.map((x) => { const hot = (cfg.pin || []).includes(x.name);
+        return `<div class="psrow"><span class="pn">${x.name}${hot ? ` <span style="color:#ffd166">●</span>` : ""}</span>`
+          + `<span class="pt" style="width:${(x.share / mxs * 100).toFixed(1)}%"><i style="width:100%;background:${hot ? "#ffd166" : "#5fd38a"}"></i></span>`
+          + `<span class="pv">${x.share}%</span></div>`; }).join("")
+      + `<p class="caption" style="margin-top:6px">How much each player's <b>carry + pass</b> raised the ball's ${mode === "xt" ? "<b>xT</b> (threat near goal)" : "<b>V</b> (defended value)"} from when he got it to when the next player did — the <b>dribble into danger</b> and the <b>threaded ball</b> the off-ball SOG can't see. ${cfg.onBallNote || ""}</p>`;
   }
   if (chip) chip.textContent = mode === "xt"
     ? "value model = Expected Threat (xT) · danger by distance to goal"
@@ -2311,22 +2329,24 @@ if (!window.__spaceWIPPage) {
       buildExtraClip({
         id: "argcro", canvasId: "argcro-canvas", teamlegId: "argcro-teamleg",
         surfaceFile: "data/surfaces/argcrok.json?v=1",
-        paper: { file: "data/surfaces/argcro_paper_score.json?v=1",
+        paper: { file: "data/surfaces/argcro_paper_score.json?v=2",
                  chartId: "argcro-chart", legendId: "argcro-legend", sogId: "argcro-sog", sggId: "argcro-sgg",
                  chartNote: "ball reaches Álvarez near the end", pin: ["Lionel Messi", "Julian Alvarez"],
                  note: `<b>Where's Messi?</b> Near the bottom — and that is the metric being honest, not broken. Space Occupation Gain credits moving into valuable space <b>off the ball</b>. Here Messi is <b>on the ball</b>: he beats Gvardiol — a <b>duel won</b>, the skill the duels board measures, not this one — and drives to the <b>byline</b>, wide low-value space, so his owned-space value actually <i>falls</i> while his teammates' climbs. Álvarez makes the decisive run, but only in the final second, so his 3-second gain barely registers over 11 s. The build-up <b>occupies</b> the central space; Messi <b>creates</b> the chance with the carry and the cut-back.`,
-                 noteXt: `<b>xT view.</b> Now a cell is worth its <b>distance/angle to goal</b> (Karun Singh's Expected Threat), not what defenders guard. Messi is <i>still</i> low — even xT-SOG measures movement <b>off the ball</b>, and his value here is the <b>on-ball carry</b>: the ball's threat climbed <b>+0.24 xT</b> as he drove it to the byline and cut it back (the receipt on the clip above). That on-ball value, and beating Gvardiol, are what xT-SOG can't see — they live in the ball-progression and duels reads.` },
+                 noteXt: `<b>xT view.</b> Now a cell is worth its <b>distance/angle to goal</b> (Karun Singh's Expected Threat), not what defenders guard. Messi is <i>still</i> low on the off-ball SOG — but look at the <b>on-ball board</b> below: that is where his play lives.`,
+                 onBallNote: `<b>Messi created all of it.</b> The carry past Gvardiol and the cut-back are the entire on-ball value gain on this move (the <b>+0.24 xT</b> from the receipt above); the build-up only moved the ball laterally through low-threat midfield. This is the answer to "Messi adds the most value on the ball" — now measured.` },
         lead: `<b>Messi</b> takes it on the right, beats Gvardiol to the byline and cuts it back; <b>Álvarez</b> reads the run and arrives into the space to finish.`,
         impactTail: `, and it ended in a <b>goal</b>. That is dangerous space turned into the most valuable spot on the pitch.`,
       }),
       buildExtraClip({
         id: "framar", canvasId: "framar-canvas", teamlegId: "framar-teamleg", speed: 0.85,
         surfaceFile: "data/surfaces/framark.json?v=1",
-        paper: { file: "data/surfaces/framar_paper_score.json?v=1",
+        paper: { file: "data/surfaces/framar_paper_score.json?v=2",
                  chartId: "framar-chart", legendId: "framar-legend", sogId: "framar-sog", sggId: "framar-sgg",
                  chartNote: "ball worked back across goal near the end", pin: ["Kylian Mbappé"],
                  note: `<b>Where's Mbappé?</b> Low, for the same reason as Messi on the Argentina goal: he is <b>on the ball</b>, carrying down the wing into wide, low-value space. Space Occupation Gain measures teammates running into central value <b>off</b> the ball — not the carry. Mbappé's danger here is the <b>run itself</b> (the xT view, in the scrubber above), which the defensive-coverage value model deliberately doesn't reward.`,
-                 noteXt: `<b>xT view.</b> Flip to Expected Threat and <b>Mbappé tops it</b> — once a cell is valued by its danger near goal (not by what defenders guard), his run into the box is the most dangerous off-ball movement on the play. The V model credited France's defenders holding the build-up; xT credits the threat at the end of it. Same play, two honest answers to "who created the danger."` },
+                 noteXt: `<b>xT view.</b> Flip to Expected Threat and <b>Mbappé tops it</b> — once a cell is valued by its danger near goal (not by what defenders guard), his run into the box is the most dangerous off-ball movement on the play. The V model credited France's defenders holding the build-up; xT credits the threat at the end of it. Same play, two honest answers to "who created the danger."`,
+                 onBallNote: `<b>Mbappé created it on the ball too</b> — his carry down the side and the ball worked back across goal account for the move's value gain.` },
         lead: `<b>Mbappé</b> tears down the left and drags Morocco's block across with him, opening the lane the ball is fired back into across the face of goal.`,
         impactTail: ` — a clear chance, the ball worked back across goal into the most valuable spot on the pitch. France manufactured it from open play; the finish didn't come, the space did.`,
       }),
