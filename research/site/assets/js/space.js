@@ -47,8 +47,9 @@ async function loadValueJSON(path) {
 // board labels (so re-renders stay right) and to static .vt elements once on load. The xT
 // explainer, the V explainer and the paper-score card are NOT .vt and never pass through this,
 // so they keep both terms.
-function vterm(html) {
-  if (typeof html !== "string" || getValueMode() !== "v") return html;
+function vterm(html, mode) {
+  mode = mode || getValueMode();
+  if (typeof html !== "string" || mode !== "v") return html;
   return html
     .replace(/Expected Threat \(xT\)/g, "the value model (V)")
     .replace(/Expected Threat/g, "defensive-coverage value")
@@ -75,14 +76,53 @@ function vterm(html) {
 // the xT explainer (#xt), the V explainer (#value-models) and the paper-score card
 // (#paper-score-card) are excluded so they keep both terms. The hero-clip readout (.hreadout) is
 // not in the selector, so its deliberately multi-term explanation is untouched.
+// Reversible swap of one element: capture its xT-original once, then set it to match `mode`.
+function vSwapEl(el, mode) {
+  if (el._vorig == null) el._vorig = el.innerHTML;
+  el.innerHTML = mode === "v" ? vterm(el._vorig, "v") : el._vorig;
+}
 function applyVTermStatic() {
   if (getValueMode() !== "v") return;
   ["#pitchcontrol", "#pobso", "#way-sgg", "#way-passing", "#way-duels"].forEach((s) => {
     const sec = document.querySelector(s); if (!sec) return;
-    sec.querySelectorAll("h2,h3,.caption,.lede,.subtitle,.boardlab,.xpl,.cite").forEach((el) => {
+    sec.querySelectorAll("h2,h3,.caption,.lede,.subtitle,.xpl,.cite").forEach((el) => {
       if (el.closest("#value-models,#paper-score-card")) return;
-      el.innerHTML = vterm(el.innerHTML);
+      vSwapEl(el, getValueMode());
     });
+  });
+}
+
+/* ---- PER-BOARD value mode: a leaderboard can override the global xT/V choice, no reload ---- */
+const _boardMode = {};
+function boardMode(id) { return _boardMode[id] || getValueMode(); }
+function vnameFor(path, mode) { return mode === "v" ? path.replace(".json", "_v.json") : path; }
+// Swap a board CARD's static descriptors (heading + captions, NOT the dynamic boardlab) to a mode.
+function swapCard(card, mode) {
+  if (!card) return;
+  $$("h3, .caption, .xpl, .cite", card).forEach((el) => vSwapEl(el, mode));
+}
+// Fetch BOTH value variants for a board once; expose the active dataset + a mode setter so the
+// per-board toggle can switch instantly (no re-fetch, no re-calling the builder -> no listener leak).
+async function boardData(id, path) {
+  let dxt = null, dv = null;
+  try { dxt = await loadJSON(path); } catch (e) { /* missing */ }
+  try { dv = await loadJSON(vnameFor(path, "v")); } catch (e) { dv = dxt; }
+  // mode()/cur() read the per-board mode LIVE (wireBoardValue sets _boardMode[id]),
+  // so a toggle is reflected with no separate setter.
+  return { ok: () => !!(dxt || dv), mode: () => boardMode(id),
+           cur: () => (boardMode(id) === "v" ? (dv || dxt) : (dxt || dv)) };
+}
+// Render a small xT/V toggle into `host` and wire it: on switch, swap the card wording + re-render.
+function wireBoardValue(id, host, card, onMode) {
+  if (!host) return;
+  const draw = () => { host.innerHTML =
+    `<span class="bvlab">value model</span>`
+    + `<button class="htog${boardMode(id) !== "v" ? " on" : ""}" data-vm="xt">xT · threat</button>`
+    + `<button class="htog${boardMode(id) === "v" ? " on" : ""}" data-vm="v">V · coverage</button>`; };
+  draw();
+  host.addEventListener("click", (e) => {
+    const b = e.target.closest(".htog"); if (!b || b.dataset.vm === boardMode(id)) return;
+    _boardMode[id] = b.dataset.vm; draw(); swapCard(card, _boardMode[id]); onMode(_boardMode[id]);
   });
 }
 
@@ -1089,7 +1129,8 @@ function wireValueToggle() {
 
 async function buildPOBSO() {
   const surf = await loadValueJSON("data/surfaces/pobso.json?v=20");
-  const data = await loadValueJSON("data/space_pobso.json?v=7");
+  const bdP = await boardData("pobso", "data/space_pobso.json?v=7");
+  let data = bdP.cur() || {};
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
   // Tag each pass's RECEIVER with the paper-scored SOG (occupation gain share) and any SGG
@@ -1143,7 +1184,7 @@ async function buildPOBSO() {
   // Opponent-weighted/raw applies to both. Same stages schema as the other boards.
   const boardEl = $("#pobso-board"), vtg = $("#pobso-view"), btg = $("#pobso-toggle"), bwt = $("#pobso-weight");
   const blab = $("#pobso-lab"), btop = $("#pobso-top"), SCALE = 0.5 / 60;
-  const players = (data.players || []).filter((r) => r.stages && r.position);
+  let players = (data.players || []).filter((r) => r.stages && r.position);
   const bst = { view: "moment", stage: "ko", weighted: false };
   const row = (r, val, badge, fmt) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""} <span class="lpos">${badge}</span></span>
       <span class="tbtrack"><span class="tbfill" style="width:${clamp(val, 0, 100)}%;background:#ff8a5c"></span></span>
@@ -1169,11 +1210,13 @@ async function buildPOBSO() {
     const rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
     const mx = Math.max(1e-9, ...rows.map(sv));
     boardEl.innerHTML = rows.map((r) => row(r, sv(r) / mx * 100, `${r.stages[stage].matches}m`, fmt(sv(r)))).join("");
-    if (blab) blab.innerHTML = vterm(lab);
+    if (blab) blab.innerHTML = vterm(lab, bdP.mode());
     if (btop) btop.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
   const syncStageBtns = () => { if (btg) $$(".htog", btg).forEach((x) => x.classList.toggle("on", x.dataset.m === bst.stage)); };
+  const pcard = boardEl.closest(".card"); swapCard(pcard, bdP.mode());
   syncStageBtns(); renderBoard();
+  wireBoardValue("pobso", $("#pobso-value"), pcard, () => { data = bdP.cur() || {}; players = (data.players || []).filter((r) => r.stages && r.position); renderBoard(); });
   if (vtg) $$(".htog", vtg).forEach((b) => b.addEventListener("click", () => {
     bst.view = b.dataset.v; $$(".htog", vtg).forEach((x) => x.classList.toggle("on", x === b));
     bst.stage = bst.view === "match" ? "group" : "ko";   // moment/total default to knockout, per-match to the level field
@@ -1755,8 +1798,9 @@ const STAGE_LABEL = { group: "group stage", ko: "knockout", all: "all 64 games" 
 const STAGE_MIN = { group: 2, ko: 1, all: 2 };
 async function buildPassSelection() {
   const el = $("#ps-board"); if (!el) return;
-  let d; try { d = await loadValueJSON("data/pass_selection.json?v=7"); } catch (e) { return; }
-  const players = (d.players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
+  const bd = await boardData("ps", "data/pass_selection.json?v=7"); if (!bd.ok()) return;
+  const card = el.closest(".card");
+  let players = (bd.cur().players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
   if (!players.length) return;
   const lab = $("#ps-lab"), tg = $("#ps-toggle"), mtg = $("#ps-metric"), ztg = $("#ps-zone"), wtg = $("#ps-weight"), top = $("#ps-top");
   // metric: "progression" = control × xT(dest) × xT-added (threads it forward into danger);
@@ -1782,10 +1826,11 @@ async function buildPassSelection() {
     const metricTxt = occ
       ? `Players who <b>live in</b> dangerous, controlled space · control × xT (occupation index)`
       : `Players who <b>thread it into</b> dangerous space · control × xT-added (threading index)`;
-    if (lab) lab.innerHTML = vterm(`${metricTxt}, ${zoneTxt}, <b>per match</b>${st.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`);
+    if (lab) lab.innerHTML = vterm(`${metricTxt}, ${zoneTxt}, <b>per match</b>${st.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`, bd.mode());
     if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
-  render();
+  swapCard(card, bd.mode()); render();
+  wireBoardValue("ps", $("#ps-value"), card, () => { players = (bd.cur().players || []).filter((r) => !String(r.name).startsWith("#") && r.stages); render(); });
   if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => {
     st.stage = b.dataset.m; $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b)); render();
   }));
@@ -1857,8 +1902,9 @@ async function buildSOG() {
    "France controlled 55% of the pitch?" board. Reads team_control.json. */
 async function buildTeamBoard() {
   const el = $("#team-board"); if (!el) return;
-  let d; try { d = await loadValueJSON("data/team_control.json?v=1"); } catch (e) { return; }
-  const teams = d.teams || []; if (!teams.length) return;
+  const bd = await boardData("team", "data/team_control.json?v=1"); if (!bd.ok()) return;
+  const card = el.closest(".card");
+  let teams = (bd.cur().teams) || []; if (!teams.length) return;
   const mTg = $("#team-metric"), vTg = $("#team-view"), sTg = $("#team-stage"), lab = $("#team-lab"), top = $("#team-top");
   const st = { metric: "control", view: "per_match", stage: "group" };
   const valOf = (t) => {
@@ -1875,10 +1921,11 @@ async function buildTeamBoard() {
     el.innerHTML = rows.map((t) => `<div class="tbrow"><span class="tbname">${t.team} <span class="lpos">${t.n_matches[st.stage]}m</span></span>`
       + `<span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(t) / mx * 100, 0, 100)}%;background:${col}"></span></span>`
       + `<span class="tbval">${fmt(valOf(t))}</span></div>`).join("");
-    if (lab) lab.innerHTML = vterm(`Teams · ${isC ? "<b>territorial control</b> (share of the pitch owned)" : "<b>dangerous space</b> (OBSO, xT-weighted m²·min)"}, ${st.view === "total" ? "<b>tournament total</b>" : "<b>per match</b>"} · <b>${STAGE_LABEL[st.stage]}</b>`);
+    if (lab) lab.innerHTML = vterm(`Teams · ${isC ? "<b>territorial control</b> (share of the pitch owned)" : "<b>dangerous space</b> (OBSO, xT-weighted m²·min)"}, ${st.view === "total" ? "<b>tournament total</b>" : "<b>per match</b>"} · <b>${STAGE_LABEL[st.stage]}</b>`, bd.mode());
     if (top) top.innerHTML = "Leaders: <b>" + rows.slice(0, 3).map((t) => t.team).join(", ") + "</b>";
   };
-  render();
+  swapCard(card, bd.mode()); render();
+  wireBoardValue("team", $("#team-value"), card, () => { teams = (bd.cur().teams) || []; render(); });
   const wire = (tg, key, get) => { if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => { st[key] = get(b); $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b)); render(); })); };
   wire(mTg, "metric", (b) => b.dataset.k);
   wire(vTg, "view", (b) => b.dataset.v);
@@ -1889,8 +1936,9 @@ async function buildTeamBoard() {
    teammates by dragging a marker (F&B drag detection). Reads space_sgg.json. */
 async function buildSGG() {
   const el = $("#sgg-board"); if (!el) return;
-  let d; try { d = await loadValueJSON("data/space_sgg.json?v=1"); } catch (e) { return; }
-  const players = (d.players || []).filter((r) => r.stages);
+  const bd = await boardData("sgg", "data/space_sgg.json?v=1"); if (!bd.ok()) return;
+  const card = el.closest(".card");
+  let players = (bd.cur().players || []).filter((r) => r.stages);
   if (!players.length) return;
   const vTg = $("#sgg-view"), sTg = $("#sgg-stage"), wTg = $("#sgg-weight"), lab = $("#sgg-lab"), top = $("#sgg-top");
   const st = { view: "per_match", stage: "group", weighted: false };
@@ -1908,10 +1956,11 @@ async function buildSGG() {
     el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""} <span class="lpos">${r.stages[st.stage].matches}m</span></span>`
       + `<span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 0, 100)}%;background:#9b8cff"></span></span>`
       + `<span class="tbval">${fmt(valOf(r))}</span></div>`).join("");
-    if (lab) lab.innerHTML = vterm(`Players · space generated for teammates (control × xT m²·min)${st.view === "total" ? ", <b>tournament total</b>" : ", <b>per match</b>"}${st.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[st.stage]}</b>`);
+    if (lab) lab.innerHTML = vterm(`Players · space generated for teammates (control × xT m²·min)${st.view === "total" ? ", <b>tournament total</b>" : ", <b>per match</b>"}${st.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[st.stage]}</b>`, bd.mode());
     if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
-  render();
+  swapCard(card, bd.mode()); render();
+  wireBoardValue("sgg", $("#sgg-value"), card, () => { players = (bd.cur().players || []).filter((r) => r.stages); render(); });
   const wire = (tg, key, get) => { if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => { st[key] = get(b); $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b)); render(); })); };
   wire(vTg, "view", (b) => b.dataset.v);
   wire(sTg, "stage", (b) => b.dataset.m);
@@ -1920,8 +1969,9 @@ async function buildSGG() {
 
 async function buildBWAE() {
   const el = $("#bwae-xt"); if (!el) return;
-  let d; try { d = await loadValueJSON("data/balls_won_above_expected.json?v=4"); } catch (e) { return; }
-  const players = (d.players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
+  const bd = await boardData("bwae", "data/balls_won_above_expected.json?v=4"); if (!bd.ok()) return;
+  const card = el.closest(".card");
+  let players = (bd.cur().players || []).filter((r) => !String(r.name).startsWith("#") && r.stages);
   if (!players.length) return;
   const lab = $("#bwae-lab"), tg = $("#bwae-toggle"), wtg = $("#bwae-weight"), top = $("#bwae-top");
   const st = { stage: "all", weighted: false };
@@ -1934,10 +1984,11 @@ async function buildBWAE() {
     el.innerHTML = rows.map((r) => { const s = r.stages[stage]; return `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""} <span class="lpos">${s.matches}m</span></span>
       <span class="tbtrack"><span class="tbfill" style="width:${clamp(sv(r) / mx * 100, 0, 100)}%;background:#9b8cff"></span></span>
       <span class="tbval">${sv(r) >= 0 ? "+" : ""}${sv(r).toFixed(2)}</span></div>`; }).join("");
-    if (lab) lab.innerHTML = vterm(`Players · xT-weighted balls won above expected, <b>per match</b>${st.weighted ? ", opponent-strength weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`);
+    if (lab) lab.innerHTML = vterm(`Players · xT-weighted balls won above expected, <b>per match</b>${st.weighted ? ", opponent-strength weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`, bd.mode());
     if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
-  render();
+  swapCard(card, bd.mode()); render();
+  wireBoardValue("bwae", $("#bwae-value"), card, () => { players = (bd.cur().players || []).filter((r) => !String(r.name).startsWith("#") && r.stages); render(); });
   if (tg) $$(".htog", tg).forEach((b) => b.addEventListener("click", () => {
     st.stage = b.dataset.m; $$(".htog", tg).forEach((x) => x.classList.toggle("on", x === b)); render();
   }));
