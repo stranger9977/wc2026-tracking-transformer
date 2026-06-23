@@ -700,6 +700,120 @@ function buildScrubber(el, surf, cfg) {
      #intro-efi  — a live 2026 "offers to receive in behind, per match" bar board.
    Grounds the plain-English definitions in FIFA's own WC2026 numbers.
    ================================================================= */
+/* ============================================================================
+   SPACE CLIP — chemistry-style SVG renderer (rebuilt per request). A bright green
+   pitch + crisp player dots + a real ball glyph (the exact chemistry look) with the
+   dangerous-space heat as a soft warm layer behind the players. NO follow-cam.
+   Renders the clean, de-jittered kloppy tracks produced by build_space_clip.py.
+   ============================================================================ */
+const SC_W = 900, SC_H = 600, SC_PAD = 14, SC_IW = SC_W - 2 * SC_PAD, SC_IH = SC_H - 2 * SC_PAD;
+function sc_m2s(x, y) { return [(x + 52.5) / 105 * SC_IW + SC_PAD, (1 - (y + 34) / 68) * SC_IH + SC_PAD]; }
+// warm danger overlay — transparent over low-value grass, glowing amber→red where the attacker
+// controls valuable space. Reads clean on the green pitch (a heat overlay, not a muddy wash).
+function scHeat(v) {
+  if (v <= 0.05) return [0, 0, 0, 0];
+  const t = clamp(v, 0, 1);
+  const stops = [[255, 232, 120], [255, 170, 50], [240, 90, 35], [210, 30, 30]];
+  const x = t * (stops.length - 1), i = Math.floor(x), f = x - i;
+  const a = stops[i], b = stops[Math.min(i + 1, stops.length - 1)];
+  return [Math.round(a[0] + (b[0] - a[0]) * f), Math.round(a[1] + (b[1] - a[1]) * f),
+          Math.round(a[2] + (b[2] - a[2]) * f), Math.round(235 * Math.pow(t, 0.65))];
+}
+function buildSpaceClipSVG(host, surf, cfg) {
+  if (!host) return;
+  const frames = surf.frames || [], n = frames.length;
+  if (!n) return;
+  const teams = surf.teams || {}, cxc = SC_W / 2, cyc = SC_H / 2, L = "#eaf6ee";
+  const boxW = 16.5 / 105 * SC_IW, boxH = 40.3 / 68 * SC_IH, sixW = 5.5 / 105 * SC_IW, sixH = 18.3 / 68 * SC_IH;
+  const pitch =
+    `<rect x="${SC_PAD}" y="${SC_PAD}" width="${SC_IW}" height="${SC_IH}" fill="#1f7a3f" stroke="${L}" stroke-width="2.4"/>`
+    + `<line x1="${cxc}" y1="${SC_PAD}" x2="${cxc}" y2="${SC_H - SC_PAD}" stroke="${L}" stroke-width="1.5"/>`
+    + `<circle cx="${cxc}" cy="${cyc}" r="${(9.15 / 105 * SC_IW).toFixed(1)}" fill="none" stroke="${L}" stroke-width="1.5"/>`
+    + `<circle cx="${cxc}" cy="${cyc}" r="2.2" fill="${L}"/>`
+    + `<rect x="${SC_PAD}" y="${(cyc - boxH / 2).toFixed(1)}" width="${boxW.toFixed(1)}" height="${boxH.toFixed(1)}" fill="none" stroke="${L}" stroke-width="1.6"/>`
+    + `<rect x="${(SC_W - SC_PAD - boxW).toFixed(1)}" y="${(cyc - boxH / 2).toFixed(1)}" width="${boxW.toFixed(1)}" height="${boxH.toFixed(1)}" fill="none" stroke="${L}" stroke-width="1.6"/>`
+    + `<rect x="${SC_PAD}" y="${(cyc - sixH / 2).toFixed(1)}" width="${sixW.toFixed(1)}" height="${sixH.toFixed(1)}" fill="none" stroke="${L}" stroke-width="1.3"/>`
+    + `<rect x="${(SC_W - SC_PAD - sixW).toFixed(1)}" y="${(cyc - sixH / 2).toFixed(1)}" width="${sixW.toFixed(1)}" height="${sixH.toFixed(1)}" fill="none" stroke="${L}" stroke-width="1.3"/>`;
+  host.innerHTML =
+    `<div class="hstage"><svg viewBox="0 0 ${SC_W} ${SC_H}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block;background:#0b1410">`
+    + pitch
+    + `<image id="sc-heat-${cfg.id}" x="${SC_PAD}" y="${SC_PAD}" width="${SC_IW}" height="${SC_IH}" preserveAspectRatio="none" opacity="0.88"/>`
+    + `<g id="sc-pl-${cfg.id}"></g><g id="sc-bl-${cfg.id}"></g><g id="sc-lb-${cfg.id}"></g>`
+    + `<text x="${SC_PAD + 6}" y="${cyc - 4}" fill="#dfeaf0" font-size="13" font-weight="700" opacity="0.8">◂ ${teams.attack || ""}</text>`
+    + `<text x="${SC_W - SC_PAD - 6}" y="${cyc - 4}" fill="#dfeaf0" font-size="13" font-weight="700" text-anchor="end" opacity="0.8">${teams.defend || ""} ▸</text>`
+    + `</svg></div>`
+    + `<div class="hctrls"><button class="play" id="scpl-${cfg.id}" aria-label="play">&#9654;</button>`
+    + `<input type="range" id="scrg-${cfg.id}" min="0" max="${(n - 1) * 1000}" value="0"/><span class="tlabel" id="sctl-${cfg.id}"></span></div>`
+    + `<div class="hreadout" id="scro-${cfg.id}"></div>`
+    + `<div class="impact" id="scim-${cfg.id}"></div>`;
+  const heatEl = $(`#sc-heat-${cfg.id}`), plG = $(`#sc-pl-${cfg.id}`), blG = $(`#sc-bl-${cfg.id}`), lbG = $(`#sc-lb-${cfg.id}`);
+  const rg = $(`#scrg-${cfg.id}`), pl = $(`#scpl-${cfg.id}`), tl = $(`#sctl-${cfg.id}`), ro = $(`#scro-${cfg.id}`);
+  const hc = document.createElement("canvas");
+  let heatIdx = -1;
+  function paintHeat(fi) {
+    if (fi === heatIdx) return; heatIdx = fi;
+    const sf = frames[fi].surface; if (!sf) return;
+    const ny = sf.length, nx = sf[0].length;
+    hc.width = nx; hc.height = ny;
+    const cx2 = hc.getContext("2d"), img = cx2.createImageData(nx, ny);
+    for (let r = 0; r < ny; r++) for (let c = 0; c < nx; c++) {
+      const [rr, gg, bb, aa] = scHeat(sf[r][c]); const k = (r * nx + c) * 4;
+      img.data[k] = rr; img.data[k + 1] = gg; img.data[k + 2] = bb; img.data[k + 3] = aa;
+    }
+    cx2.putImageData(img, 0, 0);
+    heatEl.setAttribute("href", hc.toDataURL());
+  }
+  const spanSec = Math.max(0.5, frames[n - 1].t_s - frames[0].t_s);
+  const fracPerSec = (n - 1) / spanSec;
+  const lp = (a, b, f) => a + (b - a) * f;
+  function renderAt(ph) {
+    ph = clamp(ph, 0, n - 1);
+    const i0 = Math.floor(ph), i1 = Math.min(i0 + 1, n - 1), f = ph - i0;
+    const A = frames[i0], B = frames[i1], ts = lp(A.t_s, B.t_s, f);
+    paintHeat(i0);
+    const ball = [lp(A.ball_xy[0], B.ball_xy[0], f), lp(A.ball_xy[1], B.ball_xy[1], f)];
+    const [bx, by] = sc_m2s(ball[0], ball[1]), R = 8.5;
+    blG.innerHTML =
+      `<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="${R + 3.5}" fill="none" stroke="#000" stroke-width="1.2" stroke-opacity="0.5"/>`
+      + `<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="${R}" fill="#fff" stroke="#111" stroke-width="1.6"/>`
+      + `<polygon points="${bx},${by - R * 0.55} ${bx + R * 0.52},${by - R * 0.17} ${bx + R * 0.32},${by + R * 0.45} ${bx - R * 0.32},${by + R * 0.45} ${bx - R * 0.52},${by - R * 0.17}" fill="#111"/>`;
+    const idxB = new Map(B.players.map((p) => [p.name, p]));
+    let dots = "", labels = "";
+    for (const p of A.players) {
+      const q = idxB.get(p.name) || p;
+      const [sx, sy] = sc_m2s(lp(p.x, q.x, f), lp(p.y, q.y, f)), r = 9;
+      const col = p.gk ? "#2bd4a0" : (p.att ? "#4ea0ff" : "#ff6b6b");
+      dots += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${r + 2}" fill="#fff" fill-opacity="0.92"/>`
+            + `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${r}" fill="${col}" stroke="#0a0e14" stroke-width="1.3"/>`;
+      if (cfg.labelName && p.name === cfg.labelName) {
+        const sn = p.name.split(" ").slice(-1)[0], lw = sn.length * 7 + 14;
+        labels += `<g><rect x="${(sx - lw / 2).toFixed(1)}" y="${(sy - r - 19).toFixed(1)}" width="${lw}" height="15" rx="3" fill="#0b1220" fill-opacity="0.9" stroke="#ffd166" stroke-width="1"/>`
+          + `<text x="${sx.toFixed(1)}" y="${(sy - r - 8).toFixed(1)}" fill="#ffd166" font-size="10" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">${sn}</text></g>`;
+      }
+    }
+    plG.innerHTML = dots; lbG.innerHTML = labels;
+    tl.textContent = `${i0 + 1}/${n} · ${ts.toFixed(1)}s`;
+    if (ro) ro.innerHTML = cfg.readout ? cfg.readout(A) : "";
+  }
+  let playhead = 0, playing = false, raf = null, lastT = 0;
+  function loop(now) {
+    if (!playing) return;
+    if (!lastT) lastT = now;
+    const dt = Math.min(0.1, (now - lastT) / 1000); lastT = now;
+    playhead += dt * fracPerSec;
+    if (playhead >= n - 1) playhead = 0;
+    rg.value = Math.round(playhead * 1000);
+    renderAt(playhead);
+    raf = requestAnimationFrame(loop);
+  }
+  function stop() { playing = false; pl.innerHTML = "&#9654;"; if (raf) { cancelAnimationFrame(raf); raf = null; } lastT = 0; }
+  pl.addEventListener("click", () => { if (playing) return stop(); playing = true; pl.innerHTML = "&#10074;&#10074;"; lastT = 0; raf = requestAnimationFrame(loop); });
+  rg.addEventListener("input", () => { stop(); playhead = (+rg.value) / 1000; renderAt(playhead); });
+  renderAt(0);
+  const im = surf.impact, imEl = $(`#scim-${cfg.id}`);
+  if (im && imEl) imEl.innerHTML = `<b>What it created.</b> Over ${im.window_s}s the ball climbed from ${im.xt_start.toFixed(2)} to <b>${im.xt_peak.toFixed(2)} xT</b>, a <span class="big">+${im.xt_added.toFixed(2)} xT</span> rise into the most dangerous space on the pitch.`;
+}
+
 async function buildIntro() {
   const shapeEl = $("#intro-shape"), efiEl = $("#intro-efi");
   if (!shapeEl && !efiEl) return;
@@ -1162,53 +1276,17 @@ function wireValueToggle() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadValueJSON("data/surfaces/pobso.json?v=21");
+  const surf = await loadValueJSON("data/surfaces/dimariak.json?v=1");
   const bdP = await boardData("pobso", "data/space_pobso.json?v=7");
   let data = bdP.cur() || {};
   const scEl = $("#pobso-canvas");
   const h = surf.hero || {};
-  // Tag each pass's RECEIVER with the paper-scored SOG (occupation gain share) and any SGG
-  // (who dragged a marker to free them), so the ledger shows control + xT + SOG + SGG together.
-  try {
-    const ps = await loadJSON("data/surfaces/dimaria_paper_score.json?v=1");
-    const sogMap = {}, sggMap = {};
-    (ps.players || []).forEach((p) => { if (p.att && !p.gk) sogMap[p.name] = p.sog_share; });
-    (ps.sgg || []).forEach((s) => { if (!sggMap[s.receiver] || s.share > sggMap[s.receiver].share) sggMap[s.receiver] = s; });
-    (surf.passes || []).forEach((p) => {
-      if (sogMap[p.receiver] != null) p.sog = sogMap[p.receiver];
-      if (sggMap[p.receiver]) p.sgg = { by: sggMap[p.receiver].generator, share: sggMap[p.receiver].share };
-    });
-  } catch (e) { /* paper-score optional */ }
-  const got = h.outcome === "goal" ? "and <b>scores</b>" : (h.outcome ? `and ${h.outcome}` : "and receives");
-  const from = h.assist ? ` from <b>${h.assist}</b>` : "";
-  buildScrubber(scEl, surf, {
-    id: "pobso", ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: 1.0, follow: false,
-    labelName: h.name, defaultMode: "surface",
-    ballXt: true, receivers: surf.receivers || [], passes: surf.passes || null,
-    toggles: [
-      { key: "reveal", label: "reveal danger (× xT)" },
-    ],
-    readout: (fr, st) => st.mode === "reveal"
-      ? `Only the cells the attacker controls <b>and</b> that carry threat stay lit. That is the dangerous space forming before the ball arrives.`
-      : `<b>${h.name}</b> drifts off the ball into the space he both <b>owns</b> and can finish from, then receives${from} ${got}. `
-        + `Each receiver is ringed — <span style="color:#5fd38a">green when his team owns the grass he is in</span>, `
-        + `<span style="color:#ff6b6b">red when it does not</span>. In the ledger every pass carries four factors: `
-        + `<span style="color:var(--accent)">ctrl</span> = pitch control at the target (the C in Q=C·V), `
-        + `<span style="color:#e0a93f">V</span> = the paper value model (how much that space is worth — by defensive coverage, not xT), `
-        + `<span style="color:#6cb4ee">SOG</span> = the receiver's occupation-gain share, `
-        + `<span style="color:#5fd38a">freed by</span> = the SGG drag that sprang him — then the <b>xT it adds</b>. `
-        + `Watch <b>V climb through the build-up</b> (0.37→0.86) while xT stays ~0 until the final ball: the value model credits the build-up that xT ignores.`,
-  });
+  // Rebuilt renderer: chemistry-style SVG pitch + clean kloppy tracks + the dangerous-space heat.
+  buildSpaceClipSVG(scEl, surf, { id: "pobso", labelName: h.name,
+    readout: () => `<b>${h.name}</b> drifts off the ball into the space he both <b>owns</b> and can finish from, then receives`
+      + `${h.assist ? ` from <b>${h.assist}</b>` : ""} and scores. The <b>warm glow</b> is the dangerous space (control × value) `
+      + `Argentina builds in front of goal as the move develops — the chance forming before the ball arrives.` });
   renderTeamLegend("pobso-teamleg", surf.teams);
-  const im = surf.impact;
-  if (im) {
-    const goal = h.outcome === "goal";
-    renderImpact(scEl, `<b>What it created.</b> Over ${im.window_s}s the ball`
-      + ` climbed from ${im.xt_start.toFixed(2)} to <b>${im.xt_peak.toFixed(2)} xT</b>,`
-      + ` a <span class="big">+${im.xt_added.toFixed(2)} xT</span> rise in threat`
-      + `${goal ? ", and it ended in a <b>goal</b>" : (h.outcome ? `, and ended in a <b>${h.outcome}</b>` : "")}.`
-      + ` That is dangerous space turned into the highest-value spot on the pitch.`);
-  }
   // name the auto-picked runner in the card title
   const pbTitle = $("#pobso-hero-title");
   if (pbTitle && h.name) pbTitle.textContent = `${h.name}'s run and finish`;
@@ -1407,32 +1485,10 @@ function clipLedgerHelp() {
 async function buildExtraClip(cfg) {
   const scEl = document.getElementById(cfg.canvasId); if (!scEl) return;
   let surf; try { surf = await loadValueJSON(cfg.surfaceFile); } catch (e) { return; }
-  const h = surf.hero || {}, im = surf.impact;
-  // join the paper-scored SOG share + any SGG drag onto each pass's receiver (same join as the Di María ledger)
-  try {
-    const ps = await loadJSON(cfg.paper.file);
-    const sogMap = {}, sggMap = {};
-    (ps.players || []).forEach((p) => { if (p.att && !p.gk) sogMap[p.name] = p.sog_share; });
-    (ps.sgg || []).forEach((s) => { if (!sggMap[s.receiver] || s.share > sggMap[s.receiver].share) sggMap[s.receiver] = s; });
-    (surf.passes || []).forEach((p) => {
-      if (sogMap[p.receiver] != null) p.sog = sogMap[p.receiver];
-      if (sggMap[p.receiver]) p.sgg = { by: sggMap[p.receiver].generator, share: sggMap[p.receiver].share };
-    });
-  } catch (e) { /* paper-score optional */ }
-  buildScrubber(scEl, surf, {
-    id: cfg.id, ramp: rampHot, gamma: 0.55, threshold: 0.02, speed: cfg.speed || 1.0, follow: false,
-    labelName: h.name, defaultMode: "surface",
-    ballXt: true, receivers: surf.receivers || [], passes: surf.passes || null,
-    toggles: [{ key: "reveal", label: "reveal danger (× xT)" }],
-    readout: (fr, st) => st.mode === "reveal"
-      ? `Only the cells the attacking team controls <b>and</b> that carry threat stay lit — the dangerous space forming before the ball arrives.`
-      : cfg.lead + " " + clipLedgerHelp(),
-  });
-  renderTeamLegend(cfg.teamlegId, surf.teams);
-  if (im) renderImpact(scEl, `<b>What it created.</b> Over ${im.window_s}s the ball`
-    + ` climbed from ${im.xt_start.toFixed(2)} to <b>${im.xt_peak.toFixed(2)} xT</b>,`
-    + ` a <span class="big">+${im.xt_added.toFixed(2)} xT</span> rise in threat`
-    + ` ${cfg.impactTail}`);
+  const h = surf.hero || {};
+  // Rebuilt renderer: the chemistry-style SVG pitch + clean kloppy tracks + the heat layer.
+  buildSpaceClipSVG(scEl, surf, { id: cfg.id, labelName: h.name, readout: () => cfg.lead });
+  if (cfg.teamlegId) renderTeamLegend(cfg.teamlegId, surf.teams);
   await buildPaperScore(cfg.paper);
 }
 
@@ -2214,7 +2270,7 @@ if (!window.__spaceWIPPage) {
     await Promise.allSettled([
       buildExtraClip({
         id: "argcro", canvasId: "argcro-canvas", teamlegId: "argcro-teamleg",
-        surfaceFile: "data/surfaces/argcro.json?v=3",
+        surfaceFile: "data/surfaces/argcrok.json?v=1",
         paper: { file: "data/surfaces/argcro_paper_score.json?v=1",
                  chartId: "argcro-chart", legendId: "argcro-legend", sogId: "argcro-sog", sggId: "argcro-sgg",
                  chartNote: "ball reaches Álvarez near the end", pin: ["Lionel Messi", "Julian Alvarez"],
@@ -2224,7 +2280,7 @@ if (!window.__spaceWIPPage) {
       }),
       buildExtraClip({
         id: "framar", canvasId: "framar-canvas", teamlegId: "framar-teamleg", speed: 0.85,
-        surfaceFile: "data/surfaces/framar.json?v=3",
+        surfaceFile: "data/surfaces/framark.json?v=1",
         paper: { file: "data/surfaces/framar_paper_score.json?v=1",
                  chartId: "framar-chart", legendId: "framar-legend", sogId: "framar-sog", sggId: "framar-sgg",
                  chartNote: "ball worked back across goal near the end", pin: ["Kylian Mbappé"],
