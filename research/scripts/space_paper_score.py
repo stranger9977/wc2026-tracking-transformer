@@ -140,6 +140,9 @@ def main():
 
     # ---- per-frame: control (β=1) → V (trained NN) → per-player Q ----
     q_series = {nm: [None] * nF for nm in tracks}
+    ball_val = [None] * nF        # value (V or xT) at the ball's cell, per frame
+    carrier = [None] * nF         # nearest attacking outfielder to the ball (the on-ball player)
+    CARRY_DIST = 3.0              # m — within this of the ball ⇒ in possession
     for i, fr in enumerate(fbuf):
         rows, names = [], []
         for nm, tr in tracks.items():
@@ -164,6 +167,17 @@ def main():
         for ridx, nm in enumerate(names):
             if ridx in q:
                 q_series[nm][i] = round(q[ridx], 4)
+        # on-ball: value at the ball + the nearest attacking outfielder (the carrier)
+        ci = int(np.clip((by + HALF_WID) / (2 * HALF_WID) * grid.ny, 0, grid.ny - 1))
+        cj = int(np.clip((bx + HALF_LEN) / (2 * HALF_LEN) * grid.nx, 0, grid.nx - 1))
+        ball_val[i] = float(V[ci, cj])
+        best, bestd = None, CARRY_DIST
+        for nm2, tr2 in tracks.items():
+            if tr2["att"] and not tr2["gk"] and tr2["xs"][i] is not None:
+                dd = math.hypot(tr2["xs"][i] - bx, tr2["ys"][i] - by)
+                if dd < bestd:
+                    bestd, best = dd, nm2
+        carrier[i] = best
 
     # ---- E · SOG/SOL from G (delta reading), split active/passive ----
     wf = max(1, int(round(W_S * (1.0 / np.median(np.diff(times))))))   # window in frames
@@ -198,6 +212,24 @@ def main():
             "sog": round(sog, 3), "sol": round(sol, 3),
             "sog_active": round(sog_a, 3), "sog_passive": round(sog_p, 3),
         })
+
+    # ---- on-ball VALUE CREATED: credit each carrier the rise in ball value from when he
+    # receives to when the next player does (the dribble into danger + the pass that moves it on).
+    # This is where the ball-carrier (Messi) lives — off-ball SOG can't see it. ----
+    seq = [(k, carrier[k]) for k in in_clip if carrier[k] is not None and ball_val[k] is not None]
+    created: dict = {}
+    if seq:
+        seg = seq[0]
+        for j in range(1, len(seq)):
+            if seq[j][1] != seg[1]:
+                created[seg[1]] = created.get(seg[1], 0.0) + (ball_val[seq[j][0]] - ball_val[seg[0]])
+                seg = seq[j]
+        created[seg[1]] = created.get(seg[1], 0.0) + (ball_val[seq[-1][0]] - ball_val[seg[0]])
+    pos_tot = sum(c for c in created.values() if c > 0) or 1.0
+    on_ball = sorted(
+        ({"name": nm, "created": round(c, 4), "share": round(100.0 * max(0.0, c) / pos_tot, 1)}
+         for nm, c in created.items()),
+        key=lambda x: -x["created"])
 
     # ---- F · SGG: drag detection + attribute receiver's G to the generator ----
     att_names = [nm for nm, tr in tracks.items() if tr["att"] and not tr["gk"]]
@@ -258,6 +290,7 @@ def main():
         "times": [round(times[k] - CLIP_LO, 2) for k in in_clip],
         "players": sorted(players_out, key=lambda p: -(p["sog"] + 0.001 * (not p["gk"]))),
         "sgg": sgg_out, "sgg_events": sgg_events,
+        "on_ball": on_ball,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(payload))
