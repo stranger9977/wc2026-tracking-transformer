@@ -1394,7 +1394,17 @@ async function buildPaperScore(cfg) {
   cfg = cfg || { file: "data/surfaces/dimaria_paper_score.json?v=1",
                  chartId: "paper-chart", legendId: "paper-legend", sogId: "paper-sog", sggId: "paper-sgg" };
   const host = document.getElementById(cfg.chartId); if (!host) return;
-  let d; try { d = await loadJSON(cfg.file); } catch (e) { return; }
+  // V (defensive-coverage) and xT (Expected Threat) variants, with a per-card toggle.
+  const fileXt = cfg.xtFile || cfg.file.replace(/\.json/, "_xt.json");
+  const card = host.closest(".card"), chip = card ? card.querySelector(".livestat") : null;
+  const _cache = {};
+  async function _load(mode) {
+    if (_cache[mode] === undefined) {
+      try { _cache[mode] = await loadJSON(mode === "xt" ? fileXt : cfg.file); } catch (e) { _cache[mode] = null; }
+    }
+    return _cache[mode];
+  }
+  function draw(d, mode) {
   const times = d.times || [];
   const att = (d.players || []).filter((p) => p.att && !p.gk && p.q && p.q.length);
   att.sort((a, b) => b.sog_share - a.sog_share);
@@ -1434,14 +1444,19 @@ async function buildPaperScore(cfg) {
     `<text x="${X(t).toFixed(1)}" y="${H - 6}" fill="#5b6b7e" font-size="9" text-anchor="middle">${t}s</text>`).join("");
   host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="background:#0b1118;border:1px solid #16212e;border-radius:10px">
     ${yticks}${xticks}
-    <text x="${mL}" y="11" fill="#5b6b7e" font-size="9">owned-space value Q (m²·V) · ${cfg.chartNote || "ball reaches Di María near the end"}</text>
+    <text x="${mL}" y="11" fill="#5b6b7e" font-size="9">owned-space value Q (m²·${mode === "xt" ? "xT" : "V"}) · ${cfg.chartNote || "ball reaches Di María near the end"}</text>
     ${lines}</svg>`;
 
   const leg = document.getElementById(cfg.legendId);
   if (leg) {
     leg.innerHTML = top.map((p) =>
       `<span class="lk"><span class="ld" style="background:${p._col}"></span>${p.name} <span style="color:var(--faint)">${p.sog_share}%${p._pin ? " · on the ball" : ""}</span></span>`).join("");
-    if (cfg.note) leg.insertAdjacentHTML("afterend", `<p class="caption" style="margin-top:10px">${cfg.note}</p>`);
+    const noteHtml = (mode === "xt" ? (cfg.noteXt || cfg.note) : cfg.note);
+    if (noteHtml) {
+      let noteEl = document.getElementById(`${cfg.legendId}-note`);
+      if (!noteEl) { leg.insertAdjacentHTML("afterend", `<p class="caption" id="${cfg.legendId}-note" style="margin-top:10px"></p>`); noteEl = document.getElementById(`${cfg.legendId}-note`); }
+      noteEl.innerHTML = noteHtml;
+    }
   }
 
   // ---- SOG share bars, split active (running) / passive (walking) ----
@@ -1465,6 +1480,29 @@ async function buildPaperScore(cfg) {
           `<div class="gr"><span class="nm">${s.generator} <span class="ar">→</span> ${s.receiver}</span><span class="sh">${s.share}%</span></div>`).join("") + `</div>`
       : `<p class="caption">No clean single-defender drag cleared the threshold in this window.</p>`;
   }
+  if (chip) chip.textContent = mode === "xt"
+    ? "value model = Expected Threat (xT) · danger by distance to goal"
+    : "scored exactly like the paper · value model = defensive coverage, not xT";
+  }  // end draw(d, mode)
+
+  // ---- value toggle (xT ⇄ V), injected once above the chart ----
+  let _mode = cfg.defaultPaperMode || "v";
+  if (!document.getElementById(`${cfg.chartId}-vt`)) {
+    host.insertAdjacentHTML("beforebegin",
+      `<div class="htoggles" id="${cfg.chartId}-vt" style="padding:0;margin:0 0 8px">`
+      + `<span class="bvlab" style="margin-right:6px">value model</span>`
+      + `<button class="htog${_mode === "xt" ? " on" : ""}" data-pm="xt">xT · threat (near goal)</button>`
+      + `<button class="htog${_mode !== "xt" ? " on" : ""}" data-pm="v">V · coverage (what defenders guard)</button></div>`);
+  }
+  const _vt = document.getElementById(`${cfg.chartId}-vt`);
+  async function _show(mode) {
+    const dd = await _load(mode);
+    if (!dd) return;
+    _mode = mode; draw(dd, mode);
+    if (_vt) $$(".htog", _vt).forEach((x) => x.classList.toggle("on", x.dataset.pm === mode));
+  }
+  if (_vt) $$(".htog", _vt).forEach((b) => b.addEventListener("click", () => _show(b.dataset.pm)));
+  await _show(_mode);
 }
 
 /* The shared "what the ledger shows" explanation — the same four-factor read (ctrl/V/SOG/freed-by/xT)
@@ -2276,7 +2314,8 @@ if (!window.__spaceWIPPage) {
         paper: { file: "data/surfaces/argcro_paper_score.json?v=1",
                  chartId: "argcro-chart", legendId: "argcro-legend", sogId: "argcro-sog", sggId: "argcro-sgg",
                  chartNote: "ball reaches Álvarez near the end", pin: ["Lionel Messi", "Julian Alvarez"],
-                 note: `<b>Where's Messi?</b> Near the bottom — and that is the metric being honest, not broken. Space Occupation Gain credits moving into valuable space <b>off the ball</b>. Here Messi is <b>on the ball</b>: he beats Gvardiol — a <b>duel won</b>, the skill the duels board measures, not this one — and drives to the <b>byline</b>, wide low-value space, so his owned-space value actually <i>falls</i> while his teammates' climbs. Álvarez makes the decisive run, but only in the final second, so his 3-second gain barely registers over 11 s. The build-up <b>occupies</b> the central space; Messi <b>creates</b> the chance with the carry and the cut-back.` },
+                 note: `<b>Where's Messi?</b> Near the bottom — and that is the metric being honest, not broken. Space Occupation Gain credits moving into valuable space <b>off the ball</b>. Here Messi is <b>on the ball</b>: he beats Gvardiol — a <b>duel won</b>, the skill the duels board measures, not this one — and drives to the <b>byline</b>, wide low-value space, so his owned-space value actually <i>falls</i> while his teammates' climbs. Álvarez makes the decisive run, but only in the final second, so his 3-second gain barely registers over 11 s. The build-up <b>occupies</b> the central space; Messi <b>creates</b> the chance with the carry and the cut-back.`,
+                 noteXt: `<b>xT view.</b> Now a cell is worth its <b>distance/angle to goal</b> (Karun Singh's Expected Threat), not what defenders guard. Messi is <i>still</i> low — even xT-SOG measures movement <b>off the ball</b>, and his value here is the <b>on-ball carry</b>: the ball's threat climbed <b>+0.24 xT</b> as he drove it to the byline and cut it back (the receipt on the clip above). That on-ball value, and beating Gvardiol, are what xT-SOG can't see — they live in the ball-progression and duels reads.` },
         lead: `<b>Messi</b> takes it on the right, beats Gvardiol to the byline and cuts it back; <b>Álvarez</b> reads the run and arrives into the space to finish.`,
         impactTail: `, and it ended in a <b>goal</b>. That is dangerous space turned into the most valuable spot on the pitch.`,
       }),
@@ -2286,7 +2325,8 @@ if (!window.__spaceWIPPage) {
         paper: { file: "data/surfaces/framar_paper_score.json?v=1",
                  chartId: "framar-chart", legendId: "framar-legend", sogId: "framar-sog", sggId: "framar-sgg",
                  chartNote: "ball worked back across goal near the end", pin: ["Kylian Mbappé"],
-                 note: `<b>Where's Mbappé?</b> Low, for the same reason as Messi on the Argentina goal: he is <b>on the ball</b>, carrying down the wing into wide, low-value space. Space Occupation Gain measures teammates running into central value <b>off</b> the ball — not the carry. Mbappé's danger here is the <b>run itself</b> (the xT view, in the scrubber above), which the defensive-coverage value model deliberately doesn't reward.` },
+                 note: `<b>Where's Mbappé?</b> Low, for the same reason as Messi on the Argentina goal: he is <b>on the ball</b>, carrying down the wing into wide, low-value space. Space Occupation Gain measures teammates running into central value <b>off</b> the ball — not the carry. Mbappé's danger here is the <b>run itself</b> (the xT view, in the scrubber above), which the defensive-coverage value model deliberately doesn't reward.`,
+                 noteXt: `<b>xT view.</b> Flip to Expected Threat and <b>Mbappé tops it</b> — once a cell is valued by its danger near goal (not by what defenders guard), his run into the box is the most dangerous off-ball movement on the play. The V model credited France's defenders holding the build-up; xT credits the threat at the end of it. Same play, two honest answers to "who created the danger."` },
         lead: `<b>Mbappé</b> tears down the left and drags Morocco's block across with him, opening the lane the ball is fired back into across the face of goal.`,
         impactTail: ` — a clear chance, the ball worked back across goal into the most valuable spot on the pitch. France manufactured it from open play; the finish didn't come, the space did.`,
       }),

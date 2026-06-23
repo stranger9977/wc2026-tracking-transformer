@@ -35,10 +35,12 @@ import space_value_model as svm  # noqa: E402
 HALF_LEN, HALF_WID = pc.HALF_LEN, pc.HALF_WID
 OUT = _REPO / "research" / "site" / "data" / "surfaces" / "dimaria_paper_score.json"
 
-# --- Di María play (Argentina 3–0 France build-up to the goal), the rendered hero clip ---
+# --- defaults: Di María play (Argentina 3–0 France build-up); override via CLI for other clips ---
 MID, PERIOD = "10517", 1
 CLIP_LO, CLIP_HI = 2110.5, 2121.6           # period-elapsed seconds of the rendered clip
 READ_LO, READ_HI = 2107.5, 2125.5           # pad: lead-in + forward SOG window lookahead
+LOCK = "364"                                 # attacking team id (Argentina)
+MATCH_LABEL = "Argentina 3–0 France · 2022 World Cup final · Di María goal build-up"
 STRIDE = 3                                   # 30 Hz / 3 = 10 Hz (matches the rendered clip)
 W_S = 3.0                                    # SOG/SGG window (paper)
 EPS = 0.04                                   # G dead-band (m²·value units; tuned to the play)
@@ -78,10 +80,28 @@ def player_q(ctrl, grid, V):
 
 
 def main():
-    model = svm.load_model()
+    global MID, PERIOD, CLIP_LO, CLIP_HI, READ_LO, READ_HI, LOCK, MATCH_LABEL, OUT
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--match"); ap.add_argument("--period", type=int)
+    ap.add_argument("--lo", type=float); ap.add_argument("--hi", type=float)
+    ap.add_argument("--lock"); ap.add_argument("--label"); ap.add_argument("--out")
+    a = ap.parse_args()
+    if a.match: MID = a.match
+    if a.period: PERIOD = a.period
+    if a.lo is not None: CLIP_LO = a.lo
+    if a.hi is not None: CLIP_HI = a.hi
+    READ_LO, READ_HI = CLIP_LO - 3.0, CLIP_HI + 4.0
+    if a.lock: LOCK = a.lock
+    if a.label: MATCH_LABEL = a.label
+    if a.out: OUT = _REPO / "research" / "site" / "data" / "surfaces" / f"{a.out}.json"
+    import os
+    VALUE = os.environ.get("SPACE_VALUE", "v")   # "v" = trained F&B value model; "xt" = static Karun-Singh xT
     grid = pc.make_grid(nx=40, ny=26)
-    arg_id = _arg_team_id()
-    print(f"[paper-score] match {MID} P{PERIOD}, Argentina lock id={arg_id}", flush=True)
+    xt_grid = pc.xt_surface(grid)                 # static xT, oriented attack-+x (lock team attacks +x)
+    model = svm.load_model() if VALUE != "xt" else None
+    arg_id = LOCK or _arg_team_id()
+    print(f"[paper-score] match {MID} P{PERIOD} {CLIP_LO}-{CLIP_HI}s, lock {arg_id} -> {OUT.name}", flush=True)
 
     fbuf = [fr for fr in space_io.read_match(MID, sampling_stride=STRIDE, periods=(PERIOD,),
                                              lock_attack_team_id=arg_id)
@@ -138,7 +158,7 @@ def main():
         bx, by = float(bxs[i]), float(bys[i])
         ctrl = pc.control_surface(np.array(rows, dtype=np.float64), np.array([bx, by]),
                                   grid, include_gk=True, beta=1.0)               # β=1, paper
-        V = svm.value_surface(np.array([bx, by]), grid, model, goal_mult=True)   # trained value model
+        V = xt_grid if VALUE == "xt" else svm.value_surface(np.array([bx, by]), grid, model, goal_mult=True)
         q = player_q(ctrl, grid, V)
         # map player_idx (row index) -> name
         for ridx, nm in enumerate(names):
@@ -228,10 +248,13 @@ def main():
         s["share"] = round(100.0 * s["credit"] / tot_sgg, 1)
 
     payload = {
-        "match": "Argentina 3–0 France · 2022 World Cup final · Di María goal build-up",
+        "match": MATCH_LABEL,
         "period": PERIOD, "hz": round(1.0 / float(np.median(np.diff(times))), 1),
         "w_s": W_S, "epsilon": EPS, "active_ms": ACTIVE_MS,
-        "value_model": "Fernández–Bornn pitch value: NN f(ball,cell) trained on defensive coverage, × goal-distance",
+        "value_model": ("Karun-Singh Expected Threat (xT): danger by distance/angle to goal"
+                        if VALUE == "xt"
+                        else "Fernández–Bornn pitch value: NN f(ball,cell) trained on defensive coverage, × goal-distance"),
+        "value_mode": VALUE,
         "times": [round(times[k] - CLIP_LO, 2) for k in in_clip],
         "players": sorted(players_out, key=lambda p: -(p["sog"] + 0.001 * (not p["gk"]))),
         "sgg": sgg_out, "sgg_events": sgg_events,
