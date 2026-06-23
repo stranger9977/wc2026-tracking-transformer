@@ -626,14 +626,14 @@
       <div class="card">
         <div class="livestat" style="margin-bottom:8px">scored exactly like the paper · value model = defensive coverage, not xT</div>
         <h3>The same goal, scored like Fernández &amp; Bornn: owned-space value over time</h3>
-        <p class="caption" style="margin-top:0">Everywhere else on this page we value space with <b>xT</b> — danger lives near goal. Here we rebuild the paper's <b>own value model</b>: a neural net trained so a cell is worth what <b>defenders typically guard</b> there given the ball. That <i>inverts</i> the picture — midfield build-up grass the opponent crowds becomes valuable, not just the box. With that value we score <b>Quality of owned space</b> \(Q_i(t)=PC_i\cdot V\) for every Argentina player, frame by frame, through the Di María goal.</p>
+        <p class="caption" style="margin-top:0">Everywhere else on this page we value space with <b>xT</b> — danger lives near goal. Here we rebuild the paper's <b>own value model</b>: a neural net trained so a cell is worth what <b>defenders typically guard</b> there given the ball. That <i>inverts</i> the picture — midfield build-up grass the opponent crowds becomes valuable, not just the box. With that value we score <b>Quality of owned space</b> <i>Q<sub>i</sub>(t) = PC<sub>i</sub> · V</i> for every Argentina player, frame by frame, through the Di María goal.</p>
         <div id="paper-chart"></div>
         <div class="legend" id="paper-legend"></div>
         <div class="pscols">
           <div>
             <h4>Space Occupation Gain — share of the build-up</h4>
             <div id="paper-sog"></div>
-            <p class="caption" style="margin-top:6px">SOG \(=\sum_t G_i\) over the play (\(G_i=\) mean \(Q\) over the next 3 s − now), as each player's <b>share</b> of the team total. The bar splits it <span style="color:#f0b429">active (running, &gt;1.5 m/s)</span> vs <span style="color:#6cb4ee">passive (walking into value)</span>.</p>
+            <p class="caption" style="margin-top:6px">SOG <i>= Σ<sub>t</sub> G<sub>i</sub></i> over the play (<i>G<sub>i</sub></i> = mean <i>Q</i> over the next 3 s − now), as each player's <b>share</b> of the team total. The bar splits it <span style="color:#f0b429">active (running, &gt;1.5 m/s)</span> vs <span style="color:#6cb4ee">passive (walking into value)</span>.</p>
           </div>
           <div>
             <h4>Space Generation Gain — who freed whom</h4>
@@ -641,7 +641,7 @@
             <p class="caption" style="margin-top:6px">A drag is detected (defender within 5 m of a teammate at the start, pulled onto the generator by the end); the freed teammate's gain is credited to the <b>generator</b> → receiver.</p>
           </div>
         </div>
-        <p class="caption"><b>What it says:</b> the <b>build-up</b> created the space — Álvarez, Di María and Mac Allister top SOG, not just the man who finished. And Di María wins most of his space <b>passively</b>, drifting into value rather than sprinting for it. This is the read your eye has on the play, now measured. <span class="faintnote">Paper-exact: β=1 control, value NN trained on 16 matches of defensive coverage × goal-distance, w=3 s window, active/passive at 1.5 m/s, drag δ=5 m / α=3 m. Per-frame \(G\) sums are relative, shown as shares; the curve is the raw owned-space value (m²·V).</span></p>
+        <p class="caption"><b>What it says:</b> the <b>build-up</b> created the space — Álvarez, Di María and Mac Allister top SOG, not just the man who finished. And Di María wins most of his space <b>passively</b>, drifting into value rather than sprinting for it. This is the read your eye has on the play, now measured. <span class="faintnote">Paper-exact: β=1 control, value NN trained on 16 matches of defensive coverage × goal-distance, w=3 s window, active/passive at 1.5 m/s, drag δ=5 m / α=3 m. Per-frame <i>G</i> sums are relative, shown as shares; the curve is the raw owned-space value (m²·V).</span></p>
       </div>
     </div>
   </div>
