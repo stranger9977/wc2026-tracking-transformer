@@ -707,7 +707,8 @@ function buildScrubber(el, surf, cfg) {
    Renders the clean, de-jittered kloppy tracks produced by build_space_clip.py.
    ============================================================================ */
 const SC_W = 900, SC_H = 600, SC_PAD = 14, SC_IW = SC_W - 2 * SC_PAD, SC_IH = SC_H - 2 * SC_PAD;
-function sc_m2s(x, y) { return [(x + 52.5) / 105 * SC_IW + SC_PAD, (1 - (y + 34) / 68) * SC_IH + SC_PAD]; }
+// +y renders at the BOTTOM (attacker's right wing low, left wing high) to match the broadcast view.
+function sc_m2s(x, y) { return [(x + 52.5) / 105 * SC_IW + SC_PAD, ((y + 34) / 68) * SC_IH + SC_PAD]; }
 // warm danger overlay — transparent over low-value grass, glowing amber→red where the attacker
 // controls valuable space. Reads clean on the green pitch (a heat overlay, not a muddy wash).
 function scHeat(v) {
@@ -737,7 +738,7 @@ function buildSpaceClipSVG(host, surf, cfg) {
   host.innerHTML =
     `<div class="hstage"><svg viewBox="0 0 ${SC_W} ${SC_H}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block;background:#0b1410">`
     + pitch
-    + `<image id="sc-heat-${cfg.id}" x="${SC_PAD}" y="${SC_PAD}" width="${SC_IW}" height="${SC_IH}" preserveAspectRatio="none" opacity="0.88"/>`
+    + `<image id="sc-heat-${cfg.id}" x="${SC_PAD}" y="${SC_PAD}" width="${SC_IW}" height="${SC_IH}" transform="matrix(1,0,0,-1,0,${2 * SC_PAD + SC_IH})" preserveAspectRatio="none" opacity="0.88"/>`
     + `<g id="sc-pl-${cfg.id}"></g><g id="sc-bl-${cfg.id}"></g><g id="sc-lb-${cfg.id}"></g>`
     + `<text x="${SC_PAD + 6}" y="${cyc - 4}" fill="#dfeaf0" font-size="13" font-weight="700" opacity="0.8">◂ ${teams.attack || ""}</text>`
     + `<text x="${SC_W - SC_PAD - 6}" y="${cyc - 4}" fill="#dfeaf0" font-size="13" font-weight="700" text-anchor="end" opacity="0.8">${teams.defend || ""} ▸</text>`
@@ -2265,7 +2266,8 @@ if (!window.__spaceWIPPage) {
     buildDangerExplainer("#ps-explainer", "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. The board below sums this product — times the threat each pass adds — over a player's passes, so a big number means repeated balls into controlled, high-value space. Toggle whether to count the whole pitch or only the final third.");
     // Closing — live 2026 (2022-final two-lens validation + live EFI)
     await buildLive();
-    await buildEagleLive();
+    // Eagle broadcast→tracking clip removed from the page; kept as a 2026 POC (buildEagleLive stashed).
+    // await buildEagleLive();
     // Bottom — two more 2022 World Cup moments, each with the full Di María treatment
     await Promise.allSettled([
       buildExtraClip({

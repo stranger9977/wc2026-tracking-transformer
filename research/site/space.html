@@ -792,15 +792,8 @@
         <p class="caption">FIFA's feed, no tracking required. <b>Threat</b> is the value side, FIFA's cousin of xT. <b>Receptions in behind</b> is the access side: how often a team actually gets a player into the space behind the last line. Space into value, the whole thesis above, now updating each matchday. And the panel below shows the <b>other</b> half — full tracking, rebuilt from nothing but a broadcast clip.</p>
       </div>
 
-      <div class="card">
-        <div class="livestat"><span class="dot live"></span> broadcast → tracking · open-source CV</div>
-        <h3>From a TV broadcast to a scored space surface</h3>
-        <div id="eagle-live"></div>
-        <div class="legend teamleg" id="eagle-teamleg"></div>
-        <div class="legend"><span>dark = low-value or opponent's</span><span class="grad"></span><span>bright = controlled, dangerous, reachable</span></div>
-        <div id="eagle-score"></div>
-        <p class="caption">No PFF tracking feed exists live during a tournament — all you get is the TV picture. So we ran a France–Morocco broadcast clip (2022 semi) through <a href="https://github.com/nreHieW/Eagle" target="_blank" rel="noopener">Eagle</a>, an open-source computer-vision model that recovers player and ball positions from a single camera, then scored the result with the <b>same</b> pitch-control + xT engine as everything above. The read: France threaded the ball into the danger zone (the pocket lights up at the goal as it arrives, ball xT climbing to its peak) — but against Morocco's packed block they controlled under a quarter of that dangerous space; the threat came from <b>moving</b> the ball, not owning the box. <b>This is approximate</b> — broadcast-derived positions wobble a metre or two, only the players in frame are counted, and the engine has no player names (tracks are labelled by team). The point is the pipeline: a 2026 match feed → tracking → the same space read, with no proprietary data. The defensible numbers stay on PFF.</p>
-      </div>
+      <!-- Eagle broadcast→tracking clip stashed as a 2026 proof-of-concept (removed from the page;
+           buildEagleLive() + surfaces/eagle_live.json retained in the repo). -->
     </div>
   </div>
 </section>
@@ -901,6 +894,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=72"></script>
+<script type="module" src="assets/js/space.js?v=73"></script>
 </body>
 </html>
