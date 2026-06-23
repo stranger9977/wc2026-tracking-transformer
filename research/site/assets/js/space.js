@@ -165,9 +165,10 @@ function initReveal() {
 // viridis-ish ramp for "danger / control" surfaces (dark->bright)
 function rampHot(t) {
   t = clamp(t, 0, 1);
-  // dark navy -> teal -> green -> yellow -> hot
+  // dark navy -> blue -> teal -> green -> yellow -> hot (brighter/more saturated so the value
+  // surface reads as a vivid heat field on a clean dark pitch, not a muddy wash)
   const stops = [
-    [14, 16, 20], [26, 52, 92], [33, 122, 140], [60, 184, 120], [190, 220, 70], [255, 196, 60], [255, 107, 107],
+    [10, 14, 26], [30, 70, 150], [40, 150, 180], [70, 210, 140], [210, 235, 80], [255, 200, 55], [255, 90, 90],
   ];
   const x = t * (stops.length - 1), i = Math.floor(x), f = x - i;
   const a = stops[i], b = stops[Math.min(i + 1, stops.length - 1)];
@@ -215,7 +216,7 @@ function paintSurface(ctx, surface, W, H, opts = {}) {
   const ramp = opts.ramp || rampHot;
   const gamma = opts.gamma ?? 0.6;
   const thr = opts.threshold ?? 0;
-  const aMax = opts.alpha ?? 0.96;
+  const aMax = opts.alpha ?? 1.0;
   const ny = surface.length, nx = surface[0].length;
   // offscreen pixel buffer at grid resolution, then scale up smoothly
   const off = paintSurface._off || (paintSurface._off = document.createElement("canvas"));
@@ -241,9 +242,17 @@ function paintSurface(ctx, surface, W, H, opts = {}) {
   // glows brighter than the grass instead of holes opening in black.
   // flat dark base: areas the team doesn't control read as neutral low-value grass.
   // (Source row 0 = top of pitch, col 0 = -x/left; attacking +x to the right, no flip.)
-  ctx.fillStyle = opts.felt || "#15291c"; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = opts.felt || "#0b1016"; ctx.fillRect(0, 0, W, H);   // clean dark pitch so the heat pops
   ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
   ctx.drawImage(off, 0, 0, nx, ny, 0, 0, W, H);
+  // bloom: a blurred additive pass so the hot pockets GLOW instead of reading as a flat wash
+  if (opts.bloom !== false) {
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = 0.55;
+    ctx.filter = `blur(${Math.max(2, W / 55)}px)`;
+    ctx.drawImage(off, 0, 0, nx, ny, 0, 0, W, H);
+    ctx.restore();
+  }
   drawPitchLines(ctx, W, H);
 }
 
@@ -307,12 +316,12 @@ function drawPlayers(ctx, players, ball, W, H, opts = {}) {
     if (duo && !role) alpha = 0.5;                  // duel: fade everyone but the two contestants
     const col = p.att ? (opts.attColor || "#7ec8ff") : (opts.defColor || "#ff9a9a");
     ctx.globalAlpha = alpha;
+    // white-rimmed dot: a bright rim keeps it crisp on both dark grass and the bright heat glow
+    ctx.beginPath(); ctx.arc(px, py, r + 2, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255,255,255,0.92)"; ctx.fill();
     ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2);
-    ctx.fillStyle = p.gk ? "#6dd58c" : col;
-    ctx.fill();
-    // strong dark outline so dots read against the bright surface
-    ctx.lineWidth = Math.max(1.6, W / 320); ctx.strokeStyle = "#0a0c10";
-    ctx.stroke();
+    ctx.fillStyle = p.gk ? "#33c98a" : col; ctx.fill();
+    ctx.lineWidth = Math.max(1, W / 400); ctx.strokeStyle = "rgba(8,10,14,0.6)"; ctx.stroke();
     // GKs are green for both teams → add a thin team-colored ring so the keeper's side still reads
     if (p.gk) {
       ctx.beginPath(); ctx.arc(px, py, r + 1.6, 0, Math.PI * 2);
