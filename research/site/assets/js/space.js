@@ -2170,7 +2170,7 @@ if (!window.__spaceWIPPage) {
     await Promise.allSettled([
       buildExtraClip({
         id: "argcro", canvasId: "argcro-canvas", teamlegId: "argcro-teamleg",
-        surfaceFile: "data/surfaces/argcro.json?v=1",
+        surfaceFile: "data/surfaces/argcro.json?v=2",
         paper: { file: "data/surfaces/argcro_paper_score.json?v=1",
                  chartId: "argcro-chart", legendId: "argcro-legend", sogId: "argcro-sog", sggId: "argcro-sgg" },
         lead: `<b>Messi</b> takes it on the right, beats Gvardiol to the byline and cuts it back; <b>Álvarez</b> reads the run and arrives into the space to finish.`,
@@ -2178,7 +2178,7 @@ if (!window.__spaceWIPPage) {
       }),
       buildExtraClip({
         id: "framar", canvasId: "framar-canvas", teamlegId: "framar-teamleg", speed: 0.85,
-        surfaceFile: "data/surfaces/framar.json?v=1",
+        surfaceFile: "data/surfaces/framar.json?v=2",
         paper: { file: "data/surfaces/framar_paper_score.json?v=1",
                  chartId: "framar-chart", legendId: "framar-legend", sogId: "framar-sog", sggId: "framar-sgg" },
         lead: `<b>Mbappé</b> tears down the left and drags Morocco's block across with him, opening the lane the ball is fired back into across the face of goal.`,
