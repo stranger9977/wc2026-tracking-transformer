@@ -771,16 +771,27 @@ def main():
 
     # ---- DANGEROUS SPACE (Way 3): bloom -> receive -> score ----
     if a.only in ("all", "danger"):
-      print("[danger] scanning for the best run-into-space-and-score goal...", flush=True)
-      ranked = pick_dangerous_run()
+      # PIN a specific play (so PFF plays get the SAME danger-clip treatment as the auto-picked one):
+      #   PIN_DANGER="mid|period|gameClock|shooter|assist|lockTeamId|outname"
+      _pin = os.environ.get("PIN_DANGER")
+      if _pin:
+          _pm, _pp, _pgc, _psh, _pas, _plock, _pout = _pin.split("|")
+          ranked = [(1.0, _pm, int(_pp), float(_pgc), None, _psh, (_pas or None))]
+          print(f"[danger] PINNED: {_psh} ({_pm} p{_pp} {_pgc}s) -> {_pout}.json", flush=True)
+      else:
+          print("[danger] scanning for the best run-into-space-and-score goal...", flush=True)
+          ranked = pick_dangerous_run()
       for score, mid, period, gc, sid, shooter, assist in ranked[:8]:
         meta = space_io.load_metadata(mid)
         ev0 = json.load(open(ROOT / "Event Data" / f"{mid}.json"))
-        lock = None
-        for e in ev0:
-            tid = _team_id_for_player(meta, e, sid)
-            if tid:
-                lock = tid; break
+        if _pin:
+            lock = _plock
+        else:
+            lock = None
+            for e in ev0:
+                tid = _team_id_for_player(meta, e, sid)
+                if tid:
+                    lock = tid; break
         if lock is None:
             continue
         hero = {"name": shooter, "team": _teams_block(meta, lock)["attack"],
@@ -851,17 +862,17 @@ def main():
                 if t >= shot_t:                            # the finish: shooter's spot -> the net
                     g = (t - shot_t) / (end_t - shot_t) if end_t > shot_t else 1.0
                     bx, by = recv_x + (goal_xy[0] - recv_x) * g, recv_y + (goal_xy[1] - recv_y) * g
-                elif t <= anchors[0][0]:
-                    bx, by = anchors[0][1], anchors[0][2]
                 else:
-                    bx, by = anchors[-1][1], anchors[-1][2]
-                    for k in range(1, len(anchors)):
-                        if t <= anchors[k][0]:
-                            t0, x0, y0 = anchors[k - 1]; t1, x1, y1 = anchors[k]
-                            # FAST pass (~16 m/s, like a real ball), then the ball sits at the
-                            # reception until the next pass — a slow full-interval glide read as the
-                            # ball crawling. (Long ball = it gets to the spot quickly and the runner
-                            # chases on; brief.)
+                    # BASE = the smoothed TRACKING ball — it follows the build-up and the carries,
+                    # and is the SAME ball the control surface was computed from (so dot and heatmap
+                    # agree). Override ONLY during a pass's brief FLIGHT (strike -> reception), where
+                    # the broadcast ball is occluded and a clean straight event line reads better.
+                    # This kills the old failure mode where a window with FEW passes (e.g. a single
+                    # late cut-back) froze the ball at the first pass's origin for the whole lead-in.
+                    bx, by = orig_ball.get(t, (anchors[0][1], anchors[0][2]))
+                    for k in range(1, len(anchors), 2):     # anchors are strike(even)->reception(odd) pairs
+                        t0, x0, y0 = anchors[k - 1]; t1, x1, y1 = anchors[k]
+                        if t0 <= t <= t1:                   # inside this pass's flight
                             dist = math.hypot(x1 - x0, y1 - y0)
                             flight = min(t1 - t0, max(0.25, dist / 24.0))
                             g = min(1.0, (t - t0) / flight) if flight > 0 else 1.0
@@ -901,14 +912,19 @@ def main():
             for f in payload["frames"]:
                 for pl in f["players"]:
                     kf = name2kf.get(pl["name"])
-                    if kf:
+                    # snap a ball-toucher to his event keyframes ONLY WITHIN his keyframe span; outside
+                    # it (e.g. a winger's long run before his single touch) keep the smoothed tracking
+                    # so he isn't frozen at his first/last touch for the rest of the clip.
+                    if kf and kf[0][0] <= f["t_s"] <= kf[-1][0]:
                         px, py = _kf_at(kf, f["t_s"])
                         pl["x"], pl["y"] = round(px, 1), round(py, 1)
         print(f"[danger] {len(pss)} passes in window: "
               + ", ".join(f"{p['passer'].split()[-1] if p['passer'] else '?'}->"
                           f"{p['receiver'].split()[-1]} ({p['xt_added']:+.2f})" for p in pss), flush=True)
-        (SURF_DIR / ("pobso_v.json" if _VALUE_FN is not None else "pobso.json")).write_text(json.dumps(payload))
-        print(f"[danger] wrote surfaces/pobso{'_v' if _VALUE_FN is not None else ''}.json — {shooter} ({meta['homeTeam']['name']} v "
+        _vsfx = "_v" if _VALUE_FN is not None else ""
+        _name = (f"{_pout}{_vsfx}.json" if _pin else f"pobso{_vsfx}.json")
+        (SURF_DIR / _name).write_text(json.dumps(payload))
+        print(f"[danger] wrote surfaces/{_name} — {shooter} ({meta['homeTeam']['name']} v "
               f"{meta['awayTeam']['name']}, p{period} {gc:.0f}s), assist {assist}, "
               f"{payload['n_frames']} frames, obso_owned={hero.get('obso_owned')}", flush=True)
         break
