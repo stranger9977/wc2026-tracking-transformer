@@ -43,6 +43,48 @@ async function loadValueJSON(path) {
   if (vp === path) return loadJSON(path);
   try { return await loadJSON(vp); } catch (e) { return loadJSON(path); }
 }
+// In V mode, swap xT-language for V-language in a descriptor string. Applied to the dynamic
+// board labels (so re-renders stay right) and to static .vt elements once on load. The xT
+// explainer, the V explainer and the paper-score card are NOT .vt and never pass through this,
+// so they keep both terms.
+function vterm(html) {
+  if (typeof html !== "string" || getValueMode() !== "v") return html;
+  return html
+    .replace(/Expected Threat \(xT\)/g, "the value model (V)")
+    .replace(/Expected Threat/g, "defensive-coverage value")
+    .replace(/xT, which peaks near <b>0\.26<\/b> right in front of goal and is ~0 back in midfield/g,
+             "<b>V</b>, the defensive-coverage value, which is high wherever the defence guards — strong through midfield, not just the box")
+    .replace(/xT, which peaks near 0\.26 right in front of goal and is ~0 back in midfield/g,
+             "V, the defensive-coverage value, which is high wherever the defence guards — strong through midfield, not just the box")
+    .replace(/control × xT\(target\) × xT-added/g, "control × V(target) × V-added")
+    .replace(/control × xT/g, "control × V").replace(/control x xT/g, "control × V")
+    .replace(/xT\(target\)/g, "V(target)").replace(/xT\(dest\)/g, "V(dest)")
+    .replace(/× xT/g, "× V").replace(/x xT/g, "x V")
+    .replace(/xT-weighted/g, "V-weighted").replace(/xT[- ]added/g, "V-added")
+    .replace(/reveal danger/g, "reveal value").replace(/danger zone/g, "value zone")
+    .replace(/danger-weighted/g, "value-weighted")
+    .replace(/Dangerous, controlled space/g, "Valuable, controlled space")
+    .replace(/Dangerous-space/g, "Valuable-space").replace(/Dangerous space/g, "Valuable space")
+    .replace(/\bDangerous\b/g, "Valuable")
+    .replace(/dangerous, controlled space/g, "valuable, controlled space")
+    .replace(/dangerous space/g, "valuable space").replace(/dangerous-space/g, "valuable-space")
+    .replace(/\bdangerous\b/g, "valuable")
+    .replace(/\bxT\b/g, "V");
+}
+// Scoped one-time swap of static board descriptors in V mode. Runs over the board sections only;
+// the xT explainer (#xt), the V explainer (#value-models) and the paper-score card
+// (#paper-score-card) are excluded so they keep both terms. The hero-clip readout (.hreadout) is
+// not in the selector, so its deliberately multi-term explanation is untouched.
+function applyVTermStatic() {
+  if (getValueMode() !== "v") return;
+  ["#pitchcontrol", "#pobso", "#way-sgg", "#way-passing", "#way-duels"].forEach((s) => {
+    const sec = document.querySelector(s); if (!sec) return;
+    sec.querySelectorAll("h2,h3,.caption,.lede,.subtitle,.boardlab,.xpl,.cite").forEach((el) => {
+      if (el.closest("#value-models,#paper-score-card")) return;
+      el.innerHTML = vterm(el.innerHTML);
+    });
+  });
+}
 
 const teamColor = (t) => ({
   Argentina: "#6cb4ee", France: "#3f6bd6", Morocco: "#c1272d", Croatia: "#e23b3b",
@@ -433,7 +475,7 @@ function buildScrubber(el, surf, cfg) {
 
   // build toggle buttons
   const toggles = cfg.toggles || [];
-  tgEl.innerHTML = toggles.map((t) => `<button class="htog" data-k="${t.key}">${t.label}</button>`).join("");
+  tgEl.innerHTML = toggles.map((t) => `<button class="htog" data-k="${t.key}">${vterm(t.label)}</button>`).join("");
   $$(".htog", tgEl).forEach((b) => b.addEventListener("click", () => {
     const k = b.dataset.k;
     state.mode = state.mode === k ? (cfg.defaultMode || "surface") : k;
@@ -1127,7 +1169,7 @@ async function buildPOBSO() {
     const rows = players.filter((r) => sv(r) != null).sort((a, b) => sv(b) - sv(a)).slice(0, 12);
     const mx = Math.max(1e-9, ...rows.map(sv));
     boardEl.innerHTML = rows.map((r) => row(r, sv(r) / mx * 100, `${r.stages[stage].matches}m`, fmt(sv(r)))).join("");
-    if (blab) blab.innerHTML = lab;
+    if (blab) blab.innerHTML = vterm(lab);
     if (btop) btop.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
   const syncStageBtns = () => { if (btg) $$(".htog", btg).forEach((x) => x.classList.toggle("on", x.dataset.m === bst.stage)); };
@@ -1740,7 +1782,7 @@ async function buildPassSelection() {
     const metricTxt = occ
       ? `Players who <b>live in</b> dangerous, controlled space · control × xT (occupation index)`
       : `Players who <b>thread it into</b> dangerous space · control × xT-added (threading index)`;
-    if (lab) lab.innerHTML = `${metricTxt}, ${zoneTxt}, <b>per match</b>${st.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
+    if (lab) lab.innerHTML = vterm(`${metricTxt}, ${zoneTxt}, <b>per match</b>${st.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`);
     if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
   render();
@@ -1778,7 +1820,7 @@ async function buildSOG() {
     const word = st.mode === "active" ? "running" : "walking";
     const rows = players.filter((r) => valOf(r) != null).sort((a, b) => valOf(b) - valOf(a)).slice(0, 12);
     el.innerHTML = rows.map((r) => `<div class="sogrow">${nameCell(r)}<span class="sogbar">${seg(col, valOf(r))}</span><span class="sogval">${valOf(r)}% ${word}</span></div>`).join("");
-    if (lab) lab.innerHTML = `Share of each player's dangerous space won <b>${word}</b> (${st.mode === "active" ? "2 m/s and up" : "under 2 m/s"}) · <b>${STAGE_LABEL[stage]}</b>`;
+    if (lab) lab.innerHTML = vterm(`Share of each player's dangerous space won <b>${word}</b> (${st.mode === "active" ? "2 m/s and up" : "under 2 m/s"}) · <b>${STAGE_LABEL[stage]}</b>`);
   };
   render();
   if (modeTg) $$(".htog", modeTg).forEach((b) => b.addEventListener("click", () => {
@@ -1833,7 +1875,7 @@ async function buildTeamBoard() {
     el.innerHTML = rows.map((t) => `<div class="tbrow"><span class="tbname">${t.team} <span class="lpos">${t.n_matches[st.stage]}m</span></span>`
       + `<span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(t) / mx * 100, 0, 100)}%;background:${col}"></span></span>`
       + `<span class="tbval">${fmt(valOf(t))}</span></div>`).join("");
-    if (lab) lab.innerHTML = `Teams · ${isC ? "<b>territorial control</b> (share of the pitch owned)" : "<b>dangerous space</b> (OBSO, xT-weighted m²·min)"}, ${st.view === "total" ? "<b>tournament total</b>" : "<b>per match</b>"} · <b>${STAGE_LABEL[st.stage]}</b>`;
+    if (lab) lab.innerHTML = vterm(`Teams · ${isC ? "<b>territorial control</b> (share of the pitch owned)" : "<b>dangerous space</b> (OBSO, xT-weighted m²·min)"}, ${st.view === "total" ? "<b>tournament total</b>" : "<b>per match</b>"} · <b>${STAGE_LABEL[st.stage]}</b>`);
     if (top) top.innerHTML = "Leaders: <b>" + rows.slice(0, 3).map((t) => t.team).join(", ") + "</b>";
   };
   render();
@@ -1866,7 +1908,7 @@ async function buildSGG() {
     el.innerHTML = rows.map((r) => `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.position ? ` <span class="lpos">${r.position}</span>` : ""} <span class="lpos">${r.stages[st.stage].matches}m</span></span>`
       + `<span class="tbtrack"><span class="tbfill" style="width:${clamp(valOf(r) / mx * 100, 0, 100)}%;background:#9b8cff"></span></span>`
       + `<span class="tbval">${fmt(valOf(r))}</span></div>`).join("");
-    if (lab) lab.innerHTML = `Players · space generated for teammates (control × xT m²·min)${st.view === "total" ? ", <b>tournament total</b>" : ", <b>per match</b>"}${st.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[st.stage]}</b>`;
+    if (lab) lab.innerHTML = vterm(`Players · space generated for teammates (control × xT m²·min)${st.view === "total" ? ", <b>tournament total</b>" : ", <b>per match</b>"}${st.weighted ? ", opponent-weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[st.stage]}</b>`);
     if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
   render();
@@ -1892,7 +1934,7 @@ async function buildBWAE() {
     el.innerHTML = rows.map((r) => { const s = r.stages[stage]; return `<div class="tbrow"><span class="tbname">${r.name} <span class="lteam">${r.team || ""}</span>${r.pos ? ` <span class="lpos">${r.pos}</span>` : ""} <span class="lpos">${s.matches}m</span></span>
       <span class="tbtrack"><span class="tbfill" style="width:${clamp(sv(r) / mx * 100, 0, 100)}%;background:#9b8cff"></span></span>
       <span class="tbval">${sv(r) >= 0 ? "+" : ""}${sv(r).toFixed(2)}</span></div>`; }).join("");
-    if (lab) lab.innerHTML = `Players · xT-weighted balls won above expected, <b>per match</b>${st.weighted ? ", opponent-strength weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`;
+    if (lab) lab.innerHTML = vterm(`Players · xT-weighted balls won above expected, <b>per match</b>${st.weighted ? ", opponent-strength weighted" : " <span class='lpos'>(raw)</span>"} · <b>${STAGE_LABEL[stage]}</b>`);
     if (top) top.textContent = rows.slice(0, 3).map((r) => r.name).join(", ");
   };
   render();
@@ -1981,6 +2023,8 @@ if (!window.__spaceWIPPage) {
     // Closing — live 2026 (2022-final two-lens validation + live EFI)
     await buildLive();
     await buildEagleLive();
+    // in V mode, swap xT-language to V-language across the board descriptors (static captions/headings)
+    applyVTermStatic();
     // restore scroll after a value-mode switch reload, once content has laid out
     try {
       const y = sessionStorage.getItem("spaceScrollY");
