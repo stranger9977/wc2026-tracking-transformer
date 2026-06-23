@@ -1162,7 +1162,7 @@ function wireValueToggle() {
 }
 
 async function buildPOBSO() {
-  const surf = await loadValueJSON("data/surfaces/pobso.json?v=20");
+  const surf = await loadValueJSON("data/surfaces/pobso.json?v=21");
   const bdP = await boardData("pobso", "data/space_pobso.json?v=7");
   let data = bdP.cur() || {};
   const scEl = $("#pobso-canvas");
@@ -2214,7 +2214,7 @@ if (!window.__spaceWIPPage) {
     await Promise.allSettled([
       buildExtraClip({
         id: "argcro", canvasId: "argcro-canvas", teamlegId: "argcro-teamleg",
-        surfaceFile: "data/surfaces/argcro.json?v=2",
+        surfaceFile: "data/surfaces/argcro.json?v=3",
         paper: { file: "data/surfaces/argcro_paper_score.json?v=1",
                  chartId: "argcro-chart", legendId: "argcro-legend", sogId: "argcro-sog", sggId: "argcro-sgg",
                  chartNote: "ball reaches Álvarez near the end", pin: ["Lionel Messi", "Julian Alvarez"],
@@ -2224,7 +2224,7 @@ if (!window.__spaceWIPPage) {
       }),
       buildExtraClip({
         id: "framar", canvasId: "framar-canvas", teamlegId: "framar-teamleg", speed: 0.85,
-        surfaceFile: "data/surfaces/framar.json?v=2",
+        surfaceFile: "data/surfaces/framar.json?v=3",
         paper: { file: "data/surfaces/framar_paper_score.json?v=1",
                  chartId: "framar-chart", legendId: "framar-legend", sogId: "framar-sog", sggId: "framar-sgg",
                  chartNote: "ball worked back across goal near the end", pin: ["Kylian Mbappé"],
