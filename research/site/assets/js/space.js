@@ -1276,6 +1276,79 @@ function wireValueToggle() {
   });
 }
 
+/* compact 2-series line chart on a canvas — xT vs V comparisons in the value-outcome card.
+   Categorical (equal-spaced) x; series = [{label,color,points:[y..]}] aligned to cfg.xTicks. */
+function voaLineChart(host, series, cfg) {
+  if (!host) return;
+  const W = 520, H = 300, PAD_L = 48, PAD_R = 14, PAD_T = 32, PAD_B = 42;
+  host.innerHTML = `<div class="hstage"><canvas width="${W}" height="${H}"></canvas></div>`;
+  const ctx = host.querySelector("canvas").getContext("2d");
+  const ticks = cfg.xTicks, n = ticks.length;
+  const px = (i) => PAD_L + (n <= 1 ? 0.5 : i / (n - 1)) * (W - PAD_L - PAD_R);
+  const py = (v) => H - PAD_B - (clamp(v, cfg.yMin, cfg.yMax) - cfg.yMin) / (cfg.yMax - cfg.yMin) * (H - PAD_T - PAD_B);
+  ctx.fillStyle = "#0a0c10"; ctx.fillRect(0, 0, W, H);
+  // y grid + tick labels
+  ctx.strokeStyle = "rgba(190,210,230,0.10)"; ctx.lineWidth = 1;
+  ctx.fillStyle = "#69748699"; ctx.font = "11px Inter, system-ui, sans-serif";
+  ctx.textAlign = "right"; ctx.textBaseline = "middle";
+  for (let i = 0; i <= 4; i++) {
+    const yy = PAD_T + i / 4 * (H - PAD_T - PAD_B);
+    ctx.beginPath(); ctx.moveTo(PAD_L, yy); ctx.lineTo(W - PAD_R, yy); ctx.stroke();
+    const yval = cfg.yMax - i / 4 * (cfg.yMax - cfg.yMin);
+    ctx.fillText(cfg.yFmt ? cfg.yFmt(yval) : yval.toFixed(2), PAD_L - 6, yy);
+  }
+  // x tick labels + axis title
+  ctx.textAlign = "center"; ctx.textBaseline = "top";
+  ticks.forEach((lab, i) => ctx.fillText(lab, px(i), H - PAD_B + 7));
+  ctx.fillStyle = "#9aa6b6"; ctx.font = "600 11px Inter, system-ui, sans-serif"; ctx.textBaseline = "bottom";
+  ctx.fillText(cfg.xLabel || "", PAD_L + (W - PAD_L - PAD_R) / 2, H - 3);
+  // series: line + markers
+  series.forEach((s) => {
+    ctx.strokeStyle = s.color; ctx.lineWidth = 2.4; ctx.beginPath();
+    s.points.forEach((v, i) => { const X = px(i), Y = py(v); i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); });
+    ctx.stroke();
+    ctx.fillStyle = s.color;
+    s.points.forEach((v, i) => { ctx.beginPath(); ctx.arc(px(i), py(v), 3.3, 0, 7); ctx.fill(); });
+  });
+  // legend (top-left) + optional annotation (top-right)
+  ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.font = "600 12px Inter, system-ui, sans-serif";
+  series.forEach((s, i) => {
+    const lx = PAD_L + 2 + i * 70, ly = 15;
+    ctx.fillStyle = s.color; ctx.fillRect(lx, ly - 2, 16, 3);
+    ctx.fillStyle = "#cdd6e2"; ctx.fillText(s.label, lx + 22, ly);
+  });
+  if (cfg.annot) {
+    ctx.fillStyle = "#69748699"; ctx.font = "11px Inter, system-ui, sans-serif";
+    ctx.textAlign = "right"; ctx.fillText(cfg.annot, W - PAD_R - 2, 15);
+  }
+}
+
+/* "Does valuing space predict goals?" — the V-vs-xT validation (Michael's pitch-control-is-setup
+   framing): both predict near-future goals (AUC), but xT collapses to ~0 across the build-up while
+   V grades the whole pitch. NOT a .vt card — it names both models on purpose. */
+async function buildValueOutcome() {
+  const aucEl = $("#voa-auc"), sprEl = $("#voa-spread");
+  if (!aucEl && !sprEl) return;
+  let d; try { d = await loadJSON("data/value_outcome.json?v=1"); } catch (e) { return; }
+  const GOLD = "#e0a93f", BLUE = "#6cb4ee";
+  if (aucEl && d.auc) {
+    const H = d.horizons;
+    voaLineChart(aucEl, [
+      { label: "xT", color: GOLD, points: H.map((n) => d.auc["goal" + n].xt) },
+      { label: "V", color: BLUE, points: H.map((n) => d.auc["goal" + n].v) },
+    ], { xTicks: H.map((n) => n + "s"), xLabel: "goal within n seconds",
+         yMin: 0.5, yMax: 1.0, yFmt: (v) => v.toFixed(2), annot: "higher = better" });
+  }
+  if (sprEl && d.deciles && d.deciles.goal15) {
+    const dec = d.deciles.goal15;
+    voaLineChart(sprEl, [
+      { label: "xT", color: GOLD, points: dec.xt.map((b) => b.score_mid) },
+      { label: "V", color: BLUE, points: dec.v.map((b) => b.score_mid) },
+    ], { xTicks: dec.xt.map((_, i) => String(i + 1)), xLabel: "pitch binned low → high by value (10ths)",
+         yMin: 0, yMax: 0.78, yFmt: (v) => v.toFixed(2), annot: "value assigned (0–1)" });
+  }
+}
+
 async function buildPOBSO() {
   const surf = await loadValueJSON("data/surfaces/dimariak.json?v=1");
   const bdP = await boardData("pobso", "data/space_pobso.json?v=7");
@@ -1578,6 +1651,36 @@ async function buildEagleLive() {
       + tile(`${sc.territorial_control_pct}%`, "territorial control", "of the players in frame")
       + tile(top ? top.name : "—", "owned the most dangerous space",
              "off the ball, this phase · track-id label")
+      + `</div>`;
+  }
+}
+
+/* Neymar's extra-time goal — broadcast→tracking via Eagle, scored with our engine, rendered with the
+   SAME chemistry-style SVG renderer as the bottom plays (not the old canvas scrubber). The play PFF
+   can't supply (no extra-time tracking). Reads surfaces/neymar_eagle.json. */
+async function buildNeymarEagle() {
+  const el = $("#neymar-canvas"); if (!el) return;
+  let surf; try { surf = await loadJSON("data/surfaces/neymar_eagle.json?v=1"); } catch (e) { return; }
+  const h = surf.hero || {}, t = surf.teams || {};
+  buildSpaceClipSVG(el, surf, {
+    id: "neymar", labelName: h.name,
+    readout: () => `Every dot was recovered from the <b>broadcast picture</b> by Eagle's computer vision — `
+      + `no tracking feed. The warm pocket is the dangerous space <b>${t.attack || "the attack"}</b> controls as `
+      + `the move builds; the tag on the ball is its live xT. Positions are approximate (±1–2 m); only players in frame count.`,
+  });
+  if (typeof renderTeamLegend === "function") renderTeamLegend("neymar-teamleg", surf.teams);
+  const sc = surf.scorecard, im = surf.impact, scEl = $("#neymar-score");
+  if (sc && scEl) {
+    const top = (sc.top_occupiers || [])[0];
+    const tile = (v, l, sub) => `<div class="et"><div class="ev">${v}</div>`
+      + `<div class="el">${l}${sub ? `<span>${sub}</span>` : ""}</div></div>`;
+    scEl.innerHTML = `<div class="escore" style="margin-top:14px">`
+      + tile(`+${(im ? im.xt_added : 0).toFixed(2)}`, "xT the move added",
+             `ball ${(im ? im.xt_start : 0).toFixed(2)} → ${(im ? im.xt_peak : 0).toFixed(2)} — into peak danger`)
+      + tile(`${sc.dangerous_share_pct}%`, `of the danger zone ${sc.attack_team} controlled`,
+             `${sc.defend_team}'s block held the rest`)
+      + tile(`${sc.territorial_control_pct}%`, "territorial control", "of the players in frame")
+      + tile(top ? top.name : "—", "owned the most dangerous space", "off the ball · track-id label")
       + `</div>`;
   }
 }
@@ -2308,6 +2411,7 @@ if (!window.__spaceWIPPage) {
     // Two ways to value space: the V explainer animation + the global xT/V switch
     buildValueAnim();
     wireValueToggle();
+    buildValueOutcome();
     // Act 2 — Pitch control (Fernández & Bornn): interactive explainer + space-occupation board
     buildPitchControlExplainer();
     buildTeamBoard();
@@ -2322,8 +2426,8 @@ if (!window.__spaceWIPPage) {
     buildDangerExplainer("#ps-explainer", "<b>pitch control × xT = dangerous space.</b> Control over low-value grass scores near zero. The board below sums this product — times the threat each pass adds — over a player's passes, so a big number means repeated balls into controlled, high-value space. Toggle whether to count the whole pitch or only the final third.");
     // Closing — live 2026 (2022-final two-lens validation + live EFI)
     await buildLive();
-    // Eagle broadcast→tracking clip removed from the page; kept as a 2026 POC (buildEagleLive stashed).
-    // await buildEagleLive();
+    // Eagle broadcast→tracking: Neymar ET goal (PFF can't supply it). Mbappe POC (buildEagleLive) stays stashed.
+    buildNeymarEagle();
     // Bottom — two more 2022 World Cup moments, each with the full Di María treatment
     await Promise.allSettled([
       buildExtraClip({

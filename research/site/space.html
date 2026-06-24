@@ -468,6 +468,25 @@
         </div>
       </div>
 
+      <div class="card" id="value-outcome-card">
+        <div class="vchip">Does valuing space actually predict goals?</div>
+        <h3>We checked both value models against what happened next</h3>
+        <p class="lede">Pitch control on its own is only the <b>setup</b>: it tells you who can <i>get</i> to the ball, nothing about whether the ball is worth getting there. The basketball version: <b>stand by the rim all you like — if you can't get the ball, nobody cares</b>, and nobody cares that you're open in your own half either. So we weight control by a <b>value</b> layer, and we have two: xT and V. The honest question is whether that value actually tracks goals — and whether it can tell good <b>build-up</b> grass from worthless grass. We scored <b>132,911</b> tracking frames across <b>16</b> matches with each model, then asked: does the team in possession <b>score in the next few seconds</b>?</p>
+        <div class="twoup">
+          <div>
+            <div class="boardlab">Both predict a goal coming · AUC by lookahead</div>
+            <div id="voa-auc"></div>
+            <p class="caption faintnote">How well the value at the ball separates "goal soon" from "no goal" (1.0 = perfect, 0.5 = coin-flip). xT and V are <b>tied</b> — V a hair ahead at every horizon. Shots-in-next-n look the same.</p>
+          </div>
+          <div>
+            <div class="boardlab">Only V grades the build-up · value assigned across the pitch</div>
+            <div id="voa-spread"></div>
+            <p class="caption faintnote">The pitch binned low→high by each model's value. <b>xT</b> flatlines near <b>0.01</b> for nine of ten bins — almost everywhere outside the box looks identical to it. <b>V</b> spreads <b>0.04 → 0.73</b>.</p>
+          </div>
+        </div>
+        <p class="caption"><b>The verdict.</b> As a pure goal predictor the two are interchangeable (AUC ≈ 0.95 three seconds out, fading to ≈ 0.70 at thirty). The second panel is the split that decides which to build on. <b>xT correlates with goals because it is so high right around the goal</b> — and that is exactly what makes it nearly useless in the build-up, where it grades almost every spot as the same near-zero. <b>V grades the whole pitch</b>, so it can separate the dangerous build-up space the defence bothers to guard from the empty grass it ignores. That is why every space board on this page defaults to <b>V</b>, with <b>xT kept as its own near-goal threat read</b>.</p>
+      </div>
+
       <div class="card">
         <h3>The same idea, measured live: World Cup 2026 threat so far</h3>
         <div class="liveupdated" id="xt-threat-updated">FIFA EFI · live</div>
@@ -792,8 +811,18 @@
         <p class="caption">FIFA's feed, no tracking required. <b>Threat</b> is the value side, FIFA's cousin of xT. <b>Receptions in behind</b> is the access side: how often a team actually gets a player into the space behind the last line. Space into value, the whole thesis above, now updating each matchday. And the panel below shows the <b>other</b> half — full tracking, rebuilt from nothing but a broadcast clip.</p>
       </div>
 
-      <!-- Eagle broadcast→tracking clip stashed as a 2026 proof-of-concept (removed from the page;
-           buildEagleLive() + surfaces/eagle_live.json retained in the repo). -->
+      <!-- Eagle broadcast→tracking POC · the original mbappe demo (buildEagleLive + surfaces/eagle_live.json)
+           is retained in the repo; the live card below is the Neymar extra-time goal, which PFF can't supply. -->
+      <div class="card" id="eagle-neymar-card">
+        <div class="livestat" style="margin-bottom:8px"><span class="dot live"></span> broadcast → tracking · Eagle computer vision · approximate (±1–2 m)</div>
+        <h3>The play our tracking can't see: Neymar's extra-time goal, rebuilt from a TV broadcast</h3>
+        <p class="caption" style="margin-top:0">PFF's tracking has <b>no extra time</b>, so Neymar's 105' goal against Croatia (2022 quarter-final) simply isn't in our data. So we did it the 2026 way: fed the <b>broadcast clip</b> to <a href="https://github.com/nreHieW/Eagle" target="_blank" rel="noopener">Eagle</a>'s computer vision — which recovers player and ball positions from the picture alone — then scored the result with the <b>same pitch-control × xT engine</b> as every PFF clip above. Players are anonymous track-IDs (no names), positions are approximate, and only players in frame are counted: a <b>demo of the live-2026 pipeline</b>, not a metric source.</p>
+        <div id="neymar-canvas" class="heat"></div>
+        <div class="legend teamleg" id="neymar-teamleg"></div>
+        <div class="legend"><span class="swatch" style="background:#ffb43c"></span>warm glow = dangerous space the attacking team controls (control × xT) — brighter = more dangerous</div>
+        <div id="neymar-score"></div>
+        <p class="caption">Every dot was recovered from the broadcast picture — no tracking feed. The scorecard reads the move exactly like the PFF clips: the danger the attack controlled, the territorial split, the ball's xT climb, and who owned the most dangerous space off the ball. The point isn't the precise numbers — it's that <b>one TV clip became a scored space surface</b>, which is the whole 2026 play.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -894,6 +923,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=75"></script>
+<script type="module" src="assets/js/space.js?v=77"></script>
 </body>
 </html>
