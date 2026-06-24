@@ -1660,7 +1660,7 @@ async function buildEagleLive() {
    can't supply (no extra-time tracking). Reads surfaces/neymar_eagle.json. */
 async function buildNeymarEagle() {
   const el = $("#neymar-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/neymar_eagle.json?v=2"); } catch (e) { return; }
+  let surf; try { surf = await loadJSON("data/surfaces/neymar_eagle.json?v=3"); } catch (e) { return; }
   const t = surf.teams || {};
   buildSpaceClipSVG(el, surf, {
     id: "neymar", labelName: "Neymar",
@@ -1685,7 +1685,7 @@ async function buildNeymarEagle() {
   }
   // full Di-María-style treatment: Q-curve + SOG + SGG + on-ball, with the V/xT toggle
   buildPaperScore({
-    file: "data/surfaces/neymar_paper_score.json?v=1",
+    file: "data/surfaces/neymar_paper_score.json?v=2",
     chartId: "neymar-chart", legendId: "neymar-legend", sogId: "neymar-sog", sggId: "neymar-sgg",
     chartNote: "ball reaches the goal near the end", pin: ["Neymar"], defaultPaperMode: "xt",
     note: `<b>Where's Neymar?</b> Low on off-ball Space Occupation Gain — and that is the metric being honest. SOG credits moving into valuable space <b>off the ball</b>; here Neymar is <b>on the ball</b>, dribbling through, so his owned-space value falls while the supporting runners' (anonymous broadcast track-IDs) climbs. His goal lives on the <b>on-ball</b> board below — flip to xT to see it.`,
