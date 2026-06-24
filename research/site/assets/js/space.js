@@ -1660,10 +1660,10 @@ async function buildEagleLive() {
    can't supply (no extra-time tracking). Reads surfaces/neymar_eagle.json. */
 async function buildNeymarEagle() {
   const el = $("#neymar-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/neymar_eagle.json?v=1"); } catch (e) { return; }
-  const h = surf.hero || {}, t = surf.teams || {};
+  let surf; try { surf = await loadJSON("data/surfaces/neymar_eagle.json?v=2"); } catch (e) { return; }
+  const t = surf.teams || {};
   buildSpaceClipSVG(el, surf, {
-    id: "neymar", labelName: h.name,
+    id: "neymar", labelName: "Neymar",
     readout: () => `Every dot was recovered from the <b>broadcast picture</b> by Eagle's computer vision — `
       + `no tracking feed. The warm pocket is the dangerous space <b>${t.attack || "the attack"}</b> controls as `
       + `the move builds; the tag on the ball is its live xT. Positions are approximate (±1–2 m); only players in frame count.`,
@@ -1683,6 +1683,15 @@ async function buildNeymarEagle() {
       + tile(top ? top.name : "—", "owned the most dangerous space", "off the ball · track-id label")
       + `</div>`;
   }
+  // full Di-María-style treatment: Q-curve + SOG + SGG + on-ball, with the V/xT toggle
+  buildPaperScore({
+    file: "data/surfaces/neymar_paper_score.json?v=1",
+    chartId: "neymar-chart", legendId: "neymar-legend", sogId: "neymar-sog", sggId: "neymar-sgg",
+    chartNote: "ball reaches the goal near the end", pin: ["Neymar"], defaultPaperMode: "xt",
+    note: `<b>Where's Neymar?</b> Low on off-ball Space Occupation Gain — and that is the metric being honest. SOG credits moving into valuable space <b>off the ball</b>; here Neymar is <b>on the ball</b>, dribbling through, so his owned-space value falls while the supporting runners' (anonymous broadcast track-IDs) climbs. His goal lives on the <b>on-ball</b> board below — flip to xT to see it.`,
+    noteXt: `<b>xT view.</b> Value is now danger near goal. Neymar still sits low on off-ball SOG, but the on-ball board shows him creating <b>100%</b> of the threat — he carried it into the box and finished, alone.`,
+    onBallNote: `<b>Neymar did it himself.</b> Under xT he created <b>all</b> the on-ball value — the dribble past the keeper into the most dangerous spot on the pitch. The supporting names are anonymous Eagle track-IDs (broadcast CV reads no jerseys), but the ball-carrier is unmistakable.`,
+  });
 }
 
 async function buildLive() {
