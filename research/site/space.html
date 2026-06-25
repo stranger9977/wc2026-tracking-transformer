@@ -726,7 +726,28 @@
         <div id="passing-canvas" class="heat"></div>
         <div class="legend teamleg" id="passing-teamleg"></div>
         <div class="legend"><span class="swatch" style="background:#ffb43c"></span>warm glow = dangerous space the attacking team controls (control × value) — brighter = more dangerous</div>
-        <p class="caption"><b>Müller</b> (the receiver) is labelled. The surface is attacker pitch-control × value, so the bright pocket is grass the receiving team both <b>controls</b> and can score from — and it blooms at Müller <b>before</b> the ball arrives, the off-ball movement into the gap. The move ended in a shot.</p>
+        <p class="caption"><b>Müller</b> (the receiver) is labelled. The surface is attacker pitch-control × value, so the bright pocket is grass the receiving team both <b>controls</b> and can score from — and it blooms at Müller <b>before</b> the ball arrives, the off-ball movement into the gap. <b>What happened:</b> Müller takes it and lays it to <b>Kimmich, whose shot goes off target</b> — a chance manufactured, not a goal (Germany lost this one 2–1).</p>
+      </div>
+
+      <div class="card paper-score-card" style="margin-top:14px">
+        <div class="livestat" style="margin-bottom:8px">scored exactly like the paper · value model = defensive coverage, not xT</div>
+        <h3>Musiala → Müller (Germany v Japan) — owned-space value over time</h3>
+        <p class="caption" style="margin-top:0">The same read as the other plays, on the passing move: <i>Q<sub>i</sub>(t) = PC<sub>i</sub> · V</i> for every Germany player. For a pass, the <b>on-ball board</b> is the headline — it credits <b>Musiala</b> for threading the ball into Müller's dangerous space.</p>
+        <div id="passing-chart" class="pchart"></div>
+        <div class="legend plegend" id="passing-legend"></div>
+        <div class="pscols">
+          <div>
+            <h4>Space Occupation Gain — share of the build-up</h4>
+            <div id="passing-sog"></div>
+            <p class="caption" style="margin-top:6px">SOG <i>= Σ<sub>t</sub> G<sub>i</sub></i>, each player's <b>share</b>, split <span style="color:#f0b429">active (running)</span> vs <span style="color:#6cb4ee">passive (walking into value)</span>. The build-up occupies the central grass; Müller is the receiver, on the ball.</p>
+          </div>
+          <div>
+            <h4>Space Generation Gain — who freed whom</h4>
+            <div id="passing-sgg"></div>
+            <p class="caption" style="margin-top:6px">A drag is detected (defender within 5 m of a teammate at the start, pulled onto the generator by the end); the freed teammate's gain is credited <b>generator → receiver</b>. <b>Müller → Musiala</b> leads — his movement frees the passer.</p>
+          </div>
+        </div>
+        <p class="caption faintnote">Paper-exact: β=1 control, value NN trained on World Cup defensive coverage × goal-distance, w=3 s window, active/passive at 1.5 m/s, drag δ=5 m / α=3 m. The curve is the raw owned-space value (m²·V); per-frame <i>G</i> sums are relative, shown as shares.</p>
       </div>
       <div id="ps-explainer" class="xpl"></div>
       <div class="card">
@@ -974,6 +995,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=82"></script>
+<script type="module" src="assets/js/space.js?v=83"></script>
 </body>
 </html>
