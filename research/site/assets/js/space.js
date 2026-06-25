@@ -2367,13 +2367,23 @@ async function buildPassingClip() {
   buildSpaceClipSVG(el, surf, {
     id: "passing", labelName: h.name,   // Thomas Müller — the receiver drifting into the pocket
     readout: () => `<b>${passer}</b> threads it to <b>${h.name}</b> into controllable, dangerous space — `
-      + `the bright pocket forms <b>before</b> the ball arrives, the off-ball movement into the gap. The move ended in a shot.`,
+      + `the bright pocket forms <b>before</b> the ball arrives, the off-ball movement into the gap. `
+      + `Müller lays it to <b>Kimmich, whose shot goes off target</b> — a chance made, not a goal.`,
   });
   if (typeof renderTeamLegend === "function") renderTeamLegend("passing-teamleg", surf.teams);
   const t1 = $("#passing-hero-title"), t2 = $("#passing-hero-title2");
   const matchlbl = (t.attack && t.defend) ? `${t.attack} v ${t.defend}` : "";
   if (t1) t1.textContent = `${passer}'s pass to ${h.name}${matchlbl ? ` (${matchlbl})` : ""}`;
   if (t2) t2.textContent = `${passer} → ${h.name}`;
+  // full paper-score annotation (Q-curve + SOG/SGG/on-ball, V/xT toggle), like the bottom plays
+  buildPaperScore({
+    file: "data/surfaces/musmul_paper_score.json?v=1",
+    chartId: "passing-chart", legendId: "passing-legend", sogId: "passing-sog", sggId: "passing-sgg",
+    chartNote: "ball threaded to Müller in the box", pin: ["Jamal Musiala", "Thomas Müller"], defaultPaperMode: "v",
+    note: `<b>For a pass, the on-ball board is the headline.</b> <b>Musiala</b> created the value by threading it into Müller's dangerous space; the build-up (Süle, Raum) occupies the central grass off the ball, and <b>Müller's run frees Musiala</b> (SGG). The chance ended with a Kimmich shot off target — manufactured, not scored.`,
+    noteXt: `<b>xT view.</b> Same story — Musiala's pass into the box is where the threat is created; the shot off the resulting chance (Kimmich) missed.`,
+    onBallNote: `<b>Musiala threaded it in.</b> The pass into Müller in dangerous space is the on-ball value gain; Müller laid it to Kimmich, whose shot went off target. The chance was made on the ball, not taken.`,
+  });
 }
 
 /* Way 2 clip — a ground duel won against the pitch-control expectation (a BWAE upset). */
