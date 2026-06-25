@@ -2463,6 +2463,18 @@ if (!window.__spaceWIPPage) {
         lead: `<b>Mbappé</b> tears down the left and drags Morocco's block across with him, opening the lane the ball is fired back into across the face of goal.`,
         impactTail: ` — a clear chance, the ball worked back across goal into the most valuable spot on the pitch. France manufactured it from open play; the finish didn't come, the space did.`,
       }),
+      buildExtraClip({
+        id: "senegal", canvasId: "senegal-canvas", teamlegId: "senegal-teamleg",
+        surfaceFile: "data/surfaces/senegal.json?v=1",
+        paper: { file: "data/surfaces/senegal_paper_score.json?v=1",
+                 chartId: "senegal-chart", legendId: "senegal-legend", sogId: "senegal-sog", sggId: "senegal-sgg",
+                 chartNote: "ball slipped through to Kane near the end", pin: ["Harry Kane"],
+                 note: `<b>This time the off-ball board is the story.</b> Unlike the Messi/Mbappé plays — where the star is <b>on</b> the ball and sits low — here the <b>runners top Space Occupation Gain</b>: Foden and Kane attack the central space off the ball while England break, and <b>Bellingham</b> (SGG) drags markers to free them. Kane's ~50 m run from midfield into the box is exactly the off-ball movement the metric is built to catch — and it ends in a goal.`,
+                 noteXt: `<b>xT view.</b> Valued by danger near goal, the same runners lead — the run into the box is where the threat is created. This is the clean case: off-ball space → a shot → a goal.`,
+                 onBallNote: `<b>Kane finished it</b> — the run onto the through-ball into the most dangerous spot on the pitch is the on-ball value; the build-up (Bellingham, Foden) created the space he ran into.` },
+        lead: `<b>Bellingham</b> springs the break and frees the runners; <b>Foden</b> slips it through for <b>Kane</b>, who runs ~50 m from midfield onto it and finishes.`,
+        impactTail: `, and it ended in a <b>goal</b> — an off-ball run into dangerous space turned into the most valuable spot on the pitch.`,
+      }),
     ]);
     // in V mode, swap xT-language to V-language across the board descriptors (static captions/headings)
     applyVTermStatic();

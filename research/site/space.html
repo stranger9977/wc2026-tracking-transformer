@@ -854,9 +854,9 @@
 <section id="more-plays">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag"><span class="num">+</span> Two more, the same way</div>
-      <h2>The whole read, on two more World Cup moments.</h2>
-      <p class="lede">The same machinery as the Di María goal, pointed at two more plays from 2022 — rebuilt frame by frame from PFF tracking, real names and all. For each: the dangerous-space surface as it forms (control × value, with the ball carrying its live xT), the passes ledger scoring every ball for control, value, occupation gain and the drag that freed the receiver, and the paper's own owned-space value <i>Q</i> over time underneath.</p>
+      <div class="act-tag"><span class="num">+</span> Three more, the same way</div>
+      <h2>The whole read, on three more World Cup moments.</h2>
+      <p class="lede">The same machinery as the Di María goal, pointed at three more plays from 2022 — rebuilt frame by frame from PFF tracking, real names and all. For each: the dangerous-space surface as it forms (control × value, with the ball carrying its live xT), the passes ledger scoring every ball for control, value, occupation gain and the drag that freed the receiver, and the paper's own owned-space value <i>Q</i> over time underneath.</p>
 
       <!-- ARG–CRO 69' · Messi → Álvarez -->
       <div class="card">
@@ -917,6 +917,36 @@
         </div>
         <p class="caption faintnote">Paper-exact: β=1 control, value NN trained on World Cup defensive coverage × goal-distance, w=3 s window, active/passive at 1.5 m/s, drag δ=5 m / α=3 m. The curve is the raw owned-space value (m²·V); per-frame <i>G</i> sums are relative, shown as shares.</p>
       </div>
+
+      <!-- ENG–SEN 45+1' · Kane goal -->
+      <div class="card" style="margin-top:30px">
+        <h3>Kane's run onto the through-ball — England 3–0 Senegal, 2022 round of 16 (45+1')</h3>
+        <div id="senegal-canvas" class="heat"></div>
+        <div class="legend teamleg" id="senegal-teamleg"></div>
+        <div class="legend"><span class="swatch" style="background:#ffb43c"></span>warm glow = dangerous space the attacking team controls (control × value) — brighter = more dangerous</div>
+        <p class="caption">England break at the end of the first half: Bellingham drives and frees the runners, Foden slips it through, and Kane runs <b>~50 m from midfield onto the through-ball</b> to finish. Watch the dangerous-space pocket open ahead of the ball as he times the run — the off-ball movement the surface is built to catch, here ending in a goal. Ball xT climbs <b>+0.25</b> to its peak right in front of goal.</p>
+      </div>
+
+      <div class="card paper-score-card" style="margin-top:14px">
+        <div class="livestat" style="margin-bottom:8px">scored exactly like the paper · value model = defensive coverage, not xT</div>
+        <h3>Kane's goal (England 3–0 Senegal) — owned-space value over time</h3>
+        <p class="caption" style="margin-top:0">This time the off-ball board <b>is</b> the story. Unlike the Messi/Mbappé plays (on-ball stars), here the <b>runners</b> top the read: <i>Q<sub>i</sub>(t) = PC<sub>i</sub> · V</i> for every England player through the goal, with <b>Foden</b> and <b>Kane</b> attacking the central space and <b>Bellingham</b> dragging markers to free them.</p>
+        <div id="senegal-chart" class="pchart"></div>
+        <div class="legend plegend" id="senegal-legend"></div>
+        <div class="pscols">
+          <div>
+            <h4>Space Occupation Gain — share of the build-up</h4>
+            <div id="senegal-sog"></div>
+            <p class="caption" style="margin-top:6px">SOG <i>= Σ<sub>t</sub> G<sub>i</sub></i> over the play, each player's <b>share</b>, split <span style="color:#f0b429">active (running)</span> vs <span style="color:#6cb4ee">passive (walking into value)</span>. The runners — Foden, Kane — top it: this is the off-ball movement the metric is built to catch.</p>
+          </div>
+          <div>
+            <h4>Space Generation Gain — who freed whom</h4>
+            <div id="senegal-sgg"></div>
+            <p class="caption" style="margin-top:6px">A drag is detected (defender within 5 m of a teammate at the start, pulled onto the generator by the end); the freed teammate's gain is credited <b>generator → receiver</b>. <b>Bellingham → Kane</b> leads — he springs the break and frees the run.</p>
+          </div>
+        </div>
+        <p class="caption faintnote">Paper-exact: β=1 control, value NN trained on World Cup defensive coverage × goal-distance, w=3 s window, active/passive at 1.5 m/s, drag δ=5 m / α=3 m. The curve is the raw owned-space value (m²·V); per-frame <i>G</i> sums are relative, shown as shares.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -944,6 +974,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=80"></script>
+<script type="module" src="assets/js/space.js?v=81"></script>
 </body>
 </html>
