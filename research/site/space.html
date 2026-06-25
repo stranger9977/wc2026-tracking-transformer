@@ -725,8 +725,8 @@
         <h3>Hitting the dangerous space · <span id="passing-hero-title2">the pass</span></h3>
         <div id="passing-canvas" class="heat"></div>
         <div class="legend teamleg" id="passing-teamleg"></div>
-        <div class="legend"><span>dark = opponent's, or low-value</span><span class="grad"></span><span>bright = controlled danger</span></div>
-        <p class="caption">The passer is ringed and labelled. The surface is attacker pitch-control × xT. A cell glows only where the team both <b>controls</b> it and it sits near goal, so the bright pocket is grass the receiver owns and can score from. <b>Dark</b> means the opponent owns it, or it is controlled but low-value midfield. The pocket forms at the receiver before the ball arrives.</p>
+        <div class="legend"><span class="swatch" style="background:#ffb43c"></span>warm glow = dangerous space the attacking team controls (control × value) — brighter = more dangerous</div>
+        <p class="caption"><b>Müller</b> (the receiver) is labelled. The surface is attacker pitch-control × value, so the bright pocket is grass the receiving team both <b>controls</b> and can score from — and it blooms at Müller <b>before</b> the ball arrives, the off-ball movement into the gap. The move ended in a shot.</p>
       </div>
       <div id="ps-explainer" class="xpl"></div>
       <div class="card">
@@ -974,6 +974,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=81"></script>
+<script type="module" src="assets/js/space.js?v=82"></script>
 </body>
 </html>

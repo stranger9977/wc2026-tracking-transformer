@@ -2360,26 +2360,20 @@ async function buildBWAE() {
 /* Way 1 clip — a top creator's pass into controllable dangerous final-third space. */
 async function buildPassingClip() {
   const el = $("#passing-canvas"); if (!el) return;
-  let surf; try { surf = await loadJSON("data/surfaces/passing.json?v=8"); } catch (e) { return; }
-  const h = surf.hero || {};
-  const shot = h.shot_outcome
-    ? ` The move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` (${h.shot_shooter})` : ""}.`
-    : "";
-  buildScrubber(el, surf, {
-    id: "passing", ramp: rampHot, gamma: 0.55, threshold: 0.02,
-    labelName: h.name, defaultMode: "surface",
-    readout: () => `<b>${h.name}</b> threads it to <b>${h.receiver}</b> into controllable, dangerous space: `
-      + `control ${Math.round((h.control || 0) * 100)}% × xT ${Number(h.xt || 0).toFixed(2)} at the target. `
-      + `The bright pocket forms <b>before</b> the ball arrives.${shot}`,
+  // kloppy treatment: clean tracking + the chemistry-style SVG renderer (was the old canvas scrubber)
+  let surf; try { surf = await loadValueJSON("data/surfaces/musmul.json?v=1"); } catch (e) { return; }
+  const h = surf.hero || {}, t = surf.teams || {};
+  const passer = h.assist || "the passer";
+  buildSpaceClipSVG(el, surf, {
+    id: "passing", labelName: h.name,   // Thomas Müller — the receiver drifting into the pocket
+    readout: () => `<b>${passer}</b> threads it to <b>${h.name}</b> into controllable, dangerous space — `
+      + `the bright pocket forms <b>before</b> the ball arrives, the off-ball movement into the gap. The move ended in a shot.`,
   });
-  renderTeamLegend("passing-teamleg", surf.teams);
-  const im = surf.impact;
-  if (im) renderImpact(el, `<b>What it created.</b> Over ${im.window_s}s the ball`
-    + ` gained <span class="big">+${im.xt_added.toFixed(2)} xT</span> of threat (into the final third)`
-    + `${h.shot_outcome ? `, and the move ended in <b>${h.shot_outcome}</b>${h.shot_shooter ? ` by ${h.shot_shooter}` : ""}` : ""}.`);
+  if (typeof renderTeamLegend === "function") renderTeamLegend("passing-teamleg", surf.teams);
   const t1 = $("#passing-hero-title"), t2 = $("#passing-hero-title2");
-  if (t1) t1.textContent = `${h.name}'s pass to ${h.receiver} (${surf.match})`;
-  if (t2) t2.textContent = `${h.name} → ${h.receiver}`;
+  const matchlbl = (t.attack && t.defend) ? `${t.attack} v ${t.defend}` : "";
+  if (t1) t1.textContent = `${passer}'s pass to ${h.name}${matchlbl ? ` (${matchlbl})` : ""}`;
+  if (t2) t2.textContent = `${passer} → ${h.name}`;
 }
 
 /* Way 2 clip — a ground duel won against the pitch-control expectation (a BWAE upset). */
