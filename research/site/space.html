@@ -999,12 +999,31 @@
     #for-michael .qh-links a{color:var(--accent); margin:0 2px}
     #for-michael .qh-verdict{font-size:15.5px; line-height:1.55}
     #for-michael .qh-verdict b{color:var(--ink)}
+    #for-michael .qh-gloss{display:grid; gap:9px; margin:16px 0 6px; padding:15px 17px; background:var(--bg-elev); border:1px solid var(--border); border-radius:11px; font-size:15px; line-height:1.5; color:var(--muted)}
+    #for-michael .qh-gloss b{color:var(--ink)}
+    #for-michael .qh-gloss em{font-style:normal; color:var(--accent)}
+    #for-michael .qh-mets{display:flex; flex-wrap:wrap; gap:8px; margin:11px 0 4px; border-top:1px solid var(--border); padding-top:12px}
+    #for-michael .qh-m{font-size:15px; color:var(--muted); background:var(--bg-elev2); border:1px solid var(--border); border-radius:9px; padding:6px 12px; display:inline-flex; gap:7px; align-items:baseline}
+    #for-michael .qh-m b{color:var(--muted); font-weight:700; letter-spacing:.02em}
+    #for-michael .qh-m .rk{color:var(--ink); font-weight:800}
+    #for-michael .qh-m i{color:var(--faint); font-style:normal; font-size:12.5px}
+    #for-michael .qh-m.good{background:rgba(108,180,238,.13); border-color:rgba(108,180,238,.38)}
+    #for-michael .qh-m.good b, #for-michael .qh-m.good .rk{color:var(--accent)}
+    #for-michael .qh-m.na .rk{color:var(--faint); font-weight:700}
+    #for-michael .qh-note{font-size:13.5px; line-height:1.5; color:var(--faint); margin:6px 2px 0}
+    #for-michael .qh-note b{color:var(--muted)}
   </style>
   <div class="wrap">
     <div class="reveal">
       <div class="act-tag"><span class="num">★</span> Player notes</div>
       <h2>The five players you asked about, quick hits.</h2>
-      <p class="lede">For each: what the data <b>actually</b> says, the move broken down <b>touch by touch with xT added</b>, the run itself (distance + speed), and where to look on this page. <b>xT</b> = probability of a goal within the next 5 actions (Karun Singh's grid, peak ≈ 0.257); the finish shows its StatsBomb <b>xG</b>. Touch xT is open-play passes + carries from StatsBomb 2022 events — which include extra time, so Neymar's goal is real here, not the broadcast estimate.</p>
+      <p class="lede">For each: what the data <b>actually</b> says, the move broken down <b>touch by touch with xT added</b>, the run itself (distance + speed), and how he ranks across our three space metrics — <b>SOG, SGG and duels</b>, defined just below. <b>xT</b> = probability of a goal within the next 5 actions (Karun Singh's grid, peak ≈ 0.257); the finish shows its StatsBomb <b>xG</b>. Touch xT is open-play passes + carries from StatsBomb 2022 events — which include extra time, so Neymar's goal is real here, not the broadcast estimate.</p>
+
+      <div class="qh-gloss">
+        <div><b>SOG — Space Occupation Gain.</b> How much <em>dangerous</em> space (pitch control × value) a player keeps moving <em>into himself</em>, measured over a rolling 3-second window. High = he repeatedly relocates into threatening areas, on or off the ball.</div>
+        <div><b>SGG — Space Generation Gain.</b> How much dangerous space a player frees <em>for his teammates</em> by dragging a defender out of position. High = his movement is what opens the gap someone else scores from — the "gravity" idea, measured.</div>
+        <div><b>Duels won above expected.</b> How often he wins contested balls beyond what pitch control says he should (50/50s and tougher), weighted by how dangerous the spot on the pitch is.</div>
+      </div>
 
       <div class="qh-grid">
 
@@ -1019,7 +1038,12 @@
           </div>
           <div class="qh-sum">build-up +0.12 xT, then a 0.30 xG finish · Mac Allister's pass is the single biggest touch</div>
           <p class="qh-stat">The run: <b>~62 m</b> to the back post, top speed <b>~24 km/h</b> — a timed glide, not a sprint. Goal probability over the move: <b>1% → 26%</b>.</p>
-          <p class="qh-ranks"><b>On the boards:</b> not a leaderboard name — his value is the off-ball run + finish, which the rebuilt clip shows directly.</p>
+          <div class="qh-mets">
+            <span class="qh-m"><b>SOG</b> <span class="rk">#15</span> <i>group</i></span>
+            <span class="qh-m"><b>SGG</b> <span class="rk">#51</span> <i>group</i></span>
+            <span class="qh-m"><b>Duels</b> <span class="rk">#17</span> <i>all</i></span>
+          </div>
+          <p class="qh-note">Mid-pack across the boards — his game here is the 62 m run and the finish, not a leaderboard line.</p>
           <p class="qh-links">See: <a href="#pobso">the Di María goal, rebuilt</a></p>
         </div>
 
@@ -1035,7 +1059,12 @@
           </div>
           <div class="qh-sum">build-up +0.16 xT — almost all Messi (carries + cutback) — then a 0.33 xG finish</div>
           <p class="qh-stat">The run: <b>~48 m</b> carry, top speed <b>~24 km/h</b>. Goal probability over the move: <b>3% → 26%</b>.</p>
-          <p class="qh-ranks"><b>On the boards</b> (page-default views): SOG <span class="qh-slice">knockout</span> <b class="qh-rk">#2</b> · duels won <b class="qh-rk">#2</b> · OBSO <span class="qh-slice">knockout</span> <b class="qh-rk">#3</b> · SGG <span class="qh-slice">group</span> <b class="qh-rk">#4</b> — top-4 right across the page.</p>
+          <div class="qh-mets">
+            <span class="qh-m good"><b>SOG</b> <span class="rk">#2</span> <i>knockout</i></span>
+            <span class="qh-m good"><b>SGG</b> <span class="rk">#4</span> <i>group</i></span>
+            <span class="qh-m good"><b>Duels</b> <span class="rk">#2</span> <i>all</i></span>
+          </div>
+          <p class="qh-note">Top-4 on every board, and <b>#1 across the knockouts</b> in all three — the standout name in the whole dataset (also OBSO #3, knockout).</p>
           <p class="qh-links">See: <a href="#more-plays">his run vs Croatia, rebuilt</a></p>
         </div>
 
@@ -1050,7 +1079,12 @@
           </div>
           <div class="qh-sum">build-up only +0.05 xT (a simple ball over the top) — the value is Kane's run + finish, not the pass</div>
           <p class="qh-stat">The run: <b>~61 m</b> in behind, top speed <b>~27 km/h</b> — the most genuine sprint of the four. Goal probability over the move: <b>1% → 26%</b>.</p>
-          <p class="qh-ranks"><b>On the boards:</b> SOG <span class="qh-slice">knockout · per-match (the default view)</span> <b class="qh-rk">#1</b> · OBSO <b class="qh-rk">#2</b> <span class="qh-slice">— but only after you switch that board's view from “per moment” to “per match”; the default view filters him out (under 90 knockout min)</span> · SGG <b class="qh-rk gray">#28</b> · duels <b class="qh-rk gray">#44</b>.</p>
+          <div class="qh-mets">
+            <span class="qh-m good"><b>SOG</b> <span class="rk">#1</span> <i>knockout</i></span>
+            <span class="qh-m"><b>SGG</b> <span class="rk">#28</span> <i>group</i></span>
+            <span class="qh-m"><b>Duels</b> <span class="rk">#44</span> <i>all</i></span>
+          </div>
+          <p class="qh-note">He tops <b>SOG in the knockouts</b> (a 2-game sample) and is <b>#2 in OBSO</b> — but OBSO only shows him if you switch that board to its “per match” view; the default “per moment” view filters him out (under 90 knockout min). Low SGG/duels confirms: he occupies and finishes, he doesn't drag or scrap.</p>
           <p class="qh-links">See: <a href="#more-plays">his Senegal goal, rebuilt</a></p>
         </div>
 
@@ -1065,7 +1099,12 @@
           </div>
           <div class="qh-sum">build-up +0.19 xT · Neymar's dribble is the biggest touch · then a 0.47 xG finish (real event data — extra time included)</div>
           <p class="qh-stat">The move: ~14 m into the box (broadcast tracking, approximate). Threat over the move: <b>11% → 26%</b>.</p>
-          <p class="qh-ranks"><b>On the boards:</b> outside the top 12 of every default view — his best mark is <b class="qh-rk">~#25</b> in <span class="qh-slice">knockout SGG</span>. Solid, not elite.</p>
+          <div class="qh-mets">
+            <span class="qh-m"><b>SOG</b> <span class="rk">#26</span> <i>knockout</i></span>
+            <span class="qh-m"><b>SGG</b> <span class="rk">#25</span> <i>knockout</i></span>
+            <span class="qh-m na"><b>Duels</b> <span class="rk">—</span></span>
+          </div>
+          <p class="qh-note">Outside the top 12 of every board; his best mark is ~#25 in knockout SGG, and he doesn't register on the duels board. Solid, not elite — the ET goal is the story, not the season line.</p>
           <p class="qh-links">See: <a href="#eagle-neymar-card">his ET goal, broadcast→tracking</a></p>
         </div>
 
@@ -1073,7 +1112,12 @@
         <div class="card qh-card">
           <h3>Pedri <span class="qh-tag soft">awaiting your clip</span></h3>
           <p class="caption qh-verdict">His real 2022 standout is <b>space generation (SGG)</b> — a midfielder who frees teammates by dragging markers: <b>#14 in the group stage, #7 opponent-weighted</b>, which fits his reputation. He's quiet on the other boards. Send the non-World-Cup clip you mentioned and I'll run it through the exact same pipeline as Neymar's for a touch-by-touch breakdown.</p>
-          <p class="qh-ranks"><b>On the boards:</b> SGG <span class="qh-slice">group</span> <b class="qh-rk">#14</b> (<b class="qh-rk">#7</b> opponent-weighted) — his real standout. Quiet elsewhere.</p>
+          <div class="qh-mets">
+            <span class="qh-m na"><b>SOG</b> <span class="rk">—</span></span>
+            <span class="qh-m good"><b>SGG</b> <span class="rk">#7</span> <i>group · opp-weighted</i></span>
+            <span class="qh-m"><b>Duels</b> <span class="rk">#72</span> <i>all</i></span>
+          </div>
+          <p class="qh-note"><b>SGG is his standout</b> — #14 raw, #7 once you weight for opponent strength: a midfielder who frees teammates by dragging markers. Quiet elsewhere, and Spain's single knockout game thins his samples (SOG filtered out).</p>
         </div>
 
       </div>
