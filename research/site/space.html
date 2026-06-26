@@ -972,6 +972,107 @@
   </div>
 </section>
 
+<section id="for-michael">
+  <style>
+    #for-michael .qh-grid{display:grid; gap:18px}
+    #for-michael .qh-card h3{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:4px}
+    #for-michael .qh-tag{font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--bg); background:var(--accent); border-radius:20px; padding:2px 10px}
+    #for-michael .qh-tag.soft{background:transparent; color:var(--muted); border:1px solid var(--border)}
+    #for-michael .qh-ladder{margin:11px 0 6px; border:1px solid var(--border); border-radius:9px; overflow:hidden; background:var(--bg-elev)}
+    #for-michael .qh-t{display:grid; grid-template-columns:1fr 1.5fr auto; gap:10px; padding:7px 13px; font-size:14px; border-top:1px solid var(--border); align-items:center}
+    #for-michael .qh-t:first-child{border-top:none}
+    #for-michael .qh-t .qh-a{color:var(--muted)}
+    #for-michael .qh-t .qh-v{font-variant-numeric:tabular-nums; text-align:right; font-weight:600; color:var(--muted)}
+    #for-michael .qh-t.key{background:rgba(108,180,238,.09)}
+    #for-michael .qh-t.key .qh-v, #for-michael .qh-t.key .qh-n{color:var(--accent)}
+    #for-michael .qh-t.goal{background:rgba(109,213,140,.10)}
+    #for-michael .qh-t.goal .qh-v, #for-michael .qh-t.goal .qh-n{color:var(--good)}
+    #for-michael .qh-t.miss{background:rgba(154,166,182,.06)}
+    #for-michael .qh-sum{font-size:12.5px; color:var(--faint); margin:0 2px 6px}
+    #for-michael .qh-stat{font-size:14.5px; color:var(--ink); margin:9px 0 2px}
+    #for-michael .qh-stat b{color:var(--accent)}
+    #for-michael .qh-links{font-size:14px; color:var(--muted); margin-top:11px; border-top:1px solid var(--border); padding-top:10px}
+    #for-michael .qh-links a{color:var(--accent); margin:0 2px}
+    #for-michael .qh-verdict b{color:var(--ink)}
+  </style>
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">★</span> Player notes — for Michael</div>
+      <h2>The five players you asked about, quick hits.</h2>
+      <p class="lede">For each: what the data <b>actually</b> says, the move broken down <b>touch by touch with xT added</b>, the run itself (distance + speed), and where to look on this page. <b>xT</b> = probability of a goal within the next 5 actions (Karun Singh's grid, peak ≈ 0.257); the finish shows its StatsBomb <b>xG</b>. Touch xT is open-play passes + carries from StatsBomb 2022 events — which include extra time, so Neymar's goal is real here, not the broadcast estimate.</p>
+
+      <div class="qh-grid">
+
+        <!-- DI MARÍA -->
+        <div class="card qh-card">
+          <h3>Ángel Di María <span class="qh-tag">final goal · ARG–FRA</span></h3>
+          <p class="caption qh-verdict">The "passed-it-around" goal. Di María's credit is almost entirely <b>off the ball</b> — a long run to the back post — plus the finish; the build-up xT belongs to the passer who found him.</p>
+          <div class="qh-ladder">
+            <div class="qh-t"><span class="qh-n">Álvarez</span><span class="qh-a">pass, edge of box</span><span class="qh-v">+0.020 xT</span></div>
+            <div class="qh-t key"><span class="qh-n">Mac Allister</span><span class="qh-a">ball across to the back post</span><span class="qh-v">+0.097 xT</span></div>
+            <div class="qh-t goal"><span class="qh-n">Di María</span><span class="qh-a">finish — Goal</span><span class="qh-v">0.30 xG</span></div>
+          </div>
+          <div class="qh-sum">build-up +0.12 xT, then a 0.30 xG finish · Mac Allister's pass is the single biggest touch</div>
+          <p class="qh-stat">The run: <b>~62 m</b> to the back post, top speed <b>~24 km/h</b> — a timed glide, not a sprint. Goal probability over the move: <b>1% → 26%</b>.</p>
+          <p class="qh-links">Look at: <a href="#pobso">the Di María goal, rebuilt + OBSO board</a> · <a href="#xt">xT created</a></p>
+        </div>
+
+        <!-- MESSI -->
+        <div class="card qh-card">
+          <h3>Lionel Messi <span class="qh-tag">run → Álvarez · ARG–CRO SF</span></h3>
+          <p class="caption qh-verdict">The ".24 xT" you saw is the <b>whole move</b> (3% → 26%) — and it's mostly Messi: his carries and the cutback are nearly all of it. He goes to the <b>byline</b> (low individual xT), so his real value is the space he drags open for the finish.</p>
+          <div class="qh-ladder">
+            <div class="qh-t"><span class="qh-n">Messi</span><span class="qh-a">carry at Gvardiol</span><span class="qh-v">+0.042 xT</span></div>
+            <div class="qh-t key"><span class="qh-n">Messi</span><span class="qh-a">carry to the byline</span><span class="qh-v">+0.058 xT</span></div>
+            <div class="qh-t key"><span class="qh-n">Messi</span><span class="qh-a">cutback</span><span class="qh-v">+0.055 xT</span></div>
+            <div class="qh-t goal"><span class="qh-n">Álvarez</span><span class="qh-a">finish — Goal</span><span class="qh-v">0.33 xG</span></div>
+          </div>
+          <div class="qh-sum">build-up +0.16 xT — almost all Messi (carries + cutback) — then a 0.33 xG finish</div>
+          <p class="qh-stat">The run: <b>~48 m</b> carry, top speed <b>~24 km/h</b>. Goal probability over the move: <b>3% → 26%</b>.</p>
+          <p class="qh-links">Look at: <a href="#more-plays">his run vs Croatia, rebuilt</a> · <a href="#sogw-board">SOG</a> · <a href="#sgg-board">SGG</a> · <a href="#way-duels">duels won (Messi #2)</a></p>
+        </div>
+
+        <!-- KANE -->
+        <div class="card qh-card">
+          <h3>Harry Kane <span class="qh-tag">goal · ENG–SEN R16</span></h3>
+          <p class="caption qh-verdict">Honest read: he's not a dribbler or a defender-dragger — <b>he relocates into dangerous space and finishes</b>. His one genuine chart-topper is <b>knockout-stage Space Occupation Gain (#1)</b>, though on a 2-game sample. The "gravity" idea (defenders collapse, freeing others) is <b>not</b> in our data — that's SGG, where he's #28.</p>
+          <div class="qh-ladder">
+            <div class="qh-t"><span class="qh-n">Foden</span><span class="qh-a">through-ball</span><span class="qh-v">+0.006 xT</span></div>
+            <div class="qh-t key"><span class="qh-n">Kane</span><span class="qh-a">carry into the box</span><span class="qh-v">+0.035 xT</span></div>
+            <div class="qh-t goal"><span class="qh-n">Kane</span><span class="qh-a">finish — Goal</span><span class="qh-v">0.21 xG</span></div>
+          </div>
+          <div class="qh-sum">build-up only +0.05 xT (a simple ball over the top) — the value is Kane's run + finish, not the pass</div>
+          <p class="qh-stat">The run: <b>~61 m</b> in behind, top speed <b>~27 km/h</b> — the most genuine sprint of the four. Goal probability over the move: <b>1% → 26%</b>.</p>
+          <p class="qh-links">Look at: <a href="#sogw-board">SOG board — knockout (Kane #1)</a> · <a href="#more-plays">his Senegal goal, rebuilt</a></p>
+        </div>
+
+        <!-- NEYMAR -->
+        <div class="card qh-card">
+          <h3>Neymar <span class="qh-tag">extra-time goal · BRA–CRO QF</span></h3>
+          <p class="caption qh-verdict">He <b>made the chance himself</b>: a dribble into the box that's the biggest single touch of the move, then a 0.47 xG finish. Overall in 2022 he's <b>solid, not elite</b> — best marks are knockout-stage gravity (SGG ~top 5%) and owning dangerous space (~top 7%).</p>
+          <div class="qh-ladder">
+            <div class="qh-t key"><span class="qh-n">Paquetá</span><span class="qh-a">pass to feet</span><span class="qh-v">+0.051 xT</span></div>
+            <div class="qh-t key"><span class="qh-n">Neymar</span><span class="qh-a">dribble into the box</span><span class="qh-v">+0.101 xT</span></div>
+            <div class="qh-t goal"><span class="qh-n">Neymar</span><span class="qh-a">finish — Goal</span><span class="qh-v">0.47 xG</span></div>
+          </div>
+          <div class="qh-sum">build-up +0.19 xT · Neymar's dribble is the biggest touch · then a 0.47 xG finish (real event data — extra time included)</div>
+          <p class="qh-stat">The move: ~14 m into the box (broadcast tracking, approximate). Threat over the move: <b>11% → 26%</b>.</p>
+          <p class="qh-links">Look at: <a href="#eagle-neymar-card">his ET goal, broadcast→tracking</a> · <a href="#sgg-board">SGG</a></p>
+        </div>
+
+        <!-- PEDRI -->
+        <div class="card qh-card">
+          <h3>Pedri <span class="qh-tag soft">awaiting your clip</span></h3>
+          <p class="caption qh-verdict">His real 2022 standout is <b>space generation (SGG)</b> — a midfielder who frees teammates by dragging markers: <b>#14 in the group stage, #7 opponent-weighted</b>, which fits his reputation. He's quiet on the other boards. Send the non-World-Cup clip you mentioned and I'll run it through the exact same pipeline as Neymar's for a touch-by-touch breakdown.</p>
+          <p class="qh-links">Look at: <a href="#sgg-board">SGG board (where Pedri ranks)</a></p>
+        </div>
+
+      </div>
+      <p class="caption faintnote" style="margin-top:18px">Speeds via kloppy + a Savitzky–Golay velocity filter on 30 Hz PFF tracking (cross-checked, ±2 km/h); these were sustained runs into space, not top-end sprints. Touch xT from StatsBomb 2022 open events on the same Karun Singh grid the page uses. Leaderboard ranks reproduce this page's default views (same min-minutes gates).</p>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <h3>The full study</h3>
