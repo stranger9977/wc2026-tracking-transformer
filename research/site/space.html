@@ -1002,6 +1002,7 @@
     #for-michael .qh-gloss{display:grid; gap:9px; margin:16px 0 6px; padding:15px 17px; background:var(--bg-elev); border:1px solid var(--border); border-radius:11px; font-size:15px; line-height:1.5; color:var(--muted)}
     #for-michael .qh-gloss b{color:var(--ink)}
     #for-michael .qh-gloss em{font-style:normal; color:var(--accent)}
+    #for-michael .qh-gloss-lead{border-bottom:1px solid var(--border); padding-bottom:10px}
     #for-michael .qh-mets{display:flex; flex-wrap:wrap; gap:8px; margin:11px 0 4px; border-top:1px solid var(--border); padding-top:12px}
     #for-michael .qh-m{font-size:15px; color:var(--muted); background:var(--bg-elev2); border:1px solid var(--border); border-radius:9px; padding:6px 12px; display:inline-flex; gap:7px; align-items:baseline}
     #for-michael .qh-m b{color:var(--muted); font-weight:700; letter-spacing:.02em}
@@ -1020,9 +1021,10 @@
       <p class="lede">For each: what the data <b>actually</b> says, the move broken down <b>touch by touch with xT added</b>, the run itself (distance + speed), and how he ranks across our three space metrics — <b>SOG, SGG and duels</b>, defined just below. <b>xT</b> = probability of a goal within the next 5 actions (Karun Singh's grid, peak ≈ 0.257); the finish shows its StatsBomb <b>xG</b>. Touch xT is open-play passes + carries from StatsBomb 2022 events — which include extra time, so Neymar's goal is real here, not the broadcast estimate.</p>
 
       <div class="qh-gloss">
-        <div><b>SOG — Space Occupation Gain.</b> How much <em>dangerous</em> space (pitch control × value) a player keeps moving <em>into himself</em>, measured over a rolling 3-second window. High = he repeatedly relocates into threatening areas, on or off the ball.</div>
-        <div><b>SGG — Space Generation Gain.</b> How much dangerous space a player frees <em>for his teammates</em> by dragging a defender out of position. High = his movement is what opens the gap someone else scores from — the "gravity" idea, measured.</div>
-        <div><b>Duels won above expected.</b> How often he wins contested balls beyond what pitch control says he should (50/50s and tougher), weighted by how dangerous the spot on the pitch is.</div>
+        <div class="qh-gloss-lead"><b>xT and V are value maps</b> — every spot on the pitch gets a danger score (<b>xT</b> = goal-likelihood, peaks at the goal, more on-ball; <b>V</b> = where defenders bother to guard, more off-ball). They rate <em>locations</em>. SOG and SGG don't replace them — they're <em>built from</em> them, adding a player and his control (the page's xT/V toggle picks which map feeds them):</div>
+        <div><b>SOG — Space Occupation Gain.</b> Take that value map, multiply it by <em>pitch control</em> (could this player actually win the ball here?), and measure how much controlled value he gains over a rolling 3-second window. So unlike xT or V — which just rate the spot — SOG needs him to <em>control</em> it, and credits the move <em>even with no touch</em>. High = he keeps getting himself open in dangerous space.</div>
+        <div><b>SGG — Space Generation Gain.</b> Same value × control machinery, but it credits the space a player frees <em>for his teammates</em> by dragging a defender out of position. High = his movement opens the gap someone else scores from — the "gravity" idea, measured.</div>
+        <div><b>Duels won above expected.</b> How often he wins contested balls beyond what pitch control says he should (50/50s and tougher), weighted by how dangerous the spot is.</div>
       </div>
 
       <div class="qh-grid">
