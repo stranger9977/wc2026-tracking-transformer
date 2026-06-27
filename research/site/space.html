@@ -878,38 +878,6 @@
         </div>
         <p class="caption faintnote">Paper-exact: β=1 control, value NN trained on World Cup defensive coverage × goal-distance, w=3 s window, active/passive at 1.5 m/s, drag δ=5 m / α=3 m. Tracking from a TV broadcast via Eagle — positions ±1–2 m, identities anonymized except the ball-carrier.</p>
       </div>
-
-      <div class="card" id="eagle-neymar-buildup-card" style="margin-top:30px">
-        <div class="livestat" style="margin-bottom:8px"><span class="dot live"></span> broadcast → tracking · Eagle · the build-up phase (1:08–1:17)</div>
-        <h3>The build-up to it: the one-two and the run, before he reached the box</h3>
-        <p class="caption" style="margin-top:0">The phase that <b>precedes the goal above</b> — Brazil's patient construction from midfield, the one-two and Neymar's run toward the box, recovered from the same broadcast by Eagle. One honest caveat: across this window the ball stays in <b>midfield</b>, so its xT barely moves — no goal-probability climb here. What the clip shows is the <b>movement and the space</b> Brazil builds; the threat spike is the dribble-and-finish above.</p>
-        <div id="neymarbu-canvas" class="heat"></div>
-        <div class="legend teamleg" id="neymarbu-teamleg"></div>
-        <div class="legend"><span class="swatch" style="background:#ffb43c"></span>warm glow = dangerous space the attacking team controls (control × value)</div>
-        <div id="neymarbu-score"></div>
-        <p class="caption">Same pipeline as the goal above — the difference is this is the <b>set-up</b>, not the strike: the territorial split, the danger Brazil controlled as the move built, and the peak controlled-danger pocket as the one-two opens up.</p>
-      </div>
-
-      <div class="card paper-score-card" id="neymarbu-paper-card" style="margin-top:14px">
-        <div class="livestat" style="margin-bottom:8px">scored exactly like the paper · build-up phase · <b>V</b> default</div>
-        <h3>The build-up, scored like Fernández &amp; Bornn</h3>
-        <p class="caption" style="margin-top:0">The full read on the build-up. In <b>V</b> (value = where defenders guard) <b>Neymar leads the on-ball share</b> — he's the focal point of the construction. Flip to <b>xT</b> and the value goes flat: the ball's in midfield, far from goal, so threat-by-distance has little to score. SGG is <b>spread across the team</b> — collective build-up, no single dominant dragger. (Neymar pinned by role — the carrier who runs it toward the box.)</p>
-        <div id="neymarbu-chart" class="pchart"></div>
-        <div class="legend plegend" id="neymarbu-legend"></div>
-        <div class="pscols">
-          <div>
-            <h4>Space Occupation Gain — share of the build-up</h4>
-            <div id="neymarbu-sog"></div>
-            <p class="caption" style="margin-top:6px">Each player's share of off-ball space occupation, <span style="color:#f0b429">active (running)</span> vs <span style="color:#6cb4ee">passive (walking into value)</span>.</p>
-          </div>
-          <div>
-            <h4>Space Generation Gain — who freed whom</h4>
-            <div id="neymarbu-sgg"></div>
-            <p class="caption" style="margin-top:6px">Spread across the team — collective construction, not one dragger.</p>
-          </div>
-        </div>
-        <p class="caption faintnote">Paper-exact: β=1 control, value NN (or xT) × goal-distance, w=3 s window, drag δ=5 m / α=3 m. Broadcast tracking via Eagle — positions ±1–2 m, identities anonymized except the ball-carrier.</p>
-      </div>
     </div>
   </div>
 </section>
@@ -1260,6 +1228,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=84"></script>
+<script type="module" src="assets/js/space.js?v=83"></script>
 </body>
 </html>
