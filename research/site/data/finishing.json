@@ -1,0 +1,915 @@
+{
+ "metric": "npG - npxG (WC2022, penalties excluded)",
+ "min_shots": 5,
+ "players": [
+  {
+   "name": "Mbapp\u00e9",
+   "full": "Kylian Mbapp\u00e9 Lottin",
+   "team": "France",
+   "shots": 29,
+   "goals": 6,
+   "xg": 2.67,
+   "gax": 3.33
+  },
+  {
+   "name": "Gakpo",
+   "full": "Cody Math\u00e8s Gakpo",
+   "team": "Netherlands",
+   "shots": 5,
+   "goals": 3,
+   "xg": 0.56,
+   "gax": 2.44
+  },
+  {
+   "name": "Saka",
+   "full": "Bukayo Saka",
+   "team": "England",
+   "shots": 7,
+   "goals": 3,
+   "xg": 0.58,
+   "gax": 2.42
+  },
+  {
+   "name": "\u00c1lvarez",
+   "full": "Juli\u00e1n \u00c1lvarez",
+   "team": "Argentina",
+   "shots": 11,
+   "goals": 4,
+   "xg": 1.91,
+   "gax": 2.09
+  },
+  {
+   "name": "Morata",
+   "full": "\u00c1lvaro Borja Morata Mart\u00edn",
+   "team": "Spain",
+   "shots": 8,
+   "goals": 3,
+   "xg": 1.11,
+   "gax": 1.89
+  },
+  {
+   "name": "Le\u00e3o",
+   "full": "Rafael Alexandre Concei\u00e7\u00e3o Le\u00e3o",
+   "team": "Portugal",
+   "shots": 5,
+   "goals": 2,
+   "xg": 0.25,
+   "gax": 1.75
+  },
+  {
+   "name": "Rashford",
+   "full": "Marcus Rashford",
+   "team": "England",
+   "shots": 11,
+   "goals": 3,
+   "xg": 1.38,
+   "gax": 1.62
+  },
+  {
+   "name": "Aboubakar",
+   "full": "Vincent Pat\u00e9 Aboubakar",
+   "team": "Cameroon",
+   "shots": 6,
+   "goals": 2,
+   "xg": 0.53,
+   "gax": 1.47
+  },
+  {
+   "name": "Richarlison",
+   "full": "Richarlison de Andrade",
+   "team": "Brazil",
+   "shots": 8,
+   "goals": 3,
+   "xg": 1.62,
+   "gax": 1.38
+  },
+  {
+   "name": "Kudus",
+   "full": "Mohammed Kudus",
+   "team": "Ghana",
+   "shots": 8,
+   "goals": 2,
+   "xg": 0.66,
+   "gax": 1.34
+  },
+  {
+   "name": "G. Ramos",
+   "full": "Gon\u00e7alo Matias Ramos",
+   "team": "Portugal",
+   "shots": 7,
+   "goals": 3,
+   "xg": 1.67,
+   "gax": 1.33
+  },
+  {
+   "name": "Cho Gue-sung",
+   "full": "Gue-Sung Cho",
+   "team": "South Korea",
+   "shots": 8,
+   "goals": 2,
+   "xg": 0.71,
+   "gax": 1.29
+  },
+  {
+   "name": "Dawsari",
+   "full": "Salem Mohammed Al Dawsari",
+   "team": "Saudi Arabia",
+   "shots": 6,
+   "goals": 2,
+   "xg": 0.78,
+   "gax": 1.22
+  },
+  {
+   "name": "Giroud",
+   "full": "Olivier Giroud",
+   "team": "France",
+   "shots": 17,
+   "goals": 4,
+   "xg": 3.04,
+   "gax": 0.96
+  },
+  {
+   "name": "En-Nesyri",
+   "full": "Youssef En-Nesyri",
+   "team": "Morocco",
+   "shots": 11,
+   "goals": 2,
+   "xg": 1.05,
+   "gax": 0.95
+  },
+  {
+   "name": "Kramari\u0107",
+   "full": "Andrej Kramari\u0107",
+   "team": "Croatia",
+   "shots": 10,
+   "goals": 2,
+   "xg": 1.09,
+   "gax": 0.91
+  },
+  {
+   "name": "Messi",
+   "full": "Lionel Andr\u00e9s Messi Cuccittini",
+   "team": "Argentina",
+   "shots": 27,
+   "goals": 3,
+   "xg": 2.11,
+   "gax": 0.89
+  },
+  {
+   "name": "E. Valencia",
+   "full": "Enner Remberto Valencia Lastra",
+   "team": "Ecuador",
+   "shots": 8,
+   "goals": 2,
+   "xg": 1.14,
+   "gax": 0.86
+  },
+  {
+   "name": "Havertz",
+   "full": "Kai Havertz",
+   "team": "Germany",
+   "shots": 5,
+   "goals": 2,
+   "xg": 1.16,
+   "gax": 0.84
+  },
+  {
+   "name": "Magall\u00f3n",
+   "full": "Luis Gerardo Ch\u00e1vez Magall\u00f3n",
+   "team": "Mexico",
+   "shots": 10,
+   "goals": 1,
+   "xg": 0.22,
+   "gax": 0.78
+  },
+  {
+   "name": "Duke",
+   "full": "Mitchell Thomas Duke",
+   "team": "Australia",
+   "shots": 7,
+   "goals": 1,
+   "xg": 0.25,
+   "gax": 0.75
+  },
+  {
+   "name": "B. Fernandes",
+   "full": "Bruno Miguel Borges Fernandes",
+   "team": "Portugal",
+   "shots": 7,
+   "goals": 1,
+   "xg": 0.25,
+   "gax": 0.75
+  },
+  {
+   "name": "Hern\u00e1ndez",
+   "full": "Theo Bernard Fran\u00e7ois Hern\u00e1ndez",
+   "team": "France",
+   "shots": 5,
+   "goals": 1,
+   "xg": 0.26,
+   "gax": 0.74
+  },
+  {
+   "name": "Fernandez",
+   "full": "Enzo Fernandez",
+   "team": "Argentina",
+   "shots": 8,
+   "goals": 1,
+   "xg": 0.27,
+   "gax": 0.73
+  },
+  {
+   "name": "Or\u0161i\u0107",
+   "full": "Mislav Or\u0161i\u0107",
+   "team": "Croatia",
+   "shots": 9,
+   "goals": 1,
+   "xg": 0.28,
+   "gax": 0.72
+  },
+  {
+   "name": "Khazri",
+   "full": "Wahbi Khazri",
+   "team": "Tunisia",
+   "shots": 5,
+   "goals": 1,
+   "xg": 0.3,
+   "gax": 0.7
+  },
+  {
+   "name": "Ziyech",
+   "full": "Hakim Ziyech",
+   "team": "Morocco",
+   "shots": 10,
+   "goals": 1,
+   "xg": 0.31,
+   "gax": 0.69
+  },
+  {
+   "name": "Casimiro",
+   "full": "Carlos Henrique Casimiro",
+   "team": "Brazil",
+   "shots": 9,
+   "goals": 1,
+   "xg": 0.36,
+   "gax": 0.64
+  },
+  {
+   "name": "Tchouam\u00e9ni",
+   "full": "Aur\u00e9lien Djani Tchouam\u00e9ni",
+   "team": "France",
+   "shots": 6,
+   "goals": 1,
+   "xg": 0.4,
+   "gax": 0.6
+  },
+  {
+   "name": "Weah",
+   "full": "Timothy Weah",
+   "team": "United States",
+   "shots": 5,
+   "goals": 1,
+   "xg": 0.44,
+   "gax": 0.56
+  },
+  {
+   "name": "Asano",
+   "full": "Takuma Asano",
+   "team": "Japan",
+   "shots": 8,
+   "goals": 1,
+   "xg": 0.5,
+   "gax": 0.5
+  },
+  {
+   "name": "Allister",
+   "full": "Alexis Mac Allister",
+   "team": "Argentina",
+   "shots": 7,
+   "goals": 1,
+   "xg": 0.5,
+   "gax": 0.5
+  },
+  {
+   "name": "Mitrovi\u0107",
+   "full": "Aleksandar Mitrovi\u0107",
+   "team": "Serbia",
+   "shots": 10,
+   "goals": 2,
+   "xg": 1.5,
+   "gax": 0.5
+  },
+  {
+   "name": "Blind",
+   "full": "Daley Blind",
+   "team": "Netherlands",
+   "shots": 5,
+   "goals": 1,
+   "xg": 0.52,
+   "gax": 0.48
+  },
+  {
+   "name": "Hern\u00e1ndez",
+   "full": "\u00c1ngel Fabi\u00e1n Di Mar\u00eda Hern\u00e1ndez",
+   "team": "Argentina",
+   "shots": 7,
+   "goals": 1,
+   "xg": 0.53,
+   "gax": 0.47
+  },
+  {
+   "name": "Hwang",
+   "full": "Hee-Chan Hwang",
+   "team": "South Korea",
+   "shots": 6,
+   "goals": 1,
+   "xg": 0.57,
+   "gax": 0.43
+  },
+  {
+   "name": "Taremi",
+   "full": "Mehdi Taremi",
+   "team": "Iran",
+   "shots": 5,
+   "goals": 1,
+   "xg": 0.59,
+   "gax": 0.41
+  },
+  {
+   "name": "Willemsen",
+   "full": "Marco Asensio Willemsen",
+   "team": "Spain",
+   "shots": 10,
+   "goals": 1,
+   "xg": 0.61,
+   "gax": 0.39
+  },
+  {
+   "name": "Tunga",
+   "full": "Michy Batshuayi Tunga",
+   "team": "Belgium",
+   "shots": 6,
+   "goals": 1,
+   "xg": 0.62,
+   "gax": 0.38
+  },
+  {
+   "name": "Dia",
+   "full": "Boulaye Dia",
+   "team": "Senegal",
+   "shots": 8,
+   "goals": 1,
+   "xg": 0.66,
+   "gax": 0.34
+  },
+  {
+   "name": "Wright",
+   "full": "Haji Wright",
+   "team": "United States",
+   "shots": 7,
+   "goals": 1,
+   "xg": 0.66,
+   "gax": 0.34
+  },
+  {
+   "name": "Sequeira",
+   "full": "Jo\u00e3o F\u00e9lix Sequeira",
+   "team": "Portugal",
+   "shots": 11,
+   "goals": 1,
+   "xg": 0.67,
+   "gax": 0.33
+  },
+  {
+   "name": "F\u00fcllkrug",
+   "full": "Niclas F\u00fcllkrug",
+   "team": "Germany",
+   "shots": 8,
+   "goals": 2,
+   "xg": 1.69,
+   "gax": 0.31
+  },
+  {
+   "name": "Rabiot",
+   "full": "Adrien Rabiot",
+   "team": "France",
+   "shots": 9,
+   "goals": 1,
+   "xg": 0.73,
+   "gax": 0.27
+  },
+  {
+   "name": "Gnabry",
+   "full": "Serge Gnabry",
+   "team": "Germany",
+   "shots": 12,
+   "goals": 1,
+   "xg": 0.73,
+   "gax": 0.27
+  },
+  {
+   "name": "Kane",
+   "full": "Harry Kane",
+   "team": "England",
+   "shots": 10,
+   "goals": 1,
+   "xg": 0.76,
+   "gax": 0.24
+  },
+  {
+   "name": "Peri\u0161i\u0107",
+   "full": "Ivan Peri\u0161i\u0107",
+   "team": "Croatia",
+   "shots": 16,
+   "goals": 1,
+   "xg": 0.76,
+   "gax": 0.24
+  },
+  {
+   "name": "J\u00fanior",
+   "full": "Vin\u00edcius Jos\u00e9 Paix\u00e3o de Oliveira J\u00fanior",
+   "team": "Brazil",
+   "shots": 9,
+   "goals": 1,
+   "xg": 0.81,
+   "gax": 0.19
+  },
+  {
+   "name": "Bellingham",
+   "full": "Jude Bellingham",
+   "team": "England",
+   "shots": 5,
+   "goals": 1,
+   "xg": 0.84,
+   "gax": 0.16
+  },
+  {
+   "name": "Livaja",
+   "full": "Marko Livaja",
+   "team": "Croatia",
+   "shots": 6,
+   "goals": 1,
+   "xg": 0.99,
+   "gax": 0.01
+  },
+  {
+   "name": "Nourollahi",
+   "full": "Ahmad Nourollahi",
+   "team": "Iran",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.08,
+   "gax": -0.08
+  },
+  {
+   "name": "Carvajal",
+   "full": "Daniel Olmo Carvajal",
+   "team": "Spain",
+   "shots": 12,
+   "goals": 1,
+   "xg": 1.08,
+   "gax": -0.08
+  },
+  {
+   "name": "Dipetta",
+   "full": "Federico Santiago Valverde Dipetta",
+   "team": "Uruguay",
+   "shots": 7,
+   "goals": 0,
+   "xg": 0.12,
+   "gax": -0.12
+  },
+  {
+   "name": "Lee",
+   "full": "Kang-In Lee",
+   "team": "South Korea",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.12,
+   "gax": -0.12
+  },
+  {
+   "name": "Pulisic",
+   "full": "Christian Pulisic",
+   "team": "United States",
+   "shots": 9,
+   "goals": 1,
+   "xg": 1.14,
+   "gax": -0.14
+  },
+  {
+   "name": "Santos",
+   "full": "Antony Matheus dos Santos",
+   "team": "Brazil",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.15,
+   "gax": -0.15
+  },
+  {
+   "name": "Depay",
+   "full": "Memphis Depay",
+   "team": "Netherlands",
+   "shots": 10,
+   "goals": 1,
+   "xg": 1.18,
+   "gax": -0.18
+  },
+  {
+   "name": "Bruyne",
+   "full": "Kevin De Bruyne",
+   "team": "Belgium",
+   "shots": 7,
+   "goals": 0,
+   "xg": 0.18,
+   "gax": -0.18
+  },
+  {
+   "name": "Endo",
+   "full": "Wataru Endo",
+   "team": "Japan",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.18,
+   "gax": -0.18
+  },
+  {
+   "name": "Berghuis",
+   "full": "Steven Berghuis",
+   "team": "Netherlands",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.19,
+   "gax": -0.19
+  },
+  {
+   "name": "Malong",
+   "full": "Pierre Kunde Malong",
+   "team": "Cameroon",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.19,
+   "gax": -0.19
+  },
+  {
+   "name": "Hwang",
+   "full": "In-Beom Hwang",
+   "team": "South Korea",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.2,
+   "gax": -0.2
+  },
+  {
+   "name": "Ounahi",
+   "full": "Azzedine Ounahi",
+   "team": "Morocco",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.24,
+   "gax": -0.24
+  },
+  {
+   "name": "Bahena",
+   "full": "Hirving Rodrigo Lozano Bahena",
+   "team": "Mexico",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.24,
+   "gax": -0.24
+  },
+  {
+   "name": "Foden",
+   "full": "Philip Foden",
+   "team": "England",
+   "shots": 6,
+   "goals": 1,
+   "xg": 1.25,
+   "gax": -0.25
+  },
+  {
+   "name": "Dest",
+   "full": "Sergino Dest",
+   "team": "United States",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.25,
+   "gax": -0.25
+  },
+  {
+   "name": "Milit\u00e3o",
+   "full": "\u00c9der Gabriel Milit\u00e3o",
+   "team": "Brazil",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.26,
+   "gax": -0.26
+  },
+  {
+   "name": "Fadlalla",
+   "full": "Abdelkarim Hassan Al Haj Fadlalla",
+   "team": "Qatar",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.27,
+   "gax": -0.27
+  },
+  {
+   "name": "Xhaka",
+   "full": "Granit Xhaka",
+   "team": "Switzerland",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.3,
+   "gax": -0.3
+  },
+  {
+   "name": "Boufal",
+   "full": "Sofiane Boufal",
+   "team": "Morocco",
+   "shots": 7,
+   "goals": 0,
+   "xg": 0.32,
+   "gax": -0.32
+  },
+  {
+   "name": "Kanoo",
+   "full": "Mohammed Kanoo",
+   "team": "Saudi Arabia",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.32,
+   "gax": -0.32
+  },
+  {
+   "name": "Kimmich",
+   "full": "Joshua Kimmich",
+   "team": "Germany",
+   "shots": 7,
+   "goals": 0,
+   "xg": 0.33,
+   "gax": -0.33
+  },
+  {
+   "name": "Modri\u0107",
+   "full": "Luka Modri\u0107",
+   "team": "Croatia",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.34,
+   "gax": -0.34
+  },
+  {
+   "name": "G\u00fcndo\u011fan",
+   "full": "\u0130lkay G\u00fcndo\u011fan",
+   "team": "Germany",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.35,
+   "gax": -0.35
+  },
+  {
+   "name": "Neymar",
+   "full": "Neymar da Silva Santos Junior",
+   "team": "Brazil",
+   "shots": 11,
+   "goals": 1,
+   "xg": 1.35,
+   "gax": -0.35
+  },
+  {
+   "name": "Demb\u00e9l\u00e9",
+   "full": "Ousmane Demb\u00e9l\u00e9",
+   "team": "France",
+   "shots": 8,
+   "goals": 0,
+   "xg": 0.36,
+   "gax": -0.36
+  },
+  {
+   "name": "McKennie",
+   "full": "Weston McKennie",
+   "team": "United States",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.38,
+   "gax": -0.38
+  },
+  {
+   "name": "Embolo",
+   "full": "Breel-Donald Embolo",
+   "team": "Switzerland",
+   "shots": 6,
+   "goals": 2,
+   "xg": 2.39,
+   "gax": -0.39
+  },
+  {
+   "name": "Kamada",
+   "full": "Daichi Kamada",
+   "team": "Japan",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.42,
+   "gax": -0.42
+  },
+  {
+   "name": "Son",
+   "full": "Heung-Min Son",
+   "team": "South Korea",
+   "shots": 9,
+   "goals": 0,
+   "xg": 0.45,
+   "gax": -0.45
+  },
+  {
+   "name": "Goes",
+   "full": "Rodrygo Silva de Goes",
+   "team": "Brazil",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.46,
+   "gax": -0.46
+  },
+  {
+   "name": "Maguire",
+   "full": "Harry Maguire",
+   "team": "England",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.49,
+   "gax": -0.49
+  },
+  {
+   "name": "Griezmann",
+   "full": "Antoine Griezmann",
+   "team": "France",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.5,
+   "gax": -0.5
+  },
+  {
+   "name": "Lewandowski",
+   "full": "Robert Lewandowski",
+   "team": "Poland",
+   "shots": 10,
+   "goals": 1,
+   "xg": 1.56,
+   "gax": -0.56
+  },
+  {
+   "name": "Paul",
+   "full": "Rodrigo Javier De Paul",
+   "team": "Argentina",
+   "shots": 7,
+   "goals": 0,
+   "xg": 0.57,
+   "gax": -0.57
+  },
+  {
+   "name": "Vla\u0161i\u0107",
+   "full": "Nikola Vla\u0161i\u0107",
+   "team": "Croatia",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.63,
+   "gax": -0.63
+  },
+  {
+   "name": "Msakni",
+   "full": "Youssef Msakni",
+   "team": "Tunisia",
+   "shots": 9,
+   "goals": 0,
+   "xg": 0.64,
+   "gax": -0.64
+  },
+  {
+   "name": "Moore",
+   "full": "Kieffer Roberto Francisco Moore",
+   "team": "Wales",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.64,
+   "gax": -0.64
+  },
+  {
+   "name": "B. Fernandes",
+   "full": "Bruno Guimar\u00e3es Rodriguez Moura",
+   "team": "Brazil",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.65,
+   "gax": -0.65
+  },
+  {
+   "name": "R\u00fcdiger",
+   "full": "Antonio R\u00fcdiger",
+   "team": "Germany",
+   "shots": 6,
+   "goals": 0,
+   "xg": 0.66,
+   "gax": -0.66
+  },
+  {
+   "name": "Rojas",
+   "full": "Ernesto Alexis Vega Rojas",
+   "team": "Mexico",
+   "shots": 9,
+   "goals": 0,
+   "xg": 0.69,
+   "gax": -0.69
+  },
+  {
+   "name": "Buchanan",
+   "full": "Tajon Buchanan",
+   "team": "Canada",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.71,
+   "gax": -0.71
+  },
+  {
+   "name": "Cornelius",
+   "full": "Andreas Evald Cornelius",
+   "team": "Denmark",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.8,
+   "gax": -0.8
+  },
+  {
+   "name": "David",
+   "full": "Jonathan David",
+   "team": "Canada",
+   "shots": 8,
+   "goals": 0,
+   "xg": 0.81,
+   "gax": -0.81
+  },
+  {
+   "name": "Belloli",
+   "full": "Raphael Dias Belloli",
+   "team": "Brazil",
+   "shots": 8,
+   "goals": 0,
+   "xg": 0.92,
+   "gax": -0.92
+  },
+  {
+   "name": "Azmoun",
+   "full": "Sardar Azmoun",
+   "team": "Iran",
+   "shots": 5,
+   "goals": 0,
+   "xg": 0.96,
+   "gax": -0.96
+  },
+  {
+   "name": "Sarr",
+   "full": "Isma\u00efla Sarr",
+   "team": "Senegal",
+   "shots": 9,
+   "goals": 0,
+   "xg": 1.07,
+   "gax": -1.07
+  },
+  {
+   "name": "Musiala",
+   "full": "Jamal Musiala",
+   "team": "Germany",
+   "shots": 11,
+   "goals": 0,
+   "xg": 1.15,
+   "gax": -1.15
+  },
+  {
+   "name": "Ronaldo",
+   "full": "Cristiano Ronaldo dos Santos Aveiro",
+   "team": "Portugal",
+   "shots": 10,
+   "goals": 0,
+   "xg": 1.16,
+   "gax": -1.16
+  },
+  {
+   "name": "Lukaku",
+   "full": "Romelu Lukaku Menama",
+   "team": "Belgium",
+   "shots": 5,
+   "goals": 0,
+   "xg": 1.68,
+   "gax": -1.68
+  },
+  {
+   "name": "L. Mart\u00ednez",
+   "full": "Lautaro Javier Mart\u00ednez",
+   "team": "Argentina",
+   "shots": 14,
+   "goals": 0,
+   "xg": 2.12,
+   "gax": -2.12
+  }
+ ]
+}

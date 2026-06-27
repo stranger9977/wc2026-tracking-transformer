@@ -1153,6 +1153,45 @@
         </div>
 
       </div>
+      <div class="card qh-card" id="finishing-card">
+        <style>
+          #finishing-card .fin-board{margin:12px 0 4px}
+          #finishing-card .fin-row{display:grid;grid-template-columns:1.4fr 2fr auto auto;gap:10px;align-items:center;padding:5px 2px;font-size:15px}
+          #finishing-card .fin-row.fin-hi{background:rgba(108,180,238,.10);border-radius:7px;padding:7px 8px;margin:6px 0}
+          #finishing-card .fin-name{color:var(--ink);font-weight:600}
+          #finishing-card .fin-name .lteam{color:var(--faint);font-weight:400;font-size:12.5px}
+          #finishing-card .fin-track{height:9px;background:var(--bg-elev2);border-radius:5px;overflow:hidden}
+          #finishing-card .fin-fill{display:block;height:100%}
+          #finishing-card .fin-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;min-width:48px}
+          #finishing-card .fin-sub{color:var(--faint);font-size:12.5px;text-align:right;min-width:78px}
+          #finishing-card .fin-div{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:14px 2px 4px;border-top:1px solid var(--border);padding-top:10px}
+        </style>
+        <h3>Finishing: who beat their xG <span class="qh-tag soft">WC2022 · non-penalty</span></h3>
+        <p class="caption qh-verdict"><b>Goals &minus; expected goals</b> (npG &minus; npxG): did a player score more than his chances were worth? Penalties excluded. <b>The catch:</b> a 7-game tournament is a tiny sample, so this is who ran hot in Qatar — not a verdict on career finishing skill (which needs hundreds of shots).</p>
+        <div class="fin-board">
+          <div class="fin-div">Hottest finishers — most goals above expected</div>
+          <div class="fin-row"><span class="fin-name">Mbappé <span class="lteam">France</span></span><span class="fin-track"><span class="fin-fill" style="width:100%;background:#6dd58c"></span></span><span class="fin-val">+3.33</span><span class="fin-sub">6G · 2.7 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Gakpo <span class="lteam">Netherlands</span></span><span class="fin-track"><span class="fin-fill" style="width:73%;background:#6dd58c"></span></span><span class="fin-val">+2.44</span><span class="fin-sub">3G · 0.6 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Saka <span class="lteam">England</span></span><span class="fin-track"><span class="fin-fill" style="width:73%;background:#6dd58c"></span></span><span class="fin-val">+2.42</span><span class="fin-sub">3G · 0.6 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Álvarez <span class="lteam">Argentina</span></span><span class="fin-track"><span class="fin-fill" style="width:63%;background:#6dd58c"></span></span><span class="fin-val">+2.09</span><span class="fin-sub">4G · 1.9 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Morata <span class="lteam">Spain</span></span><span class="fin-track"><span class="fin-fill" style="width:57%;background:#6dd58c"></span></span><span class="fin-val">+1.89</span><span class="fin-sub">3G · 1.1 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Leão <span class="lteam">Portugal</span></span><span class="fin-track"><span class="fin-fill" style="width:53%;background:#6dd58c"></span></span><span class="fin-val">+1.75</span><span class="fin-sub">2G · 0.2 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Rashford <span class="lteam">England</span></span><span class="fin-track"><span class="fin-fill" style="width:49%;background:#6dd58c"></span></span><span class="fin-val">+1.62</span><span class="fin-sub">3G · 1.4 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Aboubakar <span class="lteam">Cameroon</span></span><span class="fin-track"><span class="fin-fill" style="width:44%;background:#6dd58c"></span></span><span class="fin-val">+1.47</span><span class="fin-sub">2G · 0.5 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Richarlison <span class="lteam">Brazil</span></span><span class="fin-track"><span class="fin-fill" style="width:41%;background:#6dd58c"></span></span><span class="fin-val">+1.38</span><span class="fin-sub">3G · 1.6 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Kudus <span class="lteam">Ghana</span></span><span class="fin-track"><span class="fin-fill" style="width:40%;background:#6dd58c"></span></span><span class="fin-val">+1.34</span><span class="fin-sub">2G · 0.7 xG</span></div>
+          <div class="fin-row"><span class="fin-name">G. Ramos <span class="lteam">Portugal</span></span><span class="fin-track"><span class="fin-fill" style="width:40%;background:#6dd58c"></span></span><span class="fin-val">+1.33</span><span class="fin-sub">3G · 1.7 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Cho Gue-sung <span class="lteam">South Korea</span></span><span class="fin-track"><span class="fin-fill" style="width:39%;background:#6dd58c"></span></span><span class="fin-val">+1.29</span><span class="fin-sub">2G · 0.7 xG</span></div>
+          <div class="fin-div">Where Harry Kane lands</div>
+          <div class="fin-row fin-hi"><span class="fin-name">Kane <span class="lteam">England</span></span><span class="fin-track"><span class="fin-fill" style="width:7%;background:#6dd58c"></span></span><span class="fin-val">+0.24</span><span class="fin-sub">1G · 0.8 xG</span></div>
+          <div class="fin-div">Coldest — biggest underperformers</div>
+          <div class="fin-row"><span class="fin-name">L. Martínez <span class="lteam">Argentina</span></span><span class="fin-track"><span class="fin-fill" style="width:64%;background:#ff6b6b"></span></span><span class="fin-val">-2.12</span><span class="fin-sub">0G · 2.1 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Lukaku <span class="lteam">Belgium</span></span><span class="fin-track"><span class="fin-fill" style="width:50%;background:#ff6b6b"></span></span><span class="fin-val">-1.68</span><span class="fin-sub">0G · 1.7 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Ronaldo <span class="lteam">Portugal</span></span><span class="fin-track"><span class="fin-fill" style="width:35%;background:#ff6b6b"></span></span><span class="fin-val">-1.16</span><span class="fin-sub">0G · 1.2 xG</span></div>
+        </div>
+        <p class="qh-note"><b>On Kane &amp; the "best finisher" idea.</b> Over his career Kane is one of the world's best finishers — but a single tournament can't show it. In WC2022 he finished <b>almost exactly at expected (+0.24, #46 of 101)</b>: 1 non-penalty goal on 0.76 npxG across 10 shots. The clinical men here were <b>Mbappé (+3.33)</b>, Gakpo and Saka; the cold ones, <b>Martínez (&minus;2.12)</b> and Lukaku. Finishing is real but slow to prove — read this as a 2022 snapshot, not a ranking of who's best at it.</p>
+      </div>
+
       <div class="card qh-card" id="paper-table-card">
         <h3>The paper's space table, our data <span class="qh-tag soft">pick any match</span></h3>
         <p class="caption qh-verdict">Fern&aacute;ndez &amp; Bornn's <b>Table 2</b> &mdash; space generation and occupation loss for one team in one match &mdash; rebuilt from our pipeline for <b>every match we have a play from</b>. Pick a match and toggle xT vs V. <b>&Sigma;</b> and <b>&mu;</b> are the sum and mean of each player's events.</p>
