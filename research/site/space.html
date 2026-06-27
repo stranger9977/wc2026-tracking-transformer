@@ -1027,6 +1027,9 @@
     #for-michael .qh-note{font-size:13.5px; line-height:1.5; color:var(--faint); margin:6px 2px 0}
     #for-michael .qh-note b{color:var(--muted)}
     #for-michael .pt-tog{display:flex; gap:8px; margin:12px 0 8px}
+    #for-michael .pt-controls{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:12px 0 8px}
+    #for-michael .pt-controls .pt-tog{margin:0}
+    #for-michael .pt-select{font-size:14px; font-weight:600; color:var(--ink); background:var(--bg-elev2); border:1px solid var(--border); border-radius:8px; padding:7px 12px; cursor:pointer}
     #for-michael .pt-btn{font-size:14px; font-weight:700; color:var(--muted); background:var(--bg-elev2); border:1px solid var(--border); border-radius:8px; padding:6px 14px; cursor:pointer}
     #for-michael .pt-btn.on{color:var(--bg); background:var(--accent); border-color:var(--accent)}
     #for-michael .pt-scroll{overflow-x:auto; border:1px solid var(--border); border-radius:10px}
@@ -1151,61 +1154,51 @@
 
       </div>
       <div class="card qh-card" id="paper-table-card">
-        <h3>The paper's space table, our data <span class="qh-tag soft">Spain 7&ndash;0 Costa Rica</span></h3>
-        <p class="caption qh-verdict">Fern&aacute;ndez &amp; Bornn's <b>Table 2</b> &mdash; space generation and occupation loss for one team in one match &mdash; rebuilt from our pipeline for Spain's possession display (the closest analog to their Bar&ccedil;a side). <b>&Sigma;</b> and <b>&mu;</b> are the sum and mean of each player's events.</p>
-        <div class="pt-tog">
-          <button class="pt-btn on" data-l="xt">xT value</button>
-          <button class="pt-btn" data-l="v">V value</button>
+        <h3>The paper's space table, our data <span class="qh-tag soft">pick any match</span></h3>
+        <p class="caption qh-verdict">Fern&aacute;ndez &amp; Bornn's <b>Table 2</b> &mdash; space generation and occupation loss for one team in one match &mdash; rebuilt from our pipeline for <b>every match we have a play from</b>. Pick a match and toggle xT vs V. <b>&Sigma;</b> and <b>&mu;</b> are the sum and mean of each player's events.</p>
+        <div class="pt-controls">
+          <select id="pt-match" class="pt-select" aria-label="match"></select>
+          <div class="pt-tog">
+            <button class="pt-btn on" data-l="xt">xT value</button>
+            <button class="pt-btn" data-l="v">V value</button>
+          </div>
         </div>
         <div class="pt-scroll">
-          <table class="pt-table" data-l="xt">
+          <table class="pt-table" id="pt-tbl">
             <thead><tr><th class="pt-name">Player</th><th># Generated</th><th># Received</th><th>&Sigma; SGG</th><th>&mu; SGG</th><th># SOL</th><th>&Sigma; SOL</th><th>&mu; SOL</th><th>Mins</th></tr></thead>
-            <tbody>
-            <tr class="pt-hi"><td class="pt-name">Marco Asensio</td><td>64 <i>(13.2%)</i></td><td>40 <i>(8.2%)</i></td><td>160.4</td><td class="pt-mu">2.51</td><td>521</td><td>-3182.7</td><td class="pt-mu">-6.11</td><td class="pt-min">54.4</td></tr>
-            <tr class="pt-hi"><td class="pt-name">Sergio Busquets</td><td>61 <i>(12.6%)</i></td><td>52 <i>(10.7%)</i></td><td>137.4</td><td class="pt-mu">2.25</td><td>322</td><td>-650.8</td><td class="pt-mu">-2.02</td><td class="pt-min">51.0</td></tr>
-            <tr class="pt-hi"><td class="pt-name">Gavi</td><td>55 <i>(11.3%)</i></td><td>76 <i>(15.6%)</i></td><td>132.7</td><td class="pt-mu">2.41</td><td>543</td><td>-1770.2</td><td class="pt-mu">-3.26</td><td class="pt-min">76.1</td></tr>
-            <tr><td class="pt-name">Pedri</td><td>43 <i>(8.8%)</i></td><td>36 <i>(7.4%)</i></td><td>76.0</td><td class="pt-mu">1.77</td><td>324</td><td>-1006.0</td><td class="pt-mu">-3.10</td><td class="pt-min">46.6</td></tr>
-            <tr><td class="pt-name">Dani Olmo</td><td>41 <i>(8.4%)</i></td><td>47 <i>(9.7%)</i></td><td>84.3</td><td class="pt-mu">2.06</td><td>626</td><td>-2960.2</td><td class="pt-mu">-4.73</td><td class="pt-min">76.1</td></tr>
-            <tr><td class="pt-name">Rodri</td><td>40 <i>(8.2%)</i></td><td>35 <i>(7.2%)</i></td><td>83.8</td><td class="pt-mu">2.09</td><td>573</td><td>-2331.7</td><td class="pt-mu">-4.07</td><td class="pt-min">76.1</td></tr>
-            <tr><td class="pt-name">Aymeric Laporte</td><td>37 <i>(7.6%)</i></td><td>30 <i>(6.2%)</i></td><td>67.6</td><td class="pt-mu">1.83</td><td>534</td><td>-2663.7</td><td class="pt-mu">-4.99</td><td class="pt-min">76.1</td></tr>
-            <tr><td class="pt-name">Jordi Alba</td><td>26 <i>(5.3%)</i></td><td>35 <i>(7.2%)</i></td><td>92.8</td><td class="pt-mu">3.57</td><td>405</td><td>-1776.5</td><td class="pt-mu">-4.39</td><td class="pt-min">51.0</td></tr>
-            <tr><td class="pt-name">Carlos Soler</td><td>25 <i>(5.1%)</i></td><td>22 <i>(4.5%)</i></td><td>49.4</td><td class="pt-mu">1.98</td><td>185</td><td>-451.2</td><td class="pt-mu">-2.44</td><td class="pt-min">29.6</td></tr>
-            <tr><td class="pt-name">César Azpilicueta</td><td>23 <i>(4.7%)</i></td><td>34 <i>(7.0%)</i></td><td>51.0</td><td class="pt-mu">2.22</td><td>566</td><td>-2216.5</td><td class="pt-mu">-3.92</td><td class="pt-min">76.1</td></tr>
-            <tr><td class="pt-name">Ferran Torres</td><td>21 <i>(4.3%)</i></td><td>25 <i>(5.1%)</i></td><td>37.1</td><td class="pt-mu">1.77</td><td>468</td><td>-2443.9</td><td class="pt-mu">-5.22</td><td class="pt-min">46.6</td></tr>
-            <tr><td class="pt-name">Alvaro Morata</td><td>21 <i>(4.3%)</i></td><td>18 <i>(3.7%)</i></td><td>58.0</td><td class="pt-mu">2.76</td><td>273</td><td>-1333.0</td><td class="pt-mu">-4.88</td><td class="pt-min">29.6</td></tr>
-            <tr><td class="pt-name">Koke</td><td>17 <i>(3.5%)</i></td><td>17 <i>(3.5%)</i></td><td>35.0</td><td class="pt-mu">2.06</td><td>156</td><td>-297.0</td><td class="pt-mu">-1.90</td><td class="pt-min">25.1</td></tr>
-            <tr><td class="pt-name">Nico Williams</td><td>9 <i>(1.9%)</i></td><td>9 <i>(1.9%)</i></td><td>12.9</td><td class="pt-mu">1.43</td><td>199</td><td>-821.4</td><td class="pt-mu">-4.13</td><td class="pt-min">21.7</td></tr>
-            <tr><td class="pt-name">Alex Balde</td><td>3 <i>(0.6%)</i></td><td>10 <i>(2.1%)</i></td><td>6.0</td><td class="pt-mu">2.02</td><td>185</td><td>-542.2</td><td class="pt-mu">-2.93</td><td class="pt-min">25.1</td></tr>
-            </tbody>
-          </table>
-          <table class="pt-table" data-l="v" hidden>
-            <thead><tr><th class="pt-name">Player</th><th># Generated</th><th># Received</th><th>&Sigma; SGG</th><th>&mu; SGG</th><th># SOL</th><th>&Sigma; SOL</th><th>&mu; SOL</th><th>Mins</th></tr></thead>
-            <tbody>
-            <tr class="pt-hi"><td class="pt-name">Marco Asensio</td><td>75 <i>(12.0%)</i></td><td>56 <i>(9.0%)</i></td><td>1545.0</td><td class="pt-mu">20.60</td><td>541</td><td>-16317.5</td><td class="pt-mu">-30.16</td><td class="pt-min">54.4</td></tr>
-            <tr class="pt-hi"><td class="pt-name">Sergio Busquets</td><td>72 <i>(11.5%)</i></td><td>73 <i>(11.7%)</i></td><td>1288.5</td><td class="pt-mu">17.90</td><td>457</td><td>-10778.3</td><td class="pt-mu">-23.58</td><td class="pt-min">51.0</td></tr>
-            <tr class="pt-hi"><td class="pt-name">Gavi</td><td>68 <i>(10.9%)</i></td><td>96 <i>(15.4%)</i></td><td>1252.8</td><td class="pt-mu">18.42</td><td>679</td><td>-16536.7</td><td class="pt-mu">-24.35</td><td class="pt-min">76.1</td></tr>
-            <tr><td class="pt-name">Dani Olmo</td><td>59 <i>(9.5%)</i></td><td>59 <i>(9.5%)</i></td><td>871.8</td><td class="pt-mu">14.78</td><td>658</td><td>-21474.0</td><td class="pt-mu">-32.64</td><td class="pt-min">76.1</td></tr>
-            <tr><td class="pt-name">Rodri</td><td>58 <i>(9.3%)</i></td><td>39 <i>(6.2%)</i></td><td>967.5</td><td class="pt-mu">16.68</td><td>555</td><td>-16818.4</td><td class="pt-mu">-30.30</td><td class="pt-min">76.1</td></tr>
-            <tr><td class="pt-name">Pedri</td><td>52 <i>(8.3%)</i></td><td>58 <i>(9.3%)</i></td><td>682.9</td><td class="pt-mu">13.13</td><td>407</td><td>-10046.8</td><td class="pt-mu">-24.68</td><td class="pt-min">46.6</td></tr>
-            <tr><td class="pt-name">Aymeric Laporte</td><td>43 <i>(6.9%)</i></td><td>33 <i>(5.3%)</i></td><td>708.3</td><td class="pt-mu">16.47</td><td>546</td><td>-18262.5</td><td class="pt-mu">-33.45</td><td class="pt-min">76.1</td></tr>
-            <tr><td class="pt-name">Jordi Alba</td><td>37 <i>(5.9%)</i></td><td>41 <i>(6.6%)</i></td><td>895.5</td><td class="pt-mu">24.20</td><td>424</td><td>-14235.4</td><td class="pt-mu">-33.57</td><td class="pt-min">51.0</td></tr>
-            <tr><td class="pt-name">Carlos Soler</td><td>35 <i>(5.6%)</i></td><td>28 <i>(4.5%)</i></td><td>688.7</td><td class="pt-mu">19.68</td><td>236</td><td>-5845.3</td><td class="pt-mu">-24.77</td><td class="pt-min">29.6</td></tr>
-            <tr><td class="pt-name">César Azpilicueta</td><td>34 <i>(5.4%)</i></td><td>41 <i>(6.6%)</i></td><td>484.2</td><td class="pt-mu">14.24</td><td>542</td><td>-16817.2</td><td class="pt-mu">-31.03</td><td class="pt-min">76.1</td></tr>
-            <tr><td class="pt-name">Ferran Torres</td><td>26 <i>(4.2%)</i></td><td>25 <i>(4.0%)</i></td><td>329.5</td><td class="pt-mu">12.67</td><td>433</td><td>-14311.2</td><td class="pt-mu">-33.05</td><td class="pt-min">46.6</td></tr>
-            <tr><td class="pt-name">Alvaro Morata</td><td>26 <i>(4.2%)</i></td><td>26 <i>(4.2%)</i></td><td>482.8</td><td class="pt-mu">18.57</td><td>274</td><td>-7341.8</td><td class="pt-mu">-26.79</td><td class="pt-min">29.6</td></tr>
-            <tr><td class="pt-name">Koke</td><td>25 <i>(4.0%)</i></td><td>27 <i>(4.3%)</i></td><td>374.6</td><td class="pt-mu">14.98</td><td>204</td><td>-4993.6</td><td class="pt-mu">-24.48</td><td class="pt-min">25.1</td></tr>
-            <tr><td class="pt-name">Nico Williams</td><td>9 <i>(1.4%)</i></td><td>9 <i>(1.4%)</i></td><td>150.4</td><td class="pt-mu">16.71</td><td>182</td><td>-5441.6</td><td class="pt-mu">-29.90</td><td class="pt-min">21.7</td></tr>
-            <tr><td class="pt-name">Alex Balde</td><td>5 <i>(0.8%)</i></td><td>13 <i>(2.1%)</i></td><td>72.1</td><td class="pt-mu">14.42</td><td>190</td><td>-5013.5</td><td class="pt-mu">-26.39</td><td class="pt-min">25.1</td></tr>
-            </tbody>
+            <tbody id="pt-body"></tbody>
           </table>
         </div>
-        <p class="qh-note"><b># Generated / # Received</b> &mdash; times a player freed space for a teammate, or was the one freed (with team-relative %). <b>SGG</b> = the dangerous space those events created; <b>SOL</b> (Space Occupation Loss) = space a player sheds as the play moves on. Occupation-loss episodes are far more common than the gated drag events, so # SOL runs higher than # Generated (the paper's SOL is counted per occupation, so its columns sit closer). Values are xT- or V-weighted m&sup2; on a ~2&nbsp;Hz sample &mdash; read the table within itself (shares, ordering, generators vs receivers), not against the paper's absolute numbers.</p>
+        <p class="qh-note"><b># Generated / # Received</b> &mdash; times a player freed space for a teammate, or was the one freed (with team-relative %). <b>SGG</b> = the dangerous space those events created; <b>SOL</b> (Space Occupation Loss) = space a player sheds as the play moves on. Occupation-loss episodes are far more common than the gated drag events, so # SOL runs higher than # Generated. Values are xT- or V-weighted m&sup2; on a ~2&nbsp;Hz sample &mdash; read each table within itself (shares, ordering, generators vs receivers), not against the paper's absolute numbers or across value layers.</p>
       </div>
       <script>
-        (function(){var c=document.getElementById('paper-table-card');if(!c)return;
-          c.querySelectorAll('.pt-btn').forEach(function(b){b.addEventListener('click',function(){
-            var l=b.dataset.l;c.querySelectorAll('.pt-btn').forEach(function(x){x.classList.toggle('on',x===b);});
-            c.querySelectorAll('.pt-table').forEach(function(t){t.hidden=(t.dataset.l!==l);});});});})();
+        (function(){
+          var card=document.getElementById('paper-table-card'); if(!card) return;
+          var sel=document.getElementById('pt-match'), body=document.getElementById('pt-body');
+          var state={layer:'xt', match:null}, data=null;
+          function fmt(n){return (Math.round(n*100)/100).toFixed(n%1===0&&Math.abs(n)<1?0:1);}
+          function render(){
+            if(!data||!state.match||!data[state.match]) return;
+            var rows=data[state.match][state.layer]||[];
+            body.innerHTML=rows.map(function(r,i){
+              var hi=i<3?' class="pt-hi"':'';
+              return '<tr'+hi+'><td class="pt-name">'+r.name+'</td>'
+                +'<td>'+r.gen+' <i>('+r.gen_pct+'%)</i></td>'
+                +'<td>'+r.recv+' <i>('+r.recv_pct+'%)</i></td>'
+                +'<td>'+r.sgg_sum.toFixed(1)+'</td><td class="pt-mu">'+r.sgg_mu.toFixed(2)+'</td>'
+                +'<td>'+r.sol_n+'</td><td>'+r.sol_sum.toFixed(1)+'</td><td class="pt-mu">'+r.sol_mu.toFixed(2)+'</td>'
+                +'<td class="pt-min">'+r.mins.toFixed(1)+'</td></tr>';
+            }).join('');
+          }
+          card.querySelectorAll('.pt-btn').forEach(function(b){b.addEventListener('click',function(){
+            state.layer=b.dataset.l; card.querySelectorAll('.pt-btn').forEach(function(x){x.classList.toggle('on',x===b);}); render();});});
+          sel.addEventListener('change',function(){state.match=sel.value; render();});
+          fetch('data/space_paper_table.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){
+            data=d; var labels=Object.keys(d);
+            sel.innerHTML=labels.map(function(l){return '<option value="'+l+'">'+l+'</option>';}).join('');
+            state.match=labels[0]; render();
+          }).catch(function(){body.innerHTML='<tr><td>could not load table data</td></tr>';});
+        })();
       </script>
       <p class="caption faintnote" style="margin-top:18px">Speeds via kloppy + a Savitzky–Golay velocity filter on 30 Hz PFF tracking (cross-checked, ±2 km/h); these were sustained runs into space, not top-end sprints. Touch xT from StatsBomb 2022 open events on the same Karun Singh grid the page uses. Leaderboard ranks reproduce this page's default views (same min-minutes gates).</p>
     </div>
