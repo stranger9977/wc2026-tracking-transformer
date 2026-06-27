@@ -1694,6 +1694,38 @@ async function buildNeymarEagle() {
   });
 }
 
+/* The BUILD-UP that precedes the Neymar goal (1:08–1:17 of the broadcast) — a continuous wide
+   shot before the camera cuts for the finish. Midfield possession, so xT is flat; the story is
+   movement/space. Reads surfaces/neymar_buildup.json + _paper_score. */
+async function buildNeymarBuildup() {
+  const el = $("#neymarbu-canvas"); if (!el) return;
+  let surf; try { surf = await loadJSON("data/surfaces/neymar_buildup.json?v=1"); } catch (e) { return; }
+  const t = surf.teams || {};
+  buildSpaceClipSVG(el, surf, {
+    id: "neymarbu", labelName: "Neymar",
+    readout: () => `The <b>build-up</b>, recovered from the broadcast by Eagle. The ball stays in <b>midfield</b> — the warm pocket is the space <b>${t.attack || "the attack"}</b> builds as the one-two opens up, not a shot forming. Positions are approximate (±1–2 m); only players in frame count.`,
+  });
+  if (typeof renderTeamLegend === "function") renderTeamLegend("neymarbu-teamleg", surf.teams);
+  const sc = surf.scorecard, scEl = $("#neymarbu-score");
+  if (sc && scEl) {
+    const tile = (v, l, sub) => `<div class="et"><div class="ev">${v}</div>`
+      + `<div class="el">${l}${sub ? `<span>${sub}</span>` : ""}</div></div>`;
+    scEl.innerHTML = `<div class="escore" style="margin-top:14px">`
+      + tile(`${sc.dangerous_share_pct}%`, `of the danger zone ${sc.attack_team} controlled`, "during the build-up")
+      + tile(`${sc.territorial_control_pct}%`, "territorial control", "of the players in frame")
+      + tile(`${sc.peak_value_m2}`, "m²·xT peak controlled danger", "as the one-two opens up")
+      + `</div>`;
+  }
+  buildPaperScore({
+    file: "data/surfaces/neymar_buildup_paper_score.json?v=1",
+    chartId: "neymarbu-chart", legendId: "neymarbu-legend", sogId: "neymarbu-sog", sggId: "neymarbu-sgg",
+    chartNote: "midfield possession — value stays low", pin: ["Neymar"], defaultPaperMode: "v",
+    note: `<b>V view (defended value).</b> Neymar tops the <b>on-ball</b> board — he's the focal point of the build-up, carrying and combining. Off-ball SOG is spread across the supporting runners (anonymized broadcast tracks); SGG too — this is collective construction, not one player dragging a marker.`,
+    noteXt: `<b>xT view.</b> The ball never leaves midfield, so threat-by-distance has almost nothing to score — every bar is small. That's the honest read: the build-up doesn't raise goal probability, it <b>sets up</b> the dribble-and-finish above, where xT spikes.`,
+    onBallNote: `In V, <b>Neymar leads</b> the on-ball value as the carrier; in xT it's near zero for everyone — midfield possession, far from goal.`,
+  });
+}
+
 async function buildLive() {
   const lensEl = $("#final-2lens"), liveEl = $("#live-efi");
   if (!lensEl && !liveEl) return;
@@ -2441,6 +2473,7 @@ if (!window.__spaceWIPPage) {
     await buildLive();
     // Eagle broadcast→tracking: Neymar ET goal (PFF can't supply it). Mbappe POC (buildEagleLive) stays stashed.
     buildNeymarEagle();
+    buildNeymarBuildup();
     // Bottom — two more 2022 World Cup moments, each with the full Di María treatment
     await Promise.allSettled([
       buildExtraClip({
