@@ -784,6 +784,10 @@ function buildSpaceClipSVG(host, surf, cfg) {
       const q = idxB.get(p.name) || p;
       const [sx, sy] = sc_m2s(lp(p.x, q.x, f), lp(p.y, q.y, f)), r = 9;
       const col = p.gk ? "#2bd4a0" : (p.att ? "#4ea0ff" : "#ff6b6b");
+      if (p.est) {   // off-camera player, position estimated — faded, hollow, dashed
+        dots += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${r - 1}" fill="${col}" fill-opacity="0.18" stroke="${col}" stroke-opacity="0.55" stroke-width="1.2" stroke-dasharray="2.5 2.5"/>`;
+        continue;
+      }
       dots += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${r + 2}" fill="#fff" fill-opacity="0.92"/>`
             + `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${r}" fill="${col}" stroke="#0a0e14" stroke-width="1.3"/>`;
       if (cfg.labelName && p.name === cfg.labelName) {
@@ -1694,6 +1698,39 @@ async function buildNeymarEagle() {
   });
 }
 
+/* The build-up to the Neymar goal, from the FULL-BROADCAST wide view (the highlight clip's goal
+   is the card above; this is the construction before it). Clean homography; ball climbs to the
+   edge of the box, then the broadcast zooms for the finish. Reads surfaces/neymar_buildup.json. */
+async function buildNeymarBuildup() {
+  const el = $("#neymarbu-canvas"); if (!el) return;
+  let surf; try { surf = await loadJSON("data/surfaces/neymar_buildup.json?v=3"); } catch (e) { return; }
+  const t = surf.teams || {};
+  buildSpaceClipSVG(el, surf, {
+    id: "neymarbu", labelName: "Neymar",
+    readout: () => `The <b>build-up</b>, recovered from the full broadcast by Eagle. <b>${t.attack || "the attack"}</b> works it forward and Neymar carries it in — the warm pocket is the danger building as he reaches the approach. The finish itself is the goal clip above (the broadcast zooms in). Positions ±1–2 m; only players in frame.`,
+  });
+  if (typeof renderTeamLegend === "function") renderTeamLegend("neymarbu-teamleg", surf.teams);
+  const sc = surf.scorecard, im = surf.impact, scEl = $("#neymarbu-score");
+  if (sc && scEl) {
+    const tile = (v, l, sub) => `<div class="et"><div class="ev">${v}</div>`
+      + `<div class="el">${l}${sub ? `<span>${sub}</span>` : ""}</div></div>`;
+    scEl.innerHTML = `<div class="escore" style="margin-top:14px">`
+      + tile(`+${(im ? im.xt_added : 0).toFixed(2)}`, "xT the build-up added",
+             `ball ${(im ? im.xt_start : 0).toFixed(2)} → ${(im ? im.xt_peak : 0).toFixed(2)} — to the edge of the box`)
+      + tile(`${sc.dangerous_share_pct}%`, `of the danger zone ${sc.attack_team} controlled`, "as the move built")
+      + tile(`${sc.territorial_control_pct}%`, "territorial control", "of the players in frame")
+      + `</div>`;
+  }
+  buildPaperScore({
+    file: "data/surfaces/neymar_buildup_paper_score.json?v=2",
+    chartId: "neymarbu-chart", legendId: "neymarbu-legend", sogId: "neymarbu-sog", sggId: "neymarbu-sgg",
+    chartNote: "ball climbs to the edge of the box", pin: ["Neymar"], defaultPaperMode: "v",
+    note: `<b>V view.</b> <b>Neymar owns the on-ball board (72%)</b> — he's the carrier driving the build-up. Off-ball SOG/SGG spread across the supporting runners (anonymized tracks): collective construction around him, not one dragger.`,
+    noteXt: `<b>xT view.</b> Neymar's on-ball share climbs to <b>92%</b> — as he carries into the approach, the threat he adds is almost all his. The off-ball runners sit low; the value here is the carry, not the runs.`,
+    onBallNote: `<b>Neymar carried the build-up.</b> 72% of the on-ball value in V, 92% in xT — from midfield to the edge of the box. The finish is the goal clip above.`,
+  });
+}
+
 async function buildLive() {
   const lensEl = $("#final-2lens"), liveEl = $("#live-efi");
   if (!lensEl && !liveEl) return;
@@ -2441,6 +2478,7 @@ if (!window.__spaceWIPPage) {
     await buildLive();
     // Eagle broadcast→tracking: Neymar ET goal (PFF can't supply it). Mbappe POC (buildEagleLive) stays stashed.
     buildNeymarEagle();
+    buildNeymarBuildup();
     // Bottom — two more 2022 World Cup moments, each with the full Di María treatment
     await Promise.allSettled([
       buildExtraClip({
