@@ -1272,6 +1272,66 @@
           }).catch(function(){body.innerHTML='<tr><td>could not load table data</td></tr>';});
         })();
       </script>
+      <div class="card qh-card" id="dsd-card">
+        <style>
+          #dsd-card .dsd-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0 10px}
+          #dsd-card .dsd-select{font-size:14px;font-weight:600;color:var(--ink);background:var(--bg-elev2);border:1px solid var(--border);border-radius:8px;padding:7px 12px;cursor:pointer}
+          #dsd-card .dsd-tog{display:flex;gap:8px}
+          #dsd-card .dsd-btn{font-size:14px;font-weight:700;color:var(--muted);background:var(--bg-elev2);border:1px solid var(--border);border-radius:8px;padding:6px 13px;cursor:pointer}
+          #dsd-card .dsd-btn.on{color:var(--bg);background:var(--accent);border-color:var(--accent)}
+          #dsd-card .dsd-row{display:grid;grid-template-columns:1.5fr 2fr auto;gap:10px;align-items:center;padding:5px 2px;font-size:15px}
+          #dsd-card .dsd-name{color:var(--ink);font-weight:600}
+          #dsd-card .dsd-name .lteam{color:var(--faint);font-weight:400;font-size:12.5px}
+          #dsd-card .dsd-name .lpos{color:var(--faint);font-size:11.5px}
+          #dsd-card .dsd-track{height:9px;background:var(--bg-elev2);border-radius:5px;overflow:hidden}
+          #dsd-card .dsd-fill{display:block;height:100%;background:#2bd4a0}
+          #dsd-card .dsd-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;min-width:96px}
+          #dsd-card .dsd-val .dsd-sub{color:var(--faint);font-size:12px;font-weight:400}
+        </style>
+        <h3>A defensive metric: Dangerous Space Denied <span class="qh-tag soft">WC2022 · knockout</span></h3>
+        <p class="caption qh-verdict">The mirror of <i>owning</i> space. When his team is <b>out of possession</b>, how much dangerous space (pitch control × xT) a player <b>contests</b> — positioning himself to deny the spots the opponent actually threatens. GKs excluded; xT value layer. <b>By nature it's a deep-block coverage metric:</b> centre-backs and screening midfielders dominate, and deep-defending sides rank above high pressers — read it as "who guards the dangerous space," not all of defending. <b>Shown for the knockout stage</b> — the cleanest read, since across all 64 games the per-90 rewards centre-backs of <i>besieged</i> weak teams (constant defending = workload, not quality). Switch the dropdown to see it.</p>
+        <div class="dsd-controls">
+          <select id="dsd-stage" class="dsd-select" aria-label="stage">
+            <option value="ko" selected>knockout</option>
+            <option value="all">all 64 games</option>
+            <option value="group">group stage</option>
+          </select>
+          <div class="dsd-tog">
+            <button class="dsd-btn on" data-v="per90">per defensive 90</button>
+            <button class="dsd-btn" data-v="total">tournament total</button>
+          </div>
+        </div>
+        <div class="dsd-board" id="dsd-board"></div>
+        <p class="qh-note"><b>Smell test:</b> it should read as a roll-call of elite centre-backs and screening midfielders. Per-defensive-90 gates at 60 min so small knockout samples don't spike it; tournament-total naturally rewards deep-run, defend-heavy sides. xT value only — V is defined by where defenders stand, which would be circular for a defensive metric.</p>
+      </div>
+      <script>
+        (function(){
+          var card=document.getElementById('dsd-card'); if(!card) return;
+          var board=document.getElementById('dsd-board'), stageSel=document.getElementById('dsd-stage');
+          var st={stage:'ko', view:'per90'}, data=null;
+          function render(){
+            if(!data) return;
+            var gate = st.view==='per90' ? (data.min_def_min||60) : 0;
+            var rows=(data.players||[]).map(function(p){return {p:p, s:p.stages[st.stage]||{}};})
+              .filter(function(r){return r.s && r.s.def_min>=gate && r.s[st.view]>0;})
+              .sort(function(a,b){return b.s[st.view]-a.s[st.view];}).slice(0,12);
+            var mx=Math.max.apply(null, rows.map(function(r){return r.s[st.view];}).concat([1]));
+            board.innerHTML=rows.map(function(r){
+              var v=r.s[st.view], w=Math.max(2, v/mx*100);
+              return '<div class="dsd-row"><span class="dsd-name">'+r.p.name+' <span class="lteam">'+(r.p.team||'')+'</span>'
+                +(r.p.pos?' <span class="lpos">'+r.p.pos+'</span>':'')+'</span>'
+                +'<span class="dsd-track"><span class="dsd-fill" style="width:'+w.toFixed(0)+'%"></span></span>'
+                +'<span class="dsd-val">'+Math.round(v).toLocaleString()+' <span class="dsd-sub">'+Math.round(r.s.def_min)+'m</span></span></div>';
+            }).join('') || '<p class="caption">no players over the minutes gate in this slice</p>';
+          }
+          card.querySelectorAll('.dsd-btn').forEach(function(b){b.addEventListener('click',function(){
+            st.view=b.dataset.v; card.querySelectorAll('.dsd-btn').forEach(function(x){x.classList.toggle('on',x===b);}); render();});});
+          stageSel.addEventListener('change',function(){st.stage=stageSel.value; render();});
+          fetch('data/space_dsd.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){data=d; render();})
+            .catch(function(){board.innerHTML='<p class="caption">could not load defensive data</p>';});
+        })();
+      </script>
+
       <p class="caption faintnote" style="margin-top:18px">Speeds via kloppy + a Savitzky–Golay velocity filter on 30 Hz PFF tracking (cross-checked, ±2 km/h); these were sustained runs into space, not top-end sprints. Touch xT from StatsBomb 2022 open events on the same Karun Singh grid the page uses. Leaderboard ranks reproduce this page's default views (same min-minutes gates).</p>
     </div>
   </div>
