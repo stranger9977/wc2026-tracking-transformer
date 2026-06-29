@@ -148,213 +148,213 @@
   }
  },
  "efi_2026": {
-  "n_matches_played": 24,
+  "n_matches_played": 73,
   "offers_in_behind": [
    {
     "team": "ESP",
-    "per_match": 194.0,
-    "matches": 1
+    "per_match": 156.3,
+    "matches": 3
    },
    {
     "team": "URU",
-    "per_match": 186.0,
-    "matches": 1
-   },
-   {
-    "team": "POR",
-    "per_match": 167.0,
-    "matches": 1
+    "per_match": 145.3,
+    "matches": 3
    },
    {
     "team": "TUR",
-    "per_match": 161.0,
-    "matches": 1
+    "per_match": 136.3,
+    "matches": 3
    },
    {
-    "team": "CAN",
-    "per_match": 128.0,
-    "matches": 1
-   },
-   {
-    "team": "USA",
-    "per_match": 127.0,
-    "matches": 1
-   },
-   {
-    "team": "GER",
-    "per_match": 124.0,
-    "matches": 1
-   },
-   {
-    "team": "SUI",
-    "per_match": 118.0,
-    "matches": 1
-   },
-   {
-    "team": "COL",
-    "per_match": 116.0,
-    "matches": 1
+    "team": "POR",
+    "per_match": 127.3,
+    "matches": 3
    },
    {
     "team": "MAR",
-    "per_match": 115.0,
-    "matches": 1
+    "per_match": 124.0,
+    "matches": 3
+   },
+   {
+    "team": "COL",
+    "per_match": 122.7,
+    "matches": 3
+   },
+   {
+    "team": "ENG",
+    "per_match": 119.0,
+    "matches": 3
+   },
+   {
+    "team": "CAN",
+    "per_match": 114.5,
+    "matches": 4
+   },
+   {
+    "team": "SEN",
+    "per_match": 114.3,
+    "matches": 3
+   },
+   {
+    "team": "ALG",
+    "per_match": 113.3,
+    "matches": 3
    }
   ],
   "offers_in_between": [
    {
-    "team": "ALG",
-    "per_match": 221.0,
-    "matches": 1
-   },
-   {
-    "team": "USA",
-    "per_match": 203.0,
-    "matches": 1
-   },
-   {
-    "team": "AUT",
-    "per_match": 201.0,
-    "matches": 1
-   },
-   {
-    "team": "TUN",
-    "per_match": 192.0,
-    "matches": 1
-   },
-   {
-    "team": "PAN",
-    "per_match": 182.0,
-    "matches": 1
-   },
-   {
-    "team": "GER",
-    "per_match": 181.0,
-    "matches": 1
-   },
-   {
-    "team": "NZL",
-    "per_match": 180.0,
-    "matches": 1
-   },
-   {
     "team": "MEX",
-    "per_match": 179.0,
-    "matches": 1
+    "per_match": 190.0,
+    "matches": 3
    },
    {
     "team": "ARG",
-    "per_match": 175.0,
-    "matches": 1
+    "per_match": 180.7,
+    "matches": 3
    },
    {
     "team": "COL",
-    "per_match": 175.0,
-    "matches": 1
+    "per_match": 173.3,
+    "matches": 3
+   },
+   {
+    "team": "MAR",
+    "per_match": 166.0,
+    "matches": 3
+   },
+   {
+    "team": "ESP",
+    "per_match": 166.0,
+    "matches": 3
+   },
+   {
+    "team": "ALG",
+    "per_match": 165.3,
+    "matches": 3
+   },
+   {
+    "team": "BRA",
+    "per_match": 162.0,
+    "matches": 3
+   },
+   {
+    "team": "POR",
+    "per_match": 159.3,
+    "matches": 3
+   },
+   {
+    "team": "USA",
+    "per_match": 158.0,
+    "matches": 3
+   },
+   {
+    "team": "NZL",
+    "per_match": 157.0,
+    "matches": 3
    }
   ],
   "receptions_in_behind": [
    {
     "team": "ESP",
-    "per_match": 29.0,
-    "matches": 1
+    "per_match": 18.3,
+    "matches": 3
+   },
+   {
+    "team": "ENG",
+    "per_match": 17.7,
+    "matches": 3
    },
    {
     "team": "USA",
-    "per_match": 21.0,
-    "matches": 1
+    "per_match": 17.3,
+    "matches": 3
    },
    {
-    "team": "SUI",
-    "per_match": 20.0,
-    "matches": 1
+    "team": "FRA",
+    "per_match": 17.0,
+    "matches": 3
    },
    {
     "team": "POR",
-    "per_match": 19.0,
-    "matches": 1
+    "per_match": 15.7,
+    "matches": 3
    },
    {
-    "team": "GER",
-    "per_match": 17.0,
-    "matches": 1
-   },
-   {
-    "team": "IRN",
-    "per_match": 17.0,
-    "matches": 1
-   },
-   {
-    "team": "NOR",
-    "per_match": 17.0,
-    "matches": 1
+    "team": "SUI",
+    "per_match": 15.3,
+    "matches": 3
    },
    {
     "team": "CAN",
     "per_match": 15.0,
-    "matches": 1
+    "matches": 4
    },
    {
     "team": "URU",
     "per_match": 15.0,
-    "matches": 1
+    "matches": 3
    },
    {
     "team": "AUT",
-    "per_match": 15.0,
-    "matches": 1
+    "per_match": 14.3,
+    "matches": 3
+   },
+   {
+    "team": "NED",
+    "per_match": 14.0,
+    "matches": 3
    }
   ],
   "linebreaks_completed": [
    {
     "team": "USA",
-    "per_match": 10.0,
-    "matches": 1
-   },
-   {
-    "team": "ESP",
-    "per_match": 8.0,
-    "matches": 1
+    "per_match": 7.0,
+    "matches": 3
    },
    {
     "team": "POR",
-    "per_match": 8.0,
-    "matches": 1
-   },
-   {
-    "team": "GER",
     "per_match": 7.0,
-    "matches": 1
+    "matches": 3
    },
    {
-    "team": "SWE",
+    "team": "ENG",
     "per_match": 7.0,
-    "matches": 1
+    "matches": 3
    },
    {
-    "team": "SEN",
-    "per_match": 7.0,
-    "matches": 1
-   },
-   {
-    "team": "AUT",
-    "per_match": 7.0,
-    "matches": 1
-   },
-   {
-    "team": "GHA",
-    "per_match": 7.0,
-    "matches": 1
-   },
-   {
-    "team": "CAN",
+    "team": "ESP",
     "per_match": 6.0,
-    "matches": 1
+    "matches": 3
    },
    {
     "team": "SUI",
-    "per_match": 6.0,
-    "matches": 1
+    "per_match": 5.7,
+    "matches": 3
+   },
+   {
+    "team": "URU",
+    "per_match": 5.7,
+    "matches": 3
+   },
+   {
+    "team": "KOR",
+    "per_match": 5.3,
+    "matches": 3
+   },
+   {
+    "team": "MAR",
+    "per_match": 5.3,
+    "matches": 3
+   },
+   {
+    "team": "BRA",
+    "per_match": 5.0,
+    "matches": 3
+   },
+   {
+    "team": "JPN",
+    "per_match": 5.0,
+    "matches": 3
    }
   ]
  }

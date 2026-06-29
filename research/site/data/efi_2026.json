@@ -1,277 +1,277 @@
 {
  "source": "FIFA Enhanced Football Intelligence (EFI), WC2026 \u2014 Bustami/efi-fifa-data-wc-2026 (master)",
- "fetched": "2026-06-18",
+ "fetched": "2026-06-29",
  "note": "2026 EFI is RICH + LIVE (threat, xg) \u2014 unlike 2022 which was physical-only (distance/sprints/top speed). This is the live closing hook: the off-ball \"threat\" idea our space metrics chase, now measured in-tournament. Values are per-match averages.",
- "n_matches": 24,
+ "n_matches": 73,
  "n_teams": 48,
- "n_player_rows": 1226,
+ "n_player_rows": 3756,
  "team_threat_leaders": [
   {
    "team": "BEL",
-   "threat": 61.19,
-   "xg": 0.0,
-   "dist_km": 115.2,
-   "matches": 1
+   "threat": 30.76,
+   "xg": 1.83,
+   "dist_km": 115.6,
+   "matches": 3
   },
   {
    "team": "EGY",
-   "threat": 38.82,
-   "xg": 0.0,
-   "dist_km": 114.0,
-   "matches": 1
+   "threat": 21.59,
+   "xg": 1.01,
+   "dist_km": 114.5,
+   "matches": 3
   },
   {
    "team": "TUR",
-   "threat": 24.82,
-   "xg": 1.66,
-   "dist_km": 112.5,
-   "matches": 1
+   "threat": 20.78,
+   "xg": 1.83,
+   "dist_km": 116.9,
+   "matches": 3
   },
   {
    "team": "ESP",
-   "threat": 24.42,
-   "xg": 2.26,
-   "dist_km": 115.5,
-   "matches": 1
-  },
-  {
-   "team": "URU",
-   "threat": 23.0,
-   "xg": 1.5,
-   "dist_km": 110.9,
-   "matches": 1
-  },
-  {
-   "team": "CAN",
-   "threat": 18.52,
-   "xg": 1.49,
-   "dist_km": 111.3,
-   "matches": 1
-  },
-  {
-   "team": "SUI",
-   "threat": 17.18,
-   "xg": 3.14,
-   "dist_km": 109.4,
-   "matches": 1
+   "threat": 18.61,
+   "xg": 2.19,
+   "dist_km": 114.1,
+   "matches": 3
   },
   {
    "team": "NED",
-   "threat": 17.03,
-   "xg": 0.63,
-   "dist_km": 102.9,
-   "matches": 1
+   "threat": 17.83,
+   "xg": 1.55,
+   "dist_km": 106.0,
+   "matches": 3
   },
   {
-   "team": "USA",
-   "threat": 16.41,
-   "xg": 1.88,
-   "dist_km": 119.9,
-   "matches": 1
+   "team": "CAN",
+   "threat": 17.0,
+   "xg": 2.08,
+   "dist_km": 113.6,
+   "matches": 4
   },
   {
-   "team": "MEX",
-   "threat": 16.38,
-   "xg": 1.78,
-   "dist_km": 107.3,
-   "matches": 1
+   "team": "URU",
+   "threat": 15.91,
+   "xg": 1.32,
+   "dist_km": 112.5,
+   "matches": 3
   },
   {
-   "team": "POR",
-   "threat": 16.13,
-   "xg": 0.57,
-   "dist_km": 109.8,
-   "matches": 1
+   "team": "SUI",
+   "threat": 14.92,
+   "xg": 2.22,
+   "dist_km": 111.4,
+   "matches": 3
   },
   {
-   "team": "AUT",
-   "threat": 15.32,
-   "xg": 1.93,
-   "dist_km": 120.4,
-   "matches": 1
+   "team": "KOR",
+   "threat": 14.71,
+   "xg": 1.13,
+   "dist_km": 111.7,
+   "matches": 3
+  },
+  {
+   "team": "GER",
+   "threat": 14.42,
+   "xg": 2.46,
+   "dist_km": 118.9,
+   "matches": 3
+  },
+  {
+   "team": "ENG",
+   "threat": 14.03,
+   "xg": 2.24,
+   "dist_km": 113.5,
+   "matches": 3
+  },
+  {
+   "team": "FRA",
+   "threat": 13.9,
+   "xg": 1.65,
+   "dist_km": 112.3,
+   "matches": 3
   }
  ],
  "team_distance_leaders": [
   {
-   "team": "AUT",
-   "threat": 15.32,
-   "xg": 1.93,
-   "dist_km": 120.4,
-   "matches": 1
-  },
-  {
-   "team": "FRA",
-   "threat": 7.23,
-   "xg": 1.62,
-   "dist_km": 120.2,
-   "matches": 1
-  },
-  {
    "team": "USA",
-   "threat": 16.41,
-   "xg": 1.88,
-   "dist_km": 119.9,
-   "matches": 1
-  },
-  {
-   "team": "JOR",
-   "threat": 7.22,
-   "xg": 0.53,
-   "dist_km": 119.2,
-   "matches": 1
-  },
-  {
-   "team": "GHA",
-   "threat": 8.04,
-   "xg": 1.07,
-   "dist_km": 119.0,
-   "matches": 1
-  },
-  {
-   "team": "CZE",
-   "threat": 10.63,
-   "xg": 0.64,
-   "dist_km": 117.6,
-   "matches": 1
-  },
-  {
-   "team": "SCO",
-   "threat": 7.91,
-   "xg": 0.91,
-   "dist_km": 117.6,
-   "matches": 1
-  },
-  {
-   "team": "PAN",
    "threat": 12.8,
-   "xg": 0.77,
-   "dist_km": 117.3,
-   "matches": 1
+   "xg": 1.75,
+   "dist_km": 119.5,
+   "matches": 3
   },
   {
-   "team": "ENG",
-   "threat": 8.59,
-   "xg": 3.33,
-   "dist_km": 117.0,
-   "matches": 1
+   "team": "GER",
+   "threat": 14.42,
+   "xg": 2.46,
+   "dist_km": 118.9,
+   "matches": 3
   },
   {
-   "team": "SEN",
-   "threat": 11.11,
-   "xg": 0.39,
-   "dist_km": 116.7,
-   "matches": 1
-  },
-  {
-   "team": "AUS",
-   "threat": 4.32,
-   "xg": 0.99,
-   "dist_km": 116.6,
-   "matches": 1
+   "team": "TUR",
+   "threat": 20.78,
+   "xg": 1.83,
+   "dist_km": 116.9,
+   "matches": 3
   },
   {
    "team": "NOR",
-   "threat": 9.93,
-   "xg": 2.41,
+   "threat": 7.69,
+   "xg": 1.79,
+   "dist_km": 116.7,
+   "matches": 3
+  },
+  {
+   "team": "NZL",
+   "threat": 8.53,
+   "xg": 0.83,
    "dist_km": 116.3,
-   "matches": 1
+   "matches": 3
+  },
+  {
+   "team": "SCO",
+   "threat": 8.61,
+   "xg": 0.78,
+   "dist_km": 116.2,
+   "matches": 3
+  },
+  {
+   "team": "BEL",
+   "threat": 30.76,
+   "xg": 1.83,
+   "dist_km": 115.6,
+   "matches": 3
+  },
+  {
+   "team": "AUS",
+   "threat": 6.93,
+   "xg": 0.66,
+   "dist_km": 115.3,
+   "matches": 3
+  },
+  {
+   "team": "PAR",
+   "threat": 7.09,
+   "xg": 0.42,
+   "dist_km": 114.8,
+   "matches": 3
+  },
+  {
+   "team": "IRN",
+   "threat": 8.42,
+   "xg": 1.52,
+   "dist_km": 114.8,
+   "matches": 3
+  },
+  {
+   "team": "CZE",
+   "threat": 10.64,
+   "xg": 0.81,
+   "dist_km": 114.7,
+   "matches": 3
+  },
+  {
+   "team": "EGY",
+   "threat": 21.59,
+   "xg": 1.01,
+   "dist_km": 114.5,
+   "matches": 3
   }
  ],
  "player_threat_leaders": [
   {
    "player": "Charles DE KETELAERE",
    "team": "BEL",
-   "threat": 14.73,
-   "xg": 0.0,
-   "matches": 1,
+   "threat": 5.84,
+   "xg": 0.1,
+   "matches": 3,
+   "pos": "Forward"
+  },
+  {
+   "player": "Romelu LUKAKU",
+   "team": "BEL",
+   "threat": 5.33,
+   "xg": 0.13,
+   "matches": 3,
    "pos": "Forward"
   },
   {
    "player": "OMAR MARMOUSH",
    "team": "EGY",
-   "threat": 12.78,
-   "xg": 0.0,
-   "matches": 1,
+   "threat": 5.3,
+   "xg": 0.03,
+   "matches": 3,
    "pos": "Forward"
   },
   {
-   "player": "Kevin DE BRUYNE",
-   "team": "BEL",
-   "threat": 9.39,
-   "xg": 0.0,
-   "matches": 1,
-   "pos": "Midfielder"
+   "player": "Mikel OYARZABAL",
+   "team": "ESP",
+   "threat": 5.13,
+   "xg": 0.57,
+   "matches": 3,
+   "pos": "Forward"
+  },
+  {
+   "player": "Brian BROBBEY",
+   "team": "NED",
+   "threat": 4.96,
+   "xg": 0.47,
+   "matches": 3,
+   "pos": "Forward"
   },
   {
    "player": "Deniz GUL",
    "team": "TUR",
-   "threat": 7.97,
-   "xg": 0.0,
-   "matches": 1,
+   "threat": 4.79,
+   "xg": 0.23,
+   "matches": 3,
    "pos": "Forward"
   },
   {
    "player": "Igor Sergeev",
    "team": "UZB",
-   "threat": 7.73,
+   "threat": 4.77,
    "xg": 0.0,
-   "matches": 1,
+   "matches": 3,
    "pos": "Forward"
   },
   {
-   "player": "Leandro TROSSARD",
-   "team": "BEL",
-   "threat": 7.59,
-   "xg": 0.0,
-   "matches": 1,
+   "player": "Ricardo PEPI",
+   "team": "USA",
+   "threat": 4.38,
+   "xg": 0.13,
+   "matches": 3,
    "pos": "Forward"
   },
   {
-   "player": "Youri TIELEMANS",
-   "team": "BEL",
-   "threat": 7.2,
-   "xg": 0.0,
-   "matches": 1,
+   "player": "Luis SUAREZ",
+   "team": "COL",
+   "threat": 4.11,
+   "xg": 0.19,
+   "matches": 3,
+   "pos": "Forward"
+  },
+  {
+   "player": "Breel EMBOLO",
+   "team": "SUI",
+   "threat": 4.09,
+   "xg": 0.65,
+   "matches": 3,
+   "pos": "Forward"
+  },
+  {
+   "player": "MOSTAFA ZICO",
+   "team": "EGY",
+   "threat": 3.85,
+   "xg": 0.19,
+   "matches": 3,
    "pos": "Midfielder"
   },
   {
-   "player": "Romelu LUKAKU",
-   "team": "BEL",
-   "threat": 7.01,
-   "xg": 0.0,
-   "matches": 1,
-   "pos": "Forward"
-  },
-  {
-   "player": "Rodrigo AGUIRRE",
-   "team": "URU",
-   "threat": 6.79,
-   "xg": 0.0,
-   "matches": 1,
-   "pos": "Forward"
-  },
-  {
-   "player": "Armando GONZALEZ",
-   "team": "MEX",
-   "threat": 6.57,
-   "xg": 0.0,
-   "matches": 1,
-   "pos": "Forward"
-  },
-  {
-   "player": "Jeremy DOKU",
-   "team": "BEL",
-   "threat": 6.53,
-   "xg": 0.0,
-   "matches": 1,
-   "pos": "Forward"
-  },
-  {
-   "player": "HAMZA ABDELKARIM",
-   "team": "EGY",
-   "threat": 6.44,
-   "xg": 0.0,
-   "matches": 1,
+   "player": "Kerem AKTURKOGLU",
+   "team": "TUR",
+   "threat": 3.75,
+   "xg": 0.2,
+   "matches": 3,
    "pos": "Forward"
   }
  ],
