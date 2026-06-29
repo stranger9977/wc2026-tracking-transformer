@@ -22,7 +22,7 @@ from collections import defaultdict
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "data", "efi_2026_src", "wc2026_efi.csv")
 OUT = os.path.join(ROOT, "site", "data", "efi_2026.json")
-FETCHED = "2026-06-18"
+FETCHED = "2026-06-29"
 
 
 def fnum(x):
