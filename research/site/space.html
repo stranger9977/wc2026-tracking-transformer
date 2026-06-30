@@ -942,7 +942,7 @@
               var mxp=Math.max.apply(null, pk.map(function(r){return r.in_behind;}).concat([1]));
               html=pk.map(function(r){
                 var w=Math.max(2,r.in_behind/mxp*100);
-                return '<div class="er2-row"><span class="er2-name">'+r.name+'</span>'
+                return '<div class="er2-row"><span class="er2-name">'+r.name+' <span class="sub">'+(r.team||'')+'</span></span>'
                   +'<span class="er2-track"><span class="er2-fill" style="width:'+w.toFixed(0)+'%"></span></span>'
                   +'<span class="er2-val">'+r.in_behind+'</span></div>';
               }).join('');
@@ -954,7 +954,7 @@
               var mx=Math.max.apply(null, rows.map(function(r){return r[key];}).concat([1]));
               html=rows.map(function(p){
                 var v=p[key], w=Math.max(2,v/mx*100);
-                var sub = st.v==='pm' ? p.matches+' matches' : (p.in_behind_pm+'/match · '+p.matches+'m');
+                var sub = (p.team||'') + ' · ' + (st.v==='pm' ? p.matches+' matches' : (p.in_behind_pm+'/match · '+p.matches+'m'));
                 return '<div class="er2-row"><span class="er2-name">'+p.name+' <span class="sub">'+sub+'</span></span>'
                   +'<span class="er2-track"><span class="er2-fill" style="width:'+w.toFixed(0)+'%"></span></span>'
                   +'<span class="er2-val">'+v+'</span></div>';
@@ -1484,6 +1484,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=89"></script>
+<script type="module" src="assets/js/space.js?v=90"></script>
 </body>
 </html>

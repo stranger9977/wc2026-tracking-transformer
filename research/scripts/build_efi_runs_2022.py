@@ -28,14 +28,21 @@ def nice(n):
     return " ".join(w.title() for w in toks)
 
 
+HDR = re.compile(r"offers\s*&+\s*receptions\s+([A-Za-zÀ-ÿ' .]+?)\s*$", re.I)
+
+
 def parse_offers(txt_path):
-    """Yield (player_name, in_behind, received, total) from Offers & Receptions tables."""
+    """Yield (player_name, team, in_behind, received, total) from Offers & Receptions tables."""
     out = []
     in_section = False
+    team = ""
     for ln in open(txt_path, errors="ignore"):
         low = ln.lower()
         if "offers & receptions" in low or "offers && receptions" in low:
-            in_section = True; continue
+            in_section = True
+            hm = HDR.search(ln.strip())
+            team = hm.group(1).strip() if hm else ""
+            continue
         if in_section and ("distributions" in low or "out of possession" in low
                            or "individual data" in low or "physical" in low):
             in_section = False
@@ -52,7 +59,7 @@ def parse_offers(txt_path):
         # sanity: the 6 movement types + no_move should ~= total
         if abs((in_front + in_between + out_in + in_out + in_behind + no_move) - total) > 2:
             continue
-        out.append((nice(name), in_behind, received, total))
+        out.append((nice(name), team, in_behind, received, total))
     return out
 
 
@@ -65,23 +72,25 @@ for txt in sorted(glob.glob(f"{PDF_DIR}/*.pdf.txt")):
         continue
     n_files += 1
     seen = {}
-    for nm, ib, rec, tot in rows:
+    for nm, team, ib, rec, tot in rows:
         # within one match a player appears once; guard against dupes
         if nm in seen:
             continue
         seen[nm] = ib
-        a = agg.setdefault(nm, {"in_behind": 0, "received": 0, "offers": 0, "m": 0, "peak": 0})
+        a = agg.setdefault(nm, {"in_behind": 0, "received": 0, "offers": 0, "m": 0, "peak": 0, "team": ""})
         a["in_behind"] += ib; a["received"] += rec; a["offers"] += tot; a["m"] += 1
+        if team:
+            a["team"] = team
         if ib > a["peak"]:
             a["peak"] = ib
-        per_match_peak.append({"name": nm, "in_behind": ib})
+        per_match_peak.append({"name": nm, "team": team, "in_behind": ib})
 
 players = []
 for nm, a in agg.items():
     if a["m"] < 1:
         continue
     players.append({
-        "name": nm, "matches": a["m"],
+        "name": nm, "team": a["team"], "matches": a["m"],
         "in_behind": a["in_behind"], "in_behind_pm": round(a["in_behind"] / a["m"], 1),
         "received": a["received"], "offers_total": a["offers"], "peak": a["peak"],
     })
