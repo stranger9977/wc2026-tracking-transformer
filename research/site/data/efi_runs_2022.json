@@ -1,653 +1,6146 @@
 {
- "metric": "Off-ball runs in behind (FIFA EFI, WC2022)",
- "definition": "FIFA Enhanced Football Intelligence post-match reports publish each team's TOP 'in behind' mover per match (the player who most often ran to receive behind the defensive line). This board sums those per-match team-leading counts, and tracks each player's single-match peak. It's the 2022 companion to the full per-player live-2026 board \u2014 narrower (team leaders only) but FIFA's official figures.",
- "source": "FIFA Training Centre \u2014 WC2022 post-match summary reports (PDF)",
- "grain": "per-match team leader (2 players/match)",
- "n_matches": 61,
+ "metric": "Off-ball runs in behind (FIFA EFI, WC2022) \u2014 full per-player",
+ "definition": "FIFA Enhanced Football Intelligence, parsed from every WC2022 post-match report's INDIVIDUAL DATA 'Offers & Receptions' table: each player's 'In Behind' offers \u2014 off-ball runs made to receive the ball behind the defensive line \u2014 summed across the tournament, with per-match average. The 2022 companion to the live-2026 board.",
+ "source": "FIFA Training Centre \u2014 WC2022 post-match summary reports (PDF, INDIVIDUAL DATA)",
+ "grain": "every player, every match",
+ "n_match_reports": 62,
  "players": [
   {
    "name": "Ivan Perisic",
-   "in_behind_total": 130,
-   "matches_led": 4,
-   "peak": 41,
-   "peak_match": "Japan v Croatia"
-  },
-  {
-   "name": "Timothy Weah",
-   "in_behind_total": 110,
-   "matches_led": 3,
-   "peak": 44,
-   "peak_match": "USA v Wales"
-  },
-  {
-   "name": "Julian Alvarez",
-   "in_behind_total": 96,
-   "matches_led": 3,
-   "peak": 40,
-   "peak_match": "Poland v Argentina"
-  },
-  {
-   "name": "Feras Albrikan",
-   "in_behind_total": 95,
-   "matches_led": 3,
-   "peak": 56,
-   "peak_match": "Poland v Saudi Arabia"
-  },
-  {
-   "name": "Youssef En-Nesyri",
-   "in_behind_total": 93,
-   "matches_led": 4,
-   "peak": 25,
-   "peak_match": "France v Morocco"
-  },
-  {
-   "name": "Darwin Nunez",
-   "in_behind_total": 93,
-   "matches_led": 3,
-   "peak": 45,
-   "peak_match": "Uruguay v Korea Republic"
-  },
-  {
-   "name": "Joao Felix",
-   "in_behind_total": 80,
-   "matches_led": 2,
-   "peak": 47,
-   "peak_match": "Morocco v Portugal"
-  },
-  {
-   "name": "Angel Di Maria",
-   "in_behind_total": 79,
-   "matches_led": 2,
-   "peak": 51,
-   "peak_match": "Argentina v Saudi Arabia"
-  },
-  {
-   "name": "Kylian Mbappe",
-   "in_behind_total": 74,
-   "matches_led": 3,
-   "peak": 26,
-   "peak_match": "France v Morocco"
-  },
-  {
-   "name": "Olivier Giroud",
-   "in_behind_total": 71,
-   "matches_led": 3,
-   "peak": 26,
-   "peak_match": "France v Australia"
-  },
-  {
-   "name": "Richarlison",
-   "in_behind_total": 69,
-   "matches_led": 2,
-   "peak": 36,
-   "peak_match": "Brazil v Switzerland"
-  },
-  {
-   "name": "Guesung Cho",
-   "in_behind_total": 66,
-   "matches_led": 2,
-   "peak": 35,
-   "peak_match": "Brazil v Korea Republic"
-  },
-  {
-   "name": "Jesper Lindstrom",
-   "in_behind_total": 66,
-   "matches_led": 2,
-   "peak": 39,
-   "peak_match": "France v Denmark"
-  },
-  {
-   "name": "Aleksandar Mitrovic",
-   "in_behind_total": 65,
-   "matches_led": 3,
-   "peak": 29,
-   "peak_match": "Cameroon v Serbia"
+   "matches": 7,
+   "in_behind": 191,
+   "in_behind_pm": 27.3,
+   "received": 123,
+   "offers_total": 415,
+   "peak": 41
   },
   {
    "name": "Andrej Kramaric",
-   "in_behind_total": 57,
-   "matches_led": 2,
-   "peak": 32,
-   "peak_match": "Croatia v Belgium"
+   "matches": 7,
+   "in_behind": 165,
+   "in_behind_pm": 23.6,
+   "received": 109,
+   "offers_total": 462,
+   "peak": 37
   },
   {
-   "name": "Cody Gakpo",
-   "in_behind_total": 57,
-   "matches_led": 2,
-   "peak": 30,
-   "peak_match": "Senegal v Netherlands"
+   "name": "Julian Alvarez",
+   "matches": 7,
+   "in_behind": 146,
+   "in_behind_pm": 20.9,
+   "received": 63,
+   "offers_total": 263,
+   "peak": 40
   },
   {
-   "name": "Inaki Williams",
-   "in_behind_total": 54,
-   "matches_led": 2,
-   "peak": 29,
-   "peak_match": "Portugal v Ghana"
+   "name": "Youssef En-Nesyri",
+   "matches": 7,
+   "in_behind": 145,
+   "in_behind_pm": 20.7,
+   "received": 22,
+   "offers_total": 214,
+   "peak": 25
   },
   {
-   "name": "Memphis Depay",
-   "in_behind_total": 53,
-   "matches_led": 2,
-   "peak": 31,
-   "peak_match": "Netherlands v Qatar"
+   "name": "Kylian Mbappe",
+   "matches": 7,
+   "in_behind": 130,
+   "in_behind_pm": 18.6,
+   "received": 196,
+   "offers_total": 459,
+   "peak": 26
   },
   {
-   "name": "Mehdi Taremi",
-   "in_behind_total": 53,
-   "matches_led": 3,
-   "peak": 24,
-   "peak_match": "Wales v IR Iran"
+   "name": "Timothy Weah",
+   "matches": 4,
+   "in_behind": 129,
+   "in_behind_pm": 32.2,
+   "received": 82,
+   "offers_total": 293,
+   "peak": 44
   },
   {
-   "name": "Daizen Maeda",
-   "in_behind_total": 52,
-   "matches_led": 2,
-   "peak": 35,
-   "peak_match": "Japan v Croatia"
-  },
-  {
-   "name": "Boulaye Dia",
-   "in_behind_total": 52,
-   "matches_led": 2,
-   "peak": 36,
-   "peak_match": "Qatar v Senegal"
-  },
-  {
-   "name": "Kieffer Moore",
-   "in_behind_total": 52,
-   "matches_led": 2,
-   "peak": 35,
-   "peak_match": "Wales v IR Iran"
-  },
-  {
-   "name": "Bukayo Saka",
-   "in_behind_total": 51,
-   "matches_led": 2,
-   "peak": 28,
-   "peak_match": "England v Senegal"
+   "name": "Joao Felix",
+   "matches": 4,
+   "in_behind": 125,
+   "in_behind_pm": 31.2,
+   "received": 95,
+   "offers_total": 392,
+   "peak": 47
   },
   {
    "name": "Hakim Ziyech",
-   "in_behind_total": 50,
-   "matches_led": 2,
-   "peak": 33,
-   "peak_match": "Belgium v Morocco"
+   "matches": 7,
+   "in_behind": 118,
+   "in_behind_pm": 16.9,
+   "received": 156,
+   "offers_total": 442,
+   "peak": 33
   },
   {
-   "name": "Henry Martin",
-   "in_behind_total": 50,
-   "matches_led": 1,
-   "peak": 50,
-   "peak_match": "Saudi Arabia v Mexico"
-  },
-  {
-   "name": "Thomas Mueller",
-   "in_behind_total": 49,
-   "matches_led": 1,
-   "peak": 49,
-   "peak_match": "Costa Rica v Germany"
-  },
-  {
-   "name": "Bryan Mbeumo",
-   "in_behind_total": 48,
-   "matches_led": 2,
-   "peak": 25,
-   "peak_match": "Switzerland v Cameroon"
-  },
-  {
-   "name": "Robert Lewandowski",
-   "in_behind_total": 48,
-   "matches_led": 2,
-   "peak": 35,
-   "peak_match": "Poland v Saudi Arabia"
-  },
-  {
-   "name": "Mitchell Duke",
-   "in_behind_total": 44,
-   "matches_led": 2,
-   "peak": 24,
-   "peak_match": "Tunisia v Australia"
-  },
-  {
-   "name": "Yuki Soma",
-   "in_behind_total": 43,
-   "matches_led": 1,
-   "peak": 43,
-   "peak_match": "Japan v Costa Rica"
-  },
-  {
-   "name": "Jonathan David",
-   "in_behind_total": 43,
-   "matches_led": 1,
-   "peak": 43,
-   "peak_match": "Belgium v Canada"
-  },
-  {
-   "name": "Michy Batshuayi",
-   "in_behind_total": 43,
-   "matches_led": 1,
-   "peak": 43,
-   "peak_match": "Belgium v Morocco"
-  },
-  {
-   "name": "Alphonso Davies",
-   "in_behind_total": 41,
-   "matches_led": 1,
-   "peak": 41,
-   "peak_match": "Canada v Morocco"
-  },
-  {
-   "name": "Raphinha",
-   "in_behind_total": 40,
-   "matches_led": 1,
-   "peak": 40,
-   "peak_match": "Brazil v Serbia"
-  },
-  {
-   "name": "Issam Jebali",
-   "in_behind_total": 40,
-   "matches_led": 1,
-   "peak": 40,
-   "peak_match": "Tunisia v Australia"
-  },
-  {
-   "name": "Hirving Lozano",
-   "in_behind_total": 39,
-   "matches_led": 2,
-   "peak": 22,
-   "peak_match": "Mexico v Poland"
-  },
-  {
-   "name": "Ansu Fati",
-   "in_behind_total": 39,
-   "matches_led": 1,
-   "peak": 39,
-   "peak_match": "Japan v Spain"
-  },
-  {
-   "name": "Ruben Vargas",
-   "in_behind_total": 38,
-   "matches_led": 2,
-   "peak": 20,
-   "peak_match": "Serbia v Switzerland"
-  },
-  {
-   "name": "Ricardo Horta",
-   "in_behind_total": 37,
-   "matches_led": 1,
-   "peak": 37,
-   "peak_match": "Korea Republic v Portugal"
-  },
-  {
-   "name": "Raheem Sterling",
-   "in_behind_total": 36,
-   "matches_led": 1,
-   "peak": 36,
-   "peak_match": "England v IR Iran"
-  },
-  {
-   "name": "Phil Foden",
-   "in_behind_total": 35,
-   "matches_led": 1,
-   "peak": 35,
-   "peak_match": "Wales v England"
-  },
-  {
-   "name": "Michael Estrada",
-   "in_behind_total": 34,
-   "matches_led": 1,
-   "peak": 34,
-   "peak_match": "Qatar v Ecuador"
-  },
-  {
-   "name": "Cristiano Ronaldo",
-   "in_behind_total": 33,
-   "matches_led": 1,
-   "peak": 33,
-   "peak_match": "Portugal v Ghana"
-  },
-  {
-   "name": "Ismaila Sarr",
-   "in_behind_total": 33,
-   "matches_led": 1,
-   "peak": 33,
-   "peak_match": "Senegal v Netherlands"
-  },
-  {
-   "name": "Osman Bukari",
-   "in_behind_total": 32,
-   "matches_led": 1,
-   "peak": 32,
-   "peak_match": "Ghana v Uruguay"
-  },
-  {
-   "name": "Joakim Maehle",
-   "in_behind_total": 31,
-   "matches_led": 1,
-   "peak": 31,
-   "peak_match": "Denmark v Tunisia"
-  },
-  {
-   "name": "Haji Wright",
-   "in_behind_total": 31,
-   "matches_led": 1,
-   "peak": 31,
-   "peak_match": "England v USA"
-  },
-  {
-   "name": "Gabriel Jesus",
-   "in_behind_total": 31,
-   "matches_led": 1,
-   "peak": 31,
-   "peak_match": "Cameroon v Brazil"
-  },
-  {
-   "name": "Timothy Castagne",
-   "in_behind_total": 30,
-   "matches_led": 1,
-   "peak": 30,
-   "peak_match": "Belgium v Canada"
-  },
-  {
-   "name": "Lucas Paqueta",
-   "in_behind_total": 29,
-   "matches_led": 1,
-   "peak": 29,
-   "peak_match": "Croatia v Brazil"
-  },
-  {
-   "name": "Xherdan Shaqiri",
-   "in_behind_total": 29,
-   "matches_led": 1,
-   "peak": 29,
-   "peak_match": "Switzerland v Cameroon"
-  },
-  {
-   "name": "Uijo Hwang",
-   "in_behind_total": 28,
-   "matches_led": 1,
-   "peak": 28,
-   "peak_match": "Uruguay v Korea Republic"
-  },
-  {
-   "name": "Jude Bellingham",
-   "in_behind_total": 27,
-   "matches_led": 1,
-   "peak": 27,
-   "peak_match": "England v France"
-  },
-  {
-   "name": "Anis Slimane",
-   "in_behind_total": 27,
-   "matches_led": 1,
-   "peak": 27,
-   "peak_match": "Tunisia v France"
-  },
-  {
-   "name": "Vincent Aboubakar",
-   "in_behind_total": 26,
-   "matches_led": 1,
-   "peak": 26,
-   "peak_match": "Cameroon v Brazil"
-  },
-  {
-   "name": "Alvaro Morata",
-   "in_behind_total": 24,
-   "matches_led": 1,
-   "peak": 24,
-   "peak_match": "Morocco v Spain"
-  },
-  {
-   "name": "Craig Goodwin",
-   "in_behind_total": 24,
-   "matches_led": 1,
-   "peak": 24,
-   "peak_match": "France v Australia"
-  },
-  {
-   "name": "Mohamed Drager",
-   "in_behind_total": 24,
-   "matches_led": 1,
-   "peak": 24,
-   "peak_match": "Denmark v Tunisia"
-  },
-  {
-   "name": "Randal Kolo Muani",
-   "in_behind_total": 24,
-   "matches_led": 1,
-   "peak": 24,
-   "peak_match": "Tunisia v France"
-  },
-  {
-   "name": "Breel Embolo",
-   "in_behind_total": 23,
-   "matches_led": 1,
-   "peak": 23,
-   "peak_match": "Portugal v Switzerland"
-  },
-  {
-   "name": "Aaron Ramsey",
-   "in_behind_total": 23,
-   "matches_led": 1,
-   "peak": 23,
-   "peak_match": "USA v Wales"
-  },
-  {
-   "name": "Dries Mertens",
-   "in_behind_total": 23,
-   "matches_led": 1,
-   "peak": 23,
-   "peak_match": "Croatia v Belgium"
-  },
-  {
-   "name": "Bruno Fernandes",
-   "in_behind_total": 22,
-   "matches_led": 1,
-   "peak": 22,
-   "peak_match": "Portugal v Switzerland"
-  },
-  {
-   "name": "Homam Ahmed",
-   "in_behind_total": 22,
-   "matches_led": 1,
-   "peak": 22,
-   "peak_match": "Qatar v Ecuador"
-  },
-  {
-   "name": "Almoez Ali",
-   "in_behind_total": 22,
-   "matches_led": 1,
-   "peak": 22,
-   "peak_match": "Qatar v Senegal"
+   "name": "Cody Gakpo",
+   "matches": 5,
+   "in_behind": 116,
+   "in_behind_pm": 23.2,
+   "received": 67,
+   "offers_total": 313,
+   "peak": 30
   },
   {
    "name": "Nahuel Molina",
-   "in_behind_total": 21,
-   "matches_led": 1,
-   "peak": 21,
-   "peak_match": "Netherlands v Argentina"
+   "matches": 7,
+   "in_behind": 112,
+   "in_behind_pm": 16.0,
+   "received": 130,
+   "offers_total": 408,
+   "peak": 34
   },
   {
-   "name": "Youssouf Sabaly",
-   "in_behind_total": 21,
-   "matches_led": 1,
-   "peak": 21,
-   "peak_match": "England v Senegal"
+   "name": "Richarlison",
+   "matches": 4,
+   "in_behind": 110,
+   "in_behind_pm": 27.5,
+   "received": 31,
+   "offers_total": 221,
+   "peak": 36
   },
   {
-   "name": "Dani Olmo",
-   "in_behind_total": 21,
-   "matches_led": 1,
-   "peak": 21,
-   "peak_match": "Spain v Germany"
+   "name": "Olivier Giroud",
+   "matches": 6,
+   "in_behind": 109,
+   "in_behind_pm": 18.2,
+   "received": 30,
+   "offers_total": 240,
+   "peak": 26
   },
   {
-   "name": "Pervis Estupinan",
-   "in_behind_total": 21,
-   "matches_led": 1,
-   "peak": 21,
-   "peak_match": "Netherlands v Ecuador"
+   "name": "Angel Di Maria",
+   "matches": 5,
+   "in_behind": 108,
+   "in_behind_pm": 21.6,
+   "received": 120,
+   "offers_total": 305,
+   "peak": 51
   },
   {
-   "name": "Marcos Acuna",
-   "in_behind_total": 21,
-   "matches_led": 1,
-   "peak": 21,
-   "peak_match": "Argentina v Mexico"
+   "name": "Cristiano Ronaldo",
+   "matches": 5,
+   "in_behind": 106,
+   "in_behind_pm": 21.2,
+   "received": 60,
+   "offers_total": 237,
+   "peak": 33
   },
   {
-   "name": "Enner Valencia",
-   "in_behind_total": 20,
-   "matches_led": 1,
-   "peak": 20,
-   "peak_match": "Ecuador v Senegal"
+   "name": "Vinicius Junior",
+   "matches": 4,
+   "in_behind": 103,
+   "in_behind_pm": 25.8,
+   "received": 60,
+   "offers_total": 235,
+   "peak": 32
   },
   {
-   "name": "Ismail Mohamad",
-   "in_behind_total": 20,
-   "matches_led": 1,
-   "peak": 20,
-   "peak_match": "Netherlands v Qatar"
+   "name": "Ismaila Sarr",
+   "matches": 4,
+   "in_behind": 96,
+   "in_behind_pm": 24.0,
+   "received": 54,
+   "offers_total": 213,
+   "peak": 33
   },
   {
-   "name": "Bartosz Bereszynski",
-   "in_behind_total": 19,
-   "matches_led": 1,
-   "peak": 19,
-   "peak_match": "France v Poland"
+   "name": "Feras Albrikan",
+   "matches": 3,
+   "in_behind": 95,
+   "in_behind_pm": 31.7,
+   "received": 34,
+   "offers_total": 176,
+   "peak": 56
+  },
+  {
+   "name": "Bukayo Saka",
+   "matches": 4,
+   "in_behind": 93,
+   "in_behind_pm": 23.2,
+   "received": 83,
+   "offers_total": 267,
+   "peak": 28
+  },
+  {
+   "name": "Darwin Nunez",
+   "matches": 3,
+   "in_behind": 93,
+   "in_behind_pm": 31.0,
+   "received": 27,
+   "offers_total": 121,
+   "peak": 45
+  },
+  {
+   "name": "Bruno Fernandes",
+   "matches": 4,
+   "in_behind": 91,
+   "in_behind_pm": 22.8,
+   "received": 112,
+   "offers_total": 336,
+   "peak": 33
+  },
+  {
+   "name": "Memphis Depay",
+   "matches": 5,
+   "in_behind": 90,
+   "in_behind_pm": 18.0,
+   "received": 92,
+   "offers_total": 282,
+   "peak": 31
+  },
+  {
+   "name": "Raphinha",
+   "matches": 5,
+   "in_behind": 90,
+   "in_behind_pm": 18.0,
+   "received": 73,
+   "offers_total": 220,
+   "peak": 40
+  },
+  {
+   "name": "Guesung Cho",
+   "matches": 4,
+   "in_behind": 90,
+   "in_behind_pm": 22.5,
+   "received": 35,
+   "offers_total": 203,
+   "peak": 35
+  },
+  {
+   "name": "Jude Bellingham",
+   "matches": 5,
+   "in_behind": 89,
+   "in_behind_pm": 17.8,
+   "received": 172,
+   "offers_total": 575,
+   "peak": 27
+  },
+  {
+   "name": "Boulaye Dia",
+   "matches": 4,
+   "in_behind": 86,
+   "in_behind_pm": 21.5,
+   "received": 37,
+   "offers_total": 191,
+   "peak": 36
+  },
+  {
+   "name": "Denzel Dumfries",
+   "matches": 5,
+   "in_behind": 85,
+   "in_behind_pm": 17.0,
+   "received": 60,
+   "offers_total": 192,
+   "peak": 27
+  },
+  {
+   "name": "Sofiane Boufal",
+   "matches": 7,
+   "in_behind": 83,
+   "in_behind_pm": 11.9,
+   "received": 95,
+   "offers_total": 322,
+   "peak": 18
+  },
+  {
+   "name": "Robert Lewandowski",
+   "matches": 4,
+   "in_behind": 80,
+   "in_behind_pm": 20.0,
+   "received": 47,
+   "offers_total": 199,
+   "peak": 35
+  },
+  {
+   "name": "Ruben Vargas",
+   "matches": 4,
+   "in_behind": 79,
+   "in_behind_pm": 19.8,
+   "received": 53,
+   "offers_total": 155,
+   "peak": 27
+  },
+  {
+   "name": "Antonee Robinson",
+   "matches": 4,
+   "in_behind": 76,
+   "in_behind_pm": 19.0,
+   "received": 103,
+   "offers_total": 294,
+   "peak": 22
+  },
+  {
+   "name": "Phil Foden",
+   "matches": 4,
+   "in_behind": 76,
+   "in_behind_pm": 19.0,
+   "received": 70,
+   "offers_total": 265,
+   "peak": 35
+  },
+  {
+   "name": "Jesper Lindstrom",
+   "matches": 3,
+   "in_behind": 76,
+   "in_behind_pm": 25.3,
+   "received": 45,
+   "offers_total": 176,
+   "peak": 39
+  },
+  {
+   "name": "Antoine Griezmann",
+   "matches": 7,
+   "in_behind": 75,
+   "in_behind_pm": 10.7,
+   "received": 112,
+   "offers_total": 340,
+   "peak": 14
+  },
+  {
+   "name": "Joakim Maehle",
+   "matches": 3,
+   "in_behind": 75,
+   "in_behind_pm": 25.0,
+   "received": 60,
+   "offers_total": 191,
+   "peak": 37
+  },
+  {
+   "name": "Kieffer Moore",
+   "matches": 3,
+   "in_behind": 73,
+   "in_behind_pm": 24.3,
+   "received": 30,
+   "offers_total": 159,
+   "peak": 35
+  },
+  {
+   "name": "Inaki Williams",
+   "matches": 3,
+   "in_behind": 71,
+   "in_behind_pm": 23.7,
+   "received": 19,
+   "offers_total": 161,
+   "peak": 29
+  },
+  {
+   "name": "Jonathan David",
+   "matches": 3,
+   "in_behind": 71,
+   "in_behind_pm": 23.7,
+   "received": 39,
+   "offers_total": 173,
+   "peak": 43
+  },
+  {
+   "name": "Alexis Mac Allister",
+   "matches": 6,
+   "in_behind": 70,
+   "in_behind_pm": 11.7,
+   "received": 120,
+   "offers_total": 426,
+   "peak": 22
+  },
+  {
+   "name": "Christian Pulisic",
+   "matches": 4,
+   "in_behind": 70,
+   "in_behind_pm": 17.5,
+   "received": 93,
+   "offers_total": 284,
+   "peak": 27
+  },
+  {
+   "name": "Theo Hernandez",
+   "matches": 6,
+   "in_behind": 70,
+   "in_behind_pm": 11.7,
+   "received": 104,
+   "offers_total": 272,
+   "peak": 15
+  },
+  {
+   "name": "Bryan Mbeumo",
+   "matches": 3,
+   "in_behind": 69,
+   "in_behind_pm": 23.0,
+   "received": 57,
+   "offers_total": 190,
+   "peak": 25
   },
   {
    "name": "Heungmin Son",
-   "in_behind_total": 19,
-   "matches_led": 1,
-   "peak": 19,
-   "peak_match": "Korea Republic v Portugal"
-  },
-  {
-   "name": "Johan Venegas",
-   "in_behind_total": 19,
-   "matches_led": 1,
-   "peak": 19,
-   "peak_match": "Costa Rica v Germany"
+   "matches": 4,
+   "in_behind": 67,
+   "in_behind_pm": 16.8,
+   "received": 66,
+   "offers_total": 231,
+   "peak": 19
   },
   {
    "name": "Steven Bergwijn",
-   "in_behind_total": 18,
-   "matches_led": 1,
-   "peak": 18,
-   "peak_match": "Netherlands v Argentina"
+   "matches": 4,
+   "in_behind": 66,
+   "in_behind_pm": 16.5,
+   "received": 46,
+   "offers_total": 171,
+   "peak": 24
   },
   {
-   "name": "Anthony Contreras",
-   "in_behind_total": 18,
-   "matches_led": 1,
-   "peak": 18,
-   "peak_match": "Japan v Costa Rica"
+   "name": "Raphael Guerreiro",
+   "matches": 4,
+   "in_behind": 66,
+   "in_behind_pm": 16.5,
+   "received": 74,
+   "offers_total": 226,
+   "peak": 31
   },
   {
-   "name": "Jamal Musiala",
-   "in_behind_total": 17,
-   "matches_led": 1,
-   "peak": 17,
-   "peak_match": "Spain v Germany"
+   "name": "Jinsu Kim",
+   "matches": 4,
+   "in_behind": 65,
+   "in_behind_pm": 16.2,
+   "received": 40,
+   "offers_total": 144,
+   "peak": 26
   },
   {
-   "name": "Jakub Kaminski",
-   "in_behind_total": 17,
-   "matches_led": 1,
-   "peak": 17,
-   "peak_match": "Mexico v Poland"
+   "name": "Aleksandar Mitrovic",
+   "matches": 3,
+   "in_behind": 65,
+   "in_behind_pm": 21.7,
+   "received": 32,
+   "offers_total": 157,
+   "peak": 29
+  },
+  {
+   "name": "Michy Batshuayi",
+   "matches": 2,
+   "in_behind": 65,
+   "in_behind_pm": 32.5,
+   "received": 12,
+   "offers_total": 94,
+   "peak": 43
+  },
+  {
+   "name": "Lautaro Martinez",
+   "matches": 6,
+   "in_behind": 64,
+   "in_behind_pm": 10.7,
+   "received": 37,
+   "offers_total": 143,
+   "peak": 23
+  },
+  {
+   "name": "Mitchell Duke",
+   "matches": 4,
+   "in_behind": 64,
+   "in_behind_pm": 16.0,
+   "received": 23,
+   "offers_total": 119,
+   "peak": 24
+  },
+  {
+   "name": "Dani Olmo",
+   "matches": 3,
+   "in_behind": 64,
+   "in_behind_pm": 21.3,
+   "received": 85,
+   "offers_total": 256,
+   "peak": 22
+  },
+  {
+   "name": "Thomas Mueller",
+   "matches": 2,
+   "in_behind": 64,
+   "in_behind_pm": 32.0,
+   "received": 23,
+   "offers_total": 121,
+   "peak": 49
+  },
+  {
+   "name": "Lionel Messi",
+   "matches": 7,
+   "in_behind": 63,
+   "in_behind_pm": 9.0,
+   "received": 213,
+   "offers_total": 450,
+   "peak": 13
+  },
+  {
+   "name": "Hirving Lozano",
+   "matches": 3,
+   "in_behind": 63,
+   "in_behind_pm": 21.0,
+   "received": 38,
+   "offers_total": 125,
+   "peak": 24
+  },
+  {
+   "name": "Alphonso Davies",
+   "matches": 3,
+   "in_behind": 63,
+   "in_behind_pm": 21.0,
+   "received": 51,
+   "offers_total": 199,
+   "peak": 41
+  },
+  {
+   "name": "Takuma Asano",
+   "matches": 3,
+   "in_behind": 62,
+   "in_behind_pm": 20.7,
+   "received": 10,
+   "offers_total": 95,
+   "peak": 25
+  },
+  {
+   "name": "Josip Juranovic",
+   "matches": 6,
+   "in_behind": 62,
+   "in_behind_pm": 10.3,
+   "received": 125,
+   "offers_total": 284,
+   "peak": 21
+  },
+  {
+   "name": "Craig Goodwin",
+   "matches": 4,
+   "in_behind": 61,
+   "in_behind_pm": 15.2,
+   "received": 39,
+   "offers_total": 121,
+   "peak": 24
+  },
+  {
+   "name": "Marko Livaja",
+   "matches": 6,
+   "in_behind": 61,
+   "in_behind_pm": 10.2,
+   "received": 38,
+   "offers_total": 158,
+   "peak": 23
+  },
+  {
+   "name": "Mario Pasalic",
+   "matches": 7,
+   "in_behind": 61,
+   "in_behind_pm": 8.7,
+   "received": 40,
+   "offers_total": 132,
+   "peak": 17
+  },
+  {
+   "name": "Goncalo Ramos",
+   "matches": 4,
+   "in_behind": 61,
+   "in_behind_pm": 15.2,
+   "received": 15,
+   "offers_total": 101,
+   "peak": 32
+  },
+  {
+   "name": "Henry Martin",
+   "matches": 2,
+   "in_behind": 61,
+   "in_behind_pm": 30.5,
+   "received": 14,
+   "offers_total": 106,
+   "peak": 50
+  },
+  {
+   "name": "Marcos Acuna",
+   "matches": 6,
+   "in_behind": 60,
+   "in_behind_pm": 10.0,
+   "received": 87,
+   "offers_total": 215,
+   "peak": 21
+  },
+  {
+   "name": "Nicolas Tagliafico",
+   "matches": 6,
+   "in_behind": 60,
+   "in_behind_pm": 10.0,
+   "received": 50,
+   "offers_total": 182,
+   "peak": 15
+  },
+  {
+   "name": "Xherdan Shaqiri",
+   "matches": 3,
+   "in_behind": 60,
+   "in_behind_pm": 20.0,
+   "received": 56,
+   "offers_total": 148,
+   "peak": 29
+  },
+  {
+   "name": "Luke Shaw",
+   "matches": 5,
+   "in_behind": 59,
+   "in_behind_pm": 11.8,
+   "received": 150,
+   "offers_total": 326,
+   "peak": 19
+  },
+  {
+   "name": "Breel Embolo",
+   "matches": 4,
+   "in_behind": 59,
+   "in_behind_pm": 14.8,
+   "received": 51,
+   "offers_total": 224,
+   "peak": 23
+  },
+  {
+   "name": "Diogo Dalot",
+   "matches": 3,
+   "in_behind": 58,
+   "in_behind_pm": 19.3,
+   "received": 74,
+   "offers_total": 249,
+   "peak": 20
+  },
+  {
+   "name": "Tajon Buchanan",
+   "matches": 3,
+   "in_behind": 58,
+   "in_behind_pm": 19.3,
+   "received": 30,
+   "offers_total": 110,
+   "peak": 26
+  },
+  {
+   "name": "Harry Kane",
+   "matches": 5,
+   "in_behind": 57,
+   "in_behind_pm": 11.4,
+   "received": 52,
+   "offers_total": 207,
+   "peak": 18
+  },
+  {
+   "name": "Almoez Ali",
+   "matches": 3,
+   "in_behind": 57,
+   "in_behind_pm": 19.0,
+   "received": 34,
+   "offers_total": 165,
+   "peak": 22
+  },
+  {
+   "name": "Vincent Aboubakar",
+   "matches": 3,
+   "in_behind": 56,
+   "in_behind_pm": 18.7,
+   "received": 23,
+   "offers_total": 100,
+   "peak": 26
+  },
+  {
+   "name": "Facundo Pellistri",
+   "matches": 3,
+   "in_behind": 56,
+   "in_behind_pm": 18.7,
+   "received": 19,
+   "offers_total": 104,
+   "peak": 30
   },
   {
    "name": "Cyle Larin",
-   "in_behind_total": 17,
-   "matches_led": 1,
-   "peak": 17,
-   "peak_match": "Croatia v Canada"
+   "matches": 3,
+   "in_behind": 56,
+   "in_behind_pm": 18.7,
+   "received": 26,
+   "offers_total": 109,
+   "peak": 26
+  },
+  {
+   "name": "Jordan Henderson",
+   "matches": 4,
+   "in_behind": 55,
+   "in_behind_pm": 13.8,
+   "received": 76,
+   "offers_total": 229,
+   "peak": 23
+  },
+  {
+   "name": "Marcus Rashford",
+   "matches": 5,
+   "in_behind": 55,
+   "in_behind_pm": 11.0,
+   "received": 53,
+   "offers_total": 141,
+   "peak": 24
+  },
+  {
+   "name": "Jakub Kaminski",
+   "matches": 4,
+   "in_behind": 55,
+   "in_behind_pm": 13.8,
+   "received": 20,
+   "offers_total": 95,
+   "peak": 17
+  },
+  {
+   "name": "Michael Estrada",
+   "matches": 3,
+   "in_behind": 55,
+   "in_behind_pm": 18.3,
+   "received": 22,
+   "offers_total": 106,
+   "peak": 34
+  },
+  {
+   "name": "Issam Jebali",
+   "matches": 3,
+   "in_behind": 55,
+   "in_behind_pm": 18.3,
+   "received": 25,
+   "offers_total": 143,
+   "peak": 40
+  },
+  {
+   "name": "Ousmane Dembele",
+   "matches": 7,
+   "in_behind": 54,
+   "in_behind_pm": 7.7,
+   "received": 105,
+   "offers_total": 260,
+   "peak": 14
+  },
+  {
+   "name": "Neymar",
+   "matches": 3,
+   "in_behind": 54,
+   "in_behind_pm": 18.0,
+   "received": 118,
+   "offers_total": 275,
+   "peak": 26
+  },
+  {
+   "name": "Andreas Skov Olsen",
+   "matches": 2,
+   "in_behind": 54,
+   "in_behind_pm": 27.0,
+   "received": 39,
+   "offers_total": 111,
+   "peak": 28
+  },
+  {
+   "name": "Mikkel Damsgaard",
+   "matches": 3,
+   "in_behind": 54,
+   "in_behind_pm": 18.0,
+   "received": 44,
+   "offers_total": 190,
+   "peak": 23
+  },
+  {
+   "name": "Youssouf Sabaly",
+   "matches": 4,
+   "in_behind": 53,
+   "in_behind_pm": 13.2,
+   "received": 97,
+   "offers_total": 249,
+   "peak": 21
+  },
+  {
+   "name": "Moonhwan Kim",
+   "matches": 4,
+   "in_behind": 53,
+   "in_behind_pm": 13.2,
+   "received": 82,
+   "offers_total": 242,
+   "peak": 19
+  },
+  {
+   "name": "Mehdi Taremi",
+   "matches": 3,
+   "in_behind": 53,
+   "in_behind_pm": 17.7,
+   "received": 33,
+   "offers_total": 125,
+   "peak": 24
+  },
+  {
+   "name": "Rodrigo De Paul",
+   "matches": 7,
+   "in_behind": 52,
+   "in_behind_pm": 7.4,
+   "received": 262,
+   "offers_total": 614,
+   "peak": 13
+  },
+  {
+   "name": "Daizen Maeda",
+   "matches": 2,
+   "in_behind": 52,
+   "in_behind_pm": 26.0,
+   "received": 6,
+   "offers_total": 75,
+   "peak": 35
+  },
+  {
+   "name": "Ferran Torres",
+   "matches": 3,
+   "in_behind": 52,
+   "in_behind_pm": 17.3,
+   "received": 49,
+   "offers_total": 150,
+   "peak": 28
+  },
+  {
+   "name": "Josh Sargent",
+   "matches": 3,
+   "in_behind": 52,
+   "in_behind_pm": 17.3,
+   "received": 25,
+   "offers_total": 136,
+   "peak": 28
+  },
+  {
+   "name": "Haji Wright",
+   "matches": 4,
+   "in_behind": 51,
+   "in_behind_pm": 12.8,
+   "received": 16,
+   "offers_total": 93,
+   "peak": 31
+  },
+  {
+   "name": "Adrien Rabiot",
+   "matches": 6,
+   "in_behind": 51,
+   "in_behind_pm": 8.5,
+   "received": 123,
+   "offers_total": 386,
+   "peak": 15
+  },
+  {
+   "name": "Djibril Sow",
+   "matches": 4,
+   "in_behind": 51,
+   "in_behind_pm": 12.8,
+   "received": 41,
+   "offers_total": 182,
+   "peak": 17
+  },
+  {
+   "name": "Raheem Sterling",
+   "matches": 3,
+   "in_behind": 51,
+   "in_behind_pm": 17.0,
+   "received": 40,
+   "offers_total": 147,
+   "peak": 36
+  },
+  {
+   "name": "Achraf Hakimi",
+   "matches": 7,
+   "in_behind": 50,
+   "in_behind_pm": 7.1,
+   "received": 160,
+   "offers_total": 374,
+   "peak": 12
+  },
+  {
+   "name": "Pervis Estupinan",
+   "matches": 3,
+   "in_behind": 50,
+   "in_behind_pm": 16.7,
+   "received": 76,
+   "offers_total": 167,
+   "peak": 21
   },
   {
    "name": "Mathew Leckie",
-   "in_behind_total": 16,
-   "matches_led": 1,
-   "peak": 16,
-   "peak_match": "Argentina v Australia"
+   "matches": 4,
+   "in_behind": 49,
+   "in_behind_pm": 12.2,
+   "received": 46,
+   "offers_total": 140,
+   "peak": 16
+  },
+  {
+   "name": "Uijo Hwang",
+   "matches": 4,
+   "in_behind": 49,
+   "in_behind_pm": 12.2,
+   "received": 6,
+   "offers_total": 83,
+   "peak": 28
+  },
+  {
+   "name": "Mislav Orsic",
+   "matches": 5,
+   "in_behind": 49,
+   "in_behind_pm": 9.8,
+   "received": 29,
+   "offers_total": 108,
+   "peak": 23
+  },
+  {
+   "name": "Homam Ahmed",
+   "matches": 3,
+   "in_behind": 49,
+   "in_behind_pm": 16.3,
+   "received": 38,
+   "offers_total": 144,
+   "peak": 22
+  },
+  {
+   "name": "Gareth Bale",
+   "matches": 3,
+   "in_behind": 49,
+   "in_behind_pm": 16.3,
+   "received": 31,
+   "offers_total": 129,
+   "peak": 30
+  },
+  {
+   "name": "Mcgree Riley",
+   "matches": 4,
+   "in_behind": 48,
+   "in_behind_pm": 12.0,
+   "received": 34,
+   "offers_total": 134,
+   "peak": 17
+  },
+  {
+   "name": "Alvaro Morata",
+   "matches": 3,
+   "in_behind": 48,
+   "in_behind_pm": 16.0,
+   "received": 19,
+   "offers_total": 112,
+   "peak": 24
+  },
+  {
+   "name": "Enner Valencia",
+   "matches": 3,
+   "in_behind": 48,
+   "in_behind_pm": 16.0,
+   "received": 41,
+   "offers_total": 142,
+   "peak": 22
+  },
+  {
+   "name": "Aaron Ramsey",
+   "matches": 3,
+   "in_behind": 48,
+   "in_behind_pm": 16.0,
+   "received": 57,
+   "offers_total": 221,
+   "peak": 23
+  },
+  {
+   "name": "Ali Abdi",
+   "matches": 3,
+   "in_behind": 48,
+   "in_behind_pm": 16.0,
+   "received": 25,
+   "offers_total": 135,
+   "peak": 32
+  },
+  {
+   "name": "Gabriel Jesus",
+   "matches": 3,
+   "in_behind": 47,
+   "in_behind_pm": 15.7,
+   "received": 12,
+   "offers_total": 78,
+   "peak": 31
+  },
+  {
+   "name": "Jesus Gallardo",
+   "matches": 3,
+   "in_behind": 46,
+   "in_behind_pm": 15.3,
+   "received": 38,
+   "offers_total": 133,
+   "peak": 19
+  },
+  {
+   "name": "Ritsu Doan",
+   "matches": 3,
+   "in_behind": 44,
+   "in_behind_pm": 14.7,
+   "received": 27,
+   "offers_total": 152,
+   "peak": 18
+  },
+  {
+   "name": "Ricardo Horta",
+   "matches": 3,
+   "in_behind": 44,
+   "in_behind_pm": 14.7,
+   "received": 20,
+   "offers_total": 111,
+   "peak": 37
+  },
+  {
+   "name": "Osman Bukari",
+   "matches": 2,
+   "in_behind": 44,
+   "in_behind_pm": 22.0,
+   "received": 6,
+   "offers_total": 61,
+   "peak": 32
+  },
+  {
+   "name": "Daichi Kamada",
+   "matches": 3,
+   "in_behind": 43,
+   "in_behind_pm": 14.3,
+   "received": 58,
+   "offers_total": 208,
+   "peak": 22
+  },
+  {
+   "name": "Rodrygo",
+   "matches": 5,
+   "in_behind": 43,
+   "in_behind_pm": 8.6,
+   "received": 61,
+   "offers_total": 186,
+   "peak": 16
+  },
+  {
+   "name": "Sangho Na",
+   "matches": 2,
+   "in_behind": 43,
+   "in_behind_pm": 21.5,
+   "received": 15,
+   "offers_total": 82,
+   "peak": 27
+  },
+  {
+   "name": "Yuki Soma",
+   "matches": 1,
+   "in_behind": 43,
+   "in_behind_pm": 43.0,
+   "received": 9,
+   "offers_total": 82,
+   "peak": 43
+  },
+  {
+   "name": "Serge Gnabry",
+   "matches": 2,
+   "in_behind": 43,
+   "in_behind_pm": 21.5,
+   "received": 36,
+   "offers_total": 80,
+   "peak": 30
+  },
+  {
+   "name": "Anis Slimane",
+   "matches": 2,
+   "in_behind": 43,
+   "in_behind_pm": 21.5,
+   "received": 33,
+   "offers_total": 130,
+   "peak": 27
+  },
+  {
+   "name": "Przemyslaw Frankowski",
+   "matches": 4,
+   "in_behind": 42,
+   "in_behind_pm": 10.5,
+   "received": 36,
+   "offers_total": 132,
+   "peak": 18
+  },
+  {
+   "name": "Mckennie Weston",
+   "matches": 4,
+   "in_behind": 41,
+   "in_behind_pm": 10.2,
+   "received": 69,
+   "offers_total": 241,
+   "peak": 15
+  },
+  {
+   "name": "Bartosz Bereszynski",
+   "matches": 4,
+   "in_behind": 41,
+   "in_behind_pm": 10.2,
+   "received": 40,
+   "offers_total": 115,
+   "peak": 19
+  },
+  {
+   "name": "Lucas Paqueta",
+   "matches": 4,
+   "in_behind": 41,
+   "in_behind_pm": 10.2,
+   "received": 98,
+   "offers_total": 310,
+   "peak": 29
+  },
+  {
+   "name": "Borna Sosa",
+   "matches": 5,
+   "in_behind": 41,
+   "in_behind_pm": 8.2,
+   "received": 78,
+   "offers_total": 186,
+   "peak": 14
+  },
+  {
+   "name": "Edinson Cavani",
+   "matches": 3,
+   "in_behind": 41,
+   "in_behind_pm": 13.7,
+   "received": 25,
+   "offers_total": 105,
+   "peak": 17
+  },
+  {
+   "name": "Saud Abdulhamid",
+   "matches": 3,
+   "in_behind": 41,
+   "in_behind_pm": 13.7,
+   "received": 22,
+   "offers_total": 77,
+   "peak": 16
+  },
+  {
+   "name": "Junior Hoilett",
+   "matches": 3,
+   "in_behind": 41,
+   "in_behind_pm": 13.7,
+   "received": 36,
+   "offers_total": 127,
+   "peak": 21
+  },
+  {
+   "name": "Davy Klaassen",
+   "matches": 4,
+   "in_behind": 40,
+   "in_behind_pm": 10.0,
+   "received": 37,
+   "offers_total": 148,
+   "peak": 16
+  },
+  {
+   "name": "Luis Suarez",
+   "matches": 3,
+   "in_behind": 40,
+   "in_behind_pm": 13.3,
+   "received": 19,
+   "offers_total": 127,
+   "peak": 19
+  },
+  {
+   "name": "Leroy Sane",
+   "matches": 2,
+   "in_behind": 40,
+   "in_behind_pm": 20.0,
+   "received": 41,
+   "offers_total": 156,
+   "peak": 30
+  },
+  {
+   "name": "Uriel Antuna",
+   "matches": 3,
+   "in_behind": 40,
+   "in_behind_pm": 13.3,
+   "received": 14,
+   "offers_total": 60,
+   "peak": 24
+  },
+  {
+   "name": "Ismail Mohamad",
+   "matches": 2,
+   "in_behind": 40,
+   "in_behind_pm": 20.0,
+   "received": 29,
+   "offers_total": 92,
+   "peak": 20
+  },
+  {
+   "name": "Mason Mount",
+   "matches": 4,
+   "in_behind": 39,
+   "in_behind_pm": 9.8,
+   "received": 42,
+   "offers_total": 175,
+   "peak": 19
+  },
+  {
+   "name": "Bruno Petkovic",
+   "matches": 6,
+   "in_behind": 39,
+   "in_behind_pm": 6.5,
+   "received": 33,
+   "offers_total": 96,
+   "peak": 10
+  },
+  {
+   "name": "Selim Amallah",
+   "matches": 7,
+   "in_behind": 39,
+   "in_behind_pm": 5.6,
+   "received": 53,
+   "offers_total": 221,
+   "peak": 11
+  },
+  {
+   "name": "Marco Asensio",
+   "matches": 3,
+   "in_behind": 39,
+   "in_behind_pm": 13.0,
+   "received": 52,
+   "offers_total": 166,
+   "peak": 15
+  },
+  {
+   "name": "Ansu Fati",
+   "matches": 1,
+   "in_behind": 39,
+   "in_behind_pm": 39.0,
+   "received": 12,
+   "offers_total": 69,
+   "peak": 39
+  },
+  {
+   "name": "Gonzalo Montiel",
+   "matches": 4,
+   "in_behind": 38,
+   "in_behind_pm": 9.5,
+   "received": 42,
+   "offers_total": 114,
+   "peak": 20
+  },
+  {
+   "name": "Bernardo Silva",
+   "matches": 5,
+   "in_behind": 38,
+   "in_behind_pm": 7.6,
+   "received": 127,
+   "offers_total": 340,
+   "peak": 17
+  },
+  {
+   "name": "Hassan Alhaydos",
+   "matches": 3,
+   "in_behind": 38,
+   "in_behind_pm": 12.7,
+   "received": 42,
+   "offers_total": 165,
+   "peak": 21
+  },
+  {
+   "name": "Gonzalo Plata",
+   "matches": 3,
+   "in_behind": 38,
+   "in_behind_pm": 12.7,
+   "received": 55,
+   "offers_total": 190,
+   "peak": 15
+  },
+  {
+   "name": "Marcus Thuram",
+   "matches": 5,
+   "in_behind": 37,
+   "in_behind_pm": 7.4,
+   "received": 18,
+   "offers_total": 75,
+   "peak": 18
+  },
+  {
+   "name": "Nikola Vlasic",
+   "matches": 6,
+   "in_behind": 37,
+   "in_behind_pm": 6.2,
+   "received": 35,
+   "offers_total": 97,
+   "peak": 13
+  },
+  {
+   "name": "Azzedine Ounahi",
+   "matches": 7,
+   "in_behind": 37,
+   "in_behind_pm": 5.3,
+   "received": 185,
+   "offers_total": 492,
+   "peak": 11
+  },
+  {
+   "name": "Timothy Castagne",
+   "matches": 3,
+   "in_behind": 37,
+   "in_behind_pm": 12.3,
+   "received": 61,
+   "offers_total": 153,
+   "peak": 30
+  },
+  {
+   "name": "Daley Blind",
+   "matches": 5,
+   "in_behind": 36,
+   "in_behind_pm": 7.2,
+   "received": 98,
+   "offers_total": 248,
+   "peak": 12
+  },
+  {
+   "name": "Alexis Vega",
+   "matches": 3,
+   "in_behind": 36,
+   "in_behind_pm": 12.0,
+   "received": 34,
+   "offers_total": 114,
+   "peak": 17
+  },
+  {
+   "name": "Kevin De Bruyne",
+   "matches": 3,
+   "in_behind": 36,
+   "in_behind_pm": 12.0,
+   "received": 68,
+   "offers_total": 230,
+   "peak": 14
+  },
+  {
+   "name": "Matty Cash",
+   "matches": 4,
+   "in_behind": 35,
+   "in_behind_pm": 8.8,
+   "received": 61,
+   "offers_total": 181,
+   "peak": 12
+  },
+  {
+   "name": "Arkadiusz Milik",
+   "matches": 3,
+   "in_behind": 35,
+   "in_behind_pm": 11.7,
+   "received": 20,
+   "offers_total": 92,
+   "peak": 23
+  },
+  {
+   "name": "Yahya Attiat-Allah",
+   "matches": 5,
+   "in_behind": 35,
+   "in_behind_pm": 7.0,
+   "received": 57,
+   "offers_total": 149,
+   "peak": 17
+  },
+  {
+   "name": "Randal Kolo Muani",
+   "matches": 3,
+   "in_behind": 35,
+   "in_behind_pm": 11.7,
+   "received": 19,
+   "offers_total": 64,
+   "peak": 24
+  },
+  {
+   "name": "Akram Afif",
+   "matches": 3,
+   "in_behind": 35,
+   "in_behind_pm": 11.7,
+   "received": 99,
+   "offers_total": 236,
+   "peak": 15
+  },
+  {
+   "name": "Saleh Alshehri",
+   "matches": 3,
+   "in_behind": 35,
+   "in_behind_pm": 11.7,
+   "received": 23,
+   "offers_total": 106,
+   "peak": 19
+  },
+  {
+   "name": "Filip Kostic",
+   "matches": 2,
+   "in_behind": 35,
+   "in_behind_pm": 17.5,
+   "received": 30,
+   "offers_total": 88,
+   "peak": 21
+  },
+  {
+   "name": "Ante Budimir",
+   "matches": 2,
+   "in_behind": 34,
+   "in_behind_pm": 17.0,
+   "received": 1,
+   "offers_total": 42,
+   "peak": 26
+  },
+  {
+   "name": "Antony",
+   "matches": 4,
+   "in_behind": 34,
+   "in_behind_pm": 8.5,
+   "received": 54,
+   "offers_total": 115,
+   "peak": 19
+  },
+  {
+   "name": "Rasmus Kristensen",
+   "matches": 3,
+   "in_behind": 34,
+   "in_behind_pm": 11.3,
+   "received": 71,
+   "offers_total": 185,
+   "peak": 14
+  },
+  {
+   "name": "Andreas Cornelius",
+   "matches": 3,
+   "in_behind": 34,
+   "in_behind_pm": 11.3,
+   "received": 9,
+   "offers_total": 66,
+   "peak": 15
+  },
+  {
+   "name": "Jorge Sanchez",
+   "matches": 2,
+   "in_behind": 34,
+   "in_behind_pm": 17.0,
+   "received": 40,
+   "offers_total": 130,
+   "peak": 19
+  },
+  {
+   "name": "Thomas Meunier",
+   "matches": 3,
+   "in_behind": 34,
+   "in_behind_pm": 11.3,
+   "received": 58,
+   "offers_total": 140,
+   "peak": 17
+  },
+  {
+   "name": "Iliman Ndiaye",
+   "matches": 3,
+   "in_behind": 33,
+   "in_behind_pm": 11.0,
+   "received": 16,
+   "offers_total": 73,
+   "peak": 16
+  },
+  {
+   "name": "Kingsley Coman",
+   "matches": 6,
+   "in_behind": 33,
+   "in_behind_pm": 5.5,
+   "received": 52,
+   "offers_total": 132,
+   "peak": 11
+  },
+  {
+   "name": "Jamie Maclaren",
+   "matches": 3,
+   "in_behind": 32,
+   "in_behind_pm": 10.7,
+   "received": 6,
+   "offers_total": 39,
+   "peak": 13
+  },
+  {
+   "name": "Junya Ito",
+   "matches": 3,
+   "in_behind": 32,
+   "in_behind_pm": 10.7,
+   "received": 36,
+   "offers_total": 121,
+   "peak": 20
+  },
+  {
+   "name": "Gabriel Martinelli",
+   "matches": 3,
+   "in_behind": 32,
+   "in_behind_pm": 10.7,
+   "received": 20,
+   "offers_total": 69,
+   "peak": 20
+  },
+  {
+   "name": "Remo Freuler",
+   "matches": 4,
+   "in_behind": 32,
+   "in_behind_pm": 8.0,
+   "received": 79,
+   "offers_total": 258,
+   "peak": 14
+  },
+  {
+   "name": "Dusan Tadic",
+   "matches": 3,
+   "in_behind": 32,
+   "in_behind_pm": 10.7,
+   "received": 64,
+   "offers_total": 190,
+   "peak": 19
+  },
+  {
+   "name": "Andre Ayew",
+   "matches": 3,
+   "in_behind": 32,
+   "in_behind_pm": 10.7,
+   "received": 16,
+   "offers_total": 84,
+   "peak": 11
+  },
+  {
+   "name": "Keysher Fuller",
+   "matches": 2,
+   "in_behind": 32,
+   "in_behind_pm": 16.0,
+   "received": 16,
+   "offers_total": 74,
+   "peak": 17
+  },
+  {
+   "name": "Luka Modric",
+   "matches": 7,
+   "in_behind": 31,
+   "in_behind_pm": 4.4,
+   "received": 264,
+   "offers_total": 539,
+   "peak": 6
+  },
+  {
+   "name": "Jaesung Lee",
+   "matches": 3,
+   "in_behind": 31,
+   "in_behind_pm": 10.3,
+   "received": 53,
+   "offers_total": 172,
+   "peak": 11
+  },
+  {
+   "name": "Zakaria Aboukhlal",
+   "matches": 4,
+   "in_behind": 31,
+   "in_behind_pm": 7.8,
+   "received": 5,
+   "offers_total": 57,
+   "peak": 20
+  },
+  {
+   "name": "Karl Toko Ekambi",
+   "matches": 3,
+   "in_behind": 31,
+   "in_behind_pm": 10.3,
+   "received": 19,
+   "offers_total": 78,
+   "peak": 19
+  },
+  {
+   "name": "Ali Gholizadeh",
+   "matches": 3,
+   "in_behind": 31,
+   "in_behind_pm": 10.3,
+   "received": 25,
+   "offers_total": 98,
+   "peak": 15
+  },
+  {
+   "name": "Mohamed Drager",
+   "matches": 2,
+   "in_behind": 31,
+   "in_behind_pm": 15.5,
+   "received": 19,
+   "offers_total": 91,
+   "peak": 24
+  },
+  {
+   "name": "Sardar Azmoun",
+   "matches": 2,
+   "in_behind": 31,
+   "in_behind_pm": 15.5,
+   "received": 12,
+   "offers_total": 51,
+   "peak": 19
+  },
+  {
+   "name": "Joao Cancelo",
+   "matches": 4,
+   "in_behind": 30,
+   "in_behind_pm": 7.5,
+   "received": 85,
+   "offers_total": 182,
+   "peak": 11
+  },
+  {
+   "name": "Jamal Musiala",
+   "matches": 2,
+   "in_behind": 30,
+   "in_behind_pm": 15.0,
+   "received": 51,
+   "offers_total": 178,
+   "peak": 17
+  },
+  {
+   "name": "Dries Mertens",
+   "matches": 2,
+   "in_behind": 30,
+   "in_behind_pm": 15.0,
+   "received": 22,
+   "offers_total": 83,
+   "peak": 23
+  },
+  {
+   "name": "Sergino Dest",
+   "matches": 4,
+   "in_behind": 29,
+   "in_behind_pm": 7.2,
+   "received": 79,
+   "offers_total": 204,
+   "peak": 13
+  },
+  {
+   "name": "Krepin Diatta",
+   "matches": 3,
+   "in_behind": 29,
+   "in_behind_pm": 9.7,
+   "received": 37,
+   "offers_total": 94,
+   "peak": 15
+  },
+  {
+   "name": "Noussair Mazraoui",
+   "matches": 5,
+   "in_behind": 29,
+   "in_behind_pm": 5.8,
+   "received": 40,
+   "offers_total": 126,
+   "peak": 12
+  },
+  {
+   "name": "Pedro",
+   "matches": 2,
+   "in_behind": 29,
+   "in_behind_pm": 14.5,
+   "received": 8,
+   "offers_total": 51,
+   "peak": 22
+  },
+  {
+   "name": "Abderrazak Hamdallah",
+   "matches": 4,
+   "in_behind": 29,
+   "in_behind_pm": 7.2,
+   "received": 10,
+   "offers_total": 50,
+   "peak": 12
+  },
+  {
+   "name": "Silvan Widmer",
+   "matches": 3,
+   "in_behind": 29,
+   "in_behind_pm": 9.7,
+   "received": 57,
+   "offers_total": 130,
+   "peak": 19
+  },
+  {
+   "name": "David Raum",
+   "matches": 2,
+   "in_behind": 29,
+   "in_behind_pm": 14.5,
+   "received": 37,
+   "offers_total": 96,
+   "peak": 20
+  },
+  {
+   "name": "Angelo Preciado",
+   "matches": 3,
+   "in_behind": 29,
+   "in_behind_pm": 9.7,
+   "received": 31,
+   "offers_total": 131,
+   "peak": 16
+  },
+  {
+   "name": "Vincent Janssen",
+   "matches": 2,
+   "in_behind": 29,
+   "in_behind_pm": 14.5,
+   "received": 14,
+   "offers_total": 68,
+   "peak": 16
+  },
+  {
+   "name": "Edimilson Fernandes",
+   "matches": 3,
+   "in_behind": 28,
+   "in_behind_pm": 9.3,
+   "received": 36,
+   "offers_total": 113,
+   "peak": 15
+  },
+  {
+   "name": "Sultan Alghannam",
+   "matches": 3,
+   "in_behind": 28,
+   "in_behind_pm": 9.3,
+   "received": 23,
+   "offers_total": 60,
+   "peak": 14
+  },
+  {
+   "name": "Sam Adekugbe",
+   "matches": 3,
+   "in_behind": 28,
+   "in_behind_pm": 9.3,
+   "received": 36,
+   "offers_total": 110,
+   "peak": 13
+  },
+  {
+   "name": "Yunus Musah",
+   "matches": 4,
+   "in_behind": 27,
+   "in_behind_pm": 6.8,
+   "received": 107,
+   "offers_total": 255,
+   "peak": 10
+  },
+  {
+   "name": "Nico Williams",
+   "matches": 3,
+   "in_behind": 27,
+   "in_behind_pm": 9.0,
+   "received": 39,
+   "offers_total": 109,
+   "peak": 18
+  },
+  {
+   "name": "Leandro Trossard",
+   "matches": 3,
+   "in_behind": 27,
+   "in_behind_pm": 9.0,
+   "received": 32,
+   "offers_total": 86,
+   "peak": 13
+  },
+  {
+   "name": "Lovro Majer",
+   "matches": 7,
+   "in_behind": 26,
+   "in_behind_pm": 3.7,
+   "received": 51,
+   "offers_total": 163,
+   "peak": 13
+  },
+  {
+   "name": "Rafael Leao",
+   "matches": 5,
+   "in_behind": 26,
+   "in_behind_pm": 5.2,
+   "received": 25,
+   "offers_total": 73,
+   "peak": 12
+  },
+  {
+   "name": "Niclas Fuellkrug",
+   "matches": 2,
+   "in_behind": 26,
+   "in_behind_pm": 13.0,
+   "received": 10,
+   "offers_total": 43,
+   "peak": 16
+  },
+  {
+   "name": "Abdulaziz Hatem",
+   "matches": 3,
+   "in_behind": 26,
+   "in_behind_pm": 8.7,
+   "received": 47,
+   "offers_total": 149,
+   "peak": 19
+  },
+  {
+   "name": "Harry Wilson",
+   "matches": 3,
+   "in_behind": 26,
+   "in_behind_pm": 8.7,
+   "received": 35,
+   "offers_total": 121,
+   "peak": 14
+  },
+  {
+   "name": "Orbelin Pineda",
+   "matches": 1,
+   "in_behind": 26,
+   "in_behind_pm": 26.0,
+   "received": 17,
+   "offers_total": 81,
+   "peak": 26
+  },
+  {
+   "name": "Ismail Jakobs",
+   "matches": 4,
+   "in_behind": 25,
+   "in_behind_pm": 6.2,
+   "received": 39,
+   "offers_total": 108,
+   "peak": 12
+  },
+  {
+   "name": "Jordi Alba",
+   "matches": 3,
+   "in_behind": 25,
+   "in_behind_pm": 8.3,
+   "received": 81,
+   "offers_total": 147,
+   "peak": 18
+  },
+  {
+   "name": "Mathias Jensen",
+   "matches": 2,
+   "in_behind": 25,
+   "in_behind_pm": 12.5,
+   "received": 40,
+   "offers_total": 114,
+   "peak": 23
+  },
+  {
+   "name": "Raul Jimenez",
+   "matches": 3,
+   "in_behind": 25,
+   "in_behind_pm": 8.3,
+   "received": 16,
+   "offers_total": 63,
+   "peak": 13
+  },
+  {
+   "name": "Salem Aldawsari",
+   "matches": 3,
+   "in_behind": 25,
+   "in_behind_pm": 8.3,
+   "received": 75,
+   "offers_total": 187,
+   "peak": 12
+  },
+  {
+   "name": "Gavi",
+   "matches": 3,
+   "in_behind": 24,
+   "in_behind_pm": 8.0,
+   "received": 54,
+   "offers_total": 194,
+   "peak": 10
+  },
+  {
+   "name": "Andrija Zivkovic",
+   "matches": 3,
+   "in_behind": 24,
+   "in_behind_pm": 8.0,
+   "received": 34,
+   "offers_total": 94,
+   "peak": 16
+  },
+  {
+   "name": "Baba Rahman",
+   "matches": 3,
+   "in_behind": 24,
+   "in_behind_pm": 8.0,
+   "received": 24,
+   "offers_total": 79,
+   "peak": 16
+  },
+  {
+   "name": "Jordan Ayew",
+   "matches": 3,
+   "in_behind": 24,
+   "in_behind_pm": 8.0,
+   "received": 26,
+   "offers_total": 104,
+   "peak": 11
+  },
+  {
+   "name": "Anthony Contreras",
+   "matches": 2,
+   "in_behind": 24,
+   "in_behind_pm": 12.0,
+   "received": 6,
+   "offers_total": 49,
+   "peak": 18
+  },
+  {
+   "name": "Idrissa Gana Gueye",
+   "matches": 3,
+   "in_behind": 24,
+   "in_behind_pm": 8.0,
+   "received": 54,
+   "offers_total": 167,
+   "peak": 8
+  },
+  {
+   "name": "Aziz Behich",
+   "matches": 4,
+   "in_behind": 23,
+   "in_behind_pm": 5.8,
+   "received": 69,
+   "offers_total": 146,
+   "peak": 11
+  },
+  {
+   "name": "Haris Seferovic",
+   "matches": 3,
+   "in_behind": 23,
+   "in_behind_pm": 7.7,
+   "received": 6,
+   "offers_total": 51,
+   "peak": 12
+  },
+  {
+   "name": "Fabian Rieder",
+   "matches": 2,
+   "in_behind": 23,
+   "in_behind_pm": 11.5,
+   "received": 9,
+   "offers_total": 42,
+   "peak": 17
+  },
+  {
+   "name": "Joel Campbell",
+   "matches": 2,
+   "in_behind": 23,
+   "in_behind_pm": 11.5,
+   "received": 46,
+   "offers_total": 109,
+   "peak": 12
+  },
+  {
+   "name": "Youssef Msakni",
+   "matches": 2,
+   "in_behind": 23,
+   "in_behind_pm": 11.5,
+   "received": 44,
+   "offers_total": 128,
+   "peak": 18
+  },
+  {
+   "name": "Jonathan Osorio",
+   "matches": 3,
+   "in_behind": 23,
+   "in_behind_pm": 7.7,
+   "received": 37,
+   "offers_total": 133,
+   "peak": 14
+  },
+  {
+   "name": "Wahbi Khazri",
+   "matches": 2,
+   "in_behind": 23,
+   "in_behind_pm": 11.5,
+   "received": 9,
+   "offers_total": 48,
+   "peak": 12
+  },
+  {
+   "name": "Steven Berghuis",
+   "matches": 4,
+   "in_behind": 22,
+   "in_behind_pm": 5.5,
+   "received": 67,
+   "offers_total": 177,
+   "peak": 12
+  },
+  {
+   "name": "Wout Weghorst",
+   "matches": 4,
+   "in_behind": 22,
+   "in_behind_pm": 5.5,
+   "received": 5,
+   "offers_total": 44,
+   "peak": 11
+  },
+  {
+   "name": "Otavio",
+   "matches": 3,
+   "in_behind": 22,
+   "in_behind_pm": 7.3,
+   "received": 47,
+   "offers_total": 160,
+   "peak": 11
+  },
+  {
+   "name": "Eric Maxim Choupo-Moting",
+   "matches": 3,
+   "in_behind": 22,
+   "in_behind_pm": 7.3,
+   "received": 23,
+   "offers_total": 81,
+   "peak": 12
+  },
+  {
+   "name": "Matias Vecino",
+   "matches": 3,
+   "in_behind": 22,
+   "in_behind_pm": 7.3,
+   "received": 31,
+   "offers_total": 123,
+   "peak": 16
+  },
+  {
+   "name": "Connor Roberts",
+   "matches": 3,
+   "in_behind": 22,
+   "in_behind_pm": 7.3,
+   "received": 47,
+   "offers_total": 129,
+   "peak": 9
+  },
+  {
+   "name": "Daniel James",
+   "matches": 3,
+   "in_behind": 22,
+   "in_behind_pm": 7.3,
+   "received": 12,
+   "offers_total": 75,
+   "peak": 11
+  },
+  {
+   "name": "Christian Eriksen",
+   "matches": 3,
+   "in_behind": 22,
+   "in_behind_pm": 7.3,
+   "received": 93,
+   "offers_total": 236,
+   "peak": 9
+  },
+  {
+   "name": "Ellyes Skhiri",
+   "matches": 3,
+   "in_behind": 22,
+   "in_behind_pm": 7.3,
+   "received": 58,
+   "offers_total": 205,
+   "peak": 10
+  },
+  {
+   "name": "Richie Laryea",
+   "matches": 3,
+   "in_behind": 22,
+   "in_behind_pm": 7.3,
+   "received": 21,
+   "offers_total": 102,
+   "peak": 13
+  },
+  {
+   "name": "Teun Koopmeiners",
+   "matches": 5,
+   "in_behind": 21,
+   "in_behind_pm": 4.2,
+   "received": 75,
+   "offers_total": 226,
+   "peak": 9
+  },
+  {
+   "name": "Bryan Oviedo",
+   "matches": 2,
+   "in_behind": 21,
+   "in_behind_pm": 10.5,
+   "received": 30,
+   "offers_total": 79,
+   "peak": 14
+  },
+  {
+   "name": "Brennan Johnson",
+   "matches": 3,
+   "in_behind": 21,
+   "in_behind_pm": 7.0,
+   "received": 14,
+   "offers_total": 51,
+   "peak": 12
+  },
+  {
+   "name": "Eden Hazard",
+   "matches": 3,
+   "in_behind": 21,
+   "in_behind_pm": 7.0,
+   "received": 35,
+   "offers_total": 115,
+   "peak": 15
+  },
+  {
+   "name": "Yannick Carrasco",
+   "matches": 2,
+   "in_behind": 21,
+   "in_behind_pm": 10.5,
+   "received": 26,
+   "offers_total": 66,
+   "peak": 14
+  },
+  {
+   "name": "Ramin Rezaeian",
+   "matches": 2,
+   "in_behind": 21,
+   "in_behind_pm": 10.5,
+   "received": 44,
+   "offers_total": 153,
+   "peak": 13
+  },
+  {
+   "name": "Thorgan Hazard",
+   "matches": 2,
+   "in_behind": 21,
+   "in_behind_pm": 10.5,
+   "received": 17,
+   "offers_total": 62,
+   "peak": 12
+  },
+  {
+   "name": "Pedri",
+   "matches": 3,
+   "in_behind": 20,
+   "in_behind_pm": 6.7,
+   "received": 185,
+   "offers_total": 394,
+   "peak": 8
+  },
+  {
+   "name": "Ricardo Rodriguez",
+   "matches": 4,
+   "in_behind": 20,
+   "in_behind_pm": 5.0,
+   "received": 55,
+   "offers_total": 125,
+   "peak": 7
+  },
+  {
+   "name": "Mohammed Kudus",
+   "matches": 3,
+   "in_behind": 20,
+   "in_behind_pm": 6.7,
+   "received": 34,
+   "offers_total": 131,
+   "peak": 11
+  },
+  {
+   "name": "Changhoon Kwon",
+   "matches": 1,
+   "in_behind": 20,
+   "in_behind_pm": 20.0,
+   "received": 16,
+   "offers_total": 64,
+   "peak": 20
+  },
+  {
+   "name": "Romario Ibarra",
+   "matches": 2,
+   "in_behind": 20,
+   "in_behind_pm": 10.0,
+   "received": 5,
+   "offers_total": 46,
+   "peak": 18
+  },
+  {
+   "name": "Martin Braithwaite",
+   "matches": 2,
+   "in_behind": 20,
+   "in_behind_pm": 10.0,
+   "received": 11,
+   "offers_total": 64,
+   "peak": 15
+  },
+  {
+   "name": "Romelu Lukaku",
+   "matches": 2,
+   "in_behind": 20,
+   "in_behind_pm": 10.0,
+   "received": 3,
+   "offers_total": 28,
+   "peak": 14
+  },
+  {
+   "name": "Abde Ezzalzouli",
+   "matches": 3,
+   "in_behind": 19,
+   "in_behind_pm": 6.3,
+   "received": 8,
+   "offers_total": 41,
+   "peak": 8
+  },
+  {
+   "name": "Nicolas Moumi Ngamaleu",
+   "matches": 2,
+   "in_behind": 19,
+   "in_behind_pm": 9.5,
+   "received": 17,
+   "offers_total": 52,
+   "peak": 12
+  },
+  {
+   "name": "Guillermo Varela",
+   "matches": 3,
+   "in_behind": 19,
+   "in_behind_pm": 6.3,
+   "received": 30,
+   "offers_total": 76,
+   "peak": 7
+  },
+  {
+   "name": "Wooyeong Jeong",
+   "matches": 1,
+   "in_behind": 19,
+   "in_behind_pm": 19.0,
+   "received": 10,
+   "offers_total": 44,
+   "peak": 19
+  },
+  {
+   "name": "Alistair Johnston",
+   "matches": 3,
+   "in_behind": 19,
+   "in_behind_pm": 6.3,
+   "received": 53,
+   "offers_total": 166,
+   "peak": 7
+  },
+  {
+   "name": "Johan Venegas",
+   "matches": 1,
+   "in_behind": 19,
+   "in_behind_pm": 19.0,
+   "received": 9,
+   "offers_total": 40,
+   "peak": 19
+  },
+  {
+   "name": "Alejandro Gomez",
+   "matches": 2,
+   "in_behind": 18,
+   "in_behind_pm": 9.0,
+   "received": 35,
+   "offers_total": 110,
+   "peak": 9
+  },
+  {
+   "name": "Jules Kounde",
+   "matches": 6,
+   "in_behind": 18,
+   "in_behind_pm": 3.0,
+   "received": 81,
+   "offers_total": 184,
+   "peak": 9
+  },
+  {
+   "name": "Mateo Kovacic",
+   "matches": 7,
+   "in_behind": 18,
+   "in_behind_pm": 2.6,
+   "received": 194,
+   "offers_total": 476,
+   "peak": 8
+  },
+  {
+   "name": "Alex Sandro",
+   "matches": 3,
+   "in_behind": 18,
+   "in_behind_pm": 6.0,
+   "received": 54,
+   "offers_total": 109,
+   "peak": 16
+  },
+  {
+   "name": "Kieran Trippier",
+   "matches": 3,
+   "in_behind": 18,
+   "in_behind_pm": 6.0,
+   "received": 61,
+   "offers_total": 130,
+   "peak": 15
+  },
+  {
+   "name": "Callum Wilson",
+   "matches": 2,
+   "in_behind": 18,
+   "in_behind_pm": 9.0,
+   "received": 8,
+   "offers_total": 63,
+   "peak": 14
+  },
+  {
+   "name": "Kai Havertz",
+   "matches": 1,
+   "in_behind": 18,
+   "in_behind_pm": 18.0,
+   "received": 12,
+   "offers_total": 37,
+   "peak": 18
+  },
+  {
+   "name": "Brenden Aaronson",
+   "matches": 4,
+   "in_behind": 17,
+   "in_behind_pm": 4.2,
+   "received": 30,
+   "offers_total": 118,
+   "peak": 7
+  },
+  {
+   "name": "Anass Zaroury",
+   "matches": 1,
+   "in_behind": 17,
+   "in_behind_pm": 17.0,
+   "received": 8,
+   "offers_total": 35,
+   "peak": 17
+  },
+  {
+   "name": "Nouhou Tolo",
+   "matches": 3,
+   "in_behind": 17,
+   "in_behind_pm": 5.7,
+   "received": 17,
+   "offers_total": 66,
+   "peak": 8
+  },
+  {
+   "name": "Nemanja Radonjic",
+   "matches": 3,
+   "in_behind": 17,
+   "in_behind_pm": 5.7,
+   "received": 8,
+   "offers_total": 38,
+   "peak": 7
+  },
+  {
+   "name": "Mathias Olivera",
+   "matches": 3,
+   "in_behind": 17,
+   "in_behind_pm": 5.7,
+   "received": 44,
+   "offers_total": 128,
+   "peak": 8
+  },
+  {
+   "name": "Kamaldeen Sulemana",
+   "matches": 2,
+   "in_behind": 17,
+   "in_behind_pm": 8.5,
+   "received": 15,
+   "offers_total": 61,
+   "peak": 15
+  },
+  {
+   "name": "Giorgian De Arrascaeta",
+   "matches": 2,
+   "in_behind": 17,
+   "in_behind_pm": 8.5,
+   "received": 21,
+   "offers_total": 62,
+   "peak": 9
+  },
+  {
+   "name": "Taha Yassine Khenissi",
+   "matches": 2,
+   "in_behind": 17,
+   "in_behind_pm": 8.5,
+   "received": 2,
+   "offers_total": 21,
+   "peak": 14
+  },
+  {
+   "name": "Famara Diedhiou",
+   "matches": 2,
+   "in_behind": 16,
+   "in_behind_pm": 8.0,
+   "received": 3,
+   "offers_total": 24,
+   "peak": 11
+  },
+  {
+   "name": "Bamba Dieng",
+   "matches": 4,
+   "in_behind": 16,
+   "in_behind_pm": 4.0,
+   "received": 9,
+   "offers_total": 37,
+   "peak": 9
+  },
+  {
+   "name": "Sebastian Szymanski",
+   "matches": 2,
+   "in_behind": 16,
+   "in_behind_pm": 8.0,
+   "received": 18,
+   "offers_total": 63,
+   "peak": 13
+  },
+  {
+   "name": "Piotr Zielinski",
+   "matches": 4,
+   "in_behind": 16,
+   "in_behind_pm": 4.0,
+   "received": 49,
+   "offers_total": 152,
+   "peak": 9
+  },
+  {
+   "name": "Yuto Nagatomo",
+   "matches": 3,
+   "in_behind": 16,
+   "in_behind_pm": 5.3,
+   "received": 27,
+   "offers_total": 51,
+   "peak": 8
+  },
+  {
+   "name": "Heechan Hwang",
+   "matches": 2,
+   "in_behind": 16,
+   "in_behind_pm": 8.0,
+   "received": 25,
+   "offers_total": 63,
+   "peak": 12
+  },
+  {
+   "name": "Walid Cheddira",
+   "matches": 2,
+   "in_behind": 16,
+   "in_behind_pm": 8.0,
+   "received": 4,
+   "offers_total": 23,
+   "peak": 10
+  },
+  {
+   "name": "Fred",
+   "matches": 4,
+   "in_behind": 16,
+   "in_behind_pm": 4.0,
+   "received": 43,
+   "offers_total": 161,
+   "peak": 8
+  },
+  {
+   "name": "Andre-Frank Zambo Anguissa",
+   "matches": 3,
+   "in_behind": 16,
+   "in_behind_pm": 5.3,
+   "received": 69,
+   "offers_total": 177,
+   "peak": 9
+  },
+  {
+   "name": "Dusan Vlahovic",
+   "matches": 2,
+   "in_behind": 16,
+   "in_behind_pm": 8.0,
+   "received": 6,
+   "offers_total": 43,
+   "peak": 10
+  },
+  {
+   "name": "Matheus Nunes",
+   "matches": 2,
+   "in_behind": 16,
+   "in_behind_pm": 8.0,
+   "received": 26,
+   "offers_total": 59,
+   "peak": 12
+  },
+  {
+   "name": "Andre Silva",
+   "matches": 1,
+   "in_behind": 16,
+   "in_behind_pm": 16.0,
+   "received": 7,
+   "offers_total": 23,
+   "peak": 16
+  },
+  {
+   "name": "Ayase Ueda",
+   "matches": 1,
+   "in_behind": 16,
+   "in_behind_pm": 16.0,
+   "received": 7,
+   "offers_total": 30,
+   "peak": 16
+  },
+  {
+   "name": "Ilkay Guendogan",
+   "matches": 2,
+   "in_behind": 16,
+   "in_behind_pm": 8.0,
+   "received": 44,
+   "offers_total": 116,
+   "peak": 12
+  },
+  {
+   "name": "Aissa Laidouni",
+   "matches": 3,
+   "in_behind": 16,
+   "in_behind_pm": 5.3,
+   "received": 43,
+   "offers_total": 112,
+   "peak": 7
+  },
+  {
+   "name": "Jordan Morris",
+   "matches": 2,
+   "in_behind": 15,
+   "in_behind_pm": 7.5,
+   "received": 2,
+   "offers_total": 16,
+   "peak": 8
+  },
+  {
+   "name": "Jackson Irvine",
+   "matches": 4,
+   "in_behind": 15,
+   "in_behind_pm": 3.8,
+   "received": 56,
+   "offers_total": 192,
+   "peak": 7
+  },
+  {
+   "name": "Garang Kuol",
+   "matches": 2,
+   "in_behind": 15,
+   "in_behind_pm": 7.5,
+   "received": 2,
+   "offers_total": 25,
+   "peak": 10
+  },
+  {
+   "name": "Abdelhamid Sabiri",
+   "matches": 5,
+   "in_behind": 15,
+   "in_behind_pm": 3.0,
+   "received": 25,
+   "offers_total": 97,
+   "peak": 10
+  },
+  {
+   "name": "Antoine Semenyo",
+   "matches": 2,
+   "in_behind": 15,
+   "in_behind_pm": 7.5,
+   "received": 2,
+   "offers_total": 24,
+   "peak": 11
+  },
+  {
+   "name": "Pedro Miguel",
+   "matches": 3,
+   "in_behind": 15,
+   "in_behind_pm": 5.0,
+   "received": 21,
+   "offers_total": 79,
+   "peak": 7
+  },
+  {
+   "name": "Hector Herrera",
+   "matches": 2,
+   "in_behind": 15,
+   "in_behind_pm": 7.5,
+   "received": 21,
+   "offers_total": 72,
+   "peak": 14
+  },
+  {
+   "name": "Saman Ghoddos",
+   "matches": 1,
+   "in_behind": 15,
+   "in_behind_pm": 15.0,
+   "received": 16,
+   "offers_total": 47,
+   "peak": 15
+  },
+  {
+   "name": "Luuk De Jong",
+   "matches": 1,
+   "in_behind": 14,
+   "in_behind_pm": 14.0,
+   "received": 6,
+   "offers_total": 17,
+   "peak": 14
+  },
+  {
+   "name": "Enzo Fernandez",
+   "matches": 7,
+   "in_behind": 14,
+   "in_behind_pm": 2.0,
+   "received": 218,
+   "offers_total": 449,
+   "peak": 6
+  },
+  {
+   "name": "Jack Grealish",
+   "matches": 5,
+   "in_behind": 14,
+   "in_behind_pm": 2.8,
+   "received": 46,
+   "offers_total": 84,
+   "peak": 6
+  },
+  {
+   "name": "Takumi Minamino",
+   "matches": 2,
+   "in_behind": 14,
+   "in_behind_pm": 7.0,
+   "received": 10,
+   "offers_total": 51,
+   "peak": 7
+  },
+  {
+   "name": "Marcelo Brozovic",
+   "matches": 6,
+   "in_behind": 14,
+   "in_behind_pm": 2.3,
+   "received": 240,
+   "offers_total": 561,
+   "peak": 5
+  },
+  {
+   "name": "Abdelkarim Hassan",
+   "matches": 3,
+   "in_behind": 14,
+   "in_behind_pm": 4.7,
+   "received": 44,
+   "offers_total": 107,
+   "peak": 10
+  },
+  {
+   "name": "Jeremy Sarmiento",
+   "matches": 3,
+   "in_behind": 14,
+   "in_behind_pm": 4.7,
+   "received": 15,
+   "offers_total": 67,
+   "peak": 5
+  },
+  {
+   "name": "Kasper Dolberg",
+   "matches": 3,
+   "in_behind": 14,
+   "in_behind_pm": 4.7,
+   "received": 8,
+   "offers_total": 28,
+   "peak": 9
+  },
+  {
+   "name": "Wajdi Kechrida",
+   "matches": 3,
+   "in_behind": 14,
+   "in_behind_pm": 4.7,
+   "received": 21,
+   "offers_total": 46,
+   "peak": 7
+  },
+  {
+   "name": "Marcos Llorente",
+   "matches": 1,
+   "in_behind": 13,
+   "in_behind_pm": 13.0,
+   "received": 15,
+   "offers_total": 51,
+   "peak": 13
+  },
+  {
+   "name": "Collins Fai",
+   "matches": 3,
+   "in_behind": 13,
+   "in_behind_pm": 4.3,
+   "received": 51,
+   "offers_total": 123,
+   "peak": 5
+  },
+  {
+   "name": "Joao Mario",
+   "matches": 2,
+   "in_behind": 13,
+   "in_behind_pm": 6.5,
+   "received": 11,
+   "offers_total": 54,
+   "peak": 9
+  },
+  {
+   "name": "Krzysztof Piatek",
+   "matches": 2,
+   "in_behind": 13,
+   "in_behind_pm": 6.5,
+   "received": 5,
+   "offers_total": 27,
+   "peak": 9
+  },
+  {
+   "name": "Christian Bassogog",
+   "matches": 1,
+   "in_behind": 13,
+   "in_behind_pm": 13.0,
+   "received": 7,
+   "offers_total": 17,
+   "peak": 13
+  },
+  {
+   "name": "Jesus Ferreira",
+   "matches": 1,
+   "in_behind": 12,
+   "in_behind_pm": 12.0,
+   "received": 15,
+   "offers_total": 61,
+   "peak": 12
+  },
+  {
+   "name": "Fran Karacic",
+   "matches": 2,
+   "in_behind": 12,
+   "in_behind_pm": 6.0,
+   "received": 11,
+   "offers_total": 38,
+   "peak": 9
+  },
+  {
+   "name": "Danilo",
+   "matches": 3,
+   "in_behind": 12,
+   "in_behind_pm": 4.0,
+   "received": 110,
+   "offers_total": 238,
+   "peak": 5
+  },
+  {
+   "name": "Alejandro Balde",
+   "matches": 3,
+   "in_behind": 12,
+   "in_behind_pm": 4.0,
+   "received": 43,
+   "offers_total": 125,
+   "peak": 9
+  },
+  {
+   "name": "Maxi Gomez",
+   "matches": 2,
+   "in_behind": 12,
+   "in_behind_pm": 6.0,
+   "received": 3,
+   "offers_total": 13,
+   "peak": 9
+  },
+  {
+   "name": "Ehsan Hajisafi",
+   "matches": 3,
+   "in_behind": 12,
+   "in_behind_pm": 4.0,
+   "received": 36,
+   "offers_total": 91,
+   "peak": 7
+  },
+  {
+   "name": "Alireza Jahanbakhsh",
+   "matches": 2,
+   "in_behind": 12,
+   "in_behind_pm": 6.0,
+   "received": 9,
+   "offers_total": 23,
+   "peak": 9
+  },
+  {
+   "name": "Ahmad Noorollahi",
+   "matches": 3,
+   "in_behind": 12,
+   "in_behind_pm": 4.0,
+   "received": 12,
+   "offers_total": 51,
+   "peak": 7
+  },
+  {
+   "name": "Mohamed Kanno",
+   "matches": 3,
+   "in_behind": 12,
+   "in_behind_pm": 4.0,
+   "received": 64,
+   "offers_total": 142,
+   "peak": 7
+  },
+  {
+   "name": "Mohammed Alburayk",
+   "matches": 2,
+   "in_behind": 12,
+   "in_behind_pm": 6.0,
+   "received": 21,
+   "offers_total": 53,
+   "peak": 11
+  },
+  {
+   "name": "Kyle Walker",
+   "matches": 3,
+   "in_behind": 11,
+   "in_behind_pm": 3.7,
+   "received": 75,
+   "offers_total": 176,
+   "peak": 7
+  },
+  {
+   "name": "Noah Okafor",
+   "matches": 3,
+   "in_behind": 11,
+   "in_behind_pm": 3.7,
+   "received": 15,
+   "offers_total": 29,
+   "peak": 5
+  },
+  {
+   "name": "Nemanja Maksimovic",
+   "matches": 3,
+   "in_behind": 11,
+   "in_behind_pm": 3.7,
+   "received": 23,
+   "offers_total": 77,
+   "peak": 6
+  },
+  {
+   "name": "Jewison Bennette",
+   "matches": 2,
+   "in_behind": 11,
+   "in_behind_pm": 5.5,
+   "received": 8,
+   "offers_total": 22,
+   "peak": 6
+  },
+  {
+   "name": "Neco Williams",
+   "matches": 3,
+   "in_behind": 11,
+   "in_behind_pm": 3.7,
+   "received": 17,
+   "offers_total": 64,
+   "peak": 6
+  },
+  {
+   "name": "Benjamin Pavard",
+   "matches": 1,
+   "in_behind": 11,
+   "in_behind_pm": 11.0,
+   "received": 40,
+   "offers_total": 78,
+   "peak": 11
+  },
+  {
+   "name": "Mohamed Ali Ben Romdhane",
+   "matches": 1,
+   "in_behind": 11,
+   "in_behind_pm": 11.0,
+   "received": 10,
+   "offers_total": 38,
+   "peak": 11
+  },
+  {
+   "name": "Mario Goetze",
+   "matches": 1,
+   "in_behind": 11,
+   "in_behind_pm": 11.0,
+   "received": 6,
+   "offers_total": 24,
+   "peak": 11
+  },
+  {
+   "name": "Deandre Yedlin",
+   "matches": 2,
+   "in_behind": 10,
+   "in_behind_pm": 5.0,
+   "received": 9,
+   "offers_total": 27,
+   "peak": 8
+  },
+  {
+   "name": "Kaoru Mitoma",
+   "matches": 3,
+   "in_behind": 10,
+   "in_behind_pm": 3.3,
+   "received": 10,
+   "offers_total": 38,
+   "peak": 7
+  },
+  {
+   "name": "Carlos Soler",
+   "matches": 1,
+   "in_behind": 10,
+   "in_behind_pm": 10.0,
+   "received": 23,
+   "offers_total": 67,
+   "peak": 10
+  },
+  {
+   "name": "Martin Hongla",
+   "matches": 2,
+   "in_behind": 10,
+   "in_behind_pm": 5.0,
+   "received": 39,
+   "offers_total": 85,
+   "peak": 10
+  },
+  {
+   "name": "Filip Mladenovic",
+   "matches": 1,
+   "in_behind": 10,
+   "in_behind_pm": 10.0,
+   "received": 6,
+   "offers_total": 29,
+   "peak": 10
+  },
+  {
+   "name": "Federico Valverde",
+   "matches": 3,
+   "in_behind": 10,
+   "in_behind_pm": 3.3,
+   "received": 66,
+   "offers_total": 139,
+   "peak": 7
+  },
+  {
+   "name": "Alidu Seidu",
+   "matches": 2,
+   "in_behind": 10,
+   "in_behind_pm": 5.0,
+   "received": 27,
+   "offers_total": 62,
+   "peak": 10
+  },
+  {
+   "name": "Nicolas Jackson",
+   "matches": 1,
+   "in_behind": 10,
+   "in_behind_pm": 10.0,
+   "received": 8,
+   "offers_total": 26,
+   "peak": 10
+  },
+  {
+   "name": "Naim Sliti",
+   "matches": 2,
+   "in_behind": 10,
+   "in_behind_pm": 5.0,
+   "received": 20,
+   "offers_total": 88,
+   "peak": 7
+  },
+  {
+   "name": "Stephen Eustaquio",
+   "matches": 2,
+   "in_behind": 10,
+   "in_behind_pm": 5.0,
+   "received": 38,
+   "offers_total": 113,
+   "peak": 5
+  },
+  {
+   "name": "Pape Gueye",
+   "matches": 3,
+   "in_behind": 9,
+   "in_behind_pm": 3.0,
+   "received": 28,
+   "offers_total": 90,
+   "peak": 4
+  },
+  {
+   "name": "Hiroki Sakai",
+   "matches": 1,
+   "in_behind": 9,
+   "in_behind_pm": 9.0,
+   "received": 4,
+   "offers_total": 22,
+   "peak": 9
+  },
+  {
+   "name": "Inbeom Hwang",
+   "matches": 4,
+   "in_behind": 9,
+   "in_behind_pm": 2.2,
+   "received": 112,
+   "offers_total": 257,
+   "peak": 4
+  },
+  {
+   "name": "Ilias Chair",
+   "matches": 1,
+   "in_behind": 9,
+   "in_behind_pm": 9.0,
+   "received": 4,
+   "offers_total": 24,
+   "peak": 9
+  },
+  {
+   "name": "Matias Vina",
+   "matches": 2,
+   "in_behind": 9,
+   "in_behind_pm": 4.5,
+   "received": 6,
+   "offers_total": 22,
+   "peak": 7
+  },
+  {
+   "name": "Leon Goretzka",
+   "matches": 2,
+   "in_behind": 9,
+   "in_behind_pm": 4.5,
+   "received": 10,
+   "offers_total": 56,
+   "peak": 7
+  },
+  {
+   "name": "Mehdi Torabi",
+   "matches": 3,
+   "in_behind": 9,
+   "in_behind_pm": 3.0,
+   "received": 25,
+   "offers_total": 59,
+   "peak": 5
+  },
+  {
+   "name": "Luis Chavez",
+   "matches": 3,
+   "in_behind": 9,
+   "in_behind_pm": 3.0,
+   "received": 27,
+   "offers_total": 102,
+   "peak": 7
+  },
+  {
+   "name": "Alexander Bah",
+   "matches": 2,
+   "in_behind": 9,
+   "in_behind_pm": 4.5,
+   "received": 20,
+   "offers_total": 45,
+   "peak": 7
+  },
+  {
+   "name": "Charles De Ketelaere",
+   "matches": 1,
+   "in_behind": 9,
+   "in_behind_pm": 9.0,
+   "received": 2,
+   "offers_total": 18,
+   "peak": 9
+  },
+  {
+   "name": "Lucas Cavallini",
+   "matches": 1,
+   "in_behind": 9,
+   "in_behind_pm": 9.0,
+   "received": 1,
+   "offers_total": 12,
+   "peak": 9
+  },
+  {
+   "name": "Takefusa Kubo",
+   "matches": 1,
+   "in_behind": 9,
+   "in_behind_pm": 9.0,
+   "received": 7,
+   "offers_total": 26,
+   "peak": 9
+  },
+  {
+   "name": "Giovanni Reyna",
+   "matches": 2,
+   "in_behind": 8,
+   "in_behind_pm": 4.0,
+   "received": 25,
+   "offers_total": 70,
+   "peak": 6
+  },
+  {
+   "name": "Exequiel Palacios",
+   "matches": 3,
+   "in_behind": 8,
+   "in_behind_pm": 2.7,
+   "received": 5,
+   "offers_total": 28,
+   "peak": 7
+  },
+  {
+   "name": "Ajdin Hrustic",
+   "matches": 3,
+   "in_behind": 8,
+   "in_behind_pm": 2.7,
+   "received": 9,
+   "offers_total": 42,
+   "peak": 5
+  },
+  {
+   "name": "Kamil Grosicki",
+   "matches": 1,
+   "in_behind": 8,
+   "in_behind_pm": 8.0,
+   "received": 6,
+   "offers_total": 15,
+   "peak": 8
+  },
+  {
+   "name": "Dejan Lovren",
+   "matches": 6,
+   "in_behind": 8,
+   "in_behind_pm": 1.3,
+   "received": 123,
+   "offers_total": 268,
+   "peak": 5
+  },
+  {
+   "name": "Marquinhos",
+   "matches": 5,
+   "in_behind": 8,
+   "in_behind_pm": 1.6,
+   "received": 132,
+   "offers_total": 278,
+   "peak": 5
+  },
+  {
+   "name": "Eder Militao",
+   "matches": 4,
+   "in_behind": 8,
+   "in_behind_pm": 2.0,
+   "received": 72,
+   "offers_total": 132,
+   "peak": 4
+  },
+  {
+   "name": "Kangin Lee",
+   "matches": 4,
+   "in_behind": 8,
+   "in_behind_pm": 2.0,
+   "received": 39,
+   "offers_total": 103,
+   "peak": 4
+  },
+  {
+   "name": "Ruben Dias",
+   "matches": 4,
+   "in_behind": 8,
+   "in_behind_pm": 2.0,
+   "received": 84,
+   "offers_total": 182,
+   "peak": 8
+  },
+  {
+   "name": "Granit Xhaka",
+   "matches": 4,
+   "in_behind": 8,
+   "in_behind_pm": 2.0,
+   "received": 124,
+   "offers_total": 359,
+   "peak": 7
+  },
+  {
+   "name": "Josip Stanisic",
+   "matches": 1,
+   "in_behind": 8,
+   "in_behind_pm": 8.0,
+   "received": 15,
+   "offers_total": 43,
+   "peak": 8
+  },
+  {
+   "name": "Sasa Lukic",
+   "matches": 3,
+   "in_behind": 8,
+   "in_behind_pm": 2.7,
+   "received": 78,
+   "offers_total": 178,
+   "peak": 7
+  },
+  {
+   "name": "Sergej Milinkovic-Savic",
+   "matches": 3,
+   "in_behind": 8,
+   "in_behind_pm": 2.7,
+   "received": 59,
+   "offers_total": 154,
+   "peak": 3
+  },
+  {
+   "name": "Tariq Lamptey",
+   "matches": 2,
+   "in_behind": 8,
+   "in_behind_pm": 4.0,
+   "received": 9,
+   "offers_total": 51,
+   "peak": 5
+  },
+  {
+   "name": "Mohammed Muntari",
+   "matches": 3,
+   "in_behind": 8,
+   "in_behind_pm": 2.7,
+   "received": 11,
+   "offers_total": 37,
+   "peak": 4
+  },
+  {
+   "name": "Jose Cifuentes",
+   "matches": 2,
+   "in_behind": 8,
+   "in_behind_pm": 4.0,
+   "received": 23,
+   "offers_total": 61,
+   "peak": 5
+  },
+  {
+   "name": "Milad Mohammadi",
+   "matches": 3,
+   "in_behind": 8,
+   "in_behind_pm": 2.7,
+   "received": 11,
+   "offers_total": 29,
+   "peak": 3
+  },
+  {
+   "name": "Thomas Delaney",
+   "matches": 1,
+   "in_behind": 8,
+   "in_behind_pm": 8.0,
+   "received": 18,
+   "offers_total": 44,
+   "peak": 8
+  },
+  {
+   "name": "Karim Ansarifard",
+   "matches": 2,
+   "in_behind": 8,
+   "in_behind_pm": 4.0,
+   "received": 2,
+   "offers_total": 24,
+   "peak": 8
+  },
+  {
+   "name": "Sami Alnaji",
+   "matches": 1,
+   "in_behind": 8,
+   "in_behind_pm": 8.0,
+   "received": 11,
+   "offers_total": 29,
+   "peak": 8
+  },
+  {
+   "name": "Abdulrahman Alobud",
+   "matches": 2,
+   "in_behind": 8,
+   "in_behind_pm": 4.0,
+   "received": 6,
+   "offers_total": 20,
+   "peak": 4
+  },
+  {
+   "name": "Bruno Guimaraes",
+   "matches": 2,
+   "in_behind": 8,
+   "in_behind_pm": 4.0,
+   "received": 32,
+   "offers_total": 86,
+   "peak": 4
+  },
+  {
+   "name": "Karol Swiderski",
+   "matches": 1,
+   "in_behind": 8,
+   "in_behind_pm": 8.0,
+   "received": 3,
+   "offers_total": 18,
+   "peak": 8
+  },
+  {
+   "name": "David Wotherspoon",
+   "matches": 1,
+   "in_behind": 8,
+   "in_behind_pm": 8.0,
+   "received": 2,
+   "offers_total": 20,
+   "peak": 8
+  },
+  {
+   "name": "Everton Ribeiro",
+   "matches": 1,
+   "in_behind": 8,
+   "in_behind_pm": 8.0,
+   "received": 14,
+   "offers_total": 56,
+   "peak": 8
+  },
+  {
+   "name": "Nathan Ake",
+   "matches": 5,
+   "in_behind": 7,
+   "in_behind_pm": 1.4,
+   "received": 74,
+   "offers_total": 173,
+   "peak": 7
+  },
+  {
+   "name": "Keanu Baccus",
+   "matches": 4,
+   "in_behind": 7,
+   "in_behind_pm": 1.8,
+   "received": 18,
+   "offers_total": 65,
+   "peak": 5
+  },
+  {
+   "name": "Paulo Dybala",
+   "matches": 2,
+   "in_behind": 7,
+   "in_behind_pm": 3.5,
+   "received": 7,
+   "offers_total": 13,
+   "peak": 6
+  },
+  {
+   "name": "Eduardo Camavinga",
+   "matches": 2,
+   "in_behind": 7,
+   "in_behind_pm": 3.5,
+   "received": 44,
+   "offers_total": 103,
+   "peak": 5
+  },
+  {
+   "name": "Youstin Salas",
+   "matches": 2,
+   "in_behind": 7,
+   "in_behind_pm": 3.5,
+   "received": 3,
+   "offers_total": 17,
+   "peak": 7
+  },
+  {
+   "name": "Nathaniel Atkinson",
+   "matches": 1,
+   "in_behind": 7,
+   "in_behind_pm": 7.0,
+   "received": 14,
+   "offers_total": 40,
+   "peak": 7
+  },
+  {
+   "name": "Carlos Rodriguez",
+   "matches": 2,
+   "in_behind": 7,
+   "in_behind_pm": 3.5,
+   "received": 15,
+   "offers_total": 33,
+   "peak": 4
+  },
+  {
+   "name": "Michel Aebischer",
+   "matches": 1,
+   "in_behind": 7,
+   "in_behind_pm": 7.0,
+   "received": 3,
+   "offers_total": 20,
+   "peak": 7
+  },
+  {
+   "name": "Michal Skoras",
+   "matches": 1,
+   "in_behind": 7,
+   "in_behind_pm": 7.0,
+   "received": 6,
+   "offers_total": 15,
+   "peak": 7
+  },
+  {
+   "name": "Ali Maaloul",
+   "matches": 1,
+   "in_behind": 7,
+   "in_behind_pm": 7.0,
+   "received": 20,
+   "offers_total": 31,
+   "peak": 7
+  },
+  {
+   "name": "Declan Rice",
+   "matches": 5,
+   "in_behind": 6,
+   "in_behind_pm": 1.2,
+   "received": 182,
+   "offers_total": 546,
+   "peak": 3
+  },
+  {
+   "name": "John Stones",
+   "matches": 5,
+   "in_behind": 6,
+   "in_behind_pm": 1.2,
+   "received": 154,
+   "offers_total": 257,
+   "peak": 3
+  },
+  {
+   "name": "Axel Disasi",
+   "matches": 3,
+   "in_behind": 6,
+   "in_behind_pm": 2.0,
+   "received": 7,
+   "offers_total": 22,
+   "peak": 6
+  },
+  {
+   "name": "Gideon Mensah",
+   "matches": 1,
+   "in_behind": 6,
+   "in_behind_pm": 6.0,
+   "received": 14,
+   "offers_total": 38,
+   "peak": 6
+  },
+  {
+   "name": "Pape Abou Cisse",
+   "matches": 3,
+   "in_behind": 6,
+   "in_behind_pm": 2.0,
+   "received": 11,
+   "offers_total": 32,
+   "peak": 6
+  },
+  {
+   "name": "Awer Mabil",
+   "matches": 2,
+   "in_behind": 6,
+   "in_behind_pm": 3.0,
+   "received": 5,
+   "offers_total": 24,
+   "peak": 3
+  },
+  {
+   "name": "Yasser Alshahrani",
+   "matches": 1,
+   "in_behind": 6,
+   "in_behind_pm": 6.0,
+   "received": 7,
+   "offers_total": 17,
+   "peak": 6
+  },
+  {
+   "name": "Nawaf Alabid",
+   "matches": 2,
+   "in_behind": 6,
+   "in_behind_pm": 3.0,
+   "received": 23,
+   "offers_total": 51,
+   "peak": 4
+  },
+  {
+   "name": "Leander Dendoncker",
+   "matches": 2,
+   "in_behind": 6,
+   "in_behind_pm": 3.0,
+   "received": 47,
+   "offers_total": 105,
+   "peak": 6
+  },
+  {
+   "name": "Frenkie De Jong",
+   "matches": 5,
+   "in_behind": 5,
+   "in_behind_pm": 1.0,
+   "received": 197,
+   "offers_total": 423,
+   "peak": 3
+  },
+  {
+   "name": "Grzegorz Krychowiak",
+   "matches": 4,
+   "in_behind": 5,
+   "in_behind_pm": 1.2,
+   "received": 39,
+   "offers_total": 111,
+   "peak": 3
+  },
+  {
+   "name": "Josko Gvardiol",
+   "matches": 7,
+   "in_behind": 5,
+   "in_behind_pm": 0.7,
+   "received": 114,
+   "offers_total": 216,
+   "peak": 2
+  },
+  {
+   "name": "Dani Alves",
+   "matches": 2,
+   "in_behind": 5,
+   "in_behind_pm": 2.5,
+   "received": 47,
+   "offers_total": 75,
+   "peak": 3
+  },
+  {
+   "name": "Chul Hong",
+   "matches": 1,
+   "in_behind": 5,
+   "in_behind_pm": 5.0,
+   "received": 4,
+   "offers_total": 13,
+   "peak": 5
+  },
+  {
+   "name": "Georges-Kevin Nkoudou",
+   "matches": 2,
+   "in_behind": 5,
+   "in_behind_pm": 2.5,
+   "received": 4,
+   "offers_total": 18,
+   "peak": 3
+  },
+  {
+   "name": "Darko Lazovic",
+   "matches": 1,
+   "in_behind": 5,
+   "in_behind_pm": 5.0,
+   "received": 4,
+   "offers_total": 15,
+   "peak": 5
+  },
+  {
+   "name": "Nicolas De La Cruz",
+   "matches": 2,
+   "in_behind": 5,
+   "in_behind_pm": 2.5,
+   "received": 5,
+   "offers_total": 24,
+   "peak": 3
+  },
+  {
+   "name": "Daniel-Kofi Kyereh",
+   "matches": 3,
+   "in_behind": 5,
+   "in_behind_pm": 1.7,
+   "received": 16,
+   "offers_total": 48,
+   "peak": 3
+  },
+  {
+   "name": "Nuno Mendes",
+   "matches": 1,
+   "in_behind": 5,
+   "in_behind_pm": 5.0,
+   "received": 14,
+   "offers_total": 30,
+   "peak": 5
+  },
+  {
+   "name": "Miki Yamane",
+   "matches": 1,
+   "in_behind": 5,
+   "in_behind_pm": 5.0,
+   "received": 5,
+   "offers_total": 19,
+   "peak": 5
+  },
+  {
+   "name": "Gerson Torres",
+   "matches": 1,
+   "in_behind": 5,
+   "in_behind_pm": 5.0,
+   "received": 8,
+   "offers_total": 32,
+   "peak": 5
+  },
+  {
+   "name": "Dani Carvajal",
+   "matches": 2,
+   "in_behind": 5,
+   "in_behind_pm": 2.5,
+   "received": 51,
+   "offers_total": 98,
+   "peak": 3
+  },
+  {
+   "name": "Kevin Rodriguez",
+   "matches": 2,
+   "in_behind": 5,
+   "in_behind_pm": 2.5,
+   "received": 0,
+   "offers_total": 8,
+   "peak": 3
+  },
+  {
+   "name": "Sadegh Moharrami",
+   "matches": 1,
+   "in_behind": 5,
+   "in_behind_pm": 5.0,
+   "received": 5,
+   "offers_total": 22,
+   "peak": 5
+  },
+  {
+   "name": "Andreas Christensen",
+   "matches": 3,
+   "in_behind": 5,
+   "in_behind_pm": 1.7,
+   "received": 40,
+   "offers_total": 94,
+   "peak": 3
+  },
+  {
+   "name": "Kevin Alvarez",
+   "matches": 2,
+   "in_behind": 5,
+   "in_behind_pm": 2.5,
+   "received": 7,
+   "offers_total": 28,
+   "peak": 3
+  },
+  {
+   "name": "Alex Telles",
+   "matches": 2,
+   "in_behind": 5,
+   "in_behind_pm": 2.5,
+   "received": 15,
+   "offers_total": 33,
+   "peak": 3
+  },
+  {
+   "name": "Ahmed Alaaeldin",
+   "matches": 1,
+   "in_behind": 5,
+   "in_behind_pm": 5.0,
+   "received": 1,
+   "offers_total": 10,
+   "peak": 5
+  },
+  {
+   "name": "Matteo Guendouzi",
+   "matches": 1,
+   "in_behind": 5,
+   "in_behind_pm": 5.0,
+   "received": 8,
+   "offers_total": 25,
+   "peak": 5
+  },
+  {
+   "name": "Cristian Romero",
+   "matches": 7,
+   "in_behind": 4,
+   "in_behind_pm": 0.6,
+   "received": 73,
+   "offers_total": 150,
+   "peak": 3
+  },
+  {
+   "name": "Milos Degenek",
+   "matches": 4,
+   "in_behind": 4,
+   "in_behind_pm": 1.0,
+   "received": 26,
+   "offers_total": 71,
+   "peak": 4
+  },
+  {
+   "name": "Harry Souttar",
+   "matches": 4,
+   "in_behind": 4,
+   "in_behind_pm": 1.0,
+   "received": 55,
+   "offers_total": 105,
+   "peak": 4
+  },
+  {
+   "name": "Harry Maguire",
+   "matches": 5,
+   "in_behind": 4,
+   "in_behind_pm": 0.8,
+   "received": 105,
+   "offers_total": 175,
+   "peak": 3
+  },
+  {
+   "name": "Youssouf Fofana",
+   "matches": 6,
+   "in_behind": 4,
+   "in_behind_pm": 0.7,
+   "received": 62,
+   "offers_total": 145,
+   "peak": 3
+  },
+  {
+   "name": "Hidemasa Morita",
+   "matches": 3,
+   "in_behind": 4,
+   "in_behind_pm": 1.3,
+   "received": 68,
+   "offers_total": 165,
+   "peak": 4
+  },
+  {
+   "name": "Ao Tanaka",
+   "matches": 2,
+   "in_behind": 4,
+   "in_behind_pm": 2.0,
+   "received": 19,
+   "offers_total": 65,
+   "peak": 3
+  },
+  {
+   "name": "Fabian Frei",
+   "matches": 2,
+   "in_behind": 4,
+   "in_behind_pm": 2.0,
+   "received": 7,
+   "offers_total": 21,
+   "peak": 4
+  },
+  {
+   "name": "Diego Godin",
+   "matches": 2,
+   "in_behind": 4,
+   "in_behind_pm": 2.0,
+   "received": 33,
+   "offers_total": 62,
+   "peak": 4
+  },
+  {
+   "name": "Rodrigo Bentancur",
+   "matches": 3,
+   "in_behind": 4,
+   "in_behind_pm": 1.3,
+   "received": 47,
+   "offers_total": 108,
+   "peak": 3
+  },
+  {
+   "name": "Brandon Aguilera",
+   "matches": 2,
+   "in_behind": 4,
+   "in_behind_pm": 2.0,
+   "received": 12,
+   "offers_total": 24,
+   "peak": 4
+  },
+  {
+   "name": "Koke",
+   "matches": 1,
+   "in_behind": 4,
+   "in_behind_pm": 4.0,
+   "received": 9,
+   "offers_total": 38,
+   "peak": 4
+  },
+  {
+   "name": "Jonas Hofmann",
+   "matches": 1,
+   "in_behind": 4,
+   "in_behind_pm": 4.0,
+   "received": 0,
+   "offers_total": 5,
+   "peak": 4
+  },
+  {
+   "name": "Ali Karimi",
+   "matches": 3,
+   "in_behind": 4,
+   "in_behind_pm": 1.3,
+   "received": 23,
+   "offers_total": 59,
+   "peak": 3
+  },
+  {
+   "name": "Kellyn Acosta",
+   "matches": 2,
+   "in_behind": 4,
+   "in_behind_pm": 2.0,
+   "received": 9,
+   "offers_total": 32,
+   "peak": 3
+  },
+  {
+   "name": "Jason Cummings",
+   "matches": 1,
+   "in_behind": 4,
+   "in_behind_pm": 4.0,
+   "received": 3,
+   "offers_total": 21,
+   "peak": 4
+  },
+  {
+   "name": "Liam Millar",
+   "matches": 1,
+   "in_behind": 4,
+   "in_behind_pm": 4.0,
+   "received": 3,
+   "offers_total": 11,
+   "peak": 4
+  },
+  {
+   "name": "Hatan Bahbri",
+   "matches": 2,
+   "in_behind": 4,
+   "in_behind_pm": 2.0,
+   "received": 2,
+   "offers_total": 9,
+   "peak": 4
+  },
+  {
+   "name": "Roberto Alvarado",
+   "matches": 1,
+   "in_behind": 4,
+   "in_behind_pm": 4.0,
+   "received": 8,
+   "offers_total": 19,
+   "peak": 4
+  },
+  {
+   "name": "Renato Steffen",
+   "matches": 1,
+   "in_behind": 4,
+   "in_behind_pm": 4.0,
+   "received": 4,
+   "offers_total": 13,
+   "peak": 4
+  },
+  {
+   "name": "Rogelio Funes Mori",
+   "matches": 1,
+   "in_behind": 4,
+   "in_behind_pm": 4.0,
+   "received": 0,
+   "offers_total": 6,
+   "peak": 4
+  },
+  {
+   "name": "Thiago Almada",
+   "matches": 1,
+   "in_behind": 4,
+   "in_behind_pm": 4.0,
+   "received": 9,
+   "offers_total": 22,
+   "peak": 4
+  },
+  {
+   "name": "Robert Skov",
+   "matches": 1,
+   "in_behind": 4,
+   "in_behind_pm": 4.0,
+   "received": 10,
+   "offers_total": 15,
+   "peak": 4
+  },
+  {
+   "name": "Nicolas Otamendi",
+   "matches": 7,
+   "in_behind": 3,
+   "in_behind_pm": 0.4,
+   "received": 140,
+   "offers_total": 253,
+   "peak": 2
+  },
+  {
+   "name": "Tyler Adams",
+   "matches": 4,
+   "in_behind": 3,
+   "in_behind_pm": 0.8,
+   "received": 124,
+   "offers_total": 326,
+   "peak": 2
+  },
+  {
+   "name": "Aaron Mooy",
+   "matches": 4,
+   "in_behind": 3,
+   "in_behind_pm": 0.8,
+   "received": 56,
+   "offers_total": 141,
+   "peak": 2
+  },
+  {
+   "name": "Abdou Diallo",
+   "matches": 4,
+   "in_behind": 3,
+   "in_behind_pm": 0.8,
+   "received": 52,
+   "offers_total": 111,
+   "peak": 2
+  },
+  {
+   "name": "Aurelien Tchouameni",
+   "matches": 7,
+   "in_behind": 3,
+   "in_behind_pm": 0.4,
+   "received": 187,
+   "offers_total": 431,
+   "peak": 2
+  },
+  {
+   "name": "Wataru Endo",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 96,
+   "offers_total": 199,
+   "peak": 3
+  },
+  {
+   "name": "Thiago Silva",
+   "matches": 4,
+   "in_behind": 3,
+   "in_behind_pm": 0.8,
+   "received": 57,
+   "offers_total": 96,
+   "peak": 2
+  },
+  {
+   "name": "Casemiro",
+   "matches": 4,
+   "in_behind": 3,
+   "in_behind_pm": 0.8,
+   "received": 109,
+   "offers_total": 290,
+   "peak": 3
+  },
+  {
+   "name": "Aymeric Laporte",
+   "matches": 2,
+   "in_behind": 3,
+   "in_behind_pm": 1.5,
+   "received": 34,
+   "offers_total": 63,
+   "peak": 2
+  },
+  {
+   "name": "Pepe",
+   "matches": 4,
+   "in_behind": 3,
+   "in_behind_pm": 0.8,
+   "received": 87,
+   "offers_total": 186,
+   "peak": 2
+  },
+  {
+   "name": "Vitinha",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 75,
+   "offers_total": 155,
+   "peak": 2
+  },
+  {
+   "name": "Angel Correa",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 3,
+   "offers_total": 8,
+   "peak": 3
+  },
+  {
+   "name": "Bilal El Khannouss",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 15,
+   "offers_total": 41,
+   "peak": 3
+  },
+  {
+   "name": "Strahinja Pavlovic",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 53,
+   "offers_total": 85,
+   "peak": 2
+  },
+  {
+   "name": "Nikola Milenkovic",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 46,
+   "offers_total": 126,
+   "peak": 3
+  },
+  {
+   "name": "Mohammed Salisu",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 33,
+   "offers_total": 90,
+   "peak": 3
+  },
+  {
+   "name": "Salis Abdul Samed",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 63,
+   "offers_total": 165,
+   "peak": 3
+  },
+  {
+   "name": "Agustin Canobbio",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 1,
+   "offers_total": 7,
+   "peak": 3
+  },
+  {
+   "name": "Celso Borges",
+   "matches": 2,
+   "in_behind": 3,
+   "in_behind_pm": 1.5,
+   "received": 34,
+   "offers_total": 96,
+   "peak": 2
+  },
+  {
+   "name": "Kendall Waston",
+   "matches": 2,
+   "in_behind": 3,
+   "in_behind_pm": 1.5,
+   "received": 23,
+   "offers_total": 51,
+   "peak": 2
+  },
+  {
+   "name": "Thilo Kehrer",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 12,
+   "offers_total": 30,
+   "peak": 3
+  },
+  {
+   "name": "Niklas Suele",
+   "matches": 2,
+   "in_behind": 3,
+   "in_behind_pm": 1.5,
+   "received": 52,
+   "offers_total": 83,
+   "peak": 2
+  },
+  {
+   "name": "Karim Boudiaf",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 47,
+   "offers_total": 132,
+   "peak": 3
+  },
+  {
+   "name": "Moises Caicedo",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 73,
+   "offers_total": 210,
+   "peak": 2
+  },
+  {
+   "name": "Pierre-Emile Hojbjerg",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 67,
+   "offers_total": 188,
+   "peak": 1
+  },
+  {
+   "name": "Montassar Talbi",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 36,
+   "offers_total": 94,
+   "peak": 3
+  },
+  {
+   "name": "Salman Alfaraj",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 10,
+   "offers_total": 36,
+   "peak": 3
+  },
+  {
+   "name": "Youri Tielemans",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 34,
+   "offers_total": 99,
+   "peak": 3
+  },
+  {
+   "name": "Atiba Hutchinson",
+   "matches": 3,
+   "in_behind": 3,
+   "in_behind_pm": 1.0,
+   "received": 53,
+   "offers_total": 119,
+   "peak": 1
+  },
+  {
+   "name": "Nasser Aldawsari",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 5,
+   "offers_total": 10,
+   "peak": 3
+  },
+  {
+   "name": "Pierre Kunde",
+   "matches": 2,
+   "in_behind": 3,
+   "in_behind_pm": 1.5,
+   "received": 18,
+   "offers_total": 59,
+   "peak": 3
+  },
+  {
+   "name": "Luka Jovic",
+   "matches": 2,
+   "in_behind": 3,
+   "in_behind_pm": 1.5,
+   "received": 6,
+   "offers_total": 32,
+   "peak": 3
+  },
+  {
+   "name": "Trent Alexander-Arnold",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 6,
+   "offers_total": 15,
+   "peak": 3
+  },
+  {
+   "name": "Jordan Veretout",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 14,
+   "offers_total": 45,
+   "peak": 3
+  },
+  {
+   "name": "Ronald Matarrita",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 7,
+   "offers_total": 16,
+   "peak": 3
+  },
+  {
+   "name": "Jeremy Doku",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 8,
+   "offers_total": 12,
+   "peak": 3
+  },
+  {
+   "name": "Christian Fassnacht",
+   "matches": 1,
+   "in_behind": 3,
+   "in_behind_pm": 3.0,
+   "received": 2,
+   "offers_total": 4,
+   "peak": 3
+  },
+  {
+   "name": "Marten De Roon",
+   "matches": 5,
+   "in_behind": 2,
+   "in_behind_pm": 0.4,
+   "received": 63,
+   "offers_total": 140,
+   "peak": 1
+  },
+  {
+   "name": "Leandro Paredes",
+   "matches": 5,
+   "in_behind": 2,
+   "in_behind_pm": 0.4,
+   "received": 113,
+   "offers_total": 201,
+   "peak": 1
+  },
+  {
+   "name": "Walker Zimmerman",
+   "matches": 4,
+   "in_behind": 2,
+   "in_behind_pm": 0.5,
+   "received": 43,
+   "offers_total": 72,
+   "peak": 2
+  },
+  {
+   "name": "Nampalys Mendy",
+   "matches": 4,
+   "in_behind": 2,
+   "in_behind_pm": 0.5,
+   "received": 57,
+   "offers_total": 131,
+   "peak": 1
+  },
+  {
+   "name": "Dayot Upamecano",
+   "matches": 5,
+   "in_behind": 2,
+   "in_behind_pm": 0.4,
+   "received": 113,
+   "offers_total": 225,
+   "peak": 1
+  },
+  {
+   "name": "Jakub Kiwior",
+   "matches": 4,
+   "in_behind": 2,
+   "in_behind_pm": 0.5,
+   "received": 57,
+   "offers_total": 87,
+   "peak": 1
+  },
+  {
+   "name": "Shogo Taniguchi",
+   "matches": 2,
+   "in_behind": 2,
+   "in_behind_pm": 1.0,
+   "received": 30,
+   "offers_total": 61,
+   "peak": 2
+  },
+  {
+   "name": "Younggwon Kim",
+   "matches": 4,
+   "in_behind": 2,
+   "in_behind_pm": 0.5,
+   "received": 54,
+   "offers_total": 87,
+   "peak": 2
+  },
+  {
+   "name": "Romain Saiss",
+   "matches": 6,
+   "in_behind": 2,
+   "in_behind_pm": 0.3,
+   "received": 59,
+   "offers_total": 144,
+   "peak": 2
+  },
+  {
+   "name": "Jawad El Yamiq",
+   "matches": 6,
+   "in_behind": 2,
+   "in_behind_pm": 0.3,
+   "received": 33,
+   "offers_total": 77,
+   "peak": 2
+  },
+  {
+   "name": "Pablo Sarabia",
+   "matches": 1,
+   "in_behind": 2,
+   "in_behind_pm": 2.0,
+   "received": 1,
+   "offers_total": 7,
+   "peak": 2
+  },
+  {
+   "name": "Denis Zakaria",
+   "matches": 2,
+   "in_behind": 2,
+   "in_behind_pm": 1.0,
+   "received": 12,
+   "offers_total": 30,
+   "peak": 2
+  },
+  {
+   "name": "Ivan Ilic",
+   "matches": 1,
+   "in_behind": 2,
+   "in_behind_pm": 2.0,
+   "received": 6,
+   "offers_total": 24,
+   "peak": 2
+  },
+  {
+   "name": "Jose Maria Gimenez",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 43,
+   "offers_total": 84,
+   "peak": 1
+  },
+  {
+   "name": "Thomas Partey",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 76,
+   "offers_total": 132,
+   "peak": 1
+  },
+  {
+   "name": "Sebastian Coates",
+   "matches": 2,
+   "in_behind": 2,
+   "in_behind_pm": 1.0,
+   "received": 20,
+   "offers_total": 43,
+   "peak": 2
+  },
+  {
+   "name": "Hiroki Ito",
+   "matches": 1,
+   "in_behind": 2,
+   "in_behind_pm": 2.0,
+   "received": 30,
+   "offers_total": 51,
+   "peak": 2
+  },
+  {
+   "name": "Oscar Duarte",
+   "matches": 2,
+   "in_behind": 2,
+   "in_behind_pm": 1.0,
+   "received": 15,
+   "offers_total": 33,
+   "peak": 2
+  },
+  {
+   "name": "Joshua Kimmich",
+   "matches": 2,
+   "in_behind": 2,
+   "in_behind_pm": 1.0,
+   "received": 16,
+   "offers_total": 65,
+   "peak": 2
+  },
+  {
+   "name": "Lukas Klostermann",
+   "matches": 2,
+   "in_behind": 2,
+   "in_behind_pm": 1.0,
+   "received": 6,
+   "offers_total": 16,
+   "peak": 2
+  },
+  {
+   "name": "Nico Schlotterbeck",
+   "matches": 1,
+   "in_behind": 2,
+   "in_behind_pm": 2.0,
+   "received": 1,
+   "offers_total": 5,
+   "peak": 2
+  },
+  {
+   "name": "Mohammed Waad",
+   "matches": 2,
+   "in_behind": 2,
+   "in_behind_pm": 1.0,
+   "received": 6,
+   "offers_total": 21,
+   "peak": 2
+  },
+  {
+   "name": "Alan Franco",
+   "matches": 2,
+   "in_behind": 2,
+   "in_behind_pm": 1.0,
+   "received": 4,
+   "offers_total": 25,
+   "peak": 1
+  },
+  {
+   "name": "Saeid Ezatolahi",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 21,
+   "offers_total": 60,
+   "peak": 2
+  },
+  {
+   "name": "Chris Mepham",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 41,
+   "offers_total": 87,
+   "peak": 2
+  },
+  {
+   "name": "Ethan Ampadu",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 68,
+   "offers_total": 169,
+   "peak": 2
+  },
+  {
+   "name": "Joachim Andersen",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 64,
+   "offers_total": 114,
+   "peak": 1
+  },
+  {
+   "name": "Dylan Bronn",
+   "matches": 2,
+   "in_behind": 2,
+   "in_behind_pm": 1.0,
+   "received": 31,
+   "offers_total": 71,
+   "peak": 2
+  },
+  {
+   "name": "Hector Moreno",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 27,
+   "offers_total": 56,
+   "peak": 1
+  },
+  {
+   "name": "Abdulelah Alamri",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 26,
+   "offers_total": 53,
+   "peak": 2
+  },
+  {
+   "name": "Toby Alderweireld",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 89,
+   "offers_total": 137,
+   "peak": 1
+  },
+  {
+   "name": "Jan Vertonghen",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 71,
+   "offers_total": 115,
+   "peak": 2
+  },
+  {
+   "name": "Amadou Onana",
+   "matches": 2,
+   "in_behind": 2,
+   "in_behind_pm": 1.0,
+   "received": 42,
+   "offers_total": 102,
+   "peak": 1
+  },
+  {
+   "name": "Lois Openda",
+   "matches": 1,
+   "in_behind": 2,
+   "in_behind_pm": 2.0,
+   "received": 3,
+   "offers_total": 6,
+   "peak": 2
+  },
+  {
+   "name": "Ismael Kone",
+   "matches": 3,
+   "in_behind": 2,
+   "in_behind_pm": 0.7,
+   "received": 58,
+   "offers_total": 110,
+   "peak": 2
+  },
+  {
+   "name": "Filip Djuricic",
+   "matches": 1,
+   "in_behind": 2,
+   "in_behind_pm": 2.0,
+   "received": 0,
+   "offers_total": 4,
+   "peak": 2
+  },
+  {
+   "name": "Djorkaeff Reasco",
+   "matches": 1,
+   "in_behind": 2,
+   "in_behind_pm": 2.0,
+   "received": 1,
+   "offers_total": 12,
+   "peak": 2
+  },
+  {
+   "name": "Ali Asad",
+   "matches": 1,
+   "in_behind": 2,
+   "in_behind_pm": 2.0,
+   "received": 9,
+   "offers_total": 16,
+   "peak": 2
+  },
+  {
+   "name": "Jerome Ngom Mbekeli",
+   "matches": 1,
+   "in_behind": 2,
+   "in_behind_pm": 2.0,
+   "received": 4,
+   "offers_total": 4,
+   "peak": 2
+  },
+  {
+   "name": "Virgil Van Dijk",
+   "matches": 5,
+   "in_behind": 1,
+   "in_behind_pm": 0.2,
+   "received": 71,
+   "offers_total": 118,
+   "peak": 1
+  },
+  {
+   "name": "Lisandro Martinez",
+   "matches": 5,
+   "in_behind": 1,
+   "in_behind_pm": 0.2,
+   "received": 38,
+   "offers_total": 83,
+   "peak": 1
+  },
+  {
+   "name": "Fode Ballo-Toure",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 3,
+   "offers_total": 7,
+   "peak": 1
+  },
+  {
+   "name": "Nicola Zalewski",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 6,
+   "offers_total": 18,
+   "peak": 1
+  },
+  {
+   "name": "Takehiro Tomiyasu",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 32,
+   "offers_total": 64,
+   "peak": 1
+  },
+  {
+   "name": "Borna Barisic",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 20,
+   "offers_total": 51,
+   "peak": 1
+  },
+  {
+   "name": "Minjae Kim",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 71,
+   "offers_total": 113,
+   "peak": 1
+  },
+  {
+   "name": "Seungho Paik",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 8,
+   "offers_total": 26,
+   "peak": 1
+  },
+  {
+   "name": "Nayef Aguerd",
+   "matches": 4,
+   "in_behind": 1,
+   "in_behind_pm": 0.2,
+   "received": 56,
+   "offers_total": 124,
+   "peak": 1
+  },
+  {
+   "name": "Badr Benoun",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 8,
+   "offers_total": 17,
+   "peak": 1
+  },
+  {
+   "name": "Sergio Busquets",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 72,
+   "offers_total": 224,
+   "peak": 1
+  },
+  {
+   "name": "Rodri",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 111,
+   "offers_total": 177,
+   "peak": 1
+  },
+  {
+   "name": "William Carvalho",
+   "matches": 4,
+   "in_behind": 1,
+   "in_behind_pm": 0.2,
+   "received": 63,
+   "offers_total": 137,
+   "peak": 1
+  },
+  {
+   "name": "Eray Coemert",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 15,
+   "offers_total": 27,
+   "peak": 1
+  },
+  {
+   "name": "Jean-Charles Castelletto",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 27,
+   "offers_total": 59,
+   "peak": 1
+  },
+  {
+   "name": "Nemanja Gudelj",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 20,
+   "offers_total": 49,
+   "peak": 1
+  },
+  {
+   "name": "Daniel Amartey",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 46,
+   "offers_total": 82,
+   "peak": 1
+  },
+  {
+   "name": "Antonio Silva",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 19,
+   "offers_total": 45,
+   "peak": 1
+  },
+  {
+   "name": "Fatawu Issahaku",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 1,
+   "offers_total": 2,
+   "peak": 1
+  },
+  {
+   "name": "Kou Itakura",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 29,
+   "offers_total": 49,
+   "peak": 1
+  },
+  {
+   "name": "Antonio Ruediger",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 30,
+   "offers_total": 45,
+   "peak": 1
+  },
+  {
+   "name": "Boualem Khoukhi",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 40,
+   "offers_total": 67,
+   "peak": 1
+  },
+  {
+   "name": "Piero Hincapie",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 25,
+   "offers_total": 79,
+   "peak": 1
+  },
+  {
+   "name": "Jhegson Mendez",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 60,
+   "offers_total": 130,
+   "peak": 1
+  },
+  {
+   "name": "Cheikhou Kouyate",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 13,
+   "offers_total": 31,
+   "peak": 1
+  },
+  {
+   "name": "Morteza Pouraliganji",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 16,
+   "offers_total": 36,
+   "peak": 1
+  },
+  {
+   "name": "Joe Rodon",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 46,
+   "offers_total": 93,
+   "peak": 1
+  },
+  {
+   "name": "Lucas Hernandez",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 2,
+   "offers_total": 6,
+   "peak": 1
+  },
+  {
+   "name": "Simon Kjaer",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 4,
+   "offers_total": 14,
+   "peak": 1
+  },
+  {
+   "name": "Yassine Meriah",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 55,
+   "offers_total": 97,
+   "peak": 1
+  },
+  {
+   "name": "Hannibal Mejbri",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 1,
+   "offers_total": 5,
+   "peak": 1
+  },
+  {
+   "name": "Edson Alvarez",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 39,
+   "offers_total": 105,
+   "peak": 1
+  },
+  {
+   "name": "Axel Witsel",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 74,
+   "offers_total": 242,
+   "peak": 1
+  },
+  {
+   "name": "Kamal Miller",
+   "matches": 3,
+   "in_behind": 1,
+   "in_behind_pm": 0.3,
+   "received": 69,
+   "offers_total": 124,
+   "peak": 1
+  },
+  {
+   "name": "Assim Madibo",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 32,
+   "offers_total": 90,
+   "peak": 1
+  },
+  {
+   "name": "Joe Allen",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 17,
+   "offers_total": 59,
+   "peak": 1
+  },
+  {
+   "name": "Christian Norgaard",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 7,
+   "offers_total": 13,
+   "peak": 1
+  },
+  {
+   "name": "Devis Epassy",
+   "matches": 2,
+   "in_behind": 1,
+   "in_behind_pm": 0.5,
+   "received": 14,
+   "offers_total": 27,
+   "peak": 1
+  },
+  {
+   "name": "Kenneth Taylor",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 5,
+   "offers_total": 19,
+   "peak": 1
+  },
+  {
+   "name": "Musaab Khidir",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 1,
+   "offers_total": 7,
+   "peak": 1
+  },
+  {
+   "name": "Abdullah Madu",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 1,
+   "offers_total": 6,
+   "peak": 1
+  },
+  {
+   "name": "Artur Jedrzejczyk",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 2,
+   "offers_total": 7,
+   "peak": 1
+  },
+  {
+   "name": "Mark-Anthony Kaye",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 24,
+   "offers_total": 49,
+   "peak": 1
+  },
+  {
+   "name": "Fabinho",
+   "matches": 1,
+   "in_behind": 1,
+   "in_behind_pm": 1.0,
+   "received": 24,
+   "offers_total": 59,
+   "peak": 1
+  },
+  {
+   "name": "Andries Noppert",
+   "matches": 5,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 45,
+   "offers_total": 72,
+   "peak": 0
+  },
+  {
+   "name": "Jurrien Timber",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 101,
+   "offers_total": 174,
+   "peak": 0
+  },
+  {
+   "name": "Noa Lang",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 0,
+   "offers_total": 0,
+   "peak": 0
+  },
+  {
+   "name": "Emiliano Martinez",
+   "matches": 7,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 25,
+   "offers_total": 75,
+   "peak": 0
+  },
+  {
+   "name": "German Pezzella",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 8,
+   "offers_total": 16,
+   "peak": 0
+  },
+  {
+   "name": "Matthijs De Ligt",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 11,
+   "offers_total": 33,
+   "peak": 0
+  },
+  {
+   "name": "Xavi Simons",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 7,
+   "offers_total": 11,
+   "peak": 0
+  },
+  {
+   "name": "Matt Turner",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 24,
+   "offers_total": 72,
+   "peak": 0
+  },
+  {
+   "name": "Tim Ream",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 65,
+   "offers_total": 134,
+   "peak": 0
+  },
+  {
+   "name": "Mathew Ryan",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 47,
+   "offers_total": 72,
+   "peak": 0
+  },
+  {
+   "name": "Kye Rowles",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 80,
+   "offers_total": 168,
+   "peak": 0
+  },
+  {
+   "name": "Jordan Pickford",
+   "matches": 5,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 60,
+   "offers_total": 142,
+   "peak": 0
+  },
+  {
+   "name": "Kalvin Phillips",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 5,
+   "offers_total": 33,
+   "peak": 0
+  },
+  {
+   "name": "Eric Dier",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 5,
+   "offers_total": 16,
+   "peak": 0
+  },
+  {
+   "name": "Edouard Mendy",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 29,
+   "offers_total": 52,
+   "peak": 0
+  },
+  {
+   "name": "Kalidou Koulibaly",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 36,
+   "offers_total": 78,
+   "peak": 0
+  },
+  {
+   "name": "Pathe Ciss",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 20,
+   "offers_total": 65,
+   "peak": 0
+  },
+  {
+   "name": "Pape Matar Sarr",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 18,
+   "offers_total": 33,
+   "peak": 0
+  },
+  {
+   "name": "Hugo Lloris",
+   "matches": 6,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 12,
+   "offers_total": 30,
+   "peak": 0
+  },
+  {
+   "name": "Raphael Varane",
+   "matches": 6,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 69,
+   "offers_total": 121,
+   "peak": 0
+  },
+  {
+   "name": "Wojciech Szczesny",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 24,
+   "offers_total": 42,
+   "peak": 0
+  },
+  {
+   "name": "Kamil Glik",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 39,
+   "offers_total": 79,
+   "peak": 0
+  },
+  {
+   "name": "Jan Bednarek",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 3,
+   "offers_total": 6,
+   "peak": 0
+  },
+  {
+   "name": "Krystian Bielik",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 36,
+   "offers_total": 83,
+   "peak": 0
+  },
+  {
+   "name": "Shuichi Gonda",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 4,
+   "offers_total": 8,
+   "peak": 0
+  },
+  {
+   "name": "Maya Yoshida",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 39,
+   "offers_total": 74,
+   "peak": 0
+  },
+  {
+   "name": "Dominik Livakovic",
+   "matches": 7,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 29,
+   "offers_total": 54,
+   "peak": 0
+  },
+  {
+   "name": "Alisson",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 21,
+   "offers_total": 37,
+   "peak": 0
+  },
+  {
+   "name": "Weverton",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 0,
+   "offers_total": 2,
+   "peak": 0
+  },
+  {
+   "name": "Bremer",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 8,
+   "offers_total": 15,
+   "peak": 0
+  },
+  {
+   "name": "Seunggyu Kim",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 19,
+   "offers_total": 47,
+   "peak": 0
+  },
+  {
+   "name": "Wooyoung Jung",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 126,
+   "offers_total": 232,
+   "peak": 0
+  },
+  {
+   "name": "Junho Son",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 19,
+   "offers_total": 37,
+   "peak": 0
+  },
+  {
+   "name": "Yassine Bounou",
+   "matches": 6,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 39,
+   "offers_total": 72,
+   "peak": 0
+  },
+  {
+   "name": "Sofyan Amrabat",
+   "matches": 7,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 129,
+   "offers_total": 339,
+   "peak": 0
+  },
+  {
+   "name": "Unai Simon",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 26,
+   "offers_total": 45,
+   "peak": 0
+  },
+  {
+   "name": "Diogo Costa",
+   "matches": 5,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 29,
+   "offers_total": 52,
+   "peak": 0
+  },
+  {
+   "name": "Ruben Neves",
+   "matches": 5,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 130,
+   "offers_total": 283,
+   "peak": 0
+  },
+  {
+   "name": "Yann Sommer",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 26,
+   "offers_total": 55,
+   "peak": 0
+  },
+  {
+   "name": "Manuel Akanji",
+   "matches": 4,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 73,
+   "offers_total": 128,
+   "peak": 0
+  },
+  {
+   "name": "Fabian Schaer",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 27,
+   "offers_total": 46,
+   "peak": 0
+  },
+  {
+   "name": "Ardon Jashari",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 4,
+   "offers_total": 8,
+   "peak": 0
+  },
+  {
+   "name": "Achraf Dari",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 10,
+   "offers_total": 22,
+   "peak": 0
+  },
+  {
+   "name": "Yahya Jabrane",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 0,
+   "offers_total": 4,
+   "peak": 0
+  },
+  {
+   "name": "Juan Foyth",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 1,
+   "offers_total": 1,
+   "peak": 0
+  },
+  {
+   "name": "Ibrahima Konate",
+   "matches": 5,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 49,
+   "offers_total": 87,
+   "peak": 0
+  },
+  {
+   "name": "Josip Sutalo",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 21,
+   "offers_total": 40,
+   "peak": 0
+  },
+  {
+   "name": "Kristijan Jakic",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 0,
+   "offers_total": 0,
+   "peak": 0
+  },
+  {
+   "name": "Nico Elvedi",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 43,
+   "offers_total": 67,
+   "peak": 0
+  },
+  {
+   "name": "Andre Onana",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 7,
+   "offers_total": 17,
+   "peak": 0
+  },
+  {
+   "name": "Nicolas Nkoulou",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 24,
+   "offers_total": 59,
+   "peak": 0
+  },
+  {
+   "name": "Samuel Oum Gouet",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 18,
+   "offers_total": 41,
+   "peak": 0
+  },
+  {
+   "name": "Gael Ondoua",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 5,
+   "offers_total": 34,
+   "peak": 0
+  },
+  {
+   "name": "Vanja Milinkovic-Savic",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 22,
+   "offers_total": 41,
+   "peak": 0
+  },
+  {
+   "name": "Milos Veljkovic",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 46,
+   "offers_total": 87,
+   "peak": 0
+  },
+  {
+   "name": "Sergio Rochet",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 12,
+   "offers_total": 21,
+   "peak": 0
+  },
+  {
+   "name": "Martin Caceres",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 23,
+   "offers_total": 34,
+   "peak": 0
+  },
+  {
+   "name": "Danilo Pereira",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 13,
+   "offers_total": 25,
+   "peak": 0
+  },
+  {
+   "name": "Joao Palhinha",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 6,
+   "offers_total": 10,
+   "peak": 0
+  },
+  {
+   "name": "Lawrence Ati Zigi",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 11,
+   "offers_total": 30,
+   "peak": 0
+  },
+  {
+   "name": "Alexander Djiku",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 9,
+   "offers_total": 37,
+   "peak": 0
+  },
+  {
+   "name": "Kyungwon Kwon",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 8,
+   "offers_total": 20,
+   "peak": 0
+  },
+  {
+   "name": "Denis Odoi",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 1,
+   "offers_total": 3,
+   "peak": 0
+  },
+  {
+   "name": "Yumin Cho",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 0,
+   "offers_total": 0,
+   "peak": 0
+  },
+  {
+   "name": "Keylor Navas",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 4,
+   "offers_total": 5,
+   "peak": 0
+  },
+  {
+   "name": "Francisco Calvo",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 27,
+   "offers_total": 47,
+   "peak": 0
+  },
+  {
+   "name": "Yeltsin Tejeda",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 36,
+   "offers_total": 67,
+   "peak": 0
+  },
+  {
+   "name": "Daniel Chacon",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 0,
+   "offers_total": 0,
+   "peak": 0
+  },
+  {
+   "name": "Manuel Neuer",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 16,
+   "offers_total": 28,
+   "peak": 0
+  },
+  {
+   "name": "Saad Alsheeb",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 4,
+   "offers_total": 12,
+   "peak": 0
+  },
+  {
+   "name": "Bassam Alrawi",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 18,
+   "offers_total": 31,
+   "peak": 0
+  },
+  {
+   "name": "Hernan Galindez",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 15,
+   "offers_total": 27,
+   "peak": 0
+  },
+  {
+   "name": "Felix Torres",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 40,
+   "offers_total": 78,
+   "peak": 0
+  },
+  {
+   "name": "Alireza Beiranvand",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 2,
+   "offers_total": 4,
+   "peak": 0
+  },
+  {
+   "name": "Rouzbeh Cheshmi",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 1,
+   "offers_total": 4,
+   "peak": 0
+  },
+  {
+   "name": "Majid Hosseini",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 32,
+   "offers_total": 62,
+   "peak": 0
+  },
+  {
+   "name": "Hossein Hosseini",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 5,
+   "offers_total": 13,
+   "peak": 0
+  },
+  {
+   "name": "Hossein Kanani",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 1,
+   "offers_total": 5,
+   "peak": 0
+  },
+  {
+   "name": "Wayne Hennessey",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 12,
+   "offers_total": 27,
+   "peak": 0
+  },
+  {
+   "name": "Ben Davies",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 54,
+   "offers_total": 116,
+   "peak": 0
+  },
+  {
+   "name": "Joe Morrell",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 5,
+   "offers_total": 26,
+   "peak": 0
+  },
+  {
+   "name": "Sorba Thomas",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 2,
+   "offers_total": 2,
+   "peak": 0
+  },
+  {
+   "name": "Kasper Schmeichel",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 17,
+   "offers_total": 32,
+   "peak": 0
+  },
+  {
+   "name": "Aymen Dahmen",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 11,
+   "offers_total": 37,
+   "peak": 0
+  },
+  {
+   "name": "Ferjani Sassi",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 11,
+   "offers_total": 34,
+   "peak": 0
+  },
+  {
+   "name": "Guillermo Ochoa",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 22,
+   "offers_total": 44,
+   "peak": 0
+  },
+  {
+   "name": "Cesar Montes",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 43,
+   "offers_total": 71,
+   "peak": 0
+  },
+  {
+   "name": "Mohammed Alowais",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 6,
+   "offers_total": 20,
+   "peak": 0
+  },
+  {
+   "name": "Ali Albulayhi",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 31,
+   "offers_total": 66,
+   "peak": 0
+  },
+  {
+   "name": "Abdulelah Almalki",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 34,
+   "offers_total": 82,
+   "peak": 0
+  },
+  {
+   "name": "Hassan Altambakti",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 14,
+   "offers_total": 35,
+   "peak": 0
+  },
+  {
+   "name": "Haitham Asiri",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 0,
+   "offers_total": 1,
+   "peak": 0
+  },
+  {
+   "name": "Thibaut Courtois",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 20,
+   "offers_total": 38,
+   "peak": 0
+  },
+  {
+   "name": "Milan Borjan",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 10,
+   "offers_total": 18,
+   "peak": 0
+  },
+  {
+   "name": "Steven Vitoria",
+   "matches": 3,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 35,
+   "offers_total": 72,
+   "peak": 0
+  },
+  {
+   "name": "Meshaal Barsham",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 16,
+   "offers_total": 41,
+   "peak": 0
+  },
+  {
+   "name": "Tarek Salman",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 2,
+   "offers_total": 4,
+   "peak": 0
+  },
+  {
+   "name": "Jackson Porozo",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 7,
+   "offers_total": 17,
+   "peak": 0
+  },
+  {
+   "name": "Danny Ward",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 7,
+   "offers_total": 12,
+   "peak": 0
+  },
+  {
+   "name": "Shaq Moore",
+   "matches": 2,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 8,
+   "offers_total": 17,
+   "peak": 0
+  },
+  {
+   "name": "Guido Rodriguez",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 28,
+   "offers_total": 66,
+   "peak": 0
+  },
+  {
+   "name": "Nestor Araujo",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 6,
+   "offers_total": 17,
+   "peak": 0
+  },
+  {
+   "name": "Andres Guardado",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 4,
+   "offers_total": 12,
+   "peak": 0
+  },
+  {
+   "name": "Erick Gutierrez",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 18,
+   "offers_total": 35,
+   "peak": 0
+  },
+  {
+   "name": "Victor Nelsson",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 8,
+   "offers_total": 16,
+   "peak": 0
+  },
+  {
+   "name": "Munir El Kajoui",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 2,
+   "offers_total": 7,
+   "peak": 0
+  },
+  {
+   "name": "Stefan Mitrovic",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 10,
+   "offers_total": 19,
+   "peak": 0
+  },
+  {
+   "name": "Srdjan Babic",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 9,
+   "offers_total": 10,
+   "peak": 0
+  },
+  {
+   "name": "Carlos Gruezo",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 7,
+   "offers_total": 30,
+   "peak": 0
+  },
+  {
+   "name": "Cameron Carter-Vickers",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 20,
+   "offers_total": 36,
+   "peak": 0
+  },
+  {
+   "name": "Rubin Colwill",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 2,
+   "offers_total": 6,
+   "peak": 0
+  },
+  {
+   "name": "Ali Alhassan",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 2,
+   "offers_total": 9,
+   "peak": 0
+  },
+  {
+   "name": "Riyadh Sharahili",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 6,
+   "offers_total": 21,
+   "peak": 0
+  },
+  {
+   "name": "Damian Szymanski",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 6,
+   "offers_total": 16,
+   "peak": 0
+  },
+  {
+   "name": "Nader Ghandri",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 8,
+   "offers_total": 12,
+   "peak": 0
+  },
+  {
+   "name": "Ghaylen Chaaleli",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 1,
+   "offers_total": 2,
+   "peak": 0
+  },
+  {
+   "name": "Steve Mandanda",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 4,
+   "offers_total": 9,
+   "peak": 0
+  },
+  {
+   "name": "William Saliba",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 14,
+   "offers_total": 18,
+   "peak": 0
+  },
+  {
+   "name": "Bailey Wright",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 0,
+   "offers_total": 0,
+   "peak": 0
+  },
+  {
+   "name": "Juan Pablo Vargas",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 2,
+   "offers_total": 10,
+   "peak": 0
+  },
+  {
+   "name": "Roan Wilson",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 0,
+   "offers_total": 2,
+   "peak": 0
+  },
+  {
+   "name": "Matthias Ginter",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 2,
+   "offers_total": 3,
+   "peak": 0
+  },
+  {
+   "name": "Cesar Azpilicueta",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 43,
+   "offers_total": 68,
+   "peak": 0
+  },
+  {
+   "name": "Pau Torres",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 48,
+   "offers_total": 88,
+   "peak": 0
+  },
+  {
+   "name": "Christopher Wooh",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 14,
+   "offers_total": 33,
+   "peak": 0
+  },
+  {
+   "name": "Enzo Ebosse",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 17,
+   "offers_total": 37,
+   "peak": 0
+  },
+  {
+   "name": "Olivier Ntcham",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 5,
+   "offers_total": 20,
+   "peak": 0
+  },
+  {
+   "name": "Ederson",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 2,
+   "offers_total": 5,
+   "peak": 0
+  },
+  {
+   "name": "Predrag Rajkovic",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 0,
+   "offers_total": 0,
+   "peak": 0
+  },
+  {
+   "name": "Gregor Kobel",
+   "matches": 1,
+   "in_behind": 0,
+   "in_behind_pm": 0.0,
+   "received": 3,
+   "offers_total": 15,
+   "peak": 0
   }
  ],
  "peak_single_match": [
   {
    "name": "Feras Albrikan",
-   "in_behind": 56,
-   "match": "Poland v Saudi Arabia"
+   "in_behind": 56
   },
   {
    "name": "Angel Di Maria",
-   "in_behind": 51,
-   "match": "Argentina v Saudi Arabia"
+   "in_behind": 51
   },
   {
    "name": "Henry Martin",
-   "in_behind": 50,
-   "match": "Saudi Arabia v Mexico"
+   "in_behind": 50
   },
   {
    "name": "Thomas Mueller",
-   "in_behind": 49,
-   "match": "Costa Rica v Germany"
+   "in_behind": 49
   },
   {
    "name": "Joao Felix",
-   "in_behind": 47,
-   "match": "Morocco v Portugal"
+   "in_behind": 47
   },
   {
    "name": "Darwin Nunez",
-   "in_behind": 45,
-   "match": "Uruguay v Korea Republic"
+   "in_behind": 45
   },
   {
    "name": "Timothy Weah",
-   "in_behind": 44,
-   "match": "USA v Wales"
+   "in_behind": 44
   },
   {
    "name": "Yuki Soma",
-   "in_behind": 43,
-   "match": "Japan v Costa Rica"
+   "in_behind": 43
   },
   {
    "name": "Jonathan David",
-   "in_behind": 43,
-   "match": "Belgium v Canada"
+   "in_behind": 43
   },
   {
    "name": "Michy Batshuayi",
-   "in_behind": 43,
-   "match": "Belgium v Morocco"
+   "in_behind": 43
   },
   {
    "name": "Ivan Perisic",
-   "in_behind": 41,
-   "match": "Japan v Croatia"
+   "in_behind": 41
   },
   {
    "name": "Alphonso Davies",
-   "in_behind": 41,
-   "match": "Canada v Morocco"
+   "in_behind": 41
   },
   {
    "name": "Raphinha",
-   "in_behind": 40,
-   "match": "Brazil v Serbia"
+   "in_behind": 40
   },
   {
    "name": "Issam Jebali",
-   "in_behind": 40,
-   "match": "Tunisia v Australia"
+   "in_behind": 40
   },
   {
    "name": "Julian Alvarez",
-   "in_behind": 40,
-   "match": "Poland v Argentina"
+   "in_behind": 40
   }
  ]
 }

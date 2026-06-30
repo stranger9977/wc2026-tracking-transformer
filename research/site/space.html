@@ -921,13 +921,14 @@
         </style>
         <div class="livestat" style="margin-bottom:8px">WC2022 · FIFA Enhanced Football Intelligence (post-match reports)</div>
         <h3>The same question, 2022: who led the runs in behind?</h3>
-        <p class="caption" style="margin-top:0">FIFA's 2022 EFI reports name each team's <b>top in-behind runner</b> in every match — so this is who <b>led their team</b> most across the tournament (left), and the biggest <b>single-game</b> counts (right). Narrower than the live-2026 board above (team leaders only, not every player) but FIFA's official figures. One that jumps out for the off-ball crowd: <b>Thomas Müller made 49 in-behind runs vs Costa Rica</b> — the highest single-match count of the tournament, a quiet case for the "space" reputation.</p>
+        <p class="caption" style="margin-top:0">FIFA's 2022 EFI post-match reports log <b>every player's</b> off-ball "in behind" offers — runs made to receive the ball behind the defensive line — which we parsed from all 64 reports. <b>Total</b>, <b>per match</b>, or the biggest <b>single-game</b> counts. <b>Ivan Perišić</b> tops the tournament (191), <b>Weah</b> and <b>João Félix</b> the per-match rate; and the single-match high is <b>Thomas Müller's 49 vs Costa Rica</b> — a quiet case for the off-ball "space" reputation. FIFA's official figures, the 2022 companion to the live-2026 board above.</p>
         <div class="er2-tog" id="er2-view">
-          <button class="er2-btn on" data-v="total">most (summed across matches led)</button>
+          <button class="er2-btn on" data-v="total">total</button>
+          <button class="er2-btn" data-v="pm">per match</button>
           <button class="er2-btn" data-v="peak">single-match peak</button>
         </div>
         <div class="er2-board" id="er2-board"></div>
-        <p class="caption faintnote" id="er2-foot">FIFA Training Centre WC2022 post-match summary reports (PDF). Player-level "movement to receive in behind"; reports list each team's leader per match.</p>
+        <p class="caption faintnote" id="er2-foot">FIFA Training Centre WC2022 post-match summary reports (PDF), parsed from each report's INDIVIDUAL DATA "Offers &amp; Receptions" table — every player's "in behind" offers, all 64 matches.</p>
       </div>
       <script>
         (function(){
@@ -935,24 +936,28 @@
           var board=document.getElementById('er2-board'); var st={v:'total'}, data=null;
           function render(){
             if(!data) return;
-            var rows, mx, html;
-            if(st.v==='total'){
-              rows=(data.players||[]).slice(0,12);
-              mx=Math.max.apply(null, rows.map(function(r){return r.in_behind_total;}).concat([1]));
-              html=rows.map(function(p){
-                var w=Math.max(2,p.in_behind_total/mx*100);
-                return '<div class="er2-row"><span class="er2-name">'+p.name+' <span class="sub">led '+p.matches_led+' match'+(p.matches_led>1?'es':'')+'</span></span>'
-                  +'<span class="er2-track"><span class="er2-fill" style="width:'+w.toFixed(0)+'%"></span></span>'
-                  +'<span class="er2-val">'+p.in_behind_total+'</span></div>';
-              }).join('');
-            } else {
-              rows=(data.peak_single_match||[]).slice(0,12);
-              mx=Math.max.apply(null, rows.map(function(r){return r.in_behind;}).concat([1]));
-              html=rows.map(function(r){
-                var w=Math.max(2,r.in_behind/mx*100);
-                return '<div class="er2-row"><span class="er2-name">'+r.name+' <span class="sub">'+r.match+'</span></span>'
+            var html;
+            if(st.v==='peak'){
+              var pk=(data.peak_single_match||[]).slice(0,12);
+              var mxp=Math.max.apply(null, pk.map(function(r){return r.in_behind;}).concat([1]));
+              html=pk.map(function(r){
+                var w=Math.max(2,r.in_behind/mxp*100);
+                return '<div class="er2-row"><span class="er2-name">'+r.name+'</span>'
                   +'<span class="er2-track"><span class="er2-fill" style="width:'+w.toFixed(0)+'%"></span></span>'
                   +'<span class="er2-val">'+r.in_behind+'</span></div>';
+              }).join('');
+            } else {
+              var key = st.v==='pm' ? 'in_behind_pm' : 'in_behind';
+              var min = st.v==='pm' ? 3 : 0;   // per-match needs >=3 matches to be meaningful
+              var rows=(data.players||[]).filter(function(p){return p.matches>=min;})
+                .sort(function(a,b){return b[key]-a[key];}).slice(0,12);
+              var mx=Math.max.apply(null, rows.map(function(r){return r[key];}).concat([1]));
+              html=rows.map(function(p){
+                var v=p[key], w=Math.max(2,v/mx*100);
+                var sub = st.v==='pm' ? p.matches+' matches' : (p.in_behind_pm+'/match · '+p.matches+'m');
+                return '<div class="er2-row"><span class="er2-name">'+p.name+' <span class="sub">'+sub+'</span></span>'
+                  +'<span class="er2-track"><span class="er2-fill" style="width:'+w.toFixed(0)+'%"></span></span>'
+                  +'<span class="er2-val">'+v+'</span></div>';
               }).join('');
             }
             board.innerHTML=html;
@@ -1479,6 +1484,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=88"></script>
+<script type="module" src="assets/js/space.js?v=89"></script>
 </body>
 </html>
