@@ -1,0 +1,653 @@
+{
+ "metric": "Off-ball runs in behind (FIFA EFI, WC2022)",
+ "definition": "FIFA Enhanced Football Intelligence post-match reports publish each team's TOP 'in behind' mover per match (the player who most often ran to receive behind the defensive line). This board sums those per-match team-leading counts, and tracks each player's single-match peak. It's the 2022 companion to the full per-player live-2026 board \u2014 narrower (team leaders only) but FIFA's official figures.",
+ "source": "FIFA Training Centre \u2014 WC2022 post-match summary reports (PDF)",
+ "grain": "per-match team leader (2 players/match)",
+ "n_matches": 61,
+ "players": [
+  {
+   "name": "Ivan Perisic",
+   "in_behind_total": 130,
+   "matches_led": 4,
+   "peak": 41,
+   "peak_match": "Japan v Croatia"
+  },
+  {
+   "name": "Timothy Weah",
+   "in_behind_total": 110,
+   "matches_led": 3,
+   "peak": 44,
+   "peak_match": "USA v Wales"
+  },
+  {
+   "name": "Julian Alvarez",
+   "in_behind_total": 96,
+   "matches_led": 3,
+   "peak": 40,
+   "peak_match": "Poland v Argentina"
+  },
+  {
+   "name": "Feras Albrikan",
+   "in_behind_total": 95,
+   "matches_led": 3,
+   "peak": 56,
+   "peak_match": "Poland v Saudi Arabia"
+  },
+  {
+   "name": "Youssef En-Nesyri",
+   "in_behind_total": 93,
+   "matches_led": 4,
+   "peak": 25,
+   "peak_match": "France v Morocco"
+  },
+  {
+   "name": "Darwin Nunez",
+   "in_behind_total": 93,
+   "matches_led": 3,
+   "peak": 45,
+   "peak_match": "Uruguay v Korea Republic"
+  },
+  {
+   "name": "Joao Felix",
+   "in_behind_total": 80,
+   "matches_led": 2,
+   "peak": 47,
+   "peak_match": "Morocco v Portugal"
+  },
+  {
+   "name": "Angel Di Maria",
+   "in_behind_total": 79,
+   "matches_led": 2,
+   "peak": 51,
+   "peak_match": "Argentina v Saudi Arabia"
+  },
+  {
+   "name": "Kylian Mbappe",
+   "in_behind_total": 74,
+   "matches_led": 3,
+   "peak": 26,
+   "peak_match": "France v Morocco"
+  },
+  {
+   "name": "Olivier Giroud",
+   "in_behind_total": 71,
+   "matches_led": 3,
+   "peak": 26,
+   "peak_match": "France v Australia"
+  },
+  {
+   "name": "Richarlison",
+   "in_behind_total": 69,
+   "matches_led": 2,
+   "peak": 36,
+   "peak_match": "Brazil v Switzerland"
+  },
+  {
+   "name": "Guesung Cho",
+   "in_behind_total": 66,
+   "matches_led": 2,
+   "peak": 35,
+   "peak_match": "Brazil v Korea Republic"
+  },
+  {
+   "name": "Jesper Lindstrom",
+   "in_behind_total": 66,
+   "matches_led": 2,
+   "peak": 39,
+   "peak_match": "France v Denmark"
+  },
+  {
+   "name": "Aleksandar Mitrovic",
+   "in_behind_total": 65,
+   "matches_led": 3,
+   "peak": 29,
+   "peak_match": "Cameroon v Serbia"
+  },
+  {
+   "name": "Andrej Kramaric",
+   "in_behind_total": 57,
+   "matches_led": 2,
+   "peak": 32,
+   "peak_match": "Croatia v Belgium"
+  },
+  {
+   "name": "Cody Gakpo",
+   "in_behind_total": 57,
+   "matches_led": 2,
+   "peak": 30,
+   "peak_match": "Senegal v Netherlands"
+  },
+  {
+   "name": "Inaki Williams",
+   "in_behind_total": 54,
+   "matches_led": 2,
+   "peak": 29,
+   "peak_match": "Portugal v Ghana"
+  },
+  {
+   "name": "Memphis Depay",
+   "in_behind_total": 53,
+   "matches_led": 2,
+   "peak": 31,
+   "peak_match": "Netherlands v Qatar"
+  },
+  {
+   "name": "Mehdi Taremi",
+   "in_behind_total": 53,
+   "matches_led": 3,
+   "peak": 24,
+   "peak_match": "Wales v IR Iran"
+  },
+  {
+   "name": "Daizen Maeda",
+   "in_behind_total": 52,
+   "matches_led": 2,
+   "peak": 35,
+   "peak_match": "Japan v Croatia"
+  },
+  {
+   "name": "Boulaye Dia",
+   "in_behind_total": 52,
+   "matches_led": 2,
+   "peak": 36,
+   "peak_match": "Qatar v Senegal"
+  },
+  {
+   "name": "Kieffer Moore",
+   "in_behind_total": 52,
+   "matches_led": 2,
+   "peak": 35,
+   "peak_match": "Wales v IR Iran"
+  },
+  {
+   "name": "Bukayo Saka",
+   "in_behind_total": 51,
+   "matches_led": 2,
+   "peak": 28,
+   "peak_match": "England v Senegal"
+  },
+  {
+   "name": "Hakim Ziyech",
+   "in_behind_total": 50,
+   "matches_led": 2,
+   "peak": 33,
+   "peak_match": "Belgium v Morocco"
+  },
+  {
+   "name": "Henry Martin",
+   "in_behind_total": 50,
+   "matches_led": 1,
+   "peak": 50,
+   "peak_match": "Saudi Arabia v Mexico"
+  },
+  {
+   "name": "Thomas Mueller",
+   "in_behind_total": 49,
+   "matches_led": 1,
+   "peak": 49,
+   "peak_match": "Costa Rica v Germany"
+  },
+  {
+   "name": "Bryan Mbeumo",
+   "in_behind_total": 48,
+   "matches_led": 2,
+   "peak": 25,
+   "peak_match": "Switzerland v Cameroon"
+  },
+  {
+   "name": "Robert Lewandowski",
+   "in_behind_total": 48,
+   "matches_led": 2,
+   "peak": 35,
+   "peak_match": "Poland v Saudi Arabia"
+  },
+  {
+   "name": "Mitchell Duke",
+   "in_behind_total": 44,
+   "matches_led": 2,
+   "peak": 24,
+   "peak_match": "Tunisia v Australia"
+  },
+  {
+   "name": "Yuki Soma",
+   "in_behind_total": 43,
+   "matches_led": 1,
+   "peak": 43,
+   "peak_match": "Japan v Costa Rica"
+  },
+  {
+   "name": "Jonathan David",
+   "in_behind_total": 43,
+   "matches_led": 1,
+   "peak": 43,
+   "peak_match": "Belgium v Canada"
+  },
+  {
+   "name": "Michy Batshuayi",
+   "in_behind_total": 43,
+   "matches_led": 1,
+   "peak": 43,
+   "peak_match": "Belgium v Morocco"
+  },
+  {
+   "name": "Alphonso Davies",
+   "in_behind_total": 41,
+   "matches_led": 1,
+   "peak": 41,
+   "peak_match": "Canada v Morocco"
+  },
+  {
+   "name": "Raphinha",
+   "in_behind_total": 40,
+   "matches_led": 1,
+   "peak": 40,
+   "peak_match": "Brazil v Serbia"
+  },
+  {
+   "name": "Issam Jebali",
+   "in_behind_total": 40,
+   "matches_led": 1,
+   "peak": 40,
+   "peak_match": "Tunisia v Australia"
+  },
+  {
+   "name": "Hirving Lozano",
+   "in_behind_total": 39,
+   "matches_led": 2,
+   "peak": 22,
+   "peak_match": "Mexico v Poland"
+  },
+  {
+   "name": "Ansu Fati",
+   "in_behind_total": 39,
+   "matches_led": 1,
+   "peak": 39,
+   "peak_match": "Japan v Spain"
+  },
+  {
+   "name": "Ruben Vargas",
+   "in_behind_total": 38,
+   "matches_led": 2,
+   "peak": 20,
+   "peak_match": "Serbia v Switzerland"
+  },
+  {
+   "name": "Ricardo Horta",
+   "in_behind_total": 37,
+   "matches_led": 1,
+   "peak": 37,
+   "peak_match": "Korea Republic v Portugal"
+  },
+  {
+   "name": "Raheem Sterling",
+   "in_behind_total": 36,
+   "matches_led": 1,
+   "peak": 36,
+   "peak_match": "England v IR Iran"
+  },
+  {
+   "name": "Phil Foden",
+   "in_behind_total": 35,
+   "matches_led": 1,
+   "peak": 35,
+   "peak_match": "Wales v England"
+  },
+  {
+   "name": "Michael Estrada",
+   "in_behind_total": 34,
+   "matches_led": 1,
+   "peak": 34,
+   "peak_match": "Qatar v Ecuador"
+  },
+  {
+   "name": "Cristiano Ronaldo",
+   "in_behind_total": 33,
+   "matches_led": 1,
+   "peak": 33,
+   "peak_match": "Portugal v Ghana"
+  },
+  {
+   "name": "Ismaila Sarr",
+   "in_behind_total": 33,
+   "matches_led": 1,
+   "peak": 33,
+   "peak_match": "Senegal v Netherlands"
+  },
+  {
+   "name": "Osman Bukari",
+   "in_behind_total": 32,
+   "matches_led": 1,
+   "peak": 32,
+   "peak_match": "Ghana v Uruguay"
+  },
+  {
+   "name": "Joakim Maehle",
+   "in_behind_total": 31,
+   "matches_led": 1,
+   "peak": 31,
+   "peak_match": "Denmark v Tunisia"
+  },
+  {
+   "name": "Haji Wright",
+   "in_behind_total": 31,
+   "matches_led": 1,
+   "peak": 31,
+   "peak_match": "England v USA"
+  },
+  {
+   "name": "Gabriel Jesus",
+   "in_behind_total": 31,
+   "matches_led": 1,
+   "peak": 31,
+   "peak_match": "Cameroon v Brazil"
+  },
+  {
+   "name": "Timothy Castagne",
+   "in_behind_total": 30,
+   "matches_led": 1,
+   "peak": 30,
+   "peak_match": "Belgium v Canada"
+  },
+  {
+   "name": "Lucas Paqueta",
+   "in_behind_total": 29,
+   "matches_led": 1,
+   "peak": 29,
+   "peak_match": "Croatia v Brazil"
+  },
+  {
+   "name": "Xherdan Shaqiri",
+   "in_behind_total": 29,
+   "matches_led": 1,
+   "peak": 29,
+   "peak_match": "Switzerland v Cameroon"
+  },
+  {
+   "name": "Uijo Hwang",
+   "in_behind_total": 28,
+   "matches_led": 1,
+   "peak": 28,
+   "peak_match": "Uruguay v Korea Republic"
+  },
+  {
+   "name": "Jude Bellingham",
+   "in_behind_total": 27,
+   "matches_led": 1,
+   "peak": 27,
+   "peak_match": "England v France"
+  },
+  {
+   "name": "Anis Slimane",
+   "in_behind_total": 27,
+   "matches_led": 1,
+   "peak": 27,
+   "peak_match": "Tunisia v France"
+  },
+  {
+   "name": "Vincent Aboubakar",
+   "in_behind_total": 26,
+   "matches_led": 1,
+   "peak": 26,
+   "peak_match": "Cameroon v Brazil"
+  },
+  {
+   "name": "Alvaro Morata",
+   "in_behind_total": 24,
+   "matches_led": 1,
+   "peak": 24,
+   "peak_match": "Morocco v Spain"
+  },
+  {
+   "name": "Craig Goodwin",
+   "in_behind_total": 24,
+   "matches_led": 1,
+   "peak": 24,
+   "peak_match": "France v Australia"
+  },
+  {
+   "name": "Mohamed Drager",
+   "in_behind_total": 24,
+   "matches_led": 1,
+   "peak": 24,
+   "peak_match": "Denmark v Tunisia"
+  },
+  {
+   "name": "Randal Kolo Muani",
+   "in_behind_total": 24,
+   "matches_led": 1,
+   "peak": 24,
+   "peak_match": "Tunisia v France"
+  },
+  {
+   "name": "Breel Embolo",
+   "in_behind_total": 23,
+   "matches_led": 1,
+   "peak": 23,
+   "peak_match": "Portugal v Switzerland"
+  },
+  {
+   "name": "Aaron Ramsey",
+   "in_behind_total": 23,
+   "matches_led": 1,
+   "peak": 23,
+   "peak_match": "USA v Wales"
+  },
+  {
+   "name": "Dries Mertens",
+   "in_behind_total": 23,
+   "matches_led": 1,
+   "peak": 23,
+   "peak_match": "Croatia v Belgium"
+  },
+  {
+   "name": "Bruno Fernandes",
+   "in_behind_total": 22,
+   "matches_led": 1,
+   "peak": 22,
+   "peak_match": "Portugal v Switzerland"
+  },
+  {
+   "name": "Homam Ahmed",
+   "in_behind_total": 22,
+   "matches_led": 1,
+   "peak": 22,
+   "peak_match": "Qatar v Ecuador"
+  },
+  {
+   "name": "Almoez Ali",
+   "in_behind_total": 22,
+   "matches_led": 1,
+   "peak": 22,
+   "peak_match": "Qatar v Senegal"
+  },
+  {
+   "name": "Nahuel Molina",
+   "in_behind_total": 21,
+   "matches_led": 1,
+   "peak": 21,
+   "peak_match": "Netherlands v Argentina"
+  },
+  {
+   "name": "Youssouf Sabaly",
+   "in_behind_total": 21,
+   "matches_led": 1,
+   "peak": 21,
+   "peak_match": "England v Senegal"
+  },
+  {
+   "name": "Dani Olmo",
+   "in_behind_total": 21,
+   "matches_led": 1,
+   "peak": 21,
+   "peak_match": "Spain v Germany"
+  },
+  {
+   "name": "Pervis Estupinan",
+   "in_behind_total": 21,
+   "matches_led": 1,
+   "peak": 21,
+   "peak_match": "Netherlands v Ecuador"
+  },
+  {
+   "name": "Marcos Acuna",
+   "in_behind_total": 21,
+   "matches_led": 1,
+   "peak": 21,
+   "peak_match": "Argentina v Mexico"
+  },
+  {
+   "name": "Enner Valencia",
+   "in_behind_total": 20,
+   "matches_led": 1,
+   "peak": 20,
+   "peak_match": "Ecuador v Senegal"
+  },
+  {
+   "name": "Ismail Mohamad",
+   "in_behind_total": 20,
+   "matches_led": 1,
+   "peak": 20,
+   "peak_match": "Netherlands v Qatar"
+  },
+  {
+   "name": "Bartosz Bereszynski",
+   "in_behind_total": 19,
+   "matches_led": 1,
+   "peak": 19,
+   "peak_match": "France v Poland"
+  },
+  {
+   "name": "Heungmin Son",
+   "in_behind_total": 19,
+   "matches_led": 1,
+   "peak": 19,
+   "peak_match": "Korea Republic v Portugal"
+  },
+  {
+   "name": "Johan Venegas",
+   "in_behind_total": 19,
+   "matches_led": 1,
+   "peak": 19,
+   "peak_match": "Costa Rica v Germany"
+  },
+  {
+   "name": "Steven Bergwijn",
+   "in_behind_total": 18,
+   "matches_led": 1,
+   "peak": 18,
+   "peak_match": "Netherlands v Argentina"
+  },
+  {
+   "name": "Anthony Contreras",
+   "in_behind_total": 18,
+   "matches_led": 1,
+   "peak": 18,
+   "peak_match": "Japan v Costa Rica"
+  },
+  {
+   "name": "Jamal Musiala",
+   "in_behind_total": 17,
+   "matches_led": 1,
+   "peak": 17,
+   "peak_match": "Spain v Germany"
+  },
+  {
+   "name": "Jakub Kaminski",
+   "in_behind_total": 17,
+   "matches_led": 1,
+   "peak": 17,
+   "peak_match": "Mexico v Poland"
+  },
+  {
+   "name": "Cyle Larin",
+   "in_behind_total": 17,
+   "matches_led": 1,
+   "peak": 17,
+   "peak_match": "Croatia v Canada"
+  },
+  {
+   "name": "Mathew Leckie",
+   "in_behind_total": 16,
+   "matches_led": 1,
+   "peak": 16,
+   "peak_match": "Argentina v Australia"
+  }
+ ],
+ "peak_single_match": [
+  {
+   "name": "Feras Albrikan",
+   "in_behind": 56,
+   "match": "Poland v Saudi Arabia"
+  },
+  {
+   "name": "Angel Di Maria",
+   "in_behind": 51,
+   "match": "Argentina v Saudi Arabia"
+  },
+  {
+   "name": "Henry Martin",
+   "in_behind": 50,
+   "match": "Saudi Arabia v Mexico"
+  },
+  {
+   "name": "Thomas Mueller",
+   "in_behind": 49,
+   "match": "Costa Rica v Germany"
+  },
+  {
+   "name": "Joao Felix",
+   "in_behind": 47,
+   "match": "Morocco v Portugal"
+  },
+  {
+   "name": "Darwin Nunez",
+   "in_behind": 45,
+   "match": "Uruguay v Korea Republic"
+  },
+  {
+   "name": "Timothy Weah",
+   "in_behind": 44,
+   "match": "USA v Wales"
+  },
+  {
+   "name": "Yuki Soma",
+   "in_behind": 43,
+   "match": "Japan v Costa Rica"
+  },
+  {
+   "name": "Jonathan David",
+   "in_behind": 43,
+   "match": "Belgium v Canada"
+  },
+  {
+   "name": "Michy Batshuayi",
+   "in_behind": 43,
+   "match": "Belgium v Morocco"
+  },
+  {
+   "name": "Ivan Perisic",
+   "in_behind": 41,
+   "match": "Japan v Croatia"
+  },
+  {
+   "name": "Alphonso Davies",
+   "in_behind": 41,
+   "match": "Canada v Morocco"
+  },
+  {
+   "name": "Raphinha",
+   "in_behind": 40,
+   "match": "Brazil v Serbia"
+  },
+  {
+   "name": "Issam Jebali",
+   "in_behind": 40,
+   "match": "Tunisia v Australia"
+  },
+  {
+   "name": "Julian Alvarez",
+   "in_behind": 40,
+   "match": "Poland v Argentina"
+  }
+ ]
+}
