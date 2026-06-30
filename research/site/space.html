@@ -1349,6 +1349,50 @@
         <p class="qh-note"><b>On Kane &amp; the "best finisher" idea.</b> Over his career Kane is one of the world's best finishers — but a single tournament can't show it. In WC2022 he finished <b>almost exactly at expected (+0.24, #46 of 101)</b>: 1 non-penalty goal on 0.76 npxG across 10 shots. The clinical men here were <b>Mbappé (+3.33)</b>, Gakpo and Saka; the cold ones, <b>Martínez (&minus;2.12)</b> and Lukaku. <b>Messi sits #17 (+0.89)</b> — a modest overperformer on a tournament-high 27 shots: his game is creating chances more than out-finishing them. Finishing is real but slow to prove — read this as a 2022 snapshot, not a ranking of who's best at it.</p>
       </div>
 
+      <div class="card qh-card" id="finishing-2026-card">
+        <style>
+          #finishing-2026-card .f26-board{margin:12px 0 4px}
+          #finishing-2026-card .f26-row{display:grid;grid-template-columns:1.4fr 2fr auto auto;gap:10px;align-items:center;padding:5px 2px;font-size:15px}
+          #finishing-2026-card .f26-name{color:var(--ink);font-weight:600}
+          #finishing-2026-card .f26-name .lteam{color:var(--faint);font-weight:400;font-size:12.5px}
+          #finishing-2026-card .f26-track{height:9px;background:var(--bg-elev2);border-radius:5px;overflow:hidden}
+          #finishing-2026-card .f26-fill{display:block;height:100%}
+          #finishing-2026-card .f26-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;min-width:48px}
+          #finishing-2026-card .f26-sub{color:var(--faint);font-size:12.5px;text-align:right;min-width:86px}
+          #finishing-2026-card .f26-div{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:14px 2px 4px;border-top:1px solid var(--border);padding-top:10px}
+        </style>
+        <div class="livestat" style="margin-bottom:8px"><span class="dot live"></span> live WC2026 · The Analyst / Opta</div>
+        <h3>The same finishing read, live in World Cup 2026 <span class="qh-tag soft">non-penalty</span></h3>
+        <p class="caption qh-verdict"><b>Goals &minus; expected goals</b> (npG &minus; npxG), exactly as the 2022 board above — but pulled live from <b>The Analyst's official Opta feed</b>, updating each matchday. Same idea, this tournament: who is out-scoring his chances so far? <b>Messi leads everyone</b> — 6 non-penalty goals from just 1.9 xG (+4.10), a scarcely-believable hot streak. The same tiny-sample caveat applies (4 games in), and Opta's xG model differs slightly from the 2022 board's StatsBomb numbers — so read the two as the same question across two World Cups, not one continuous scale.</p>
+        <div class="f26-board" id="f26-board"></div>
+        <p class="qh-note" id="f26-foot">Source: The Analyst / Opta live FIFA World Cup stats. Gated at ~1 goal's worth of chances (npxG &ge; 0.8) so a single shot can't top the board.</p>
+      </div>
+      <script>
+        (function(){
+          var card=document.getElementById('finishing-2026-card'); if(!card) return;
+          var board=document.getElementById('f26-board'), foot=document.getElementById('f26-foot');
+          function rowHtml(p, mx, col){
+            var w=Math.max(4, Math.abs(p.diff)/mx*100);
+            return '<div class="f26-row"><span class="f26-name">'+p.name+' <span class="lteam">'+(p.team||'')+'</span></span>'
+              +'<span class="f26-track"><span class="f26-fill" style="width:'+w.toFixed(0)+'%;background:'+col+'"></span></span>'
+              +'<span class="f26-val">'+(p.diff>=0?'+':'')+p.diff.toFixed(2)+'</span>'
+              +'<span class="f26-sub">'+p.goals+'G · '+p.xg.toFixed(1)+' xG</span></div>';
+          }
+          fetch('data/finishing_2026.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){
+            var mx=Math.max.apply(null,(d.hot||[]).map(function(p){return Math.abs(p.diff);}).concat([1]));
+            var html='<div class="f26-div">Hottest finishers — most goals above expected</div>';
+            html+=(d.hot||[]).map(function(p){return rowHtml(p,mx,'#6dd58c');}).join('');
+            html+='<div class="f26-div">Coldest — biggest underperformers</div>';
+            html+=(d.cold||[]).map(function(p){return rowHtml(p,mx,'#ff6b6b');}).join('');
+            board.innerHTML=html;
+            if(foot && d.last_updated){
+              var day=String(d.last_updated).slice(0,10);
+              foot.innerHTML='Source: The Analyst / Opta live FIFA World Cup stats — updated '+day+', up to '+d.matches_played_max+' games played. Gated at ~1 goal’s worth of chances (npxG ≥ '+d.min_xg+') so a single shot can’t top the board.';
+            }
+          }).catch(function(){board.innerHTML='<p class="caption">could not load 2026 finishing data</p>';});
+        })();
+      </script>
+
       <div class="card qh-card" id="paper-table-card">
         <h3>The paper's space table, our data <span class="qh-tag soft">pick any match</span></h3>
         <p class="caption qh-verdict">Fern&aacute;ndez &amp; Bornn's <b>Table 2</b> &mdash; space generation and occupation loss for one team in one match &mdash; rebuilt from our pipeline for <b>every match we have a play from</b>. Pick a match and toggle xT vs V. <b>&Sigma;</b> and <b>&mu;</b> are the sum and mean of each player's events.</p>
@@ -1484,6 +1528,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=90"></script>
+<script type="module" src="assets/js/space.js?v=91"></script>
 </body>
 </html>
