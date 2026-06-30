@@ -30,43 +30,58 @@ def team(r):
     return r.get("contestantName") or r.get("contestantShortName") or ""
 
 
-def row(r):
+def row(r, kg, kxg, kdiff, kshots):
     return {
         "name": r["player"],
         "team": team(r),
-        "diff": round(r["np_goals_vs_xg"], 2),
-        "goals": r["np_goals"],
-        "xg": round(r["np_xg"], 2),
-        "shots": r["np_shots"],
+        "diff": round(r[kdiff], 2),
+        "goals": r[kg],
+        "xg": round(r[kxg], 2),
+        "shots": r[kshots],
     }
 
 
-elig = [r for r in src["nonPenalty"] if (r.get("np_xg") or 0) >= MIN_XG]
-elig.sort(key=lambda r: -r["np_goals_vs_xg"])
-hot = [row(r) for r in elig[:TOP_HOT]]
-cold = [row(r) for r in elig[-TOP_COLD:]][::-1]   # most negative first
+def board(table, keys):
+    """table = list of player rows; keys = (goals, xg, diff, shots) field names."""
+    kg, kxg, kdiff, kshots = keys
+    elig = [r for r in table if (r.get(kxg) or 0) >= MIN_XG]
+    elig.sort(key=lambda r: -r[kdiff])
+    hot = [row(r, *keys) for r in elig[:TOP_HOT]]
+    cold = [row(r, *keys) for r in elig[-TOP_COLD:]][::-1]   # most negative first
+    return hot, cold, len(elig)
+
+
+# np = non-penalty (matches our 2022 board); all = overall incl. penalties (matches The
+# Analyst's default table — e.g. Messi +3.31, where their xG counts a penalty he missed).
+np_hot, np_cold, np_n = board(src["nonPenalty"], ("np_goals", "np_xg", "np_goals_vs_xg", "np_shots"))
+all_hot, all_cold, all_n = board(src["overall"], ("goals", "xg", "goals_vs_xg", "shots"))
 
 max_apps = max((r.get("apps") or 0) for r in src["nonPenalty"])
 
 out = {
-    "metric": "Finishing: non-penalty goals minus non-penalty xG (live WC2026)",
-    "definition": ("Non-penalty goals minus non-penalty expected goals — did a player score more than "
-                   "his chances were worth? The same read as the 2022 board, live for World Cup 2026 from "
-                   "Opta's official feed. Gated at npxG >= %.1f; a 4-game sample is who's running hot, "
-                   "not a verdict on finishing skill." % MIN_XG),
+    "metric": "Finishing: goals minus xG (live WC2026)",
+    "definition": ("Goals minus expected goals — did a player score more than his chances were worth? "
+                   "The same read as the 2022 board, live for World Cup 2026 from Opta's official feed. "
+                   "Two views: non-penalty (matches our 2022 board) and all shots incl. penalties "
+                   "(matches The Analyst's default table). Gated at xG >= %.1f; a 3-4 game sample is who's "
+                   "running hot, not a verdict on finishing skill." % MIN_XG),
     "source": "The Analyst / Opta — live FIFA World Cup 2026 stats feed",
     "last_updated": src["lastUpdated"],
     "matches_played_max": max_apps,
     "min_xg": MIN_XG,
-    "n_eligible": len(elig),
-    "hot": hot,
-    "cold": cold,
+    "np": {"hot": np_hot, "cold": np_cold, "n_eligible": np_n},
+    "all": {"hot": all_hot, "cold": all_cold, "n_eligible": all_n},
+    # legacy top-level (= non-penalty) kept for any cached reader
+    "hot": np_hot,
+    "cold": np_cold,
+    "n_eligible": np_n,
 }
 json.dump(out, open(OUT, "w"), indent=1)
-print(f"wrote {OUT.name}: {len(elig)} eligible (npxG>={MIN_XG}), up to {max_apps} games played")
-print("HOTTEST:")
-for p in hot:
-    print(f"  {p['diff']:+.2f}  {p['name']:22} {p['team']:14} {p['goals']}G · {p['xg']} xG · {p['shots']} sh")
-print("COLDEST:")
-for p in cold:
-    print(f"  {p['diff']:+.2f}  {p['name']:22} {p['team']:14} {p['goals']}G · {p['xg']} xG · {p['shots']} sh")
+print(f"wrote {OUT.name}: np {np_n} / all {all_n} eligible (xG>={MIN_XG}), up to {max_apps} games played")
+for label, hot, cold in [("NON-PENALTY", np_hot, np_cold), ("ALL (incl. pens)", all_hot, all_cold)]:
+    print(f"\n=== {label} — HOTTEST ===")
+    for p in hot:
+        print(f"  {p['diff']:+.2f}  {p['name']:22} {p['team']:14} {p['goals']}G · {p['xg']} xG · {p['shots']} sh")
+    print(f"--- {label} — COLDEST ---")
+    for p in cold:
+        print(f"  {p['diff']:+.2f}  {p['name']:22} {p['team']:14} {p['goals']}G · {p['xg']} xG · {p['shots']} sh")
