@@ -1360,17 +1360,25 @@
           #finishing-2026-card .f26-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;min-width:48px}
           #finishing-2026-card .f26-sub{color:var(--faint);font-size:12.5px;text-align:right;min-width:86px}
           #finishing-2026-card .f26-div{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:14px 2px 4px;border-top:1px solid var(--border);padding-top:10px}
+          #finishing-2026-card .f26-tog{display:flex;gap:8px;margin:12px 0 4px;flex-wrap:wrap}
+          #finishing-2026-card .f26-btn{font-size:14px;font-weight:700;color:var(--muted);background:var(--bg-elev2);border:1px solid var(--border);border-radius:8px;padding:6px 13px;cursor:pointer}
+          #finishing-2026-card .f26-btn.on{color:var(--bg);background:var(--good);border-color:var(--good)}
         </style>
         <div class="livestat" style="margin-bottom:8px"><span class="dot live"></span> live WC2026 · The Analyst / Opta</div>
-        <h3>The same finishing read, live in World Cup 2026 <span class="qh-tag soft">non-penalty</span></h3>
-        <p class="caption qh-verdict"><b>Goals &minus; expected goals</b> (npG &minus; npxG), exactly as the 2022 board above — but pulled live from <b>The Analyst's official Opta feed</b>, updating each matchday. Same idea, this tournament: who is out-scoring his chances so far? <b>Messi leads everyone</b> — 6 non-penalty goals from just 1.9 xG (+4.10), a scarcely-believable hot streak. The same tiny-sample caveat applies (4 games in), and Opta's xG model differs slightly from the 2022 board's StatsBomb numbers — so read the two as the same question across two World Cups, not one continuous scale.</p>
+        <h3>The same finishing read, live in World Cup 2026 <span class="qh-tag soft">G &minus; xG</span></h3>
+        <p class="caption qh-verdict"><b>Goals &minus; expected goals</b>, exactly as the 2022 board above — but pulled live from <b>The Analyst's official Opta feed</b>, updating each matchday. Same idea, this tournament: who is out-scoring his chances so far? <b>Messi leads everyone</b> — a scarcely-believable hot streak. <b>Penalties matter here:</b> our default view is <b>non-penalty</b> (matching the 2022 board), where Messi reads <b>+4.10</b> (6 goals from 1.9 npxG). Toggle to <b>incl. penalties</b> and he reads <b>+3.31</b> — the number on The Analyst's own table — because their xG counts a penalty he took and didn't score (~0.8 xG). Same player, two honest framings. Tiny-sample caveat applies (3&ndash;4 games in), and Opta's xG model differs slightly from the 2022 board's StatsBomb numbers — read the two tournaments as the same question, not one continuous scale.</p>
+        <div class="f26-tog" id="f26-view">
+          <button class="f26-btn on" data-v="np">non-penalty</button>
+          <button class="f26-btn" data-v="all">incl. penalties</button>
+        </div>
         <div class="f26-board" id="f26-board"></div>
-        <p class="qh-note" id="f26-foot">Source: The Analyst / Opta live FIFA World Cup stats. Gated at ~1 goal's worth of chances (npxG &ge; 0.8) so a single shot can't top the board.</p>
+        <p class="qh-note" id="f26-foot">Source: The Analyst / Opta live FIFA World Cup stats. Gated at ~1 goal's worth of chances (xG &ge; 0.8) so a single shot can't top the board.</p>
       </div>
       <script>
         (function(){
           var card=document.getElementById('finishing-2026-card'); if(!card) return;
           var board=document.getElementById('f26-board'), foot=document.getElementById('f26-foot');
+          var st={v:'np'}, data=null;
           function rowHtml(p, mx, col){
             var w=Math.max(4, Math.abs(p.diff)/mx*100);
             return '<div class="f26-row"><span class="f26-name">'+p.name+' <span class="lteam">'+(p.team||'')+'</span></span>'
@@ -1378,18 +1386,26 @@
               +'<span class="f26-val">'+(p.diff>=0?'+':'')+p.diff.toFixed(2)+'</span>'
               +'<span class="f26-sub">'+p.goals+'G · '+p.xg.toFixed(1)+' xG</span></div>';
           }
-          fetch('data/finishing_2026.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){
-            var mx=Math.max.apply(null,(d.hot||[]).map(function(p){return Math.abs(p.diff);}).concat([1]));
-            var html='<div class="f26-div">Hottest finishers — most goals above expected</div>';
-            html+=(d.hot||[]).map(function(p){return rowHtml(p,mx,'#6dd58c');}).join('');
+          function render(){
+            if(!data) return;
+            var v=data[st.v]||{hot:data.hot,cold:data.cold};
+            var mx=Math.max.apply(null,(v.hot||[]).map(function(p){return Math.abs(p.diff);}).concat([1]));
+            var lbl=st.v==='all'?'goals above expected (incl. penalties)':'goals above expected';
+            var html='<div class="f26-div">Hottest finishers — most '+lbl+'</div>';
+            html+=(v.hot||[]).map(function(p){return rowHtml(p,mx,'#6dd58c');}).join('');
             html+='<div class="f26-div">Coldest — biggest underperformers</div>';
-            html+=(d.cold||[]).map(function(p){return rowHtml(p,mx,'#ff6b6b');}).join('');
+            html+=(v.cold||[]).map(function(p){return rowHtml(p,mx,'#ff6b6b');}).join('');
             board.innerHTML=html;
-            if(foot && d.last_updated){
-              var day=String(d.last_updated).slice(0,10);
-              foot.innerHTML='Source: The Analyst / Opta live FIFA World Cup stats — updated '+day+', up to '+d.matches_played_max+' games played. Gated at ~1 goal’s worth of chances (npxG ≥ '+d.min_xg+') so a single shot can’t top the board.';
+            if(foot && data.last_updated){
+              var day=String(data.last_updated).slice(0,10);
+              var note=st.v==='all'?' — this view matches The Analyst’s own table (e.g. Messi +3.31).':' — penalties excluded, as the 2022 board.';
+              foot.innerHTML='Source: The Analyst / Opta live FIFA World Cup stats — updated '+day+', up to '+data.matches_played_max+' games played. Gated at xG ≥ '+data.min_xg+' so a single shot can’t top the board'+note;
             }
-          }).catch(function(){board.innerHTML='<p class="caption">could not load 2026 finishing data</p>';});
+          }
+          card.querySelectorAll('#f26-view .f26-btn').forEach(function(b){b.addEventListener('click',function(){
+            st.v=b.dataset.v; card.querySelectorAll('#f26-view .f26-btn').forEach(function(x){x.classList.toggle('on',x===b);}); render();});});
+          fetch('data/finishing_2026.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){data=d; render();})
+            .catch(function(){board.innerHTML='<p class="caption">could not load 2026 finishing data</p>';});
         })();
       </script>
 
@@ -1528,6 +1544,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=91"></script>
+<script type="module" src="assets/js/space.js?v=92"></script>
 </body>
 </html>
