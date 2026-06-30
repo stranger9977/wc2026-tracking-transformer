@@ -1,0 +1,157 @@
+{
+ "metric": "Finishing: non-penalty goals minus non-penalty xG (live WC2026)",
+ "definition": "Non-penalty goals minus non-penalty expected goals \u2014 did a player score more than his chances were worth? The same read as the 2022 board, live for World Cup 2026 from Opta's official feed. Gated at npxG >= 0.8; a 4-game sample is who's running hot, not a verdict on finishing skill.",
+ "source": "The Analyst / Opta \u2014 live FIFA World Cup 2026 stats feed",
+ "last_updated": "2026-06-29 05:09:10.616141",
+ "matches_played_max": 4,
+ "min_xg": 0.8,
+ "n_eligible": 51,
+ "hot": [
+  {
+   "name": "Lionel Messi",
+   "team": "Argentina",
+   "diff": 4.1,
+   "goals": 6,
+   "xg": 1.9,
+   "shots": 14
+  },
+  {
+   "name": "Ousmane Demb\u00e9l\u00e9",
+   "team": "France",
+   "diff": 3.03,
+   "goals": 4,
+   "xg": 0.97,
+   "shots": 8
+  },
+  {
+   "name": "Matheus Cunha",
+   "team": "Brazil",
+   "diff": 1.78,
+   "goals": 3,
+   "xg": 1.22,
+   "shots": 7
+  },
+  {
+   "name": "Kylian Mbapp\u00e9",
+   "team": "France",
+   "diff": 1.72,
+   "goals": 4,
+   "xg": 2.28,
+   "shots": 16
+  },
+  {
+   "name": "Deniz Undav",
+   "team": "Germany",
+   "diff": 1.48,
+   "goals": 3,
+   "xg": 1.52,
+   "shots": 5
+  },
+  {
+   "name": "Erling Haaland",
+   "team": "Norway",
+   "diff": 1.32,
+   "goals": 4,
+   "xg": 2.68,
+   "shots": 10
+  },
+  {
+   "name": "Ismael Saibari",
+   "team": "Morocco",
+   "diff": 1.26,
+   "goals": 3,
+   "xg": 1.74,
+   "shots": 10
+  },
+  {
+   "name": "Brian Brobbey",
+   "team": "Netherlands",
+   "diff": 1.16,
+   "goals": 3,
+   "xg": 1.84,
+   "shots": 4
+  },
+  {
+   "name": "Daichi Kamada",
+   "team": "Japan",
+   "diff": 1.13,
+   "goals": 2,
+   "xg": 0.87,
+   "shots": 2
+  },
+  {
+   "name": "Rub\u00e9n Vargas",
+   "team": "Switzerland",
+   "diff": 1.01,
+   "goals": 2,
+   "xg": 0.99,
+   "shots": 6
+  },
+  {
+   "name": "Yoane Wissa",
+   "team": "Congo DR",
+   "diff": 0.92,
+   "goals": 2,
+   "xg": 1.08,
+   "shots": 8
+  },
+  {
+   "name": "Isma\u00efla Sarr",
+   "team": "Senegal",
+   "diff": 0.9,
+   "goals": 3,
+   "xg": 2.1,
+   "shots": 12
+  }
+ ],
+ "cold": [
+  {
+   "name": "Enner Valencia",
+   "team": "Ecuador",
+   "diff": -1.59,
+   "goals": 0,
+   "xg": 1.59,
+   "shots": 10
+  },
+  {
+   "name": "Ferran Torres",
+   "team": "Spain",
+   "diff": -1.52,
+   "goals": 0,
+   "xg": 1.52,
+   "shots": 7
+  },
+  {
+   "name": "Breel Embolo",
+   "team": "Switzerland",
+   "diff": -1.17,
+   "goals": 0,
+   "xg": 1.17,
+   "shots": 6
+  },
+  {
+   "name": "Ibrahim Maza",
+   "team": "Algeria",
+   "diff": -1.13,
+   "goals": 0,
+   "xg": 1.13,
+   "shots": 8
+  },
+  {
+   "name": "Son Heung-Min",
+   "team": "Korea Republic",
+   "diff": -1.05,
+   "goals": 0,
+   "xg": 1.05,
+   "shots": 7
+  },
+  {
+   "name": "Maxim De Cuyper",
+   "team": "Belgium",
+   "diff": -1.04,
+   "goals": 0,
+   "xg": 1.04,
+   "shots": 7
+  }
+ ]
+}
