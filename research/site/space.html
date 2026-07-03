@@ -363,6 +363,56 @@
   footer h3{font-size:16px; color:var(--ink); margin-bottom:14px}
   footer .links{display:flex; gap:22px; flex-wrap:wrap; margin-bottom:22px}
   footer .fine{color:var(--faint); font-size:12.5px; max-width:760px; line-height:1.6}
+
+  /* =====================================================================
+     MOBILE PASS — tighten spacing and stop the board rows overflowing.
+     (Per-grid media queries above handle the big 2-up layouts at 760/680/
+     600; this block handles global rhythm + every leaderboard row grid.)
+     ===================================================================== */
+  @media (max-width:600px){
+    body{font-size:16px}
+    section{padding:52px 0}
+    .wrap{padding:0 15px}
+    .hero{padding:0 15px}
+    section h2{margin-bottom:13px}
+    .lede{font-size:17px}
+    .card{padding:16px 14px; border-radius:13px; margin-top:16px}
+    .card h3{font-size:16.5px}
+    .act-tag{font-size:12px; gap:9px}
+    .cite,.caption{font-size:13px}
+    /* stat band */
+    .stats{gap:9px}
+    .stat{min-width:calc(50% - 6px); padding:12px 13px}
+    .stat .v{font-size:23px}
+    /* --- leaderboard / board rows: shrink fixed first columns + value mins --- */
+    .lrow,.sogrow{grid-template-columns:minmax(0,1.4fr) 1fr auto; gap:9px; font-size:13px}
+    .tbrow{grid-template-columns:minmax(0,1.5fr) 1fr auto; gap:8px; font-size:13px}
+    .lval{min-width:46px} .tbval{min-width:42px} .sogval{min-width:74px}
+    .er-row,.er2-row,.dsd-row{grid-template-columns:1.5fr 1.3fr auto; gap:8px; font-size:13.5px}
+    .fin-row,.f26-row{grid-template-columns:1.4fr 1.1fr auto auto; gap:7px; font-size:13.5px}
+    .er-val{min-width:72px} .fin-sub,.f26-sub{min-width:56px}
+    .fin-val,.f26-val{min-width:42px} .fin-div,.f26-div{font-size:11.5px}
+    .psrow{grid-template-columns:88px 1fr 38px; gap:7px; font-size:11.5px}
+    .qh-t{grid-template-columns:1fr 1fr auto; font-size:14px; padding:9px 12px}
+    .qh-mets{gap:6px} .qh-m{font-size:13.5px; padding:5px 10px}
+    /* Messi walk stat + xg receipt */
+    .walkstat{gap:12px; padding:14px 15px}
+    .walkstat .wnum{font-size:33px}
+    .xgpanel{padding:16px 15px} .xgv{font-size:22px}
+    /* heatmap + explainer controls */
+    .hctrls{gap:9px; padding:10px 12px}
+    .heat .tlabel{min-width:72px; font-size:11px}
+    .impact .big{font-size:17px}
+    /* jargon-decoded definition list (inline max-content col would crowd) */
+    #pitchcontrol .decode dl{grid-template-columns:1fr !important; gap:3px 0 !important}
+    #pitchcontrol .decode dt{margin-top:8px}
+  }
+  @media (max-width:380px){
+    .wrap{padding:0 12px}
+    .lrow,.sogrow,.tbrow{grid-template-columns:minmax(0,1.3fr) 1fr auto; font-size:12.5px}
+    .er-row,.er2-row,.dsd-row,.fin-row,.f26-row{font-size:12.5px}
+    .stat{min-width:100%}
+  }
 </style>
 </head>
 <body>
@@ -500,16 +550,7 @@
         <p class="caption"><b>The verdict.</b> As a pure goal predictor the two are interchangeable (AUC ≈ 0.95 three seconds out, fading to ≈ 0.70 at thirty). The second panel is the split that decides which to build on. <b>xT correlates with goals because it is so high right around the goal</b> — and that is exactly what makes it nearly useless in the build-up, where it grades almost every spot as the same near-zero. <b>V grades the whole pitch</b>, so it can separate the dangerous build-up space the defence bothers to guard from the empty grass it ignores. That is why every space board on this page defaults to <b>V</b>, with <b>xT kept as its own near-goal threat read</b>.</p>
       </div>
 
-      <div class="card">
-        <h3>The same idea, measured live: World Cup 2026 threat so far</h3>
-        <div class="liveupdated" id="xt-threat-updated">FIFA EFI · live</div>
-        <p class="caption" style="margin-top:0">A true Karun-style xT needs pass-by-pass event data, which is not public for 2026 yet. FIFA's Enhanced Football Intelligence publishes a <b>threat</b> number that captures the same idea, how much each action raises the chance of a goal, and it updates live. Here is who is generating it through the opening round. FIFA's threat is a proprietary index on its own scale, so compare teams and players <b>within</b> this board, not against the xT numbers above.</p>
-        <div class="liveboards">
-          <div><div class="boardlab">Teams · threat created / match</div><div id="xt-threat-teams" class="tbars"></div></div>
-          <div><div class="boardlab">Players · threat created / match</div><div id="xt-threat-players" class="tbars"></div></div>
-        </div>
-        <p class="caption"><b>Belgium</b> lit up their opener, with De Ketelaere, De Bruyne, Trossard and Lukaku all chipping in, to top the early team threat. <b>De Ketelaere</b> and Egypt's <b>Marmoush</b> lead the players. Same dangerous-space idea as the WC2022 board above, straight from FIFA's 2026 feed.</p>
-      </div>
+      
 
       <p class="body">xT answers <b>where</b> the danger is. The next act adds the other half: <b>pitch control</b>, the map of <b>who</b> actually owns each patch of grass. From there we turn control into three player skills, one of which multiplies the two ideas back into dangerous space.</p>
     </div>
@@ -609,9 +650,9 @@
 <section id="threeways">
   <div class="wrap">
     <div class="reveal">
-      <div class="act-tag"><span class="num">3</span> Four applications of controlling valuable space</div>
+      <div class="act-tag"><span class="num">3</span> Applications of controlling valuable space</div>
       <h2>Controlling valuable space.</h2>
-      <p class="lede">Acts 1 and 2 gave us two numbers for any spot on the pitch: <b>xT</b> for how much it is worth, and <b>pitch control</b> for who owns it. Multiply them and you have a single read on controlling space that is also dangerous. Run it across all <b>64 World Cup 2022 games</b> and it answers four questions about individual skill. First, who owns the most <b>dangerous space off the ball</b> for himself — the stock (OBSO) — and who keeps <b>gaining</b> it by moving into value (Space Occupation Gain, SOG). Second, who creates it <b>for teammates</b> by dragging markers away (SGG). Third, who finds the player in that space with a <b>pass</b>. Fourth, who wins <b>duels</b> in the spots that are worth winning.</p>
+      <p class="lede">Acts 1 and 2 gave us two numbers for any spot on the pitch: <b>xT</b> for how much it is worth, and <b>pitch control</b> for who owns it. Multiply them and you have a single read on controlling space that is also dangerous. Run it across all <b>64 World Cup 2022 games</b> and it answers four questions about individual skill. First, who owns the most <b>dangerous space off the ball</b> for himself — the stock (OBSO) — and who keeps <b>gaining</b> it by moving into value (Space Occupation Gain, SOG). Second, who creates it <b>for teammates</b> by dragging markers away (SGG). Third, who finds the player in that space with a <b>pass</b>. Fourth, who wins <b>duels</b> in the spots that are worth winning. And then the mirror: flip possession, and the same surface names who <b>denies</b> that dangerous space on defence.</p>
     </div>
   </div>
 </section>
@@ -723,7 +764,56 @@
       </div>
     </div>
   </div>
-</section>
+
+      <p class="body">Fern&aacute;ndez &amp; Bornn publish this as a single table: for one team in one match, the space each player <b>generates</b> for others and the space he <b>loses</b> as the play moves on. Here it is, rebuilt from our pipeline for every match we have a play from.</p>
+      <div class="card qh-card" id="paper-table-card">
+        <h3>The paper's space table, our data <span class="qh-tag soft">pick any match</span></h3>
+        <p class="caption qh-verdict">Fern&aacute;ndez &amp; Bornn's <b>Table 2</b> &mdash; space generation and occupation loss for one team in one match &mdash; rebuilt from our pipeline for <b>every match we have a play from</b>. Pick a match and toggle xT vs V. <b>&Sigma;</b> and <b>&mu;</b> are the sum and mean of each player's events.</p>
+        <div class="pt-controls">
+          <select id="pt-match" class="pt-select" aria-label="match"></select>
+          <div class="pt-tog">
+            <button class="pt-btn on" data-l="xt">xT value</button>
+            <button class="pt-btn" data-l="v">V value</button>
+          </div>
+        </div>
+        <div class="pt-scroll">
+          <table class="pt-table" id="pt-tbl">
+            <thead><tr><th class="pt-name">Player</th><th># Generated</th><th># Received</th><th>&Sigma; SGG</th><th>&mu; SGG</th><th># SOL</th><th>&Sigma; SOL</th><th>&mu; SOL</th><th>Mins</th></tr></thead>
+            <tbody id="pt-body"></tbody>
+          </table>
+        </div>
+        <p class="qh-note"><b># Generated / # Received</b> &mdash; times a player freed space for a teammate, or was the one freed (with team-relative %). <b>SGG</b> = the dangerous space those events created; <b>SOL</b> (Space Occupation Loss) = space a player sheds as the play moves on. Occupation-loss episodes are far more common than the gated drag events, so # SOL runs higher than # Generated. Values are xT- or V-weighted m&sup2; on a ~2&nbsp;Hz sample &mdash; read each table within itself (shares, ordering, generators vs receivers), not against the paper's absolute numbers or across value layers.</p>
+      </div>
+      <script>
+        (function(){
+          var card=document.getElementById('paper-table-card'); if(!card) return;
+          var sel=document.getElementById('pt-match'), body=document.getElementById('pt-body');
+          var state={layer:'xt', match:null}, data=null;
+          function fmt(n){return (Math.round(n*100)/100).toFixed(n%1===0&&Math.abs(n)<1?0:1);}
+          function render(){
+            if(!data||!state.match||!data[state.match]) return;
+            var rows=data[state.match][state.layer]||[];
+            body.innerHTML=rows.map(function(r,i){
+              var hi=i<3?' class="pt-hi"':'';
+              return '<tr'+hi+'><td class="pt-name">'+r.name+'</td>'
+                +'<td>'+r.gen+' <i>('+r.gen_pct+'%)</i></td>'
+                +'<td>'+r.recv+' <i>('+r.recv_pct+'%)</i></td>'
+                +'<td>'+r.sgg_sum.toFixed(1)+'</td><td class="pt-mu">'+r.sgg_mu.toFixed(2)+'</td>'
+                +'<td>'+r.sol_n+'</td><td>'+r.sol_sum.toFixed(1)+'</td><td class="pt-mu">'+r.sol_mu.toFixed(2)+'</td>'
+                +'<td class="pt-min">'+r.mins.toFixed(1)+'</td></tr>';
+            }).join('');
+          }
+          card.querySelectorAll('.pt-btn').forEach(function(b){b.addEventListener('click',function(){
+            state.layer=b.dataset.l; card.querySelectorAll('.pt-btn').forEach(function(x){x.classList.toggle('on',x===b);}); render();});});
+          sel.addEventListener('change',function(){state.match=sel.value; render();});
+          fetch('data/space_paper_table.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){
+            data=d; var labels=Object.keys(d);
+            sel.innerHTML=labels.map(function(l){return '<option value="'+l+'">'+l+'</option>';}).join('');
+            state.match=labels[0]; render();
+          }).catch(function(){body.innerHTML='<tr><td>could not load table data</td></tr>';});
+        })();
+      </script>
+      </section>
 
 <div class="rule"></div>
 
@@ -822,6 +912,78 @@
   </div>
 </section>
 
+
+<div class="rule"></div>
+
+<!-- Application 5 — the defensive flip: Dangerous Space Denied -->
+<section id="way-defense">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="act-tag"><span class="num">5</span> Application five &middot; the defensive flip</div>
+      <h2>Guarding the dangerous space.</h2>
+      <p class="lede">Applications one to four all credit a player for <b>owning</b> or <b>creating</b> dangerous space. Flip the possession flag and the very same surface answers the mirror question: when a team is <b>out</b> of possession, who <b>denies</b> the space the opponent actually threatens? Same control &times; xT read, pointed the other way.</p>
+      <div class="card qh-card" id="dsd-card">
+        <style>
+          #dsd-card .dsd-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0 10px}
+          #dsd-card .dsd-select{font-size:14px;font-weight:600;color:var(--ink);background:var(--bg-elev2);border:1px solid var(--border);border-radius:8px;padding:7px 12px;cursor:pointer}
+          #dsd-card .dsd-tog{display:flex;gap:8px}
+          #dsd-card .dsd-btn{font-size:14px;font-weight:700;color:var(--muted);background:var(--bg-elev2);border:1px solid var(--border);border-radius:8px;padding:6px 13px;cursor:pointer}
+          #dsd-card .dsd-btn.on{color:var(--bg);background:var(--accent);border-color:var(--accent)}
+          #dsd-card .dsd-row{display:grid;grid-template-columns:1.5fr 2fr auto;gap:10px;align-items:center;padding:5px 2px;font-size:15px}
+          #dsd-card .dsd-name{color:var(--ink);font-weight:600}
+          #dsd-card .dsd-name .lteam{color:var(--faint);font-weight:400;font-size:12.5px}
+          #dsd-card .dsd-name .lpos{color:var(--faint);font-size:11.5px}
+          #dsd-card .dsd-track{height:9px;background:var(--bg-elev2);border-radius:5px;overflow:hidden}
+          #dsd-card .dsd-fill{display:block;height:100%;background:#2bd4a0}
+          #dsd-card .dsd-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;min-width:96px}
+          #dsd-card .dsd-val .dsd-sub{color:var(--faint);font-size:12px;font-weight:400}
+        </style>
+        <h3>A defensive metric: Dangerous Space Denied <span class="qh-tag soft">WC2022 · knockout</span></h3>
+        <p class="caption qh-verdict">The mirror of <i>owning</i> space. When his team is <b>out of possession</b>, how much dangerous space (pitch control × xT) a player <b>contests</b> — positioning himself to deny the spots the opponent actually threatens. GKs excluded; xT value layer. <b>By nature it's a deep-block coverage metric:</b> centre-backs and screening midfielders dominate, and deep-defending sides rank above high pressers — read it as "who guards the dangerous space," not all of defending. <b>Shown for the knockout stage</b> — the cleanest read, since across all 64 games the per-90 rewards centre-backs of <i>besieged</i> weak teams (constant defending = workload, not quality). Switch the dropdown to see it.</p>
+        <div class="dsd-controls">
+          <select id="dsd-stage" class="dsd-select" aria-label="stage">
+            <option value="ko" selected>knockout</option>
+            <option value="all">all 64 games</option>
+            <option value="group">group stage</option>
+          </select>
+          <div class="dsd-tog">
+            <button class="dsd-btn on" data-v="per90">per defensive 90</button>
+            <button class="dsd-btn" data-v="total">tournament total</button>
+          </div>
+        </div>
+        <div class="dsd-board" id="dsd-board"></div>
+        <p class="qh-note"><b>Smell test:</b> it should read as a roll-call of elite centre-backs and screening midfielders. Per-defensive-90 gates at 60 min so small knockout samples don't spike it; tournament-total naturally rewards deep-run, defend-heavy sides. xT value only — V is defined by where defenders stand, which would be circular for a defensive metric.</p>
+      </div>
+      <script>
+        (function(){
+          var card=document.getElementById('dsd-card'); if(!card) return;
+          var board=document.getElementById('dsd-board'), stageSel=document.getElementById('dsd-stage');
+          var st={stage:'ko', view:'per90'}, data=null;
+          function render(){
+            if(!data) return;
+            var gate = st.view==='per90' ? (data.min_def_min||60) : 0;
+            var rows=(data.players||[]).map(function(p){return {p:p, s:p.stages[st.stage]||{}};})
+              .filter(function(r){return r.s && r.s.def_min>=gate && r.s[st.view]>0;})
+              .sort(function(a,b){return b.s[st.view]-a.s[st.view];}).slice(0,12);
+            var mx=Math.max.apply(null, rows.map(function(r){return r.s[st.view];}).concat([1]));
+            board.innerHTML=rows.map(function(r){
+              var v=r.s[st.view], w=Math.max(2, v/mx*100);
+              return '<div class="dsd-row"><span class="dsd-name">'+r.p.name+' <span class="lteam">'+(r.p.team||'')+'</span>'
+                +(r.p.pos?' <span class="lpos">'+r.p.pos+'</span>':'')+'</span>'
+                +'<span class="dsd-track"><span class="dsd-fill" style="width:'+w.toFixed(0)+'%"></span></span>'
+                +'<span class="dsd-val">'+Math.round(v).toLocaleString()+' <span class="dsd-sub">'+Math.round(r.s.def_min)+'m</span></span></div>';
+            }).join('') || '<p class="caption">no players over the minutes gate in this slice</p>';
+          }
+          card.querySelectorAll('.dsd-btn').forEach(function(b){b.addEventListener('click',function(){
+            st.view=b.dataset.v; card.querySelectorAll('.dsd-btn').forEach(function(x){x.classList.toggle('on',x===b);}); render();});});
+          stageSel.addEventListener('change',function(){st.stage=stageSel.value; render();});
+          fetch('data/space_dsd.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){data=d; render();})
+            .catch(function(){board.innerHTML='<p class="caption">could not load defensive data</p>';});
+        })();
+      </script>
+    </div>
+  </div>
+</section>
 
 <div class="rule"></div>
 
@@ -969,7 +1131,110 @@
         })();
       </script>
 
-      <!-- Eagle broadcast→tracking POC · the original mbappe demo (buildEagleLive + surfaces/eagle_live.json)
+
+      <p class="body">Runs in behind get a player <b>into</b> the dangerous space; the last question is whether he <b>finishes</b> once he is there. The same 2022-and-live-2026 split, now on goals minus expected goals.</p>
+      <div class="card qh-card" id="finishing-card">
+        <style>
+          #finishing-card .fin-board{margin:12px 0 4px}
+          #finishing-card .fin-row{display:grid;grid-template-columns:1.4fr 2fr auto auto;gap:10px;align-items:center;padding:5px 2px;font-size:15px}
+          #finishing-card .fin-row.fin-hi{background:rgba(108,180,238,.10);border-radius:7px;padding:7px 8px;margin:6px 0}
+          #finishing-card .fin-name{color:var(--ink);font-weight:600}
+          #finishing-card .fin-name .lteam{color:var(--faint);font-weight:400;font-size:12.5px}
+          #finishing-card .fin-track{height:9px;background:var(--bg-elev2);border-radius:5px;overflow:hidden}
+          #finishing-card .fin-fill{display:block;height:100%}
+          #finishing-card .fin-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;min-width:48px}
+          #finishing-card .fin-sub{color:var(--faint);font-size:12.5px;text-align:right;min-width:78px}
+          #finishing-card .fin-div{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:14px 2px 4px;border-top:1px solid var(--border);padding-top:10px}
+        </style>
+        <h3>Finishing: who beat their xG <span class="qh-tag soft">WC2022 · non-penalty</span></h3>
+        <p class="caption qh-verdict"><b>Goals &minus; expected goals</b> (npG &minus; npxG): did a player score more than his chances were worth? Penalties excluded. <b>The catch:</b> a 7-game tournament is a tiny sample, so this is who ran hot in Qatar — not a verdict on career finishing skill (which needs hundreds of shots).</p>
+        <div class="fin-board">
+          <div class="fin-div">Hottest finishers — most goals above expected</div>
+          <div class="fin-row"><span class="fin-name">Mbappé <span class="lteam">France</span></span><span class="fin-track"><span class="fin-fill" style="width:100%;background:#6dd58c"></span></span><span class="fin-val">+3.33</span><span class="fin-sub">6G · 2.7 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Gakpo <span class="lteam">Netherlands</span></span><span class="fin-track"><span class="fin-fill" style="width:73%;background:#6dd58c"></span></span><span class="fin-val">+2.44</span><span class="fin-sub">3G · 0.6 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Saka <span class="lteam">England</span></span><span class="fin-track"><span class="fin-fill" style="width:73%;background:#6dd58c"></span></span><span class="fin-val">+2.42</span><span class="fin-sub">3G · 0.6 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Álvarez <span class="lteam">Argentina</span></span><span class="fin-track"><span class="fin-fill" style="width:63%;background:#6dd58c"></span></span><span class="fin-val">+2.09</span><span class="fin-sub">4G · 1.9 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Morata <span class="lteam">Spain</span></span><span class="fin-track"><span class="fin-fill" style="width:57%;background:#6dd58c"></span></span><span class="fin-val">+1.89</span><span class="fin-sub">3G · 1.1 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Leão <span class="lteam">Portugal</span></span><span class="fin-track"><span class="fin-fill" style="width:53%;background:#6dd58c"></span></span><span class="fin-val">+1.75</span><span class="fin-sub">2G · 0.2 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Rashford <span class="lteam">England</span></span><span class="fin-track"><span class="fin-fill" style="width:49%;background:#6dd58c"></span></span><span class="fin-val">+1.62</span><span class="fin-sub">3G · 1.4 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Aboubakar <span class="lteam">Cameroon</span></span><span class="fin-track"><span class="fin-fill" style="width:44%;background:#6dd58c"></span></span><span class="fin-val">+1.47</span><span class="fin-sub">2G · 0.5 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Richarlison <span class="lteam">Brazil</span></span><span class="fin-track"><span class="fin-fill" style="width:41%;background:#6dd58c"></span></span><span class="fin-val">+1.38</span><span class="fin-sub">3G · 1.6 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Kudus <span class="lteam">Ghana</span></span><span class="fin-track"><span class="fin-fill" style="width:40%;background:#6dd58c"></span></span><span class="fin-val">+1.34</span><span class="fin-sub">2G · 0.7 xG</span></div>
+          <div class="fin-row"><span class="fin-name">G. Ramos <span class="lteam">Portugal</span></span><span class="fin-track"><span class="fin-fill" style="width:40%;background:#6dd58c"></span></span><span class="fin-val">+1.33</span><span class="fin-sub">3G · 1.7 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Cho Gue-sung <span class="lteam">South Korea</span></span><span class="fin-track"><span class="fin-fill" style="width:39%;background:#6dd58c"></span></span><span class="fin-val">+1.29</span><span class="fin-sub">2G · 0.7 xG</span></div>
+          <div class="fin-div">Where the marquee names land</div>
+          <div class="fin-row fin-hi"><span class="fin-name"><b style="color:var(--faint)">#17</b> Messi <span class="lteam">Argentina</span></span><span class="fin-track"><span class="fin-fill" style="width:27%;background:#6dd58c"></span></span><span class="fin-val">+0.89</span><span class="fin-sub">3G · 2.1 xG</span></div>
+          <div class="fin-row fin-hi"><span class="fin-name"><b style="color:var(--faint)">#46</b> Kane <span class="lteam">England</span></span><span class="fin-track"><span class="fin-fill" style="width:7%;background:#6dd58c"></span></span><span class="fin-val">+0.24</span><span class="fin-sub">1G · 0.8 xG</span></div>
+          <div class="fin-div">Coldest — biggest underperformers</div>
+          <div class="fin-row"><span class="fin-name">L. Martínez <span class="lteam">Argentina</span></span><span class="fin-track"><span class="fin-fill" style="width:64%;background:#ff6b6b"></span></span><span class="fin-val">-2.12</span><span class="fin-sub">0G · 2.1 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Lukaku <span class="lteam">Belgium</span></span><span class="fin-track"><span class="fin-fill" style="width:50%;background:#ff6b6b"></span></span><span class="fin-val">-1.68</span><span class="fin-sub">0G · 1.7 xG</span></div>
+          <div class="fin-row"><span class="fin-name">Ronaldo <span class="lteam">Portugal</span></span><span class="fin-track"><span class="fin-fill" style="width:35%;background:#ff6b6b"></span></span><span class="fin-val">-1.16</span><span class="fin-sub">0G · 1.2 xG</span></div>
+        </div>
+        <p class="qh-note"><b>On Kane &amp; the "best finisher" idea.</b> Over his career Kane is one of the world's best finishers — but a single tournament can't show it. In WC2022 he finished <b>almost exactly at expected (+0.24, #46 of 101)</b>: 1 non-penalty goal on 0.76 npxG across 10 shots. The clinical men here were <b>Mbappé (+3.33)</b>, Gakpo and Saka; the cold ones, <b>Martínez (&minus;2.12)</b> and Lukaku. <b>Messi sits #17 (+0.89)</b> — a modest overperformer on a tournament-high 27 shots: his game is creating chances more than out-finishing them. Finishing is real but slow to prove — read this as a 2022 snapshot, not a ranking of who's best at it.</p>
+      </div>
+
+      <div class="card qh-card" id="finishing-2026-card">
+        <style>
+          #finishing-2026-card .f26-board{margin:12px 0 4px}
+          #finishing-2026-card .f26-row{display:grid;grid-template-columns:1.4fr 2fr auto auto;gap:10px;align-items:center;padding:5px 2px;font-size:15px}
+          #finishing-2026-card .f26-name{color:var(--ink);font-weight:600}
+          #finishing-2026-card .f26-name .lteam{color:var(--faint);font-weight:400;font-size:12.5px}
+          #finishing-2026-card .f26-track{height:9px;background:var(--bg-elev2);border-radius:5px;overflow:hidden}
+          #finishing-2026-card .f26-fill{display:block;height:100%}
+          #finishing-2026-card .f26-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;min-width:48px}
+          #finishing-2026-card .f26-sub{color:var(--faint);font-size:12.5px;text-align:right;min-width:86px}
+          #finishing-2026-card .f26-div{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:14px 2px 4px;border-top:1px solid var(--border);padding-top:10px}
+          #finishing-2026-card .f26-tog{display:flex;gap:8px;margin:12px 0 4px;flex-wrap:wrap}
+          #finishing-2026-card .f26-btn{font-size:14px;font-weight:700;color:var(--muted);background:var(--bg-elev2);border:1px solid var(--border);border-radius:8px;padding:6px 13px;cursor:pointer}
+          #finishing-2026-card .f26-btn.on{color:var(--bg);background:var(--good);border-color:var(--good)}
+        </style>
+        <div class="livestat" style="margin-bottom:8px"><span class="dot live"></span> live WC2026 · The Analyst / Opta</div>
+        <h3>The same finishing read, live in World Cup 2026 <span class="qh-tag soft">G &minus; xG</span></h3>
+        <p class="caption qh-verdict"><b>Goals &minus; expected goals</b>, exactly as the 2022 board above — but pulled live from <b>The Analyst's official Opta feed</b>, updating each matchday. Same idea, this tournament: who is out-scoring his chances so far? <b>Messi leads everyone</b> — a scarcely-believable hot streak. <b>Penalties matter here:</b> our default view is <b>non-penalty</b> (matching the 2022 board), where Messi reads <b>+4.10</b> (6 goals from 1.9 npxG). Toggle to <b>incl. penalties</b> and he reads <b>+3.31</b> — the number on The Analyst's own table — because their xG counts a penalty he took and didn't score (~0.8 xG). Same player, two honest framings. Tiny-sample caveat applies (3&ndash;4 games in), and Opta's xG model differs slightly from the 2022 board's StatsBomb numbers — read the two tournaments as the same question, not one continuous scale.</p>
+        <div class="f26-tog" id="f26-view">
+          <button class="f26-btn on" data-v="np">non-penalty</button>
+          <button class="f26-btn" data-v="all">incl. penalties</button>
+        </div>
+        <div class="f26-board" id="f26-board"></div>
+        <p class="qh-note" id="f26-foot">Source: The Analyst / Opta live FIFA World Cup stats. Gated at ~1 goal's worth of chances (xG &ge; 0.8) so a single shot can't top the board.</p>
+      </div>
+      <script>
+        (function(){
+          var card=document.getElementById('finishing-2026-card'); if(!card) return;
+          var board=document.getElementById('f26-board'), foot=document.getElementById('f26-foot');
+          var st={v:'np'}, data=null;
+          function rowHtml(p, mx, col){
+            var w=Math.max(4, Math.abs(p.diff)/mx*100);
+            return '<div class="f26-row"><span class="f26-name">'+p.name+' <span class="lteam">'+(p.team||'')+'</span></span>'
+              +'<span class="f26-track"><span class="f26-fill" style="width:'+w.toFixed(0)+'%;background:'+col+'"></span></span>'
+              +'<span class="f26-val">'+(p.diff>=0?'+':'')+p.diff.toFixed(2)+'</span>'
+              +'<span class="f26-sub">'+p.goals+'G · '+p.xg.toFixed(1)+' xG</span></div>';
+          }
+          function render(){
+            if(!data) return;
+            var v=data[st.v]||{hot:data.hot,cold:data.cold};
+            var mx=Math.max.apply(null,(v.hot||[]).map(function(p){return Math.abs(p.diff);}).concat([1]));
+            var lbl=st.v==='all'?'goals above expected (incl. penalties)':'goals above expected';
+            var html='<div class="f26-div">Hottest finishers — most '+lbl+'</div>';
+            html+=(v.hot||[]).map(function(p){return rowHtml(p,mx,'#6dd58c');}).join('');
+            html+='<div class="f26-div">Coldest — biggest underperformers</div>';
+            html+=(v.cold||[]).map(function(p){return rowHtml(p,mx,'#ff6b6b');}).join('');
+            board.innerHTML=html;
+            if(foot && data.last_updated){
+              var day=String(data.last_updated).slice(0,10);
+              var note=st.v==='all'?' — this view matches The Analyst’s own table (e.g. Messi +3.31).':' — penalties excluded, as the 2022 board.';
+              foot.innerHTML='Source: The Analyst / Opta live FIFA World Cup stats — updated '+day+', up to '+data.matches_played_max+' games played. Gated at xG ≥ '+data.min_xg+' so a single shot can’t top the board'+note;
+            }
+          }
+          card.querySelectorAll('#f26-view .f26-btn').forEach(function(b){b.addEventListener('click',function(){
+            st.v=b.dataset.v; card.querySelectorAll('#f26-view .f26-btn').forEach(function(x){x.classList.toggle('on',x===b);}); render();});});
+          fetch('data/finishing_2026.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){data=d; render();})
+            .catch(function(){board.innerHTML='<p class="caption">could not load 2026 finishing data</p>';});
+        })();
+      </script>
+
+      
+            <!-- Eagle broadcast→tracking POC · the original mbappe demo (buildEagleLive + surfaces/eagle_live.json)
            is retained in the repo; the live card below is the Neymar extra-time goal, which PFF can't supply. -->
       <div class="card" id="eagle-neymar-card">
         <div class="livestat" style="margin-bottom:8px"><span class="dot live"></span> broadcast → tracking · Eagle computer vision · approximate (±1–2 m)</div>
@@ -1143,62 +1408,62 @@
 
 <section id="for-michael">
   <style>
-    #for-michael .qh-grid{display:grid; gap:18px}
-    #for-michael .qh-card h3{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:4px}
-    #for-michael .qh-tag{font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--bg); background:var(--accent); border-radius:20px; padding:2px 10px}
-    #for-michael .qh-tag.soft{background:transparent; color:var(--muted); border:1px solid var(--border)}
-    #for-michael .qh-ladder{margin:11px 0 6px; border:1px solid var(--border); border-radius:9px; overflow:hidden; background:var(--bg-elev)}
-    #for-michael .qh-t{display:grid; grid-template-columns:1fr 1.5fr auto; gap:10px; padding:9px 15px; font-size:16px; border-top:1px solid var(--border); align-items:center}
-    #for-michael .qh-t:first-child{border-top:none}
-    #for-michael .qh-t .qh-a{color:var(--muted)}
-    #for-michael .qh-t .qh-v{font-variant-numeric:tabular-nums; text-align:right; font-weight:600; color:var(--muted)}
-    #for-michael .qh-t.key{background:rgba(108,180,238,.09)}
-    #for-michael .qh-t.key .qh-v, #for-michael .qh-t.key .qh-n{color:var(--accent)}
-    #for-michael .qh-t.goal{background:rgba(109,213,140,.10)}
-    #for-michael .qh-t.goal .qh-v, #for-michael .qh-t.goal .qh-n{color:var(--good)}
-    #for-michael .qh-t.miss{background:rgba(154,166,182,.06)}
-    #for-michael .qh-sum{font-size:13.5px; color:var(--faint); margin:0 2px 6px}
-    #for-michael .qh-stat{font-size:16px; line-height:1.5; color:var(--ink); margin:9px 0 2px}
-    #for-michael .qh-stat b{color:var(--accent)}
-    #for-michael .qh-ranks{font-size:15.5px; color:var(--muted); line-height:1.6; margin:10px 0 2px; border-top:1px solid var(--border); padding-top:10px}
-    #for-michael .qh-ranks .qh-rk{color:var(--ink); font-weight:700}
-    #for-michael .qh-ranks .qh-rk.gray{color:var(--faint)}
-    #for-michael .qh-ranks .qh-slice{color:var(--faint); font-size:13.5px}
-    #for-michael .qh-links{font-size:15px; color:var(--muted); margin-top:8px}
-    #for-michael .qh-links a{color:var(--accent); margin:0 2px}
-    #for-michael .qh-verdict{font-size:15.5px; line-height:1.55}
-    #for-michael .qh-verdict b{color:var(--ink)}
-    #for-michael .qh-gloss{display:grid; gap:9px; margin:16px 0 6px; padding:15px 17px; background:var(--bg-elev); border:1px solid var(--border); border-radius:11px; font-size:15px; line-height:1.5; color:var(--muted)}
-    #for-michael .qh-gloss b{color:var(--ink)}
-    #for-michael .qh-gloss em{font-style:normal; color:var(--accent)}
-    #for-michael .qh-gloss-lead{border-bottom:1px solid var(--border); padding-bottom:10px}
-    #for-michael .qh-mets{display:flex; flex-wrap:wrap; gap:8px; margin:11px 0 4px; border-top:1px solid var(--border); padding-top:12px}
-    #for-michael .qh-m{font-size:15px; color:var(--muted); background:var(--bg-elev2); border:1px solid var(--border); border-radius:9px; padding:6px 12px; display:inline-flex; gap:7px; align-items:baseline}
-    #for-michael .qh-m b{color:var(--muted); font-weight:700; letter-spacing:.02em}
-    #for-michael .qh-m .rk{color:var(--ink); font-weight:800}
-    #for-michael .qh-m i{color:var(--faint); font-style:normal; font-size:12.5px}
-    #for-michael .qh-m.good{background:rgba(108,180,238,.13); border-color:rgba(108,180,238,.38)}
-    #for-michael .qh-m.good b, #for-michael .qh-m.good .rk{color:var(--accent)}
-    #for-michael .qh-m.na .rk{color:var(--faint); font-weight:700}
-    #for-michael .qh-note{font-size:13.5px; line-height:1.5; color:var(--faint); margin:6px 2px 0}
-    #for-michael .qh-note b{color:var(--muted)}
-    #for-michael .pt-tog{display:flex; gap:8px; margin:12px 0 8px}
-    #for-michael .pt-controls{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:12px 0 8px}
-    #for-michael .pt-controls .pt-tog{margin:0}
-    #for-michael .pt-select{font-size:14px; font-weight:600; color:var(--ink); background:var(--bg-elev2); border:1px solid var(--border); border-radius:8px; padding:7px 12px; cursor:pointer}
-    #for-michael .pt-btn{font-size:14px; font-weight:700; color:var(--muted); background:var(--bg-elev2); border:1px solid var(--border); border-radius:8px; padding:6px 14px; cursor:pointer}
-    #for-michael .pt-btn.on{color:var(--bg); background:var(--accent); border-color:var(--accent)}
-    #for-michael .pt-scroll{overflow-x:auto; border:1px solid var(--border); border-radius:10px}
-    #for-michael .pt-table{border-collapse:collapse; width:100%; min-width:700px; font-size:14px}
-    #for-michael .pt-table th{text-align:right; font-weight:700; color:var(--muted); font-size:12.5px; padding:10px; border-bottom:1px solid var(--border); white-space:nowrap}
-    #for-michael .pt-table th.pt-name{text-align:left}
-    #for-michael .pt-table td{text-align:right; padding:7px 10px; border-bottom:1px solid rgba(42,49,61,.5); color:var(--ink); white-space:nowrap}
-    #for-michael .pt-table tr:last-child td{border-bottom:none}
-    #for-michael .pt-table td.pt-name{text-align:left; font-weight:600}
-    #for-michael .pt-table td i{color:var(--faint); font-style:normal; font-size:12px}
-    #for-michael .pt-table td.pt-mu{color:var(--muted)}
-    #for-michael .pt-table td.pt-min{color:var(--faint)}
-    #for-michael .pt-table tr.pt-hi td.pt-name{color:var(--accent)}
+    .qh-grid{display:grid; gap:18px}
+    .qh-card h3{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:4px}
+    .qh-tag{font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--bg); background:var(--accent); border-radius:20px; padding:2px 10px}
+    .qh-tag.soft{background:transparent; color:var(--muted); border:1px solid var(--border)}
+    .qh-ladder{margin:11px 0 6px; border:1px solid var(--border); border-radius:9px; overflow:hidden; background:var(--bg-elev)}
+    .qh-t{display:grid; grid-template-columns:1fr 1.5fr auto; gap:10px; padding:9px 15px; font-size:16px; border-top:1px solid var(--border); align-items:center}
+    .qh-t:first-child{border-top:none}
+    .qh-t .qh-a{color:var(--muted)}
+    .qh-t .qh-v{font-variant-numeric:tabular-nums; text-align:right; font-weight:600; color:var(--muted)}
+    .qh-t.key{background:rgba(108,180,238,.09)}
+    .qh-t.key .qh-v, .qh-t.key .qh-n{color:var(--accent)}
+    .qh-t.goal{background:rgba(109,213,140,.10)}
+    .qh-t.goal .qh-v, .qh-t.goal .qh-n{color:var(--good)}
+    .qh-t.miss{background:rgba(154,166,182,.06)}
+    .qh-sum{font-size:13.5px; color:var(--faint); margin:0 2px 6px}
+    .qh-stat{font-size:16px; line-height:1.5; color:var(--ink); margin:9px 0 2px}
+    .qh-stat b{color:var(--accent)}
+    .qh-ranks{font-size:15.5px; color:var(--muted); line-height:1.6; margin:10px 0 2px; border-top:1px solid var(--border); padding-top:10px}
+    .qh-ranks .qh-rk{color:var(--ink); font-weight:700}
+    .qh-ranks .qh-rk.gray{color:var(--faint)}
+    .qh-ranks .qh-slice{color:var(--faint); font-size:13.5px}
+    .qh-links{font-size:15px; color:var(--muted); margin-top:8px}
+    .qh-links a{color:var(--accent); margin:0 2px}
+    .qh-verdict{font-size:15.5px; line-height:1.55}
+    .qh-verdict b{color:var(--ink)}
+    .qh-gloss{display:grid; gap:9px; margin:16px 0 6px; padding:15px 17px; background:var(--bg-elev); border:1px solid var(--border); border-radius:11px; font-size:15px; line-height:1.5; color:var(--muted)}
+    .qh-gloss b{color:var(--ink)}
+    .qh-gloss em{font-style:normal; color:var(--accent)}
+    .qh-gloss-lead{border-bottom:1px solid var(--border); padding-bottom:10px}
+    .qh-mets{display:flex; flex-wrap:wrap; gap:8px; margin:11px 0 4px; border-top:1px solid var(--border); padding-top:12px}
+    .qh-m{font-size:15px; color:var(--muted); background:var(--bg-elev2); border:1px solid var(--border); border-radius:9px; padding:6px 12px; display:inline-flex; gap:7px; align-items:baseline}
+    .qh-m b{color:var(--muted); font-weight:700; letter-spacing:.02em}
+    .qh-m .rk{color:var(--ink); font-weight:800}
+    .qh-m i{color:var(--faint); font-style:normal; font-size:12.5px}
+    .qh-m.good{background:rgba(108,180,238,.13); border-color:rgba(108,180,238,.38)}
+    .qh-m.good b, .qh-m.good .rk{color:var(--accent)}
+    .qh-m.na .rk{color:var(--faint); font-weight:700}
+    .qh-note{font-size:13.5px; line-height:1.5; color:var(--faint); margin:6px 2px 0}
+    .qh-note b{color:var(--muted)}
+    .pt-tog{display:flex; gap:8px; margin:12px 0 8px}
+    .pt-controls{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:12px 0 8px}
+    .pt-controls .pt-tog{margin:0}
+    .pt-select{font-size:14px; font-weight:600; color:var(--ink); background:var(--bg-elev2); border:1px solid var(--border); border-radius:8px; padding:7px 12px; cursor:pointer}
+    .pt-btn{font-size:14px; font-weight:700; color:var(--muted); background:var(--bg-elev2); border:1px solid var(--border); border-radius:8px; padding:6px 14px; cursor:pointer}
+    .pt-btn.on{color:var(--bg); background:var(--accent); border-color:var(--accent)}
+    .pt-scroll{overflow-x:auto; border:1px solid var(--border); border-radius:10px}
+    .pt-table{border-collapse:collapse; width:100%; min-width:700px; font-size:14px}
+    .pt-table th{text-align:right; font-weight:700; color:var(--muted); font-size:12.5px; padding:10px; border-bottom:1px solid var(--border); white-space:nowrap}
+    .pt-table th.pt-name{text-align:left}
+    .pt-table td{text-align:right; padding:7px 10px; border-bottom:1px solid rgba(42,49,61,.5); color:var(--ink); white-space:nowrap}
+    .pt-table tr:last-child td{border-bottom:none}
+    .pt-table td.pt-name{text-align:left; font-weight:600}
+    .pt-table td i{color:var(--faint); font-style:normal; font-size:12px}
+    .pt-table td.pt-mu{color:var(--muted)}
+    .pt-table td.pt-min{color:var(--faint)}
+    .pt-table tr.pt-hi td.pt-name{color:var(--accent)}
   </style>
   <div class="wrap">
     <div class="reveal">
@@ -1309,212 +1574,7 @@
         </div>
 
       </div>
-      <div class="card qh-card" id="finishing-card">
-        <style>
-          #finishing-card .fin-board{margin:12px 0 4px}
-          #finishing-card .fin-row{display:grid;grid-template-columns:1.4fr 2fr auto auto;gap:10px;align-items:center;padding:5px 2px;font-size:15px}
-          #finishing-card .fin-row.fin-hi{background:rgba(108,180,238,.10);border-radius:7px;padding:7px 8px;margin:6px 0}
-          #finishing-card .fin-name{color:var(--ink);font-weight:600}
-          #finishing-card .fin-name .lteam{color:var(--faint);font-weight:400;font-size:12.5px}
-          #finishing-card .fin-track{height:9px;background:var(--bg-elev2);border-radius:5px;overflow:hidden}
-          #finishing-card .fin-fill{display:block;height:100%}
-          #finishing-card .fin-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;min-width:48px}
-          #finishing-card .fin-sub{color:var(--faint);font-size:12.5px;text-align:right;min-width:78px}
-          #finishing-card .fin-div{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:14px 2px 4px;border-top:1px solid var(--border);padding-top:10px}
-        </style>
-        <h3>Finishing: who beat their xG <span class="qh-tag soft">WC2022 · non-penalty</span></h3>
-        <p class="caption qh-verdict"><b>Goals &minus; expected goals</b> (npG &minus; npxG): did a player score more than his chances were worth? Penalties excluded. <b>The catch:</b> a 7-game tournament is a tiny sample, so this is who ran hot in Qatar — not a verdict on career finishing skill (which needs hundreds of shots).</p>
-        <div class="fin-board">
-          <div class="fin-div">Hottest finishers — most goals above expected</div>
-          <div class="fin-row"><span class="fin-name">Mbappé <span class="lteam">France</span></span><span class="fin-track"><span class="fin-fill" style="width:100%;background:#6dd58c"></span></span><span class="fin-val">+3.33</span><span class="fin-sub">6G · 2.7 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Gakpo <span class="lteam">Netherlands</span></span><span class="fin-track"><span class="fin-fill" style="width:73%;background:#6dd58c"></span></span><span class="fin-val">+2.44</span><span class="fin-sub">3G · 0.6 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Saka <span class="lteam">England</span></span><span class="fin-track"><span class="fin-fill" style="width:73%;background:#6dd58c"></span></span><span class="fin-val">+2.42</span><span class="fin-sub">3G · 0.6 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Álvarez <span class="lteam">Argentina</span></span><span class="fin-track"><span class="fin-fill" style="width:63%;background:#6dd58c"></span></span><span class="fin-val">+2.09</span><span class="fin-sub">4G · 1.9 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Morata <span class="lteam">Spain</span></span><span class="fin-track"><span class="fin-fill" style="width:57%;background:#6dd58c"></span></span><span class="fin-val">+1.89</span><span class="fin-sub">3G · 1.1 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Leão <span class="lteam">Portugal</span></span><span class="fin-track"><span class="fin-fill" style="width:53%;background:#6dd58c"></span></span><span class="fin-val">+1.75</span><span class="fin-sub">2G · 0.2 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Rashford <span class="lteam">England</span></span><span class="fin-track"><span class="fin-fill" style="width:49%;background:#6dd58c"></span></span><span class="fin-val">+1.62</span><span class="fin-sub">3G · 1.4 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Aboubakar <span class="lteam">Cameroon</span></span><span class="fin-track"><span class="fin-fill" style="width:44%;background:#6dd58c"></span></span><span class="fin-val">+1.47</span><span class="fin-sub">2G · 0.5 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Richarlison <span class="lteam">Brazil</span></span><span class="fin-track"><span class="fin-fill" style="width:41%;background:#6dd58c"></span></span><span class="fin-val">+1.38</span><span class="fin-sub">3G · 1.6 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Kudus <span class="lteam">Ghana</span></span><span class="fin-track"><span class="fin-fill" style="width:40%;background:#6dd58c"></span></span><span class="fin-val">+1.34</span><span class="fin-sub">2G · 0.7 xG</span></div>
-          <div class="fin-row"><span class="fin-name">G. Ramos <span class="lteam">Portugal</span></span><span class="fin-track"><span class="fin-fill" style="width:40%;background:#6dd58c"></span></span><span class="fin-val">+1.33</span><span class="fin-sub">3G · 1.7 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Cho Gue-sung <span class="lteam">South Korea</span></span><span class="fin-track"><span class="fin-fill" style="width:39%;background:#6dd58c"></span></span><span class="fin-val">+1.29</span><span class="fin-sub">2G · 0.7 xG</span></div>
-          <div class="fin-div">Where the marquee names land</div>
-          <div class="fin-row fin-hi"><span class="fin-name"><b style="color:var(--faint)">#17</b> Messi <span class="lteam">Argentina</span></span><span class="fin-track"><span class="fin-fill" style="width:27%;background:#6dd58c"></span></span><span class="fin-val">+0.89</span><span class="fin-sub">3G · 2.1 xG</span></div>
-          <div class="fin-row fin-hi"><span class="fin-name"><b style="color:var(--faint)">#46</b> Kane <span class="lteam">England</span></span><span class="fin-track"><span class="fin-fill" style="width:7%;background:#6dd58c"></span></span><span class="fin-val">+0.24</span><span class="fin-sub">1G · 0.8 xG</span></div>
-          <div class="fin-div">Coldest — biggest underperformers</div>
-          <div class="fin-row"><span class="fin-name">L. Martínez <span class="lteam">Argentina</span></span><span class="fin-track"><span class="fin-fill" style="width:64%;background:#ff6b6b"></span></span><span class="fin-val">-2.12</span><span class="fin-sub">0G · 2.1 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Lukaku <span class="lteam">Belgium</span></span><span class="fin-track"><span class="fin-fill" style="width:50%;background:#ff6b6b"></span></span><span class="fin-val">-1.68</span><span class="fin-sub">0G · 1.7 xG</span></div>
-          <div class="fin-row"><span class="fin-name">Ronaldo <span class="lteam">Portugal</span></span><span class="fin-track"><span class="fin-fill" style="width:35%;background:#ff6b6b"></span></span><span class="fin-val">-1.16</span><span class="fin-sub">0G · 1.2 xG</span></div>
-        </div>
-        <p class="qh-note"><b>On Kane &amp; the "best finisher" idea.</b> Over his career Kane is one of the world's best finishers — but a single tournament can't show it. In WC2022 he finished <b>almost exactly at expected (+0.24, #46 of 101)</b>: 1 non-penalty goal on 0.76 npxG across 10 shots. The clinical men here were <b>Mbappé (+3.33)</b>, Gakpo and Saka; the cold ones, <b>Martínez (&minus;2.12)</b> and Lukaku. <b>Messi sits #17 (+0.89)</b> — a modest overperformer on a tournament-high 27 shots: his game is creating chances more than out-finishing them. Finishing is real but slow to prove — read this as a 2022 snapshot, not a ranking of who's best at it.</p>
-      </div>
-
-      <div class="card qh-card" id="finishing-2026-card">
-        <style>
-          #finishing-2026-card .f26-board{margin:12px 0 4px}
-          #finishing-2026-card .f26-row{display:grid;grid-template-columns:1.4fr 2fr auto auto;gap:10px;align-items:center;padding:5px 2px;font-size:15px}
-          #finishing-2026-card .f26-name{color:var(--ink);font-weight:600}
-          #finishing-2026-card .f26-name .lteam{color:var(--faint);font-weight:400;font-size:12.5px}
-          #finishing-2026-card .f26-track{height:9px;background:var(--bg-elev2);border-radius:5px;overflow:hidden}
-          #finishing-2026-card .f26-fill{display:block;height:100%}
-          #finishing-2026-card .f26-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;min-width:48px}
-          #finishing-2026-card .f26-sub{color:var(--faint);font-size:12.5px;text-align:right;min-width:86px}
-          #finishing-2026-card .f26-div{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:14px 2px 4px;border-top:1px solid var(--border);padding-top:10px}
-          #finishing-2026-card .f26-tog{display:flex;gap:8px;margin:12px 0 4px;flex-wrap:wrap}
-          #finishing-2026-card .f26-btn{font-size:14px;font-weight:700;color:var(--muted);background:var(--bg-elev2);border:1px solid var(--border);border-radius:8px;padding:6px 13px;cursor:pointer}
-          #finishing-2026-card .f26-btn.on{color:var(--bg);background:var(--good);border-color:var(--good)}
-        </style>
-        <div class="livestat" style="margin-bottom:8px"><span class="dot live"></span> live WC2026 · The Analyst / Opta</div>
-        <h3>The same finishing read, live in World Cup 2026 <span class="qh-tag soft">G &minus; xG</span></h3>
-        <p class="caption qh-verdict"><b>Goals &minus; expected goals</b>, exactly as the 2022 board above — but pulled live from <b>The Analyst's official Opta feed</b>, updating each matchday. Same idea, this tournament: who is out-scoring his chances so far? <b>Messi leads everyone</b> — a scarcely-believable hot streak. <b>Penalties matter here:</b> our default view is <b>non-penalty</b> (matching the 2022 board), where Messi reads <b>+4.10</b> (6 goals from 1.9 npxG). Toggle to <b>incl. penalties</b> and he reads <b>+3.31</b> — the number on The Analyst's own table — because their xG counts a penalty he took and didn't score (~0.8 xG). Same player, two honest framings. Tiny-sample caveat applies (3&ndash;4 games in), and Opta's xG model differs slightly from the 2022 board's StatsBomb numbers — read the two tournaments as the same question, not one continuous scale.</p>
-        <div class="f26-tog" id="f26-view">
-          <button class="f26-btn on" data-v="np">non-penalty</button>
-          <button class="f26-btn" data-v="all">incl. penalties</button>
-        </div>
-        <div class="f26-board" id="f26-board"></div>
-        <p class="qh-note" id="f26-foot">Source: The Analyst / Opta live FIFA World Cup stats. Gated at ~1 goal's worth of chances (xG &ge; 0.8) so a single shot can't top the board.</p>
-      </div>
-      <script>
-        (function(){
-          var card=document.getElementById('finishing-2026-card'); if(!card) return;
-          var board=document.getElementById('f26-board'), foot=document.getElementById('f26-foot');
-          var st={v:'np'}, data=null;
-          function rowHtml(p, mx, col){
-            var w=Math.max(4, Math.abs(p.diff)/mx*100);
-            return '<div class="f26-row"><span class="f26-name">'+p.name+' <span class="lteam">'+(p.team||'')+'</span></span>'
-              +'<span class="f26-track"><span class="f26-fill" style="width:'+w.toFixed(0)+'%;background:'+col+'"></span></span>'
-              +'<span class="f26-val">'+(p.diff>=0?'+':'')+p.diff.toFixed(2)+'</span>'
-              +'<span class="f26-sub">'+p.goals+'G · '+p.xg.toFixed(1)+' xG</span></div>';
-          }
-          function render(){
-            if(!data) return;
-            var v=data[st.v]||{hot:data.hot,cold:data.cold};
-            var mx=Math.max.apply(null,(v.hot||[]).map(function(p){return Math.abs(p.diff);}).concat([1]));
-            var lbl=st.v==='all'?'goals above expected (incl. penalties)':'goals above expected';
-            var html='<div class="f26-div">Hottest finishers — most '+lbl+'</div>';
-            html+=(v.hot||[]).map(function(p){return rowHtml(p,mx,'#6dd58c');}).join('');
-            html+='<div class="f26-div">Coldest — biggest underperformers</div>';
-            html+=(v.cold||[]).map(function(p){return rowHtml(p,mx,'#ff6b6b');}).join('');
-            board.innerHTML=html;
-            if(foot && data.last_updated){
-              var day=String(data.last_updated).slice(0,10);
-              var note=st.v==='all'?' — this view matches The Analyst’s own table (e.g. Messi +3.31).':' — penalties excluded, as the 2022 board.';
-              foot.innerHTML='Source: The Analyst / Opta live FIFA World Cup stats — updated '+day+', up to '+data.matches_played_max+' games played. Gated at xG ≥ '+data.min_xg+' so a single shot can’t top the board'+note;
-            }
-          }
-          card.querySelectorAll('#f26-view .f26-btn').forEach(function(b){b.addEventListener('click',function(){
-            st.v=b.dataset.v; card.querySelectorAll('#f26-view .f26-btn').forEach(function(x){x.classList.toggle('on',x===b);}); render();});});
-          fetch('data/finishing_2026.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){data=d; render();})
-            .catch(function(){board.innerHTML='<p class="caption">could not load 2026 finishing data</p>';});
-        })();
-      </script>
-
-      <div class="card qh-card" id="paper-table-card">
-        <h3>The paper's space table, our data <span class="qh-tag soft">pick any match</span></h3>
-        <p class="caption qh-verdict">Fern&aacute;ndez &amp; Bornn's <b>Table 2</b> &mdash; space generation and occupation loss for one team in one match &mdash; rebuilt from our pipeline for <b>every match we have a play from</b>. Pick a match and toggle xT vs V. <b>&Sigma;</b> and <b>&mu;</b> are the sum and mean of each player's events.</p>
-        <div class="pt-controls">
-          <select id="pt-match" class="pt-select" aria-label="match"></select>
-          <div class="pt-tog">
-            <button class="pt-btn on" data-l="xt">xT value</button>
-            <button class="pt-btn" data-l="v">V value</button>
-          </div>
-        </div>
-        <div class="pt-scroll">
-          <table class="pt-table" id="pt-tbl">
-            <thead><tr><th class="pt-name">Player</th><th># Generated</th><th># Received</th><th>&Sigma; SGG</th><th>&mu; SGG</th><th># SOL</th><th>&Sigma; SOL</th><th>&mu; SOL</th><th>Mins</th></tr></thead>
-            <tbody id="pt-body"></tbody>
-          </table>
-        </div>
-        <p class="qh-note"><b># Generated / # Received</b> &mdash; times a player freed space for a teammate, or was the one freed (with team-relative %). <b>SGG</b> = the dangerous space those events created; <b>SOL</b> (Space Occupation Loss) = space a player sheds as the play moves on. Occupation-loss episodes are far more common than the gated drag events, so # SOL runs higher than # Generated. Values are xT- or V-weighted m&sup2; on a ~2&nbsp;Hz sample &mdash; read each table within itself (shares, ordering, generators vs receivers), not against the paper's absolute numbers or across value layers.</p>
-      </div>
-      <script>
-        (function(){
-          var card=document.getElementById('paper-table-card'); if(!card) return;
-          var sel=document.getElementById('pt-match'), body=document.getElementById('pt-body');
-          var state={layer:'xt', match:null}, data=null;
-          function fmt(n){return (Math.round(n*100)/100).toFixed(n%1===0&&Math.abs(n)<1?0:1);}
-          function render(){
-            if(!data||!state.match||!data[state.match]) return;
-            var rows=data[state.match][state.layer]||[];
-            body.innerHTML=rows.map(function(r,i){
-              var hi=i<3?' class="pt-hi"':'';
-              return '<tr'+hi+'><td class="pt-name">'+r.name+'</td>'
-                +'<td>'+r.gen+' <i>('+r.gen_pct+'%)</i></td>'
-                +'<td>'+r.recv+' <i>('+r.recv_pct+'%)</i></td>'
-                +'<td>'+r.sgg_sum.toFixed(1)+'</td><td class="pt-mu">'+r.sgg_mu.toFixed(2)+'</td>'
-                +'<td>'+r.sol_n+'</td><td>'+r.sol_sum.toFixed(1)+'</td><td class="pt-mu">'+r.sol_mu.toFixed(2)+'</td>'
-                +'<td class="pt-min">'+r.mins.toFixed(1)+'</td></tr>';
-            }).join('');
-          }
-          card.querySelectorAll('.pt-btn').forEach(function(b){b.addEventListener('click',function(){
-            state.layer=b.dataset.l; card.querySelectorAll('.pt-btn').forEach(function(x){x.classList.toggle('on',x===b);}); render();});});
-          sel.addEventListener('change',function(){state.match=sel.value; render();});
-          fetch('data/space_paper_table.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){
-            data=d; var labels=Object.keys(d);
-            sel.innerHTML=labels.map(function(l){return '<option value="'+l+'">'+l+'</option>';}).join('');
-            state.match=labels[0]; render();
-          }).catch(function(){body.innerHTML='<tr><td>could not load table data</td></tr>';});
-        })();
-      </script>
-      <div class="card qh-card" id="dsd-card">
-        <style>
-          #dsd-card .dsd-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0 10px}
-          #dsd-card .dsd-select{font-size:14px;font-weight:600;color:var(--ink);background:var(--bg-elev2);border:1px solid var(--border);border-radius:8px;padding:7px 12px;cursor:pointer}
-          #dsd-card .dsd-tog{display:flex;gap:8px}
-          #dsd-card .dsd-btn{font-size:14px;font-weight:700;color:var(--muted);background:var(--bg-elev2);border:1px solid var(--border);border-radius:8px;padding:6px 13px;cursor:pointer}
-          #dsd-card .dsd-btn.on{color:var(--bg);background:var(--accent);border-color:var(--accent)}
-          #dsd-card .dsd-row{display:grid;grid-template-columns:1.5fr 2fr auto;gap:10px;align-items:center;padding:5px 2px;font-size:15px}
-          #dsd-card .dsd-name{color:var(--ink);font-weight:600}
-          #dsd-card .dsd-name .lteam{color:var(--faint);font-weight:400;font-size:12.5px}
-          #dsd-card .dsd-name .lpos{color:var(--faint);font-size:11.5px}
-          #dsd-card .dsd-track{height:9px;background:var(--bg-elev2);border-radius:5px;overflow:hidden}
-          #dsd-card .dsd-fill{display:block;height:100%;background:#2bd4a0}
-          #dsd-card .dsd-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;min-width:96px}
-          #dsd-card .dsd-val .dsd-sub{color:var(--faint);font-size:12px;font-weight:400}
-        </style>
-        <h3>A defensive metric: Dangerous Space Denied <span class="qh-tag soft">WC2022 · knockout</span></h3>
-        <p class="caption qh-verdict">The mirror of <i>owning</i> space. When his team is <b>out of possession</b>, how much dangerous space (pitch control × xT) a player <b>contests</b> — positioning himself to deny the spots the opponent actually threatens. GKs excluded; xT value layer. <b>By nature it's a deep-block coverage metric:</b> centre-backs and screening midfielders dominate, and deep-defending sides rank above high pressers — read it as "who guards the dangerous space," not all of defending. <b>Shown for the knockout stage</b> — the cleanest read, since across all 64 games the per-90 rewards centre-backs of <i>besieged</i> weak teams (constant defending = workload, not quality). Switch the dropdown to see it.</p>
-        <div class="dsd-controls">
-          <select id="dsd-stage" class="dsd-select" aria-label="stage">
-            <option value="ko" selected>knockout</option>
-            <option value="all">all 64 games</option>
-            <option value="group">group stage</option>
-          </select>
-          <div class="dsd-tog">
-            <button class="dsd-btn on" data-v="per90">per defensive 90</button>
-            <button class="dsd-btn" data-v="total">tournament total</button>
-          </div>
-        </div>
-        <div class="dsd-board" id="dsd-board"></div>
-        <p class="qh-note"><b>Smell test:</b> it should read as a roll-call of elite centre-backs and screening midfielders. Per-defensive-90 gates at 60 min so small knockout samples don't spike it; tournament-total naturally rewards deep-run, defend-heavy sides. xT value only — V is defined by where defenders stand, which would be circular for a defensive metric.</p>
-      </div>
-      <script>
-        (function(){
-          var card=document.getElementById('dsd-card'); if(!card) return;
-          var board=document.getElementById('dsd-board'), stageSel=document.getElementById('dsd-stage');
-          var st={stage:'ko', view:'per90'}, data=null;
-          function render(){
-            if(!data) return;
-            var gate = st.view==='per90' ? (data.min_def_min||60) : 0;
-            var rows=(data.players||[]).map(function(p){return {p:p, s:p.stages[st.stage]||{}};})
-              .filter(function(r){return r.s && r.s.def_min>=gate && r.s[st.view]>0;})
-              .sort(function(a,b){return b.s[st.view]-a.s[st.view];}).slice(0,12);
-            var mx=Math.max.apply(null, rows.map(function(r){return r.s[st.view];}).concat([1]));
-            board.innerHTML=rows.map(function(r){
-              var v=r.s[st.view], w=Math.max(2, v/mx*100);
-              return '<div class="dsd-row"><span class="dsd-name">'+r.p.name+' <span class="lteam">'+(r.p.team||'')+'</span>'
-                +(r.p.pos?' <span class="lpos">'+r.p.pos+'</span>':'')+'</span>'
-                +'<span class="dsd-track"><span class="dsd-fill" style="width:'+w.toFixed(0)+'%"></span></span>'
-                +'<span class="dsd-val">'+Math.round(v).toLocaleString()+' <span class="dsd-sub">'+Math.round(r.s.def_min)+'m</span></span></div>';
-            }).join('') || '<p class="caption">no players over the minutes gate in this slice</p>';
-          }
-          card.querySelectorAll('.dsd-btn').forEach(function(b){b.addEventListener('click',function(){
-            st.view=b.dataset.v; card.querySelectorAll('.dsd-btn').forEach(function(x){x.classList.toggle('on',x===b);}); render();});});
-          stageSel.addEventListener('change',function(){st.stage=stageSel.value; render();});
-          fetch('data/space_dsd.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){data=d; render();})
-            .catch(function(){board.innerHTML='<p class="caption">could not load defensive data</p>';});
-        })();
-      </script>
+      
 
       <p class="caption faintnote" style="margin-top:18px">Speeds via kloppy + a Savitzky–Golay velocity filter on 30 Hz PFF tracking (cross-checked, ±2 km/h); these were sustained runs into space, not top-end sprints. Touch xT from StatsBomb 2022 open events on the same Karun Singh grid the page uses. Leaderboard ranks reproduce this page's default views (same min-minutes gates).</p>
     </div>
@@ -1544,6 +1604,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/js/space.js?v=92"></script>
+<script type="module" src="assets/js/space.js?v=93"></script>
 </body>
 </html>
