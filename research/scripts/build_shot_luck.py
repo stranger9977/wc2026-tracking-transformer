@@ -111,9 +111,34 @@ for seed in range(REL_SPLITS):
         fa.append(sum(g - x for x, g in A) / len(A)); fb.append(sum(g - x for x, g in B) / len(B))
         qa.append(sum(x for x, _ in A) / len(A));     qb.append(sum(x for x, _ in B) / len(B))
     fin_rs.append(corr(fa, fb)); qual_rs.append(corr(qa, qb))
-reliability = {"finishing_r": round(sum(fin_rs) / len(fin_rs), 3),
-               "quality_r": round(sum(qual_rs) / len(qual_rs), 3),
+mean_fin = sum(fin_rs) / len(fin_rs)
+mean_qual = sum(qual_rs) / len(qual_rs)
+reliability = {"finishing_r": round(mean_fin, 3), "quality_r": round(mean_qual, 3),
                "n_players": len(elig), "min_shots": REL_MIN_SHOTS, "n_splits": REL_SPLITS}
+
+
+def split_points(seed, metric):
+    """Return per-player [halfA, halfB] for one random halving. metric: 'fin' or 'qual'."""
+    random.seed(seed)
+    pts = []
+    for v in elig:
+        vv = v[:]
+        random.shuffle(vv)
+        h = len(vv) // 2
+        A, B = vv[:h], vv[h:]
+        if metric == "fin":
+            pts.append([round(sum(g - x for x, g in A) / len(A), 3), round(sum(g - x for x, g in B) / len(B), 3)])
+        else:
+            pts.append([round(sum(x for x, _ in A) / len(A), 3), round(sum(x for x, _ in B) / len(B), 3)])
+    return pts
+
+
+# Draw each chart from the split whose r best matches its own 200-split average, so neither
+# picture is a lucky/unlucky outlier — the finishing cloud reads ~0.1, the quality line ~0.6.
+fin_seed = min(range(REL_SPLITS), key=lambda s: abs(fin_rs[s] - mean_fin))
+qual_seed = min(range(REL_SPLITS), key=lambda s: abs(qual_rs[s] - mean_qual))
+scatter = {"finishing": split_points(fin_seed, "fin"), "quality": split_points(qual_seed, "qual"),
+           "fin_seed": fin_seed, "qual_seed": qual_seed}
 
 # 3 — luck band: real spread of goals-minus-xG vs pure-coin-flip spread
 lucksh = [v for v in by_player.values() if len(v) >= LUCK_MIN_SHOTS]
@@ -134,6 +159,7 @@ out = {
     "n_shots": n_shots, "n_goals": n_goals, "sum_xg": round(sum_xg, 1),
     "calibration": calibration,
     "reliability": reliability,
+    "scatter": scatter,
     "luck": luck,
 }
 OUT.write_text(json.dumps(out, indent=1))
