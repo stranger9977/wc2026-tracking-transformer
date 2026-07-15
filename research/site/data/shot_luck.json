@@ -1,0 +1,80 @@
+{
+ "metric": "Finishing is (mostly) a chance event; xG is the predictive part",
+ "source": "StatsBomb open data \u2014 non-penalty shots",
+ "competitions": [
+  "FIFA World Cup 2022",
+  "UEFA Euro 2024",
+  "Copa America 2024",
+  "Ligue 1 2022/23",
+  "Bundesliga 2023/24"
+ ],
+ "n_shots": 5182,
+ "n_goals": 515,
+ "sum_xg": 499.0,
+ "calibration": [
+  {
+   "xg": 0.0109,
+   "scored": 0.0154,
+   "n": 518
+  },
+  {
+   "xg": 0.0225,
+   "scored": 0.0212,
+   "n": 518
+  },
+  {
+   "xg": 0.03,
+   "scored": 0.029,
+   "n": 518
+  },
+  {
+   "xg": 0.0393,
+   "scored": 0.027,
+   "n": 518
+  },
+  {
+   "xg": 0.0499,
+   "scored": 0.0308,
+   "n": 519
+  },
+  {
+   "xg": 0.0619,
+   "scored": 0.0656,
+   "n": 518
+  },
+  {
+   "xg": 0.0785,
+   "scored": 0.0927,
+   "n": 518
+  },
+  {
+   "xg": 0.1073,
+   "scored": 0.11,
+   "n": 518
+  },
+  {
+   "xg": 0.1682,
+   "scored": 0.2008,
+   "n": 518
+  },
+  {
+   "xg": 0.3941,
+   "scored": 0.4008,
+   "n": 519
+  }
+ ],
+ "reliability": {
+  "finishing_r": 0.07,
+  "quality_r": 0.648,
+  "n_players": 20,
+  "min_shots": 25,
+  "n_splits": 200
+ },
+ "luck": {
+  "real_sd": 2.03,
+  "luck_sd": 1.8,
+  "ratio": 1.13,
+  "n_players": 35,
+  "min_shots": 20
+ }
+}

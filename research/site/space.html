@@ -1234,6 +1234,77 @@
       </script>
 
       
+      <div class="card qh-card" id="shot-luck-card">
+        <style>
+          #shot-luck-card .sl-tag{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:700}
+          #shot-luck-card .sl-cal{margin:16px auto 2px;display:block;width:100%;max-width:420px}
+          #shot-luck-card .sl-callab{color:var(--faint);font-size:12px;text-align:center;margin:2px 0 0}
+          #shot-luck-card .sl-tiles{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0 4px}
+          #shot-luck-card .sl-tile{flex:1;min-width:150px;background:var(--bg-elev2);border:1px solid var(--border);border-radius:13px;padding:15px 17px}
+          #shot-luck-card .sl-tile .v{font-size:30px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+          #shot-luck-card .sl-tile .v.skill{color:var(--good)} #shot-luck-card .sl-tile .v.noise{color:var(--hot)}
+          #shot-luck-card .sl-tile .l{color:var(--muted);font-size:13px;margin-top:5px;line-height:1.45}
+          #shot-luck-card .sl-tile .l b{color:var(--ink);font-weight:700}
+          @media (max-width:600px){#shot-luck-card .sl-tile{min-width:calc(50% - 7px);padding:12px 13px} #shot-luck-card .sl-tile .v{font-size:23px}}
+        </style>
+        <div class="sl-tag">the finishing boards, stress-tested · 5,182 real shots</div>
+        <h3>Is it the finisher, or is it the chance? <span class="qh-tag soft">goals vs xG</span></h3>
+        <p class="caption qh-verdict">The two boards above rank who out-scored their chances — and both carry the same warning: <i>who's running hot, not a verdict on finishing skill</i>. Here's why that caveat is load-bearing. Across <b>5,182 non-penalty shots</b> from StatsBomb open data (World Cup 2022, Euro 2024, Copa América 2024, Ligue 1, Bundesliga), <b>the ball goes in at almost exactly the chance's xG</b> — a 40%-chance scores ~40% of the time, a 3%-chance ~3% — no matter whose boot it comes off. Total goals landed at <b id="sl-tot">515 vs 499 xG</b>, within a few percent. The <b>chance</b> decides the outcome; the shooter mostly rides it.</p>
+        <svg class="sl-cal" id="sl-cal" viewBox="0 0 400 300" role="img" aria-label="Shots convert at their xG"></svg>
+        <p class="sl-callab">Shots grouped into ten xG buckets — each dot is how often that bucket actually scored. They land on the dashed line: <b style="color:var(--ink)">converted = xG</b>.</p>
+        <div class="sl-tiles">
+          <div class="sl-tile"><div class="v skill" id="sl-qual">r ≈ 0.7</div><div class="l"><b>Chance quality repeats.</b> Split a shooter's shots in half — the xG per shot in one half strongly predicts the other. Getting into good spots is a <b>skill</b>.</div></div>
+          <div class="sl-tile"><div class="v noise" id="sl-fin">r ≈ 0.1</div><div class="l"><b>Finishing barely repeats.</b> Do the same for goals&nbsp;−&nbsp;xG and it almost vanishes. Beating your chances one half says little about the next — it's mostly <b>noise</b>.</div></div>
+        </div>
+        <p class="qh-note" id="sl-foot">So it's less about being a good shooter and more about generating the chance — creating the space to shoot from. Which is the whole point of every board on this page.</p>
+      </div>
+      <script>
+        (function(){
+          var card=document.getElementById('shot-luck-card'); if(!card) return;
+          function draw(d){
+            var C=d.calibration||[]; if(!C.length) return;
+            var svg=document.getElementById('sl-cal');
+            var W=400,H=300,ml=44,mb=34,mt=12,mr=12;
+            var pw=W-ml-mr, ph=H-mt-mb;
+            var hi=Math.max.apply(null,C.map(function(c){return Math.max(c.xg,c.scored);}));
+            var dom=Math.ceil(hi*10)/10;                     // round domain up to a tidy 0.1
+            function X(v){return ml+v/dom*pw;} function Y(v){return mt+ph-v/dom*ph;}
+            var s='';
+            // frame
+            s+='<line x1="'+ml+'" y1="'+(mt+ph)+'" x2="'+(W-mr)+'" y2="'+(mt+ph)+'" style="stroke:var(--border)" stroke-width="1"/>';
+            s+='<line x1="'+ml+'" y1="'+mt+'" x2="'+ml+'" y2="'+(mt+ph)+'" style="stroke:var(--border)" stroke-width="1"/>';
+            // gridline ticks at each 0.1
+            for(var t=0.1;t<=dom+1e-9;t+=0.1){
+              var tl=(Math.round(t*10)/10).toFixed(1);
+              s+='<text x="'+X(t)+'" y="'+(mt+ph+16)+'" text-anchor="middle" style="fill:var(--faint)" font-size="11">'+tl+'</text>';
+              s+='<text x="'+(ml-7)+'" y="'+(Y(t)+4)+'" text-anchor="end" style="fill:var(--faint)" font-size="11">'+tl+'</text>';
+            }
+            // y=x reference
+            s+='<line x1="'+X(0)+'" y1="'+Y(0)+'" x2="'+X(dom)+'" y2="'+Y(dom)+'" style="stroke:var(--muted)" stroke-width="1.4" stroke-dasharray="5 4"/>';
+            // dots
+            C.forEach(function(c){
+              s+='<circle cx="'+X(c.xg)+'" cy="'+Y(c.scored)+'" r="5.5" style="fill:var(--accent);stroke:var(--bg)" stroke-width="1.5"/>';
+            });
+            // axis titles
+            s+='<text x="'+(ml+pw/2)+'" y="'+(H-2)+'" text-anchor="middle" style="fill:var(--muted)" font-size="12">chance quality (xG)</text>';
+            s+='<text transform="translate(13,'+(mt+ph/2)+') rotate(-90)" text-anchor="middle" style="fill:var(--muted)" font-size="12">actually scored</text>';
+            svg.innerHTML=s;
+            if(d.reliability){
+              document.getElementById('sl-qual').textContent='r ≈ '+d.reliability.quality_r.toFixed(1);
+              document.getElementById('sl-fin').textContent='r ≈ '+d.reliability.finishing_r.toFixed(1);
+            }
+            if(d.n_goals!=null) document.getElementById('sl-tot').textContent=d.n_goals+' vs '+Math.round(d.sum_xg)+' xG';
+            if(d.luck){
+              var f=document.getElementById('sl-foot');
+              f.innerHTML='Under a &ldquo;nobody has finishing skill, every shot is a weighted coin&rdquo; null, the players’ goals&minus;xG spread would be '+d.luck.luck_sd+' goals wide by luck alone; the real spread is '+d.luck.real_sd+' — just <b>'+d.luck.ratio+'×</b> a coin flip. So it’s less about being a good shooter and more about generating the chance — creating the space to shoot from. Which is the whole point of every board on this page.';
+            }
+          }
+          fetch('data/shot_luck.json?v='+Date.now()).then(function(r){return r.json();}).then(draw)
+            .catch(function(){var e=document.getElementById('sl-cal'); if(e) e.outerHTML='<p class="caption">could not load shot data</p>';});
+        })();
+      </script>
+
+
             <!-- Eagle broadcast→tracking POC · the original mbappe demo (buildEagleLive + surfaces/eagle_live.json)
            is retained in the repo; the live card below is the Neymar extra-time goal, which PFF can't supply. -->
       <div class="card" id="eagle-neymar-card">
