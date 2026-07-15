@@ -1237,14 +1237,14 @@
       <div class="card qh-card" id="shot-luck-card">
         <style>
           #shot-luck-card .sl-tag{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:700}
-          #shot-luck-card .sl-cal{margin:14px auto 2px;display:block;width:100%;max-width:420px;aspect-ratio:400/300;height:auto}
+          #shot-luck-card .sl-cal{margin:14px auto 2px;display:block;width:100%;max-width:420px;height:auto}
           #shot-luck-card .sl-callab{color:var(--muted);font-size:12.5px;text-align:center;margin:4px auto 0;max-width:440px;line-height:1.5}
           #shot-luck-card .sl-splits{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0 4px}
           #shot-luck-card .sl-split{flex:1 1 230px;min-width:0}
           #shot-luck-card .sl-split h4{margin:0 0 2px;font-size:15.5px;color:var(--ink)}
           #shot-luck-card .sl-split h4 .tw{font-weight:800}
           #shot-luck-card .sl-split h4 .tw.skill{color:var(--good)} #shot-luck-card .sl-split h4 .tw.noise{color:var(--hot)}
-          #shot-luck-card .sl-scat{display:block;width:100%;aspect-ratio:1/1;height:auto;margin:8px 0 0}
+          #shot-luck-card .sl-scat{display:block;width:100%;height:auto;margin:8px 0 0}
           #shot-luck-card .sl-sub{color:var(--muted);font-size:12.5px;margin:6px 2px 0;line-height:1.5}
           #shot-luck-card .sl-sub b{color:var(--ink);font-weight:700}
           #shot-luck-card .sl-hr{border:0;border-top:1px solid var(--border);margin:22px 0 0}
@@ -1253,19 +1253,19 @@
         <h3>Is it the finisher, or the chance? <span class="qh-tag soft">goals vs xG</span></h3>
         <p class="caption qh-verdict">The boards above rank who scored more than their chances were worth. But a hot week and a genuinely great finisher look identical on a leaderboard, so here's the check — on <b>5,182 non-penalty shots</b> from World Cup 2022, the Euros, Copa América and two league seasons (StatsBomb open data).</p>
         <p class="caption" style="margin-top:-2px"><b>First: do chances go in at the rate xG expects?</b> Yes. Line up every shot by how good it was and it scores about that often, all the way up — a one-in-three chance goes in about a third of the time, whoever takes it. Across all 5,182 shots: <b id="sl-tot">515 goals on 499 xG</b>.</p>
-        <svg class="sl-cal" id="sl-cal" viewBox="0 0 400 300" role="img" aria-label="Shots score at the rate xG expects"></svg>
+        <svg class="sl-cal" id="sl-cal" width="400" height="300" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Shots score at the rate xG expects"></svg>
         <p class="sl-callab">Every shot sorted into ten groups by quality. Each dot: how often that group actually scored (up) vs what it was worth (across). They sit on the line.</p>
         <hr class="sl-hr">
         <p class="caption" style="margin-top:16px"><b>Second: is beating your chances a skill, or luck?</b> Split each shooter's shots into two random halves and compare. If it's a skill, the halves should agree — dots along the diagonal.</p>
         <div class="sl-splits">
           <div class="sl-split">
             <h4>The chances he gets — <span class="tw skill">repeat</span></h4>
-            <svg class="sl-scat" id="sl-scat-q" viewBox="0 0 300 300" role="img" aria-label="Chance quality repeats across a player's two halves"></svg>
+            <svg class="sl-scat" id="sl-scat-q" width="300" height="300" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Chance quality repeats across a player's two halves"></svg>
             <p class="sl-sub">Chance quality (average xG per shot). The two halves line up — <b>getting into good spots is a real, repeatable skill</b>.</p>
           </div>
           <div class="sl-split">
             <h4>Whether he beats them — <span class="tw noise">doesn't</span></h4>
-            <svg class="sl-scat" id="sl-scat-f" viewBox="0 0 300 300" role="img" aria-label="Finishing does not repeat across a player's two halves"></svg>
+            <svg class="sl-scat" id="sl-scat-f" width="300" height="300" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Finishing does not repeat across a player's two halves"></svg>
             <p class="sl-sub">Now goals minus xG. Pure scatter — one half tells you almost nothing about the other. <b>Out-finishing your chances is mostly random</b>.</p>
           </div>
         </div>
